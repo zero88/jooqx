@@ -5,13 +5,15 @@ import org.junit.jupiter.api.Test;
 
 import io.github.zero88.jooq.vertx.BaseVertxReactiveSql;
 import io.github.zero88.jooq.vertx.PostgreSQLTest.PostgreSQLReactiveTest;
+import io.github.zero88.jooq.vertx.integtest.PostgreSQLHelper;
+import io.github.zero88.jooq.vertx.integtest.pgsql.DefaultCatalog;
 import io.github.zero88.utils.Strings;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.RowSet;
 
-class PgPoolTest extends BaseVertxReactiveSql implements PostgreSQLReactiveTest {
+class PgPoolTest extends BaseVertxReactiveSql<DefaultCatalog> implements PostgreSQLReactiveTest, PostgreSQLHelper {
 
     @Test
     void test(VertxTestContext ctx) {
