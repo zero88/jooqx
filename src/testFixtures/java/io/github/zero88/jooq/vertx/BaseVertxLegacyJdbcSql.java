@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import io.github.zero88.jooq.vertx.ConnectionProvider.LegacyJdbcSqlTest;
 import io.vertx.core.Vertx;
+import io.vertx.core.json.JsonArray;
 import io.vertx.ext.sql.ResultSet;
 import io.vertx.ext.sql.SQLClient;
 import io.vertx.junit5.VertxTestContext;
@@ -20,7 +21,7 @@ import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 
 public abstract class BaseVertxLegacyJdbcSql<T extends Catalog>
-    extends BaseSql<SQLClient, ResultSet, VertxLegacyJdbcExecutor> implements JooqSql<T>, LegacyJdbcSqlTest {
+    extends BaseSql<SQLClient, JsonArray, ResultSet, VertxLegacyJdbcExecutor> implements JooqSql<T>, LegacyJdbcSqlTest {
 
     protected HikariDataSource dataSource;
 
@@ -38,6 +39,7 @@ public abstract class BaseVertxLegacyJdbcSql<T extends Catalog>
     @BeforeEach
     public void tearUp(Vertx vertx, VertxTestContext ctx) {
         super.tearUp(vertx, ctx);
+        executor = createExecutor(vertx, this);
     }
 
     @AfterEach

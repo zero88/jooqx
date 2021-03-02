@@ -2,12 +2,10 @@ package io.github.zero88.jooq.vertx;
 
 import java.util.concurrent.TimeUnit;
 
-import org.jooq.SQLDialect;
 import org.testcontainers.containers.JdbcDatabaseContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
-import io.github.zero88.utils.Strings;
 import io.vertx.core.Vertx;
 import io.vertx.ext.sql.SQLClient;
 import io.vertx.junit5.Checkpoint;
@@ -19,11 +17,7 @@ import io.vertx.sqlclient.PoolOptions;
 import io.vertx.sqlclient.SqlClient;
 import io.vertx.sqlclient.SqlConnection;
 
-import com.zaxxer.hikari.HikariDataSource;
-
-import lombok.NonNull;
-
-public interface PostgreSQLTest<T> extends ConnectionProvider<T>, HasJooqDialect {
+public interface PostgreSQLTest<T> extends ConnectionProvider<T> {
 
     DBContainerProvider<PostgreSQLContainer<?>> POSTGRES = new DBContainerProvider<PostgreSQLContainer<?>>() {
 
@@ -43,11 +37,6 @@ public interface PostgreSQLTest<T> extends ConnectionProvider<T>, HasJooqDialect
     @Override
     default DBContainerProvider<?> get() {
         return POSTGRES;
-    }
-
-    @Override
-    default @NonNull SQLDialect dialect() {
-        return SQLDialect.POSTGRES;
     }
 
     interface PostgreSQLReactiveTest extends PostgreSQLTest<SqlClient>, ReactiveSqlTest {

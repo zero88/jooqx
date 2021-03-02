@@ -1,8 +1,13 @@
 package io.github.zero88.jooq.vertx;
 
+import java.util.List;
+
 import org.jooq.DSLContext;
 import org.jooq.Query;
+import org.jooq.TableLike;
 
+import io.github.zero88.jooq.vertx.converter.ResultSetConverter;
+import io.github.zero88.jooq.vertx.record.VertxJooqRecord;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
@@ -13,18 +18,21 @@ import lombok.NonNull;
 
 /**
  * @param <S> Type of SQL client. Might be {@link SqlClient} or {@link SQLClient}
- * @param <R> Type of Result
+ * @param <P> Type of SQL bind value holder
+ * @param <R> Type of SQL Result set holder
  */
-public interface VertxJooqExecutor<S, R> {
+public interface VertxJooqExecutor<S, P, R> {
 
-    Vertx vertx();
+    @NonNull Vertx vertx();
 
-    DSLContext dsl();
+    @NonNull DSLContext dsl();
 
-    QueryHelper helper();
+    @NonNull QueryHelper<P> helper();
 
-    S sqlClient();
+    @NonNull S sqlClient();
 
-    <Q extends Query> void execute(@NonNull Q query, @NonNull Handler<AsyncResult<R>> handler);
+    <Q extends Query, T extends TableLike<?>> void execute(@NonNull Q query,
+                                                           @NonNull ResultSetConverter<R, T> rsConverter,
+                                                           @NonNull Handler<AsyncResult<List<VertxJooqRecord<?>>>> handler);
 
 }
