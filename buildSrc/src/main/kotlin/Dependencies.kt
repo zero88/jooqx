@@ -14,8 +14,10 @@ object PluginLibs {
 
         const val nexusStaging = "0.22.0"
         const val jooq = "5.2"
+        const val sonarQube = "3.1.1"
     }
 
+    const val sonarQube = "org.sonarqube"
     const val nexusStaging = "io.codearte.nexus-staging"
     const val jooq = "nu.studer.jooq"
 }
@@ -80,8 +82,8 @@ object DatabaseLibs {
 
     object Version {
 
-        //        const val jooq = "3.14.8"
-        const val jooq = "3.13.6"
+        const val jooq = "3.14.8"
+//        const val jooq = "3.13.6"
         const val h2 = "1.4.200"
         const val pgsql = "42.2.19"
         const val mysql = "8.0.23"
@@ -118,6 +120,5 @@ object ZeroLibs {
 
         const val oss = "io.github.zero88.qwe.gradle.oss"
         const val root = "io.github.zero88.qwe.gradle.root"
-        const val app = "io.github.zero88.qwe.gradle.app"
     }
 }

@@ -1,15 +1,14 @@
 plugins {
-    id(ZeroLibs.Plugins.oss) version ZeroLibs.Version.plugin
-    id(ZeroLibs.Plugins.root) version ZeroLibs.Version.plugin apply false
-    id(PluginLibs.jooq) version PluginLibs.Version.jooq apply false
-    id(PluginLibs.nexusStaging) version PluginLibs.Version.nexusStaging
-    `java-test-fixtures`
     eclipse
     idea
+    `java-test-fixtures`
+    id(ZeroLibs.Plugins.oss) version ZeroLibs.Version.plugin
+    id(PluginLibs.sonarQube) version PluginLibs.Version.sonarQube
+    id(PluginLibs.nexusStaging) version PluginLibs.Version.nexusStaging
+    id(PluginLibs.jooq) version PluginLibs.Version.jooq apply false
+    id(ZeroLibs.Plugins.root) version ZeroLibs.Version.plugin apply false
 }
-
-apply(plugin = ZeroLibs.Plugins.root)
-
+//apply(plugin = ZeroLibs.Plugins.root)
 allprojects {
     apply(plugin = ZeroLibs.Plugins.oss)
     group = "io.github.zero88.jooq"
@@ -103,4 +102,29 @@ nexusStaging {
     packageGroup = "io.github.zero88"
     username = project.property("nexus.username") as String?
     password = project.property("nexus.password") as String?
+}
+
+sonarqube {
+    properties {
+        property("sonar.sourceEncoding", "UTF-8")
+        property("sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/reports/jacoco/test/jacocoTestReport.xml")
+    }
+}
+
+tasks.register("generateJooq") {
+    group = "jooq"
+    dependsOn(subprojects.map { it.tasks.withType<nu.studer.gradle.jooq.JooqGenerate>() })
+}
+tasks.test {
+    dependsOn(tasks.named("generateJooq"))
+    finalizedBy(tasks.jacocoTestReport)
+}
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+    reports {
+        xml.isEnabled = true
+    }
+}
+tasks.sonarqube {
+    dependsOn(tasks.jacocoTestReport)
 }

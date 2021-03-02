@@ -11,7 +11,6 @@ dependencies {
     jooqGenerator(DatabaseLibs.pgsql)
     jooqGenerator(DatabaseLibs.mysql)
     jooqGenerator(DatabaseLibs.jooqMetaExt)
-//    jooqGenerator(project(":codegen"))
 
     testImplementation(testFixtures(rootProject))
     testImplementation(DatabaseLibs.agroalApi)
@@ -28,9 +27,6 @@ dependencies {
     testImplementation(DatabaseLibs.mysql)
     testImplementation(VertxLibs.mysql)
     testImplementation(TestContainers.mysql)
-    //TODO remove it
-//    testImplementation(project(":type"))
-    //TODO END remove it
 }
 
 sourceSets.test {
