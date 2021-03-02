@@ -1,0 +1,177 @@
+name: build-release
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*' ]
+    paths-ignore:
+      - '.github/ISSUE_TEMPLATE/**'
+      - '.github/*.yml'
+      - '*.md'
+      - 'LICENSE'
+  pull_request:
+    types: [ opened, synchronize, reopened, closed ]
+    branches: [ main ]
+
+env:
+  ENABLE_TEST: false
+  ENABLE_GH_MAVEN: false
+
+jobs:
+  context:
+    runs-on: ubuntu-latest
+    outputs:
+      branch: ${{ steps.context.outputs.branch }}
+      shouldBuild: ${{ steps.context.outputs.decision_build }}
+      shouldPublish: ${{ steps.context.outputs.decision_publish }}
+      isRelease: ${{ steps.context.outputs.isTag }}
+      version: ${{ steps.context.outputs.version }}
+      semanticVersion: ${{ steps.semantic.outputs.semanticVersion }}
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.OSS_GITHUB_TOKEN }}
+
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v3
+        with:
+          git-user-signingkey: true
+          git-commit-gpgsign: true
+          git-tag-gpgsign: true
+          git-push-gpgsign: true
+          gpg-private-key: ${{ secrets.CI_GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.CI_GPG_PASSPHARSE }}
+
+      - name: Project context
+        id: context
+        uses: zero88/gh-project-context@v1.0.0
+        with:
+          dry: false
+
+      - name: Find semantic version
+        id: semantic
+        shell: bash
+        run: |
+          echo ::set-output name=semanticVersion::$(grep semanticVersion gradle.properties | cut -d'=' -f2)
+
+  build:
+    runs-on: ubuntu-latest
+    needs: context
+    if: needs.context.outputs.shouldBuild == 'true'
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Import GPG key
+        id: import_gpg
+        uses: crazy-max/ghaction-import-gpg@v3
+        if: needs.context.outputs.shouldPublish == 'true'
+        with:
+          git-user-signingkey: true
+          gpg-private-key: ${{ secrets.CI_GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.CI_GPG_PASSPHARSE }}
+
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v2.1.3
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-build-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-gradle-build
+
+      - name: Build
+        run: |
+          ./gradlew clean build -x test \
+                          -Pversion=${{ needs.context.outputs.version }} \
+                          -PsemanticVersion=${{needs.context.outputs.semanticVersion }} \
+                          -PbuildBy="GitHub Action" -PbuildHash=${{ github.sha }}
+
+      - name: Publish GitHub Package
+        if: needs.context.outputs.isRelease == 'true' && env.ENABLE_GH_MAVEN == 'true'
+        run: |
+          args=( -Psigning.gnupg.homeDir=/home/runner/.gnupg \
+                 -Psigning.gnupg.keyName=${{ steps.import_gpg.outputs.keyid }} \
+                 -Psigning.gnupg.passphrase=${{ secrets.CI_GPG_PASSPHARSE }} \
+                 -Pnexus.username=${{ github.repository_owner }} \
+                 -Pnexus.password=${{ secrets.OSS_GITHUB_TOKEN }} )
+          args+=( -Pgithub )
+          [[ "${{ needs.context.outputs.isRelease }}" == 'true' ]] && args+=( -Prelease )
+          ./gradlew publish "${args[@]}"
+
+      - name: Publish Sonatype OSSRH
+        if: needs.context.outputs.shouldPublish == 'true'
+        run: |
+          args=( -Psigning.gnupg.homeDir=/home/runner/.gnupg \
+                           -Psigning.gnupg.keyName=${{ steps.import_gpg.outputs.keyid }} \
+                           -Psigning.gnupg.passphrase=${{ secrets.CI_GPG_PASSPHARSE }} \
+                           -Pnexus.username=${{ secrets.OSS_SONATYPE_USER }} \
+                           -Pnexus.password=${{ secrets.OSS_SONATYPE_PASSWORD }} )
+          [[ "${{ needs.context.outputs.isRelease }}" == 'true' ]] && args+=( -Prelease )
+          ./gradlew publish "${args[@]}"
+
+  analysis:
+    runs-on: ubuntu-latest
+    needs: context
+    if: needs.context.outputs.shouldBuild == 'true'
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v2.1.3
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v2.1.3
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-test-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-gradle-test
+
+      - name: Test
+        if: env.ENABLE_TEST == 'true'
+        run: ./gradlew jacocoRootReport -PjacocoHtml=false
+
+      - name: SonarQube
+        run: ./gradlew sonarqube -Dsonar.login=${{ secrets.OSS_SONARQUBE_TOKEN }} -Dsonar.branch.name=${{ needs.context.outputs.branch }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  release:
+    runs-on: ubuntu-latest
+    needs: [ build, context ]
+    if: needs.context.outputs.isRelease == 'true'
+    steps:
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ needs.context.outputs.branch }}
+          release_name: Release ${{ needs.context.outputs.branch }}
+          draft: false
+          prerelease: false
+
+  promote:
+    name: Promote Sonatype OSSRH
+    runs-on: ubuntu-latest
+    needs: [ build, context ]
+    if: needs.context.outputs.isRelease == 'true'
+    steps:
+      - run: |
+          ./gradlew closeAndReleaseRepository \
+                            -Pnexus.username=${{ secrets.OSS_SONATYPE_USER }} \
+                            -Pnexus.password=${{ secrets.OSS_SONATYPE_PASSWORD }} || echo 'Need to promote manually'
