@@ -86,7 +86,6 @@ object DatabaseLibs {
         const val pgsql = "42.2.19"
         const val mysql = "8.0.23"
         const val hikari = "4.0.2"
-        const val jooqVertx = "6.1.1"
         const val jpa = "2.2"
         const val jta = "1.3"
         const val agroal = "1.9"

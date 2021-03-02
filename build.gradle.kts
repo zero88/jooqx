@@ -7,7 +7,8 @@ plugins {
     eclipse
     idea
 }
-//apply(plugin = ZeroLibs.Plugins.root)
+
+apply(plugin = ZeroLibs.Plugins.root)
 
 allprojects {
     apply(plugin = ZeroLibs.Plugins.oss)
