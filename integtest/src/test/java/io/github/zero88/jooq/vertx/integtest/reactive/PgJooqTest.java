@@ -30,6 +30,10 @@ import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 import io.vertx.sqlclient.Tuple;
 
+/**
+ * If using v4.0.0, pretty sure thread leak, but v4.0.2 is already fixed
+ * <a href="vertx-sql-client#909">https://github.com/eclipse-vertx/vertx-sql-client/issues/909</a>
+ */
 class PgJooqTest extends BaseVertxReactiveSql<DefaultCatalog> implements PostgreSQLReactiveTest, PostgreSQLHelper {
 
     @Override
@@ -44,10 +48,7 @@ class PgJooqTest extends BaseVertxReactiveSql<DefaultCatalog> implements Postgre
         final Checkpoint flag = ctx.checkpoint();
         final Books table = catalog().PUBLIC.BOOKS;
         final SelectWhereStep<BooksRecord> query = executor.dsl().selectFrom(table);
-        executor.execute(query, new SqlRowRecordConverter<>(table), ar -> {
-            List<VertxJooqRecord<?>> records = assertRsSize(ctx, flag, ar, 7);
-            System.out.println(records);
-        });
+        executor.execute(query, new SqlRowRecordConverter<>(table), ar -> assertRsSize(ctx, flag, ar, 7));
     }
 
     @Test
@@ -102,15 +103,6 @@ class PgJooqTest extends BaseVertxReactiveSql<DefaultCatalog> implements Postgre
         });
         executor.execute(executor.dsl().selectFrom(table), new SqlRowRecordConverter<>(table),
                          ar -> assertRsSize(ctx, flag, ar, 9));
-    }
-
-    /**
-     * <a href="vertx-sql-client#909">https://github.com/eclipse-vertx/vertx-sql-client/issues/909</a>
-     */
-    @Test
-    @Disabled
-    void bug_vertx_sql_909(Vertx vertx, VertxTestContext ctx) {
-
     }
 
 }
