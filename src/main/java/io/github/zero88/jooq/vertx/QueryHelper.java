@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
  * Query helper
  *
  * @param <T> Type of SQL bind value holder
+ * @since 1.0.0
  */
 @Slf4j
 @RequiredArgsConstructor

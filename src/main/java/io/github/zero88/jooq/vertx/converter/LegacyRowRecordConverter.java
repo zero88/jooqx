@@ -2,6 +2,7 @@ package io.github.zero88.jooq.vertx.converter;
 
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -23,19 +24,21 @@ public class LegacyRowRecordConverter<T extends TableLike<? extends Record>>
         super(table);
     }
 
-    @Override
-    public List<VertxJooqRecord<?>> convert(@NonNull ResultSet resultSet) {
-        final Map<Integer, Field> map = IntStream.range(0, resultSet.getNumColumns())
-                                                 .boxed()
-                                                 .collect(Collectors.toMap(i -> i, i -> fieldMapper(
-                                                     resultSet.getColumnNames().get(i))));
-        return resultSet.getResults().stream().map(row -> toRecord(map, row)).collect(Collectors.toList());
+    protected  <R> List<R> doConvert(ResultSet resultSet, Function<VertxJooqRecord<?>, R> mapper) {
+        final Map<Integer, Field> map = getColumnMap(resultSet);
+        return resultSet.getResults().stream().map(row -> mapper(map, row)).map(mapper).collect(Collectors.toList());
     }
 
-    private VertxJooqRecord<?> toRecord(Map<Integer, Field> map, JsonArray row) {
+    private VertxJooqRecord<?> mapper(Map<Integer, Field> map, JsonArray row) {
         VertxJooqRecord<?> record = new VertxJooqRecord<>((Table<VertxJooqRecord>) table());
         map.forEach((k, v) -> record.set(v, row.getValue(k)));
         return record;
+    }
+
+    private Map<Integer, Field> getColumnMap(ResultSet resultSet) {
+        return IntStream.range(0, resultSet.getNumColumns())
+                        .boxed()
+                        .collect(Collectors.toMap(i -> i, i -> lookupField(resultSet.getColumnNames().get(i))));
     }
 
 }

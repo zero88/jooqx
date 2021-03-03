@@ -12,6 +12,7 @@ import io.vertx.core.buffer.Buffer;
  *
  * @param <T> Type of Vertx bind value holder
  * @see Param
+ * @since 1.0.0
  */
 public interface ParamConverter<T> {
 
