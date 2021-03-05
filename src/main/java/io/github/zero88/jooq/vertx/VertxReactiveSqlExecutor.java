@@ -4,8 +4,12 @@ import java.util.List;
 import java.util.function.Function;
 
 import org.jooq.Query;
+import org.jooq.TableLike;
 
-import io.github.zero88.jooq.vertx.converter.SqlTupleParamConverter;
+import io.github.zero88.jooq.vertx.converter.BindBatchValues;
+import io.github.zero88.jooq.vertx.converter.ResultSetBatchConverter;
+import io.github.zero88.jooq.vertx.converter.ReactiveBindParamConverter;
+import io.github.zero88.jooq.vertx.record.VertxJooqRecord;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
 import io.vertx.sqlclient.Row;
@@ -31,11 +35,12 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @SuperBuilder
 @Accessors(fluent = true)
-public class VertxReactiveSqlExecutor extends AbstractVertxJooqExecutor<SqlClient, Tuple, RowSet<Row>> {
+public class VertxReactiveSqlExecutor extends AbstractVertxJooqExecutor<SqlClient, Tuple, RowSet<Row>>
+    implements VertxBatchExecutor<RowSet<Row>, List<VertxJooqRecord<?>>> {
 
     @NonNull
     @Default
-    private final QueryHelper<Tuple> helper = new QueryHelper<>(new SqlTupleParamConverter());
+    private final QueryHelper<Tuple> helper = new QueryHelper<>(new ReactiveBindParamConverter());
 
     @Override
     protected <Q extends Query, R> void doExecute(@NonNull Q query, @NonNull Function<RowSet<Row>, List<R>> converter,
@@ -44,10 +49,15 @@ public class VertxReactiveSqlExecutor extends AbstractVertxJooqExecutor<SqlClien
                    .execute(helper().toBindValues(query), ar -> handler.handle(ar.map(converter)));
     }
 
-    public <T extends Query> void batchExecute(@NonNull T query, @NonNull Handler<AsyncResult<RowSet<Row>>> handler) {
-        final String sql = helper().toPreparedQuery(dsl().configuration(), query);
-        final Tuple params = helper().toBindValues(query);
-        sqlClient().preparedQuery(sql).execute(params, handler);
+    @Override
+    public <Q extends Query, T extends TableLike<?>> void batchExecute(@NonNull Q query,
+                                                                       @NonNull ResultSetBatchConverter<RowSet<Row>,
+                                                                                                           T> rsConverter,
+                                                                       @NonNull BindBatchValues bindBatchValues,
+                                                                       @NonNull Handler<AsyncResult<List<VertxJooqRecord<?>>>> handler) {
+        sqlClient().preparedQuery(helper().toPreparedQuery(dsl().configuration(), query))
+                   .executeBatch(helper().toBindValues(query, bindBatchValues),
+                                 ar -> handler.handle(ar.map(rsConverter::convert)));
     }
 
 }
