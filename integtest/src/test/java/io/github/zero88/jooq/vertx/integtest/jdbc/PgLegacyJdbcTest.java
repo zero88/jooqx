@@ -2,23 +2,18 @@ package io.github.zero88.jooq.vertx.integtest.jdbc;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import org.jooq.InsertResultStep;
-import org.jooq.TableField;
 import org.jooq.impl.DSL;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import io.github.zero88.jooq.vertx.BaseVertxLegacyJdbcSql;
 import io.github.zero88.jooq.vertx.PostgreSQLTest.PostgreSQLJdbcTest;
 import io.github.zero88.jooq.vertx.VertxLegacyJdbcExecutor;
-import io.github.zero88.jooq.vertx.converter.LegacyRowRecordConverter;
-import io.github.zero88.jooq.vertx.converter.SqlRowBatchConverter;
-import io.github.zero88.jooq.vertx.converter.SqlRowRecordConverter;
+import io.github.zero88.jooq.vertx.converter.BindBatchValues;
+import io.github.zero88.jooq.vertx.converter.LegacyResultSetConverter;
 import io.github.zero88.jooq.vertx.integtest.PostgreSQLHelper;
 import io.github.zero88.jooq.vertx.integtest.pgsql.DefaultCatalog;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.Books;
@@ -42,7 +37,7 @@ class PgLegacyJdbcTest extends BaseVertxLegacyJdbcSql<DefaultCatalog> implements
     void test_query(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
         final Books table = catalog().PUBLIC.BOOKS;
-        executor.execute(executor.dsl().selectFrom(table), new LegacyRowRecordConverter<>(table),
+        executor.execute(executor.dsl().selectFrom(table), new LegacyResultSetConverter<>(table),
                          ar -> assertRsSize(ctx, flag, ar, 7));
     }
 
@@ -59,7 +54,7 @@ class PgLegacyJdbcTest extends BaseVertxLegacyJdbcSql<DefaultCatalog> implements
                                                              .insertInto(table, table.ID, table.TITLE)
                                                              .values(Arrays.asList(DSL.defaultValue(table.ID), "abc"))
                                                              .returning(table.ID);
-        executor.execute(insert, new LegacyRowRecordConverter<>(table), ar -> {
+        executor.execute(insert, new LegacyResultSetConverter<>(table), ar -> {
             final List<VertxJooqRecord<?>> records = assertRsSize(ctx, flag, ar, 1);
             ctx.verify(() -> Assertions.assertEquals(new JsonObject().put("id", 8).put("title", null),
                                                      records.get(0).toJson()));
@@ -68,7 +63,6 @@ class PgLegacyJdbcTest extends BaseVertxLegacyJdbcSql<DefaultCatalog> implements
     }
 
     @Test
-    @Disabled
     void test_batch_insert(Vertx vertx, VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint(2);
         final VertxLegacyJdbcExecutor executor = VertxLegacyJdbcExecutor.builder()
@@ -79,59 +73,33 @@ class PgLegacyJdbcTest extends BaseVertxLegacyJdbcSql<DefaultCatalog> implements
 
         final Books table = catalog().PUBLIC.BOOKS;
         BooksRecord rec1 = new BooksRecord().setTitle("abc");
-        BooksRecord rec2 = new BooksRecord().setTitle("haha");
+        BooksRecord rec2 = new BooksRecord().setTitle("xyz");
+        BooksRecord rec3 = new BooksRecord().setTitle("qwe");
 
-        final TableField<BooksRecord, Integer> identityField = table.getIdentity().getField();
-        final Object[] objects = table.fieldStream()
-                                      .map(f -> identityField.equals(f) ? DSL.defaultValue() : null)
-                                      .toArray();
+        final BindBatchValues bindValues = new BindBatchValues().register(table.TITLE).add(rec1, rec2, rec3);
         final InsertResultStep<BooksRecord> insert = executor.dsl()
-                                                             .insertInto(table, table.fields())
-                                                             .values(objects)
+                                                             .insertInto(table)
+                                                             .set(bindValues.getDummyValues())
                                                              .returning();
-        final String sql = executor.helper().toPreparedQuery(executor.dsl().configuration(), insert);
-        final List<Object> r1Values = IntStream.range(1, rec1.size()).mapToObj(rec1::get).collect(Collectors.toList());
-        final List<Object> r2Values = IntStream.range(1, rec2.size()).mapToObj(rec2::get).collect(Collectors.toList());
-        final SqlRowBatchConverter<Books> converter = new SqlRowBatchConverter<>(table);
-        executor.batchExecute(insert, ar -> {
-            try {
-                if (ar.succeeded()) {
-                    //                    final List<BooksRecord> records = converter.record(ar.result());
-                    //                    ctx.verify(() -> {
-                    //                        final List<io.github.zero88.qwe.sql.jooq.integtest.s3.tables.pojos
-                    //                        .Books> list
-                    //                            = records.stream().map(r -> {
-                    //                            final io.github.zero88.qwe.sql.jooq.integtest.s3.tables.pojos.Books
-                    //                            books
-                    //                                = new io.github.zero88.qwe.sql.jooq.integtest.s3.tables.pojos
-                    //                                .Books();
-                    //                            books.from(r);
-                    //                            return books;
-                    //                        }).collect(Collectors.toList());
-                    //                        System.out.println(JsonData.MAPPER.writeValueAsString(list));
-                    //                        Assertions.assertEquals(2, records.size());
-                    //                    });
-                } else {
-                    ctx.failNow(ar.cause());
-                }
-            } finally {
+        final LegacyResultSetConverter<Books> converter = new LegacyResultSetConverter<>(table);
+        executor.batchExecute(insert, converter, bindValues, ar -> {
+            if (ar.succeeded()) {
+                ctx.verify(() -> Assertions.assertEquals(3, ar.result()));
                 flag.flag();
             }
         });
-        final SqlRowRecordConverter<Books> converter2 = new SqlRowRecordConverter<>(table);
-        //        executor.execute(executor.dsl().selectFrom(table), ar -> {
-        //            try {
-        //                if (ar.succeeded()) {
-        //                    final List<BooksRecord> records = converter2.convert(ar.result());
-        //                    System.out.println(records);
-        //                    ctx.verify(() -> Assertions.assertEquals(records.size(), 2));
-        //                } else {
-        //                    ctx.failNow(ar.cause());
-        //                }
-        //            } finally {
-        //                flag.flag();
-        //            }
-        //        });
+        executor.execute(executor.dsl().selectFrom(table), converter, ar -> {
+            if (ar.succeeded()) {
+                final List<VertxJooqRecord<?>> records = assertRsSize(ctx, flag, ar, 10);
+                ctx.verify(() -> {
+                    Assertions.assertEquals(new JsonObject().put("id", 8).put("title", "abc"), records.get(7).toJson());
+                    Assertions.assertEquals(new JsonObject().put("id", 9).put("title", "xyz"), records.get(8).toJson());
+                    Assertions.assertEquals(new JsonObject().put("id", 10).put("title", "qwe"),
+                                            records.get(8).toJson());
+                });
+                flag.flag();
+            }
+        });
     }
 
 }

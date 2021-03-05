@@ -1,13 +1,15 @@
 package io.github.zero88.jooq.vertx;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 
 import org.jooq.Query;
+import org.jooq.TableLike;
 import org.jooq.conf.ParamType;
 
-import io.github.zero88.jooq.vertx.converter.LegacyParamConverter;
+import io.github.zero88.jooq.vertx.converter.BindBatchValues;
+import io.github.zero88.jooq.vertx.converter.LegacyBindParamConverter;
+import io.github.zero88.jooq.vertx.converter.ResultSetBatchConverter;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
 import io.vertx.core.json.JsonArray;
@@ -33,11 +35,12 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @SuperBuilder
 @Accessors(fluent = true)
-public class VertxLegacyJdbcExecutor extends AbstractVertxJooqExecutor<SQLClient, JsonArray, ResultSet> {
+public class VertxLegacyJdbcExecutor extends AbstractVertxJooqExecutor<SQLClient, JsonArray, ResultSet>
+    implements VertxBatchExecutor<ResultSet, Integer> {
 
     @NonNull
     @Default
-    private final QueryHelper<JsonArray> helper = new QueryHelper<>(new LegacyParamConverter());
+    private final QueryHelper<JsonArray> helper = new QueryHelper<>(new LegacyBindParamConverter());
 
     protected <Q extends Query, R> void doExecute(Q query, Function<ResultSet, List<R>> converter,
                                                   Handler<AsyncResult<List<R>>> handler) {
@@ -45,11 +48,21 @@ public class VertxLegacyJdbcExecutor extends AbstractVertxJooqExecutor<SQLClient
                                     helper().toBindValues(query), ar -> handler.handle(ar.map(converter)));
     }
 
-    public <Q extends Query> void batchExecute(@NonNull Q query, @NonNull Handler<AsyncResult<List<Integer>>> handler) {
-        sqlClient().getConnection(ar -> {
-            final SQLConnection conn = ar.result();
+    @Override
+    public <Q extends Query, T extends TableLike<?>> void batchExecute(@NonNull Q query,
+                                                                       @NonNull ResultSetBatchConverter<ResultSet, T> rsConverter,
+                                                                       @NonNull BindBatchValues bindBatchValues,
+                                                                       @NonNull Handler<AsyncResult<Integer>> handler) {
+        sqlClient().getConnection(arc -> {
+            if (arc.failed()) {
+                throw new IllegalStateException("Unable open SQL connection", arc.cause());
+            }
+            final SQLConnection conn = arc.result();
             conn.batchWithParams(helper().toPreparedQuery(dsl().configuration(), query, ParamType.INDEXED),
-                                 new ArrayList<>(), handler);
+                                 helper().toBindValues(query, bindBatchValues), ar -> handler.handle(ar.map(s -> {
+                    System.out.println(s);
+                    return s.size();
+                })));
         });
     }
 

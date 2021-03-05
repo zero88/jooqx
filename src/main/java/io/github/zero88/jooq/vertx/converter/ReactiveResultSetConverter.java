@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 
+import org.jooq.Field;
 import org.jooq.Record;
 import org.jooq.Table;
 import org.jooq.TableLike;
@@ -24,27 +25,28 @@ import lombok.NonNull;
  * @see TableLike
  * @see ResultSetConverter
  */
-public class SqlRowRecordConverter<T extends TableLike<? extends Record>>
-    extends AbstractRowRecordConverter<RowSet<Row>, T> implements ResultSetConverter<RowSet<Row>, T> {
+public class ReactiveResultSetConverter<T extends TableLike<? extends Record>>
+    extends AbstractResultSetConverter<RowSet<Row>, T> implements ResultSetConverter<RowSet<Row>, T> {
 
-    public SqlRowRecordConverter(@NonNull T table) {
+    public ReactiveResultSetConverter(@NonNull T table) {
         super(table);
     }
 
     @Override
-    protected <R> List<R> doConvert(RowSet<Row> resultSet, Function<VertxJooqRecord<?>, R> mapper) {
+    protected <R> List<R> doConvert(@NonNull RowSet<Row> resultSet, @NonNull Function<VertxJooqRecord<?>, R> mapper) {
         final List<R> records = new ArrayList<>();
         resultSet.iterator().forEachRemaining(row -> records.add(mapper.apply(toRecord(row))));
         return records;
     }
 
+    @SuppressWarnings( {"unchecked", "rawtypes"})
     protected VertxJooqRecord<?> toRecord(@NonNull Row row) {
-        VertxJooqRecord<?> record = new VertxJooqRecord<>((Table<VertxJooqRecord>) table());
+        VertxJooqRecord<?> record = VertxJooqRecord.create((Table<VertxJooqRecord>) table());
         IntStream.range(0, row.size())
                  .mapToObj(row::getColumnName)
                  .map(this::lookupField)
                  .filter(Objects::nonNull)
-                 .forEach(f -> record.set(f, row.get(f.getType(), f.getName())));
+                 .forEach(f -> record.set((Field<Object>) f, row.get(f.getType(), f.getName())));
         return record;
     }
 

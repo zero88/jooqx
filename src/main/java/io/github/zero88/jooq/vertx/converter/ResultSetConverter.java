@@ -20,7 +20,6 @@ import lombok.NonNull;
  * @see TableLike
  * @since 1.0.0
  */
-@SuppressWarnings("rawtypes")
 public interface ResultSetConverter<RS, T extends TableLike<? extends Record>> {
 
     /**
@@ -38,7 +37,7 @@ public interface ResultSetConverter<RS, T extends TableLike<? extends Record>> {
      * @return jOOQ Field
      * @see Field
      */
-    Field lookupField(String field);
+    Field<?> lookupField(String field);
 
     /**
      * Convert SQL result set to generic {@code Vertx jOOQ record}

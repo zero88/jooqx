@@ -90,8 +90,8 @@ object DatabaseLibs {
 
     object Version {
 
+        //                const val jooq = "3.13.6"
         const val jooq = "3.14.8"
-        //        const val jooq = "3.13.6"
         const val h2 = "1.4.200"
         const val pgsql = "42.2.19"
         const val mysql = "8.0.23"

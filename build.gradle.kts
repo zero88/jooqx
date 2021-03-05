@@ -115,7 +115,6 @@ tasks.register("generateJooq") {
     dependsOn(subprojects.map { it.tasks.withType<nu.studer.gradle.jooq.JooqGenerate>() })
 }
 tasks.test {
-    dependsOn(tasks.named("generateJooq"))
     finalizedBy(tasks.jacocoTestReport)
 }
 tasks.jacocoTestReport {
