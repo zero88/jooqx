@@ -16,7 +16,7 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.Accessors;
 
-public abstract class AbstractRowRecordConverter<RS, T extends TableLike<? extends Record>>
+public abstract class AbstractResultSetConverter<RS, T extends TableLike<? extends Record>>
     implements ResultSetConverter<RS, T> {
 
     @NonNull
@@ -24,15 +24,15 @@ public abstract class AbstractRowRecordConverter<RS, T extends TableLike<? exten
     @Accessors(fluent = true)
     private final T table;
     @NonNull
-    private final Map<String, Field> fieldMap;
+    private final Map<String, Field<?>> fieldMap;
 
-    protected AbstractRowRecordConverter(@NonNull T table) {
+    protected AbstractResultSetConverter(@NonNull T table) {
         this.table = table;
         this.fieldMap = table.fieldStream().collect(Collectors.toMap(Field::getName, Function.identity()));
     }
 
     @Override
-    public Field lookupField(String field) {
+    public Field<?> lookupField(String field) {
         return fieldMap.get(field);
     }
 

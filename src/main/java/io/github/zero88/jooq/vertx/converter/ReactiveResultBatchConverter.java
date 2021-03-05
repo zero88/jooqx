@@ -18,14 +18,15 @@ import lombok.NonNull;
  * @see Record
  * @see TableLike
  */
-public class SqlRowBatchConverter<T extends TableLike<? extends Record>> extends SqlRowRecordConverter<T> {
+public class ReactiveResultBatchConverter<T extends TableLike<? extends Record>> extends ReactiveResultSetConverter<T>
+    implements ResultSetBatchConverter<RowSet<Row>, T> {
 
-    public SqlRowBatchConverter(@NonNull T table) {
+    public ReactiveResultBatchConverter(@NonNull T table) {
         super(table);
     }
 
     @Override
-    protected <R> List<R> doConvert(RowSet<Row> resultSet, Function<VertxJooqRecord<?>, R> mapper) {
+    protected <R> List<R> doConvert(@NonNull RowSet<Row> resultSet, @NonNull Function<VertxJooqRecord<?>, R> mapper) {
         final List<R> records = new ArrayList<>();
         while (resultSet != null) {
             final List<R> rs = super.doConvert(resultSet, mapper);
