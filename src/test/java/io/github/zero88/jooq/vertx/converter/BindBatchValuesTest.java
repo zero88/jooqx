@@ -7,11 +7,11 @@ import org.jooq.impl.DSL;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-class BatchBindValuesTest {
+class BindBatchValuesTest {
 
     @Test
     void test_register_dummy_value() {
-        final BatchBindValues bindValues = new BatchBindValues().register("sql")
+        final BindBatchValues bindValues = new BindBatchValues().register("sql")
                                                                 .register(DSL.field("is"),
                                                                           DSL.defaultValue(Boolean.class))
                                                                 .register("awesome");

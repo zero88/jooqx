@@ -3,12 +3,10 @@ package io.github.zero88.jooq.vertx.integtest.reactive;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 import org.jooq.InsertResultStep;
 import org.jooq.SelectConditionStep;
 import org.jooq.SelectWhereStep;
-import org.jooq.TableField;
 import org.jooq.impl.DSL;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,8 +14,9 @@ import org.junit.jupiter.api.Test;
 
 import io.github.zero88.jooq.vertx.BaseVertxReactiveSql;
 import io.github.zero88.jooq.vertx.PostgreSQLTest.PostgreSQLReactiveTest;
-import io.github.zero88.jooq.vertx.converter.SqlRowBatchConverter;
-import io.github.zero88.jooq.vertx.converter.SqlRowRecordConverter;
+import io.github.zero88.jooq.vertx.converter.BindBatchValues;
+import io.github.zero88.jooq.vertx.converter.ReactiveResultBatchConverter;
+import io.github.zero88.jooq.vertx.converter.ReactiveResultSetConverter;
 import io.github.zero88.jooq.vertx.integtest.PostgreSQLHelper;
 import io.github.zero88.jooq.vertx.integtest.pgsql.DefaultCatalog;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.pojos.Authors;
@@ -25,12 +24,13 @@ import io.github.zero88.jooq.vertx.integtest.pgsql.tables.pojos.Books;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.records.AuthorsRecord;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.records.BooksRecord;
 import io.github.zero88.jooq.vertx.record.VertxJooqRecord;
+import io.vertx.core.AsyncResult;
+import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
-import io.vertx.sqlclient.Tuple;
 
 /**
  * If using v4.0.0, pretty sure thread leak, but v4.0.2 is already fixed
@@ -50,7 +50,7 @@ class PgJooqTest extends BaseVertxReactiveSql<DefaultCatalog> implements Postgre
         final Checkpoint flag = ctx.checkpoint();
         final io.github.zero88.jooq.vertx.integtest.pgsql.tables.Books table = catalog().PUBLIC.BOOKS;
         final SelectWhereStep<BooksRecord> query = executor.dsl().selectFrom(table);
-        executor.execute(query, new SqlRowRecordConverter<>(table), ar -> assertRsSize(ctx, flag, ar, 7));
+        executor.execute(query, new ReactiveResultSetConverter<>(table), ar -> assertRsSize(ctx, flag, ar, 7));
     }
 
     @Test
@@ -58,7 +58,7 @@ class PgJooqTest extends BaseVertxReactiveSql<DefaultCatalog> implements Postgre
         final Checkpoint flag = ctx.checkpoint(2);
         final io.github.zero88.jooq.vertx.integtest.pgsql.tables.Authors table = catalog().PUBLIC.AUTHORS;
         final SelectWhereStep<AuthorsRecord> query = executor.dsl().selectFrom(table);
-        executor.execute(query, new SqlRowRecordConverter<>(table), Authors.class, ar -> {
+        executor.execute(query, new ReactiveResultSetConverter<>(table), Authors.class, ar -> {
             final List<Authors> books = assertRsSize(ctx, flag, ar, 8);
             final Authors authors = books.get(0);
             ctx.verify(() -> Assertions.assertEquals(1, authors.getId()));
@@ -71,7 +71,7 @@ class PgJooqTest extends BaseVertxReactiveSql<DefaultCatalog> implements Postgre
         final Checkpoint flag = ctx.checkpoint(2);
         final io.github.zero88.jooq.vertx.integtest.pgsql.tables.Authors table = catalog().PUBLIC.AUTHORS;
         final SelectConditionStep<AuthorsRecord> query = executor.dsl().selectFrom(table).where(table.COUNTRY.eq("UK"));
-        executor.execute(query, new SqlRowRecordConverter<>(table), table, ar -> {
+        executor.execute(query, new ReactiveResultSetConverter<>(table), table, ar -> {
             final List<AuthorsRecord> books = assertRsSize(ctx, flag, ar, 1);
             final AuthorsRecord authors = books.get(0);
             ctx.verify(() -> Assertions.assertEquals(3, authors.getId()));
@@ -89,7 +89,7 @@ class PgJooqTest extends BaseVertxReactiveSql<DefaultCatalog> implements Postgre
                                                              .insertInto(table, table.ID, table.TITLE)
                                                              .values(Arrays.asList(DSL.defaultValue(table.ID), "abc"))
                                                              .returning(table.ID);
-        executor.execute(insert, new SqlRowRecordConverter<>(table), ar -> {
+        executor.execute(insert, new ReactiveResultSetConverter<>(table), ar -> {
             List<VertxJooqRecord<?>> records = assertRsSize(ctx, flag, ar, 1);
             ctx.verify(() -> {
                 final VertxJooqRecord<?> record = records.get(0);
@@ -112,28 +112,26 @@ class PgJooqTest extends BaseVertxReactiveSql<DefaultCatalog> implements Postgre
     @Test
     void test_batch_insert(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint(2);
-        final io.github.zero88.jooq.vertx.integtest.pgsql.tables.Books table = catalog().PUBLIC.BOOKS;
-        BooksRecord rec1 = new BooksRecord().setTitle("abc");
-        BooksRecord rec2 = new BooksRecord().setTitle("haha");
+        final io.github.zero88.jooq.vertx.integtest.pgsql.tables.Authors table = catalog().PUBLIC.AUTHORS;
+        AuthorsRecord rec1 = new AuthorsRecord().setName("abc").setCountry("AU");
+        AuthorsRecord rec2 = new AuthorsRecord().setName("haha");
 
-        final TableField<BooksRecord, Integer> identityField = table.getIdentity().getField();
-        final Object[] objects = table.fieldStream()
-                                      .map(f -> identityField.equals(f) ? DSL.defaultValue() : null)
-                                      .toArray();
-        final InsertResultStep<BooksRecord> insert = executor.dsl()
-                                                             .insertInto(table, table.fields())
-                                                             .values(objects)
-                                                             .returning();
-        final String sql = executor.helper().toPreparedQuery(executor.dsl().configuration(), insert);
-        final List<Object> r1Values = IntStream.range(1, rec1.size()).mapToObj(rec1::get).collect(Collectors.toList());
-        final List<Object> r2Values = IntStream.range(1, rec2.size()).mapToObj(rec2::get).collect(Collectors.toList());
-        sqlClient().preparedQuery(sql).executeBatch(Arrays.asList(Tuple.from(r1Values), Tuple.from(r2Values)), ar -> {
+        final BindBatchValues bindValues = new BindBatchValues().register(table.NAME)
+                                                                .register(table.COUNTRY, "VN")
+                                                                .add(rec1, rec2);
+        final InsertResultStep<AuthorsRecord> insert = executor.dsl()
+                                                               .insertInto(table)
+                                                               .set(bindValues.getDummyValues())
+                                                               .returning();
+        final Handler<AsyncResult<List<VertxJooqRecord<?>>>> handler = ar -> {
             try {
                 if (ar.succeeded()) {
-                    final List<VertxJooqRecord<?>> records = new SqlRowBatchConverter<>(table).convert(ar.result());
+                    final List<VertxJooqRecord<?>> records = ar.result();
                     ctx.verify(() -> {
-                        System.out.println(Json.CODEC.toString(
-                            records.stream().map(VertxJooqRecord::toJson).collect(Collectors.toList())));
+                        String v = Json.CODEC.toString(
+                            records.stream().map(VertxJooqRecord::toJson).collect(Collectors.toList()));
+                        Assertions.assertEquals("[{\"id\":9,\"name\":\"abc\",\"country\":\"AU\"},{\"id\":10," +
+                                                "\"name\":\"haha\",\"country\":\"VN\"}]", v);
                         Assertions.assertEquals(2, records.size());
                     });
                 } else {
@@ -142,9 +140,10 @@ class PgJooqTest extends BaseVertxReactiveSql<DefaultCatalog> implements Postgre
             } finally {
                 flag.flag();
             }
-        });
-        executor.execute(executor.dsl().selectFrom(table), new SqlRowRecordConverter<>(table),
-                         ar -> assertRsSize(ctx, flag, ar, 9));
+        };
+        executor.batchExecute(insert, new ReactiveResultBatchConverter<>(table), bindValues, handler);
+        executor.execute(executor.dsl().selectFrom(table), new ReactiveResultSetConverter<>(table),
+                         ar -> assertRsSize(ctx, flag, ar, 10));
     }
 
 }
