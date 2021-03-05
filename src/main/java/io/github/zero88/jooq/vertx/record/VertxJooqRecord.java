@@ -8,6 +8,13 @@ import io.vertx.core.json.JsonObject;
 
 import lombok.NonNull;
 
+/**
+ * Represents for an intermediate record between Vertx ResultSet and actual jOOQ Record and does support JsonObject
+ *
+ * @param <R> Type of jOOQ record
+ * @see TableRecord
+ * @since 1.0.0
+ */
 public interface VertxJooqRecord<R extends TableRecord<R>> extends TableRecord<R> {
 
     JsonObject toJson();

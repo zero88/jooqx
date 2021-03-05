@@ -14,7 +14,7 @@ class BindBatchValuesTest {
         final BindBatchValues bindValues = new BindBatchValues().register("sql")
                                                                 .register(DSL.field("is"),
                                                                           DSL.defaultValue(Boolean.class))
-                                                                .register("awesome");
+                                                                .register(DSL.field("awesome"), true);
         final List<String> mappingFields = bindValues.getMappingFields();
         final List<Object> mappingValues = bindValues.getMappingValues();
         final Map<?, ?> dummyValues = bindValues.getDummyValues();
@@ -24,7 +24,7 @@ class BindBatchValuesTest {
         Assertions.assertEquals("sql is awesome", String.join(" ", mappingFields));
         Assertions.assertNull(mappingValues.get(0));
         Assertions.assertEquals(DSL.defaultValue(), mappingValues.get(1));
-        Assertions.assertNull(mappingValues.get(2));
+        Assertions.assertTrue((Boolean) mappingValues.get(2));
     }
 
 }

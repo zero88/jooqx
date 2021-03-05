@@ -20,10 +20,13 @@ import org.jooq.UpdateSetStep;
 import lombok.NonNull;
 
 /**
+ * Represents a holder keep dummy value and list of binding records
+ *
  * @see <a href="https://www.jooq.org/doc/latest/manual/sql-execution/batch-execution/">JDBC batch operations</a>
  * @see InsertSetStep#set(Map)
  * @see UpdateSetStep#set(Map)
  * @see MergeMatchedSetStep#set(Map)
+ * @since 1.0.0
  */
 public final class BindBatchValues {
 
