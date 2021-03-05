@@ -1,11 +1,14 @@
 package io.github.zero88.jooq.vertx;
 
+import java.util.List;
+
 import org.jooq.Configuration;
 import org.jooq.Query;
 import org.jooq.SQLDialect;
 import org.jooq.conf.ParamType;
 
-import io.github.zero88.jooq.vertx.converter.ParamConverter;
+import io.github.zero88.jooq.vertx.converter.BindBatchValues;
+import io.github.zero88.jooq.vertx.converter.BindParamConverter;
 
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +27,7 @@ public class QueryHelper<T> {
     public static final String NAMED_PARAM_PATTERN = "(?<!:):(?!:)";
 
     @NonNull
-    private final ParamConverter<T> paramConverter;
+    private final BindParamConverter<T> paramConverter;
 
     public String toPreparedQuery(@NonNull Configuration configuration, @NonNull Query query) {
         return toPreparedQuery(configuration, query, null);
@@ -57,7 +60,11 @@ public class QueryHelper<T> {
     }
 
     public T toBindValues(@NonNull Query query) {
-        return paramConverter.convert(query.getParams().values());
+        return paramConverter.convert(query.getParams());
+    }
+
+    public List<T> toBindValues(@NonNull Query query, @NonNull BindBatchValues bindBatchValues) {
+        return paramConverter.convert(query.getParams(), bindBatchValues);
     }
 
 }

@@ -25,36 +25,36 @@ import lombok.NonNull;
  * @see UpdateSetStep#set(Map)
  * @see MergeMatchedSetStep#set(Map)
  */
-public final class BatchBindValues {
+public final class BindBatchValues {
 
     private final Map<Object, Object> dummyValues = new LinkedHashMap<>();
     private final List<Record> records = new ArrayList<>();
 
-    public BatchBindValues register(@NonNull String field) {
+    public BindBatchValues register(@NonNull String field) {
         this.dummyValues.put(field, null);
         return this;
     }
 
-    public <T> BatchBindValues register(@NonNull Field<T> field) {
+    public <T> BindBatchValues register(@NonNull Field<T> field) {
         this.dummyValues.put(field, null);
         return this;
     }
 
-    public BatchBindValues register(@NonNull Name field) {
+    public BindBatchValues register(@NonNull Name field) {
         this.dummyValues.put(field, null);
         return this;
     }
 
-    public <T> BatchBindValues register(@NonNull Field<T> field, Object value) {
+    public <T> BindBatchValues register(@NonNull Field<T> field, Object value) {
         this.dummyValues.put(field, value);
         return this;
     }
 
-    public BatchBindValues add(Record... recs) {
+    public BindBatchValues add(Record... recs) {
         return this.add(Arrays.asList(recs));
     }
 
-    public BatchBindValues add(Collection<Record> recs) {
+    public BindBatchValues add(Collection<Record> recs) {
         recs.stream().filter(Objects::nonNull).forEachOrdered(records::add);
         return this;
     }
