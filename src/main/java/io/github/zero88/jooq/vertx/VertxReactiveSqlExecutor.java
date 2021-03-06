@@ -48,7 +48,10 @@ public final class VertxReactiveSqlExecutor extends AbstractVertxJooqExecutor<Sq
         @NonNull Q query, @NonNull SqlResultAdapter<RowSet<Row>, C, T, R> resultMapper,
         @NonNull Handler<AsyncResult<R>> handler) {
         sqlClient().preparedQuery(helper().toPreparedQuery(dsl().configuration(), query))
-                   .execute(helper().toBindValues(query), ar -> handler.handle(ar.map(resultMapper::convert)));
+                   .execute(helper().toBindValues(query),
+                            ar -> handler.handle(ar.map(resultMapper::convert).otherwise(t -> {
+                                throw errorHandler().apply(t);
+                            })));
     }
 
     @Override

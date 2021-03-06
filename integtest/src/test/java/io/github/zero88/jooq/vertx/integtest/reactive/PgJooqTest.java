@@ -11,6 +11,7 @@ import org.jooq.Record;
 import org.jooq.Record1;
 import org.jooq.SelectConditionStep;
 import org.jooq.SelectWhereStep;
+import org.jooq.exception.DataAccessException;
 import org.jooq.impl.DSL;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -229,6 +230,26 @@ class PgJooqTest extends BaseVertxReactiveSql<DefaultCatalog> implements Postgre
         executor.execute(executor.dsl().selectFrom(table),
                          ListResultAdapter.createVertxRecord(table, new ReactiveResultSetConverter()),
                          ar -> assertRsSize(ctx, flag, ar, 10));
+    }
+
+    @Test
+    void test_insert_failed(VertxTestContext ctx) {
+        final Checkpoint flag = ctx.checkpoint();
+        final io.github.zero88.jooq.vertx.integtest.pgsql.tables.Books table = catalog().PUBLIC.BOOKS;
+        final InsertResultStep<BooksRecord> insert = executor.dsl()
+                                                             .insertInto(table, table.ID, table.TITLE)
+                                                             .values(1, "abc")
+                                                             .returning(table.ID);
+        executor.execute(insert, ListResultAdapter.create(table, new ReactiveResultSetConverter(),
+                                                          Collections.singletonList(table.ID)), ar -> {
+            ctx.verify(() -> {
+                Assertions.assertTrue(ar.failed());
+                ar.cause().printStackTrace();
+                Assertions.assertTrue(ar.cause() instanceof DataAccessException);
+                System.out.println(((DataAccessException) ar.cause()).sqlStateClass());
+            });
+            flag.flag();
+        });
     }
 
 }

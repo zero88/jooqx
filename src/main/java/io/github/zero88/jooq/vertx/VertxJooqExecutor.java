@@ -32,6 +32,8 @@ public interface VertxJooqExecutor<S, P, RS> extends VertxBatchExecutor {
 
     @NonNull QueryHelper<P> helper();
 
+    @NonNull ErrorHandler errorHandler();
+
     /**
      * Execute {@code jOOQ query} then return async result
      *
