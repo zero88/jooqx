@@ -8,6 +8,8 @@ import java.util.stream.Collectors;
 
 import org.jooq.Param;
 
+import io.github.zero88.jooq.vertx.BindBatchValues;
+
 import lombok.NonNull;
 
 public abstract class AbstractBindParamConverter<T> implements BindParamConverter<T> {

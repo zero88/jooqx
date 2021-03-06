@@ -19,7 +19,7 @@ import lombok.NonNull;
 
 public class LegacyResultSetConverter<T extends TableLike<? extends Record>>
     extends AbstractResultSetConverter<ResultSet, T>
-    implements ResultSetConverter<ResultSet, T>, ResultSetBatchConverter<ResultSet, T> {
+    implements ResultSetConverter<ResultSet, T>, ResultBatchConverter<ResultSet, T> {
 
     public LegacyResultSetConverter(@NonNull T table) {
         super(table);

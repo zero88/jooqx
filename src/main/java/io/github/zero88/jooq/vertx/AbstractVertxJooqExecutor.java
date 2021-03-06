@@ -23,7 +23,8 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @SuperBuilder
 @Accessors(fluent = true)
-public abstract class AbstractVertxJooqExecutor<S, P, RS> implements VertxJooqExecutor<S, P, RS> {
+public abstract class AbstractVertxJooqExecutor<S, P, RS, BR extends BatchResult>
+    implements VertxJooqExecutor<S, P, RS, BR> {
 
     @NonNull
     private final Vertx vertx;

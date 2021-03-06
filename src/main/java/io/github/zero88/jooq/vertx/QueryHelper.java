@@ -7,7 +7,6 @@ import org.jooq.Query;
 import org.jooq.SQLDialect;
 import org.jooq.conf.ParamType;
 
-import io.github.zero88.jooq.vertx.converter.BindBatchValues;
 import io.github.zero88.jooq.vertx.converter.BindParamConverter;
 
 import lombok.NonNull;

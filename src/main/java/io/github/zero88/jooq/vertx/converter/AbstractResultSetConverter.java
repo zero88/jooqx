@@ -42,8 +42,14 @@ public abstract class AbstractResultSetConverter<RS, T extends TableLike<? exten
     }
 
     @Override
-    public <R> List<R> convert(@NonNull RS resultSet, @NonNull Class<R> record) {
-        return doConvert(resultSet, r -> r.into(record));
+    public <R> List<R> convert(@NonNull RS resultSet, @NonNull Class<R> recordClass) {
+        return doConvert(resultSet, r -> r.into(recordClass));
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public <R extends Record> List<R> convert(@NonNull RS resultSet, @NonNull R record) {
+        return doConvert(resultSet, r -> (R) r.into(record.fields()));
     }
 
     @Override

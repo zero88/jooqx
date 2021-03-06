@@ -1,4 +1,4 @@
-package io.github.zero88.jooq.vertx.converter;
+package io.github.zero88.jooq.vertx;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -84,7 +84,12 @@ public final class BindBatchValues {
         return Collections.unmodifiableList(this.records);
     }
 
-    public int batchSize() {
+    /**
+     * Batch record size
+     *
+     * @return total record
+     */
+    public int size() {
         return this.records.size();
     }
 

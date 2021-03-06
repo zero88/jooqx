@@ -4,11 +4,13 @@ import java.util.List;
 import java.util.function.Function;
 
 import org.jooq.Query;
+import org.jooq.Record;
+import org.jooq.Table;
 import org.jooq.TableLike;
 
-import io.github.zero88.jooq.vertx.converter.BindBatchValues;
-import io.github.zero88.jooq.vertx.converter.ResultSetBatchConverter;
 import io.github.zero88.jooq.vertx.converter.ReactiveBindParamConverter;
+import io.github.zero88.jooq.vertx.converter.ResultBatchConverter;
+import io.github.zero88.jooq.vertx.converter.ResultSetConverter;
 import io.github.zero88.jooq.vertx.record.VertxJooqRecord;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
@@ -35,8 +37,9 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @SuperBuilder
 @Accessors(fluent = true)
-public class VertxReactiveSqlExecutor extends AbstractVertxJooqExecutor<SqlClient, Tuple, RowSet<Row>>
-    implements VertxBatchExecutor<RowSet<Row>, List<VertxJooqRecord<?>>> {
+public final class VertxReactiveSqlExecutor
+    extends AbstractVertxJooqExecutor<SqlClient, Tuple, RowSet<Row>, BatchReturningResult<VertxJooqRecord<?>>>
+    implements VertxReactiveBatchExecutor {
 
     @NonNull
     @Default
@@ -51,13 +54,45 @@ public class VertxReactiveSqlExecutor extends AbstractVertxJooqExecutor<SqlClien
 
     @Override
     public <Q extends Query, T extends TableLike<?>> void batchExecute(@NonNull Q query,
-                                                                       @NonNull ResultSetBatchConverter<RowSet<Row>,
-                                                                                                           T> rsConverter,
                                                                        @NonNull BindBatchValues bindBatchValues,
-                                                                       @NonNull Handler<AsyncResult<List<VertxJooqRecord<?>>>> handler) {
-        sqlClient().preparedQuery(helper().toPreparedQuery(dsl().configuration(), query))
-                   .executeBatch(helper().toBindValues(query, bindBatchValues),
-                                 ar -> handler.handle(ar.map(rsConverter::convert)));
+                                                                       @NonNull ResultBatchConverter<RowSet<Row>, T> rsConverter,
+                                                                       @NonNull Handler<AsyncResult<BatchReturningResult<VertxJooqRecord<?>>>> handler) {
+        doBatchExecute(query, bindBatchValues, rsConverter::convert, handler);
+    }
+
+    @Override
+    public <Q extends Query, T extends TableLike<?>, R extends Record> void batchExecute(@NonNull Q query,
+                                                                                         @NonNull BindBatchValues bindBatchValues,
+                                                                                         @NonNull ResultBatchConverter<RowSet<Row>, T> rsConverter,
+                                                                                         @NonNull Table<R> table,
+                                                                                         @NonNull Handler<AsyncResult<BatchReturningResult<R>>> handler) {
+        doBatchExecute(query, bindBatchValues, rs -> rsConverter.convert(rs, table), handler);
+    }
+
+    @Override
+    public <Q extends Query, T extends TableLike<?>, R extends Record> void batchExecute(@NonNull Q query,
+                                                                                         @NonNull BindBatchValues bindBatchValues,
+                                                                                         @NonNull ResultSetConverter<RowSet<Row>, T> rsConverter,
+                                                                                         @NonNull R record,
+                                                                                         @NonNull Handler<AsyncResult<BatchReturningResult<R>>> handler) {
+        doBatchExecute(query, bindBatchValues, rs -> rsConverter.convert(rs, record), handler);
+    }
+
+    @Override
+    public <Q extends Query, T extends TableLike<?>, R> void batchExecute(@NonNull Q query,
+                                                                          @NonNull BindBatchValues bindBatchValues,
+                                                                          @NonNull ResultSetConverter<RowSet<Row>, T> rsConverter,
+                                                                          @NonNull Class<R> recordClass,
+                                                                          @NonNull Handler<AsyncResult<BatchReturningResult<R>>> handler) {
+        doBatchExecute(query, bindBatchValues, rs -> rsConverter.convert(rs, recordClass), handler);
+    }
+
+    private <Q extends Query, R> void doBatchExecute(@NonNull Q q, @NonNull BindBatchValues b,
+                                                     @NonNull Function<RowSet<Row>, List<R>> cf,
+                                                     @NonNull Handler<AsyncResult<BatchReturningResult<R>>> h) {
+        sqlClient().preparedQuery(helper().toPreparedQuery(dsl().configuration(), q))
+                   .executeBatch(helper().toBindValues(q, b),
+                                 ar -> h.handle(ar.map(cf).map(rs -> new BatchReturningResult<>(b.size(), rs))));
     }
 
 }

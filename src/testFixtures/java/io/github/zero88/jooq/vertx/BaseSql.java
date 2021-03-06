@@ -20,8 +20,8 @@ import lombok.Getter;
 
 @Testcontainers
 @ExtendWith(VertxExtension.class)
-public abstract class BaseSql<S, P, R, E extends VertxJooqExecutor<S, P, R>>
-    implements ConnectionProvider<S>, JooqExecutorCreation<S, P, R, E> {
+public abstract class BaseSql<S, P, R, BS extends BatchResult, E extends VertxJooqExecutor<S, P, R, BS>>
+    implements ConnectionProvider<S>, JooqExecutorCreation<S, P, R, BS, E> {
 
     @Container
     protected final JdbcDatabaseContainer<?> server = createDBServer();

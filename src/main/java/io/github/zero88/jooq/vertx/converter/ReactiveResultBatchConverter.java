@@ -19,7 +19,7 @@ import lombok.NonNull;
  * @see TableLike
  */
 public class ReactiveResultBatchConverter<T extends TableLike<? extends Record>> extends ReactiveResultSetConverter<T>
-    implements ResultSetBatchConverter<RowSet<Row>, T> {
+    implements ResultBatchConverter<RowSet<Row>, T> {
 
     public ReactiveResultBatchConverter(@NonNull T table) {
         super(table);

@@ -21,7 +21,8 @@ import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 
 public abstract class BaseVertxLegacyJdbcSql<T extends Catalog>
-    extends BaseSql<SQLClient, JsonArray, ResultSet, VertxLegacyJdbcExecutor> implements JooqSql<T>, LegacyJdbcSqlTest {
+    extends BaseSql<SQLClient, JsonArray, ResultSet, BatchResult, VertxLegacyJdbcExecutor>
+    implements JooqSql<T>, LegacyJdbcSqlTest {
 
     protected HikariDataSource dataSource;
 

@@ -7,6 +7,7 @@ import java.util.function.BiFunction;
 import org.jooq.Converter;
 import org.jooq.Param;
 
+import io.github.zero88.jooq.vertx.BindBatchValues;
 import io.github.zero88.jooq.vertx.converter.ext.PgConverter;
 import io.vertx.core.buffer.Buffer;
 
@@ -23,7 +24,7 @@ public interface BindParamConverter<T> {
 
     T convert(@NonNull Map<String, Param<?>> params);
 
-    List<T> convert(@NonNull Map<String, Param<?>> params, @NonNull BindBatchValues queryParams);
+    @NonNull List<T> convert(@NonNull Map<String, Param<?>> params, @NonNull BindBatchValues queryParams);
 
     @SuppressWarnings( {"unchecked", "rawtypes"})
     default Object convertToDatabaseType(String paramName, Param<?> param, BiFunction<String, Param<?>, ?> queryValue) {

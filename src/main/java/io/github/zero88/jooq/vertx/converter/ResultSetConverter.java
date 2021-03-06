@@ -62,12 +62,23 @@ public interface ResultSetConverter<RS, T extends TableLike<? extends Record>> {
     /**
      * Convert result set to an expectation record
      *
-     * @param <R>       Type of an expectation record
+     * @param <R>       Type of record
      * @param resultSet SQL result set
-     * @param record    record class
+     * @param record    dummy record
+     * @return record list
+     * @see Record#into(Table)
+     */
+    <R extends Record> List<R> convert(@NonNull RS resultSet, @NonNull R record);
+
+    /**
+     * Convert result set to an expectation record
+     *
+     * @param <R>         Type of an expectation record
+     * @param resultSet   SQL result set
+     * @param recordClass record class. Might be pojo or custom object as well
      * @return record list
      * @see Record#into(Object)
      */
-    <R> List<R> convert(@NonNull RS resultSet, @NonNull Class<R> record);
+    <R> List<R> convert(@NonNull RS resultSet, @NonNull Class<R> recordClass);
 
 }

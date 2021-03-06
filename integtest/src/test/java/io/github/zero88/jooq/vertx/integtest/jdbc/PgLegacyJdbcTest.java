@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import io.github.zero88.jooq.vertx.BaseVertxLegacyJdbcSql;
 import io.github.zero88.jooq.vertx.PostgreSQLTest.PostgreSQLJdbcTest;
 import io.github.zero88.jooq.vertx.VertxLegacyJdbcExecutor;
-import io.github.zero88.jooq.vertx.converter.BindBatchValues;
+import io.github.zero88.jooq.vertx.BindBatchValues;
 import io.github.zero88.jooq.vertx.converter.LegacyResultSetConverter;
 import io.github.zero88.jooq.vertx.integtest.PostgreSQLHelper;
 import io.github.zero88.jooq.vertx.integtest.pgsql.DefaultCatalog;
@@ -82,7 +82,7 @@ class PgLegacyJdbcTest extends BaseVertxLegacyJdbcSql<DefaultCatalog> implements
                                                              .set(bindValues.getDummyValues())
                                                              .returning();
         final LegacyResultSetConverter<Books> converter = new LegacyResultSetConverter<>(table);
-        executor.batchExecute(insert, converter, bindValues, ar -> {
+        executor.batchExecute(insert, bindValues, converter, ar -> {
             if (ar.succeeded()) {
                 ctx.verify(() -> Assertions.assertEquals(3, ar.result()));
                 flag.flag();
