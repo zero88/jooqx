@@ -1,4 +1,4 @@
-package io.github.zero88.jooq.vertx.record;
+package io.github.zero88.jooq.vertx;
 
 import org.jooq.Table;
 import org.jooq.TableLike;

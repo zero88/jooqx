@@ -1,5 +1,6 @@
 package io.github.zero88.jooq.vertx.converter;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.jooq.Field;
@@ -7,7 +8,7 @@ import org.jooq.Record;
 import org.jooq.Table;
 import org.jooq.TableLike;
 
-import io.github.zero88.jooq.vertx.record.VertxJooqRecord;
+import io.github.zero88.jooq.vertx.VertxJooqRecord;
 
 import lombok.NonNull;
 
@@ -69,6 +70,16 @@ public interface ResultSetConverter<RS, T extends TableLike<? extends Record>> {
      * @see Record#into(Table)
      */
     <R extends Record> List<R> convert(@NonNull RS resultSet, @NonNull R record);
+
+    /**
+     * Convert result set to an expectation record
+     *
+     * @param resultSet SQL result set
+     * @param fields    dummy record
+     * @return record list
+     * @see Record#into(Table)
+     */
+    List<Record> convert(@NonNull RS resultSet, @NonNull Collection<Field<?>> fields);
 
     /**
      * Convert result set to an expectation record

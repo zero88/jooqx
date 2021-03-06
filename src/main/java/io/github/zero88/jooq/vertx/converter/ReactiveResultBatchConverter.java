@@ -7,7 +7,7 @@ import java.util.function.Function;
 import org.jooq.Record;
 import org.jooq.TableLike;
 
-import io.github.zero88.jooq.vertx.record.VertxJooqRecord;
+import io.github.zero88.jooq.vertx.VertxJooqRecord;
 import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.RowSet;
 

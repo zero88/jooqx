@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NonNull;
 
 @Getter
-public class BatchReturningResult<R> extends BatchResult {
+public final class BatchReturningResult<R> extends BatchResult {
 
     @NonNull
     private final List<R> records;

@@ -11,7 +11,7 @@ import org.jooq.Record;
 import org.jooq.Table;
 import org.jooq.TableLike;
 
-import io.github.zero88.jooq.vertx.record.VertxJooqRecord;
+import io.github.zero88.jooq.vertx.VertxJooqRecord;
 import io.vertx.core.json.JsonArray;
 import io.vertx.ext.sql.ResultSet;
 

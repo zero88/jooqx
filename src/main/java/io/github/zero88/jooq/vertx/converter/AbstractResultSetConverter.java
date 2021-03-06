@@ -1,7 +1,9 @@
 package io.github.zero88.jooq.vertx.converter;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -10,7 +12,7 @@ import org.jooq.Record;
 import org.jooq.Table;
 import org.jooq.TableLike;
 
-import io.github.zero88.jooq.vertx.record.VertxJooqRecord;
+import io.github.zero88.jooq.vertx.VertxJooqRecord;
 
 import lombok.Getter;
 import lombok.NonNull;
@@ -55,6 +57,11 @@ public abstract class AbstractResultSetConverter<RS, T extends TableLike<? exten
     @Override
     public <R extends Record> List<R> convert(@NonNull RS resultSet, @NonNull Table<R> table) {
         return doConvert(resultSet, r -> r.into(table));
+    }
+
+    @Override
+    public List<Record> convert(@NonNull RS resultSet, @NonNull Collection<Field<?>> fields) {
+        return doConvert(resultSet, r -> r.into(fields.stream().filter(Objects::nonNull).toArray(Field[]::new)));
     }
 
     protected abstract <R> List<R> doConvert(@NonNull RS resultSet, @NonNull Function<VertxJooqRecord<?>, R> mapper);
