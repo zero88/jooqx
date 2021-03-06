@@ -4,17 +4,15 @@ import org.jooq.Query;
 
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
-import io.vertx.ext.sql.SQLClient;
 
 import lombok.NonNull;
 
 /**
- * The {@code legacy jdbc executor} that is adapted for {@link SQLClient} to execute batch SQL command and return only
- * the number of succeed row
+ * The {@code legacy jdbc executor} that executes batch SQL command and return only the number of succeed row
  *
  * @since 1.0.0
  */
-public interface BatchLegacyJdbcExecutor {
+public interface VertxBatchExecutor {
 
     /**
      * Batch execute

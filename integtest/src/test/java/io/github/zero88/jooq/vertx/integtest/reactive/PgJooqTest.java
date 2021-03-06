@@ -17,6 +17,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import io.github.zero88.jooq.vertx.BaseVertxReactiveSql;
+import io.github.zero88.jooq.vertx.BatchResult;
 import io.github.zero88.jooq.vertx.BatchReturningResult;
 import io.github.zero88.jooq.vertx.BindBatchValues;
 import io.github.zero88.jooq.vertx.PostgreSQLTest.PostgreSQLReactiveTest;
@@ -150,8 +151,8 @@ class PgJooqTest extends BaseVertxReactiveSql<DefaultCatalog> implements Postgre
                 flag.flag();
             }
         };
-        executor.batchExecute(insert, bindValues, ListResultAdapter.createVertxRecord(table, new ReactiveResultBatchConverter()),
-                              handler);
+        executor.batchExecute(insert, bindValues,
+                              ListResultAdapter.createVertxRecord(table, new ReactiveResultBatchConverter()), handler);
         executor.execute(executor.dsl().selectFrom(table),
                          ListResultAdapter.createVertxRecord(table, new ReactiveResultSetConverter()),
                          ar -> assertRsSize(ctx, flag, ar, 10));
@@ -192,6 +193,39 @@ class PgJooqTest extends BaseVertxReactiveSql<DefaultCatalog> implements Postgre
         executor.batchExecute(insert, bindValues, ListResultAdapter.create(table, new ReactiveResultBatchConverter(),
                                                                            executor.dsl().newRecord(table.ID)),
                               handler);
+        executor.execute(executor.dsl().selectFrom(table),
+                         ListResultAdapter.createVertxRecord(table, new ReactiveResultSetConverter()),
+                         ar -> assertRsSize(ctx, flag, ar, 10));
+    }
+
+    @Test
+    void test_batch_insert_and_returning_count(VertxTestContext ctx) {
+        final Checkpoint flag = ctx.checkpoint(2);
+        final io.github.zero88.jooq.vertx.integtest.pgsql.tables.Authors table = catalog().PUBLIC.AUTHORS;
+        AuthorsRecord rec1 = new AuthorsRecord().setName("abc").setCountry("AU");
+        AuthorsRecord rec2 = new AuthorsRecord().setName("haha");
+        final BindBatchValues bindValues = new BindBatchValues().register(table.NAME)
+                                                                .register(table.COUNTRY, "VN")
+                                                                .add(rec1, rec2);
+        final InsertSetMoreStep<AuthorsRecord> insert = executor.dsl()
+                                                                .insertInto(table)
+                                                                .set(bindValues.getDummyValues());
+        final Handler<AsyncResult<BatchResult>> handler = ar -> {
+            try {
+                if (ar.succeeded()) {
+                    final BatchResult result = ar.result();
+                    ctx.verify(() -> {
+                        Assertions.assertEquals(2, result.getTotal());
+                        Assertions.assertEquals(2, result.getSuccesses());
+                    });
+                } else {
+                    ctx.failNow(ar.cause());
+                }
+            } finally {
+                flag.flag();
+            }
+        };
+        executor.batchExecute(insert, bindValues, handler);
         executor.execute(executor.dsl().selectFrom(table),
                          ListResultAdapter.createVertxRecord(table, new ReactiveResultSetConverter()),
                          ar -> assertRsSize(ctx, flag, ar, 10));

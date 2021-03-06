@@ -9,24 +9,24 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.Accessors;
 
-public abstract class AbstractSqlResultAdapter<RS, T extends TableLike<? extends Record>, R>
-    implements SqlResultAdapter<RS, T, R> {
+public abstract class AbstractSqlResultAdapter<RS, C extends ResultSetConverter<RS>, T extends TableLike<? extends Record>, R>
+    implements SqlResultAdapter<RS, C, T, R> {
 
     @NonNull
     @Getter
     @Accessors(fluent = true)
     private final T table;
     @NonNull
-    private final ResultSetConverter<RS> converter;
+    private final C converter;
 
-    protected AbstractSqlResultAdapter(@NonNull T table, @NonNull ResultSetConverter<RS> converter) {
+    protected AbstractSqlResultAdapter(@NonNull T table, @NonNull C converter) {
         this.table = table;
         this.converter = converter;
     }
 
     @Override
     @NonNull
-    public final ResultSetConverter<RS> converter() {
+    public final C converter() {
         return converter;
     }
 

@@ -22,6 +22,9 @@ import lombok.NonNull;
 /**
  * Represents a holder keep dummy value and list of binding records
  *
+ * @apiNote With {@code dummy value records}, you can predefine a field value, then if a bind record is missing this
+ *     field value then system will auto detect and fallback to the predefined value. See: {@link #register(Field,
+ *     Object)}
  * @see <a href="https://www.jooq.org/doc/latest/manual/sql-execution/batch-execution/">JDBC batch operations</a>
  * @see InsertSetStep#set(Map)
  * @see UpdateSetStep#set(Map)

@@ -4,6 +4,7 @@ import org.jooq.Query;
 import org.jooq.TableLike;
 
 import io.github.zero88.jooq.vertx.adapter.ListResultAdapter;
+import io.github.zero88.jooq.vertx.converter.ResultBatchConverter;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
 import io.vertx.sqlclient.Row;
@@ -18,7 +19,7 @@ import lombok.NonNull;
  *
  * @since 1.0.0
  */
-public interface BatchReactiveSqlExecutor {
+public interface VertxReactiveBatchExecutor extends VertxBatchExecutor {
 
     /**
      * Batch execute
@@ -34,9 +35,9 @@ public interface BatchReactiveSqlExecutor {
      * @see ListResultAdapter
      * @see BatchReturningResult
      */
-    <Q extends Query, T extends TableLike<?>, R> void batchExecute(@NonNull Q query,
-                                                                   @NonNull BindBatchValues bindBatchValues,
-                                                                   @NonNull ListResultAdapter<RowSet<Row>, T, R> resultAdapter,
-                                                                   @NonNull Handler<AsyncResult<BatchReturningResult<R>>> handler);
+    <Q extends Query, C extends ResultBatchConverter<RowSet<Row>, RowSet<Row>>, T extends TableLike<?>, R> void batchExecute(
+        @NonNull Q query, @NonNull BindBatchValues bindBatchValues,
+        @NonNull ListResultAdapter<RowSet<Row>, C, T, R> resultAdapter,
+        @NonNull Handler<AsyncResult<BatchReturningResult<R>>> handler);
 
 }

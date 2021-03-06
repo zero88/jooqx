@@ -5,6 +5,7 @@ import org.jooq.Query;
 import org.jooq.TableLike;
 
 import io.github.zero88.jooq.vertx.adapter.SqlResultAdapter;
+import io.github.zero88.jooq.vertx.converter.ResultSetConverter;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
@@ -21,7 +22,7 @@ import lombok.NonNull;
  * @param <RS> Type of Vertx SQL Result set holder
  * @since 1.0.0
  */
-public interface VertxJooqExecutor<S, P, RS> {
+public interface VertxJooqExecutor<S, P, RS> extends VertxBatchExecutor {
 
     @NonNull Vertx vertx();
 
@@ -44,8 +45,8 @@ public interface VertxJooqExecutor<S, P, RS> {
      * @see TableLike
      * @see SqlResultAdapter
      */
-    <Q extends Query, T extends TableLike<?>, R> void execute(@NonNull Q query,
-                                                              @NonNull SqlResultAdapter<RS, T, R> resultMapper,
-                                                              @NonNull Handler<AsyncResult<R>> handler);
+    <Q extends Query, T extends TableLike<?>, C extends ResultSetConverter<RS>, R> void execute(@NonNull Q query,
+                                                                                                @NonNull SqlResultAdapter<RS, C, T, R> resultMapper,
+                                                                                                @NonNull Handler<AsyncResult<R>> handler);
 
 }

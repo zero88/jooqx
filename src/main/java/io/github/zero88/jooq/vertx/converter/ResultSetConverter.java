@@ -16,8 +16,6 @@ import lombok.NonNull;
  * Represents for a converter that transforms SQL result set to jOOQ record
  *
  * @param <RS> Type of Vertx SQL result set
- * @see Record
- * @see TableLike
  * @since 1.0.0
  */
 public interface ResultSetConverter<RS> {
@@ -30,6 +28,7 @@ public interface ResultSetConverter<RS> {
      * @param <T>       Type of Jooq Table Like
      * @return list of {@code Vertx jOOQ record}
      * @see VertxJooqRecord
+     * @see TableLike
      */
     <T extends TableLike<? extends Record>> List<VertxJooqRecord<?>> convertVertxRecord(@NonNull RS resultSet,
                                                                                         @NonNull T table);
@@ -43,6 +42,7 @@ public interface ResultSetConverter<RS> {
      * @param table     table context
      * @return record list
      * @see Record#into(Table)
+     * @see Table
      */
     <T extends Table<? extends Record>, R extends Record> List<R> convert(@NonNull RS resultSet, @NonNull T table);
 
@@ -56,6 +56,7 @@ public interface ResultSetConverter<RS> {
      * @param toTable   table instance
      * @return record list
      * @see Record#into(Table)
+     * @see TableLike
      */
     <T extends TableLike<? extends Record>, R extends Record> List<R> convert(@NonNull RS resultSet, @NonNull T table,
                                                                               @NonNull Table<R> toTable);
@@ -70,6 +71,7 @@ public interface ResultSetConverter<RS> {
      * @param record    dummy record
      * @return record list
      * @see Record#into(Table)
+     * @see TableLike
      */
     <T extends TableLike<? extends Record>, R extends Record> List<R> convert(@NonNull RS resultSet, @NonNull T table,
                                                                               @NonNull R record);
@@ -83,6 +85,7 @@ public interface ResultSetConverter<RS> {
      * @param fields    dummy record
      * @return record list
      * @see Record#into(Table)
+     * @see TableLike
      */
     <T extends TableLike<? extends Record>> List<Record> convert(@NonNull RS resultSet, @NonNull T table,
                                                                  @NonNull Collection<Field<?>> fields);
@@ -97,6 +100,7 @@ public interface ResultSetConverter<RS> {
      * @param recordClass record class. Might be pojo or custom object as well
      * @return record list
      * @see Record#into(Object)
+     * @see TableLike
      */
     <T extends TableLike<? extends Record>, R> List<R> convert(@NonNull RS resultSet, @NonNull T table,
                                                                @NonNull Class<R> recordClass);
