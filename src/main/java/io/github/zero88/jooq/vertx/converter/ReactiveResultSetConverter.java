@@ -2,8 +2,10 @@ package io.github.zero88.jooq.vertx.converter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.jooq.Field;
@@ -20,31 +22,30 @@ import lombok.NonNull;
 /**
  * Bug <a href="vertx-sql-client#909">https://github.com/eclipse-vertx/vertx-sql-client/issues/909</a>
  *
- * @param <T> Type of jOOQ Table
  * @see Record
  * @see TableLike
  * @see ResultSetConverter
  */
-public class ReactiveResultSetConverter<T extends TableLike<? extends Record>>
-    extends AbstractResultSetConverter<RowSet<Row>, T> implements ResultSetConverter<RowSet<Row>, T> {
-
-    public ReactiveResultSetConverter(@NonNull T table) {
-        super(table);
-    }
+public class ReactiveResultSetConverter extends AbstractResultSetConverter<RowSet<Row>>
+    implements ResultSetConverter<RowSet<Row>> {
 
     @Override
-    protected <R> List<R> doConvert(@NonNull RowSet<Row> resultSet, @NonNull Function<VertxJooqRecord<?>, R> mapper) {
+    protected <T extends TableLike<? extends Record>, R> List<R> doConvert(@NonNull RowSet<Row> resultSet, T table,
+                                                                           @NonNull Function<VertxJooqRecord<?>, R> mapper) {
+        final Map<String, Field<?>> fieldMap = table.fieldStream()
+                                                    .collect(Collectors.toMap(Field::getName, Function.identity()));
         final List<R> records = new ArrayList<>();
-        resultSet.iterator().forEachRemaining(row -> records.add(mapper.apply(toRecord(row))));
+        resultSet.iterator().forEachRemaining(row -> records.add(mapper.apply(toRecord(table, row, fieldMap::get))));
         return records;
     }
 
     @SuppressWarnings( {"unchecked", "rawtypes"})
-    protected VertxJooqRecord<?> toRecord(@NonNull Row row) {
-        VertxJooqRecord<?> record = VertxJooqRecord.create((Table<VertxJooqRecord>) table());
+    private VertxJooqRecord<?> toRecord(TableLike table, @NonNull Row row,
+                                        @NonNull Function<String, Field<?>> lookupField) {
+        VertxJooqRecord<?> record = VertxJooqRecord.create((Table<VertxJooqRecord>) table);
         IntStream.range(0, row.size())
                  .mapToObj(row::getColumnName)
-                 .map(this::lookupField)
+                 .map(lookupField)
                  .filter(Objects::nonNull)
                  .forEach(f -> record.set((Field<Object>) f, row.get(f.getType(), f.getName())));
         return record;

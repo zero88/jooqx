@@ -17,30 +17,33 @@ import io.vertx.ext.sql.ResultSet;
 
 import lombok.NonNull;
 
-public class LegacyResultSetConverter<T extends TableLike<? extends Record>>
-    extends AbstractResultSetConverter<ResultSet, T>
-    implements ResultSetConverter<ResultSet, T>, ResultBatchConverter<ResultSet, T> {
+public class LegacyResultSetConverter extends AbstractResultSetConverter<ResultSet>
+    implements ResultSetConverter<ResultSet>, ResultBatchConverter<ResultSet> {
 
-    public LegacyResultSetConverter(@NonNull T table) {
-        super(table);
-    }
-
-    protected <R> List<R> doConvert(ResultSet resultSet, @NonNull Function<VertxJooqRecord<?>, R> mapper) {
-        final Map<Integer, Field<?>> map = getColumnMap(resultSet);
-        return resultSet.getResults().stream().map(row -> toRecord(map, row)).map(mapper).collect(Collectors.toList());
+    protected <T extends TableLike<? extends Record>, R> List<R> doConvert(ResultSet resultSet, T table,
+                                                                           @NonNull Function<VertxJooqRecord<?>, R> mapper) {
+        final Map<String, Field<?>> fieldMap = table.fieldStream()
+                                                    .collect(Collectors.toMap(Field::getName, Function.identity()));
+        final Map<Integer, Field<?>> map = getColumnMap(resultSet, fieldMap::get);
+        return resultSet.getResults()
+                        .stream()
+                        .map(row -> toRecord(table, map, row))
+                        .map(mapper)
+                        .collect(Collectors.toList());
     }
 
     @SuppressWarnings( {"unchecked", "rawtypes"})
-    private VertxJooqRecord<?> toRecord(Map<Integer, Field<?>> map, JsonArray row) {
-        VertxJooqRecord<?> record = VertxJooqRecord.create((Table<VertxJooqRecord>) table());
+    private <T extends TableLike<? extends Record>> VertxJooqRecord<?> toRecord(T table, Map<Integer, Field<?>> map,
+                                                                                JsonArray row) {
+        VertxJooqRecord<?> record = VertxJooqRecord.create((Table<VertxJooqRecord>) table);
         map.forEach((k, v) -> record.set((Field<Object>) v, v.getType().cast(row.getValue(k))));
         return record;
     }
 
-    private Map<Integer, Field<?>> getColumnMap(ResultSet resultSet) {
+    private Map<Integer, Field<?>> getColumnMap(ResultSet resultSet, Function<String, Field<?>> lookupField) {
         return IntStream.range(0, resultSet.getNumColumns())
                         .boxed()
-                        .collect(Collectors.toMap(i -> i, i -> lookupField(resultSet.getColumnNames().get(i))));
+                        .collect(Collectors.toMap(i -> i, i -> lookupField.apply(resultSet.getColumnNames().get(i))));
     }
 
 }

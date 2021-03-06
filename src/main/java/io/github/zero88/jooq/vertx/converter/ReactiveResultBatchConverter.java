@@ -14,22 +14,19 @@ import io.vertx.sqlclient.RowSet;
 import lombok.NonNull;
 
 /**
- * @param <T> Type of jOOQ Table
  * @see Record
  * @see TableLike
  */
-public class ReactiveResultBatchConverter<T extends TableLike<? extends Record>> extends ReactiveResultSetConverter<T>
-    implements ResultBatchConverter<RowSet<Row>, T> {
-
-    public ReactiveResultBatchConverter(@NonNull T table) {
-        super(table);
-    }
+public class ReactiveResultBatchConverter extends ReactiveResultSetConverter
+    implements ResultBatchConverter<RowSet<Row>> {
 
     @Override
-    protected <R> List<R> doConvert(@NonNull RowSet<Row> resultSet, @NonNull Function<VertxJooqRecord<?>, R> mapper) {
+    protected <T extends TableLike<? extends Record>, R> List<R> doConvert(@NonNull RowSet<Row> resultSet,
+                                                                           @NonNull T table,
+                                                                           @NonNull Function<VertxJooqRecord<?>, R> mapper) {
         final List<R> records = new ArrayList<>();
         while (resultSet != null) {
-            final List<R> rs = super.doConvert(resultSet, mapper);
+            final List<R> rs = super.doConvert(resultSet, table, mapper);
             if (!rs.isEmpty()) {
                 records.add(rs.get(0));
             }

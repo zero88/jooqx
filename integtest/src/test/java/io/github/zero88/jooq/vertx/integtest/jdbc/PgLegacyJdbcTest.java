@@ -12,14 +12,14 @@ import org.junit.jupiter.api.Test;
 import io.github.zero88.jooq.vertx.BaseVertxLegacyJdbcSql;
 import io.github.zero88.jooq.vertx.BindBatchValues;
 import io.github.zero88.jooq.vertx.PostgreSQLTest.PostgreSQLJdbcTest;
+import io.github.zero88.jooq.vertx.VertxJooqRecord;
 import io.github.zero88.jooq.vertx.VertxLegacyJdbcExecutor;
+import io.github.zero88.jooq.vertx.adapter.ListResultAdapter;
 import io.github.zero88.jooq.vertx.converter.LegacyResultSetConverter;
 import io.github.zero88.jooq.vertx.integtest.PostgreSQLHelper;
 import io.github.zero88.jooq.vertx.integtest.pgsql.DefaultCatalog;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.Books;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.records.BooksRecord;
-import io.github.zero88.jooq.vertx.adapter.ListResultAdapter;
-import io.github.zero88.jooq.vertx.VertxJooqRecord;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.junit5.Checkpoint;
@@ -39,7 +39,7 @@ class PgLegacyJdbcTest extends BaseVertxLegacyJdbcSql<DefaultCatalog> implements
         final Checkpoint flag = ctx.checkpoint();
         final Books table = catalog().PUBLIC.BOOKS;
         executor.execute(executor.dsl().selectFrom(table),
-                         ListResultAdapter.create(new LegacyResultSetConverter<>(table), table),
+                         ListResultAdapter.create(table, new LegacyResultSetConverter(), table),
                          ar -> assertRsSize(ctx, flag, ar, 7));
     }
 
@@ -56,7 +56,7 @@ class PgLegacyJdbcTest extends BaseVertxLegacyJdbcSql<DefaultCatalog> implements
                                                              .insertInto(table, table.ID, table.TITLE)
                                                              .values(Arrays.asList(DSL.defaultValue(table.ID), "abc"))
                                                              .returning(table.ID);
-        executor.execute(insert, ListResultAdapter.create(new LegacyResultSetConverter<>(table)), ar -> {
+        executor.execute(insert, ListResultAdapter.createVertxRecord(table, new LegacyResultSetConverter()), ar -> {
             final List<VertxJooqRecord<?>> records = assertRsSize(ctx, flag, ar, 1);
             ctx.verify(() -> Assertions.assertEquals(new JsonObject().put("id", 8).put("title", null),
                                                      records.get(0).toJson()));
@@ -90,7 +90,7 @@ class PgLegacyJdbcTest extends BaseVertxLegacyJdbcSql<DefaultCatalog> implements
             }
         });
         executor.execute(executor.dsl().selectFrom(table),
-                         ListResultAdapter.create(new LegacyResultSetConverter<>(table)), ar -> {
+                         ListResultAdapter.createVertxRecord(table, new LegacyResultSetConverter()), ar -> {
                 if (ar.succeeded()) {
                     final List<VertxJooqRecord<?>> records = assertRsSize(ctx, flag, ar, 10);
                     ctx.verify(() -> {

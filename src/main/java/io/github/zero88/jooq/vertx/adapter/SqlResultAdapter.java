@@ -13,8 +13,17 @@ import lombok.NonNull;
  * @param <RS> Type of Vertx Result set
  * @param <T>  Type of jOOQ Table
  * @param <R>  Type of an expectation result
+ * @since 1.0.0
  */
 public interface SqlResultAdapter<RS, T extends TableLike<? extends Record>, R> {
+
+    /**
+     * A current context holder
+     *
+     * @return jOOQ table
+     * @see TableLike
+     */
+    T table();
 
     /**
      * Declares Result set converter
@@ -22,7 +31,7 @@ public interface SqlResultAdapter<RS, T extends TableLike<? extends Record>, R> 
      * @return converter
      * @see ResultSetConverter
      */
-    @NonNull ResultSetConverter<RS, T> converter();
+    @NonNull ResultSetConverter<RS> converter();
 
     /**
      * Convert result set to expected result

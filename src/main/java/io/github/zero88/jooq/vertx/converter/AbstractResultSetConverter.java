@@ -2,10 +2,8 @@ package io.github.zero88.jooq.vertx.converter;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 
 import org.jooq.Field;
 import org.jooq.Record;
@@ -14,56 +12,51 @@ import org.jooq.TableLike;
 
 import io.github.zero88.jooq.vertx.VertxJooqRecord;
 
-import lombok.Getter;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.experimental.Accessors;
 
-public abstract class AbstractResultSetConverter<RS, T extends TableLike<? extends Record>>
-    implements ResultSetConverter<RS, T> {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public abstract class AbstractResultSetConverter<RS> implements ResultSetConverter<RS> {
 
-    @NonNull
-    @Getter
-    @Accessors(fluent = true)
-    private final T table;
-    @NonNull
-    private final Map<String, Field<?>> fieldMap;
-
-    protected AbstractResultSetConverter(@NonNull T table) {
-        this.table = table;
-        this.fieldMap = table.fieldStream().collect(Collectors.toMap(Field::getName, Function.identity()));
+    @Override
+    public <T extends TableLike<? extends Record>> List<VertxJooqRecord<?>> convertVertxRecord(@NonNull RS resultSet,
+                                                                                               T table) {
+        return doConvert(resultSet, table, Function.identity());
     }
 
     @Override
-    public Field<?> lookupField(String field) {
-        return fieldMap.get(field);
+    public <T extends Table<? extends Record>, R extends Record> List<R> convert(@NonNull RS resultSet,
+                                                                                 @NonNull T table) {
+        return doConvert(resultSet, table, r -> (R) r.into(table));
     }
 
     @Override
-    public List<VertxJooqRecord<?>> convert(@NonNull RS resultSet) {
-        return doConvert(resultSet, Function.identity());
-    }
-
-    @Override
-    public <R> List<R> convert(@NonNull RS resultSet, @NonNull Class<R> recordClass) {
-        return doConvert(resultSet, r -> r.into(recordClass));
+    public <T extends TableLike<? extends Record>, R> List<R> convert(@NonNull RS resultSet, T table,
+                                                                      @NonNull Class<R> recordClass) {
+        return doConvert(resultSet, table, r -> r.into(recordClass));
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public <R extends Record> List<R> convert(@NonNull RS resultSet, @NonNull R record) {
-        return doConvert(resultSet, r -> (R) r.into(record.fields()));
+    public <T extends TableLike<? extends Record>, R extends Record> List<R> convert(@NonNull RS resultSet, T table,
+                                                                                     @NonNull R record) {
+        return doConvert(resultSet, table, r -> (R) r.into(record.fields()));
     }
 
     @Override
-    public <R extends Record> List<R> convert(@NonNull RS resultSet, @NonNull Table<R> table) {
-        return doConvert(resultSet, r -> r.into(table));
+    public <T extends TableLike<? extends Record>, R extends Record> List<R> convert(@NonNull RS resultSet, T table,
+                                                                                     @NonNull Table<R> toTable) {
+        return doConvert(resultSet, table, r -> r.into(toTable));
     }
 
     @Override
-    public List<Record> convert(@NonNull RS resultSet, @NonNull Collection<Field<?>> fields) {
-        return doConvert(resultSet, r -> r.into(fields.stream().filter(Objects::nonNull).toArray(Field[]::new)));
+    public <T extends TableLike<? extends Record>> List<Record> convert(@NonNull RS resultSet, T table,
+                                                                        @NonNull Collection<Field<?>> fields) {
+        return doConvert(resultSet, table, r -> r.into(fields.stream().filter(Objects::nonNull).toArray(Field[]::new)));
     }
 
-    protected abstract <R> List<R> doConvert(@NonNull RS resultSet, @NonNull Function<VertxJooqRecord<?>, R> mapper);
+    protected abstract <T extends TableLike<? extends Record>, R> List<R> doConvert(@NonNull RS resultSet, T table,
+                                                                                    @NonNull Function<VertxJooqRecord<?>, R> mapper);
 
 }
