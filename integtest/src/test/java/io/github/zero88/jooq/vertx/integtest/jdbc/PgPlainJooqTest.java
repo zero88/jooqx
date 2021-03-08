@@ -11,7 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import io.github.zero88.jooq.vertx.BaseVertxLegacyJdbcSql;
-import io.github.zero88.jooq.vertx.PostgreSQLTest.PostgreSQLJdbcTest;
+import io.github.zero88.jooq.vertx.spi.PostgreSQLTest.PostgreSQLJdbcTest;
 import io.github.zero88.jooq.vertx.integtest.PostgreSQLHelper;
 import io.github.zero88.jooq.vertx.integtest.pgsql.DefaultCatalog;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.Authors;

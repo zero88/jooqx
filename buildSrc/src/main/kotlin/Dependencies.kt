@@ -61,6 +61,8 @@ object VertxLibs {
     const val jdbc = "io.vertx:vertx-jdbc-client:${Version.vertx}"
     const val pgsql = "io.vertx:vertx-pg-client:${Version.vertx}"
     const val mysql = "io.vertx:vertx-mysql-client:${Version.vertx}"
+    const val db2 = "io.vertx:vertx-db2-client:${Version.vertx}"
+    const val mssql = "io.vertx:vertx-mssql-client:${Version.vertx}"
 
 }
 
@@ -118,11 +120,13 @@ object DatabaseLibs {
 object ZeroLibs {
     object Version {
 
+        const val utils = "1.0.1"
         const val rSql = "0.9.0"
         const val plugin = "1.0.0"
     }
 
     const val rql_jooq = "io.github.zero88:rql-jooq:${Version.rSql}"
+    const val utils = "io.github.zero88:java-utils:${Version.utils}"
 
     object Plugins {
 

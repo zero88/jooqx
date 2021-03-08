@@ -1,7 +1,9 @@
-package io.github.zero88.jooq.vertx;
+package io.github.zero88.jooq.vertx.spi;
 
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.utility.DockerImageName;
+
+import io.github.zero88.jooq.vertx.DBContainerProvider;
 
 public interface MySQLTest {
 

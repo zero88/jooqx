@@ -6,4 +6,10 @@ public interface JooqExecutorCreation<S, P, R, E extends VertxJooqExecutor<S, P,
 
     E createExecutor(Vertx vertx, JooqSql<?> jooq);
 
+    QueryHelper<P> createQueryHelper();
+
+    default SqlErrorMaker<? extends Throwable, ? extends RuntimeException> createErrorMaker() {
+        return SqlErrorMaker.DEFAULT;
+    }
+
 }

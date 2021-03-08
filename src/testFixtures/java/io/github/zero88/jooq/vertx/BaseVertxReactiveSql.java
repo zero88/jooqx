@@ -5,6 +5,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
 import io.github.zero88.jooq.vertx.ConnectionProvider.ReactiveSqlTest;
+import io.github.zero88.jooq.vertx.converter.ReactiveBindParamConverter;
 import io.vertx.core.Vertx;
 import io.vertx.junit5.VertxTestContext;
 import io.vertx.sqlclient.Row;
@@ -39,7 +40,14 @@ public abstract class BaseVertxReactiveSql<T extends Catalog>
                                        .vertx(vertx)
                                        .dsl(jooq.dsl(jooq.dialect()))
                                        .sqlClient(sqlClient())
+                                       .helper(createQueryHelper())
+                                       .errorMaker(createErrorMaker())
                                        .build();
+    }
+
+    @Override
+    public QueryHelper<Tuple> createQueryHelper() {
+        return new QueryHelper<>(new ReactiveBindParamConverter());
     }
 
 }

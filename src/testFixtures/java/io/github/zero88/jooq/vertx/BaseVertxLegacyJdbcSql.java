@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.slf4j.LoggerFactory;
 
 import io.github.zero88.jooq.vertx.ConnectionProvider.LegacyJdbcSqlTest;
+import io.github.zero88.jooq.vertx.converter.LegacyBindParamConverter;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonArray;
 import io.vertx.ext.sql.ResultSet;
@@ -54,7 +55,14 @@ public abstract class BaseVertxLegacyJdbcSql<T extends Catalog>
                                       .vertx(vertx)
                                       .dsl(jooq.dsl(jooq.dialect()))
                                       .sqlClient(sqlClient())
+                                      .helper(createQueryHelper())
+                                      .errorMaker(createErrorMaker())
                                       .build();
+    }
+
+    @Override
+    public QueryHelper<JsonArray> createQueryHelper() {
+        return new QueryHelper<>(new LegacyBindParamConverter());
     }
 
 }

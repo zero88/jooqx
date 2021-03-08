@@ -21,7 +21,7 @@ import io.github.zero88.jooq.vertx.BaseVertxReactiveSql;
 import io.github.zero88.jooq.vertx.BatchResult;
 import io.github.zero88.jooq.vertx.BatchReturningResult;
 import io.github.zero88.jooq.vertx.BindBatchValues;
-import io.github.zero88.jooq.vertx.PostgreSQLTest.PostgreSQLReactiveTest;
+import io.github.zero88.jooq.vertx.spi.PostgreSQLTest.PostgreSQLReactiveTest;
 import io.github.zero88.jooq.vertx.VertxJooqRecord;
 import io.github.zero88.jooq.vertx.adapter.ListResultAdapter;
 import io.github.zero88.jooq.vertx.converter.ReactiveResultBatchConverter;
@@ -43,7 +43,7 @@ import io.vertx.junit5.VertxTestContext;
  * If using v4.0.0, pretty sure thread leak, but v4.0.2 is already fixed
  * <a href="vertx-sql-client#909">https://github.com/eclipse-vertx/vertx-sql-client/issues/909</a>
  */
-class PgJooqTest extends BaseVertxReactiveSql<DefaultCatalog> implements PostgreSQLReactiveTest, PostgreSQLHelper {
+class PgJooqSuccessTest extends BaseVertxReactiveSql<DefaultCatalog> implements PostgreSQLReactiveTest, PostgreSQLHelper {
 
     @Override
     @BeforeEach
@@ -230,26 +230,6 @@ class PgJooqTest extends BaseVertxReactiveSql<DefaultCatalog> implements Postgre
         executor.execute(executor.dsl().selectFrom(table),
                          ListResultAdapter.createVertxRecord(table, new ReactiveResultSetConverter()),
                          ar -> assertRsSize(ctx, flag, ar, 10));
-    }
-
-    @Test
-    void test_insert_failed(VertxTestContext ctx) {
-        final Checkpoint flag = ctx.checkpoint();
-        final io.github.zero88.jooq.vertx.integtest.pgsql.tables.Books table = catalog().PUBLIC.BOOKS;
-        final InsertResultStep<BooksRecord> insert = executor.dsl()
-                                                             .insertInto(table, table.ID, table.TITLE)
-                                                             .values(1, "abc")
-                                                             .returning(table.ID);
-        executor.execute(insert, ListResultAdapter.create(table, new ReactiveResultSetConverter(),
-                                                          Collections.singletonList(table.ID)), ar -> {
-            ctx.verify(() -> {
-                Assertions.assertTrue(ar.failed());
-                ar.cause().printStackTrace();
-                Assertions.assertTrue(ar.cause() instanceof DataAccessException);
-                System.out.println(((DataAccessException) ar.cause()).sqlStateClass());
-            });
-            flag.flag();
-        });
     }
 
 }

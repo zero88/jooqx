@@ -11,7 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import io.github.zero88.jooq.vertx.BaseVertxLegacyJdbcSql;
 import io.github.zero88.jooq.vertx.BindBatchValues;
-import io.github.zero88.jooq.vertx.PostgreSQLTest.PostgreSQLJdbcTest;
+import io.github.zero88.jooq.vertx.spi.PostgreSQLTest.PostgreSQLJdbcTest;
 import io.github.zero88.jooq.vertx.VertxJooqRecord;
 import io.github.zero88.jooq.vertx.VertxLegacyJdbcExecutor;
 import io.github.zero88.jooq.vertx.adapter.ListResultAdapter;

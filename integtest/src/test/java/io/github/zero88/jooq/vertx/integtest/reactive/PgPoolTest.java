@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import io.github.zero88.jooq.vertx.BaseVertxReactiveSql;
-import io.github.zero88.jooq.vertx.PostgreSQLTest.PostgreSQLReactiveTest;
+import io.github.zero88.jooq.vertx.spi.PostgreSQLTest.PostgreSQLReactiveTest;
 import io.github.zero88.jooq.vertx.integtest.PostgreSQLHelper;
 import io.github.zero88.jooq.vertx.integtest.pgsql.DefaultCatalog;
 import io.github.zero88.utils.Strings;

@@ -1,4 +1,4 @@
-package io.github.zero88.jooq.vertx;
+package io.github.zero88.jooq.vertx.spi;
 
 import java.util.concurrent.TimeUnit;
 
@@ -6,6 +6,8 @@ import org.testcontainers.containers.JdbcDatabaseContainer;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
+import io.github.zero88.jooq.vertx.ConnectionProvider;
+import io.github.zero88.jooq.vertx.DBContainerProvider;
 import io.vertx.core.Vertx;
 import io.vertx.ext.sql.SQLClient;
 import io.vertx.junit5.Checkpoint;

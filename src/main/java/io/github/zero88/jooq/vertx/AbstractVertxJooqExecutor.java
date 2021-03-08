@@ -21,8 +21,8 @@ public abstract class AbstractVertxJooqExecutor<S, P, RS> implements VertxJooqEx
     private final DSLContext dsl;
     @NonNull
     private final S sqlClient;
-    @NonNull
     @Default
-    private final ErrorHandler<RuntimeException> errorHandler = new ErrorHandler<>();
+    @NonNull
+    private final SqlErrorMaker<? extends Throwable, ? extends RuntimeException> errorMaker = SqlErrorMaker.DEFAULT;
 
 }

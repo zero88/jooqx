@@ -20,19 +20,51 @@ import lombok.NonNull;
  * @param <S>  Type of Vertx SQL client. Might be {@link SqlClient} or {@link SQLClient}
  * @param <P>  Type of Vertx SQL bind value holder
  * @param <RS> Type of Vertx SQL Result set holder
+ * @see VertxLegacyJdbcExecutor
+ * @see VertxReactiveSqlExecutor
+ * @see VertxBatchExecutor
  * @since 1.0.0
  */
 public interface VertxJooqExecutor<S, P, RS> extends VertxBatchExecutor {
 
+    /**
+     * Vertx
+     *
+     * @return vertx
+     */
     @NonNull Vertx vertx();
 
+    /**
+     * Define jOOQ DSL context
+     *
+     * @return DSL context
+     * @see DSLContext
+     */
     @NonNull DSLContext dsl();
 
+    /**
+     * Defines sql client
+     *
+     * @return sql client
+     */
     @NonNull S sqlClient();
 
+    /**
+     * Defines query helper
+     *
+     * @return query helper
+     */
     @NonNull QueryHelper<P> helper();
 
-    @NonNull ErrorHandler errorHandler();
+    /**
+     * Defines an error maker that rethrows an uniform exception by {@link SqlErrorMaker#reThrowError(Throwable)}
+     * if any error in execution time
+     *
+     * @return error handler
+     * @apiNote Default is {@link SqlErrorMaker#DEFAULT}
+     * @see SqlErrorMaker
+     */
+    @NonNull SqlErrorMaker<? extends Throwable, ? extends RuntimeException> errorMaker();
 
     /**
      * Execute {@code jOOQ query} then return async result
