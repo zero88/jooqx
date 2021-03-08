@@ -8,14 +8,9 @@ import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import javax.sql.DataSource;
 
 import org.jooq.Catalog;
 import org.jooq.DSLContext;
-import org.jooq.SQLDialect;
-import org.jooq.impl.DSL;
-import org.jooq.impl.DefaultConfiguration;
-import org.testcontainers.containers.JdbcDatabaseContainer;
 
 import io.vertx.junit5.VertxTestContext;
 
@@ -24,30 +19,21 @@ import com.zaxxer.hikari.HikariDataSource;
 
 import lombok.NonNull;
 
-public interface JooqSql<T extends Catalog> extends HasJooqDialect {
+public interface JooqSql<T extends Catalog> extends JooqDSLProvider, HasDSLProvider {
 
     T catalog();
 
-    default DSLContext dsl(SQLDialect dialect) {
-        return DSL.using(new DefaultConfiguration().set(dialect));
+    @Override
+    default JooqDSLProvider dslProvider() {
+        return this;
     }
 
-    default DSLContext dsl(DataSource dataSource, SQLDialect dialect) {
-        return DSL.using(new DefaultConfiguration().derive(dialect).derive(dataSource));
-    }
-
-    default HikariDataSource createDataSource(JdbcDatabaseContainer<?> server) {
-        //        final JsonObject config = new JsonObject().put("provider_class", HikariCPDataSourceProvider.class
-        //        .getName())
-        //                                                  .put("driverClassName", server.getDriverClassName())
-        //                                                  .put("jdbcUrl", server.getJdbcUrl())
-        //                                                  .put("username", server.getUsername())
-        //                                                  .put("password", server.getPassword());
+    default HikariDataSource createDataSource(SqlConnectionOption option) {
         HikariConfig hikariConfig = new HikariConfig();
-        hikariConfig.setJdbcUrl(server.getJdbcUrl());
-        hikariConfig.setUsername(server.getUsername());
-        hikariConfig.setPassword(server.getPassword());
-        hikariConfig.setDriverClassName(server.getDriverClassName());
+        hikariConfig.setJdbcUrl(option.getJdbcUrl());
+        hikariConfig.setUsername(option.getUsername());
+        hikariConfig.setPassword(option.getPassword());
+        hikariConfig.setDriverClassName(option.getDriverClassName());
         return new HikariDataSource(hikariConfig);
     }
 

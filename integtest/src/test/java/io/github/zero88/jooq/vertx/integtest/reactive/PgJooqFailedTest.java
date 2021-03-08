@@ -9,28 +9,25 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import io.github.zero88.jooq.vertx.BaseVertxReactiveSql;
 import io.github.zero88.jooq.vertx.SqlErrorMaker;
 import io.github.zero88.jooq.vertx.adapter.ListResultAdapter;
 import io.github.zero88.jooq.vertx.converter.ReactiveResultSetConverter;
 import io.github.zero88.jooq.vertx.integtest.PostgreSQLHelper;
-import io.github.zero88.jooq.vertx.integtest.pgsql.DefaultCatalog;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.records.BooksRecord;
 import io.github.zero88.jooq.vertx.spi.PgErrorMaker;
-import io.github.zero88.jooq.vertx.spi.PostgreSQLTest.PostgreSQLReactiveTest;
+import io.github.zero88.jooq.vertx.spi.PostgreSQLReactiveTest.AbstractPostgreSQLReactiveTest;
 import io.vertx.core.Vertx;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 import io.vertx.pgclient.PgException;
 
-public class PgJooqFailedTest extends BaseVertxReactiveSql<DefaultCatalog>
-    implements PostgreSQLReactiveTest, PostgreSQLHelper {
+class PgJooqFailedTest extends AbstractPostgreSQLReactiveTest implements PostgreSQLHelper {
 
     @Override
     @BeforeEach
     public void tearUp(Vertx vertx, VertxTestContext ctx) {
         super.tearUp(vertx, ctx);
-        this.prepareDatabase(ctx, this, server);
+        this.prepareDatabase(ctx, this, connOpt);
     }
 
     @Override

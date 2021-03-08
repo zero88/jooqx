@@ -14,6 +14,7 @@ dependencies {
 
     testImplementation(testFixtures(rootProject))
     testImplementation(DatabaseLibs.agroalApi)
+    testImplementation(DatabaseLibs.agroalPool)
     testImplementation(DatabaseLibs.hikari)
     testImplementation(DatabaseLibs.jooqMeta)
 

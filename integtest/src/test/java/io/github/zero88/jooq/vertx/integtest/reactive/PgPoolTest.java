@@ -3,17 +3,20 @@ package io.github.zero88.jooq.vertx.integtest.reactive;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import io.github.zero88.jooq.vertx.BaseVertxReactiveSql;
-import io.github.zero88.jooq.vertx.spi.PostgreSQLTest.PostgreSQLReactiveTest;
 import io.github.zero88.jooq.vertx.integtest.PostgreSQLHelper;
-import io.github.zero88.jooq.vertx.integtest.pgsql.DefaultCatalog;
+import io.github.zero88.jooq.vertx.spi.PostgreSQLReactiveTest.AbstractPostgreSQLReactiveTest;
 import io.github.zero88.utils.Strings;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.RowSet;
 
-class PgPoolTest extends BaseVertxReactiveSql<DefaultCatalog> implements PostgreSQLReactiveTest, PostgreSQLHelper {
+class PgPoolTest extends AbstractPostgreSQLReactiveTest implements PostgreSQLHelper {
+
+    @Override
+    public boolean usePool() {
+        return true;
+    }
 
     @Test
     void test(VertxTestContext ctx) {
@@ -36,11 +39,6 @@ class PgPoolTest extends BaseVertxReactiveSql<DefaultCatalog> implements Postgre
                 flag.flag();
             }
         });
-    }
-
-    @Override
-    public boolean usePool() {
-        return true;
     }
 
 }
