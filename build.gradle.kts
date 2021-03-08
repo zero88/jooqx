@@ -69,9 +69,13 @@ dependencies {
     api(LogLibs.slf4j)
     api(VertxLibs.core)
     api(DatabaseLibs.jooq)
-    api(ZeroLibs.rql_jooq)
+//    api(ZeroLibs.rql_jooq)
     compileOnly(VertxLibs.sqlClient)
     compileOnly(VertxLibs.jdbc)
+    compileOnly(VertxLibs.pgsql)
+    compileOnly(VertxLibs.mysql)
+    compileOnly(VertxLibs.mssql)
+    compileOnly(VertxLibs.db2)
 
     testFixturesApi(LogLibs.logback)
     testFixturesApi(TestLibs.junit5Api)
@@ -79,18 +83,20 @@ dependencies {
     testFixturesApi(TestLibs.junit5Params)
     testFixturesApi(VertxLibs.junit5)
     testFixturesApi(TestContainers.junit5)
+    testFixturesApi(ZeroLibs.utils)
 
     testFixturesCompileOnly(UtilLibs.lombok)
     testFixturesAnnotationProcessor(UtilLibs.lombok)
 
     testFixturesImplementation(VertxLibs.jdbc)
-    testFixturesImplementation(VertxLibs.mysql)
-    testFixturesImplementation(VertxLibs.pgsql)
     testFixturesImplementation(DatabaseLibs.h2)
-    testFixturesImplementation(DatabaseLibs.pgsql)
-    testFixturesImplementation(DatabaseLibs.mysql)
 
+    testFixturesImplementation(VertxLibs.pgsql)
+    testFixturesImplementation(DatabaseLibs.pgsql)
     testFixturesImplementation(TestContainers.pgsql)
+
+    testFixturesImplementation(VertxLibs.mysql)
+    testFixturesImplementation(DatabaseLibs.mysql)
     testFixturesImplementation(TestContainers.mysql)
 
     testFixturesImplementation(DatabaseLibs.agroalApi)

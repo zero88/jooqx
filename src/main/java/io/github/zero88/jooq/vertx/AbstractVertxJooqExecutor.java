@@ -4,6 +4,7 @@ import org.jooq.DSLContext;
 
 import io.vertx.core.Vertx;
 
+import lombok.Builder.Default;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.Accessors;
@@ -20,5 +21,8 @@ public abstract class AbstractVertxJooqExecutor<S, P, RS> implements VertxJooqEx
     private final DSLContext dsl;
     @NonNull
     private final S sqlClient;
+    @Default
+    @NonNull
+    private final SqlErrorMaker<? extends Throwable, ? extends RuntimeException> errorMaker = SqlErrorMaker.DEFAULT;
 
 }

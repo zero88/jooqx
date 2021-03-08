@@ -1,7 +1,5 @@
 package io.github.zero88.jooq.vertx;
 
-import java.util.List;
-
 import org.jooq.Query;
 import org.jooq.TableLike;
 
@@ -47,8 +45,10 @@ public final class VertxReactiveSqlExecutor extends AbstractVertxJooqExecutor<Sq
     public <Q extends Query, T extends TableLike<?>, C extends ResultSetConverter<RowSet<Row>>, R> void execute(
         @NonNull Q query, @NonNull SqlResultAdapter<RowSet<Row>, C, T, R> resultMapper,
         @NonNull Handler<AsyncResult<R>> handler) {
-        sqlClient().preparedQuery(helper().toPreparedQuery(dsl().configuration(), query))
-                   .execute(helper().toBindValues(query), ar -> handler.handle(ar.map(resultMapper::convert)));
+        this.sqlClient()
+            .preparedQuery(helper().toPreparedQuery(dsl().configuration(), query))
+            .execute(helper().toBindValues(query),
+                     ar -> handler.handle(ar.map(resultMapper::convert).otherwise(errorMaker()::reThrowError)));
     }
 
     @Override
@@ -57,7 +57,8 @@ public final class VertxReactiveSqlExecutor extends AbstractVertxJooqExecutor<Sq
         sqlClient().preparedQuery(helper().toPreparedQuery(dsl().configuration(), query))
                    .executeBatch(helper().toBindValues(query, bindBatchValues), ar -> handler.handle(
                        ar.map(r -> new ReactiveResultBatchConverter().count(r))
-                         .map(s -> new BatchResult(bindBatchValues.size(), s))));
+                         .map(s -> new BatchResult(bindBatchValues.size(), s))
+                         .otherwise(errorMaker()::reThrowError)));
     }
 
     @Override
@@ -65,10 +66,11 @@ public final class VertxReactiveSqlExecutor extends AbstractVertxJooqExecutor<Sq
         @NonNull Q query, @NonNull BindBatchValues bindBatchValues,
         @NonNull ListResultAdapter<RowSet<Row>, C, T, R> adapter,
         @NonNull Handler<AsyncResult<BatchReturningResult<R>>> handler) {
-        final List<Tuple> args = helper().toBindValues(query, bindBatchValues);
         sqlClient().preparedQuery(helper().toPreparedQuery(dsl().configuration(), query))
-                   .executeBatch(args, ar -> handler.handle(
-                       ar.map(adapter::convert).map(rs -> new BatchReturningResult<>(bindBatchValues.size(), rs))));
+                   .executeBatch(helper().toBindValues(query, bindBatchValues), ar -> handler.handle(
+                       ar.map(adapter::convert)
+                         .map(rs -> new BatchReturningResult<>(bindBatchValues.size(), rs))
+                         .otherwise(errorMaker()::reThrowError)));
     }
 
 }

@@ -14,14 +14,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Query helper
+ * Query helper wraps a bind param converter and supports some default prepare statement methods
  *
  * @param <T> Type of SQL bind value holder
+ * @see BindParamConverter
  * @since 1.0.0
  */
 @Slf4j
 @RequiredArgsConstructor
-public class QueryHelper<T> {
+public final class QueryHelper<T> {
 
     public static final String NAMED_PARAM_PATTERN = "(?<!:):(?!:)";
 

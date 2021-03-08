@@ -16,21 +16,19 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import io.github.zero88.jooq.vertx.BaseVertxReactiveSql;
 import io.github.zero88.jooq.vertx.BatchResult;
 import io.github.zero88.jooq.vertx.BatchReturningResult;
 import io.github.zero88.jooq.vertx.BindBatchValues;
-import io.github.zero88.jooq.vertx.PostgreSQLTest.PostgreSQLReactiveTest;
 import io.github.zero88.jooq.vertx.VertxJooqRecord;
 import io.github.zero88.jooq.vertx.adapter.ListResultAdapter;
 import io.github.zero88.jooq.vertx.converter.ReactiveResultBatchConverter;
 import io.github.zero88.jooq.vertx.converter.ReactiveResultSetConverter;
 import io.github.zero88.jooq.vertx.integtest.PostgreSQLHelper;
-import io.github.zero88.jooq.vertx.integtest.pgsql.DefaultCatalog;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.pojos.Authors;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.pojos.Books;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.records.AuthorsRecord;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.records.BooksRecord;
+import io.github.zero88.jooq.vertx.spi.PostgreSQLReactiveTest.AbstractPostgreSQLReactiveTest;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
@@ -42,13 +40,13 @@ import io.vertx.junit5.VertxTestContext;
  * If using v4.0.0, pretty sure thread leak, but v4.0.2 is already fixed
  * <a href="vertx-sql-client#909">https://github.com/eclipse-vertx/vertx-sql-client/issues/909</a>
  */
-class PgJooqTest extends BaseVertxReactiveSql<DefaultCatalog> implements PostgreSQLReactiveTest, PostgreSQLHelper {
+class PgJooqSuccessTest extends AbstractPostgreSQLReactiveTest implements PostgreSQLHelper {
 
     @Override
     @BeforeEach
     public void tearUp(Vertx vertx, VertxTestContext ctx) {
         super.tearUp(vertx, ctx);
-        this.prepareDatabase(ctx, this, server);
+        this.prepareDatabase(ctx, this, connOpt);
     }
 
     @Test

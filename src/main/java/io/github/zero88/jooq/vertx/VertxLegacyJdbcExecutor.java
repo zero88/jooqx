@@ -1,7 +1,5 @@
 package io.github.zero88.jooq.vertx;
 
-import java.util.List;
-
 import org.jooq.Query;
 import org.jooq.TableLike;
 import org.jooq.conf.ParamType;
@@ -46,7 +44,8 @@ public final class VertxLegacyJdbcExecutor extends AbstractVertxJooqExecutor<SQL
         @NonNull Q query, @NonNull SqlResultAdapter<ResultSet, C, T, R> resultMapper,
         @NonNull Handler<AsyncResult<R>> handler) {
         sqlClient().queryWithParams(helper().toPreparedQuery(dsl().configuration(), query, ParamType.INDEXED),
-                                    helper().toBindValues(query), ar -> handler.handle(ar.map(resultMapper::convert)));
+                                    helper().toBindValues(query), ar -> handler.handle(
+                ar.map(resultMapper::convert).otherwise(errorMaker()::reThrowError)));
     }
 
     @Override
@@ -56,12 +55,12 @@ public final class VertxLegacyJdbcExecutor extends AbstractVertxJooqExecutor<SQL
             if (arc.failed()) {
                 throw new IllegalStateException("Unable open SQL connection", arc.cause());
             }
-            final List<JsonArray> args = helper().toBindValues(query, bindBatchValues);
-            final int total = bindBatchValues.size();
             arc.result()
-               .batchWithParams(helper().toPreparedQuery(dsl().configuration(), query, ParamType.INDEXED), args,
-                                ar -> handler.handle(ar.map(r -> new LegacyResultSetConverter().count(r))
-                                                       .map(s -> new BatchResult(total, s))));
+               .batchWithParams(helper().toPreparedQuery(dsl().configuration(), query, ParamType.INDEXED),
+                                helper().toBindValues(query, bindBatchValues), ar -> handler.handle(
+                       ar.map(r -> new LegacyResultSetConverter().count(r))
+                         .map(s -> new BatchResult(bindBatchValues.size(), s))
+                         .otherwise(errorMaker()::reThrowError)));
         });
     }
 

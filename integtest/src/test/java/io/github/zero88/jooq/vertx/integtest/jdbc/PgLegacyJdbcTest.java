@@ -8,30 +8,30 @@ import org.jooq.impl.DSL;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.testcontainers.containers.PostgreSQLContainer;
 
-import io.github.zero88.jooq.vertx.BaseVertxLegacyJdbcSql;
+import io.github.zero88.jooq.vertx.BaseLegacySqlTest.AbstractLegacyDBCTest;
 import io.github.zero88.jooq.vertx.BindBatchValues;
-import io.github.zero88.jooq.vertx.PostgreSQLTest.PostgreSQLJdbcTest;
 import io.github.zero88.jooq.vertx.VertxJooqRecord;
-import io.github.zero88.jooq.vertx.VertxLegacyJdbcExecutor;
 import io.github.zero88.jooq.vertx.adapter.ListResultAdapter;
 import io.github.zero88.jooq.vertx.converter.LegacyResultSetConverter;
 import io.github.zero88.jooq.vertx.integtest.PostgreSQLHelper;
-import io.github.zero88.jooq.vertx.integtest.pgsql.DefaultCatalog;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.Books;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.records.BooksRecord;
+import io.github.zero88.jooq.vertx.spi.PostgreSQLJdbcTest;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 
-class PgLegacyJdbcTest extends BaseVertxLegacyJdbcSql<DefaultCatalog> implements PostgreSQLJdbcTest, PostgreSQLHelper {
+class PgLegacyJdbcTest extends AbstractLegacyDBCTest<PostgreSQLContainer<?>>
+    implements PostgreSQLJdbcTest, PostgreSQLHelper {
 
     @Override
     @BeforeEach
     public void tearUp(Vertx vertx, VertxTestContext ctx) {
         super.tearUp(vertx, ctx);
-        this.prepareDatabase(ctx, this, server);
+        this.prepareDatabase(ctx, this, connOpt);
     }
 
     @Test
@@ -44,13 +44,8 @@ class PgLegacyJdbcTest extends BaseVertxLegacyJdbcSql<DefaultCatalog> implements
     }
 
     @Test
-    void test_insert(Vertx vertx, VertxTestContext ctx) {
+    void test_insert(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint(2);
-        final VertxLegacyJdbcExecutor executor = VertxLegacyJdbcExecutor.builder()
-                                                                        .vertx(vertx)
-                                                                        .dsl(dsl(dialect()))
-                                                                        .sqlClient(sqlClient())
-                                                                        .build();
         final Books table = catalog().PUBLIC.BOOKS;
         final InsertResultStep<BooksRecord> insert = executor.dsl()
                                                              .insertInto(table, table.ID, table.TITLE)
@@ -65,14 +60,8 @@ class PgLegacyJdbcTest extends BaseVertxLegacyJdbcSql<DefaultCatalog> implements
     }
 
     @Test
-    void test_batch_insert(Vertx vertx, VertxTestContext ctx) {
+    void test_batch_insert(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint(2);
-        final VertxLegacyJdbcExecutor executor = VertxLegacyJdbcExecutor.builder()
-                                                                        .vertx(vertx)
-                                                                        .dsl(dsl(dialect()))
-                                                                        .sqlClient(sqlClient())
-                                                                        .build();
-
         final Books table = catalog().PUBLIC.BOOKS;
         BooksRecord rec1 = new BooksRecord().setTitle("abc");
         BooksRecord rec2 = new BooksRecord().setTitle("xyz");
