@@ -10,11 +10,11 @@ import io.github.zero88.jooq.vertx.converter.ResultSetConverter;
 import lombok.NonNull;
 
 public final class SelectExistsResultAdapter<RS, C extends ResultSetConverter<RS>>
-    extends SelectOneResultAdapter<RS, C, TableLike<Record1<Integer>>, Boolean> {
+    extends SelectAdhocOneResultAdapter<RS, C, TableLike<Record1<Integer>>, Boolean> {
 
     protected SelectExistsResultAdapter(@NonNull TableLike<Record1<Integer>> table, @NonNull C converter,
                                         @NonNull BiFunction<SqlResultAdapter<RS, C, TableLike<Record1<Integer>>,
-                                                                               Boolean>, RS, Boolean> function) {
+                                                                                Boolean>, RS, Boolean> function) {
         super(table, converter, function);
     }
 

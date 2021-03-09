@@ -18,7 +18,8 @@ import lombok.NonNull;
  * @see ResultSetConverter
  * @since 1.0.0
  */
-public interface SqlResultAdapter<RS, C extends ResultSetConverter<RS>, T extends TableLike<? extends Record>, R> {
+public interface SqlResultAdapter<RS, C extends ResultSetConverter<RS>, T extends TableLike<? extends Record>, R>
+    extends HasStrategy {
 
     /**
      * A current context holder
@@ -27,13 +28,6 @@ public interface SqlResultAdapter<RS, C extends ResultSetConverter<RS>, T extend
      * @see TableLike
      */
     @NonNull T table();
-
-    /**
-     * Strategy in handling a result set converting process
-     *
-     * @return select strategy
-     */
-    @NonNull SelectStrategy strategy();
 
     /**
      * Declares Result set converter

@@ -13,8 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import io.github.zero88.jooq.vertx.BaseLegacySqlTest.AbstractLegacyMemoryTest;
 import io.github.zero88.jooq.vertx.SqlErrorMaker;
-import io.github.zero88.jooq.vertx.adapter.SelectListResultAdapter;
-import io.github.zero88.jooq.vertx.converter.LegacyResultSetConverter;
+import io.github.zero88.jooq.vertx.VertxLegacyDSL;
 import io.github.zero88.jooq.vertx.integtest.H2SQLHelper;
 import io.github.zero88.jooq.vertx.integtest.h2.tables.Author;
 import io.github.zero88.jooq.vertx.integtest.h2.tables.records.AuthorRecord;
@@ -46,7 +45,7 @@ public class H2LegacyJdbcFailedTest extends AbstractLegacyMemoryTest implements 
                                                               .insertInto(table, table.ID, table.FIRST_NAME)
                                                               .values(Arrays.asList(DSL.defaultValue(table.ID), "abc"))
                                                               .returning(table.ID);
-        executor.execute(insert, SelectListResultAdapter.vertxRecord(table, new LegacyResultSetConverter()), ar -> {
+        executor.execute(insert, VertxLegacyDSL.instance().fetchVertxRecord(table), ar -> {
             testContext.verify(() -> {
                 Assertions.assertTrue(ar.cause() instanceof DataAccessException);
                 final DataAccessException cause = (DataAccessException) ar.cause();

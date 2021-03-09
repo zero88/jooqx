@@ -1,25 +1,17 @@
 package io.github.zero88.jooq.vertx;
 
-import org.jooq.Record1;
-import org.jooq.TableLike;
-
-import io.github.zero88.jooq.vertx.adapter.SelectCountResultAdapter;
-import io.github.zero88.jooq.vertx.adapter.SelectExistsResultAdapter;
 import io.github.zero88.jooq.vertx.converter.LegacyResultSetConverter;
 import io.vertx.ext.sql.ResultSet;
 
 import lombok.NonNull;
 
-public final class VertxLegacyDSL {
+public interface VertxLegacyDSL extends VertxSqlDSL<ResultSet, LegacyResultSetConverter> {
 
-    public static SelectCountResultAdapter<ResultSet, LegacyResultSetConverter> count(
-        @NonNull TableLike<Record1<Integer>> table) {
-        return SelectCountResultAdapter.count(table, new LegacyResultSetConverter());
+    static @NonNull VertxLegacyDSL instance() {
+        return new VertxLegacyDSLImpl();
     }
 
-    public static SelectExistsResultAdapter<ResultSet, LegacyResultSetConverter> exist(
-        @NonNull TableLike<Record1<Integer>> table) {
-        return SelectExistsResultAdapter.exist(table, new LegacyResultSetConverter());
+    static @NonNull VertxLegacyDSL create(@NonNull LegacyResultSetConverter converter) {
+        return new VertxLegacyDSLImpl(converter);
     }
-
 }
