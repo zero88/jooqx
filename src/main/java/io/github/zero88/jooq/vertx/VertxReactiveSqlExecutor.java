@@ -3,7 +3,7 @@ package io.github.zero88.jooq.vertx;
 import org.jooq.Query;
 import org.jooq.TableLike;
 
-import io.github.zero88.jooq.vertx.adapter.ListResultAdapter;
+import io.github.zero88.jooq.vertx.adapter.SelectListResultAdapter;
 import io.github.zero88.jooq.vertx.adapter.SqlResultAdapter;
 import io.github.zero88.jooq.vertx.converter.ReactiveBindParamConverter;
 import io.github.zero88.jooq.vertx.converter.ReactiveResultBatchConverter;
@@ -64,7 +64,7 @@ public final class VertxReactiveSqlExecutor extends AbstractVertxJooqExecutor<Sq
     @Override
     public <Q extends Query, C extends ResultBatchConverter<RowSet<Row>, RowSet<Row>>, T extends TableLike<?>, R> void batchExecute(
         @NonNull Q query, @NonNull BindBatchValues bindBatchValues,
-        @NonNull ListResultAdapter<RowSet<Row>, C, T, R> adapter,
+        @NonNull SelectListResultAdapter<RowSet<Row>, C, T, R> adapter,
         @NonNull Handler<AsyncResult<BatchReturningResult<R>>> handler) {
         sqlClient().preparedQuery(helper().toPreparedQuery(dsl().configuration(), query))
                    .executeBatch(helper().toBindValues(query, bindBatchValues), ar -> handler.handle(

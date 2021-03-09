@@ -26,7 +26,7 @@ public interface SqlResultAdapter<RS, C extends ResultSetConverter<RS>, T extend
      * @return jOOQ table
      * @see TableLike
      */
-    T table();
+    @NonNull T table();
 
     /**
      * Declares Result set converter

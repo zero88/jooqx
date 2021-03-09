@@ -13,7 +13,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import io.github.zero88.jooq.vertx.BaseReactiveSqlTest.AbstractReactiveMemoryTest;
 import io.github.zero88.jooq.vertx.ReactiveSqlClientProvider.JdbcReactiveSqlClientProvider;
 import io.github.zero88.jooq.vertx.SqlErrorMaker;
-import io.github.zero88.jooq.vertx.adapter.ListResultAdapter;
+import io.github.zero88.jooq.vertx.adapter.SelectListResultAdapter;
 import io.github.zero88.jooq.vertx.converter.ReactiveResultSetConverter;
 import io.github.zero88.jooq.vertx.integtest.H2SQLHelper;
 import io.github.zero88.jooq.vertx.integtest.h2.tables.Author;
@@ -41,7 +41,7 @@ public class H2ReactiveJdbcFailedTest extends AbstractReactiveMemoryTest
                                                               .insertInto(table, table.ID, table.FIRST_NAME)
                                                               .values(Arrays.asList(DSL.defaultValue(table.ID), "abc"))
                                                               .returning(table.ID);
-        executor.execute(insert, ListResultAdapter.createVertxRecord(table, new ReactiveResultSetConverter()), ar -> {
+        executor.execute(insert, SelectListResultAdapter.vertxRecord(table, new ReactiveResultSetConverter()), ar -> {
             testContext.verify(() -> {
                 Assertions.assertTrue(ar.cause() instanceof DataAccessException);
                 final DataAccessException cause = (DataAccessException) ar.cause();
