@@ -10,7 +10,7 @@ import io.github.zero88.jooq.vertx.converter.ResultSetConverter;
 import lombok.NonNull;
 
 public final class SelectCountResultAdapter<RS, C extends ResultSetConverter<RS>>
-    extends SelectOneResultAdapter<RS, C, TableLike<Record1<Integer>>, Integer> {
+    extends SelectAdhocOneResultAdapter<RS, C, TableLike<Record1<Integer>>, Integer> {
 
     protected SelectCountResultAdapter(@NonNull TableLike<Record1<Integer>> table, @NonNull C converter,
                                        @NonNull BiFunction<SqlResultAdapter<RS, C, TableLike<Record1<Integer>>,

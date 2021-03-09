@@ -10,30 +10,23 @@ import org.jooq.Table;
 import org.jooq.TableLike;
 
 import io.github.zero88.jooq.vertx.VertxJooqRecord;
+import io.github.zero88.jooq.vertx.adapter.HasStrategy.SelectMany;
 import io.github.zero88.jooq.vertx.converter.ResultSetConverter;
 
 import lombok.NonNull;
 
 public final class SelectListResultAdapter<RS, C extends ResultSetConverter<RS>,
                                               T extends TableLike<? extends Record>, R>
-    extends AbstractSqlResultAdapter<RS, C, T, List<R>> {
-
-    private final BiFunction<SqlResultAdapter<RS, C, T, List<R>>, RS, List<R>> function;
+    extends InternalSelectResultAdapter<RS, C, T, R, List<R>> implements SelectMany {
 
     private SelectListResultAdapter(@NonNull T table, @NonNull C converter,
                                     @NonNull BiFunction<SqlResultAdapter<RS, C, T, List<R>>, RS, List<R>> function) {
-        super(table, converter);
-        this.function = function;
-    }
-
-    @Override
-    public @NonNull SelectStrategy strategy() {
-        return SelectStrategy.MANY;
+        super(table, converter, function);
     }
 
     @Override
     public @NonNull List<R> convert(@NonNull RS resultSet) {
-        return function.apply(this, resultSet);
+        return getFunction().apply(this, resultSet);
     }
 
     public static <RS, C extends ResultSetConverter<RS>, T extends TableLike<? extends Record>> SelectListResultAdapter<RS, C, T, VertxJooqRecord<?>> vertxRecord(

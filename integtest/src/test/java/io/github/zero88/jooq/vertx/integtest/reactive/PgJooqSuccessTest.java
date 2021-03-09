@@ -58,7 +58,7 @@ class PgJooqSuccessTest extends AbstractPostgreSQLReactiveTest implements Postgr
         final Checkpoint flag = ctx.checkpoint();
         final io.github.zero88.jooq.vertx.integtest.pgsql.tables.Books table = catalog().PUBLIC.BOOKS;
         final SelectWhereStep<BooksRecord> query = executor.dsl().selectFrom(table);
-        executor.execute(query, SelectListResultAdapter.vertxRecord(table, new ReactiveResultSetConverter()),
+        executor.execute(query, VertxReactiveDSL.instance().fetchVertxRecords(table),
                          ar -> assertRsSize(ctx, flag, ar, 7));
     }
 
@@ -70,7 +70,7 @@ class PgJooqSuccessTest extends AbstractPostgreSQLReactiveTest implements Postgr
                                                                     .selectCount()
                                                                     .from(table)
                                                                     .where(table.COUNTRY.eq("USA"));
-        executor.execute(query, VertxReactiveDSL.count(query.asTable()), ar -> {
+        executor.execute(query, VertxReactiveDSL.instance().fetchCount(query.asTable()), ar -> {
             ctx.verify(() -> Assertions.assertEquals(6, ar.result()));
             flag.flag();
         });
@@ -84,7 +84,7 @@ class PgJooqSuccessTest extends AbstractPostgreSQLReactiveTest implements Postgr
         final SelectConditionStep<Record1<Integer>> q = dsl.selectOne()
                                                            .whereExists(dsl.selectFrom(table)
                                                                            .where(table.NAME.eq("Jane Austen")));
-        executor.execute(q, VertxReactiveDSL.exist(q.asTable()), ar -> {
+        executor.execute(q, VertxReactiveDSL.instance().fetchExists(q.asTable()), ar -> {
             ctx.verify(() -> Assertions.assertTrue(ar.result()));
             flag.flag();
         });
@@ -100,13 +100,12 @@ class PgJooqSuccessTest extends AbstractPostgreSQLReactiveTest implements Postgr
                                                              .orderBy(table.NAME.desc())
                                                              .limit(1)
                                                              .offset(1);
-        executor.execute(q, VertxReactiveDSL.selectOne(q.asTable()), ar -> {
+        executor.execute(q, VertxReactiveDSL.instance().fetchVertxRecord(q.asTable()), ar -> {
             ctx.verify(() -> {
                 final VertxJooqRecord<?> result = ar.result();
                 Assertions.assertNotNull(result);
-                Assertions.assertEquals(
-                    new JsonObject("{\"id\":4,\"name\":\"Scott Hanselman\",\"country\":\"USA\"}"),
-                    result.toJson());
+                Assertions.assertEquals(new JsonObject("{\"id\":4,\"name\":\"Scott Hanselman\",\"country\":\"USA\"}"),
+                                        result.toJson());
             });
             flag.flag();
         });
@@ -120,13 +119,12 @@ class PgJooqSuccessTest extends AbstractPostgreSQLReactiveTest implements Postgr
                                                              .selectFrom(table)
                                                              .where(table.COUNTRY.eq("USA"))
                                                              .orderBy(table.ID.desc());
-        executor.execute(q, VertxReactiveDSL.selectOne(q.asTable()), ar -> {
+        executor.execute(q, VertxReactiveDSL.instance().fetchVertxRecord(q.asTable()), ar -> {
             ctx.verify(() -> {
                 final VertxJooqRecord<?> result = ar.result();
                 Assertions.assertNotNull(result);
-                Assertions.assertEquals(
-                    new JsonObject("{\"id\":8,\"name\":\"Christian Wenz\",\"country\":\"USA\"}"),
-                    result.toJson());
+                Assertions.assertEquals(new JsonObject("{\"id\":8,\"name\":\"Christian Wenz\",\"country\":\"USA\"}"),
+                                        result.toJson());
             });
             flag.flag();
         });
@@ -137,13 +135,12 @@ class PgJooqSuccessTest extends AbstractPostgreSQLReactiveTest implements Postgr
         final Checkpoint flag = ctx.checkpoint(2);
         final io.github.zero88.jooq.vertx.integtest.pgsql.tables.Authors table = catalog().PUBLIC.AUTHORS;
         final SelectWhereStep<AuthorsRecord> query = executor.dsl().selectFrom(table);
-        executor.execute(query, SelectListResultAdapter.create(table, new ReactiveResultSetConverter(), Authors.class),
-                         ar -> {
-                             final List<Authors> books = assertRsSize(ctx, flag, ar, 8);
-                             final Authors authors = books.get(0);
-                             ctx.verify(() -> Assertions.assertEquals(1, authors.getId()));
-                             flag.flag();
-                         });
+        executor.execute(query, VertxReactiveDSL.instance().fetchMany(table, Authors.class), ar -> {
+            final List<Authors> books = assertRsSize(ctx, flag, ar, 8);
+            final Authors authors = books.get(0);
+            ctx.verify(() -> Assertions.assertEquals(1, authors.getId()));
+            flag.flag();
+        });
     }
 
     @Test
@@ -169,24 +166,24 @@ class PgJooqSuccessTest extends AbstractPostgreSQLReactiveTest implements Postgr
                                                              .insertInto(table, table.ID, table.TITLE)
                                                              .values(Arrays.asList(DSL.defaultValue(table.ID), "abc"))
                                                              .returning(table.ID);
-        executor.execute(insert, SelectListResultAdapter.create(table, new ReactiveResultSetConverter(),
-                                                                Collections.singletonList(table.ID)), ar -> {
-            List<Record> records = assertRsSize(ctx, flag, ar, 1);
-            ctx.verify(() -> {
-                final Record record = records.get(0);
-                final BooksRecord into1 = record.into(BooksRecord.class);
-                Assertions.assertEquals(8, into1.getId());
-                Assertions.assertNull(into1.getTitle());
-                final Books into2 = record.into(Books.class);
-                Assertions.assertEquals(8, into2.getId());
-                Assertions.assertNull(into2.getTitle());
-                final Authors into3 = record.into(Authors.class);
-                Assertions.assertEquals(8, into3.getId());
-                Assertions.assertNull(into3.getCountry());
-            });
+        executor.execute(insert, VertxReactiveDSL.instance().fetchMany(table, Collections.singletonList(table.ID)),
+                         ar -> {
+                             List<Record> records = assertRsSize(ctx, flag, ar, 1);
+                             ctx.verify(() -> {
+                                 final Record record = records.get(0);
+                                 final BooksRecord into1 = record.into(BooksRecord.class);
+                                 Assertions.assertEquals(8, into1.getId());
+                                 Assertions.assertNull(into1.getTitle());
+                                 final Books into2 = record.into(Books.class);
+                                 Assertions.assertEquals(8, into2.getId());
+                                 Assertions.assertNull(into2.getTitle());
+                                 final Authors into3 = record.into(Authors.class);
+                                 Assertions.assertEquals(8, into3.getId());
+                                 Assertions.assertNull(into3.getCountry());
+                             });
 
-            flag.flag();
-        });
+                             flag.flag();
+                         });
     }
 
     @Test
@@ -225,8 +222,7 @@ class PgJooqSuccessTest extends AbstractPostgreSQLReactiveTest implements Postgr
         };
         executor.batchExecute(insert, bindValues,
                               SelectListResultAdapter.vertxRecord(table, new ReactiveResultBatchConverter()), handler);
-        executor.execute(executor.dsl().selectFrom(table),
-                         SelectListResultAdapter.vertxRecord(table, new ReactiveResultSetConverter()),
+        executor.execute(executor.dsl().selectFrom(table), VertxReactiveDSL.instance().fetchVertxRecords(table),
                          ar -> assertRsSize(ctx, flag, ar, 10));
     }
 
@@ -265,8 +261,7 @@ class PgJooqSuccessTest extends AbstractPostgreSQLReactiveTest implements Postgr
         executor.batchExecute(insert, bindValues,
                               SelectListResultAdapter.create(table, new ReactiveResultBatchConverter(),
                                                              executor.dsl().newRecord(table.ID)), handler);
-        executor.execute(executor.dsl().selectFrom(table),
-                         SelectListResultAdapter.vertxRecord(table, new ReactiveResultSetConverter()),
+        executor.execute(executor.dsl().selectFrom(table), VertxReactiveDSL.instance().fetchVertxRecords(table),
                          ar -> assertRsSize(ctx, flag, ar, 10));
     }
 
@@ -282,7 +277,7 @@ class PgJooqSuccessTest extends AbstractPostgreSQLReactiveTest implements Postgr
         final InsertSetMoreStep<AuthorsRecord> insert = executor.dsl()
                                                                 .insertInto(table)
                                                                 .set(bindValues.getDummyValues());
-        final Handler<AsyncResult<BatchResult>> handler = ar -> {
+        executor.batchExecute(insert, bindValues, ar -> {
             try {
                 if (ar.succeeded()) {
                     final BatchResult result = ar.result();
@@ -296,10 +291,8 @@ class PgJooqSuccessTest extends AbstractPostgreSQLReactiveTest implements Postgr
             } finally {
                 flag.flag();
             }
-        };
-        executor.batchExecute(insert, bindValues, handler);
-        executor.execute(executor.dsl().selectFrom(table),
-                         SelectListResultAdapter.vertxRecord(table, new ReactiveResultSetConverter()),
+        });
+        executor.execute(executor.dsl().selectFrom(table), VertxReactiveDSL.instance().fetchVertxRecords(table),
                          ar -> assertRsSize(ctx, flag, ar, 10));
     }
 
