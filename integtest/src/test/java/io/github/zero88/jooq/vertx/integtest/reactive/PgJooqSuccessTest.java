@@ -97,6 +97,7 @@ class PgJooqSuccessTest extends AbstractPostgreSQLReactiveTest implements Postgr
         final SelectForUpdateStep<AuthorsRecord> q = executor.dsl()
                                                              .selectFrom(table)
                                                              .where(table.COUNTRY.eq("USA"))
+                                                             .orderBy(table.NAME.desc())
                                                              .limit(1)
                                                              .offset(1);
         executor.execute(q, VertxReactiveDSL.selectOne(q.asTable()), ar -> {
@@ -104,7 +105,27 @@ class PgJooqSuccessTest extends AbstractPostgreSQLReactiveTest implements Postgr
                 final VertxJooqRecord<?> result = ar.result();
                 Assertions.assertNotNull(result);
                 Assertions.assertEquals(
-                    new JsonObject("{\"id\":2,\"name\":\"F. Scott. Fitzgerald\",\"country\":\"USA\"}"),
+                    new JsonObject("{\"id\":4,\"name\":\"Scott Hanselman\",\"country\":\"USA\"}"),
+                    result.toJson());
+            });
+            flag.flag();
+        });
+    }
+
+    @Test
+    void test_select_one_but_give_query_that_returns_many(VertxTestContext ctx) {
+        final Checkpoint flag = ctx.checkpoint();
+        final io.github.zero88.jooq.vertx.integtest.pgsql.tables.Authors table = catalog().PUBLIC.AUTHORS;
+        final SelectForUpdateStep<AuthorsRecord> q = executor.dsl()
+                                                             .selectFrom(table)
+                                                             .where(table.COUNTRY.eq("USA"))
+                                                             .orderBy(table.ID.desc());
+        executor.execute(q, VertxReactiveDSL.selectOne(q.asTable()), ar -> {
+            ctx.verify(() -> {
+                final VertxJooqRecord<?> result = ar.result();
+                Assertions.assertNotNull(result);
+                Assertions.assertEquals(
+                    new JsonObject("{\"id\":8,\"name\":\"Christian Wenz\",\"country\":\"USA\"}"),
                     result.toJson());
             });
             flag.flag();

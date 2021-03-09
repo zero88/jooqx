@@ -22,6 +22,11 @@ public class SelectOneResultAdapter<RS, C extends ResultSetConverter<RS>, T exte
     }
 
     @Override
+    public final @NonNull SelectStrategy strategy() {
+        return SelectStrategy.FIRST_ONE;
+    }
+
+    @Override
     public @NonNull R convert(@NonNull RS resultSet) {
         return function.apply(this, resultSet);
     }

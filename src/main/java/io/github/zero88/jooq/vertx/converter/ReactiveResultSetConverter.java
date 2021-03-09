@@ -14,7 +14,9 @@ import org.jooq.Table;
 import org.jooq.TableLike;
 
 import io.github.zero88.jooq.vertx.VertxJooqRecord;
+import io.github.zero88.jooq.vertx.adapter.SelectStrategy;
 import io.vertx.sqlclient.Row;
+import io.vertx.sqlclient.RowIterator;
 import io.vertx.sqlclient.RowSet;
 
 import lombok.NonNull;
@@ -34,7 +36,13 @@ public class ReactiveResultSetConverter extends AbstractResultSetConverter<RowSe
         final Map<String, Field<?>> fieldMap = table.fieldStream()
                                                     .collect(Collectors.toMap(Field::getName, Function.identity()));
         final List<R> records = new ArrayList<>();
-        resultSet.iterator().forEachRemaining(row -> records.add(mapper.apply(toRecord(table, row, fieldMap::get))));
+        final RowIterator<Row> iterator = resultSet.iterator();
+        if (strategy == SelectStrategy.MANY) {
+            iterator.forEachRemaining(row -> records.add(mapper.apply(toRecord(table, row, fieldMap::get))));
+        } else if (iterator.hasNext()) {
+            records.add(mapper.apply(toRecord(table, iterator.next(), fieldMap::get)));
+            warnManyResult(iterator.hasNext());
+        }
         return records;
     }
 

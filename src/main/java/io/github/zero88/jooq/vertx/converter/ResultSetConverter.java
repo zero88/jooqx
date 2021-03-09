@@ -7,8 +7,11 @@ import org.jooq.Field;
 import org.jooq.Record;
 import org.jooq.Table;
 import org.jooq.TableLike;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import io.github.zero88.jooq.vertx.VertxJooqRecord;
+import io.github.zero88.jooq.vertx.adapter.SelectStrategy;
 
 import lombok.NonNull;
 
@@ -19,6 +22,16 @@ import lombok.NonNull;
  * @since 1.0.0
  */
 public interface ResultSetConverter<RS> {
+
+    Logger LOGGER = LoggerFactory.getLogger(ResultSetConverter.class);
+
+    /**
+     * Setup strategy to handle result set
+     *
+     * @param strategy select strategy
+     * @return a reference to this for fluent API
+     */
+    @NonNull ResultSetConverter<RS> setup(@NonNull SelectStrategy strategy);
 
     /**
      * Convert SQL result set to generic {@code Vertx jOOQ record}

@@ -29,6 +29,13 @@ public interface SqlResultAdapter<RS, C extends ResultSetConverter<RS>, T extend
     @NonNull T table();
 
     /**
+     * Strategy in handling a result set converting process
+     *
+     * @return select strategy
+     */
+    @NonNull SelectStrategy strategy();
+
+    /**
      * Declares Result set converter
      *
      * @return converter

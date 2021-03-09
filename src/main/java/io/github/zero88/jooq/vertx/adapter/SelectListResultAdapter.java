@@ -27,6 +27,11 @@ public final class SelectListResultAdapter<RS, C extends ResultSetConverter<RS>,
     }
 
     @Override
+    public @NonNull SelectStrategy strategy() {
+        return SelectStrategy.MANY;
+    }
+
+    @Override
     public @NonNull List<R> convert(@NonNull RS resultSet) {
         return function.apply(this, resultSet);
     }
