@@ -12,9 +12,9 @@ import lombok.NonNull;
  * @param <E> Type of runtime exception
  * @since 1.0.0
  */
-public interface SqlErrorMaker<A extends Throwable, E extends RuntimeException> extends Function<A, E> {
+public interface SqlErrorConverter<A extends Throwable, E extends RuntimeException> extends Function<A, E> {
 
-    SqlErrorMaker<Throwable, RuntimeException> DEFAULT = new SqlErrorMaker<Throwable, RuntimeException>() {
+    SqlErrorConverter<Throwable, RuntimeException> DEFAULT = new SqlErrorConverter<Throwable, RuntimeException>() {
         @Override
         public Class<Throwable> throwableType() { return Throwable.class; }
 
@@ -26,6 +26,7 @@ public interface SqlErrorMaker<A extends Throwable, E extends RuntimeException> 
 
     Class<A> throwableType();
 
+    @SuppressWarnings("unchecked")
     default RuntimeException handle(@NonNull Throwable t) {
         if (throwableType().isInstance(t)) {
             return apply((A) t);

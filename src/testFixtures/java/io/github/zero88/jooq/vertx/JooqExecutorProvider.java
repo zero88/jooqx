@@ -8,8 +8,8 @@ public interface JooqExecutorProvider<S, P, R, E extends VertxJooqExecutor<S, P,
 
     QueryHelper<P> createQueryHelper();
 
-    default SqlErrorMaker<? extends Throwable, ? extends RuntimeException> createErrorMaker() {
-        return SqlErrorMaker.DEFAULT;
+    default SqlErrorConverter<? extends Throwable, ? extends RuntimeException> createErrorConverter() {
+        return SqlErrorConverter.DEFAULT;
     }
 
 }

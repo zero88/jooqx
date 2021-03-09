@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import io.github.zero88.jooq.vertx.VertxJooqRecord;
+import io.github.zero88.jooq.vertx.JsonRecord;
 import io.github.zero88.jooq.vertx.VertxReactiveDSL;
 import io.github.zero88.jooq.vertx.integtest.PostgreSQLHelper;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.pojos.Authors;
@@ -47,7 +47,7 @@ class PgJooqSuccessTest extends AbstractPostgreSQLReactiveTest implements Postgr
         final Checkpoint flag = ctx.checkpoint();
         final io.github.zero88.jooq.vertx.integtest.pgsql.tables.Books table = catalog().PUBLIC.BOOKS;
         final SelectWhereStep<BooksRecord> query = executor.dsl().selectFrom(table);
-        executor.execute(query, VertxReactiveDSL.instance().fetchVertxRecords(table),
+        executor.execute(query, VertxReactiveDSL.instance().fetchJsonRecords(table),
                          ar -> assertRsSize(ctx, flag, ar, 7));
     }
 
@@ -89,9 +89,9 @@ class PgJooqSuccessTest extends AbstractPostgreSQLReactiveTest implements Postgr
                                                              .orderBy(table.NAME.desc())
                                                              .limit(1)
                                                              .offset(1);
-        executor.execute(q, VertxReactiveDSL.instance().fetchVertxRecord(q.asTable()), ar -> {
+        executor.execute(q, VertxReactiveDSL.instance().fetchJsonRecord(q.asTable()), ar -> {
             ctx.verify(() -> {
-                final VertxJooqRecord<?> result = ar.result();
+                final JsonRecord<?> result = ar.result();
                 Assertions.assertNotNull(result);
                 Assertions.assertEquals(new JsonObject("{\"id\":4,\"name\":\"Scott Hanselman\",\"country\":\"USA\"}"),
                                         result.toJson());
@@ -108,9 +108,9 @@ class PgJooqSuccessTest extends AbstractPostgreSQLReactiveTest implements Postgr
                                                              .selectFrom(table)
                                                              .where(table.COUNTRY.eq("USA"))
                                                              .orderBy(table.ID.desc());
-        executor.execute(q, VertxReactiveDSL.instance().fetchVertxRecord(q.asTable()), ar -> {
+        executor.execute(q, VertxReactiveDSL.instance().fetchJsonRecord(q.asTable()), ar -> {
             ctx.verify(() -> {
-                final VertxJooqRecord<?> result = ar.result();
+                final JsonRecord<?> result = ar.result();
                 Assertions.assertNotNull(result);
                 Assertions.assertEquals(new JsonObject("{\"id\":8,\"name\":\"Christian Wenz\",\"country\":\"USA\"}"),
                                         result.toJson());

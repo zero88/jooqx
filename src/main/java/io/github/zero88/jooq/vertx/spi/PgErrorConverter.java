@@ -4,10 +4,10 @@ import java.sql.SQLException;
 
 import org.jooq.exception.DataAccessException;
 
-import io.github.zero88.jooq.vertx.JooqErrorMaker;
+import io.github.zero88.jooq.vertx.JooqErrorConverter;
 import io.vertx.pgclient.PgException;
 
-public final class PgErrorMaker implements JooqErrorMaker<PgException> {
+public final class PgErrorConverter implements JooqErrorConverter<PgException> {
 
     @Override
     public DataAccessException apply(PgException e) {

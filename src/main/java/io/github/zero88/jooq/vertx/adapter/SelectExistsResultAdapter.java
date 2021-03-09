@@ -21,7 +21,7 @@ public final class SelectExistsResultAdapter<RS, C extends ResultSetConverter<RS
     public static <RS, C extends ResultSetConverter<RS>> SelectExistsResultAdapter<RS, C> exist(
         @NonNull TableLike<Record1<Integer>> table, @NonNull C converter) {
         return new SelectExistsResultAdapter<>(table, converter, (a, rs) -> a.converter()
-                                                                             .convertVertxRecord(rs, a.table())
+                                                                             .convertJsonRecord(rs, a.table())
                                                                              .stream()
                                                                              .findFirst()
                                                                              .isPresent());

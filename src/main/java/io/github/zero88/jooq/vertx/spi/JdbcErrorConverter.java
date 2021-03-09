@@ -4,9 +4,9 @@ import java.sql.SQLException;
 
 import org.jooq.exception.DataAccessException;
 
-import io.github.zero88.jooq.vertx.JooqErrorMaker;
+import io.github.zero88.jooq.vertx.JooqErrorConverter;
 
-public final class SqlJdbcErrorMaker implements JooqErrorMaker<SQLException> {
+public final class JdbcErrorConverter implements JooqErrorConverter<SQLException> {
 
     @Override
     public DataAccessException apply(SQLException throwable) {

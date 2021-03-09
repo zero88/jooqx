@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import io.github.zero88.jooq.vertx.VertxJooqRecord;
+import io.github.zero88.jooq.vertx.JsonRecord;
 import io.github.zero88.jooq.vertx.VertxReactiveDSL;
 import io.github.zero88.jooq.vertx.integtest.PostgreSQLHelper;
 import io.github.zero88.jooq.vertx.integtest.pgsql.Public;
@@ -41,8 +41,8 @@ class PgComplexQueryTest extends AbstractPostgreSQLReactiveTest implements Postg
                                                      .join(schema.BOOKS_AUTHORS)
                                                      .onKey()
                                                      .where(schema.AUTHORS.ID.eq(2));
-        executor.execute(query, VertxReactiveDSL.instance().fetchVertxRecords(query.asTable()), ar -> {
-            final List<VertxJooqRecord<?>> records = assertRsSize(ctx, flag, ar, 2);
+        executor.execute(query, VertxReactiveDSL.instance().fetchJsonRecords(query.asTable()), ar -> {
+            final List<JsonRecord<?>> records = assertRsSize(ctx, flag, ar, 2);
             ctx.verify(() -> {
                 Assertions.assertEquals(new JsonObject(
                                             "{\"id\":2,\"name\":\"F. Scott. Fitzgerald\",\"country\":\"USA\"," +
@@ -92,10 +92,10 @@ class PgComplexQueryTest extends AbstractPostgreSQLReactiveTest implements Postg
                                                      .join(schema.BOOKS)
                                                      .on(schema.BOOKS.ID.eq(schema.BOOKS_AUTHORS.BOOK_ID))
                                                      .where(schema.AUTHORS.ID.eq(1));
-        executor.execute(query, VertxReactiveDSL.instance().fetchVertxRecords(query.asTable()), ar -> {
-            final List<VertxJooqRecord<?>> records = assertRsSize(ctx, flag, ar, 3);
+        executor.execute(query, VertxReactiveDSL.instance().fetchJsonRecords(query.asTable()), ar -> {
+            final List<JsonRecord<?>> records = assertRsSize(ctx, flag, ar, 3);
             ctx.verify(() -> {
-                final VertxJooqRecord<?> record1 = records.get(0);
+                final JsonRecord<?> record1 = records.get(0);
                 Assertions.assertEquals(new JsonObject("{\"id\":1,\"name\":\"J.D. Salinger\",\"country\":\"USA\"," +
                                                        "\"book_id\":1,\"book_title\":\"The Catcher in the Rye\"}"),
                                         record1.toJson());

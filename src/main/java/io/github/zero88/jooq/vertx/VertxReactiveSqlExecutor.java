@@ -48,7 +48,7 @@ public final class VertxReactiveSqlExecutor extends AbstractVertxJooqExecutor<Sq
         this.sqlClient()
             .preparedQuery(helper().toPreparedQuery(dsl().configuration(), query))
             .execute(helper().toBindValues(query),
-                     ar -> handler.handle(ar.map(resultAdapter::convert).otherwise(errorMaker()::reThrowError)));
+                     ar -> handler.handle(ar.map(resultAdapter::convert).otherwise(errorConverter()::reThrowError)));
     }
 
     @Override
@@ -58,7 +58,7 @@ public final class VertxReactiveSqlExecutor extends AbstractVertxJooqExecutor<Sq
                    .executeBatch(helper().toBindValues(query, bindBatchValues), ar -> handler.handle(
                        ar.map(r -> new ReactiveResultBatchConverter().batchResultSize(r))
                          .map(s -> new BatchResult(bindBatchValues.size(), s))
-                         .otherwise(errorMaker()::reThrowError)));
+                         .otherwise(errorConverter()::reThrowError)));
     }
 
     @Override
@@ -70,7 +70,7 @@ public final class VertxReactiveSqlExecutor extends AbstractVertxJooqExecutor<Sq
                    .executeBatch(helper().toBindValues(query, bindBatchValues), ar -> handler.handle(
                        ar.map(adapter::convert)
                          .map(rs -> new BatchReturningResult<>(bindBatchValues.size(), rs))
-                         .otherwise(errorMaker()::reThrowError)));
+                         .otherwise(errorConverter()::reThrowError)));
     }
 
 }

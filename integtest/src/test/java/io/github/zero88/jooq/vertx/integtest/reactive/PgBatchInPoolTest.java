@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 import io.github.zero88.jooq.vertx.BatchResult;
 import io.github.zero88.jooq.vertx.BatchReturningResult;
 import io.github.zero88.jooq.vertx.BindBatchValues;
-import io.github.zero88.jooq.vertx.VertxJooqRecord;
+import io.github.zero88.jooq.vertx.JsonRecord;
 import io.github.zero88.jooq.vertx.VertxReactiveDSL;
 import io.github.zero88.jooq.vertx.integtest.PostgreSQLHelper;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.records.AuthorsRecord;
@@ -53,21 +53,21 @@ class PgBatchInPoolTest extends AbstractPostgreSQLReactiveTest implements Postgr
                                                                .insertInto(table)
                                                                .set(bindValues.getDummyValues())
                                                                .returning();
-        final Handler<AsyncResult<BatchReturningResult<VertxJooqRecord<?>>>> handler = ar -> {
+        final Handler<AsyncResult<BatchReturningResult<JsonRecord<?>>>> handler = ar -> {
             try {
                 if (ar.succeeded()) {
-                    final BatchReturningResult<VertxJooqRecord<?>> result = ar.result();
-                    final List<VertxJooqRecord<?>> records = result.getRecords();
+                    final BatchReturningResult<JsonRecord<?>> result = ar.result();
+                    final List<JsonRecord<?>> records = result.getRecords();
                     ctx.verify(() -> {
                         String v = Json.CODEC.toString(
-                            records.stream().map(VertxJooqRecord::toJson).collect(Collectors.toList()));
+                            records.stream().map(JsonRecord::toJson).collect(Collectors.toList()));
                         Assertions.assertEquals(2, result.getTotal());
                         Assertions.assertEquals(2, result.getSuccesses());
                         Assertions.assertEquals("[{\"id\":9,\"name\":\"abc\",\"country\":\"AU\"},{\"id\":10," +
                                                 "\"name\":\"haha\",\"country\":\"VN\"}]", v);
                     });
                     executor.execute(executor.dsl().selectFrom(table),
-                                     VertxReactiveDSL.instance().fetchVertxRecords(table),
+                                     VertxReactiveDSL.instance().fetchJsonRecords(table),
                                      ar2 -> assertRsSize(ctx, flag, ar2, 10));
                 } else {
                     ctx.failNow(ar.cause());
@@ -76,7 +76,7 @@ class PgBatchInPoolTest extends AbstractPostgreSQLReactiveTest implements Postgr
                 flag.flag();
             }
         };
-        executor.batchExecute(insert, bindValues, VertxReactiveDSL.instance().batchVertxRecords(table), handler);
+        executor.batchExecute(insert, bindValues, VertxReactiveDSL.instance().batchJsonRecords(table), handler);
     }
 
     @Test
@@ -105,7 +105,7 @@ class PgBatchInPoolTest extends AbstractPostgreSQLReactiveTest implements Postgr
                         System.out.println(records);
                     });
                     executor.execute(executor.dsl().selectFrom(table),
-                                     VertxReactiveDSL.instance().fetchVertxRecords(table),
+                                     VertxReactiveDSL.instance().fetchJsonRecords(table),
                                      ar2 -> assertRsSize(ctx, flag, ar2, 10));
                 } else {
                     ctx.failNow(ar.cause());
@@ -139,7 +139,7 @@ class PgBatchInPoolTest extends AbstractPostgreSQLReactiveTest implements Postgr
                         Assertions.assertEquals(2, result.getSuccesses());
                     });
                     executor.execute(executor.dsl().selectFrom(table),
-                                     VertxReactiveDSL.instance().fetchVertxRecords(table),
+                                     VertxReactiveDSL.instance().fetchJsonRecords(table),
                                      ar2 -> assertRsSize(ctx, flag, ar2, 10));
                 } else {
                     ctx.failNow(ar.cause());

@@ -12,7 +12,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 
 import io.github.zero88.jooq.vertx.BaseLegacySqlTest.AbstractLegacyDBCTest;
 import io.github.zero88.jooq.vertx.BindBatchValues;
-import io.github.zero88.jooq.vertx.VertxJooqRecord;
+import io.github.zero88.jooq.vertx.JsonRecord;
 import io.github.zero88.jooq.vertx.VertxLegacyDSL;
 import io.github.zero88.jooq.vertx.integtest.PostgreSQLHelper;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.Books;
@@ -49,7 +49,7 @@ class PgLegacyJdbcTest extends AbstractLegacyDBCTest<PostgreSQLContainer<?>>
                                                              .insertInto(table, table.ID, table.TITLE)
                                                              .values(Arrays.asList(DSL.defaultValue(table.ID), "abc"))
                                                              .returning(table.ID);
-        executor.execute(insert, VertxLegacyDSL.instance().fetchVertxRecord(table), ar -> {
+        executor.execute(insert, VertxLegacyDSL.instance().fetchJsonRecord(table), ar -> {
             ctx.verify(
                 () -> Assertions.assertEquals(new JsonObject().put("id", 8).put("title", null), ar.result().toJson()));
             flag.flag();
@@ -73,8 +73,8 @@ class PgLegacyJdbcTest extends AbstractLegacyDBCTest<PostgreSQLContainer<?>>
             ctx.verify(() -> Assertions.assertEquals(3, ar.result().getSuccesses()));
             flag.flag();
         });
-        executor.execute(executor.dsl().selectFrom(table), VertxLegacyDSL.instance().fetchVertxRecords(table), ar -> {
-            final List<VertxJooqRecord<?>> records = assertRsSize(ctx, flag, ar, 10);
+        executor.execute(executor.dsl().selectFrom(table), VertxLegacyDSL.instance().fetchJsonRecords(table), ar -> {
+            final List<JsonRecord<?>> records = assertRsSize(ctx, flag, ar, 10);
             ctx.verify(() -> {
                 Assertions.assertEquals(new JsonObject().put("id", 8).put("title", "abc"), records.get(7).toJson());
                 Assertions.assertEquals(new JsonObject().put("id", 9).put("title", "xyz"), records.get(8).toJson());

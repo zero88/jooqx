@@ -4,10 +4,10 @@ import java.sql.SQLException;
 
 import org.jooq.exception.DataAccessException;
 
-import io.github.zero88.jooq.vertx.JooqErrorMaker;
+import io.github.zero88.jooq.vertx.JooqErrorConverter;
 import io.vertx.mssqlclient.MSSQLException;
 
-public final class MssqlErrorMaker implements JooqErrorMaker<MSSQLException> {
+public final class MssqlErrorConverter implements JooqErrorConverter<MSSQLException> {
 
     @Override
     public DataAccessException apply(MSSQLException e) {

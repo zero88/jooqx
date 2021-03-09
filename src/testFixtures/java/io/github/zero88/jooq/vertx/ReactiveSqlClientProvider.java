@@ -27,7 +27,7 @@ public interface ReactiveSqlClientProvider extends SqlClientProvider<SqlClient> 
                                            .dsl(dslProvider.dsl())
                                            .sqlClient(sqlClient)
                                            .helper(createQueryHelper())
-                                           .errorMaker(createErrorMaker())
+                                           .errorConverter(createErrorConverter())
                                            .build();
         }
 

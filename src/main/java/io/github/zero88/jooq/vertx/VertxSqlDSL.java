@@ -43,14 +43,15 @@ interface VertxSqlDSL<RS, C extends ResultSetConverter<RS>> {
     SelectExistsResultAdapter<RS, C> fetchExists(@NonNull TableLike<Record1<Integer>> table);
 
     /**
-     * Fetch one
+     * Fetch one JsonRecord
      *
      * @param table given table
      * @param <T>   Type of table
-     * @return select one
+     * @return select one adapter
      * @see TableLike
+     * @see JsonRecord
      */
-    <T extends TableLike<? extends Record>> SelectOneResultAdapter<RS, C, T, VertxJooqRecord<?>> fetchVertxRecord(
+    <T extends TableLike<? extends Record>> SelectOneResultAdapter<RS, C, T, JsonRecord<?>> fetchJsonRecord(
         @NonNull T table);
 
     /**
@@ -60,7 +61,7 @@ interface VertxSqlDSL<RS, C extends ResultSetConverter<RS>> {
      * @param record record
      * @param <T>    Type of table
      * @param <R>    Type of record
-     * @return select one
+     * @return select one adapter
      * @see TableLike
      */
     <T extends TableLike<? extends Record>, R extends Record> SelectOneResultAdapter<RS, C, T, R> fetchOne(
@@ -72,7 +73,7 @@ interface VertxSqlDSL<RS, C extends ResultSetConverter<RS>> {
      * @param table  given table
      * @param fields given fields
      * @param <T>    Type of table
-     * @return select one
+     * @return select one adapter
      * @see TableLike
      */
     <T extends TableLike<? extends Record>> SelectOneResultAdapter<RS, C, T, Record> fetchOne(@NonNull T table,
@@ -85,7 +86,7 @@ interface VertxSqlDSL<RS, C extends ResultSetConverter<RS>> {
      * @param outputClass given output class
      * @param <T>         Type of table
      * @param <R>         Type ot output class
-     * @return select one
+     * @return select one adapter
      * @see TableLike
      */
     <T extends TableLike<? extends Record>, R> SelectOneResultAdapter<RS, C, T, R> fetchOne(@NonNull T table,
@@ -96,7 +97,7 @@ interface VertxSqlDSL<RS, C extends ResultSetConverter<RS>> {
      *
      * @param table given table
      * @param <T>   Type of table
-     * @return select one
+     * @return select one adapter
      * @see TableLike
      */
     <T extends Table<R>, R extends Record> SelectOneResultAdapter<RS, C, T, R> fetchOne(@NonNull T table);
@@ -108,21 +109,22 @@ interface VertxSqlDSL<RS, C extends ResultSetConverter<RS>> {
      * @param <R>   Type of record
      * @param <Z>   Type of expectation table
      * @param table given table
-     * @return select one
+     * @return select one adapter
      * @see TableLike
      */
     <T extends TableLike<? extends Record>, R extends Record, Z extends Table<R>> SelectOneResultAdapter<RS, C, T, R> fetchOne(
         @NonNull T table, @NonNull Z toTable);
 
     /**
-     * Fetch many Vertx record
+     * Fetch many Json record
      *
      * @param table given table
      * @param <T>   Type of table
-     * @return select many
+     * @return select many adapter
      * @see TableLike
+     * @see JsonRecord
      */
-    <T extends TableLike<? extends Record>> SelectListResultAdapter<RS, C, T, VertxJooqRecord<?>> fetchVertxRecords(
+    <T extends TableLike<? extends Record>> SelectListResultAdapter<RS, C, T, JsonRecord<?>> fetchJsonRecords(
         @NonNull T table);
 
     /**
@@ -132,7 +134,7 @@ interface VertxSqlDSL<RS, C extends ResultSetConverter<RS>> {
      * @param record record
      * @param <T>    Type of table
      * @param <R>    Type of record
-     * @return select many
+     * @return select many adapter
      * @see TableLike
      */
     <T extends TableLike<? extends Record>, R extends Record> SelectListResultAdapter<RS, C, T, R> fetchMany(
@@ -144,7 +146,7 @@ interface VertxSqlDSL<RS, C extends ResultSetConverter<RS>> {
      * @param table  given table
      * @param fields given fields
      * @param <T>    Type of table
-     * @return select many
+     * @return select many adapter
      * @see TableLike
      */
     <T extends TableLike<? extends Record>> SelectListResultAdapter<RS, C, T, Record> fetchMany(@NonNull T table,
@@ -157,7 +159,7 @@ interface VertxSqlDSL<RS, C extends ResultSetConverter<RS>> {
      * @param outputClass given output class
      * @param <T>         Type of table
      * @param <R>         Type ot output class
-     * @return select many
+     * @return select many adapter
      * @see TableLike
      */
     <T extends TableLike<? extends Record>, R> SelectListResultAdapter<RS, C, T, R> fetchMany(@NonNull T table,
@@ -168,7 +170,7 @@ interface VertxSqlDSL<RS, C extends ResultSetConverter<RS>> {
      *
      * @param table given table
      * @param <T>   Type of table
-     * @return select many
+     * @return select many adapter
      * @see TableLike
      */
     <T extends Table<R>, R extends Record> SelectListResultAdapter<RS, C, T, R> fetchMany(@NonNull T table);
@@ -180,7 +182,7 @@ interface VertxSqlDSL<RS, C extends ResultSetConverter<RS>> {
      * @param <R>   Type of record
      * @param <Z>   Type of expectation table
      * @param table given table
-     * @return select many
+     * @return select many adapter
      * @see TableLike
      */
     <T extends TableLike<? extends Record>, R extends Record, Z extends Table<R>> SelectListResultAdapter<RS, C, T,

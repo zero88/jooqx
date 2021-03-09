@@ -10,11 +10,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import io.github.zero88.jooq.vertx.SqlErrorMaker;
+import io.github.zero88.jooq.vertx.SqlErrorConverter;
 import io.github.zero88.jooq.vertx.VertxReactiveDSL;
 import io.github.zero88.jooq.vertx.integtest.PostgreSQLHelper;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.records.BooksRecord;
-import io.github.zero88.jooq.vertx.spi.PgErrorMaker;
+import io.github.zero88.jooq.vertx.spi.PgErrorConverter;
 import io.github.zero88.jooq.vertx.spi.PostgreSQLReactiveTest.AbstractPostgreSQLReactiveTest;
 import io.vertx.core.Vertx;
 import io.vertx.junit5.Checkpoint;
@@ -31,8 +31,8 @@ class PgJooqFailedTest extends AbstractPostgreSQLReactiveTest implements Postgre
     }
 
     @Override
-    public SqlErrorMaker<? extends Throwable, ? extends RuntimeException> createErrorMaker() {
-        return new PgErrorMaker();
+    public SqlErrorConverter<? extends Throwable, ? extends RuntimeException> createErrorConverter() {
+        return new PgErrorConverter();
     }
 
     @Test

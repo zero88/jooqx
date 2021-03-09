@@ -7,7 +7,7 @@ import java.util.function.Function;
 import org.jooq.Record;
 import org.jooq.TableLike;
 
-import io.github.zero88.jooq.vertx.VertxJooqRecord;
+import io.github.zero88.jooq.vertx.JsonRecord;
 import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.RowSet;
 
@@ -23,7 +23,7 @@ public final class ReactiveResultBatchConverter extends ReactiveResultSetConvert
     @Override
     protected <T extends TableLike<? extends Record>, R> List<R> doConvert(@NonNull RowSet<Row> resultSet,
                                                                            @NonNull T table,
-                                                                           @NonNull Function<VertxJooqRecord<?>, R> mapper) {
+                                                                           @NonNull Function<JsonRecord<?>, R> mapper) {
         final List<R> records = new ArrayList<>();
         while (resultSet != null) {
             final List<R> rs = super.doConvert(resultSet, table, mapper);

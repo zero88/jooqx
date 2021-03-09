@@ -8,9 +8,9 @@ import org.jooq.impl.CustomRecord;
 
 import io.vertx.core.json.JsonObject;
 
-final class VertxJooqRecordImpl<R extends TableRecord<R>> extends CustomRecord<R> implements VertxJooqRecord<R> {
+final class JsonRecordImpl<R extends TableRecord<R>> extends CustomRecord<R> implements JsonRecord<R> {
 
-    public VertxJooqRecordImpl(Table<R> table) {
+    public JsonRecordImpl(Table<R> table) {
         super(table);
     }
 

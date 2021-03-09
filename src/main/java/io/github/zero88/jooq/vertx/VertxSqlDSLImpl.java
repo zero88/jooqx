@@ -34,9 +34,9 @@ class VertxSqlDSLImpl<RS, C extends ResultSetConverter<RS>> implements VertxSqlD
     }
 
     @Override
-    public <T extends TableLike<? extends Record>> SelectOneResultAdapter<RS, C, T, VertxJooqRecord<?>> fetchVertxRecord(
+    public <T extends TableLike<? extends Record>> SelectOneResultAdapter<RS, C, T, JsonRecord<?>> fetchJsonRecord(
         @NonNull T table) {
-        return SelectOneResultAdapter.vertxRecord(table, converter);
+        return SelectOneResultAdapter.jsonRecord(table, converter);
     }
 
     @Override
@@ -69,9 +69,9 @@ class VertxSqlDSLImpl<RS, C extends ResultSetConverter<RS>> implements VertxSqlD
     }
 
     @Override
-    public <T extends TableLike<? extends Record>> SelectListResultAdapter<RS, C, T, VertxJooqRecord<?>> fetchVertxRecords(
+    public <T extends TableLike<? extends Record>> SelectListResultAdapter<RS, C, T, JsonRecord<?>> fetchJsonRecords(
         @NonNull T table) {
-        return SelectListResultAdapter.vertxRecord(table, converter);
+        return SelectListResultAdapter.jsonRecord(table, converter);
     }
 
     @Override

@@ -9,7 +9,7 @@ import org.jooq.Record;
 import org.jooq.Table;
 import org.jooq.TableLike;
 
-import io.github.zero88.jooq.vertx.VertxJooqRecord;
+import io.github.zero88.jooq.vertx.JsonRecord;
 import io.github.zero88.jooq.vertx.adapter.HasStrategy.SelectOne;
 import io.github.zero88.jooq.vertx.converter.ResultSetConverter;
 
@@ -29,10 +29,10 @@ public final class SelectOneResultAdapter<RS, C extends ResultSetConverter<RS>, 
         return getFunction().apply(this, resultSet).stream().findFirst().orElse(null);
     }
 
-    public static <RS, C extends ResultSetConverter<RS>, T extends TableLike<? extends Record>> SelectOneResultAdapter<RS, C, T, VertxJooqRecord<?>> vertxRecord(
+    public static <RS, C extends ResultSetConverter<RS>, T extends TableLike<? extends Record>> SelectOneResultAdapter<RS, C, T, JsonRecord<?>> jsonRecord(
         @NonNull T table, @NonNull C converter) {
         return new SelectOneResultAdapter<>(table, converter,
-                                            (a, rs) -> a.converter().convertVertxRecord(rs, a.table()));
+                                            (a, rs) -> a.converter().convertJsonRecord(rs, a.table()));
     }
 
     public static <RS, C extends ResultSetConverter<RS>, T extends TableLike<? extends Record>, R extends Record> SelectOneResultAdapter<RS, C, T, R> create(

@@ -13,7 +13,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @SuperBuilder
 @Accessors(fluent = true)
-public abstract class AbstractVertxJooqExecutor<S, P, RS> implements VertxJooqExecutor<S, P, RS> {
+abstract class AbstractVertxJooqExecutor<S, P, RS> implements VertxJooqExecutor<S, P, RS> {
 
     @NonNull
     private final Vertx vertx;
@@ -23,6 +23,7 @@ public abstract class AbstractVertxJooqExecutor<S, P, RS> implements VertxJooqEx
     private final S sqlClient;
     @Default
     @NonNull
-    private final SqlErrorMaker<? extends Throwable, ? extends RuntimeException> errorMaker = SqlErrorMaker.DEFAULT;
+    private final SqlErrorConverter<? extends Throwable, ? extends RuntimeException> errorConverter
+        = SqlErrorConverter.DEFAULT;
 
 }

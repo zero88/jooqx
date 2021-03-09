@@ -52,7 +52,7 @@ public interface LegacyJdbcSqlClientProvider extends SqlClientProvider<SQLClient
                                           .dsl(dslProvider.dsl())
                                           .sqlClient(sqlClient)
                                           .helper(createQueryHelper())
-                                          .errorMaker(createErrorMaker())
+                                          .errorConverter(createErrorConverter())
                                           .build();
         }
 

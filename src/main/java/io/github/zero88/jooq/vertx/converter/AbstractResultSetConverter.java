@@ -10,7 +10,7 @@ import org.jooq.Record;
 import org.jooq.Table;
 import org.jooq.TableLike;
 
-import io.github.zero88.jooq.vertx.VertxJooqRecord;
+import io.github.zero88.jooq.vertx.JsonRecord;
 import io.github.zero88.jooq.vertx.adapter.SelectStrategy;
 
 import lombok.AccessLevel;
@@ -29,8 +29,8 @@ public abstract class AbstractResultSetConverter<RS> implements ResultSetConvert
     }
 
     @Override
-    public <T extends TableLike<? extends Record>> List<VertxJooqRecord<?>> convertVertxRecord(@NonNull RS resultSet,
-                                                                                               T table) {
+    public <T extends TableLike<? extends Record>> List<JsonRecord<?>> convertJsonRecord(@NonNull RS resultSet,
+                                                                                         T table) {
         return doConvert(resultSet, table, Function.identity());
     }
 
@@ -65,7 +65,7 @@ public abstract class AbstractResultSetConverter<RS> implements ResultSetConvert
     }
 
     protected abstract <T extends TableLike<? extends Record>, R> List<R> doConvert(@NonNull RS resultSet, T table,
-                                                                                    @NonNull Function<VertxJooqRecord<?>, R> mapper);
+                                                                                    @NonNull Function<JsonRecord<?>, R> mapper);
 
     protected void warnManyResult(boolean check) {
         if (check) {

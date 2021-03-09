@@ -10,7 +10,7 @@ import org.jooq.TableLike;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.github.zero88.jooq.vertx.VertxJooqRecord;
+import io.github.zero88.jooq.vertx.JsonRecord;
 import io.github.zero88.jooq.vertx.adapter.SelectStrategy;
 
 import lombok.NonNull;
@@ -34,17 +34,17 @@ public interface ResultSetConverter<RS> {
     @NonNull ResultSetConverter<RS> setup(@NonNull SelectStrategy strategy);
 
     /**
-     * Convert SQL result set to generic {@code Vertx jOOQ record}
+     * Convert SQL result set to generic {@code Json record}
      *
      * @param resultSet SQL result set
      * @param table     table context
      * @param <T>       Type of Jooq Table Like
      * @return list of {@code Vertx jOOQ record}
-     * @see VertxJooqRecord
+     * @see JsonRecord
      * @see TableLike
      */
-    <T extends TableLike<? extends Record>> List<VertxJooqRecord<?>> convertVertxRecord(@NonNull RS resultSet,
-                                                                                        @NonNull T table);
+    <T extends TableLike<? extends Record>> List<JsonRecord<?>> convertJsonRecord(@NonNull RS resultSet,
+                                                                                  @NonNull T table);
 
     /**
      * Convert result set to an expectation record

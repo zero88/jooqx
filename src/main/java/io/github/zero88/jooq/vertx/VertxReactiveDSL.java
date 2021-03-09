@@ -39,9 +39,9 @@ public interface VertxReactiveDSL extends VertxSqlDSL<RowSet<Row>, ReactiveResul
      * @return batch adapter
      */
     default <T extends TableLike<?>> SelectListResultAdapter<RowSet<Row>, ReactiveResultBatchConverter, T,
-                                                                VertxJooqRecord<?>> batchVertxRecords(
+                                                                JsonRecord<?>> batchJsonRecords(
         @NonNull T table) {
-        return SelectListResultAdapter.vertxRecord(table, new ReactiveResultBatchConverter());
+        return SelectListResultAdapter.jsonRecord(table, new ReactiveResultBatchConverter());
     }
 
     /**

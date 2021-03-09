@@ -13,7 +13,7 @@ import org.jooq.Record;
 import org.jooq.Table;
 import org.jooq.TableLike;
 
-import io.github.zero88.jooq.vertx.VertxJooqRecord;
+import io.github.zero88.jooq.vertx.JsonRecord;
 import io.github.zero88.jooq.vertx.adapter.SelectStrategy;
 import io.vertx.core.json.JsonArray;
 import io.vertx.ext.sql.ResultSet;
@@ -24,7 +24,7 @@ public final class LegacyResultSetConverter extends AbstractResultSetConverter<R
     implements ResultBatchConverter<ResultSet, List<Integer>> {
 
     protected <T extends TableLike<? extends Record>, R> List<R> doConvert(ResultSet resultSet, T table,
-                                                                           @NonNull Function<VertxJooqRecord<?>, R> mapper) {
+                                                                           @NonNull Function<JsonRecord<?>, R> mapper) {
         final Map<String, Field<?>> fieldMap = table.fieldStream()
                                                     .collect(Collectors.toMap(Field::getName, Function.identity()));
         final Map<Integer, Field<?>> map = getColumnMap(resultSet, fieldMap::get);
@@ -43,9 +43,9 @@ public final class LegacyResultSetConverter extends AbstractResultSetConverter<R
     }
 
     @SuppressWarnings( {"unchecked", "rawtypes"})
-    private <T extends TableLike<? extends Record>> VertxJooqRecord<?> toRecord(T table, Map<Integer, Field<?>> map,
-                                                                                JsonArray row) {
-        VertxJooqRecord<?> record = VertxJooqRecord.create((Table<VertxJooqRecord>) table);
+    private <T extends TableLike<? extends Record>> JsonRecord<?> toRecord(T table, Map<Integer, Field<?>> map,
+                                                                           JsonArray row) {
+        JsonRecord<?> record = JsonRecord.create((Table<JsonRecord>) table);
         map.forEach((k, v) -> record.set((Field<Object>) v, v.getType().cast(row.getValue(k))));
         return record;
     }

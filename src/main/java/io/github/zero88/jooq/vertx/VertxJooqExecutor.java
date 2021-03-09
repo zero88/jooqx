@@ -57,14 +57,14 @@ public interface VertxJooqExecutor<S, P, RS> extends VertxBatchExecutor {
     @NonNull QueryHelper<P> helper();
 
     /**
-     * Defines an error maker that rethrows an uniform exception by {@link SqlErrorMaker#reThrowError(Throwable)} if any
-     * error in execution time
+     * Defines an error converter that rethrows an uniform exception by {@link SqlErrorConverter#reThrowError(Throwable)
+     * if any error in execution time
      *
      * @return error handler
-     * @apiNote Default is {@link SqlErrorMaker#DEFAULT}
-     * @see SqlErrorMaker
+     * @apiNote Default is {@link SqlErrorConverter#DEFAULT} that keeps error as it is
+     * @see SqlErrorConverter
      */
-    @NonNull SqlErrorMaker<? extends Throwable, ? extends RuntimeException> errorMaker();
+    @NonNull SqlErrorConverter<? extends Throwable, ? extends RuntimeException> errorConverter();
 
     /**
      * Execute {@code jOOQ query} then return async result

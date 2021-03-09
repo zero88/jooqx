@@ -12,13 +12,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 
 import io.github.zero88.jooq.vertx.BaseReactiveSqlTest.AbstractReactiveMemoryTest;
 import io.github.zero88.jooq.vertx.ReactiveSqlClientProvider.JdbcReactiveSqlClientProvider;
-import io.github.zero88.jooq.vertx.SqlErrorMaker;
+import io.github.zero88.jooq.vertx.SqlErrorConverter;
 import io.github.zero88.jooq.vertx.VertxReactiveDSL;
 import io.github.zero88.jooq.vertx.integtest.H2SQLHelper;
 import io.github.zero88.jooq.vertx.integtest.h2.tables.Author;
 import io.github.zero88.jooq.vertx.integtest.h2.tables.records.AuthorRecord;
 import io.github.zero88.jooq.vertx.spi.H2DBProvider;
-import io.github.zero88.jooq.vertx.spi.SqlJdbcErrorMaker;
+import io.github.zero88.jooq.vertx.spi.JdbcErrorConverter;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxExtension;
 import io.vertx.junit5.VertxTestContext;
@@ -28,8 +28,8 @@ public class H2ReactiveJdbcFailedTest extends AbstractReactiveMemoryTest
     implements H2DBProvider, H2SQLHelper, JdbcReactiveSqlClientProvider {
 
     @Override
-    public SqlErrorMaker<? extends Throwable, ? extends RuntimeException> createErrorMaker() {
-        return new SqlJdbcErrorMaker();
+    public SqlErrorConverter<? extends Throwable, ? extends RuntimeException> createErrorConverter() {
+        return new JdbcErrorConverter();
     }
 
     @Test
@@ -40,7 +40,7 @@ public class H2ReactiveJdbcFailedTest extends AbstractReactiveMemoryTest
                                                               .insertInto(table, table.ID, table.FIRST_NAME)
                                                               .values(Arrays.asList(DSL.defaultValue(table.ID), "abc"))
                                                               .returning(table.ID);
-        executor.execute(insert, VertxReactiveDSL.instance().fetchVertxRecord(table), ar -> {
+        executor.execute(insert, VertxReactiveDSL.instance().fetchJsonRecord(table), ar -> {
             testContext.verify(() -> {
                 Assertions.assertTrue(ar.cause() instanceof DataAccessException);
                 final DataAccessException cause = (DataAccessException) ar.cause();

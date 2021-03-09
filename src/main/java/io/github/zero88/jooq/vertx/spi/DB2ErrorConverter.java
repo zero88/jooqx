@@ -4,10 +4,10 @@ import java.sql.SQLException;
 
 import org.jooq.exception.DataAccessException;
 
-import io.github.zero88.jooq.vertx.JooqErrorMaker;
+import io.github.zero88.jooq.vertx.JooqErrorConverter;
 import io.vertx.db2client.DB2Exception;
 
-public final class DB2ErrorMaker implements JooqErrorMaker<DB2Exception> {
+public final class DB2ErrorConverter implements JooqErrorConverter<DB2Exception> {
 
     @Override
     public DataAccessException apply(DB2Exception e) {

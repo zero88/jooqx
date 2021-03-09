@@ -21,7 +21,7 @@ public final class SelectCountResultAdapter<RS, C extends ResultSetConverter<RS>
     public static <RS, C extends ResultSetConverter<RS>> SelectCountResultAdapter<RS, C> count(
         @NonNull TableLike<Record1<Integer>> table, @NonNull C converter) {
         return new SelectCountResultAdapter<>(table, converter, (a, rs) -> a.converter()
-                                                                            .convertVertxRecord(rs, a.table())
+                                                                            .convertJsonRecord(rs, a.table())
                                                                             .stream()
                                                                             .findFirst()
                                                                             .map(s -> s.get(0, Integer.class))

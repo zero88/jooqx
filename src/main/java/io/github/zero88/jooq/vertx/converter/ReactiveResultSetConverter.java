@@ -13,7 +13,7 @@ import org.jooq.Record;
 import org.jooq.Table;
 import org.jooq.TableLike;
 
-import io.github.zero88.jooq.vertx.VertxJooqRecord;
+import io.github.zero88.jooq.vertx.JsonRecord;
 import io.github.zero88.jooq.vertx.adapter.SelectStrategy;
 import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.RowIterator;
@@ -32,7 +32,7 @@ public class ReactiveResultSetConverter extends AbstractResultSetConverter<RowSe
 
     @Override
     protected <T extends TableLike<? extends Record>, R> List<R> doConvert(@NonNull RowSet<Row> resultSet, T table,
-                                                                           @NonNull Function<VertxJooqRecord<?>, R> mapper) {
+                                                                           @NonNull Function<JsonRecord<?>, R> mapper) {
         final Map<String, Field<?>> fieldMap = table.fieldStream()
                                                     .collect(Collectors.toMap(Field::getName, Function.identity()));
         final List<R> records = new ArrayList<>();
@@ -47,9 +47,9 @@ public class ReactiveResultSetConverter extends AbstractResultSetConverter<RowSe
     }
 
     @SuppressWarnings( {"unchecked", "rawtypes"})
-    private VertxJooqRecord<?> toRecord(@NonNull TableLike table, @NonNull Row row,
-                                        @NonNull Function<String, Field<?>> lookupField) {
-        VertxJooqRecord<?> record = VertxJooqRecord.create((Table<VertxJooqRecord>) table);
+    private JsonRecord<?> toRecord(@NonNull TableLike table, @NonNull Row row,
+                                   @NonNull Function<String, Field<?>> lookupField) {
+        JsonRecord<?> record = JsonRecord.create((Table<JsonRecord>) table);
         IntStream.range(0, row.size())
                  .mapToObj(row::getColumnName)
                  .map(lookupField)
