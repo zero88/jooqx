@@ -18,16 +18,11 @@ import io.vertx.junit5.VertxTestContext;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
-import lombok.Getter;
-import lombok.experimental.Accessors;
 
 @ExtendWith(VertxExtension.class)
 public abstract class AbstractSqlTest<S, P, R, E extends VertxJooqExecutor<S, P, R>, K, D extends DBProvider<K>>
     implements BaseSqlTest<S, P, R, E, K, D> {
 
-    @Getter
-    @Accessors(fluent = true)
-    private S sqlClient;
     protected E executor;
     protected SqlConnectionOption connOpt;
 
@@ -43,16 +38,19 @@ public abstract class AbstractSqlTest<S, P, R, E extends VertxJooqExecutor<S, P,
     @BeforeEach
     public void tearUp(Vertx vertx, VertxTestContext ctx) {
         connOpt = dbProvider().connOpt(getDB());
-        sqlClient = clientProvider().usePool()
-                    ? clientProvider().createPool(vertx, ctx, connOpt)
-                    : clientProvider().createConnection(vertx, ctx, connOpt);
-        executor = executorProvider().createExecutor(vertx, dslProvider(), sqlClient());
+        executor = executorProvider().createExecutor(vertx, dslProvider(),
+                                                     clientProvider().createSqlClient(vertx, ctx, connOpt));
         System.out.println(Strings.duplicate("=", 150));
     }
 
     @AfterEach
     public void tearDown(Vertx vertx, VertxTestContext ctx) {
         clientProvider().closeClient(ctx);
+    }
+
+    @Override
+    public S sqlClient() {
+        return executor.sqlClient();
     }
 
     protected abstract K getDB();

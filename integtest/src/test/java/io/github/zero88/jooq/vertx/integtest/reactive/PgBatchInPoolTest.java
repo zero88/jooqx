@@ -17,7 +17,7 @@ import io.github.zero88.jooq.vertx.JsonRecord;
 import io.github.zero88.jooq.vertx.VertxReactiveDSL;
 import io.github.zero88.jooq.vertx.integtest.PostgreSQLHelper;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.records.AuthorsRecord;
-import io.github.zero88.jooq.vertx.spi.PostgreSQLReactiveTest.AbstractPostgreSQLReactiveTest;
+import io.github.zero88.jooq.vertx.spi.PostgreSQLReactiveTest.AbstractPostgreSQLPoolTest;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
@@ -25,12 +25,7 @@ import io.vertx.core.json.Json;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 
-class PgBatchInPoolTest extends AbstractPostgreSQLReactiveTest implements PostgreSQLHelper {
-
-    @Override
-    public boolean usePool() {
-        return true;
-    }
+class PgBatchInPoolTest extends AbstractPostgreSQLPoolTest implements PostgreSQLHelper {
 
     @Override
     @BeforeEach
@@ -149,5 +144,9 @@ class PgBatchInPoolTest extends AbstractPostgreSQLReactiveTest implements Postgr
             }
         });
     }
+
+//    @Test
+//    void try_transaction(VertxTestContext context) {
+//    }
 
 }

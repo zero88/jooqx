@@ -1,4 +1,4 @@
-package io.github.zero88.jooq.vertx.integtest.jdbc;
+package io.github.zero88.jooq.vertx.integtest.reactive;
 
 import java.util.Arrays;
 
@@ -19,12 +19,13 @@ import io.github.zero88.jooq.vertx.integtest.h2.tables.Author;
 import io.github.zero88.jooq.vertx.integtest.h2.tables.records.AuthorRecord;
 import io.github.zero88.jooq.vertx.spi.H2DBProvider;
 import io.github.zero88.jooq.vertx.spi.JdbcErrorConverter;
+import io.vertx.jdbcclient.JDBCPool;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxExtension;
 import io.vertx.junit5.VertxTestContext;
 
 @ExtendWith(VertxExtension.class)
-public class H2ReactiveJdbcFailedTest extends AbstractReactiveMemoryTest
+public class H2ReactiveJdbcFailedTest extends AbstractReactiveMemoryTest<JDBCPool>
     implements H2DBProvider, H2SQLHelper, JdbcReactiveSqlClientProvider {
 
     @Override
@@ -34,7 +35,7 @@ public class H2ReactiveJdbcFailedTest extends AbstractReactiveMemoryTest
 
     @Test
     void test(VertxTestContext testContext) {
-        final Checkpoint flag = testContext.checkpoint(1);
+        final Checkpoint flag = testContext.checkpoint();
         final Author table = catalog().DEFAULT_SCHEMA.AUTHOR;
         final InsertResultStep<AuthorRecord> insert = executor.dsl()
                                                               .insertInto(table, table.ID, table.FIRST_NAME)

@@ -15,13 +15,14 @@ import io.github.zero88.jooq.vertx.VertxReactiveDSL;
 import io.github.zero88.jooq.vertx.integtest.PostgreSQLHelper;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.records.BooksRecord;
 import io.github.zero88.jooq.vertx.spi.PgErrorConverter;
-import io.github.zero88.jooq.vertx.spi.PostgreSQLReactiveTest.AbstractPostgreSQLReactiveTest;
+import io.github.zero88.jooq.vertx.spi.PostgreSQLReactiveTest.AbstractPostgreSQLClientTest;
 import io.vertx.core.Vertx;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
+import io.vertx.pgclient.PgConnection;
 import io.vertx.pgclient.PgException;
 
-class PgJooqFailedTest extends AbstractPostgreSQLReactiveTest implements PostgreSQLHelper {
+class PgJooqFailedTest extends AbstractPostgreSQLClientTest implements PostgreSQLHelper {
 
     @Override
     @BeforeEach

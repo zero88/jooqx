@@ -10,25 +10,24 @@ import io.vertx.sqlclient.RowSet;
 import io.vertx.sqlclient.SqlClient;
 import io.vertx.sqlclient.Tuple;
 
-public interface ReactiveSqlClientProvider extends SqlClientProvider<SqlClient> {
+public interface ReactiveSqlClientProvider<S extends SqlClient> extends SqlClientProvider<S> {
 
     @Override
     default void closeClient(VertxTestContext context) {
         sqlClient().close(context.succeedingThenComplete());
     }
 
-    interface ReactiveExecutorProvider
-        extends JooqExecutorProvider<SqlClient, Tuple, RowSet<Row>, VertxReactiveSqlExecutor> {
+    interface ReactiveExecutorProvider<S extends SqlClient>
+        extends JooqExecutorProvider<S, Tuple, RowSet<Row>, VertxReactiveSqlExecutor<S>> {
 
         @Override
-        default VertxReactiveSqlExecutor createExecutor(Vertx vertx, JooqDSLProvider dslProvider, SqlClient sqlClient) {
-            return VertxReactiveSqlExecutor.builder()
-                                           .vertx(vertx)
-                                           .dsl(dslProvider.dsl())
-                                           .sqlClient(sqlClient)
-                                           .helper(createQueryHelper())
-                                           .errorConverter(createErrorConverter())
-                                           .build();
+        default VertxReactiveSqlExecutor<S> createExecutor(Vertx vertx, JooqDSLProvider dslProvider, S sqlClient) {
+            return VertxReactiveSqlExecutor.<S>builder().vertx(vertx)
+                                                        .dsl(dslProvider.dsl())
+                                                        .sqlClient(sqlClient)
+                                                        .helper(createQueryHelper())
+                                                        .errorConverter(createErrorConverter())
+                                                        .build();
         }
 
         @Override
@@ -39,27 +38,17 @@ public interface ReactiveSqlClientProvider extends SqlClientProvider<SqlClient> 
     }
 
 
-    interface JdbcReactiveSqlClientProvider extends ReactiveSqlClientProvider {
+    interface JdbcReactiveSqlClientProvider extends ReactiveSqlClientProvider<JDBCPool> {
 
         @Override
-        default SqlClient createConnection(Vertx vertx, VertxTestContext ctx, SqlConnectionOption connOpt) {
-            throw new UnsupportedOperationException("DataSource is in Pool as default");
-        }
-
-        @Override
-        default SqlClient createPool(Vertx vertx, VertxTestContext ctx, SqlConnectionOption opt) {
-            final JDBCPool pool = JDBCPool.pool(vertx, new JDBCConnectOptions().setJdbcUrl(opt.getJdbcUrl())
-                                                                               .setDatabase(opt.getDatabase())
-                                                                               .setUser(opt.getUsername())
-                                                                               .setPassword(opt.getPassword()),
+        default JDBCPool createSqlClient(Vertx vertx, VertxTestContext ctx, SqlConnectionOption connOpt) {
+            final JDBCPool pool = JDBCPool.pool(vertx, new JDBCConnectOptions().setJdbcUrl(connOpt.getJdbcUrl())
+                                                                               .setDatabase(connOpt.getDatabase())
+                                                                               .setUser(connOpt.getUsername())
+                                                                               .setPassword(connOpt.getPassword()),
                                                 poolOptions());
             ctx.completeNow();
             return pool;
-        }
-
-        @Override
-        default boolean usePool() {
-            return true;
         }
 
     }

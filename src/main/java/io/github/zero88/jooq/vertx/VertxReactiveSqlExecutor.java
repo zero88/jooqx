@@ -23,6 +23,7 @@ import lombok.experimental.SuperBuilder;
 /**
  * Represents for an executor that executes {@code jOOQ query} on {@code Vertx reactive SQL client} connection
  *
+ * @param <S> Type of SqlClient, can be {@code SqlConnection} or {@code Pool}
  * @see SqlClient
  * @see Tuple
  * @see Row
@@ -32,8 +33,8 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @SuperBuilder
 @Accessors(fluent = true)
-public final class VertxReactiveSqlExecutor extends AbstractVertxJooqExecutor<SqlClient, Tuple, RowSet<Row>>
-    implements VertxReactiveBatchExecutor {
+public final class VertxReactiveSqlExecutor<S extends SqlClient>
+    extends AbstractVertxJooqExecutor<S, Tuple, RowSet<Row>> implements VertxReactiveBatchExecutor {
 
     @NonNull
     @Default

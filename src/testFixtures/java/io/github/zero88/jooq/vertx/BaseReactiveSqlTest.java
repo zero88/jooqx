@@ -12,25 +12,25 @@ import io.vertx.sqlclient.RowSet;
 import io.vertx.sqlclient.SqlClient;
 import io.vertx.sqlclient.Tuple;
 
-public interface BaseReactiveSqlTest<K, D extends DBProvider<K>>
-    extends BaseSqlTest<SqlClient, Tuple, RowSet<Row>, VertxReactiveSqlExecutor, K, D>, ReactiveExecutorProvider,
-            ReactiveSqlClientProvider {
+public interface BaseReactiveSqlTest<S extends SqlClient, K, D extends DBProvider<K>>
+    extends BaseSqlTest<S, Tuple, RowSet<Row>, VertxReactiveSqlExecutor<S>, K, D>, ReactiveExecutorProvider<S>,
+            ReactiveSqlClientProvider<S> {
 
     @Override
-    default SqlClientProvider<SqlClient> clientProvider() { return this; }
+    default SqlClientProvider<S> clientProvider() { return this; }
 
-    default ReactiveExecutorProvider executorProvider() { return this; }
+    default ReactiveExecutorProvider<S> executorProvider() { return this; }
 
-    abstract class AbstractReactiveDBCTest<K extends JdbcDatabaseContainer<?>>
-        extends AbstractDBContainerTest<SqlClient, Tuple, RowSet<Row>, VertxReactiveSqlExecutor, K>
-        implements BaseReactiveSqlTest<K, DBContainerProvider<K>> {
+    abstract class AbstractReactiveDBCTest<S extends SqlClient, K extends JdbcDatabaseContainer<?>>
+        extends AbstractDBContainerTest<S, Tuple, RowSet<Row>, VertxReactiveSqlExecutor<S>, K>
+        implements BaseReactiveSqlTest<S, K, DBContainerProvider<K>> {
 
     }
 
 
-    abstract class AbstractReactiveMemoryTest
-        extends AbstractDBMemoryTest<SqlClient, Tuple, RowSet<Row>, VertxReactiveSqlExecutor>
-        implements BaseReactiveSqlTest<String, DBMemoryProvider> {
+    abstract class AbstractReactiveMemoryTest<S extends SqlClient>
+        extends AbstractDBMemoryTest<S, Tuple, RowSet<Row>, VertxReactiveSqlExecutor<S>>
+        implements BaseReactiveSqlTest<S, String, DBMemoryProvider> {
 
     }
 

@@ -23,17 +23,18 @@ import io.github.zero88.jooq.vertx.integtest.pgsql.tables.pojos.Authors;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.pojos.Books;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.records.AuthorsRecord;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.records.BooksRecord;
-import io.github.zero88.jooq.vertx.spi.PostgreSQLReactiveTest.AbstractPostgreSQLReactiveTest;
+import io.github.zero88.jooq.vertx.spi.PostgreSQLReactiveTest.AbstractPostgreSQLClientTest;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
+import io.vertx.pgclient.PgConnection;
 
 /**
  * If using v4.0.0, pretty sure thread leak, but v4.0.2 is already fixed
  * <a href="vertx-sql-client#909">https://github.com/eclipse-vertx/vertx-sql-client/issues/909</a>
  */
-class PgJooqSuccessTest extends AbstractPostgreSQLReactiveTest implements PostgreSQLHelper {
+class PgJooqSuccessTest extends AbstractPostgreSQLClientTest implements PostgreSQLHelper {
 
     @Override
     @BeforeEach

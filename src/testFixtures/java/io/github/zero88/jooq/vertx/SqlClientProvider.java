@@ -4,15 +4,13 @@ import io.vertx.core.Vertx;
 import io.vertx.junit5.VertxTestContext;
 import io.vertx.sqlclient.PoolOptions;
 
+import lombok.NonNull;
+
 public interface SqlClientProvider<S> extends HasSqlClient<S> {
 
-    S createConnection(Vertx vertx, VertxTestContext ctx, SqlConnectionOption connOpt);
+    @NonNull S createSqlClient(Vertx vertx, VertxTestContext ctx, SqlConnectionOption connOpt);
 
-    S createPool(Vertx vertx, VertxTestContext ctx, SqlConnectionOption opt);
-
-    default boolean usePool() {
-        return false;
-    }
+    void closeClient(VertxTestContext context);
 
     default PoolOptions poolOptions() {
         return new PoolOptions();

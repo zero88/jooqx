@@ -13,18 +13,8 @@ import io.vertx.junit5.VertxTestContext;
 public interface LegacyJdbcSqlClientProvider extends SqlClientProvider<SQLClient> {
 
     @Override
-    default boolean usePool() {
-        return true;
-    }
-
-    @Override
-    default SQLClient createConnection(Vertx vertx, VertxTestContext ctx, SqlConnectionOption connOpt) {
-        throw new UnsupportedOperationException("DataSource is in Pool as default");
-    }
-
-    @Override
-    default SQLClient createPool(Vertx vertx, VertxTestContext ctx, SqlConnectionOption opt) {
-        final JDBCClient client = JDBCClient.create(vertx, sqlConfig(opt));
+    default SQLClient createSqlClient(Vertx vertx, VertxTestContext ctx, SqlConnectionOption connOpt) {
+        final JDBCClient client = JDBCClient.create(vertx, sqlConfig(connOpt));
         ctx.completeNow();
         return client;
     }

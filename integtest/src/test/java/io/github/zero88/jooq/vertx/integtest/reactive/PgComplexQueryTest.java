@@ -16,13 +16,13 @@ import io.github.zero88.jooq.vertx.integtest.pgsql.Public;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.pojos.Authors;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.pojos.Books;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.records.AuthorsRecord;
-import io.github.zero88.jooq.vertx.spi.PostgreSQLReactiveTest.AbstractPostgreSQLReactiveTest;
+import io.github.zero88.jooq.vertx.spi.PostgreSQLReactiveTest.AbstractPostgreSQLClientTest;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 
-class PgComplexQueryTest extends AbstractPostgreSQLReactiveTest implements PostgreSQLHelper {
+class PgComplexQueryTest extends AbstractPostgreSQLClientTest implements PostgreSQLHelper {
 
     @Override
     @BeforeEach
