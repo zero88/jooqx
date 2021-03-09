@@ -17,7 +17,7 @@ import lombok.NonNull;
  * @see Record
  * @see TableLike
  */
-public class ReactiveResultBatchConverter extends ReactiveResultSetConverter
+public final class ReactiveResultBatchConverter extends ReactiveResultSetConverter
     implements ResultBatchConverter<RowSet<Row>, RowSet<Row>> {
 
     @Override
@@ -36,7 +36,7 @@ public class ReactiveResultBatchConverter extends ReactiveResultSetConverter
     }
 
     @Override
-    public int count(@NonNull RowSet<Row> batchResult) {
+    public int batchResultSize(@NonNull RowSet<Row> batchResult) {
         final int[] count = new int[] {0};
         while (batchResult != null) {
             count[0]++;

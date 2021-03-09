@@ -41,11 +41,11 @@ public final class VertxLegacyJdbcExecutor extends AbstractVertxJooqExecutor<SQL
 
     @Override
     public <Q extends Query, T extends TableLike<?>, C extends ResultSetConverter<ResultSet>, R> void execute(
-        @NonNull Q query, @NonNull SqlResultAdapter<ResultSet, C, T, R> resultMapper,
+        @NonNull Q query, @NonNull SqlResultAdapter<ResultSet, C, T, R> resultAdapter,
         @NonNull Handler<AsyncResult<R>> handler) {
         sqlClient().queryWithParams(helper().toPreparedQuery(dsl().configuration(), query, ParamType.INDEXED),
                                     helper().toBindValues(query), ar -> handler.handle(
-                ar.map(resultMapper::convert).otherwise(errorMaker()::reThrowError)));
+                ar.map(resultAdapter::convert).otherwise(errorMaker()::reThrowError)));
     }
 
     @Override
@@ -58,7 +58,7 @@ public final class VertxLegacyJdbcExecutor extends AbstractVertxJooqExecutor<SQL
             arc.result()
                .batchWithParams(helper().toPreparedQuery(dsl().configuration(), query, ParamType.INDEXED),
                                 helper().toBindValues(query, bindBatchValues), ar -> handler.handle(
-                       ar.map(r -> new LegacyResultSetConverter().count(r))
+                       ar.map(r -> new LegacyResultSetConverter().batchResultSize(r))
                          .map(s -> new BatchResult(bindBatchValues.size(), s))
                          .otherwise(errorMaker()::reThrowError)));
         });

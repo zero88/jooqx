@@ -26,8 +26,7 @@ import lombok.NonNull;
  * @see TableLike
  * @see ResultSetConverter
  */
-public class ReactiveResultSetConverter extends AbstractResultSetConverter<RowSet<Row>>
-    implements ResultSetConverter<RowSet<Row>> {
+public class ReactiveResultSetConverter extends AbstractResultSetConverter<RowSet<Row>> {
 
     @Override
     protected <T extends TableLike<? extends Record>, R> List<R> doConvert(@NonNull RowSet<Row> resultSet, T table,
@@ -40,7 +39,7 @@ public class ReactiveResultSetConverter extends AbstractResultSetConverter<RowSe
     }
 
     @SuppressWarnings( {"unchecked", "rawtypes"})
-    private VertxJooqRecord<?> toRecord(TableLike table, @NonNull Row row,
+    private VertxJooqRecord<?> toRecord(@NonNull TableLike table, @NonNull Row row,
                                         @NonNull Function<String, Field<?>> lookupField) {
         VertxJooqRecord<?> record = VertxJooqRecord.create((Table<VertxJooqRecord>) table);
         IntStream.range(0, row.size())

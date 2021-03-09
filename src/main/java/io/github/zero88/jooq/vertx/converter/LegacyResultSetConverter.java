@@ -17,8 +17,8 @@ import io.vertx.ext.sql.ResultSet;
 
 import lombok.NonNull;
 
-public class LegacyResultSetConverter extends AbstractResultSetConverter<ResultSet>
-    implements ResultSetConverter<ResultSet>, ResultBatchConverter<ResultSet, List<Integer>> {
+public final class LegacyResultSetConverter extends AbstractResultSetConverter<ResultSet>
+    implements ResultBatchConverter<ResultSet, List<Integer>> {
 
     protected <T extends TableLike<? extends Record>, R> List<R> doConvert(ResultSet resultSet, T table,
                                                                            @NonNull Function<VertxJooqRecord<?>, R> mapper) {
@@ -47,7 +47,7 @@ public class LegacyResultSetConverter extends AbstractResultSetConverter<ResultS
     }
 
     @Override
-    public int count(List<Integer> batchResult) {
+    public int batchResultSize(List<Integer> batchResult) {
         return batchResult.size();
     }
 

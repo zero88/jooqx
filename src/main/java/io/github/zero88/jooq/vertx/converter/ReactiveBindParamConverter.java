@@ -8,7 +8,7 @@ import org.jooq.Param;
 import io.vertx.sqlclient.Tuple;
 import io.vertx.sqlclient.impl.ArrayTuple;
 
-public class ReactiveBindParamConverter extends AbstractBindParamConverter<Tuple> {
+public final class ReactiveBindParamConverter extends AbstractBindParamConverter<Tuple> {
 
     protected ArrayTuple doConvert(Map<String, Param<?>> params, BiFunction<String, Param<?>, ?> queryValue) {
         final ArrayTuple bindValues = new ArrayTuple(params.size());

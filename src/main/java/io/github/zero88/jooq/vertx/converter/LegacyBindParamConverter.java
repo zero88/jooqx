@@ -7,7 +7,7 @@ import org.jooq.Param;
 
 import io.vertx.core.json.JsonArray;
 
-public class LegacyBindParamConverter extends AbstractBindParamConverter<JsonArray> {
+public final class LegacyBindParamConverter extends AbstractBindParamConverter<JsonArray> {
 
     @Override
     protected JsonArray doConvert(Map<String, Param<?>> params, BiFunction<String, Param<?>, ?> queryValue) {

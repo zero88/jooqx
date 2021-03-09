@@ -43,12 +43,12 @@ public final class VertxReactiveSqlExecutor extends AbstractVertxJooqExecutor<Sq
 
     @Override
     public <Q extends Query, T extends TableLike<?>, C extends ResultSetConverter<RowSet<Row>>, R> void execute(
-        @NonNull Q query, @NonNull SqlResultAdapter<RowSet<Row>, C, T, R> resultMapper,
+        @NonNull Q query, @NonNull SqlResultAdapter<RowSet<Row>, C, T, R> resultAdapter,
         @NonNull Handler<AsyncResult<R>> handler) {
         this.sqlClient()
             .preparedQuery(helper().toPreparedQuery(dsl().configuration(), query))
             .execute(helper().toBindValues(query),
-                     ar -> handler.handle(ar.map(resultMapper::convert).otherwise(errorMaker()::reThrowError)));
+                     ar -> handler.handle(ar.map(resultAdapter::convert).otherwise(errorMaker()::reThrowError)));
     }
 
     @Override
@@ -56,7 +56,7 @@ public final class VertxReactiveSqlExecutor extends AbstractVertxJooqExecutor<Sq
                                                @NonNull Handler<AsyncResult<BatchResult>> handler) {
         sqlClient().preparedQuery(helper().toPreparedQuery(dsl().configuration(), query))
                    .executeBatch(helper().toBindValues(query, bindBatchValues), ar -> handler.handle(
-                       ar.map(r -> new ReactiveResultBatchConverter().count(r))
+                       ar.map(r -> new ReactiveResultBatchConverter().batchResultSize(r))
                          .map(s -> new BatchResult(bindBatchValues.size(), s))
                          .otherwise(errorMaker()::reThrowError)));
     }
