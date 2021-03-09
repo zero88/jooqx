@@ -4,9 +4,11 @@ import org.jooq.DSLContext;
 
 import io.vertx.core.Vertx;
 
+import lombok.AccessLevel;
 import lombok.Builder.Default;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.With;
 import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
@@ -20,6 +22,7 @@ abstract class AbstractVertxJooqExecutor<S, P, RS> implements VertxJooqExecutor<
     @NonNull
     private final DSLContext dsl;
     @NonNull
+    @With(AccessLevel.PROTECTED)
     private final S sqlClient;
     @Default
     @NonNull

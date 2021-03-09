@@ -145,8 +145,9 @@ class PgBatchInPoolTest extends AbstractPostgreSQLPoolTest implements PostgreSQL
         });
     }
 
-//    @Test
-//    void try_transaction(VertxTestContext context) {
-//    }
+    //    @Test
+    //    void try_transaction(VertxTestContext context) {
+    ////        executor.withTransaction(transaction -> transaction., )
+    //    }
 
 }
