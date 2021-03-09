@@ -3,6 +3,7 @@ package io.github.zero88.jooq.vertx;
 import org.jooq.Query;
 
 import io.vertx.core.AsyncResult;
+import io.vertx.core.Future;
 import io.vertx.core.Handler;
 
 import lombok.NonNull;
@@ -24,7 +25,20 @@ public interface VertxBatchExecutor {
      * @see BindBatchValues
      * @see BatchResult
      */
-    <Q extends Query> void batchExecute(@NonNull Q query, @NonNull BindBatchValues bindBatchValues,
-                                        @NonNull Handler<AsyncResult<BatchResult>> handler);
+    default <Q extends Query> void batchExecute(@NonNull Q query, @NonNull BindBatchValues bindBatchValues,
+                                                @NonNull Handler<AsyncResult<BatchResult>> handler) {
+        batchExecute(query, bindBatchValues).onComplete(handler);
+    }
+
+    /**
+     * Like {@link #batchExecute(Query, BindBatchValues, Handler)} but returns a {@code Future} of the asynchronous
+     * result
+     *
+     * @param query           query
+     * @param bindBatchValues bind batch values
+     * @param <Q>             type of jOOQ query
+     * @return a {@code Future} of the asynchronous result
+     */
+    <Q extends Query> Future<BatchResult> batchExecute(@NonNull Q query, @NonNull BindBatchValues bindBatchValues);
 
 }

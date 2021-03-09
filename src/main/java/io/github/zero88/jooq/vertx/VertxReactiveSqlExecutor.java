@@ -7,10 +7,8 @@ import io.github.zero88.jooq.vertx.adapter.SelectListResultAdapter;
 import io.github.zero88.jooq.vertx.adapter.SqlResultAdapter;
 import io.github.zero88.jooq.vertx.converter.ReactiveBindParamConverter;
 import io.github.zero88.jooq.vertx.converter.ReactiveResultBatchConverter;
-import io.github.zero88.jooq.vertx.converter.ResultBatchConverter;
 import io.github.zero88.jooq.vertx.converter.ResultSetConverter;
-import io.vertx.core.AsyncResult;
-import io.vertx.core.Handler;
+import io.vertx.core.Future;
 import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.RowSet;
 import io.vertx.sqlclient.SqlClient;
@@ -42,35 +40,33 @@ public final class VertxReactiveSqlExecutor extends AbstractVertxJooqExecutor<Sq
     private final QueryHelper<Tuple> helper = new QueryHelper<>(new ReactiveBindParamConverter());
 
     @Override
-    public <Q extends Query, T extends TableLike<?>, C extends ResultSetConverter<RowSet<Row>>, R> void execute(
-        @NonNull Q query, @NonNull SqlResultAdapter<RowSet<Row>, C, T, R> resultAdapter,
-        @NonNull Handler<AsyncResult<R>> handler) {
-        this.sqlClient()
-            .preparedQuery(helper().toPreparedQuery(dsl().configuration(), query))
-            .execute(helper().toBindValues(query),
-                     ar -> handler.handle(ar.map(resultAdapter::convert).otherwise(errorConverter()::reThrowError)));
+    public <Q extends Query, T extends TableLike<?>, C extends ResultSetConverter<RowSet<Row>>, R> Future<R> execute(
+        @NonNull Q query, @NonNull SqlResultAdapter<RowSet<Row>, C, T, R> resultAdapter) {
+        return sqlClient().preparedQuery(helper().toPreparedQuery(dsl().configuration(), query))
+                          .execute(helper().toBindValues(query))
+                          .map(resultAdapter::convert)
+                          .otherwise(errorConverter()::reThrowError);
     }
 
     @Override
-    public <Q extends Query> void batchExecute(@NonNull Q query, @NonNull BindBatchValues bindBatchValues,
-                                               @NonNull Handler<AsyncResult<BatchResult>> handler) {
-        sqlClient().preparedQuery(helper().toPreparedQuery(dsl().configuration(), query))
-                   .executeBatch(helper().toBindValues(query, bindBatchValues), ar -> handler.handle(
-                       ar.map(r -> new ReactiveResultBatchConverter().batchResultSize(r))
-                         .map(s -> new BatchResult(bindBatchValues.size(), s))
-                         .otherwise(errorConverter()::reThrowError)));
+    public <Q extends Query> Future<BatchResult> batchExecute(@NonNull Q query,
+                                                              @NonNull BindBatchValues bindBatchValues) {
+        return sqlClient().preparedQuery(helper().toPreparedQuery(dsl().configuration(), query))
+                          .executeBatch(helper().toBindValues(query, bindBatchValues))
+                          .map(r -> new ReactiveResultBatchConverter().batchResultSize(r))
+                          .map(s -> new BatchResult(bindBatchValues.size(), s))
+                          .otherwise(errorConverter()::reThrowError);
     }
 
     @Override
-    public <Q extends Query, C extends ResultBatchConverter<RowSet<Row>, RowSet<Row>>, T extends TableLike<?>, R> void batchExecute(
-        @NonNull Q query, @NonNull BindBatchValues bindBatchValues,
-        @NonNull SelectListResultAdapter<RowSet<Row>, C, T, R> adapter,
-        @NonNull Handler<AsyncResult<BatchReturningResult<R>>> handler) {
-        sqlClient().preparedQuery(helper().toPreparedQuery(dsl().configuration(), query))
-                   .executeBatch(helper().toBindValues(query, bindBatchValues), ar -> handler.handle(
-                       ar.map(adapter::convert)
-                         .map(rs -> new BatchReturningResult<>(bindBatchValues.size(), rs))
-                         .otherwise(errorConverter()::reThrowError)));
+    public <Q extends Query, T extends TableLike<?>, R> Future<BatchReturningResult<R>> batchExecute(@NonNull Q query,
+                                                                                                     @NonNull BindBatchValues bindBatchValues,
+                                                                                                     @NonNull SelectListResultAdapter<RowSet<Row>, ReactiveResultBatchConverter, T, R> resultAdapter) {
+        return sqlClient().preparedQuery(helper().toPreparedQuery(dsl().configuration(), query))
+                          .executeBatch(helper().toBindValues(query, bindBatchValues))
+                          .map(resultAdapter::convert)
+                          .map(rs -> new BatchReturningResult<>(bindBatchValues.size(), rs))
+                          .otherwise(errorConverter()::reThrowError);
     }
 
 }

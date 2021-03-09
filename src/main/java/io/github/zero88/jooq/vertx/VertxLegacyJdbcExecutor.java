@@ -1,5 +1,7 @@
 package io.github.zero88.jooq.vertx;
 
+import java.util.List;
+
 import org.jooq.Query;
 import org.jooq.TableLike;
 import org.jooq.conf.ParamType;
@@ -8,8 +10,8 @@ import io.github.zero88.jooq.vertx.adapter.SqlResultAdapter;
 import io.github.zero88.jooq.vertx.converter.LegacyBindParamConverter;
 import io.github.zero88.jooq.vertx.converter.LegacyResultSetConverter;
 import io.github.zero88.jooq.vertx.converter.ResultSetConverter;
-import io.vertx.core.AsyncResult;
-import io.vertx.core.Handler;
+import io.vertx.core.Future;
+import io.vertx.core.Promise;
 import io.vertx.core.json.JsonArray;
 import io.vertx.ext.jdbc.JDBCClient;
 import io.vertx.ext.sql.ResultSet;
@@ -40,28 +42,30 @@ public final class VertxLegacyJdbcExecutor extends AbstractVertxJooqExecutor<SQL
     private final QueryHelper<JsonArray> helper = new QueryHelper<>(new LegacyBindParamConverter());
 
     @Override
-    public <Q extends Query, T extends TableLike<?>, C extends ResultSetConverter<ResultSet>, R> void execute(
-        @NonNull Q query, @NonNull SqlResultAdapter<ResultSet, C, T, R> resultAdapter,
-        @NonNull Handler<AsyncResult<R>> handler) {
+    public <Q extends Query, T extends TableLike<?>, C extends ResultSetConverter<ResultSet>, R> Future<R> execute(
+        @NonNull Q query, @NonNull SqlResultAdapter<ResultSet, C, T, R> resultAdapter) {
+        final Promise<ResultSet> promise = Promise.promise();
         sqlClient().queryWithParams(helper().toPreparedQuery(dsl().configuration(), query, ParamType.INDEXED),
-                                    helper().toBindValues(query), ar -> handler.handle(
-                ar.map(resultAdapter::convert).otherwise(errorConverter()::reThrowError)));
+                                    helper().toBindValues(query), promise);
+        return promise.future().map(resultAdapter::convert).otherwise(errorConverter()::reThrowError);
     }
 
     @Override
-    public <Q extends Query> void batchExecute(@NonNull Q query, @NonNull BindBatchValues bindBatchValues,
-                                               @NonNull Handler<AsyncResult<BatchResult>> handler) {
+    public <Q extends Query> Future<BatchResult> batchExecute(@NonNull Q query,
+                                                              @NonNull BindBatchValues bindBatchValues) {
+        final Promise<List<Integer>> promise = Promise.promise();
         sqlClient().getConnection(arc -> {
             if (arc.failed()) {
-                throw new IllegalStateException("Unable open SQL connection", arc.cause());
+                promise.fail(new IllegalStateException("Unable open SQL connection", arc.cause()));
             }
             arc.result()
                .batchWithParams(helper().toPreparedQuery(dsl().configuration(), query, ParamType.INDEXED),
-                                helper().toBindValues(query, bindBatchValues), ar -> handler.handle(
-                       ar.map(r -> new LegacyResultSetConverter().batchResultSize(r))
-                         .map(s -> new BatchResult(bindBatchValues.size(), s))
-                         .otherwise(errorConverter()::reThrowError)));
+                                helper().toBindValues(query, bindBatchValues), promise);
         });
+        return promise.future()
+                      .map(r -> new LegacyResultSetConverter().batchResultSize(r))
+                      .map(s -> new BatchResult(bindBatchValues.size(), s))
+                      .otherwise(errorConverter()::reThrowError);
     }
 
 }

@@ -7,6 +7,7 @@ import org.jooq.TableLike;
 import io.github.zero88.jooq.vertx.adapter.SqlResultAdapter;
 import io.github.zero88.jooq.vertx.converter.ResultSetConverter;
 import io.vertx.core.AsyncResult;
+import io.vertx.core.Future;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.ext.sql.SQLClient;
@@ -74,13 +75,30 @@ public interface VertxJooqExecutor<S, P, RS> extends VertxBatchExecutor {
      * @param handler       a async result handler
      * @param <Q>           type of jOOQ Query
      * @param <T>           type of jOOQ TableLike
+     * @param <C>           type of result set converter
      * @param <R>           type of expectation result
      * @see Query
      * @see TableLike
      * @see SqlResultAdapter
      */
-    <Q extends Query, T extends TableLike<?>, C extends ResultSetConverter<RS>, R> void execute(@NonNull Q query,
-                                                                                                @NonNull SqlResultAdapter<RS, C, T, R> resultAdapter,
-                                                                                                @NonNull Handler<AsyncResult<R>> handler);
+    default <Q extends Query, T extends TableLike<?>, C extends ResultSetConverter<RS>, R> void execute(
+        @NonNull Q query, @NonNull SqlResultAdapter<RS, C, T, R> resultAdapter,
+        @NonNull Handler<AsyncResult<R>> handler) {
+        execute(query, resultAdapter).onComplete(handler);
+    }
+
+    /**
+     * Like {@link #execute(Query, SqlResultAdapter, Handler)} but returns a {@code Future} of the asynchronous result
+     *
+     * @param query         jOOQ query
+     * @param resultAdapter a result adapter
+     * @param <Q>           type of jOOQ Query
+     * @param <T>           type of jOOQ TableLike
+     * @param <C>           type of result set converter
+     * @param <R>type       of expectation result
+     * @return a {@code Future} of the asynchronous result
+     */
+    <Q extends Query, T extends TableLike<?>, C extends ResultSetConverter<RS>, R> Future<R> execute(@NonNull Q query,
+                                                                                                     @NonNull SqlResultAdapter<RS, C, T, R> resultAdapter);
 
 }
