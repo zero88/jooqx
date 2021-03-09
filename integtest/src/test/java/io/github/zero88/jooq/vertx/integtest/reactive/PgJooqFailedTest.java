@@ -10,7 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import io.github.zero88.jooq.vertx.SqlErrorMaker;
-import io.github.zero88.jooq.vertx.adapter.ListResultAdapter;
+import io.github.zero88.jooq.vertx.adapter.SelectListResultAdapter;
 import io.github.zero88.jooq.vertx.converter.ReactiveResultSetConverter;
 import io.github.zero88.jooq.vertx.integtest.PostgreSQLHelper;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.records.BooksRecord;
@@ -43,8 +43,8 @@ class PgJooqFailedTest extends AbstractPostgreSQLReactiveTest implements Postgre
                                                              .insertInto(table, table.ID, table.TITLE)
                                                              .values(1, "abc")
                                                              .returning(table.ID);
-        executor.execute(insert, ListResultAdapter.create(table, new ReactiveResultSetConverter(),
-                                                          Collections.singletonList(table.ID)), ar -> {
+        executor.execute(insert, SelectListResultAdapter.create(table, new ReactiveResultSetConverter(),
+                                                                Collections.singletonList(table.ID)), ar -> {
             ctx.verify(() -> {
                 Assertions.assertTrue(ar.failed());
                 final Throwable cause = ar.cause();

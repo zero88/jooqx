@@ -57,8 +57,8 @@ public interface VertxJooqExecutor<S, P, RS> extends VertxBatchExecutor {
     @NonNull QueryHelper<P> helper();
 
     /**
-     * Defines an error maker that rethrows an uniform exception by {@link SqlErrorMaker#reThrowError(Throwable)}
-     * if any error in execution time
+     * Defines an error maker that rethrows an uniform exception by {@link SqlErrorMaker#reThrowError(Throwable)} if any
+     * error in execution time
      *
      * @return error handler
      * @apiNote Default is {@link SqlErrorMaker#DEFAULT}
@@ -69,18 +69,18 @@ public interface VertxJooqExecutor<S, P, RS> extends VertxBatchExecutor {
     /**
      * Execute {@code jOOQ query} then return async result
      *
-     * @param query        jOOQ query
-     * @param resultMapper a result mapper
-     * @param handler      a async result handler
-     * @param <Q>          type of jOOQ Query
-     * @param <T>          type of jOOQ TableLike
-     * @param <R>          type of expectation result
+     * @param query         jOOQ query
+     * @param resultAdapter a result adapter
+     * @param handler       a async result handler
+     * @param <Q>           type of jOOQ Query
+     * @param <T>           type of jOOQ TableLike
+     * @param <R>           type of expectation result
      * @see Query
      * @see TableLike
      * @see SqlResultAdapter
      */
     <Q extends Query, T extends TableLike<?>, C extends ResultSetConverter<RS>, R> void execute(@NonNull Q query,
-                                                                                                @NonNull SqlResultAdapter<RS, C, T, R> resultMapper,
+                                                                                                @NonNull SqlResultAdapter<RS, C, T, R> resultAdapter,
                                                                                                 @NonNull Handler<AsyncResult<R>> handler);
 
 }

@@ -1,5 +1,7 @@
 package io.github.zero88.jooq.vertx.converter;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -12,24 +14,32 @@ import org.jooq.Table;
 import org.jooq.TableLike;
 
 import io.github.zero88.jooq.vertx.VertxJooqRecord;
+import io.github.zero88.jooq.vertx.adapter.SelectStrategy;
 import io.vertx.core.json.JsonArray;
 import io.vertx.ext.sql.ResultSet;
 
 import lombok.NonNull;
 
-public class LegacyResultSetConverter extends AbstractResultSetConverter<ResultSet>
-    implements ResultSetConverter<ResultSet>, ResultBatchConverter<ResultSet, List<Integer>> {
+public final class LegacyResultSetConverter extends AbstractResultSetConverter<ResultSet>
+    implements ResultBatchConverter<ResultSet, List<Integer>> {
 
     protected <T extends TableLike<? extends Record>, R> List<R> doConvert(ResultSet resultSet, T table,
                                                                            @NonNull Function<VertxJooqRecord<?>, R> mapper) {
         final Map<String, Field<?>> fieldMap = table.fieldStream()
                                                     .collect(Collectors.toMap(Field::getName, Function.identity()));
         final Map<Integer, Field<?>> map = getColumnMap(resultSet, fieldMap::get);
-        return resultSet.getResults()
-                        .stream()
-                        .map(row -> toRecord(table, map, row))
-                        .map(mapper)
-                        .collect(Collectors.toList());
+        final List<JsonArray> results = resultSet.getResults();
+        if (strategy == SelectStrategy.MANY) {
+            return results.stream().map(row -> toRecord(table, map, row)).map(mapper).collect(Collectors.toList());
+        } else {
+            warnManyResult(results.size() > 1);
+            return results.stream()
+                          .findFirst()
+                          .map(row -> toRecord(table, map, row))
+                          .map(mapper)
+                          .map(Collections::singletonList)
+                          .orElse(new ArrayList<>());
+        }
     }
 
     @SuppressWarnings( {"unchecked", "rawtypes"})
@@ -47,7 +57,7 @@ public class LegacyResultSetConverter extends AbstractResultSetConverter<ResultS
     }
 
     @Override
-    public int count(List<Integer> batchResult) {
+    public int batchResultSize(List<Integer> batchResult) {
         return batchResult.size();
     }
 

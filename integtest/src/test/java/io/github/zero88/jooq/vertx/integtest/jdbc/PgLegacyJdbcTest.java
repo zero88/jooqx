@@ -13,7 +13,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import io.github.zero88.jooq.vertx.BaseLegacySqlTest.AbstractLegacyDBCTest;
 import io.github.zero88.jooq.vertx.BindBatchValues;
 import io.github.zero88.jooq.vertx.VertxJooqRecord;
-import io.github.zero88.jooq.vertx.adapter.ListResultAdapter;
+import io.github.zero88.jooq.vertx.adapter.SelectListResultAdapter;
 import io.github.zero88.jooq.vertx.converter.LegacyResultSetConverter;
 import io.github.zero88.jooq.vertx.integtest.PostgreSQLHelper;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.Books;
@@ -39,7 +39,7 @@ class PgLegacyJdbcTest extends AbstractLegacyDBCTest<PostgreSQLContainer<?>>
         final Checkpoint flag = ctx.checkpoint();
         final Books table = catalog().PUBLIC.BOOKS;
         executor.execute(executor.dsl().selectFrom(table),
-                         ListResultAdapter.create(table, new LegacyResultSetConverter(), table),
+                         SelectListResultAdapter.create(table, new LegacyResultSetConverter(), table),
                          ar -> assertRsSize(ctx, flag, ar, 7));
     }
 
@@ -51,7 +51,7 @@ class PgLegacyJdbcTest extends AbstractLegacyDBCTest<PostgreSQLContainer<?>>
                                                              .insertInto(table, table.ID, table.TITLE)
                                                              .values(Arrays.asList(DSL.defaultValue(table.ID), "abc"))
                                                              .returning(table.ID);
-        executor.execute(insert, ListResultAdapter.createVertxRecord(table, new LegacyResultSetConverter()), ar -> {
+        executor.execute(insert, SelectListResultAdapter.vertxRecord(table, new LegacyResultSetConverter()), ar -> {
             final List<VertxJooqRecord<?>> records = assertRsSize(ctx, flag, ar, 1);
             ctx.verify(() -> Assertions.assertEquals(new JsonObject().put("id", 8).put("title", null),
                                                      records.get(0).toJson()));
@@ -79,7 +79,7 @@ class PgLegacyJdbcTest extends AbstractLegacyDBCTest<PostgreSQLContainer<?>>
             }
         });
         executor.execute(executor.dsl().selectFrom(table),
-                         ListResultAdapter.createVertxRecord(table, new LegacyResultSetConverter()), ar -> {
+                         SelectListResultAdapter.vertxRecord(table, new LegacyResultSetConverter()), ar -> {
                 if (ar.succeeded()) {
                     final List<VertxJooqRecord<?>> records = assertRsSize(ctx, flag, ar, 10);
                     ctx.verify(() -> {

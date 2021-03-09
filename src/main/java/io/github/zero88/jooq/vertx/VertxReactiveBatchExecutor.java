@@ -3,7 +3,7 @@ package io.github.zero88.jooq.vertx;
 import org.jooq.Query;
 import org.jooq.TableLike;
 
-import io.github.zero88.jooq.vertx.adapter.ListResultAdapter;
+import io.github.zero88.jooq.vertx.adapter.SelectListResultAdapter;
 import io.github.zero88.jooq.vertx.converter.ResultBatchConverter;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
@@ -32,12 +32,12 @@ public interface VertxReactiveBatchExecutor extends VertxBatchExecutor {
      * @param <T>             type of jOOQ table
      * @param <R>             type of record
      * @see BindBatchValues
-     * @see ListResultAdapter
+     * @see SelectListResultAdapter
      * @see BatchReturningResult
      */
     <Q extends Query, C extends ResultBatchConverter<RowSet<Row>, RowSet<Row>>, T extends TableLike<?>, R> void batchExecute(
         @NonNull Q query, @NonNull BindBatchValues bindBatchValues,
-        @NonNull ListResultAdapter<RowSet<Row>, C, T, R> resultAdapter,
+        @NonNull SelectListResultAdapter<RowSet<Row>, C, T, R> resultAdapter,
         @NonNull Handler<AsyncResult<BatchReturningResult<R>>> handler);
 
 }

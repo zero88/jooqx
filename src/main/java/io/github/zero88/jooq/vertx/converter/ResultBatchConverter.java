@@ -11,6 +11,6 @@ import lombok.NonNull;
  */
 public interface ResultBatchConverter<RS, BR> extends ResultSetConverter<RS> {
 
-    int count(@NonNull BR batchResult);
+    int batchResultSize(@NonNull BR batchResult);
 
 }

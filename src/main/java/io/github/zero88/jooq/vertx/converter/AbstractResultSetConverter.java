@@ -11,6 +11,7 @@ import org.jooq.Table;
 import org.jooq.TableLike;
 
 import io.github.zero88.jooq.vertx.VertxJooqRecord;
+import io.github.zero88.jooq.vertx.adapter.SelectStrategy;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,14 @@ import lombok.NonNull;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public abstract class AbstractResultSetConverter<RS> implements ResultSetConverter<RS> {
+
+    protected SelectStrategy strategy = SelectStrategy.MANY;
+
+    @Override
+    public @NonNull ResultSetConverter<RS> setup(@NonNull SelectStrategy strategy) {
+        this.strategy = strategy;
+        return this;
+    }
 
     @Override
     public <T extends TableLike<? extends Record>> List<VertxJooqRecord<?>> convertVertxRecord(@NonNull RS resultSet,
@@ -58,5 +67,11 @@ public abstract class AbstractResultSetConverter<RS> implements ResultSetConvert
 
     protected abstract <T extends TableLike<? extends Record>, R> List<R> doConvert(@NonNull RS resultSet, T table,
                                                                                     @NonNull Function<VertxJooqRecord<?>, R> mapper);
+
+    protected void warnManyResult(boolean check) {
+        if (check) {
+            LOGGER.warn("Query strategy is [{}] but query result contains more than one row", strategy);
+        }
+    }
 
 }

@@ -19,9 +19,10 @@ public abstract class AbstractSqlResultAdapter<RS, C extends ResultSetConverter<
     @NonNull
     private final C converter;
 
+    @SuppressWarnings("unchecked")
     protected AbstractSqlResultAdapter(@NonNull T table, @NonNull C converter) {
         this.table = table;
-        this.converter = converter;
+        this.converter = (C) converter.setup(strategy());
     }
 
     @Override
