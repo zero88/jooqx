@@ -57,7 +57,7 @@ public interface ResultSetConverter<RS> {
      * @see Record#into(Table)
      * @see Table
      */
-    <T extends Table<? extends Record>, R extends Record> List<R> convert(@NonNull RS resultSet, @NonNull T table);
+    <T extends Table<R>, R extends Record> List<R> convert(@NonNull RS resultSet, @NonNull T table);
 
     /**
      * Convert result set to an expectation record

@@ -99,8 +99,7 @@ interface VertxSqlDSL<RS, C extends ResultSetConverter<RS>> {
      * @return select one
      * @see TableLike
      */
-    <T extends Table<? extends Record>, R extends Record> SelectOneResultAdapter<RS, C, T, R> fetchOne(
-        @NonNull T table);
+    <T extends Table<R>, R extends Record> SelectOneResultAdapter<RS, C, T, R> fetchOne(@NonNull T table);
 
     /**
      * Fetch one
@@ -172,8 +171,7 @@ interface VertxSqlDSL<RS, C extends ResultSetConverter<RS>> {
      * @return select many
      * @see TableLike
      */
-    <T extends Table<? extends Record>, R extends Record> SelectListResultAdapter<RS, C, T, R> fetchMany(
-        @NonNull T table);
+    <T extends Table<R>, R extends Record> SelectListResultAdapter<RS, C, T, R> fetchMany(@NonNull T table);
 
     /**
      * Fetch many

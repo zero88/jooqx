@@ -83,8 +83,8 @@ public interface VertxReactiveDSL extends VertxSqlDSL<RowSet<Row>, ReactiveResul
      * @return batch adapter
      * @see TableLike
      */
-    default <T extends Table<? extends Record>, R extends Record> SelectListResultAdapter<RowSet<Row>,
-                                                                                             ReactiveResultBatchConverter, T, R> batch(
+    default <T extends Table<R>, R extends Record> SelectListResultAdapter<RowSet<Row>, ReactiveResultBatchConverter,
+                                                                              T, R> batch(
         @NonNull T table) {
         return SelectListResultAdapter.create(table, new ReactiveResultBatchConverter());
     }

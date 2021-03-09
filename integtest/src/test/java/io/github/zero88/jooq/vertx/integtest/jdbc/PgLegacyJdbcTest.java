@@ -37,7 +37,7 @@ class PgLegacyJdbcTest extends AbstractLegacyDBCTest<PostgreSQLContainer<?>>
     void test_query(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
         final Books table = catalog().PUBLIC.BOOKS;
-        executor.execute(executor.dsl().selectFrom(table), VertxLegacyDSL.instance().fetchMany(table, table),
+        executor.execute(executor.dsl().selectFrom(table), VertxLegacyDSL.instance().fetchMany(table),
                          ar -> assertRsSize(ctx, flag, ar, 7));
     }
 

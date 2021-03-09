@@ -35,9 +35,8 @@ public abstract class AbstractResultSetConverter<RS> implements ResultSetConvert
     }
 
     @Override
-    public <T extends Table<? extends Record>, R extends Record> List<R> convert(@NonNull RS resultSet,
-                                                                                 @NonNull T table) {
-        return doConvert(resultSet, table, r -> (R) r.into(table));
+    public <T extends Table<R>, R extends Record> List<R> convert(@NonNull RS resultSet, @NonNull T table) {
+        return doConvert(resultSet, table, r -> r.into(table));
     }
 
     @Override

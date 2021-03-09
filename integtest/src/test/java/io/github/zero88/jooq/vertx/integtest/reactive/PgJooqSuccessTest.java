@@ -133,13 +133,14 @@ class PgJooqSuccessTest extends AbstractPostgreSQLReactiveTest implements Postgr
     }
 
     @Test
-    void test_query_convert_by_table_class(VertxTestContext ctx) {
+    void test_query_convert_by_table(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
         final io.github.zero88.jooq.vertx.integtest.pgsql.tables.Authors table = catalog().PUBLIC.AUTHORS;
         final SelectConditionStep<AuthorsRecord> query = executor.dsl().selectFrom(table).where(table.COUNTRY.eq("UK"));
-        executor.execute(query, VertxReactiveDSL.instance().fetchOne(table, table), ar -> {
-            final AuthorsRecord authors = ar.result();
+        executor.execute(query, VertxReactiveDSL.instance().fetchOne(table), ar -> {
             ctx.verify(() -> {
+                Assertions.assertTrue(ar.succeeded());
+                final AuthorsRecord authors = ar.result();
                 Assertions.assertEquals(3, authors.getId());
                 Assertions.assertEquals("Jane Austen", authors.getName());
                 Assertions.assertEquals("UK", authors.getCountry());

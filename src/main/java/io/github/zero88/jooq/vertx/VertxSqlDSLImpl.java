@@ -58,8 +58,7 @@ class VertxSqlDSLImpl<RS, C extends ResultSetConverter<RS>> implements VertxSqlD
     }
 
     @Override
-    public <T extends Table<? extends Record>, R extends Record> SelectOneResultAdapter<RS, C, T, R> fetchOne(
-        @NonNull T table) {
+    public <T extends Table<R>, R extends Record> SelectOneResultAdapter<RS, C, T, R> fetchOne(@NonNull T table) {
         return SelectOneResultAdapter.create(table, converter);
     }
 
@@ -94,8 +93,7 @@ class VertxSqlDSLImpl<RS, C extends ResultSetConverter<RS>> implements VertxSqlD
     }
 
     @Override
-    public <T extends Table<? extends Record>, R extends Record> SelectListResultAdapter<RS, C, T, R> fetchMany(
-        @NonNull T table) {
+    public <T extends Table<R>, R extends Record> SelectListResultAdapter<RS, C, T, R> fetchMany(@NonNull T table) {
         return SelectListResultAdapter.create(table, converter);
     }
 

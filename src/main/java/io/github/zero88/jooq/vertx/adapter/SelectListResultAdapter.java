@@ -51,8 +51,7 @@ public final class SelectListResultAdapter<RS, C extends ResultSetConverter<RS>,
                                              (a, rs) -> a.converter().convert(rs, a.table(), outputClass));
     }
 
-    //TODO fix it
-    public static <RS, C extends ResultSetConverter<RS>, T extends Table<? extends Record>, R extends Record> SelectListResultAdapter<RS, C, T, R> create(
+    public static <RS, C extends ResultSetConverter<RS>, T extends Table<R>, R extends Record> SelectListResultAdapter<RS, C, T, R> create(
         @NonNull T table, @NonNull C converter) {
         return new SelectListResultAdapter<>(table, converter, (a, rs) -> a.converter().convert(rs, a.table()));
     }

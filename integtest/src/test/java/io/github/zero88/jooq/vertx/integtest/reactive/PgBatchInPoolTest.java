@@ -66,6 +66,9 @@ class PgBatchInPoolTest extends AbstractPostgreSQLReactiveTest implements Postgr
                         Assertions.assertEquals("[{\"id\":9,\"name\":\"abc\",\"country\":\"AU\"},{\"id\":10," +
                                                 "\"name\":\"haha\",\"country\":\"VN\"}]", v);
                     });
+                    executor.execute(executor.dsl().selectFrom(table),
+                                     VertxReactiveDSL.instance().fetchVertxRecords(table),
+                                     ar2 -> assertRsSize(ctx, flag, ar2, 10));
                 } else {
                     ctx.failNow(ar.cause());
                 }
@@ -73,10 +76,7 @@ class PgBatchInPoolTest extends AbstractPostgreSQLReactiveTest implements Postgr
                 flag.flag();
             }
         };
-        ;
         executor.batchExecute(insert, bindValues, VertxReactiveDSL.instance().batchVertxRecords(table), handler);
-        executor.execute(executor.dsl().selectFrom(table), VertxReactiveDSL.instance().fetchVertxRecords(table),
-                         ar -> assertRsSize(ctx, flag, ar, 10));
     }
 
     @Test
@@ -104,6 +104,9 @@ class PgBatchInPoolTest extends AbstractPostgreSQLReactiveTest implements Postgr
                         Assertions.assertEquals(10, result.getRecords().get(1).value1());
                         System.out.println(records);
                     });
+                    executor.execute(executor.dsl().selectFrom(table),
+                                     VertxReactiveDSL.instance().fetchVertxRecords(table),
+                                     ar2 -> assertRsSize(ctx, flag, ar2, 10));
                 } else {
                     ctx.failNow(ar.cause());
                 }
@@ -113,8 +116,6 @@ class PgBatchInPoolTest extends AbstractPostgreSQLReactiveTest implements Postgr
         };
         executor.batchExecute(insert, bindValues,
                               VertxReactiveDSL.instance().batch(table, executor.dsl().newRecord(table.ID)), handler);
-        executor.execute(executor.dsl().selectFrom(table), VertxReactiveDSL.instance().fetchVertxRecords(table),
-                         ar -> assertRsSize(ctx, flag, ar, 10));
     }
 
     @Test
@@ -137,6 +138,9 @@ class PgBatchInPoolTest extends AbstractPostgreSQLReactiveTest implements Postgr
                         Assertions.assertEquals(2, result.getTotal());
                         Assertions.assertEquals(2, result.getSuccesses());
                     });
+                    executor.execute(executor.dsl().selectFrom(table),
+                                     VertxReactiveDSL.instance().fetchVertxRecords(table),
+                                     ar2 -> assertRsSize(ctx, flag, ar2, 10));
                 } else {
                     ctx.failNow(ar.cause());
                 }
@@ -144,8 +148,6 @@ class PgBatchInPoolTest extends AbstractPostgreSQLReactiveTest implements Postgr
                 flag.flag();
             }
         });
-        executor.execute(executor.dsl().selectFrom(table), VertxReactiveDSL.instance().fetchVertxRecords(table),
-                         ar -> assertRsSize(ctx, flag, ar, 10));
     }
 
 }

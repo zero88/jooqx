@@ -15,6 +15,7 @@ import io.github.zero88.jooq.vertx.integtest.PostgreSQLHelper;
 import io.github.zero88.jooq.vertx.integtest.pgsql.Public;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.pojos.Authors;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.pojos.Books;
+import io.github.zero88.jooq.vertx.integtest.pgsql.tables.records.AuthorsRecord;
 import io.github.zero88.jooq.vertx.spi.PostgreSQLReactiveTest.AbstractPostgreSQLReactiveTest;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
@@ -51,6 +52,28 @@ class PgComplexQueryTest extends AbstractPostgreSQLReactiveTest implements Postg
                                             "{\"id\":2,\"name\":\"F. Scott. Fitzgerald\",\"country\":\"USA\"," +
                                             "\"book_id\":5}"),
                                         records.get(1).toJson());
+            });
+            flag.flag();
+        });
+    }
+
+    @Test
+    void test_join_2_table_then_map_to_another_table(VertxTestContext ctx) {
+        final Checkpoint flag = ctx.checkpoint(2);
+        final DSLContext dsl = executor.dsl();
+        final Public schema = catalog().PUBLIC;
+        final SelectConditionStep<Record> query = dsl.select(schema.AUTHORS.asterisk(), schema.BOOKS_AUTHORS.BOOK_ID)
+                                                     .from(schema.AUTHORS)
+                                                     .join(schema.BOOKS_AUTHORS)
+                                                     .onKey()
+                                                     .where(schema.AUTHORS.ID.eq(4));
+        executor.execute(query, VertxReactiveDSL.instance().fetchMany(query.asTable(), schema.AUTHORS), ar -> {
+            final List<AuthorsRecord> records = assertRsSize(ctx, flag, ar, 1);
+            final AuthorsRecord authorsRecord = records.get(0);
+            ctx.verify(() -> {
+                Assertions.assertEquals(4, authorsRecord.getId());
+                Assertions.assertEquals("Scott Hanselman", authorsRecord.getName());
+                Assertions.assertEquals("USA", authorsRecord.getCountry());
             });
             flag.flag();
         });
