@@ -9,6 +9,9 @@ dependencies {
 //    api(ZeroLibs.rql_jooq)
     compileOnly(VertxLibs.sqlClient)
     compileOnly(VertxLibs.jdbc)
+    compileOnly(VertxLibs.rx2)
+    compileOnly(VertxLibs.codegen)
+    annotationProcessor(VertxLibs.codegen)
 
     testFixturesApi(LogLibs.logback)
     testFixturesApi(TestLibs.junit5Api)
@@ -34,4 +37,29 @@ dependencies {
 
     testFixturesImplementation(DatabaseLibs.agroalApi)
     testFixturesImplementation(DatabaseLibs.hikari)
+}
+
+tasks.register<JavaCompile>("annotationProcessing") {
+    group = "build"
+    classpath = configurations.compileClasspath.get().plus(configurations.compileOnly.get())
+    println(classpath.files)
+    println("=================================================")
+
+    source = sourceSets.getByName(SourceSet.MAIN_SOURCE_SET_NAME).java
+    destinationDir = project.file("src/main/generated")
+    options.compilerArgs = listOf(
+        "-proc:only",
+//        "-processor","io.vertx.codegen.CodeGenProcessor",
+        "-Acodegen.output=${project.projectDir}/src/main"
+    )
+}
+tasks.compileJava {
+    dependsOn(tasks.named("annotationProcessing"))
+}
+sourceSets {
+    main {
+        java {
+            srcDirs.add(project.file("src/main/generated"))
+        }
+    }
 }
