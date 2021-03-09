@@ -3,11 +3,9 @@ package io.github.zero88.jooq.vertx.integtest.reactive;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.jooq.DSLContext;
 import org.jooq.InsertResultStep;
-import org.jooq.InsertSetMoreStep;
 import org.jooq.Record;
 import org.jooq.Record1;
 import org.jooq.SelectConditionStep;
@@ -18,24 +16,15 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import io.github.zero88.jooq.vertx.BatchResult;
-import io.github.zero88.jooq.vertx.BatchReturningResult;
-import io.github.zero88.jooq.vertx.BindBatchValues;
 import io.github.zero88.jooq.vertx.VertxJooqRecord;
 import io.github.zero88.jooq.vertx.VertxReactiveDSL;
-import io.github.zero88.jooq.vertx.adapter.SelectListResultAdapter;
-import io.github.zero88.jooq.vertx.converter.ReactiveResultBatchConverter;
-import io.github.zero88.jooq.vertx.converter.ReactiveResultSetConverter;
 import io.github.zero88.jooq.vertx.integtest.PostgreSQLHelper;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.pojos.Authors;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.pojos.Books;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.records.AuthorsRecord;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.records.BooksRecord;
 import io.github.zero88.jooq.vertx.spi.PostgreSQLReactiveTest.AbstractPostgreSQLReactiveTest;
-import io.vertx.core.AsyncResult;
-import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
-import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
@@ -145,32 +134,32 @@ class PgJooqSuccessTest extends AbstractPostgreSQLReactiveTest implements Postgr
 
     @Test
     void test_query_convert_by_table_class(VertxTestContext ctx) {
-        final Checkpoint flag = ctx.checkpoint(2);
+        final Checkpoint flag = ctx.checkpoint();
         final io.github.zero88.jooq.vertx.integtest.pgsql.tables.Authors table = catalog().PUBLIC.AUTHORS;
         final SelectConditionStep<AuthorsRecord> query = executor.dsl().selectFrom(table).where(table.COUNTRY.eq("UK"));
-        executor.execute(query, SelectListResultAdapter.create(table, new ReactiveResultSetConverter(), table), ar -> {
-            final List<AuthorsRecord> books = assertRsSize(ctx, flag, ar, 1);
-            final AuthorsRecord authors = books.get(0);
-            ctx.verify(() -> Assertions.assertEquals(3, authors.getId()));
-            ctx.verify(() -> Assertions.assertEquals("Jane Austen", authors.getName()));
-            ctx.verify(() -> Assertions.assertEquals("UK", authors.getCountry()));
+        executor.execute(query, VertxReactiveDSL.instance().fetchOne(table, table), ar -> {
+            final AuthorsRecord authors = ar.result();
+            ctx.verify(() -> {
+                Assertions.assertEquals(3, authors.getId());
+                Assertions.assertEquals("Jane Austen", authors.getName());
+                Assertions.assertEquals("UK", authors.getCountry());
+            });
             flag.flag();
         });
     }
 
     @Test
     void test_insert_returning_id(VertxTestContext ctx) {
-        final Checkpoint flag = ctx.checkpoint(2);
+        final Checkpoint flag = ctx.checkpoint();
         final io.github.zero88.jooq.vertx.integtest.pgsql.tables.Books table = catalog().PUBLIC.BOOKS;
         final InsertResultStep<BooksRecord> insert = executor.dsl()
                                                              .insertInto(table, table.ID, table.TITLE)
                                                              .values(Arrays.asList(DSL.defaultValue(table.ID), "abc"))
                                                              .returning(table.ID);
-        executor.execute(insert, VertxReactiveDSL.instance().fetchMany(table, Collections.singletonList(table.ID)),
+        executor.execute(insert, VertxReactiveDSL.instance().fetchOne(table, Collections.singletonList(table.ID)),
                          ar -> {
-                             List<Record> records = assertRsSize(ctx, flag, ar, 1);
                              ctx.verify(() -> {
-                                 final Record record = records.get(0);
+                                 final Record record = ar.result();
                                  final BooksRecord into1 = record.into(BooksRecord.class);
                                  Assertions.assertEquals(8, into1.getId());
                                  Assertions.assertNull(into1.getTitle());

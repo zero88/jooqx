@@ -15,8 +15,6 @@ import io.github.zero88.jooq.vertx.BatchReturningResult;
 import io.github.zero88.jooq.vertx.BindBatchValues;
 import io.github.zero88.jooq.vertx.VertxJooqRecord;
 import io.github.zero88.jooq.vertx.VertxReactiveDSL;
-import io.github.zero88.jooq.vertx.adapter.SelectListResultAdapter;
-import io.github.zero88.jooq.vertx.converter.ReactiveResultBatchConverter;
 import io.github.zero88.jooq.vertx.integtest.PostgreSQLHelper;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.records.AuthorsRecord;
 import io.github.zero88.jooq.vertx.spi.PostgreSQLReactiveTest.AbstractPostgreSQLReactiveTest;
@@ -75,8 +73,8 @@ class PgBatchInPoolTest extends AbstractPostgreSQLReactiveTest implements Postgr
                 flag.flag();
             }
         };
-        executor.batchExecute(insert, bindValues,
-                              SelectListResultAdapter.vertxRecord(table, new ReactiveResultBatchConverter()), handler);
+        ;
+        executor.batchExecute(insert, bindValues, VertxReactiveDSL.instance().batchVertxRecords(table), handler);
         executor.execute(executor.dsl().selectFrom(table), VertxReactiveDSL.instance().fetchVertxRecords(table),
                          ar -> assertRsSize(ctx, flag, ar, 10));
     }
@@ -114,8 +112,7 @@ class PgBatchInPoolTest extends AbstractPostgreSQLReactiveTest implements Postgr
             }
         };
         executor.batchExecute(insert, bindValues,
-                              SelectListResultAdapter.create(table, new ReactiveResultBatchConverter(),
-                                                             executor.dsl().newRecord(table.ID)), handler);
+                              VertxReactiveDSL.instance().batch(table, executor.dsl().newRecord(table.ID)), handler);
         executor.execute(executor.dsl().selectFrom(table), VertxReactiveDSL.instance().fetchVertxRecords(table),
                          ar -> assertRsSize(ctx, flag, ar, 10));
     }

@@ -43,23 +43,22 @@ class PgLegacyJdbcTest extends AbstractLegacyDBCTest<PostgreSQLContainer<?>>
 
     @Test
     void test_insert(VertxTestContext ctx) {
-        final Checkpoint flag = ctx.checkpoint(2);
+        final Checkpoint flag = ctx.checkpoint(1);
         final Books table = catalog().PUBLIC.BOOKS;
         final InsertResultStep<BooksRecord> insert = executor.dsl()
                                                              .insertInto(table, table.ID, table.TITLE)
                                                              .values(Arrays.asList(DSL.defaultValue(table.ID), "abc"))
                                                              .returning(table.ID);
-        executor.execute(insert, VertxLegacyDSL.instance().fetchVertxRecords(table), ar -> {
-            final List<VertxJooqRecord<?>> records = assertRsSize(ctx, flag, ar, 1);
-            ctx.verify(() -> Assertions.assertEquals(new JsonObject().put("id", 8).put("title", null),
-                                                     records.get(0).toJson()));
+        executor.execute(insert, VertxLegacyDSL.instance().fetchVertxRecord(table), ar -> {
+            ctx.verify(
+                () -> Assertions.assertEquals(new JsonObject().put("id", 8).put("title", null), ar.result().toJson()));
             flag.flag();
         });
     }
 
     @Test
     void test_batch_insert(VertxTestContext ctx) {
-        final Checkpoint flag = ctx.checkpoint(2);
+        final Checkpoint flag = ctx.checkpoint(3);
         final Books table = catalog().PUBLIC.BOOKS;
         BooksRecord rec1 = new BooksRecord().setTitle("abc");
         BooksRecord rec2 = new BooksRecord().setTitle("xyz");
@@ -71,22 +70,17 @@ class PgLegacyJdbcTest extends AbstractLegacyDBCTest<PostgreSQLContainer<?>>
                                                              .set(bindValues.getDummyValues())
                                                              .returning();
         executor.batchExecute(insert, bindValues, ar -> {
-            if (ar.succeeded()) {
-                ctx.verify(() -> Assertions.assertEquals(3, ar.result().getSuccesses()));
-                flag.flag();
-            }
+            ctx.verify(() -> Assertions.assertEquals(3, ar.result().getSuccesses()));
+            flag.flag();
         });
         executor.execute(executor.dsl().selectFrom(table), VertxLegacyDSL.instance().fetchVertxRecords(table), ar -> {
-            if (ar.succeeded()) {
-                final List<VertxJooqRecord<?>> records = assertRsSize(ctx, flag, ar, 10);
-                ctx.verify(() -> {
-                    Assertions.assertEquals(new JsonObject().put("id", 8).put("title", "abc"), records.get(7).toJson());
-                    Assertions.assertEquals(new JsonObject().put("id", 9).put("title", "xyz"), records.get(8).toJson());
-                    Assertions.assertEquals(new JsonObject().put("id", 10).put("title", "qwe"),
-                                            records.get(8).toJson());
-                });
-                flag.flag();
-            }
+            final List<VertxJooqRecord<?>> records = assertRsSize(ctx, flag, ar, 10);
+            ctx.verify(() -> {
+                Assertions.assertEquals(new JsonObject().put("id", 8).put("title", "abc"), records.get(7).toJson());
+                Assertions.assertEquals(new JsonObject().put("id", 9).put("title", "xyz"), records.get(8).toJson());
+                Assertions.assertEquals(new JsonObject().put("id", 10).put("title", "qwe"), records.get(9).toJson());
+            });
+            flag.flag();
         });
     }
 
