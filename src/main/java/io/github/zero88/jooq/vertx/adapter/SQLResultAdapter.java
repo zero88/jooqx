@@ -43,6 +43,6 @@ public interface SQLResultAdapter<R, C extends SQLResultSetConverter<R>, T exten
      * @param resultSet result set
      * @return result
      */
-    @NonNull O convert(@NonNull R resultSet);
+    O convert(@NonNull R resultSet);
 
 }

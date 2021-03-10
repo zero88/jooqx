@@ -35,7 +35,7 @@ public final class SelectOneResultAdapter<R, C extends SQLResultSetConverter<R>,
     }
 
     @Override
-    public @NonNull O convert(@NonNull R resultSet) {
+    public O convert(@NonNull R resultSet) {
         return getFunction().apply(this, resultSet).stream().findFirst().orElse(null);
     }
 
