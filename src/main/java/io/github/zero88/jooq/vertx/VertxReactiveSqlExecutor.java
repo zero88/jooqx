@@ -16,6 +16,7 @@ import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.RowSet;
 import io.vertx.sqlclient.SqlClient;
 import io.vertx.sqlclient.SqlConnection;
+import io.vertx.sqlclient.Transaction;
 import io.vertx.sqlclient.Tuple;
 
 import lombok.Builder.Default;
@@ -29,6 +30,8 @@ import lombok.experimental.SuperBuilder;
  *
  * @param <S> Type of SqlClient, can be {@code SqlConnection} or {@code Pool}
  * @see SqlClient
+ * @see SqlConnection
+ * @see Pool
  * @see Tuple
  * @see Row
  * @see RowSet
@@ -38,7 +41,9 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @Accessors(fluent = true)
 public final class VertxReactiveSqlExecutor<S extends SqlClient>
-    extends AbstractVertxJooqExecutor<S, Tuple, RowSet<Row>> implements VertxReactiveBatchExecutor {
+    extends AbstractVertxJooqExecutor<S, Tuple, RowSet<Row>>
+    implements VertxTxExecutor<S, Tuple, RowSet<Row>, VertxReactiveSqlExecutor<S>>,
+               VertxReactiveBatchExecutor {
 
     @NonNull
     @Default
@@ -55,23 +60,8 @@ public final class VertxReactiveSqlExecutor<S extends SqlClient>
 
     @Override
     @SuppressWarnings("unchecked")
-    public <X> Future<X> withTransaction(
-        @NonNull Function<VertxJooqExecutor<S, Tuple, RowSet<Row>>, Future<X>> transaction) {
-        final S client = sqlClient();
-        if (client instanceof Pool) {
-            return ((Pool) client).withTransaction(conn -> transaction.apply(withSqlClient((S) conn)));
-        }
-        if (client instanceof SqlConnection) {
-            final SqlConnection conn = (SqlConnection) client;
-            return conn.begin()
-                       .flatMap(tx -> transaction.apply(withSqlClient((S) conn))
-                                                 .compose(res -> tx.commit().flatMap(v -> Future.succeededFuture(res)),
-                                                          err -> tx.rollback()
-                                                                   .compose(v -> Future.failedFuture(err),
-                                                                            failure -> Future.failedFuture(err))))
-                       .onComplete(ar -> conn.close());
-        }
-        return Future.failedFuture("Unable to open transaction due to unknown sql client type " + client.getClass());
+    public @NonNull VertxTxExecutor<S, Tuple, RowSet<Row>, VertxReactiveSqlExecutor<S>> transaction() {
+        return this;
     }
 
     @Override
@@ -95,6 +85,24 @@ public final class VertxReactiveSqlExecutor<S extends SqlClient>
     }
 
     @Override
+    public <X> Future<X> run(@NonNull Function<VertxReactiveSqlExecutor<S>, Future<X>> function) {
+        final S c = sqlClient();
+        if (c instanceof Pool) {
+            return ((Pool) c).getConnection()
+                             .compose(conn -> beginTx(conn, function),
+                                      t -> Future.failedFuture(connFailed("Unable to open SQL connection", t)));
+        }
+        String msg = c instanceof SqlConnection
+                     ? "Unsupported using connection on SQL connection: [" + c.getClass() + "]. Switch using SQL pool"
+                     : "Unable to open transaction due to unknown SQL client: [" + c.getClass() + "]";
+        // TODO: maybe with SQL client provider in VertxReactiveBuilder to spawn new conn
+        //        if (c instanceof SqlConnection) {
+        //            return beginTransaction((SqlConnection) client, transaction);
+        //        }
+        return Future.failedFuture(connFailed(msg));
+    }
+
+    @Override
     protected VertxReactiveSqlExecutor<S> withSqlClient(@NonNull S sqlClient) {
         return VertxReactiveSqlExecutor.<S>builder().vertx(vertx())
                                                     .sqlClient(sqlClient)
@@ -102,6 +110,20 @@ public final class VertxReactiveSqlExecutor<S extends SqlClient>
                                                     .helper(helper())
                                                     .errorConverter(errorConverter())
                                                     .build();
+    }
+
+    @SuppressWarnings("unchecked")
+    private <X> Future<X> beginTx(@NonNull SqlConnection conn,
+                                  @NonNull Function<VertxReactiveSqlExecutor<S>, Future<X>> transaction) {
+        return conn.begin()
+                   .flatMap(tx -> transaction.apply(withSqlClient((S) conn))
+                                             .compose(res -> tx.commit().flatMap(v -> Future.succeededFuture(res)),
+                                                      err -> rollbackHandler(tx, errorConverter().handle(err))))
+                   .onComplete(ar -> conn.close());
+    }
+
+    private <X> Future<X> rollbackHandler(@NonNull Transaction tx, @NonNull RuntimeException t) {
+        return tx.rollback().compose(v -> Future.failedFuture(t), failure -> Future.failedFuture(t));
     }
 
 }

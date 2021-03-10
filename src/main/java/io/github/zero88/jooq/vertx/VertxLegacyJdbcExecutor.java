@@ -18,6 +18,7 @@ import io.vertx.ext.jdbc.JDBCClient;
 import io.vertx.ext.sql.ResultSet;
 import io.vertx.ext.sql.SQLClient;
 import io.vertx.ext.sql.SQLConnection;
+import io.vertx.ext.sql.SQLOperations;
 
 import lombok.Builder.Default;
 import lombok.Getter;
@@ -29,6 +30,8 @@ import lombok.experimental.SuperBuilder;
  * Represents for an executor that executes {@code jOOQ query} on {@code Vertx legacy JDBC client} connection
  *
  * @see SQLClient
+ * @see SQLConnection
+ * @see SQLOperations
  * @see JDBCClient
  * @see ResultSet
  * @since 1.0.0
@@ -37,7 +40,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @Accessors(fluent = true)
 public final class VertxLegacyJdbcExecutor extends AbstractVertxJooqExecutor<SQLClient, JsonArray, ResultSet>
-    implements VertxBatchExecutor {
+    implements VertxTxExecutor<SQLClient, JsonArray, ResultSet, VertxLegacyJdbcExecutor> {
 
     @NonNull
     @Default
@@ -53,30 +56,20 @@ public final class VertxLegacyJdbcExecutor extends AbstractVertxJooqExecutor<SQL
     }
 
     @Override
-    public <X> Future<X> withTransaction(
-        @NonNull Function<VertxJooqExecutor<SQLClient, JsonArray, ResultSet>, Future<X>> transaction) {
-        //        final Promise<X> promise = Promise.promise();
-        //        getConnection().map(conn -> conn.setAutoCommit(false, res -> {
-        //            if (res.failed()) {
-        //                promise.fail(res.cause());
-        //                return;
-        //            }
-        //            transaction.apply(withSqlClient((SQLClient) conn));
-        //        }).commit(event -> System.out.println(event))).compose(success -> promise.complete(), promise::fail);
-        //        return promise.future();
-        return null;
-    }
-
-    @Override
     public <Q extends Query> Future<BatchResult> batch(@NonNull Q query, @NonNull BindBatchValues bindBatchValues) {
         final Promise<List<Integer>> promise = Promise.promise();
-        getConnection().map(
-            conn -> conn.batchWithParams(helper().toPreparedQuery(dsl().configuration(), query, ParamType.INDEXED),
-                                         helper().toBindValues(query, bindBatchValues), promise));
+        openConn().map(c -> c.batchWithParams(helper().toPreparedQuery(dsl().configuration(), query, ParamType.INDEXED),
+                                              helper().toBindValues(query, bindBatchValues), promise));
         return promise.future()
                       .map(r -> new LegacyResultSetConverter().batchResultSize(r))
                       .map(s -> new BatchResult(bindBatchValues.size(), s))
                       .otherwise(errorConverter()::reThrowError);
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public @NonNull VertxTxExecutor<SQLClient, JsonArray, ResultSet, VertxLegacyJdbcExecutor> transaction() {
+        return this;
     }
 
     @Override
@@ -90,15 +83,44 @@ public final class VertxLegacyJdbcExecutor extends AbstractVertxJooqExecutor<SQL
                                       .build();
     }
 
-    private Future<SQLConnection> getConnection() {
+    private Future<SQLConnection> openConn() {
         final Promise<SQLConnection> promise = Promise.promise();
-        sqlClient().getConnection(arc -> {
-            if (arc.failed()) {
-                promise.fail(new IllegalStateException("Unable open SQL connection", arc.cause()));
+        sqlClient().getConnection(ar -> {
+            if (ar.failed()) {
+                promise.fail(connFailed("Unable open SQL connection", ar.cause()));
+            } else {
+                promise.complete(ar.result());
             }
-            promise.complete(arc.result());
         });
         return promise.future();
+    }
+
+    @Override
+    public <X> Future<X> run(@NonNull Function<VertxLegacyJdbcExecutor, Future<X>> function) {
+        final Promise<X> promise = Promise.promise();
+        openConn().map(conn -> conn.setAutoCommit(false, committable -> {
+            if (committable.failed()) {
+                promise.fail(errorConverter().handle(connFailed("Unable begin transaction", committable.cause())));
+            } else {
+                function.apply(withSqlClient((SQLClient) conn)).onSuccess(res -> conn.commit(event -> {
+                    if (event.succeeded()) {
+                        promise.complete(res);
+                    } else {
+                        handleRollback(conn, promise, errorConverter().handle(event.cause()));
+                    }
+                }));
+            }
+        }));
+        return promise.future();
+    }
+
+    private <X> void handleRollback(@NonNull SQLConnection conn, @NonNull Promise<X> p, @NonNull RuntimeException t) {
+        conn.rollback(rb -> {
+            if (!rb.succeeded()) {
+                t.addSuppressed(rb.cause());
+            }
+            p.fail(t);
+        });
     }
 
 }

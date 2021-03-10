@@ -1,11 +1,13 @@
 package io.github.zero88.jooq.vertx.integtest.reactive;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 import org.jooq.InsertResultStep;
 import org.jooq.SelectConditionStep;
 import org.jooq.exception.DataAccessException;
 import org.jooq.exception.SQLStateClass;
+import org.jooq.impl.DSL;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,7 +21,6 @@ import io.github.zero88.jooq.vertx.spi.PostgreSQLReactiveTest.AbstractPostgreSQL
 import io.vertx.core.Vertx;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
-import io.vertx.pgclient.PgConnection;
 import io.vertx.pgclient.PgException;
 
 class PgJooqFailedTest extends AbstractPostgreSQLClientTest implements PostgreSQLHelper {
@@ -75,6 +76,30 @@ class PgJooqFailedTest extends AbstractPostgreSQLClientTest implements PostgreSQ
                              });
                              flag.flag();
                          });
+    }
+
+    @Test
+    void transaction_failed_due_to_unsupported(VertxTestContext context) {
+        final Checkpoint flag = context.checkpoint(2);
+        final io.github.zero88.jooq.vertx.integtest.pgsql.tables.Books table = catalog().PUBLIC.BOOKS;
+        final InsertResultStep<BooksRecord> q = executor.dsl()
+                                                        .insertInto(table, table.ID, table.TITLE)
+                                                        .values(Arrays.asList(DSL.defaultValue(), "1"))
+                                                        .returning();
+        executor.transaction().run(tx -> tx.execute(q, VertxReactiveDSL.instance().fetchOne(table)), async -> {
+            context.verify(() -> {
+                Assertions.assertTrue(async.failed());
+                Assertions.assertTrue(async.cause() instanceof DataAccessException);
+                Assertions.assertEquals(SQLStateClass.C08_CONNECTION_EXCEPTION,
+                                        ((DataAccessException) async.cause()).sqlStateClass());
+                Assertions.assertEquals(
+                    "Unsupported using connection on SQL connection: [class io.vertx.pgclient.impl.PgConnectionImpl]." +
+                    " Switch using SQL pool", async.cause().getMessage());
+                executor.execute(executor.dsl().selectFrom(table), VertxReactiveDSL.instance().fetchMany(table),
+                                 ar2 -> assertRsSize(context, flag, ar2, 7));
+            });
+            flag.flag();
+        });
     }
 
 }

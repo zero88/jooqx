@@ -1,11 +1,15 @@
 package io.github.zero88.jooq.vertx.integtest.reactive;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.jooq.InsertResultStep;
 import org.jooq.InsertSetMoreStep;
 import org.jooq.Record1;
+import org.jooq.exception.DataAccessException;
+import org.jooq.exception.SQLStateClass;
+import org.jooq.impl.DSL;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -14,9 +18,12 @@ import io.github.zero88.jooq.vertx.BatchResult;
 import io.github.zero88.jooq.vertx.BatchReturningResult;
 import io.github.zero88.jooq.vertx.BindBatchValues;
 import io.github.zero88.jooq.vertx.JsonRecord;
+import io.github.zero88.jooq.vertx.SqlErrorConverter;
 import io.github.zero88.jooq.vertx.VertxReactiveDSL;
 import io.github.zero88.jooq.vertx.integtest.PostgreSQLHelper;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.records.AuthorsRecord;
+import io.github.zero88.jooq.vertx.integtest.pgsql.tables.records.BooksRecord;
+import io.github.zero88.jooq.vertx.spi.PgErrorConverter;
 import io.github.zero88.jooq.vertx.spi.PostgreSQLReactiveTest.AbstractPostgreSQLPoolTest;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
@@ -32,6 +39,11 @@ class PgBatchInPoolTest extends AbstractPostgreSQLPoolTest implements PostgreSQL
     public void tearUp(Vertx vertx, VertxTestContext ctx) {
         super.tearUp(vertx, ctx);
         this.prepareDatabase(ctx, this, connOpt);
+    }
+
+    @Override
+    public SqlErrorConverter<? extends Throwable, ? extends RuntimeException> createErrorConverter() {
+        return new PgErrorConverter();
     }
 
     @Test
@@ -71,7 +83,7 @@ class PgBatchInPoolTest extends AbstractPostgreSQLPoolTest implements PostgreSQL
                 flag.flag();
             }
         };
-        executor.batchExecute(insert, bindValues, VertxReactiveDSL.instance().batchJsonRecords(table), handler);
+        executor.batch(insert, bindValues, VertxReactiveDSL.instance().batchJsonRecords(table), handler);
     }
 
     @Test
@@ -109,8 +121,8 @@ class PgBatchInPoolTest extends AbstractPostgreSQLPoolTest implements PostgreSQL
                 flag.flag();
             }
         };
-        executor.batchExecute(insert, bindValues,
-                              VertxReactiveDSL.instance().batch(table, executor.dsl().newRecord(table.ID)), handler);
+        executor.batch(insert, bindValues,
+                       VertxReactiveDSL.instance().batch(table, executor.dsl().newRecord(table.ID)), handler);
     }
 
     @Test
@@ -125,7 +137,7 @@ class PgBatchInPoolTest extends AbstractPostgreSQLPoolTest implements PostgreSQL
         final InsertSetMoreStep<AuthorsRecord> insert = executor.dsl()
                                                                 .insertInto(table)
                                                                 .set(bindValues.getDummyValues());
-        executor.batchExecute(insert, bindValues, ar -> {
+        executor.batch(insert, bindValues, ar -> {
             try {
                 if (ar.succeeded()) {
                     final BatchResult result = ar.result();
@@ -145,9 +157,57 @@ class PgBatchInPoolTest extends AbstractPostgreSQLPoolTest implements PostgreSQL
         });
     }
 
-    //    @Test
-    //    void try_transaction(VertxTestContext context) {
-    ////        executor.withTransaction(transaction -> transaction., )
-    //    }
+    @Test
+    void transaction_success(VertxTestContext context) {
+        final Checkpoint flag = context.checkpoint(2);
+        final io.github.zero88.jooq.vertx.integtest.pgsql.tables.Books table = catalog().PUBLIC.BOOKS;
+        executor.transaction().run(tx -> {
+            final InsertResultStep<BooksRecord> q1 = tx.dsl()
+                                                       .insertInto(table, table.ID, table.TITLE)
+                                                       .values(Arrays.asList(DSL.defaultValue(table.ID), "abc"))
+                                                       .returning(table.ID);
+            final InsertResultStep<BooksRecord> q2 = tx.dsl()
+                                                       .insertInto(table, table.ID, table.TITLE)
+                                                       .values(Arrays.asList(DSL.defaultValue(table.ID), "xyz"))
+                                                       .returning(table.ID);
+            return tx.execute(q1, VertxReactiveDSL.instance().fetchOne(table))
+                     .flatMap(b1 -> tx.execute(q2, VertxReactiveDSL.instance().fetchOne(table)));
+        }, ar -> {
+            context.verify(() -> {
+                Assertions.assertTrue(ar.succeeded());
+                executor.execute(executor.dsl().selectFrom(table), VertxReactiveDSL.instance().fetchMany(table),
+                                 ar2 -> assertRsSize(context, flag, ar2, 9));
+            });
+            flag.flag();
+        });
+    }
+
+    @Test
+    void transaction_failed_due_to_conflict_key(VertxTestContext context) {
+        final Checkpoint flag = context.checkpoint(2);
+        final io.github.zero88.jooq.vertx.integtest.pgsql.tables.Books table = catalog().PUBLIC.BOOKS;
+        executor.transaction().run(tx -> {
+            final InsertResultStep<BooksRecord> q1 = tx.dsl()
+                                                       .insertInto(table, table.ID, table.TITLE)
+                                                       .values(Arrays.asList(DSL.defaultValue(table.ID), "abc"))
+                                                       .returning(table.ID);
+            final InsertResultStep<BooksRecord> q2 = tx.dsl()
+                                                       .insertInto(table, table.ID, table.TITLE)
+                                                       .values(1, "xyz")
+                                                       .returning(table.ID);
+            return tx.execute(q1, VertxReactiveDSL.instance().fetchOne(table))
+                     .flatMap(b1 -> tx.execute(q2, VertxReactiveDSL.instance().fetchOne(table)));
+        }, ar -> {
+            context.verify(() -> {
+                Assertions.assertTrue(ar.failed());
+                Assertions.assertTrue(ar.cause() instanceof DataAccessException);
+                Assertions.assertEquals(SQLStateClass.C23_INTEGRITY_CONSTRAINT_VIOLATION,
+                                        ((DataAccessException) ar.cause()).sqlStateClass());
+                executor.execute(executor.dsl().selectFrom(table), VertxReactiveDSL.instance().fetchMany(table),
+                                 ar2 -> assertRsSize(context, flag, ar2, 7));
+            });
+            flag.flag();
+        });
+    }
 
 }

@@ -1,7 +1,5 @@
 package io.github.zero88.jooq.vertx;
 
-import java.util.function.Function;
-
 import org.jooq.DSLContext;
 import org.jooq.Query;
 import org.jooq.TableLike;
@@ -103,11 +101,13 @@ public interface VertxJooqExecutor<S, P, RS> extends VertxBatchExecutor {
     <Q extends Query, T extends TableLike<?>, C extends ResultSetConverter<RS>, R> Future<R> execute(@NonNull Q query,
                                                                                                      @NonNull SqlResultAdapter<RS, C, T, R> resultAdapter);
 
-    default <X> void withTransaction(@NonNull Function<VertxJooqExecutor<S, P, RS>, Future<X>> transaction,
-                                     @NonNull Handler<AsyncResult<X>> handler) {
-        withTransaction(transaction).onComplete(handler);
-    }
-
-    <X> Future<X> withTransaction(@NonNull Function<VertxJooqExecutor<S, P, RS>, Future<X>> transaction);
+    /**
+     * Open transaction executor
+     *
+     * @param <E> Type of VertxJooqExecutor
+     * @return transaction executor
+     * @see VertxTxExecutor
+     */
+    @NonNull <E extends VertxJooqExecutor<S, P, RS>> VertxTxExecutor<S, P, RS, E> transaction();
 
 }
