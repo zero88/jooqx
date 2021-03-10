@@ -5,11 +5,9 @@ import java.util.function.Function;
 
 import org.jooq.Query;
 import org.jooq.TableLike;
-import org.jooq.conf.ParamType;
 
 import io.github.zero88.jooq.vertx.adapter.SQLResultAdapter;
-import io.github.zero88.jooq.vertx.converter.LegacyBindParamConverter;
-import io.github.zero88.jooq.vertx.converter.LegacyResultSetConverter;
+import io.github.zero88.jooq.vertx.converter.LegacySQLConverter;
 import io.github.zero88.jooq.vertx.converter.ResultSetConverter;
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
@@ -20,7 +18,6 @@ import io.vertx.ext.sql.SQLClient;
 import io.vertx.ext.sql.SQLConnection;
 import io.vertx.ext.sql.SQLOperations;
 
-import lombok.Builder.Default;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.Accessors;
@@ -42,26 +39,22 @@ import lombok.experimental.SuperBuilder;
 public final class VertxLegacySQLExecutor extends SQLExecutorImpl<SQLClient, JsonArray, ResultSet>
     implements SQLTxExecutor<SQLClient, JsonArray, ResultSet, VertxLegacySQLExecutor> {
 
-    @NonNull
-    @Default
-    private final QueryHelper<JsonArray> helper = new QueryHelper<>(new LegacyBindParamConverter());
-
     @Override
     public <Q extends Query, T extends TableLike<?>, C extends ResultSetConverter<ResultSet>, R> Future<R> execute(
         @NonNull Q query, @NonNull SQLResultAdapter<ResultSet, C, T, R> resultAdapter) {
         final Promise<ResultSet> promise = Promise.promise();
-        sqlClient().queryWithParams(helper().toPreparedQuery(dsl().configuration(), query, ParamType.INDEXED),
-                                    helper().toBindValues(query), promise);
+        sqlClient().queryWithParams(preparedQuery().sql(dsl().configuration(), query),
+                                    preparedQuery().bindValues(query), promise);
         return promise.future().map(resultAdapter::convert).otherwise(errorConverter()::reThrowError);
     }
 
     @Override
     public <Q extends Query> Future<BatchResult> batch(@NonNull Q query, @NonNull BindBatchValues bindBatchValues) {
         final Promise<List<Integer>> promise = Promise.promise();
-        openConn().map(c -> c.batchWithParams(helper().toPreparedQuery(dsl().configuration(), query, ParamType.INDEXED),
-                                              helper().toBindValues(query, bindBatchValues), promise));
+        openConn().map(c -> c.batchWithParams(preparedQuery().sql(dsl().configuration(), query),
+                                              preparedQuery().bindValues(query, bindBatchValues), promise));
         return promise.future()
-                      .map(r -> new LegacyResultSetConverter().batchResultSize(r))
+                      .map(r -> LegacySQLConverter.resultSetConverter().batchResultSize(r))
                       .map(s -> BatchResultImpl.create(bindBatchValues.size(), s))
                       .otherwise(errorConverter()::reThrowError);
     }
@@ -78,7 +71,7 @@ public final class VertxLegacySQLExecutor extends SQLExecutorImpl<SQLClient, Jso
                                      .vertx(vertx())
                                      .sqlClient(sqlClient)
                                      .dsl(dsl())
-                                     .helper(helper())
+                                     .preparedQuery(preparedQuery())
                                      .errorConverter(errorConverter())
                                      .build();
     }

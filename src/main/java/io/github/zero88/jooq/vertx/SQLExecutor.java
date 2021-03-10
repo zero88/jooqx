@@ -6,6 +6,7 @@ import org.jooq.TableLike;
 
 import io.github.zero88.jooq.vertx.adapter.SQLResultAdapter;
 import io.github.zero88.jooq.vertx.converter.ResultSetConverter;
+import io.github.zero88.jooq.vertx.converter.SQLPreparedQuery;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
@@ -51,11 +52,12 @@ public interface SQLExecutor<S, P, RS> extends SQLBatchExecutor {
     @NonNull S sqlClient();
 
     /**
-     * Defines query helper
+     * Defines prepared query
      *
-     * @return query helper
+     * @return prepared query
+     * @see SQLPreparedQuery
      */
-    @NonNull QueryHelper<P> helper();
+    @NonNull SQLPreparedQuery<P> preparedQuery();
 
     /**
      * Defines an error converter that rethrows an uniform exception by {@link SQLErrorConverter#reThrowError(Throwable)

@@ -1,6 +1,7 @@
 package io.github.zero88.jooq.vertx;
 
-import io.github.zero88.jooq.vertx.converter.LegacyBindParamConverter;
+import io.github.zero88.jooq.vertx.converter.LegacySQLConverter;
+import io.github.zero88.jooq.vertx.converter.SQLPreparedQuery;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
@@ -41,14 +42,14 @@ public interface LegacySQLClientProvider extends SQLClientProvider<SQLClient> {
                                          .vertx(vertx)
                                          .dsl(dslProvider.dsl())
                                          .sqlClient(sqlClient)
-                                         .helper(createQueryHelper())
+                                         .preparedQuery(createPreparedQuery())
                                          .errorConverter(createErrorConverter())
                                          .build();
         }
 
         @Override
-        default QueryHelper<JsonArray> createQueryHelper() {
-            return new QueryHelper<>(new LegacyBindParamConverter());
+        default SQLPreparedQuery<JsonArray> createPreparedQuery() {
+            return LegacySQLConverter.prepareQuery();
         }
 
     }

@@ -6,6 +6,7 @@ import java.sql.SQLTransientConnectionException;
 import org.jooq.DSLContext;
 import org.jooq.exception.SQLStateClass;
 
+import io.github.zero88.jooq.vertx.converter.SQLPreparedQuery;
 import io.vertx.core.Vertx;
 
 import lombok.AccessLevel;
@@ -28,6 +29,8 @@ abstract class SQLExecutorImpl<S, P, RS> implements SQLExecutor<S, P, RS> {
     @NonNull
     @With(AccessLevel.PROTECTED)
     private final S sqlClient;
+    @NonNull
+    private final SQLPreparedQuery<P> preparedQuery;
     @Default
     @NonNull
     private final SQLErrorConverter<? extends Throwable, ? extends RuntimeException> errorConverter

@@ -7,8 +7,8 @@ import org.jooq.TableLike;
 
 import io.github.zero88.jooq.vertx.adapter.SQLResultAdapter;
 import io.github.zero88.jooq.vertx.adapter.SelectListResultAdapter;
-import io.github.zero88.jooq.vertx.converter.ReactiveBindParamConverter;
-import io.github.zero88.jooq.vertx.converter.ReactiveResultBatchConverter;
+import io.github.zero88.jooq.vertx.converter.ReactiveSQLConverter;
+import io.github.zero88.jooq.vertx.converter.ReactiveSQLResultBatchConverter;
 import io.github.zero88.jooq.vertx.converter.ResultSetConverter;
 import io.vertx.core.Future;
 import io.vertx.sqlclient.Pool;
@@ -19,7 +19,6 @@ import io.vertx.sqlclient.SqlConnection;
 import io.vertx.sqlclient.Transaction;
 import io.vertx.sqlclient.Tuple;
 
-import lombok.Builder.Default;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.Accessors;
@@ -43,15 +42,11 @@ import lombok.experimental.SuperBuilder;
 public final class VertxReactiveSQLExecutor<S extends SqlClient> extends SQLExecutorImpl<S, Tuple, RowSet<Row>>
     implements SQLTxExecutor<S, Tuple, RowSet<Row>, VertxReactiveSQLExecutor<S>>, VertxReactiveSQLBatchExecutor {
 
-    @NonNull
-    @Default
-    private final QueryHelper<Tuple> helper = new QueryHelper<>(new ReactiveBindParamConverter());
-
     @Override
     public <Q extends Query, T extends TableLike<?>, C extends ResultSetConverter<RowSet<Row>>, R> Future<R> execute(
         @NonNull Q query, @NonNull SQLResultAdapter<RowSet<Row>, C, T, R> resultAdapter) {
-        return sqlClient().preparedQuery(helper().toPreparedQuery(dsl().configuration(), query))
-                          .execute(helper().toBindValues(query))
+        return sqlClient().preparedQuery(preparedQuery().sql(dsl().configuration(), query))
+                          .execute(preparedQuery().bindValues(query))
                           .map(resultAdapter::convert)
                           .otherwise(errorConverter()::reThrowError);
     }
@@ -64,9 +59,9 @@ public final class VertxReactiveSQLExecutor<S extends SqlClient> extends SQLExec
 
     @Override
     public <Q extends Query> Future<BatchResult> batch(@NonNull Q query, @NonNull BindBatchValues bindBatchValues) {
-        return sqlClient().preparedQuery(helper().toPreparedQuery(dsl().configuration(), query))
-                          .executeBatch(helper().toBindValues(query, bindBatchValues))
-                          .map(r -> new ReactiveResultBatchConverter().batchResultSize(r))
+        return sqlClient().preparedQuery(preparedQuery().sql(dsl().configuration(), query))
+                          .executeBatch(preparedQuery().bindValues(query, bindBatchValues))
+                          .map(r -> ReactiveSQLConverter.resultBatchConverter().batchResultSize(r))
                           .map(s -> BatchResultImpl.create(bindBatchValues.size(), s))
                           .otherwise(errorConverter()::reThrowError);
     }
@@ -74,9 +69,9 @@ public final class VertxReactiveSQLExecutor<S extends SqlClient> extends SQLExec
     @Override
     public <Q extends Query, T extends TableLike<?>, R> Future<BatchReturningResult<R>> batch(@NonNull Q query,
                                                                                               @NonNull BindBatchValues bindBatchValues,
-                                                                                              @NonNull SelectListResultAdapter<RowSet<Row>, ReactiveResultBatchConverter, T, R> adapter) {
-        return sqlClient().preparedQuery(helper().toPreparedQuery(dsl().configuration(), query))
-                          .executeBatch(helper().toBindValues(query, bindBatchValues))
+                                                                                              @NonNull SelectListResultAdapter<RowSet<Row>, ReactiveSQLResultBatchConverter, T, R> adapter) {
+        return sqlClient().preparedQuery(preparedQuery().sql(dsl().configuration(), query))
+                          .executeBatch(preparedQuery().bindValues(query, bindBatchValues))
                           .map(adapter::convert)
                           .map(rs -> BatchResultImpl.create(bindBatchValues.size(), rs))
                           .otherwise(errorConverter()::reThrowError);
@@ -105,7 +100,7 @@ public final class VertxReactiveSQLExecutor<S extends SqlClient> extends SQLExec
         return VertxReactiveSQLExecutor.<S>builder().vertx(vertx())
                                                     .sqlClient(sqlClient)
                                                     .dsl(dsl())
-                                                    .helper(helper())
+                                                    .preparedQuery(preparedQuery())
                                                     .errorConverter(errorConverter())
                                                     .build();
     }

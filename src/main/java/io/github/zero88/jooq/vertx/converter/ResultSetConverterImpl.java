@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public abstract class AbstractResultSetConverter<RS> implements ResultSetConverter<RS> {
+abstract class ResultSetConverterImpl<RS> implements ResultSetConverter<RS> {
 
     protected SelectStrategy strategy = SelectStrategy.MANY;
 

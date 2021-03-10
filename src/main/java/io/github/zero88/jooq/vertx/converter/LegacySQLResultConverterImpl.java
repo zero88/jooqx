@@ -20,8 +20,7 @@ import io.vertx.ext.sql.ResultSet;
 
 import lombok.NonNull;
 
-public final class LegacyResultSetConverter extends AbstractResultSetConverter<ResultSet>
-    implements ResultBatchConverter<ResultSet, List<Integer>> {
+final class LegacySQLResultConverterImpl extends ResultSetConverterImpl<ResultSet> implements LegacySQLResultConverter {
 
     protected <T extends TableLike<? extends Record>, R> List<R> doConvert(ResultSet resultSet, T table,
                                                                            @NonNull Function<JsonRecord<?>, R> mapper) {

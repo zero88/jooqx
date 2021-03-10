@@ -1,6 +1,7 @@
 package io.github.zero88.jooq.vertx;
 
-import io.github.zero88.jooq.vertx.converter.ReactiveBindParamConverter;
+import io.github.zero88.jooq.vertx.converter.ReactiveSQLConverter;
+import io.github.zero88.jooq.vertx.converter.SQLPreparedQuery;
 import io.vertx.core.Vertx;
 import io.vertx.jdbcclient.JDBCConnectOptions;
 import io.vertx.jdbcclient.JDBCPool;
@@ -25,14 +26,14 @@ public interface ReactiveSQLClientProvider<S extends SqlClient> extends SQLClien
             return VertxReactiveSQLExecutor.<S>builder().vertx(vertx)
                                                         .dsl(dslProvider.dsl())
                                                         .sqlClient(sqlClient)
-                                                        .helper(createQueryHelper())
+                                                        .preparedQuery(createPreparedQuery())
                                                         .errorConverter(createErrorConverter())
                                                         .build();
         }
 
         @Override
-        default QueryHelper<Tuple> createQueryHelper() {
-            return new QueryHelper<>(new ReactiveBindParamConverter());
+        default SQLPreparedQuery<Tuple> createPreparedQuery() {
+            return ReactiveSQLConverter.prepareQuery();
         }
 
     }

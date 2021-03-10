@@ -21,14 +21,7 @@ import io.vertx.sqlclient.RowSet;
 
 import lombok.NonNull;
 
-/**
- * Bug <a href="vertx-sql-client#909">https://github.com/eclipse-vertx/vertx-sql-client/issues/909</a>
- *
- * @see Record
- * @see TableLike
- * @see ResultSetConverter
- */
-public class ReactiveResultSetConverter extends AbstractResultSetConverter<RowSet<Row>> {
+class ReactiveSQLResultConverterImpl extends ResultSetConverterImpl<RowSet<Row>> implements ReactiveSQLResultConverter {
 
     @Override
     protected <T extends TableLike<? extends Record>, R> List<R> doConvert(@NonNull RowSet<Row> resultSet, T table,
@@ -56,6 +49,36 @@ public class ReactiveResultSetConverter extends AbstractResultSetConverter<RowSe
                  .filter(Objects::nonNull)
                  .forEach(f -> record.set((Field<Object>) f, row.get(f.getType(), f.getName())));
         return record;
+    }
+
+    static final class ReactiveSQLResultBatchConverterImpl extends ReactiveSQLResultConverterImpl
+        implements ReactiveSQLResultBatchConverter {
+
+        @Override
+        protected <T extends TableLike<? extends Record>, R> List<R> doConvert(@NonNull RowSet<Row> resultSet,
+                                                                               @NonNull T table,
+                                                                               @NonNull Function<JsonRecord<?>, R> mapper) {
+            final List<R> records = new ArrayList<>();
+            while (resultSet != null) {
+                final List<R> rs = super.doConvert(resultSet, table, mapper);
+                if (!rs.isEmpty()) {
+                    records.add(rs.get(0));
+                }
+                resultSet = resultSet.next();
+            }
+            return records;
+        }
+
+        @Override
+        public int batchResultSize(@NonNull RowSet<Row> batchResult) {
+            final int[] count = new int[] {0};
+            while (batchResult != null) {
+                count[0]++;
+                batchResult = batchResult.next();
+            }
+            return count[0];
+        }
+
     }
 
 }
