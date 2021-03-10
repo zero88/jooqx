@@ -1,20 +1,20 @@
-package io.github.zero88.jooq.vertx.converter.ext;
+package io.github.zero88.jooq.vertx.datatype;
 
 import java.util.function.Function;
 
 import org.jooq.Converter;
 import org.jooq.JSON;
 
-import io.vertx.core.json.JsonObject;
+import io.vertx.core.json.JsonArray;
 
 /**
  * @author jensklingsporn
  */
-public class JSONToJsonObjectBinding extends PGJsonToVertxJsonBinding<JSON, JsonObject> {
+public class JSONToJsonArrayBinding extends PGJsonToVertxJsonBinding<JSON, JsonArray> {
 
     @Override
-    public Converter<JSON, JsonObject> converter() {
-        return JSONToJsonObjectConverter.getInstance();
+    public Converter<JSON, JsonArray> converter() {
+        return JSONToJsonArrayConverter.getInstance();
     }
 
     @Override

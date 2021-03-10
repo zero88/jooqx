@@ -1,4 +1,4 @@
-package io.github.zero88.jooq.vertx.converter.ext;
+package io.github.zero88.jooq.vertx.datatype;
 
 import org.jooq.JSON;
 
