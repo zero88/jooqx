@@ -2,9 +2,8 @@ package io.github.zero88.jooq.vertx.integtest;
 
 import org.jooq.SQLDialect;
 
-import io.github.zero88.jooq.vertx.JooqDSLProvider;
-import io.github.zero88.jooq.vertx.JooqSql;
-import io.github.zero88.jooq.vertx.SqlConnectionOption;
+import io.github.zero88.jooq.vertx.JooqSQL;
+import io.github.zero88.jooq.vertx.SQLConnectionOption;
 import io.github.zero88.jooq.vertx.integtest.pgsql.DefaultCatalog;
 import io.github.zero88.utils.Strings;
 import io.vertx.junit5.VertxTestContext;
@@ -13,9 +12,9 @@ import com.zaxxer.hikari.HikariDataSource;
 
 import lombok.NonNull;
 
-public interface PostgreSQLHelper extends JooqSql<DefaultCatalog>, SqlTestHelper {
+public interface PostgreSQLHelper extends JooqSQL<DefaultCatalog>, SQLTestHelper {
 
-    default void prepareDatabase(VertxTestContext ctx, JooqSql<?> jooqSql, SqlConnectionOption connOption) {
+    default void prepareDatabase(VertxTestContext ctx, JooqSQL<?> jooqSql, SQLConnectionOption connOption) {
         HikariDataSource dataSource = jooqSql.createDataSource(connOption);
         jooqSql.prepareDatabase(ctx, jooqSql.dsl(dataSource), "pg_schema.sql", "pg_data.sql");
         closeDataSource(dataSource);

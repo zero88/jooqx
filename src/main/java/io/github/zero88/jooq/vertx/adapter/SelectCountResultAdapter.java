@@ -13,8 +13,8 @@ public final class SelectCountResultAdapter<RS, C extends ResultSetConverter<RS>
     extends SelectAdhocOneResultAdapter<RS, C, TableLike<Record1<Integer>>, Integer> {
 
     protected SelectCountResultAdapter(@NonNull TableLike<Record1<Integer>> table, @NonNull C converter,
-                                       @NonNull BiFunction<SqlResultAdapter<RS, C, TableLike<Record1<Integer>>,
-                                                                               Integer>, RS, Integer> function) {
+                                       @NonNull BiFunction<SQLResultAdapter<RS, C, TableLike<Record1<Integer>>,
+                                                                                                                      Integer>, RS, Integer> function) {
         super(table, converter, function);
     }
 

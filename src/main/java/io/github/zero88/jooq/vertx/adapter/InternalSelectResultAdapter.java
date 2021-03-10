@@ -13,13 +13,13 @@ import lombok.NonNull;
 
 abstract class InternalSelectResultAdapter<RS, C extends ResultSetConverter<RS>,
                                               T extends TableLike<? extends Record>, I, O>
-    extends AbstractSqlResultAdapter<RS, C, T, O> {
+    extends SQLResultAdapterImpl<RS, C, T, O> {
 
     @Getter
-    private final BiFunction<SqlResultAdapter<RS, C, T, O>, RS, List<I>> function;
+    private final BiFunction<SQLResultAdapter<RS, C, T, O>, RS, List<I>> function;
 
     protected InternalSelectResultAdapter(@NonNull T table, @NonNull C converter,
-                                          @NonNull BiFunction<SqlResultAdapter<RS, C, T, O>, RS, List<I>> function) {
+                                          @NonNull BiFunction<SQLResultAdapter<RS, C, T, O>, RS, List<I>> function) {
         super(table, converter);
         this.function = function;
     }

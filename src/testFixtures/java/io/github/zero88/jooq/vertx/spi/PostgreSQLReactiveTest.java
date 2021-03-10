@@ -4,9 +4,9 @@ import java.util.concurrent.TimeUnit;
 
 import org.testcontainers.containers.PostgreSQLContainer;
 
-import io.github.zero88.jooq.vertx.BaseReactiveSqlTest;
 import io.github.zero88.jooq.vertx.DBProvider.DBContainerProvider;
-import io.github.zero88.jooq.vertx.SqlConnectionOption;
+import io.github.zero88.jooq.vertx.ReactiveSQLTest;
+import io.github.zero88.jooq.vertx.SQLConnectionOption;
 import io.vertx.core.Vertx;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
@@ -16,10 +16,10 @@ import io.vertx.pgclient.PgPool;
 import io.vertx.sqlclient.SqlClient;
 
 public interface PostgreSQLReactiveTest<S extends SqlClient> extends PostgreSQLDBProvider,
-                                                                     BaseReactiveSqlTest<S, PostgreSQLContainer<?>,
-                                                                                            DBContainerProvider<PostgreSQLContainer<?>>> {
+                                                                     ReactiveSQLTest<S, PostgreSQLContainer<?>,
+                                                                                        DBContainerProvider<PostgreSQLContainer<?>>> {
 
-    default PgConnectOptions connectionOptions(SqlConnectionOption server) {
+    default PgConnectOptions connectionOptions(SQLConnectionOption server) {
         return new PgConnectOptions().setHost(server.getHost())
                                      .setPort(server.getPort())
                                      .setDatabase(server.getDatabase())
@@ -27,11 +27,11 @@ public interface PostgreSQLReactiveTest<S extends SqlClient> extends PostgreSQLD
                                      .setPassword(server.getPassword());
     }
 
-    abstract class AbstractPostgreSQLClientTest extends AbstractReactiveDBCTest<PgConnection, PostgreSQLContainer<?>>
+    abstract class PostgreSQLClientTest extends ReactiveDBContainerTest<PgConnection, PostgreSQLContainer<?>>
         implements PostgreSQLReactiveTest<PgConnection> {
 
         @Override
-        public PgConnection createSqlClient(Vertx vertx, VertxTestContext ctx, SqlConnectionOption connOpt) {
+        public PgConnection createSqlClient(Vertx vertx, VertxTestContext ctx, SQLConnectionOption connOpt) {
             Checkpoint async = ctx.checkpoint();
             PgConnection[] connections = new PgConnection[1];
             PgConnection.connect(vertx, connectionOptions(connOpt), ctx.succeeding(conn -> {
@@ -49,11 +49,11 @@ public interface PostgreSQLReactiveTest<S extends SqlClient> extends PostgreSQLD
     }
 
 
-    abstract class AbstractPostgreSQLPoolTest extends AbstractReactiveDBCTest<PgPool, PostgreSQLContainer<?>>
+    abstract class PostgreSQLPoolTest extends ReactiveDBContainerTest<PgPool, PostgreSQLContainer<?>>
         implements PostgreSQLReactiveTest<PgPool> {
 
         @Override
-        public PgPool createSqlClient(Vertx vertx, VertxTestContext ctx, SqlConnectionOption connOpt) {
+        public PgPool createSqlClient(Vertx vertx, VertxTestContext ctx, SQLConnectionOption connOpt) {
             final PgPool pool = PgPool.pool(vertx, connectionOptions(connOpt), poolOptions());
             ctx.completeNow();
             return pool;

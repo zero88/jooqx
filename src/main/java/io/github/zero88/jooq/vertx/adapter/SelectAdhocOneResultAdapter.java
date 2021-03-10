@@ -11,12 +11,12 @@ import io.github.zero88.jooq.vertx.converter.ResultSetConverter;
 import lombok.NonNull;
 
 public abstract class SelectAdhocOneResultAdapter<RS, C extends ResultSetConverter<RS>, T extends TableLike<? extends Record>, R>
-    extends AbstractSqlResultAdapter<RS, C, T, R> implements SelectOne {
+    extends SQLResultAdapterImpl<RS, C, T, R> implements SelectOne {
 
-    private final BiFunction<SqlResultAdapter<RS, C, T, R>, RS, R> function;
+    private final BiFunction<SQLResultAdapter<RS, C, T, R>, RS, R> function;
 
     protected SelectAdhocOneResultAdapter(@NonNull T table, @NonNull C converter,
-                                          BiFunction<SqlResultAdapter<RS, C, T, R>, RS, R> function) {
+                                          BiFunction<SQLResultAdapter<RS, C, T, R>, RS, R> function) {
         super(table, converter);
         this.function = function;
     }

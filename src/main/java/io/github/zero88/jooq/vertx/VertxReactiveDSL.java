@@ -21,7 +21,7 @@ import lombok.NonNull;
  * @see ReactiveResultSetConverter
  * @since 1.0.0
  */
-public interface VertxReactiveDSL extends VertxSqlDSL<RowSet<Row>, ReactiveResultSetConverter> {
+public interface VertxReactiveDSL extends VertxDSL<RowSet<Row>, ReactiveResultSetConverter> {
 
     static @NonNull VertxReactiveDSL instance() {
         return new VertxReactiveDSLImpl();

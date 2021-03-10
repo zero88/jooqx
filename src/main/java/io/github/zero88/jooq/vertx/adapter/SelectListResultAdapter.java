@@ -20,7 +20,7 @@ public final class SelectListResultAdapter<RS, C extends ResultSetConverter<RS>,
     extends InternalSelectResultAdapter<RS, C, T, R, List<R>> implements SelectMany {
 
     private SelectListResultAdapter(@NonNull T table, @NonNull C converter,
-                                    @NonNull BiFunction<SqlResultAdapter<RS, C, T, List<R>>, RS, List<R>> function) {
+                                    @NonNull BiFunction<SQLResultAdapter<RS, C, T, List<R>>, RS, List<R>> function) {
         super(table, converter, function);
     }
 

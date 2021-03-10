@@ -5,7 +5,7 @@ import io.vertx.ext.sql.ResultSet;
 
 import lombok.NonNull;
 
-final class VertxLegacyDSLImpl extends VertxSqlDSLImpl<ResultSet, LegacyResultSetConverter> implements VertxLegacyDSL {
+final class VertxLegacyDSLImpl extends VertxDSLImpl<ResultSet, LegacyResultSetConverter> implements VertxLegacyDSL {
 
     VertxLegacyDSLImpl(@NonNull LegacyResultSetConverter converter) {
         super(converter);

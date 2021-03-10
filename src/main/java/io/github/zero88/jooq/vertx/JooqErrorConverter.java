@@ -5,21 +5,21 @@ import java.util.function.Function;
 
 import org.jooq.exception.DataAccessException;
 
-import io.github.zero88.jooq.vertx.spi.JdbcErrorConverter;
+import io.github.zero88.jooq.vertx.spi.JDBCErrorConverter;
 
 import lombok.NonNull;
 
 /**
- * Represents for SQL error maker that transforms SQL exception to {@link DataAccessException}
+ * Represents for SQL error maker that transforms SQL exception to {@code jOOQ} {@link DataAccessException}
  *
  * @param <A> Type of Throwable
  * @see DataAccessException
  * @since 1.0.0
  */
-public interface JooqErrorConverter<A extends Throwable> extends SqlErrorConverter<A, DataAccessException> {
+public interface JooqErrorConverter<A extends Throwable> extends SQLErrorConverter<A, DataAccessException> {
 
-    default <T extends RuntimeException> SqlErrorConverter<A, T> to(@NonNull Function<DataAccessException, T> to) {
-        return new SqlErrorConverter<A, T>() {
+    default <T extends RuntimeException> SQLErrorConverter<A, T> to(@NonNull Function<DataAccessException, T> to) {
+        return new SQLErrorConverter<A, T>() {
             @Override
             public Class<A> throwableType() { return JooqErrorConverter.this.throwableType(); }
 
@@ -35,7 +35,7 @@ public interface JooqErrorConverter<A extends Throwable> extends SqlErrorConvert
             return apply((A) t);
         }
         if (t instanceof SQLException) {
-            return new JdbcErrorConverter().handle(t);
+            return new JDBCErrorConverter().handle(t);
         }
         return DEFAULT.handle(t);
     }

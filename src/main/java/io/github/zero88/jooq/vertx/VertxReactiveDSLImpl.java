@@ -6,7 +6,7 @@ import io.vertx.sqlclient.RowSet;
 
 import lombok.NonNull;
 
-final class VertxReactiveDSLImpl extends VertxSqlDSLImpl<RowSet<Row>, ReactiveResultSetConverter>
+final class VertxReactiveDSLImpl extends VertxDSLImpl<RowSet<Row>, ReactiveResultSetConverter>
     implements VertxReactiveDSL {
 
     VertxReactiveDSLImpl(@NonNull ReactiveResultSetConverter converter) {

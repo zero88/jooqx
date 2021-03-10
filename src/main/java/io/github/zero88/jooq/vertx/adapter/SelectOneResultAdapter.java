@@ -20,7 +20,7 @@ public final class SelectOneResultAdapter<RS, C extends ResultSetConverter<RS>, 
     implements SelectOne {
 
     protected SelectOneResultAdapter(@NonNull T table, @NonNull C converter,
-                                     @NonNull BiFunction<SqlResultAdapter<RS, C, T, R>, RS, List<R>> function) {
+                                     @NonNull BiFunction<SQLResultAdapter<RS, C, T, R>, RS, List<R>> function) {
         super(table, converter, function);
     }
 

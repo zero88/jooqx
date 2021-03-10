@@ -8,13 +8,13 @@ import lombok.NonNull;
 
 public interface DBProvider<S> extends Supplier<S> {
 
-    @NonNull SqlConnectionOption connOpt(S server);
+    @NonNull SQLConnectionOption connOpt(S server);
 
     interface DBMemoryProvider extends DBProvider<String> {
 
         @Override
-        default @NonNull SqlConnectionOption connOpt(String jdbcUrl) {
-            return SqlConnectionOption.builder().jdbcUrl(jdbcUrl).driverClassName(driverClassName()).build();
+        default @NonNull SQLConnectionOption connOpt(String jdbcUrl) {
+            return SQLConnectionOption.builder().jdbcUrl(jdbcUrl).driverClassName(driverClassName()).build();
         }
 
         @NonNull String driverClassName();
@@ -25,8 +25,8 @@ public interface DBProvider<S> extends Supplier<S> {
     interface DBContainerProvider<K extends JdbcDatabaseContainer<?>> extends DBProvider<K> {
 
         @Override
-        default @NonNull SqlConnectionOption connOpt(K server) {
-            return SqlConnectionOption.builder()
+        default @NonNull SQLConnectionOption connOpt(K server) {
+            return SQLConnectionOption.builder()
                                       .host(server.getHost())
                                       .port(server.getMappedPort(defaultPort()))
                                       .database(server.getDatabaseName())
