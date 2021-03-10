@@ -18,8 +18,8 @@ import io.github.zero88.jooq.vertx.BatchResult;
 import io.github.zero88.jooq.vertx.BatchReturningResult;
 import io.github.zero88.jooq.vertx.BindBatchValues;
 import io.github.zero88.jooq.vertx.JsonRecord;
-import io.github.zero88.jooq.vertx.SQLErrorConverter;
 import io.github.zero88.jooq.vertx.ReactiveDSLAdapter;
+import io.github.zero88.jooq.vertx.SQLErrorConverter;
 import io.github.zero88.jooq.vertx.integtest.PostgreSQLHelper;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.records.AuthorsRecord;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.records.BooksRecord;
@@ -54,7 +54,7 @@ class PgSQLBatchInPoolTest extends PostgreSQLPoolTest implements PostgreSQLHelpe
         AuthorsRecord rec2 = new AuthorsRecord().setName("haha");
 
         final BindBatchValues bindValues = new BindBatchValues().register(table.NAME)
-                                                                .register(table.COUNTRY, "VN")
+                                                                .registerValue(table.COUNTRY, "VN")
                                                                 .add(rec1, rec2);
         final InsertResultStep<AuthorsRecord> insert = executor.dsl()
                                                                .insertInto(table)
@@ -93,7 +93,7 @@ class PgSQLBatchInPoolTest extends PostgreSQLPoolTest implements PostgreSQLHelpe
         AuthorsRecord rec1 = new AuthorsRecord().setName("abc").setCountry("AU");
         AuthorsRecord rec2 = new AuthorsRecord().setName("haha");
         final BindBatchValues bindValues = new BindBatchValues().register(table.NAME)
-                                                                .register(table.COUNTRY, "VN")
+                                                                .registerValue(table.COUNTRY, "VN")
                                                                 .add(rec1, rec2);
         final InsertResultStep<AuthorsRecord> insert = executor.dsl()
                                                                .insertInto(table)
@@ -132,7 +132,7 @@ class PgSQLBatchInPoolTest extends PostgreSQLPoolTest implements PostgreSQLHelpe
         AuthorsRecord rec1 = new AuthorsRecord().setName("abc").setCountry("AU");
         AuthorsRecord rec2 = new AuthorsRecord().setName("haha");
         final BindBatchValues bindValues = new BindBatchValues().register(table.NAME)
-                                                                .register(table.COUNTRY, "VN")
+                                                                .registerValue(table.COUNTRY, "VN")
                                                                 .add(rec1, rec2);
         final InsertSetMoreStep<AuthorsRecord> insert = executor.dsl()
                                                                 .insertInto(table)
