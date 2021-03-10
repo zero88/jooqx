@@ -5,20 +5,27 @@ import java.util.function.BiFunction;
 import org.jooq.Record1;
 import org.jooq.TableLike;
 
-import io.github.zero88.jooq.vertx.converter.ResultSetConverter;
+import io.github.zero88.jooq.vertx.SQLResultSetConverter;
 
 import lombok.NonNull;
 
-public final class SelectExistsResultAdapter<RS, C extends ResultSetConverter<RS>>
-    extends SelectAdhocOneResultAdapter<RS, C, TableLike<Record1<Integer>>, Boolean> {
+/**
+ * Select exists result adapter that defines output in {@code Boolean} type
+ *
+ * @param <R> Type of SQL result set
+ * @param <C> Type of SQL result set converter
+ * @since 1.0.0
+ */
+public final class SelectExistsResultAdapter<R, C extends SQLResultSetConverter<R>>
+    extends SelectAdhocOneResultAdapter<R, C, TableLike<Record1<Integer>>, Boolean> {
 
     protected SelectExistsResultAdapter(@NonNull TableLike<Record1<Integer>> table, @NonNull C converter,
-                                        @NonNull BiFunction<SqlResultAdapter<RS, C, TableLike<Record1<Integer>>,
-                                                                                Boolean>, RS, Boolean> function) {
+                                        @NonNull BiFunction<SQLResultAdapter<R, C, TableLike<Record1<Integer>>,
+                                                                                Boolean>, R, Boolean> function) {
         super(table, converter, function);
     }
 
-    public static <RS, C extends ResultSetConverter<RS>> SelectExistsResultAdapter<RS, C> exist(
+    public static <RS, C extends SQLResultSetConverter<RS>> SelectExistsResultAdapter<RS, C> exist(
         @NonNull TableLike<Record1<Integer>> table, @NonNull C converter) {
         return new SelectExistsResultAdapter<>(table, converter, (a, rs) -> a.converter()
                                                                              .convertJsonRecord(rs, a.table())

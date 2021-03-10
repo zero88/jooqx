@@ -4,9 +4,9 @@ import java.util.concurrent.TimeUnit;
 
 import org.testcontainers.containers.PostgreSQLContainer;
 
-import io.github.zero88.jooq.vertx.BaseReactiveSqlTest;
 import io.github.zero88.jooq.vertx.DBProvider.DBContainerProvider;
-import io.github.zero88.jooq.vertx.SqlConnectionOption;
+import io.github.zero88.jooq.vertx.ReactiveSQLTest;
+import io.github.zero88.jooq.vertx.SQLConnectionOption;
 import io.vertx.core.Vertx;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
@@ -14,36 +14,12 @@ import io.vertx.pgclient.PgConnectOptions;
 import io.vertx.pgclient.PgConnection;
 import io.vertx.pgclient.PgPool;
 import io.vertx.sqlclient.SqlClient;
-import io.vertx.sqlclient.SqlConnection;
 
-public interface PostgreSQLReactiveTest extends PostgreSQLDBProvider,
-                                                BaseReactiveSqlTest<PostgreSQLContainer<?>,
-                                                                       DBContainerProvider<PostgreSQLContainer<?>>> {
+public interface PostgreSQLReactiveTest<S extends SqlClient> extends PostgreSQLDBProvider,
+                                                                     ReactiveSQLTest<S, PostgreSQLContainer<?>,
+                                                                                        DBContainerProvider<PostgreSQLContainer<?>>> {
 
-    @Override
-    default SqlClient createConnection(Vertx vertx, VertxTestContext ctx, SqlConnectionOption connOpt) {
-        Checkpoint async = ctx.checkpoint();
-        SqlConnection[] connections = new SqlConnection[1];
-        PgConnection.connect(vertx, connectionOptions(connOpt), ctx.succeeding(conn -> {
-            connections[0] = conn;
-            async.flag();
-        }));
-        try {
-            ctx.awaitCompletion(10, TimeUnit.SECONDS);
-        } catch (Exception ex) {
-            ctx.failNow(ex);
-        }
-        return connections[0];
-    }
-
-    @Override
-    default SqlClient createPool(Vertx vertx, VertxTestContext ctx, SqlConnectionOption opt) {
-        final PgPool pool = PgPool.pool(connectionOptions(opt), poolOptions());
-        ctx.completeNow();
-        return pool;
-    }
-
-    default PgConnectOptions connectionOptions(SqlConnectionOption server) {
+    default PgConnectOptions connectionOptions(SQLConnectionOption server) {
         return new PgConnectOptions().setHost(server.getHost())
                                      .setPort(server.getPort())
                                      .setDatabase(server.getDatabase())
@@ -51,8 +27,37 @@ public interface PostgreSQLReactiveTest extends PostgreSQLDBProvider,
                                      .setPassword(server.getPassword());
     }
 
-    abstract class AbstractPostgreSQLReactiveTest extends AbstractReactiveDBCTest<PostgreSQLContainer<?>>
-        implements PostgreSQLReactiveTest {
+    abstract class PostgreSQLClientTest extends ReactiveDBContainerTest<PgConnection, PostgreSQLContainer<?>>
+        implements PostgreSQLReactiveTest<PgConnection> {
+
+        @Override
+        public PgConnection createSqlClient(Vertx vertx, VertxTestContext ctx, SQLConnectionOption connOpt) {
+            Checkpoint async = ctx.checkpoint();
+            PgConnection[] connections = new PgConnection[1];
+            PgConnection.connect(vertx, connectionOptions(connOpt), ctx.succeeding(conn -> {
+                connections[0] = conn;
+                async.flag();
+            }));
+            try {
+                ctx.awaitCompletion(10, TimeUnit.SECONDS);
+            } catch (Exception ex) {
+                ctx.failNow(ex);
+            }
+            return connections[0];
+        }
+
+    }
+
+
+    abstract class PostgreSQLPoolTest extends ReactiveDBContainerTest<PgPool, PostgreSQLContainer<?>>
+        implements PostgreSQLReactiveTest<PgPool> {
+
+        @Override
+        public PgPool createSqlClient(Vertx vertx, VertxTestContext ctx, SQLConnectionOption connOpt) {
+            final PgPool pool = PgPool.pool(vertx, connectionOptions(connOpt), poolOptions());
+            ctx.completeNow();
+            return pool;
+        }
 
     }
 

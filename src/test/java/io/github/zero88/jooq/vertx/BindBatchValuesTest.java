@@ -12,9 +12,9 @@ class BindBatchValuesTest {
     @Test
     void test_register_dummy_value() {
         final BindBatchValues bindValues = new BindBatchValues().register("sql")
-                                                                .register(DSL.field("is"),
-                                                                          DSL.defaultValue(Boolean.class))
-                                                                .register(DSL.field("awesome"), true);
+                                                                .registerValue(DSL.field("is"),
+                                                                               DSL.defaultValue(Boolean.class))
+                                                                .registerValue(DSL.field("awesome"), true);
         final List<String> mappingFields = bindValues.getMappingFields();
         final List<Object> mappingValues = bindValues.getMappingValues();
         final Map<?, ?> dummyValues = bindValues.getDummyValues();

@@ -4,20 +4,16 @@ import org.jooq.Query;
 
 import io.vertx.core.Handler;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-
 /**
  * Batch result
  *
- * @see VertxBatchExecutor#batchExecute(Query, BindBatchValues, Handler)
+ * @see SQLBatchExecutor#batch(Query, BindBatchValues, Handler)
  * @since 1.0.0
  */
-@Getter
-@RequiredArgsConstructor
-public class BatchResult {
+public interface BatchResult {
 
-    private final int total;
-    private final int successes;
+    int getTotal();
+
+    int getSuccesses();
 
 }

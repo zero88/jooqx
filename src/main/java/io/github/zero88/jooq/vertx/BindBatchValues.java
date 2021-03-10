@@ -23,7 +23,7 @@ import lombok.NonNull;
  * Represents a holder keep dummy value and list of binding records
  *
  * @apiNote With {@code dummy value records}, you can predefine a field value, then if a bind record is missing this
- *     field value then system will auto detect and fallback to the predefined value. See: {@link #register(Field,
+ *     field value then system will auto detect and fallback to the predefined value. See: {@link #registerValue(Field,
  *     Object)}
  * @see <a href="https://www.jooq.org/doc/latest/manual/sql-execution/batch-execution/">JDBC batch operations</a>
  * @see InsertSetStep#set(Map)
@@ -36,22 +36,22 @@ public final class BindBatchValues {
     private final Map<Object, Object> dummyValues = new LinkedHashMap<>();
     private final List<Record> records = new ArrayList<>();
 
-    public BindBatchValues register(@NonNull String field) {
-        this.dummyValues.put(field, null);
+    public BindBatchValues register(@NonNull String... fields) {
+        Arrays.stream(fields).filter(Objects::nonNull).forEach(f -> this.dummyValues.put(f, null));
         return this;
     }
 
-    public <T> BindBatchValues register(@NonNull Field<T> field) {
-        this.dummyValues.put(field, null);
+    public BindBatchValues register(@NonNull Field<?>... fields) {
+        Arrays.stream(fields).filter(Objects::nonNull).forEach(f -> this.dummyValues.put(f, null));
         return this;
     }
 
-    public BindBatchValues register(@NonNull Name field) {
-        this.dummyValues.put(field, null);
+    public BindBatchValues register(@NonNull Name... fields) {
+        Arrays.stream(fields).filter(Objects::nonNull).forEach(f -> this.dummyValues.put(f, null));
         return this;
     }
 
-    public <T> BindBatchValues register(@NonNull Field<T> field, Object value) {
+    public <T> BindBatchValues registerValue(@NonNull Field<T> field, Object value) {
         this.dummyValues.put(field, value);
         return this;
     }
