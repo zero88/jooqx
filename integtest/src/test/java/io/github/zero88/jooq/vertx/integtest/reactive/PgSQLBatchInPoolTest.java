@@ -158,7 +158,7 @@ class PgSQLBatchInPoolTest extends PostgreSQLPoolTest implements PostgreSQLHelpe
     }
 
     @Test
-    void transaction_success(VertxTestContext context) {
+    void transaction_insert_success(VertxTestContext context) {
         final Checkpoint flag = context.checkpoint(2);
         final io.github.zero88.jooq.vertx.integtest.pgsql.tables.Books table = catalog().PUBLIC.BOOKS;
         executor.transaction().run(tx -> {
@@ -205,6 +205,30 @@ class PgSQLBatchInPoolTest extends PostgreSQLPoolTest implements PostgreSQLHelpe
                                         ((DataAccessException) ar.cause()).sqlStateClass());
                 executor.execute(executor.dsl().selectFrom(table), ReactiveDSLAdapter.instance().fetchMany(table),
                                  ar2 -> assertRsSize(context, flag, ar2, 7));
+            });
+            flag.flag();
+        });
+    }
+
+    @Test
+    void transaction_batch_success(VertxTestContext context) {
+        final Checkpoint flag = context.checkpoint(2);
+        final io.github.zero88.jooq.vertx.integtest.pgsql.tables.Authors table = catalog().PUBLIC.AUTHORS;
+        executor.transaction().run(tx -> {
+            AuthorsRecord rec1 = new AuthorsRecord().setName("abc").setCountry("AU");
+            AuthorsRecord rec2 = new AuthorsRecord().setName("haha");
+            final BindBatchValues bindValues = new BindBatchValues().register(table.NAME)
+                                                                    .registerValue(table.COUNTRY, "VN")
+                                                                    .add(rec1, rec2);
+            final InsertSetMoreStep<AuthorsRecord> insert = executor.dsl()
+                                                                    .insertInto(table)
+                                                                    .set(bindValues.getDummyValues());
+            return tx.batch(insert, bindValues);
+        }, ar -> {
+            context.verify(() -> {
+                Assertions.assertTrue(ar.succeeded());
+                executor.execute(executor.dsl().selectFrom(table), ReactiveDSLAdapter.instance().fetchMany(table),
+                                 ar2 -> assertRsSize(context, flag, ar2, 10));
             });
             flag.flag();
         });

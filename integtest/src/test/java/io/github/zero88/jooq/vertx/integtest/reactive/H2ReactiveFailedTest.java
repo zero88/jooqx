@@ -3,17 +3,15 @@ package io.github.zero88.jooq.vertx.integtest.reactive;
 import java.util.Arrays;
 
 import org.jooq.InsertResultStep;
-import org.jooq.exception.DataAccessException;
 import org.jooq.exception.SQLStateClass;
 import org.jooq.impl.DSL;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import io.github.zero88.jooq.vertx.ReactiveDSLAdapter;
 import io.github.zero88.jooq.vertx.ReactiveSQLClientProvider.ReactiveJDBCClientProvider;
 import io.github.zero88.jooq.vertx.ReactiveSQLTest.ReactiveDBMemoryTest;
 import io.github.zero88.jooq.vertx.SQLErrorConverter;
-import io.github.zero88.jooq.vertx.ReactiveDSLAdapter;
 import io.github.zero88.jooq.vertx.integtest.H2SQLHelper;
 import io.github.zero88.jooq.vertx.integtest.h2.tables.Author;
 import io.github.zero88.jooq.vertx.integtest.h2.tables.records.AuthorRecord;
@@ -41,19 +39,12 @@ public class H2ReactiveFailedTest extends ReactiveDBMemoryTest<JDBCPool>
                                                               .insertInto(table, table.ID, table.FIRST_NAME)
                                                               .values(Arrays.asList(DSL.defaultValue(table.ID), "abc"))
                                                               .returning(table.ID);
-        executor.execute(insert, ReactiveDSLAdapter.instance().fetchJsonRecord(table), ar -> {
-            testContext.verify(() -> {
-                Assertions.assertTrue(ar.cause() instanceof DataAccessException);
-                final DataAccessException cause = (DataAccessException) ar.cause();
-                Assertions.assertEquals(SQLStateClass.C42_SYNTAX_ERROR_OR_ACCESS_RULE_VIOLATION, cause.sqlStateClass());
-                Assertions.assertEquals("42S02", cause.sqlState());
-                Assertions.assertEquals("Table \"AUTHOR\" not found; SQL statement:\n" +
-                                        "insert into \"AUTHOR\" (\"ID\", \"FIRST_NAME\") values (default, ?) " +
-                                        "[42102-200]", cause.getMessage());
-            });
-
-            flag.flag();
-        });
+        executor.execute(insert, ReactiveDSLAdapter.instance().fetchJsonRecord(table),
+                         ar -> assertJooqException(testContext, flag, ar,
+                                                   SQLStateClass.C42_SYNTAX_ERROR_OR_ACCESS_RULE_VIOLATION,
+                                                   "Table \"AUTHOR\" not found; SQL statement:\n" +
+                                                   "insert into \"AUTHOR\" (\"ID\", \"FIRST_NAME\") values (default, ?) " +
+                                                   "[42102-200]"));
     }
 
 }

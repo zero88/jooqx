@@ -5,15 +5,14 @@ import java.util.Collections;
 
 import org.jooq.InsertResultStep;
 import org.jooq.SelectConditionStep;
-import org.jooq.exception.DataAccessException;
 import org.jooq.exception.SQLStateClass;
 import org.jooq.impl.DSL;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import io.github.zero88.jooq.vertx.SQLErrorConverter;
 import io.github.zero88.jooq.vertx.ReactiveDSLAdapter;
+import io.github.zero88.jooq.vertx.SQLErrorConverter;
 import io.github.zero88.jooq.vertx.integtest.PostgreSQLHelper;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.records.BooksRecord;
 import io.github.zero88.jooq.vertx.spi.PgErrorConverter;
@@ -46,21 +45,9 @@ class PgSQLFailedTest extends PostgreSQLClientTest implements PostgreSQLHelper {
                                                              .values(1, "abc")
                                                              .returning(table.ID);
         executor.execute(insert, ReactiveDSLAdapter.instance().fetchOne(table, Collections.singletonList(table.ID)),
-                         ar -> {
-                             ctx.verify(() -> {
-                                 Assertions.assertTrue(ar.failed());
-                                 final Throwable cause = ar.cause();
-                                 Assertions.assertTrue(cause instanceof DataAccessException);
-                                 Assertions.assertEquals(
-                                     "duplicate key value violates unique constraint \"books_pkey\"",
-                                     cause.getMessage());
-                                 Assertions.assertEquals("23505", ((DataAccessException) cause).sqlState());
-                                 Assertions.assertEquals(SQLStateClass.C23_INTEGRITY_CONSTRAINT_VIOLATION,
-                                                         ((DataAccessException) cause).sqlStateClass());
-                                 Assertions.assertNotNull(((DataAccessException) cause).getCause(PgException.class));
-                             });
-                             flag.flag();
-                         });
+                         ar -> assertJooqException(ctx, flag, ar, SQLStateClass.C23_INTEGRITY_CONSTRAINT_VIOLATION,
+                                                   "duplicate key value violates unique constraint \"books_pkey\"",
+                                                   PgException.class));
     }
 
     @Test
@@ -87,18 +74,11 @@ class PgSQLFailedTest extends PostgreSQLClientTest implements PostgreSQLHelper {
                                                         .values(Arrays.asList(DSL.defaultValue(), "1"))
                                                         .returning();
         executor.transaction().run(tx -> tx.execute(q, ReactiveDSLAdapter.instance().fetchOne(table)), async -> {
-            context.verify(() -> {
-                Assertions.assertTrue(async.failed());
-                Assertions.assertTrue(async.cause() instanceof DataAccessException);
-                Assertions.assertEquals(SQLStateClass.C08_CONNECTION_EXCEPTION,
-                                        ((DataAccessException) async.cause()).sqlStateClass());
-                Assertions.assertEquals(
-                    "Unsupported using connection on SQL connection: [class io.vertx.pgclient.impl.PgConnectionImpl]." +
-                    " Switch using SQL pool", async.cause().getMessage());
-                executor.execute(executor.dsl().selectFrom(table), ReactiveDSLAdapter.instance().fetchMany(table),
-                                 ar2 -> assertRsSize(context, flag, ar2, 7));
-            });
-            flag.flag();
+            assertJooqException(context, flag, async, SQLStateClass.C08_CONNECTION_EXCEPTION,
+                                "Unsupported using connection on SQL connection: [class io.vertx.pgclient.impl" +
+                                ".PgConnectionImpl]. Switch using SQL pool");
+            executor.execute(executor.dsl().selectFrom(table), ReactiveDSLAdapter.instance().fetchMany(table),
+                             ar2 -> assertRsSize(context, flag, ar2, 7));
         });
     }
 

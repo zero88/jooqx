@@ -16,13 +16,14 @@ import io.github.zero88.jooq.vertx.integtest.pgsql.Public;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.pojos.Authors;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.pojos.Books;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.records.AuthorsRecord;
-import io.github.zero88.jooq.vertx.spi.PostgreSQLReactiveTest.PostgreSQLClientTest;
+import io.github.zero88.jooq.vertx.integtest.pgsql.tables.records.BooksRecord;
+import io.github.zero88.jooq.vertx.spi.PostgreSQLReactiveTest.PostgreSQLPoolTest;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 
-class PgSQLComplexQueryTest extends PostgreSQLClientTest implements PostgreSQLHelper {
+class PgSQLComplexQueryTest extends PostgreSQLPoolTest implements PostgreSQLHelper {
 
     @Override
     @BeforeEach
@@ -32,7 +33,7 @@ class PgSQLComplexQueryTest extends PostgreSQLClientTest implements PostgreSQLHe
     }
 
     @Test
-    void test_join_2_table(VertxTestContext ctx) {
+    void test_join_2_tables(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint(2);
         final DSLContext dsl = executor.dsl();
         final Public schema = catalog().PUBLIC;
@@ -58,7 +59,7 @@ class PgSQLComplexQueryTest extends PostgreSQLClientTest implements PostgreSQLHe
     }
 
     @Test
-    void test_join_2_table_then_map_to_another_table(VertxTestContext ctx) {
+    void test_join_2_tables_then_map_to_another_table(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint(2);
         final DSLContext dsl = executor.dsl();
         final Public schema = catalog().PUBLIC;
@@ -80,7 +81,7 @@ class PgSQLComplexQueryTest extends PostgreSQLClientTest implements PostgreSQLHe
     }
 
     @Test
-    void test_join_3_table(VertxTestContext ctx) {
+    void test_join_3_tables(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint(2);
         final DSLContext dsl = executor.dsl();
         final Public schema = catalog().PUBLIC;
@@ -117,6 +118,52 @@ class PgSQLComplexQueryTest extends PostgreSQLClientTest implements PostgreSQLHe
             });
             flag.flag();
         });
+    }
+
+    @Test
+    void test_transaction_insert_into_3_tables(VertxTestContext ctx) {
+        final Checkpoint flag = ctx.checkpoint(2);
+        final DSLContext dsl = executor.dsl();
+        final Public schema = catalog().PUBLIC;
+        AuthorsRecord a1 = new AuthorsRecord().setName("Lukas").setCountry("Ger");
+        BooksRecord b1 = new BooksRecord().setTitle("jOOQ doc");
+        final ReactiveDSLAdapter adapter = ReactiveDSLAdapter.instance();
+        executor.transaction()
+                .run(tx -> tx.execute(dsl.insertInto(schema.AUTHORS, schema.AUTHORS.NAME, schema.AUTHORS.COUNTRY)
+                                         .values(a1.value2(), a1.value3())
+                                         .returning(), adapter.fetchOne(schema.AUTHORS))
+                             .flatMap(r1 -> tx.execute(
+                                 dsl.insertInto(schema.BOOKS, schema.BOOKS.TITLE).values(b1.value2()).returning(),
+                                 adapter.fetchOne(schema.BOOKS))
+                                              .flatMap(r2 -> tx.execute(
+                                                  dsl.insertInto(schema.BOOKS_AUTHORS, schema.BOOKS_AUTHORS.BOOK_ID,
+                                                                 schema.BOOKS_AUTHORS.AUTHOR_ID)
+                                                     .values(r2.getId(), r1.getId())
+                                                     .returning(), adapter.fetchOne(schema.BOOKS_AUTHORS)))))
+                .onComplete(ar -> {
+                    ctx.verify(() -> Assertions.assertTrue(ar.succeeded()));
+                    flag.flag();
+                    final SelectConditionStep<Record> query = dsl.select(schema.AUTHORS.asterisk(),
+                                                                         schema.BOOKS.ID.as("book_id"),
+                                                                         schema.BOOKS.TITLE.as("book_title"))
+                                                                 .from(schema.AUTHORS)
+                                                                 .join(schema.BOOKS_AUTHORS)
+                                                                 .on(schema.AUTHORS.ID.eq(
+                                                                     schema.BOOKS_AUTHORS.AUTHOR_ID))
+                                                                 .join(schema.BOOKS)
+                                                                 .on(schema.BOOKS.ID.eq(schema.BOOKS_AUTHORS.BOOK_ID))
+                                                                 .where(
+                                                                     schema.BOOKS_AUTHORS.ID.eq(ar.result().getId()));
+                    executor.execute(query, adapter.fetchJsonRecord(query.asTable()), ar2 -> {
+                        ctx.verify(() -> {
+                            Assertions.assertTrue(ar2.succeeded());
+                            Assertions.assertEquals(new JsonObject("{\"id\":9,\"name\":\"Lukas\",\"country\":\"Ger\"," +
+                                                                   "\"book_id\":8,\"book_title\":\"jOOQ doc\"}"),
+                                                    ar2.result().toJson());
+                        });
+                        flag.flag();
+                    });
+                });
     }
 
 }
