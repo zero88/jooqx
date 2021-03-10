@@ -68,8 +68,7 @@ public final class VertxLegacyJdbcExecutor extends AbstractVertxJooqExecutor<SQL
     }
 
     @Override
-    public <Q extends Query> Future<BatchResult> batchExecute(@NonNull Q query,
-                                                              @NonNull BindBatchValues bindBatchValues) {
+    public <Q extends Query> Future<BatchResult> batch(@NonNull Q query, @NonNull BindBatchValues bindBatchValues) {
         final Promise<List<Integer>> promise = Promise.promise();
         getConnection().map(
             conn -> conn.batchWithParams(helper().toPreparedQuery(dsl().configuration(), query, ParamType.INDEXED),

@@ -25,20 +25,19 @@ public interface VertxBatchExecutor {
      * @see BindBatchValues
      * @see BatchResult
      */
-    default <Q extends Query> void batchExecute(@NonNull Q query, @NonNull BindBatchValues bindBatchValues,
-                                                @NonNull Handler<AsyncResult<BatchResult>> handler) {
-        batchExecute(query, bindBatchValues).onComplete(handler);
+    default <Q extends Query> void batch(@NonNull Q query, @NonNull BindBatchValues bindBatchValues,
+                                         @NonNull Handler<AsyncResult<BatchResult>> handler) {
+        batch(query, bindBatchValues).onComplete(handler);
     }
 
     /**
-     * Like {@link #batchExecute(Query, BindBatchValues, Handler)} but returns a {@code Future} of the asynchronous
-     * result
+     * Like {@link #batch(Query, BindBatchValues, Handler)} but returns a {@code Future} of the asynchronous result
      *
      * @param query           query
      * @param bindBatchValues bind batch values
      * @param <Q>             type of jOOQ query
      * @return a {@code Future} of the asynchronous result
      */
-    <Q extends Query> Future<BatchResult> batchExecute(@NonNull Q query, @NonNull BindBatchValues bindBatchValues);
+    <Q extends Query> Future<BatchResult> batch(@NonNull Q query, @NonNull BindBatchValues bindBatchValues);
 
 }

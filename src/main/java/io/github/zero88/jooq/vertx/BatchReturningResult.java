@@ -13,7 +13,7 @@ import lombok.NonNull;
 /**
  * Batch result includes returning record
  * @param <R> Type of records
- * @see VertxReactiveBatchExecutor#batchExecute(Query, BindBatchValues, SelectListResultAdapter, Handler)
+ * @see VertxReactiveBatchExecutor#batch(Query, BindBatchValues, SelectListResultAdapter, Handler)
  * @since 1.0.0
  */
 @Getter

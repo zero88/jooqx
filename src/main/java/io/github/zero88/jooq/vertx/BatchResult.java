@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 /**
  * Batch result
  *
- * @see VertxBatchExecutor#batchExecute(Query, BindBatchValues, Handler)
+ * @see VertxBatchExecutor#batch(Query, BindBatchValues, Handler)
  * @since 1.0.0
  */
 @Getter

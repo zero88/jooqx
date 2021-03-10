@@ -27,7 +27,7 @@ public interface VertxReactiveBatchExecutor extends VertxBatchExecutor {
      *
      * @param query           jOOQ query
      * @param bindBatchValues bind batch values
-     * @param resultAdapter   result adapter
+     * @param adapter         result adapter
      * @param handler         async result handler
      * @param <Q>             type of jOOQ
      * @param <T>             type of jOOQ table
@@ -36,20 +36,21 @@ public interface VertxReactiveBatchExecutor extends VertxBatchExecutor {
      * @see SelectListResultAdapter
      * @see BatchReturningResult
      */
-    default <Q extends Query, T extends TableLike<?>, R> void batchExecute(@NonNull Q query,
-                                                                           @NonNull BindBatchValues bindBatchValues,
-                                                                           @NonNull SelectListResultAdapter<RowSet<Row>, ReactiveResultBatchConverter, T, R> resultAdapter,
-                                                                           @NonNull Handler<AsyncResult<BatchReturningResult<R>>> handler) {
-        batchExecute(query, bindBatchValues, resultAdapter).onComplete(handler);
+    default <Q extends Query, T extends TableLike<?>, R> void batch(@NonNull Q query,
+                                                                    @NonNull BindBatchValues bindBatchValues,
+                                                                    @NonNull SelectListResultAdapter<RowSet<Row>,
+                                                                                                        ReactiveResultBatchConverter, T, R> adapter,
+                                                                    @NonNull Handler<AsyncResult<BatchReturningResult<R>>> handler) {
+        batch(query, bindBatchValues, adapter).onComplete(handler);
     }
 
     /**
-     * Like {@link #batchExecute(Query, BindBatchValues, SelectListResultAdapter, Handler)} but returns a {@code Future}
-     * of the asynchronous result
+     * Like {@link #batch(Query, BindBatchValues, SelectListResultAdapter, Handler)} but returns a {@code Future} of the
+     * asynchronous result
      *
      * @param query           jOOQ query
      * @param bindBatchValues bind batch values
-     * @param resultAdapter   result adapter
+     * @param adapter         result adapter
      * @param <Q>             type of jOOQ
      * @param <T>             type of jOOQ table
      * @param <R>             type of record
@@ -58,8 +59,8 @@ public interface VertxReactiveBatchExecutor extends VertxBatchExecutor {
      * @see SelectListResultAdapter
      * @see BatchReturningResult
      */
-    <Q extends Query, T extends TableLike<?>, R> Future<BatchReturningResult<R>> batchExecute(@NonNull Q query,
-                                                                                              @NonNull BindBatchValues bindBatchValues,
-                                                                                              @NonNull SelectListResultAdapter<RowSet<Row>, ReactiveResultBatchConverter, T, R> resultAdapter);
+    <Q extends Query, T extends TableLike<?>, R> Future<BatchReturningResult<R>> batch(@NonNull Q query,
+                                                                                       @NonNull BindBatchValues bindBatchValues,
+                                                                                       @NonNull SelectListResultAdapter<RowSet<Row>, ReactiveResultBatchConverter, T, R> adapter);
 
 }

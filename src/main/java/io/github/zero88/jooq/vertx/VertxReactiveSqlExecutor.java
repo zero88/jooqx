@@ -75,8 +75,7 @@ public final class VertxReactiveSqlExecutor<S extends SqlClient>
     }
 
     @Override
-    public <Q extends Query> Future<BatchResult> batchExecute(@NonNull Q query,
-                                                              @NonNull BindBatchValues bindBatchValues) {
+    public <Q extends Query> Future<BatchResult> batch(@NonNull Q query, @NonNull BindBatchValues bindBatchValues) {
         return sqlClient().preparedQuery(helper().toPreparedQuery(dsl().configuration(), query))
                           .executeBatch(helper().toBindValues(query, bindBatchValues))
                           .map(r -> new ReactiveResultBatchConverter().batchResultSize(r))
@@ -85,12 +84,12 @@ public final class VertxReactiveSqlExecutor<S extends SqlClient>
     }
 
     @Override
-    public <Q extends Query, T extends TableLike<?>, R> Future<BatchReturningResult<R>> batchExecute(@NonNull Q query,
-                                                                                                     @NonNull BindBatchValues bindBatchValues,
-                                                                                                     @NonNull SelectListResultAdapter<RowSet<Row>, ReactiveResultBatchConverter, T, R> resultAdapter) {
+    public <Q extends Query, T extends TableLike<?>, R> Future<BatchReturningResult<R>> batch(@NonNull Q query,
+                                                                                              @NonNull BindBatchValues bindBatchValues,
+                                                                                              @NonNull SelectListResultAdapter<RowSet<Row>, ReactiveResultBatchConverter, T, R> adapter) {
         return sqlClient().preparedQuery(helper().toPreparedQuery(dsl().configuration(), query))
                           .executeBatch(helper().toBindValues(query, bindBatchValues))
-                          .map(resultAdapter::convert)
+                          .map(adapter::convert)
                           .map(rs -> new BatchReturningResult<>(bindBatchValues.size(), rs))
                           .otherwise(errorConverter()::reThrowError);
     }
