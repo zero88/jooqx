@@ -48,15 +48,11 @@ final class SQLImpl {
     @Accessors(fluent = true)
     abstract static class SQLEI<S, P, RS> implements SQLExecutor<S, P, RS> {
 
-        @NonNull
         private final Vertx vertx;
-        @NonNull
         private final DSLContext dsl;
-        @NonNull
         @With(AccessLevel.PROTECTED)
         private final S sqlClient;
         @Default
-        @NonNull
         private final SQLErrorConverter<? extends Throwable, ? extends RuntimeException> errorConverter
             = SQLErrorConverter.DEFAULT;
 

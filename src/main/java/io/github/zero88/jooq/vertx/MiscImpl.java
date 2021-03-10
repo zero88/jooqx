@@ -28,7 +28,7 @@ import lombok.RequiredArgsConstructor;
 final class MiscImpl {
 
     @RequiredArgsConstructor
-    static class DSLAdapterImpl<RS, C extends SQLResultSetConverter<RS>> implements DSLAdapter<RS, C> {
+    static class DSLAI<RS, C extends SQLResultSetConverter<RS>> implements DSLAdapter<RS, C> {
 
         @NonNull
         private final C converter;
@@ -134,7 +134,7 @@ final class MiscImpl {
     }
 
 
-    private static final class BatchRRI<R> extends BatchResultImpl implements BatchReturningResult<R> {
+    static final class BatchRRI<R> extends BatchResultImpl implements BatchReturningResult<R> {
 
         @Getter
         @NonNull

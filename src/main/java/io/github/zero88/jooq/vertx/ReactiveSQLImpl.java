@@ -15,6 +15,7 @@ import org.jooq.Record;
 import org.jooq.Table;
 import org.jooq.TableLike;
 
+import io.github.zero88.jooq.vertx.MiscImpl.DSLAI;
 import io.github.zero88.jooq.vertx.SQLImpl.SQLPQ;
 import io.github.zero88.jooq.vertx.SQLImpl.SQLRSC;
 import io.github.zero88.jooq.vertx.adapter.SelectStrategy;
@@ -27,10 +28,6 @@ import io.vertx.sqlclient.impl.ArrayTuple;
 import lombok.NonNull;
 
 final class ReactiveSQLImpl {
-
-    public static ReactiveSQLResultBatchConverter resultBatchConverter() {
-        return new ReactiveSQLRBC();
-    }
 
     static final class ReactiveSQLPQ extends SQLPQ<Tuple> implements ReactiveSQLPreparedQuery {
 
@@ -109,7 +106,7 @@ final class ReactiveSQLImpl {
     }
 
 
-    static final class ReactiveDSLAI extends MiscImpl.DSLAdapterImpl<RowSet<Row>, ReactiveSQLResultConverter>
+    static final class ReactiveDSLAI extends DSLAI<RowSet<Row>, ReactiveSQLResultConverter>
         implements ReactiveDSLAdapter {
 
         ReactiveDSLAI() { super(new ReactiveSQLRSC()); }
