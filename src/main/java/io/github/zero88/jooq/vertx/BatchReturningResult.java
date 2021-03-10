@@ -13,7 +13,7 @@ import lombok.NonNull;
  * Batch result includes returning record
  *
  * @param <R> Type of records
- * @see VertxReactiveSQLBatchExecutor#batch(Query, BindBatchValues, SelectListResultAdapter, Handler)
+ * @see ReactiveSQLBatchExecutor#batch(Query, BindBatchValues, SelectListResultAdapter, Handler)
  * @since 1.0.0
  */
 public interface BatchReturningResult<R> extends BatchResult {

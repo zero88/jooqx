@@ -1,4 +1,4 @@
-package io.github.zero88.jooq.vertx.converter;
+package io.github.zero88.jooq.vertx;
 
 import lombok.NonNull;
 
@@ -7,9 +7,9 @@ import lombok.NonNull;
  *
  * @param <RS> Type of Vertx SQL result set
  * @param <BR> Type of Vertx SQL batch result
- * @see ResultSetConverter
+ * @see SQLResultSetConverter
  */
-public interface ResultBatchConverter<RS, BR> extends ResultSetConverter<RS> {
+public interface SQLResultBatchConverter<RS, BR> extends SQLResultSetConverter<RS> {
 
     int batchResultSize(@NonNull BR batchResult);
 

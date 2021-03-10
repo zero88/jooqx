@@ -12,7 +12,7 @@ import io.vertx.ext.sql.ResultSet;
 import io.vertx.ext.sql.SQLClient;
 
 public interface LegacySQLTest<K, D extends DBProvider<K>>
-    extends BaseSQLTest<SQLClient, JsonArray, ResultSet, VertxLegacySQLExecutor, K, D>, LegacySQLExecutorProvider,
+    extends BaseSQLTest<SQLClient, JsonArray, ResultSet, LegacySQLExecutor, K, D>, LegacySQLExecutorProvider,
             LegacySQLClientProvider {
 
     @Override
@@ -22,13 +22,13 @@ public interface LegacySQLTest<K, D extends DBProvider<K>>
     default LegacySQLExecutorProvider executorProvider() { return this; }
 
     abstract class LegacyDBContainerTest<K extends JdbcDatabaseContainer<?>>
-        extends DBContainerSQLTest<SQLClient, JsonArray, ResultSet, VertxLegacySQLExecutor, K>
+        extends DBContainerSQLTest<SQLClient, JsonArray, ResultSet, LegacySQLExecutor, K>
         implements LegacySQLTest<K, DBContainerProvider<K>> {
 
     }
 
 
-    abstract class LegacyDBMemoryTest extends DBMemorySQLTest<SQLClient, JsonArray, ResultSet, VertxLegacySQLExecutor>
+    abstract class LegacyDBMemoryTest extends DBMemorySQLTest<SQLClient, JsonArray, ResultSet, LegacySQLExecutor>
         implements LegacySQLTest<String, DBMemoryProvider> {
 
     }

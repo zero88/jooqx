@@ -3,22 +3,23 @@ package io.github.zero88.jooq.vertx.adapter;
 import org.jooq.Record;
 import org.jooq.TableLike;
 
-import io.github.zero88.jooq.vertx.converter.ResultSetConverter;
+import io.github.zero88.jooq.vertx.SQLResultSetConverter;
 
 import lombok.NonNull;
 
 /**
  * SQL Result adapter receives Result set then mapping to expected result
  *
- * @param <RS> Type of Vertx Result set
- * @param <T>  Type of jOOQ Table
- * @param <C>  Type of result set converter
- * @param <R>  Type of an expectation result
+ * @param <R> Type of Vertx Result set
+ * @param <C> Type of result set converter
+ * @param <T> Type of jOOQ Table
+ * @param <O> Type of an expectation output
  * @see TableLike
- * @see ResultSetConverter
+ * @see Record
+ * @see SQLResultSetConverter
  * @since 1.0.0
  */
-public interface SQLResultAdapter<RS, C extends ResultSetConverter<RS>, T extends TableLike<? extends Record>, R>
+public interface SQLResultAdapter<R, C extends SQLResultSetConverter<R>, T extends TableLike<? extends Record>, O>
     extends HasStrategy {
 
     /**
@@ -42,6 +43,6 @@ public interface SQLResultAdapter<RS, C extends ResultSetConverter<RS>, T extend
      * @param resultSet result set
      * @return result
      */
-    @NonNull R convert(@NonNull RS resultSet);
+    @NonNull O convert(@NonNull R resultSet);
 
 }

@@ -12,11 +12,10 @@ import io.github.zero88.jooq.vertx.adapter.SelectCountResultAdapter;
 import io.github.zero88.jooq.vertx.adapter.SelectExistsResultAdapter;
 import io.github.zero88.jooq.vertx.adapter.SelectListResultAdapter;
 import io.github.zero88.jooq.vertx.adapter.SelectOneResultAdapter;
-import io.github.zero88.jooq.vertx.converter.ResultSetConverter;
 
 import lombok.NonNull;
 
-interface VertxDSL<RS, C extends ResultSetConverter<RS>> {
+interface DSLAdapter<RS, C extends SQLResultSetConverter<RS>> {
 
     /**
      * Fetch count

@@ -13,7 +13,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import io.github.zero88.jooq.vertx.SQLErrorConverter;
-import io.github.zero88.jooq.vertx.VertxReactiveDSL;
+import io.github.zero88.jooq.vertx.ReactiveDSLAdapter;
 import io.github.zero88.jooq.vertx.integtest.PostgreSQLHelper;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.records.BooksRecord;
 import io.github.zero88.jooq.vertx.spi.PgErrorConverter;
@@ -45,7 +45,7 @@ class PgSQLFailedTest extends PostgreSQLClientTest implements PostgreSQLHelper {
                                                              .insertInto(table, table.ID, table.TITLE)
                                                              .values(1, "abc")
                                                              .returning(table.ID);
-        executor.execute(insert, VertxReactiveDSL.instance().fetchOne(table, Collections.singletonList(table.ID)),
+        executor.execute(insert, ReactiveDSLAdapter.instance().fetchOne(table, Collections.singletonList(table.ID)),
                          ar -> {
                              ctx.verify(() -> {
                                  Assertions.assertTrue(ar.failed());
@@ -68,7 +68,7 @@ class PgSQLFailedTest extends PostgreSQLClientTest implements PostgreSQLHelper {
         final Checkpoint flag = ctx.checkpoint();
         final io.github.zero88.jooq.vertx.integtest.pgsql.tables.Books table = catalog().PUBLIC.BOOKS;
         final SelectConditionStep<BooksRecord> insert = executor.dsl().selectFrom(table).where(table.ID.eq(1000));
-        executor.execute(insert, VertxReactiveDSL.instance().fetchOne(table, Collections.singletonList(table.ID)),
+        executor.execute(insert, ReactiveDSLAdapter.instance().fetchOne(table, Collections.singletonList(table.ID)),
                          ar -> {
                              ctx.verify(() -> {
                                  Assertions.assertTrue(ar.succeeded());
@@ -86,7 +86,7 @@ class PgSQLFailedTest extends PostgreSQLClientTest implements PostgreSQLHelper {
                                                         .insertInto(table, table.ID, table.TITLE)
                                                         .values(Arrays.asList(DSL.defaultValue(), "1"))
                                                         .returning();
-        executor.transaction().run(tx -> tx.execute(q, VertxReactiveDSL.instance().fetchOne(table)), async -> {
+        executor.transaction().run(tx -> tx.execute(q, ReactiveDSLAdapter.instance().fetchOne(table)), async -> {
             context.verify(() -> {
                 Assertions.assertTrue(async.failed());
                 Assertions.assertTrue(async.cause() instanceof DataAccessException);
@@ -95,7 +95,7 @@ class PgSQLFailedTest extends PostgreSQLClientTest implements PostgreSQLHelper {
                 Assertions.assertEquals(
                     "Unsupported using connection on SQL connection: [class io.vertx.pgclient.impl.PgConnectionImpl]." +
                     " Switch using SQL pool", async.cause().getMessage());
-                executor.execute(executor.dsl().selectFrom(table), VertxReactiveDSL.instance().fetchMany(table),
+                executor.execute(executor.dsl().selectFrom(table), ReactiveDSLAdapter.instance().fetchMany(table),
                                  ar2 -> assertRsSize(context, flag, ar2, 7));
             });
             flag.flag();

@@ -16,18 +16,18 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @SuperBuilder
 @Accessors(fluent = true)
-public final class VertxLegacySQLTxExecutor extends VertxLegacySQLExecutorImpl<SQLConnection>
-    implements SQLTxExecutor<SQLConnection, JsonArray, ResultSet, VertxLegacySQLTxExecutor> {
+public final class LegacySQLTxExecutor extends LegacySQLEI<SQLConnection>
+    implements SQLTxExecutor<SQLConnection, JsonArray, ResultSet, LegacySQLTxExecutor> {
 
     @Override
-    protected VertxLegacySQLTxExecutor withSqlClient(@NonNull SQLConnection sqlClient) {
-        return VertxLegacySQLTxExecutor.builder()
-                                       .vertx(vertx())
-                                       .sqlClient(sqlClient)
-                                       .dsl(dsl())
-                                       .preparedQuery(preparedQuery())
-                                       .errorConverter(errorConverter())
-                                       .build();
+    protected LegacySQLTxExecutor withSqlClient(@NonNull SQLConnection sqlClient) {
+        return LegacySQLTxExecutor.builder()
+                                  .vertx(vertx())
+                                  .sqlClient(sqlClient)
+                                  .dsl(dsl())
+                                  .preparedQuery(preparedQuery())
+                                  .errorConverter(errorConverter())
+                                  .build();
     }
 
     @Override
@@ -36,7 +36,7 @@ public final class VertxLegacySQLTxExecutor extends VertxLegacySQLExecutorImpl<S
     }
 
     @Override
-    public <X> Future<X> run(@NonNull Function<VertxLegacySQLTxExecutor, Future<X>> function) {
+    public <X> Future<X> run(@NonNull Function<LegacySQLTxExecutor, Future<X>> function) {
         final Promise<X> promise = Promise.promise();
         openConn().map(conn -> conn.setAutoCommit(false, committable -> {
             if (committable.failed()) {

@@ -10,7 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import io.github.zero88.jooq.vertx.JsonRecord;
-import io.github.zero88.jooq.vertx.VertxReactiveDSL;
+import io.github.zero88.jooq.vertx.ReactiveDSLAdapter;
 import io.github.zero88.jooq.vertx.integtest.PostgreSQLHelper;
 import io.github.zero88.jooq.vertx.integtest.pgsql.Public;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.pojos.Authors;
@@ -41,7 +41,7 @@ class PgSQLComplexQueryTest extends PostgreSQLClientTest implements PostgreSQLHe
                                                      .join(schema.BOOKS_AUTHORS)
                                                      .onKey()
                                                      .where(schema.AUTHORS.ID.eq(2));
-        executor.execute(query, VertxReactiveDSL.instance().fetchJsonRecords(query.asTable()), ar -> {
+        executor.execute(query, ReactiveDSLAdapter.instance().fetchJsonRecords(query.asTable()), ar -> {
             final List<JsonRecord<?>> records = assertRsSize(ctx, flag, ar, 2);
             ctx.verify(() -> {
                 Assertions.assertEquals(new JsonObject(
@@ -67,7 +67,7 @@ class PgSQLComplexQueryTest extends PostgreSQLClientTest implements PostgreSQLHe
                                                      .join(schema.BOOKS_AUTHORS)
                                                      .onKey()
                                                      .where(schema.AUTHORS.ID.eq(4));
-        executor.execute(query, VertxReactiveDSL.instance().fetchMany(query.asTable(), schema.AUTHORS), ar -> {
+        executor.execute(query, ReactiveDSLAdapter.instance().fetchMany(query.asTable(), schema.AUTHORS), ar -> {
             final List<AuthorsRecord> records = assertRsSize(ctx, flag, ar, 1);
             final AuthorsRecord authorsRecord = records.get(0);
             ctx.verify(() -> {
@@ -92,7 +92,7 @@ class PgSQLComplexQueryTest extends PostgreSQLClientTest implements PostgreSQLHe
                                                      .join(schema.BOOKS)
                                                      .on(schema.BOOKS.ID.eq(schema.BOOKS_AUTHORS.BOOK_ID))
                                                      .where(schema.AUTHORS.ID.eq(1));
-        executor.execute(query, VertxReactiveDSL.instance().fetchJsonRecords(query.asTable()), ar -> {
+        executor.execute(query, ReactiveDSLAdapter.instance().fetchJsonRecords(query.asTable()), ar -> {
             final List<JsonRecord<?>> records = assertRsSize(ctx, flag, ar, 3);
             ctx.verify(() -> {
                 final JsonRecord<?> record1 = records.get(0);

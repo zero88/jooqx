@@ -5,11 +5,12 @@ import java.util.function.Function;
 import org.jooq.Query;
 import org.jooq.TableLike;
 
+import io.github.zero88.jooq.vertx.MiscImpl.BatchResultImpl;
+import io.github.zero88.jooq.vertx.ReactiveSQLImpl.ReactiveSQLPQ;
+import io.github.zero88.jooq.vertx.ReactiveSQLImpl.ReactiveSQLRBC;
+import io.github.zero88.jooq.vertx.SQLImpl.SQLEI;
 import io.github.zero88.jooq.vertx.adapter.SQLResultAdapter;
 import io.github.zero88.jooq.vertx.adapter.SelectListResultAdapter;
-import io.github.zero88.jooq.vertx.converter.ReactiveSQLConverter;
-import io.github.zero88.jooq.vertx.converter.ReactiveSQLResultBatchConverter;
-import io.github.zero88.jooq.vertx.converter.ResultSetConverter;
 import io.vertx.core.Future;
 import io.vertx.sqlclient.Pool;
 import io.vertx.sqlclient.Row;
@@ -19,6 +20,7 @@ import io.vertx.sqlclient.SqlConnection;
 import io.vertx.sqlclient.Transaction;
 import io.vertx.sqlclient.Tuple;
 
+import lombok.Builder.Default;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.Accessors;
@@ -39,11 +41,15 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @SuperBuilder
 @Accessors(fluent = true)
-public final class VertxReactiveSQLExecutor<S extends SqlClient> extends SQLExecutorImpl<S, Tuple, RowSet<Row>>
-    implements SQLTxExecutor<S, Tuple, RowSet<Row>, VertxReactiveSQLExecutor<S>>, VertxReactiveSQLBatchExecutor {
+public final class ReactiveSQLExecutor<S extends SqlClient> extends SQLEI<S, Tuple, RowSet<Row>>
+    implements SQLTxExecutor<S, Tuple, RowSet<Row>, ReactiveSQLExecutor<S>>, ReactiveSQLBatchExecutor {
+
+    @Default
+    @NonNull
+    private final SQLPreparedQuery<Tuple> preparedQuery = new ReactiveSQLPQ();
 
     @Override
-    public <Q extends Query, T extends TableLike<?>, C extends ResultSetConverter<RowSet<Row>>, R> Future<R> execute(
+    public <Q extends Query, T extends TableLike<?>, C extends SQLResultSetConverter<RowSet<Row>>, R> Future<R> execute(
         @NonNull Q query, @NonNull SQLResultAdapter<RowSet<Row>, C, T, R> resultAdapter) {
         return sqlClient().preparedQuery(preparedQuery().sql(dsl().configuration(), query))
                           .execute(preparedQuery().bindValues(query))
@@ -53,7 +59,7 @@ public final class VertxReactiveSQLExecutor<S extends SqlClient> extends SQLExec
 
     @Override
     @SuppressWarnings("unchecked")
-    public @NonNull SQLTxExecutor<S, Tuple, RowSet<Row>, VertxReactiveSQLExecutor<S>> transaction() {
+    public @NonNull SQLTxExecutor<S, Tuple, RowSet<Row>, ReactiveSQLExecutor<S>> transaction() {
         return this;
     }
 
@@ -61,7 +67,7 @@ public final class VertxReactiveSQLExecutor<S extends SqlClient> extends SQLExec
     public <Q extends Query> Future<BatchResult> batch(@NonNull Q query, @NonNull BindBatchValues bindBatchValues) {
         return sqlClient().preparedQuery(preparedQuery().sql(dsl().configuration(), query))
                           .executeBatch(preparedQuery().bindValues(query, bindBatchValues))
-                          .map(r -> ReactiveSQLConverter.resultBatchConverter().batchResultSize(r))
+                          .map(r -> new ReactiveSQLRBC().batchResultSize(r))
                           .map(s -> BatchResultImpl.create(bindBatchValues.size(), s))
                           .otherwise(errorConverter()::reThrowError);
     }
@@ -78,7 +84,7 @@ public final class VertxReactiveSQLExecutor<S extends SqlClient> extends SQLExec
     }
 
     @Override
-    public <X> Future<X> run(@NonNull Function<VertxReactiveSQLExecutor<S>, Future<X>> function) {
+    public <X> Future<X> run(@NonNull Function<ReactiveSQLExecutor<S>, Future<X>> function) {
         final S c = sqlClient();
         if (c instanceof Pool) {
             return ((Pool) c).getConnection()
@@ -96,18 +102,18 @@ public final class VertxReactiveSQLExecutor<S extends SqlClient> extends SQLExec
     }
 
     @Override
-    protected VertxReactiveSQLExecutor<S> withSqlClient(@NonNull S sqlClient) {
-        return VertxReactiveSQLExecutor.<S>builder().vertx(vertx())
-                                                    .sqlClient(sqlClient)
-                                                    .dsl(dsl())
-                                                    .preparedQuery(preparedQuery())
-                                                    .errorConverter(errorConverter())
-                                                    .build();
+    protected ReactiveSQLExecutor<S> withSqlClient(@NonNull S sqlClient) {
+        return ReactiveSQLExecutor.<S>builder().vertx(vertx())
+                                               .sqlClient(sqlClient)
+                                               .dsl(dsl())
+                                               .preparedQuery(preparedQuery())
+                                               .errorConverter(errorConverter())
+                                               .build();
     }
 
     @SuppressWarnings("unchecked")
     private <X> Future<X> beginTx(@NonNull SqlConnection conn,
-                                  @NonNull Function<VertxReactiveSQLExecutor<S>, Future<X>> transaction) {
+                                  @NonNull Function<ReactiveSQLExecutor<S>, Future<X>> transaction) {
         return conn.begin()
                    .flatMap(tx -> transaction.apply(withSqlClient((S) conn))
                                              .compose(res -> tx.commit().flatMap(v -> Future.succeededFuture(res)),

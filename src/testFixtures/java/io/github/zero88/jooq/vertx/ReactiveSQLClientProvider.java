@@ -1,7 +1,6 @@
 package io.github.zero88.jooq.vertx;
 
-import io.github.zero88.jooq.vertx.converter.ReactiveSQLConverter;
-import io.github.zero88.jooq.vertx.converter.SQLPreparedQuery;
+import io.github.zero88.jooq.vertx.ReactiveSQLImpl.ReactiveSQLPQ;
 import io.vertx.core.Vertx;
 import io.vertx.jdbcclient.JDBCConnectOptions;
 import io.vertx.jdbcclient.JDBCPool;
@@ -19,21 +18,21 @@ public interface ReactiveSQLClientProvider<S extends SqlClient> extends SQLClien
     }
 
     interface ReactiveSQLExecutorProvider<S extends SqlClient>
-        extends SQLExecutorProvider<S, Tuple, RowSet<Row>, VertxReactiveSQLExecutor<S>> {
+        extends SQLExecutorProvider<S, Tuple, RowSet<Row>, ReactiveSQLExecutor<S>> {
 
         @Override
-        default VertxReactiveSQLExecutor<S> createExecutor(Vertx vertx, JooqDSLProvider dslProvider, S sqlClient) {
-            return VertxReactiveSQLExecutor.<S>builder().vertx(vertx)
-                                                        .dsl(dslProvider.dsl())
-                                                        .sqlClient(sqlClient)
-                                                        .preparedQuery(createPreparedQuery())
-                                                        .errorConverter(createErrorConverter())
-                                                        .build();
+        default ReactiveSQLExecutor<S> createExecutor(Vertx vertx, JooqDSLProvider dslProvider, S sqlClient) {
+            return ReactiveSQLExecutor.<S>builder().vertx(vertx)
+                                                   .dsl(dslProvider.dsl())
+                                                   .sqlClient(sqlClient)
+                                                   .preparedQuery(createPreparedQuery())
+                                                   .errorConverter(createErrorConverter())
+                                                   .build();
         }
 
         @Override
         default SQLPreparedQuery<Tuple> createPreparedQuery() {
-            return ReactiveSQLConverter.prepareQuery();
+            return new ReactiveSQLPQ();
         }
 
     }

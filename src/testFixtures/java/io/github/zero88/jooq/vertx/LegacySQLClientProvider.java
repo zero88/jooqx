@@ -1,7 +1,6 @@
 package io.github.zero88.jooq.vertx;
 
-import io.github.zero88.jooq.vertx.converter.LegacySQLConverter;
-import io.github.zero88.jooq.vertx.converter.SQLPreparedQuery;
+import io.github.zero88.jooq.vertx.LegacySQLImpl.LegacySQLPQ;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
@@ -34,22 +33,22 @@ public interface LegacySQLClientProvider extends SQLClientProvider<SQLClient> {
     }
 
     interface LegacySQLExecutorProvider
-        extends SQLExecutorProvider<SQLClient, JsonArray, ResultSet, VertxLegacySQLExecutor> {
+        extends SQLExecutorProvider<SQLClient, JsonArray, ResultSet, LegacySQLExecutor> {
 
         @Override
-        default VertxLegacySQLExecutor createExecutor(Vertx vertx, JooqDSLProvider dslProvider, SQLClient sqlClient) {
-            return VertxLegacySQLExecutor.builder()
-                                         .vertx(vertx)
-                                         .dsl(dslProvider.dsl())
-                                         .sqlClient(sqlClient)
-                                         .preparedQuery(createPreparedQuery())
-                                         .errorConverter(createErrorConverter())
-                                         .build();
+        default LegacySQLExecutor createExecutor(Vertx vertx, JooqDSLProvider dslProvider, SQLClient sqlClient) {
+            return LegacySQLExecutor.builder()
+                                    .vertx(vertx)
+                                    .dsl(dslProvider.dsl())
+                                    .sqlClient(sqlClient)
+                                    .preparedQuery(createPreparedQuery())
+                                    .errorConverter(createErrorConverter())
+                                    .build();
         }
 
         @Override
         default SQLPreparedQuery<JsonArray> createPreparedQuery() {
-            return LegacySQLConverter.prepareQuery();
+            return new LegacySQLPQ();
         }
 
     }

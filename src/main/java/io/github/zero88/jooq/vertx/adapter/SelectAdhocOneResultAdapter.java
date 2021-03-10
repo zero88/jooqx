@@ -5,24 +5,35 @@ import java.util.function.BiFunction;
 import org.jooq.Record;
 import org.jooq.TableLike;
 
+import io.github.zero88.jooq.vertx.SQLResultSetConverter;
 import io.github.zero88.jooq.vertx.adapter.HasStrategy.SelectOne;
-import io.github.zero88.jooq.vertx.converter.ResultSetConverter;
 
 import lombok.NonNull;
 
-public abstract class SelectAdhocOneResultAdapter<RS, C extends ResultSetConverter<RS>, T extends TableLike<? extends Record>, R>
-    extends SQLResultAdapterImpl<RS, C, T, R> implements SelectOne {
+/**
+ * Select Adhoc for one result adapter
+ *
+ * @param <R> Type of Vertx Result set
+ * @param <C> Type of result set converter
+ * @param <T> Type of jOOQ Table
+ * @param <O> Type of an expectation output
+ * @see SQLResultAdapterImpl
+ * @see SelectOne
+ * @since 1.0.0
+ */
+public abstract class SelectAdhocOneResultAdapter<R, C extends SQLResultSetConverter<R>, T extends TableLike<? extends Record>, O>
+    extends SQLResultAdapterImpl<R, C, T, O> implements SelectOne {
 
-    private final BiFunction<SQLResultAdapter<RS, C, T, R>, RS, R> function;
+    private final BiFunction<SQLResultAdapter<R, C, T, O>, R, O> function;
 
     protected SelectAdhocOneResultAdapter(@NonNull T table, @NonNull C converter,
-                                          BiFunction<SQLResultAdapter<RS, C, T, R>, RS, R> function) {
+                                          BiFunction<SQLResultAdapter<R, C, T, O>, R, O> function) {
         super(table, converter);
         this.function = function;
     }
 
     @Override
-    public @NonNull R convert(@NonNull RS resultSet) {
+    public @NonNull O convert(@NonNull R resultSet) {
         return function.apply(this, resultSet);
     }
 

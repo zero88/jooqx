@@ -1,4 +1,4 @@
-package io.github.zero88.jooq.vertx.converter;
+package io.github.zero88.jooq.vertx;
 
 import io.vertx.core.json.JsonArray;
 

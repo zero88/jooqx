@@ -1,16 +1,19 @@
 package io.github.zero88.jooq.vertx.adapter;
 
+import java.util.List;
+import java.util.function.BiFunction;
+
 import org.jooq.Record;
 import org.jooq.TableLike;
 
-import io.github.zero88.jooq.vertx.converter.ResultSetConverter;
+import io.github.zero88.jooq.vertx.SQLResultSetConverter;
 
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.Accessors;
 
-public abstract class SQLResultAdapterImpl<RS, C extends ResultSetConverter<RS>, T extends TableLike<? extends Record>, R>
-    implements SQLResultAdapter<RS, C, T, R> {
+abstract class SQLResultAdapterImpl<R, C extends SQLResultSetConverter<R>, T extends TableLike<? extends Record>, O>
+    implements SQLResultAdapter<R, C, T, O> {
 
     @NonNull
     @Getter
@@ -29,6 +32,20 @@ public abstract class SQLResultAdapterImpl<RS, C extends ResultSetConverter<RS>,
     @NonNull
     public final C converter() {
         return converter;
+    }
+
+    abstract static class InternalSelectResultAdapter<RS, C extends SQLResultSetConverter<RS>, T extends TableLike<? extends Record>, I, O>
+        extends SQLResultAdapterImpl<RS, C, T, O> {
+
+        @Getter
+        private final BiFunction<SQLResultAdapter<RS, C, T, O>, RS, List<I>> function;
+
+        protected InternalSelectResultAdapter(@NonNull T table, @NonNull C converter,
+                                              @NonNull BiFunction<SQLResultAdapter<RS, C, T, O>, RS, List<I>> function) {
+            super(table, converter);
+            this.function = function;
+        }
+
     }
 
 }

@@ -17,7 +17,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import io.github.zero88.jooq.vertx.JsonRecord;
-import io.github.zero88.jooq.vertx.VertxReactiveDSL;
+import io.github.zero88.jooq.vertx.ReactiveDSLAdapter;
 import io.github.zero88.jooq.vertx.integtest.PostgreSQLHelper;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.pojos.Authors;
 import io.github.zero88.jooq.vertx.integtest.pgsql.tables.pojos.Books;
@@ -47,7 +47,7 @@ class PgSQLSuccessTest extends PostgreSQLClientTest implements PostgreSQLHelper 
         final Checkpoint flag = ctx.checkpoint();
         final io.github.zero88.jooq.vertx.integtest.pgsql.tables.Books table = catalog().PUBLIC.BOOKS;
         final SelectWhereStep<BooksRecord> query = executor.dsl().selectFrom(table);
-        executor.execute(query, VertxReactiveDSL.instance().fetchJsonRecords(table),
+        executor.execute(query, ReactiveDSLAdapter.instance().fetchJsonRecords(table),
                          ar -> assertRsSize(ctx, flag, ar, 7));
     }
 
@@ -59,7 +59,7 @@ class PgSQLSuccessTest extends PostgreSQLClientTest implements PostgreSQLHelper 
                                                                     .selectCount()
                                                                     .from(table)
                                                                     .where(table.COUNTRY.eq("USA"));
-        executor.execute(query, VertxReactiveDSL.instance().fetchCount(query.asTable()), ar -> {
+        executor.execute(query, ReactiveDSLAdapter.instance().fetchCount(query.asTable()), ar -> {
             ctx.verify(() -> Assertions.assertEquals(6, ar.result()));
             flag.flag();
         });
@@ -73,7 +73,7 @@ class PgSQLSuccessTest extends PostgreSQLClientTest implements PostgreSQLHelper 
         final SelectConditionStep<Record1<Integer>> q = dsl.selectOne()
                                                            .whereExists(dsl.selectFrom(table)
                                                                            .where(table.NAME.eq("Jane Austen")));
-        executor.execute(q, VertxReactiveDSL.instance().fetchExists(q.asTable()), ar -> {
+        executor.execute(q, ReactiveDSLAdapter.instance().fetchExists(q.asTable()), ar -> {
             ctx.verify(() -> Assertions.assertTrue(ar.result()));
             flag.flag();
         });
@@ -89,7 +89,7 @@ class PgSQLSuccessTest extends PostgreSQLClientTest implements PostgreSQLHelper 
                                                              .orderBy(table.NAME.desc())
                                                              .limit(1)
                                                              .offset(1);
-        executor.execute(q, VertxReactiveDSL.instance().fetchJsonRecord(q.asTable()), ar -> {
+        executor.execute(q, ReactiveDSLAdapter.instance().fetchJsonRecord(q.asTable()), ar -> {
             ctx.verify(() -> {
                 final JsonRecord<?> result = ar.result();
                 Assertions.assertNotNull(result);
@@ -108,7 +108,7 @@ class PgSQLSuccessTest extends PostgreSQLClientTest implements PostgreSQLHelper 
                                                              .selectFrom(table)
                                                              .where(table.COUNTRY.eq("USA"))
                                                              .orderBy(table.ID.desc());
-        executor.execute(q, VertxReactiveDSL.instance().fetchJsonRecord(q.asTable()), ar -> {
+        executor.execute(q, ReactiveDSLAdapter.instance().fetchJsonRecord(q.asTable()), ar -> {
             ctx.verify(() -> {
                 final JsonRecord<?> result = ar.result();
                 Assertions.assertNotNull(result);
@@ -124,7 +124,7 @@ class PgSQLSuccessTest extends PostgreSQLClientTest implements PostgreSQLHelper 
         final Checkpoint flag = ctx.checkpoint(2);
         final io.github.zero88.jooq.vertx.integtest.pgsql.tables.Authors table = catalog().PUBLIC.AUTHORS;
         final SelectWhereStep<AuthorsRecord> query = executor.dsl().selectFrom(table);
-        executor.execute(query, VertxReactiveDSL.instance().fetchMany(table, Authors.class), ar -> {
+        executor.execute(query, ReactiveDSLAdapter.instance().fetchMany(table, Authors.class), ar -> {
             final List<Authors> books = assertRsSize(ctx, flag, ar, 8);
             final Authors authors = books.get(0);
             ctx.verify(() -> Assertions.assertEquals(1, authors.getId()));
@@ -137,7 +137,7 @@ class PgSQLSuccessTest extends PostgreSQLClientTest implements PostgreSQLHelper 
         final Checkpoint flag = ctx.checkpoint();
         final io.github.zero88.jooq.vertx.integtest.pgsql.tables.Authors table = catalog().PUBLIC.AUTHORS;
         final SelectConditionStep<AuthorsRecord> query = executor.dsl().selectFrom(table).where(table.COUNTRY.eq("UK"));
-        executor.execute(query, VertxReactiveDSL.instance().fetchOne(table), ar -> {
+        executor.execute(query, ReactiveDSLAdapter.instance().fetchOne(table), ar -> {
             ctx.verify(() -> {
                 Assertions.assertTrue(ar.succeeded());
                 final AuthorsRecord authors = ar.result();
@@ -157,7 +157,7 @@ class PgSQLSuccessTest extends PostgreSQLClientTest implements PostgreSQLHelper 
                                                              .insertInto(table, table.ID, table.TITLE)
                                                              .values(Arrays.asList(DSL.defaultValue(table.ID), "abc"))
                                                              .returning(table.ID);
-        executor.execute(insert, VertxReactiveDSL.instance().fetchOne(table, Collections.singletonList(table.ID)),
+        executor.execute(insert, ReactiveDSLAdapter.instance().fetchOne(table, Collections.singletonList(table.ID)),
                          ar -> {
                              ctx.verify(() -> {
                                  final Record record = ar.result();

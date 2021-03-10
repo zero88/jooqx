@@ -1,4 +1,4 @@
-package io.github.zero88.jooq.vertx.converter;
+package io.github.zero88.jooq.vertx;
 
 import java.util.Collection;
 import java.util.List;
@@ -10,7 +10,6 @@ import org.jooq.TableLike;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.github.zero88.jooq.vertx.JsonRecord;
 import io.github.zero88.jooq.vertx.adapter.SelectStrategy;
 
 import lombok.NonNull;
@@ -21,9 +20,9 @@ import lombok.NonNull;
  * @param <RS> Type of Vertx SQL result set
  * @since 1.0.0
  */
-public interface ResultSetConverter<RS> {
+public interface SQLResultSetConverter<RS> {
 
-    Logger LOGGER = LoggerFactory.getLogger(ResultSetConverter.class);
+    Logger LOGGER = LoggerFactory.getLogger(SQLResultSetConverter.class);
 
     /**
      * Setup strategy to handle result set
@@ -31,7 +30,7 @@ public interface ResultSetConverter<RS> {
      * @param strategy select strategy
      * @return a reference to this for fluent API
      */
-    @NonNull ResultSetConverter<RS> setup(@NonNull SelectStrategy strategy);
+    @NonNull SQLResultSetConverter<RS> setup(@NonNull SelectStrategy strategy);
 
     /**
      * Convert SQL result set to generic {@code Json record}

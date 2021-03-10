@@ -5,8 +5,6 @@ import org.jooq.Query;
 import org.jooq.TableLike;
 
 import io.github.zero88.jooq.vertx.adapter.SQLResultAdapter;
-import io.github.zero88.jooq.vertx.converter.ResultSetConverter;
-import io.github.zero88.jooq.vertx.converter.SQLPreparedQuery;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
@@ -22,8 +20,8 @@ import lombok.NonNull;
  * @param <S>  Type of Vertx SQL client. Might be {@link SqlClient} or {@link SQLClient}
  * @param <P>  Type of Vertx SQL bind value holder
  * @param <RS> Type of Vertx SQL Result set holder
- * @see VertxLegacySQLExecutor
- * @see VertxReactiveSQLExecutor
+ * @see LegacySQLExecutor
+ * @see ReactiveSQLExecutor
  * @see SQLBatchExecutor
  * @since 1.0.0
  */
@@ -83,7 +81,7 @@ public interface SQLExecutor<S, P, RS> extends SQLBatchExecutor {
      * @see TableLike
      * @see SQLResultAdapter
      */
-    default <Q extends Query, T extends TableLike<?>, C extends ResultSetConverter<RS>, R> void execute(
+    default <Q extends Query, T extends TableLike<?>, C extends SQLResultSetConverter<RS>, R> void execute(
         @NonNull Q query, @NonNull SQLResultAdapter<RS, C, T, R> resultAdapter,
         @NonNull Handler<AsyncResult<R>> handler) {
         execute(query, resultAdapter).onComplete(handler);
@@ -100,8 +98,8 @@ public interface SQLExecutor<S, P, RS> extends SQLBatchExecutor {
      * @param <R>type       of expectation result
      * @return a {@code Future} of the asynchronous result
      */
-    <Q extends Query, T extends TableLike<?>, C extends ResultSetConverter<RS>, R> Future<R> execute(@NonNull Q query,
-                                                                                                     @NonNull SQLResultAdapter<RS, C, T, R> resultAdapter);
+    <Q extends Query, T extends TableLike<?>, C extends SQLResultSetConverter<RS>, R> Future<R> execute(@NonNull Q query,
+                                                                                                        @NonNull SQLResultAdapter<RS, C, T, R> resultAdapter);
 
     /**
      * Open transaction executor

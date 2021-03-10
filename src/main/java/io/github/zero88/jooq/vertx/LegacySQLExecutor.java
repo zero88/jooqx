@@ -6,9 +6,11 @@ import java.util.function.Function;
 import org.jooq.Query;
 import org.jooq.TableLike;
 
+import io.github.zero88.jooq.vertx.LegacySQLImpl.LegacySQLPQ;
+import io.github.zero88.jooq.vertx.LegacySQLImpl.LegacySQLRSC;
+import io.github.zero88.jooq.vertx.MiscImpl.BatchResultImpl;
+import io.github.zero88.jooq.vertx.SQLImpl.SQLEI;
 import io.github.zero88.jooq.vertx.adapter.SQLResultAdapter;
-import io.github.zero88.jooq.vertx.converter.LegacySQLConverter;
-import io.github.zero88.jooq.vertx.converter.ResultSetConverter;
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
 import io.vertx.core.json.JsonArray;
@@ -18,6 +20,7 @@ import io.vertx.ext.sql.SQLClient;
 import io.vertx.ext.sql.SQLConnection;
 import io.vertx.ext.sql.SQLOperations;
 
+import lombok.Builder.Default;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.Accessors;
@@ -36,11 +39,15 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @SuperBuilder
 @Accessors(fluent = true)
-public final class VertxLegacySQLExecutor extends SQLExecutorImpl<SQLClient, JsonArray, ResultSet>
-    implements SQLTxExecutor<SQLClient, JsonArray, ResultSet, VertxLegacySQLExecutor> {
+public final class LegacySQLExecutor extends SQLEI<SQLClient, JsonArray, ResultSet>
+    implements SQLTxExecutor<SQLClient, JsonArray, ResultSet, LegacySQLExecutor> {
+
+    @Default
+    @NonNull
+    private final SQLPreparedQuery<JsonArray> preparedQuery = new LegacySQLPQ();
 
     @Override
-    public <Q extends Query, T extends TableLike<?>, C extends ResultSetConverter<ResultSet>, R> Future<R> execute(
+    public <Q extends Query, T extends TableLike<?>, C extends SQLResultSetConverter<ResultSet>, R> Future<R> execute(
         @NonNull Q query, @NonNull SQLResultAdapter<ResultSet, C, T, R> resultAdapter) {
         final Promise<ResultSet> promise = Promise.promise();
         sqlClient().queryWithParams(preparedQuery().sql(dsl().configuration(), query),
@@ -54,26 +61,26 @@ public final class VertxLegacySQLExecutor extends SQLExecutorImpl<SQLClient, Jso
         openConn().map(c -> c.batchWithParams(preparedQuery().sql(dsl().configuration(), query),
                                               preparedQuery().bindValues(query, bindBatchValues), promise));
         return promise.future()
-                      .map(r -> LegacySQLConverter.resultSetConverter().batchResultSize(r))
+                      .map(r -> new LegacySQLRSC().batchResultSize(r))
                       .map(s -> BatchResultImpl.create(bindBatchValues.size(), s))
                       .otherwise(errorConverter()::reThrowError);
     }
 
     @Override
     @SuppressWarnings("unchecked")
-    public @NonNull SQLTxExecutor<SQLClient, JsonArray, ResultSet, VertxLegacySQLExecutor> transaction() {
+    public @NonNull SQLTxExecutor<SQLClient, JsonArray, ResultSet, LegacySQLExecutor> transaction() {
         return this;
     }
 
     @Override
-    protected VertxLegacySQLExecutor withSqlClient(@NonNull SQLClient sqlClient) {
-        return VertxLegacySQLExecutor.builder()
-                                     .vertx(vertx())
-                                     .sqlClient(sqlClient)
-                                     .dsl(dsl())
-                                     .preparedQuery(preparedQuery())
-                                     .errorConverter(errorConverter())
-                                     .build();
+    protected LegacySQLExecutor withSqlClient(@NonNull SQLClient sqlClient) {
+        return LegacySQLExecutor.builder()
+                                .vertx(vertx())
+                                .sqlClient(sqlClient)
+                                .dsl(dsl())
+                                .preparedQuery(preparedQuery())
+                                .errorConverter(errorConverter())
+                                .build();
     }
 
     private Future<SQLConnection> openConn() {
@@ -89,7 +96,7 @@ public final class VertxLegacySQLExecutor extends SQLExecutorImpl<SQLClient, Jso
     }
 
     @Override
-    public <X> Future<X> run(@NonNull Function<VertxLegacySQLExecutor, Future<X>> function) {
+    public <X> Future<X> run(@NonNull Function<LegacySQLExecutor, Future<X>> function) {
         final Promise<X> promise = Promise.promise();
         openConn().map(conn -> conn.setAutoCommit(false, committable -> {
             if (committable.failed()) {

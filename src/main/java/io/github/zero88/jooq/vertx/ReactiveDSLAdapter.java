@@ -7,10 +7,9 @@ import org.jooq.Record;
 import org.jooq.Table;
 import org.jooq.TableLike;
 
+import io.github.zero88.jooq.vertx.ReactiveSQLImpl.ReactiveDSLAI;
+import io.github.zero88.jooq.vertx.ReactiveSQLImpl.ReactiveSQLRBC;
 import io.github.zero88.jooq.vertx.adapter.SelectListResultAdapter;
-import io.github.zero88.jooq.vertx.converter.ReactiveSQLConverter;
-import io.github.zero88.jooq.vertx.converter.ReactiveSQLResultBatchConverter;
-import io.github.zero88.jooq.vertx.converter.ReactiveSQLResultConverter;
 import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.RowSet;
 
@@ -22,14 +21,14 @@ import lombok.NonNull;
  * @see ReactiveSQLResultBatchConverter
  * @since 1.0.0
  */
-public interface VertxReactiveDSL extends VertxDSL<RowSet<Row>, ReactiveSQLResultConverter> {
+public interface ReactiveDSLAdapter extends DSLAdapter<RowSet<Row>, ReactiveSQLResultConverter> {
 
-    static @NonNull VertxReactiveDSL instance() {
-        return new VertxReactiveDSLImpl();
+    static @NonNull ReactiveDSLAdapter instance() {
+        return new ReactiveDSLAI();
     }
 
-    static @NonNull VertxReactiveDSL create(@NonNull ReactiveSQLResultConverter converter) {
-        return new VertxReactiveDSLImpl(converter);
+    static @NonNull ReactiveDSLAdapter create(@NonNull ReactiveSQLResultConverter converter) {
+        return new ReactiveDSLAI(converter);
     }
 
     /**
@@ -42,7 +41,7 @@ public interface VertxReactiveDSL extends VertxDSL<RowSet<Row>, ReactiveSQLResul
     default <T extends TableLike<?>> SelectListResultAdapter<RowSet<Row>, ReactiveSQLResultBatchConverter, T,
                                                                 JsonRecord<?>> batchJsonRecords(
         @NonNull T table) {
-        return SelectListResultAdapter.jsonRecord(table, ReactiveSQLConverter.resultBatchConverter());
+        return SelectListResultAdapter.jsonRecord(table, new ReactiveSQLRBC());
     }
 
     /**
@@ -58,7 +57,7 @@ public interface VertxReactiveDSL extends VertxDSL<RowSet<Row>, ReactiveSQLResul
                                                                                ReactiveSQLResultBatchConverter, T,
                                                                                Record> batch(
         @NonNull T table, @NonNull Collection<Field<?>> fields) {
-        return SelectListResultAdapter.create(table, ReactiveSQLConverter.resultBatchConverter(), fields);
+        return SelectListResultAdapter.create(table, new ReactiveSQLRBC(), fields);
     }
 
     /**
@@ -75,7 +74,7 @@ public interface VertxReactiveDSL extends VertxDSL<RowSet<Row>, ReactiveSQLResul
                                                                                   ReactiveSQLResultBatchConverter, T,
                                                                                   R> batch(
         @NonNull T table, @NonNull Class<R> outputClass) {
-        return SelectListResultAdapter.create(table, ReactiveSQLConverter.resultBatchConverter(), outputClass);
+        return SelectListResultAdapter.create(table, new ReactiveSQLRBC(), outputClass);
     }
 
     /**
@@ -89,7 +88,7 @@ public interface VertxReactiveDSL extends VertxDSL<RowSet<Row>, ReactiveSQLResul
     default <T extends Table<R>, R extends Record> SelectListResultAdapter<RowSet<Row>,
                                                                               ReactiveSQLResultBatchConverter, T, R> batch(
         @NonNull T table) {
-        return SelectListResultAdapter.create(table, ReactiveSQLConverter.resultBatchConverter());
+        return SelectListResultAdapter.create(table, new ReactiveSQLRBC());
     }
 
     /**
@@ -104,7 +103,7 @@ public interface VertxReactiveDSL extends VertxDSL<RowSet<Row>, ReactiveSQLResul
      */
     default <T extends TableLike<? extends Record>, R extends Record, Z extends Table<R>> SelectListResultAdapter<RowSet<Row>, ReactiveSQLResultBatchConverter, T, R> batch(
         @NonNull T table, @NonNull Z toTable) {
-        return SelectListResultAdapter.create(table, ReactiveSQLConverter.resultBatchConverter(), toTable);
+        return SelectListResultAdapter.create(table, new ReactiveSQLRBC(), toTable);
     }
 
     /**
@@ -119,7 +118,7 @@ public interface VertxReactiveDSL extends VertxDSL<RowSet<Row>, ReactiveSQLResul
     default <T extends TableLike<? extends Record>, R extends Record> SelectListResultAdapter<RowSet<Row>,
                                                                                                  ReactiveSQLResultBatchConverter, T, R> batch(
         @NonNull T table, @NonNull R record) {
-        return SelectListResultAdapter.create(table, ReactiveSQLConverter.resultBatchConverter(), record);
+        return SelectListResultAdapter.create(table, new ReactiveSQLRBC(), record);
     }
 
 }

@@ -1,4 +1,4 @@
-package io.github.zero88.jooq.vertx.converter;
+package io.github.zero88.jooq.vertx;
 
 import java.util.List;
 

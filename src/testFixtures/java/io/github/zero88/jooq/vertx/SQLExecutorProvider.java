@@ -1,6 +1,5 @@
 package io.github.zero88.jooq.vertx;
 
-import io.github.zero88.jooq.vertx.converter.SQLPreparedQuery;
 import io.vertx.core.Vertx;
 
 public interface SQLExecutorProvider<S, P, R, E extends SQLExecutor<S, P, R>> {
