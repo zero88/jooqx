@@ -146,10 +146,10 @@ jobs:
 
       - name: Test
         if: env.ENABLE_TEST == 'true'
-        run: ./gradlew jacocoTestReport
+        run: ./gradlew test jacocoTestReport
 
       - name: SonarQube
-        run: ./gradlew sonarqube -x jacocoTestReport -x compileTestJava -Dsonar.login=${{ secrets.OSS_SONARQUBE_TOKEN }} -Dsonar.branch.name=${{ needs.context.outputs.branch }}
+        run: ./gradlew sonarqube -x compileTestJava -Dsonar.login=${{ secrets.OSS_SONARQUBE_TOKEN }} -Dsonar.branch.name=${{ needs.context.outputs.branch }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
