@@ -94,7 +94,8 @@ jooq {
                         isDeprecated = false
                         isRecords = true
                         isImmutablePojos = false
-                        isInterfaces = true
+                        // UDT cannot generate with isInterfaces = true
+                        isInterfaces = false
                         isFluentSetters = true
                         isDaos = true
                     }
