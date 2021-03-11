@@ -23,7 +23,7 @@ import ch.qos.logback.classic.Logger;
 public abstract class BaseSQLTestImpl<S, P, R, E extends SQLExecutor<S, P, R>, K, D extends DBProvider<K>>
     implements BaseSQLTest<S, P, R, E, K, D> {
 
-    protected E executor;
+    protected E jooqx;
     protected SQLConnectionOption connOpt;
 
     @BeforeAll
@@ -38,8 +38,8 @@ public abstract class BaseSQLTestImpl<S, P, R, E extends SQLExecutor<S, P, R>, K
     @BeforeEach
     public void tearUp(Vertx vertx, VertxTestContext ctx) {
         connOpt = dbProvider().connOpt(getDB());
-        executor = executorProvider().createExecutor(vertx, dslProvider(),
-                                                     clientProvider().createSqlClient(vertx, ctx, connOpt));
+        jooqx = executorProvider().createExecutor(vertx, dslProvider(),
+                                                  clientProvider().createSqlClient(vertx, ctx, connOpt));
         System.out.println(Strings.duplicate("=", 150));
     }
 
@@ -50,14 +50,14 @@ public abstract class BaseSQLTestImpl<S, P, R, E extends SQLExecutor<S, P, R>, K
 
     @Override
     public S sqlClient() {
-        return executor.sqlClient();
+        return jooqx.sqlClient();
     }
 
     protected abstract K getDB();
 
     @Testcontainers
     public abstract static class DBContainerSQLTest<S, P, R, E extends SQLExecutor<S, P, R>,
-                                                                K extends JdbcDatabaseContainer<?>>
+                                                           K extends JdbcDatabaseContainer<?>>
         extends BaseSQLTestImpl<S, P, R, E, K, DBContainerProvider<K>> {
 
         @Container

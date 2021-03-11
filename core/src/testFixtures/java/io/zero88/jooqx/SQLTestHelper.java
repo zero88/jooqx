@@ -1,4 +1,4 @@
-package io.zero88.jooqx.integtest;
+package io.zero88.jooqx;
 
 import java.util.List;
 
@@ -6,14 +6,25 @@ import org.jooq.exception.DataAccessException;
 import org.jooq.exception.SQLStateClass;
 import org.junit.jupiter.api.Assertions;
 
+import io.github.zero88.utils.Strings;
 import io.vertx.core.AsyncResult;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 
+import com.zaxxer.hikari.HikariDataSource;
+
 public interface SQLTestHelper {
 
-    default <R> List<R> assertRsSize(VertxTestContext ctx, Checkpoint flag, AsyncResult<List<R>> asyncResult,
-                                     int expected) {
+    default void prepareDatabase(VertxTestContext ctx, JooqSQL<?> jooqSql, SQLConnectionOption connOption,
+                                 String... files) {
+        HikariDataSource dataSource = jooqSql.createDataSource(connOption);
+        jooqSql.prepareDatabase(ctx, jooqSql.dsl(dataSource), files);
+        jooqSql.closeDataSource(dataSource);
+        System.out.println(Strings.duplicate("=", 150));
+    }
+
+    default <R> List<R> assertResultSize(VertxTestContext ctx, Checkpoint flag, AsyncResult<List<R>> asyncResult,
+                                         int expected) {
         try {
             if (asyncResult.succeeded()) {
                 final List<R> records = asyncResult.result();

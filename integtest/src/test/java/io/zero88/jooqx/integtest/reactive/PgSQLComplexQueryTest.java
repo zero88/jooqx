@@ -35,15 +35,15 @@ class PgSQLComplexQueryTest extends PostgreSQLPoolTest implements PostgreSQLHelp
     @Test
     void test_join_2_tables(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint(2);
-        final DSLContext dsl = executor.dsl();
+        final DSLContext dsl = jooqx.dsl();
         final Public schema = catalog().PUBLIC;
         final SelectConditionStep<Record> query = dsl.select(schema.AUTHORS.asterisk(), schema.BOOKS_AUTHORS.BOOK_ID)
                                                      .from(schema.AUTHORS)
                                                      .join(schema.BOOKS_AUTHORS)
                                                      .onKey()
                                                      .where(schema.AUTHORS.ID.eq(2));
-        executor.execute(query, ReactiveDSL.adapter().fetchJsonRecords(query.asTable()), ar -> {
-            final List<JsonRecord<?>> records = assertRsSize(ctx, flag, ar, 2);
+        jooqx.execute(query, ReactiveDSL.adapter().fetchJsonRecords(query.asTable()), ar -> {
+            final List<JsonRecord<?>> records = assertResultSize(ctx, flag, ar, 2);
             ctx.verify(() -> {
                 Assertions.assertEquals(new JsonObject(
                                             "{\"id\":2,\"name\":\"F. Scott. Fitzgerald\",\"country\":\"USA\"," +
@@ -61,15 +61,15 @@ class PgSQLComplexQueryTest extends PostgreSQLPoolTest implements PostgreSQLHelp
     @Test
     void test_join_2_tables_then_map_to_another_table(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint(2);
-        final DSLContext dsl = executor.dsl();
+        final DSLContext dsl = jooqx.dsl();
         final Public schema = catalog().PUBLIC;
         final SelectConditionStep<Record> query = dsl.select(schema.AUTHORS.asterisk(), schema.BOOKS_AUTHORS.BOOK_ID)
                                                      .from(schema.AUTHORS)
                                                      .join(schema.BOOKS_AUTHORS)
                                                      .onKey()
                                                      .where(schema.AUTHORS.ID.eq(4));
-        executor.execute(query, ReactiveDSL.adapter().fetchMany(query.asTable(), schema.AUTHORS), ar -> {
-            final List<AuthorsRecord> records = assertRsSize(ctx, flag, ar, 1);
+        jooqx.execute(query, ReactiveDSL.adapter().fetchMany(query.asTable(), schema.AUTHORS), ar -> {
+            final List<AuthorsRecord> records = assertResultSize(ctx, flag, ar, 1);
             final AuthorsRecord authorsRecord = records.get(0);
             ctx.verify(() -> {
                 Assertions.assertEquals(4, authorsRecord.getId());
@@ -83,7 +83,7 @@ class PgSQLComplexQueryTest extends PostgreSQLPoolTest implements PostgreSQLHelp
     @Test
     void test_join_3_tables(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint(2);
-        final DSLContext dsl = executor.dsl();
+        final DSLContext dsl = jooqx.dsl();
         final Public schema = catalog().PUBLIC;
         final SelectConditionStep<Record> query = dsl.select(schema.AUTHORS.asterisk(), schema.BOOKS.ID.as("book_id"),
                                                              schema.BOOKS.TITLE.as("book_title"))
@@ -93,8 +93,8 @@ class PgSQLComplexQueryTest extends PostgreSQLPoolTest implements PostgreSQLHelp
                                                      .join(schema.BOOKS)
                                                      .on(schema.BOOKS.ID.eq(schema.BOOKS_AUTHORS.BOOK_ID))
                                                      .where(schema.AUTHORS.ID.eq(1));
-        executor.execute(query, ReactiveDSL.adapter().fetchJsonRecords(query.asTable()), ar -> {
-            final List<JsonRecord<?>> records = assertRsSize(ctx, flag, ar, 3);
+        jooqx.execute(query, ReactiveDSL.adapter().fetchJsonRecords(query.asTable()), ar -> {
+            final List<JsonRecord<?>> records = assertResultSize(ctx, flag, ar, 3);
             ctx.verify(() -> {
                 final JsonRecord<?> record1 = records.get(0);
                 Assertions.assertEquals(new JsonObject("{\"id\":1,\"name\":\"J.D. Salinger\",\"country\":\"USA\"," +
@@ -123,13 +123,13 @@ class PgSQLComplexQueryTest extends PostgreSQLPoolTest implements PostgreSQLHelp
     @Test
     void test_transaction_insert_into_3_tables(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint(2);
-        final DSLContext dsl = executor.dsl();
+        final DSLContext dsl = jooqx.dsl();
         final Public schema = catalog().PUBLIC;
         AuthorsRecord a1 = new AuthorsRecord().setName("Lukas").setCountry("Ger");
         BooksRecord b1 = new BooksRecord().setTitle("jOOQ doc");
         final ReactiveDSL adapter = ReactiveDSL.adapter();
-        executor.transaction()
-                .run(tx -> tx.execute(dsl.insertInto(schema.AUTHORS, schema.AUTHORS.NAME, schema.AUTHORS.COUNTRY)
+        jooqx.transaction()
+             .run(tx -> tx.execute(dsl.insertInto(schema.AUTHORS, schema.AUTHORS.NAME, schema.AUTHORS.COUNTRY)
                                          .values(a1.value2(), a1.value3())
                                          .returning(), adapter.fetchOne(schema.AUTHORS))
                              .flatMap(r1 -> tx.execute(
@@ -140,7 +140,7 @@ class PgSQLComplexQueryTest extends PostgreSQLPoolTest implements PostgreSQLHelp
                                                                  schema.BOOKS_AUTHORS.AUTHOR_ID)
                                                      .values(r2.getId(), r1.getId())
                                                      .returning(), adapter.fetchOne(schema.BOOKS_AUTHORS)))))
-                .onComplete(ar -> {
+             .onComplete(ar -> {
                     ctx.verify(() -> Assertions.assertTrue(ar.succeeded()));
                     flag.flag();
                     final SelectConditionStep<Record> query = dsl.select(schema.AUTHORS.asterisk(),
@@ -154,7 +154,7 @@ class PgSQLComplexQueryTest extends PostgreSQLPoolTest implements PostgreSQLHelp
                                                                  .on(schema.BOOKS.ID.eq(schema.BOOKS_AUTHORS.BOOK_ID))
                                                                  .where(
                                                                      schema.BOOKS_AUTHORS.ID.eq(ar.result().getId()));
-                    executor.execute(query, adapter.fetchJsonRecord(query.asTable()), ar2 -> {
+                    jooqx.execute(query, adapter.fetchJsonRecord(query.asTable()), ar2 -> {
                         ctx.verify(() -> {
                             Assertions.assertTrue(ar2.succeeded());
                             Assertions.assertEquals(new JsonObject("{\"id\":9,\"name\":\"Lukas\",\"country\":\"Ger\"," +

@@ -3,6 +3,7 @@ package io.zero88.jooqx.integtest;
 import org.jooq.SQLDialect;
 
 import io.zero88.jooqx.JooqSQL;
+import io.zero88.jooqx.SQLTestHelper;
 import io.zero88.jooqx.integtest.h2.DefaultCatalog;
 
 import lombok.NonNull;
