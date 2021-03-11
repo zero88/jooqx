@@ -12,7 +12,7 @@ dependencies {
     jooqGenerator(DatabaseLibs.mysql)
     jooqGenerator(DatabaseLibs.jooqMetaExt)
 
-    testImplementation(testFixtures(rootProject))
+    testImplementation(testFixtures(project(":core")))
     testImplementation(DatabaseLibs.agroalApi)
     testImplementation(DatabaseLibs.agroalPool)
     testImplementation(DatabaseLibs.hikari)

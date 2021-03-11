@@ -1,30 +1,29 @@
-# Vert.x jOOQ DSL
+# jOOQ.x - Vertx jOOQ DSL
 
 ![build](https://github.com/zero88/vertx-jooq-dsl/workflows/build-release/badge.svg?branch=main)
-![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/zero88/vertx-jooq-dsl?sort=semver)
-![Sonatype Nexus (Releases)](https://img.shields.io/nexus/r/io.github.zero88/vertx-jooq-dsl?server=https%3A%2F%2Foss.sonatype.org%2F)
-![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/io.github.zero88/vertx-jooq-dsl?server=https%3A%2F%2Foss.sonatype.org%2F)
+![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/zero88/jooqx?sort=semver)
+![Sonatype Nexus (Releases)](https://img.shields.io/nexus/r/io.github.zero88/jooqx?nexusVersion=3&server=https%3A%2F%2Foss.sonatype.org)
+![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/io.github.zero88/jooqx?server=https%3A%2F%2Foss.sonatype.org)
 
-[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=zero88_vertx-jooq-dsl&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=zero88_vertx-jooq-dsl)
-[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=zero88_vertx-jooq-dsl&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=zero88_vertx-jooq-dsl)
-[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=zero88_vertx-jooq-dsl&metric=security_rating)](https://sonarcloud.io/dashboard?id=zero88_vertx-jooq-dsl)
-[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=zero88_vertx-jooq-dsl&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=zero88_vertx-jooq-dsl)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=zero88_vertx-jooq-dsl&metric=coverage)](https://sonarcloud.io/dashboard?id=zero88_vertx-jooq-dsl)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=zero88_jooqx&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=zero88_jooqx)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=zero88_jooqx&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=zero88_jooqx)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=zero88_jooqx&metric=security_rating)](https://sonarcloud.io/dashboard?id=zero88_jooqx)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=zero88_jooqx&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=zero88_jooqx)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=zero88_jooqx&metric=coverage)](https://sonarcloud.io/dashboard?id=zero88_jooqx)
 
-Vert.x jOOQ DSL uses a reactive and non-blocking sql connection from [Vert.x](https://vertx.io/docs/#databases) and keep
-powerful from [jOOQ DSL](https://www.jooq.org) monster
+`jooqx` leverages the power of typesafe SQL from [jOOQ DSL](https://www.jooq.org) and running on SQL connection in a reactive and non-blocking of `SQL driver` from [Vert.x](https://vertx.io/docs/#databases)
 
 ## Features
 
-`vertx-jooq-dsl` Provide uniform API for working on both
+`jooqx` Provide uniform API for working on both
 
 - [x] Vertx [Legacy SQL client](https://vertx.io/docs/vertx-jdbc-client/java/#_legacy_jdbc_client_api)
 - [x] Vertx [Reactive SQL client](https://github.com/eclipse-vertx/vertx-sql-client)
 
-`vertx-jooq-dsl` supports:
+`jooqx` supports:
 
 - [x] Lightweight and SPI
-- [x] Strict type
+- [x] Typesafe
 - [x] Native `jOOQ DSL` API
 - [x] Any database with `JDBC` driver and combine with legacy SQL
 - [x] Any database with `Vert.x reactive client`(`JDBCPool` is `reactive JDBC driver` so almost databases should work
@@ -49,7 +48,7 @@ powerful from [jOOQ DSL](https://www.jooq.org) monster
 
 ## Usage
 
-To use `vertx-jooq-dsl` add the following dependency to the dependencies section of your build descriptor:
+To use `jooqx` add the following dependency to the dependencies section of your build descriptor:
 
 - `Maven` (in your `pom.xml`):
 
@@ -57,7 +56,7 @@ To use `vertx-jooq-dsl` add the following dependency to the dependencies section
 
 <dependency>
     <groupId>io.github.zero88</groupId>
-    <artifactId>vertx-jooq-dsl</artifactId>
+    <artifactId>jooqx-core</artifactId>
     <version>1.0.0</version>
 </dependency>
 ```
@@ -66,19 +65,19 @@ To use `vertx-jooq-dsl` add the following dependency to the dependencies section
 
 ```groovy
 dependencies {
-    compile("io.github.zero88:vertx-jooq-dsl:1.0.0")
+    compile("io.github.zero88:jooqx-core:1.0.0")
 }
 ```
 
 **Hint**
 
-`vertx-jooq-dsl` is only depended on 3 main libraries:
+`jooqx` is only depended on 3 main libraries:
 
 - `io.vertx:vertx-core`
 - `org.jooq:jooq`
 - `org.slf4j:slf4j-api`
 
-Adding this `vertx-jooq-dsl` library JAR will not automatically add a `database driver` JAR to your project. You should
+Adding this `jooqx` library JAR will not automatically add a `database driver` JAR to your project. You should
 ensure that your project also has a suitable `database driver` as a dependency.
 
 For example:
@@ -93,7 +92,7 @@ dependencies {
     compile("io.vertx:vertx-jdbc-client:4.0.2") {
         exclude("com.mchange")
     }
-    compile("io.github.zero88:vertx-jooq-dsl:1.0.0")
+    compile("io.github.zero88:jooqx-core:1.0.0")
 }
 ```
 
@@ -102,7 +101,7 @@ dependencies {
 ```groovy
 dependencies {
     compile("io.vertx:vertx-pg-client:4.0.2")
-    compile("io.github.zero88:vertx-jooq-dsl:1.0.0")
+    compile("io.github.zero88:jooqx-core:1.0.0")
 }
 ```
 
@@ -114,7 +113,7 @@ dependencies {
     // Agroal pool - Default in Vertx SQL client - Not yet has alternatives
     compile("io.agroal:agroal-pool:1.9")
     compile("io.vertx:vertx-sql-client:4.0.2")
-    compile("io.github.zero88:vertx-jooq-dsl:1.0.0")
+    compile("io.github.zero88:jooqx-core:1.0.0")
 }
 ```
 
@@ -137,7 +136,7 @@ Better experimental is checkout my [integtest](./integtest) project to see some 
 SQLClient client = JDBCClient.create(vertx, config);
 DSLContext dslContext = DSL.using(new DefaultConfiguration().set(SQLDialect.H2));
 
-// Build vertx-jooq-dsl legacy sql executor
+// Build jooqx legacy sql executor
 LegacySQLExecutor executor = LegacySQLExecutor.builder().vertx(Vertx.vertx())
                                                         .dsl(dslContext)
                                                         .sqlClient(client)
@@ -176,7 +175,7 @@ PgPool client = PgPool.pool(connectOptions, poolOptions);
 // Init jOOQ DSL context
 DSLContext dslContext = DSL.using(new DefaultConfiguration().set(SQLDialect.POSTGRES));
 
-// Build vertx-jooq-dsl reactive sql executor
+// Build jooqx reactive sql executor
 ReactiveSQLExecutor<PgPool> executor = ReactiveSQLExecutor.<PgPool>builder().vertx(vertx)
                                                                             .dsl(dslContext)
                                                                             .sqlClient(client)
@@ -237,7 +236,7 @@ executor.execute(insert, ReactiveDSLAdapter.instance().fetchOne(table, Collectio
 // output: 10
 ```
 
-Please checkout 2 `DSL adapter`: [ReactiveDSLAdapter](https://github.com/zero88/vertx-jooq-dsl/blob/main/src/main/java/io/github/zero88/jooq/vertx/ReactiveDSLAdapter.java) and [LegacyDSLAdapter](https://github.com/zero88/vertx-jooq-dsl/blob/main/src/main/java/io/github/zero88/jooq/vertx/LegacyDSLAdapter.java) to see which method that suite for you.
+Please checkout 2 `DSL adapter`: [ReactiveDSLAdapter](https://github.com/zero88/jooqx/blob/main/src/main/java/io/github/zero88/jooq/vertx/ReactiveDSLAdapter.java) and [LegacyDSLAdapter](https://github.com/zero88/jooqx/blob/main/src/main/java/io/github/zero88/jooq/vertx/LegacyDSLAdapter.java) to see which method that suite for you.
 
 ### Batch
 
@@ -287,7 +286,7 @@ executor.transaction().run(tx -> {
 
 ### Exception handler
 
-Basically, `exception` in execution time will be thrown by each particular `jdbc` driver or `reactive SQL driver`, it can be spaghetti code, dealing with `exception`, then `vertx-jooq-dsl` is able to centralize any exception with properly `SQL state` that thanks to `DataAccessException` in `jOOQ`.
+Basically, `exception` in execution time will be thrown by each particular `jdbc` driver or `reactive SQL driver`, it can be spaghetti code, dealing with `exception`, then `jooqx` is able to centralize any exception with properly `SQL state` that thanks to `DataAccessException` in `jOOQ`.
 
 It is easy to configure when building `executor`
 

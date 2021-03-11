@@ -3,14 +3,14 @@ plugins {
     idea
     `java-test-fixtures`
     id(ZeroLibs.Plugins.oss) version ZeroLibs.Version.plugin
-    id(PluginLibs.sonarQube) version PluginLibs.Version.sonarQube
-    id(PluginLibs.nexusStaging) version PluginLibs.Version.nexusStaging
-    id(PluginLibs.jooq) version PluginLibs.Version.jooq apply false
     id(ZeroLibs.Plugins.root) version ZeroLibs.Version.plugin apply false
+    id(PluginLibs.jooq) version PluginLibs.Version.jooq apply false
+    id(PluginLibs.nexusStaging) version PluginLibs.Version.nexusStaging
 }
-//apply(plugin = ZeroLibs.Plugins.root)
+
+apply(plugin = ZeroLibs.Plugins.root)
+
 allprojects {
-    apply(plugin = ZeroLibs.Plugins.oss)
     group = "io.github.zero88"
 
     repositories {
@@ -19,7 +19,10 @@ allprojects {
         mavenCentral()
         jcenter()
     }
+}
 
+subprojects {
+    apply(plugin = ZeroLibs.Plugins.oss)
     java {
         sourceCompatibility = JavaVersion.VERSION_1_8
     }
@@ -65,71 +68,13 @@ allprojects {
 }
 
 
-dependencies {
-    api(LogLibs.slf4j)
-    api(VertxLibs.core)
-    api(DatabaseLibs.jooq)
-//    api(ZeroLibs.rql_jooq)
-
-    compileOnly(VertxLibs.sqlClient)
-    compileOnly(VertxLibs.jdbc)
-    compileOnly(VertxLibs.pgsql)
-    compileOnly(VertxLibs.mysql)
-    compileOnly(VertxLibs.mssql)
-    compileOnly(VertxLibs.db2)
-
-    testFixturesApi(LogLibs.logback)
-    testFixturesApi(TestLibs.junit5Api)
-    testFixturesApi(TestLibs.junit5Engine)
-    testFixturesApi(TestLibs.junit5Params)
-    testFixturesApi(VertxLibs.junit5)
-    testFixturesApi(TestContainers.junit5)
-    testFixturesApi(ZeroLibs.utils)
-
-    testFixturesCompileOnly(UtilLibs.lombok)
-    testFixturesAnnotationProcessor(UtilLibs.lombok)
-
-    testFixturesImplementation(VertxLibs.jdbc)
-    testFixturesImplementation(DatabaseLibs.h2)
-
-    testFixturesImplementation(VertxLibs.pgsql)
-    testFixturesImplementation(DatabaseLibs.pgsql)
-    testFixturesImplementation(TestContainers.pgsql)
-
-    testFixturesImplementation(VertxLibs.mysql)
-    testFixturesImplementation(DatabaseLibs.mysql)
-    testFixturesImplementation(TestContainers.mysql)
-
-    testFixturesImplementation(DatabaseLibs.agroalApi)
-    testFixturesImplementation(DatabaseLibs.hikari)
-}
-
 nexusStaging {
     packageGroup = "io.github.zero88"
     username = project.property("nexus.username") as String?
     password = project.property("nexus.password") as String?
 }
 
-sonarqube {
-    properties {
-        property("sonar.sourceEncoding", "UTF-8")
-        property("sonar.coverage.jacoco.xmlReportPaths", "${buildDir}/reports/jacoco/test/jacocoTestReport.xml")
-    }
-}
-
 tasks.register("generateJooq") {
     group = "jooq"
     dependsOn(subprojects.map { it.tasks.withType<nu.studer.gradle.jooq.JooqGenerate>() })
-}
-tasks.test {
-    finalizedBy(tasks.jacocoTestReport)
-}
-tasks.jacocoTestReport {
-    dependsOn(tasks.test)
-    reports {
-        xml.isEnabled = true
-    }
-}
-tasks.sonarqube {
-    dependsOn(tasks.jacocoTestReport)
 }
