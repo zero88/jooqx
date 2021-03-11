@@ -14,7 +14,7 @@ on:
     branches: [ main ]
 
 env:
-  ENABLE_TEST: false
+  ENABLE_TEST: true
   ENABLE_GH_MAVEN: false
 
 jobs:
@@ -141,12 +141,15 @@ jobs:
           key: ${{ runner.os }}-gradle-test-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle-test
 
+      - name: Generate jOOQ
+        run: ./generateJooq.sh
+
       - name: Test
         if: env.ENABLE_TEST == 'true'
-        run: ./gradlew generateJooq jacocoTestReport
+        run: ./gradlew test jacocoTestReport
 
       - name: SonarQube
-        run: ./gradlew sonarqube -x jacocoTestReport -x compileTestJava -Dsonar.login=${{ secrets.OSS_SONARQUBE_TOKEN }} -Dsonar.branch.name=${{ needs.context.outputs.branch }}
+        run: ./gradlew sonarqube -x compileTestJava -Dsonar.login=${{ secrets.OSS_SONARQUBE_TOKEN }} -Dsonar.branch.name=${{ needs.context.outputs.branch }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

@@ -58,12 +58,13 @@ public interface SQLExecutor<S, P, RS> extends SQLBatchExecutor {
     @NonNull SQLPreparedQuery<P> preparedQuery();
 
     /**
-     * Defines an error converter that rethrows an uniform exception by {@link SQLErrorConverter#reThrowError(Throwable)
+     * Defines an error converter that rethrows an uniform exception by
+     * {@link SQLErrorConverter#reThrowError(Throwable)}
      * if any error in execution time
      *
      * @return error handler
      * @apiNote Default is {@link SQLErrorConverter#DEFAULT} that keeps error as it is
-     * @see SqlErrorConverter
+     * @see SQLErrorConverter
      */
     @NonNull SQLErrorConverter<? extends Throwable, ? extends RuntimeException> errorConverter();
 
@@ -95,11 +96,11 @@ public interface SQLExecutor<S, P, RS> extends SQLBatchExecutor {
      * @param <Q>           type of jOOQ Query
      * @param <T>           type of jOOQ TableLike
      * @param <C>           type of result set converter
-     * @param <R>type       of expectation result
+     * @param <R>           type of expectation result
      * @return a {@code Future} of the asynchronous result
      */
-    <Q extends Query, T extends TableLike<?>, C extends SQLResultSetConverter<RS>, R> Future<R> execute(@NonNull Q query,
-                                                                                                        @NonNull SQLResultAdapter<RS, C, T, R> resultAdapter);
+    <Q extends Query, T extends TableLike<?>, C extends SQLResultSetConverter<RS>, R> Future<R> execute(
+        @NonNull Q query, @NonNull SQLResultAdapter<RS, C, T, R> resultAdapter);
 
     /**
      * Open transaction executor

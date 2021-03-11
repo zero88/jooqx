@@ -20,36 +20,46 @@ CREATE TABLE books_authors
     FOREIGN KEY (book_id) REFERENCES books (id)
 );
 
+CREATE TYPE mood AS ENUM ('sad', 'ok', 'happy');
+
 CREATE TABLE all_data_types
 (
-    id          SERIAL PRIMARY KEY,
-    boolean     BOOLEAN,
-    int2        INT2,
-    int4        INT4,
-    int8        INT8,
-    float4      FLOAT4,
-    float8      FLOAT8,
-    char        CHAR,
-    varchar     VARCHAR,
-    text        TEXT,
---     enum        mood,
-    name        NAME,
-    numeric     NUMERIC,
-    uuid        UUID,
-    date        DATE,
-    time        TIME,
-    timetz      TIMETZ,
-    timestamp   TIMESTAMP,
-    timestamptz TIMESTAMPTZ,
-    interval    INTERVAL,
-    bytea       BYTEA,
-    json        JSON,
-    jsonb       JSONB,
-    point       POINT,
-    line        LINE,
-    lseg        LSEG,
-    box         BOX,
-    path        PATH,
-    polygon     POLYGON,
-    circle      CIRCLE
+    id              SERIAL PRIMARY KEY,
+    f_boolean       BOOLEAN,
+    --number
+    f_int2          INT2,
+    f_int4          INT4,
+    f_int8          INT8,
+    f_float4        FLOAT4,
+    f_float8        FLOAT8,
+    f_decimal       DECIMAL(10,10),
+    f_numeric       NUMERIC(10,5),
+    -- char
+    f_char          CHAR,
+    f_varchar       VARCHAR,
+    f_text          TEXT,
+    -- misc
+    f_name          NAME,
+    f_uuid          UUID,
+    f_bytea         BYTEA,
+    -- date/time
+    f_date          DATE,
+    f_time          TIME,
+    f_timetz        TIMETZ,
+    f_timestamp     TIMESTAMP,
+    f_timestamptz   TIMESTAMPTZ,
+    f_interval      INTERVAL,
+    -- enumerated
+    f_enum          mood,
+    -- json
+    f_json          JSON,
+    f_jsonb         JSONB,
+    --Geometric Types
+    f_point         POINT,
+    f_line          LINE,
+    f_lseg          LSEG,
+    f_box           BOX,
+    f_path          PATH,
+    f_polygon       POLYGON,
+    f_circle        CIRCLE
 );

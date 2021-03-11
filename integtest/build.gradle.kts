@@ -73,7 +73,7 @@ jooq {
                 logging = Logging.INFO
                 jdbc.apply {
                     driver = "org.postgresql.Driver"
-                    url = "jdbc:postgresql://localhost:5432/testdb"
+                    url = "jdbc:postgresql://localhost:5423/testdb"
                     user = "postgres"
                     password = "123"
                 }
@@ -98,6 +98,42 @@ jooq {
                     target.apply {
                         packageName = "io.github.zero88.jooq.vertx.integtest.pgsql"
                         directory = "build/generated/pgsql"
+                    }
+                }
+            }
+        }
+
+        create("testMySQLSchema") {
+            generateSchemaSourceOnCompilation.set(true)  // default (can be omitted)
+            jooqConfiguration.apply {
+                logging = Logging.DEBUG
+                jdbc.apply {
+                    driver = "com.mysql.cj.jdbc.Driver"
+                    url = "jdbc:mysql://localhost:3360/testdb"
+                    user = "root"
+                    password = "123"
+                }
+                generator.apply {
+                    name = "org.jooq.codegen.DefaultGenerator"
+                    strategy.name = "org.jooq.codegen.DefaultGeneratorStrategy"
+                    database.apply {
+                        name = "org.jooq.meta.mysql.MySQLDatabase"
+                        inputSchema = "testdb"
+                        properties.add(
+                            Property().withKey("scripts").withValue("src/test/resources/mysql_schema.sql")
+                        )
+                    }
+                    generate.apply {
+                        isDeprecated = false
+                        isRecords = true
+                        isImmutablePojos = false
+                        isInterfaces = true
+                        isFluentSetters = true
+                        isDaos = true
+                    }
+                    target.apply {
+                        packageName = "io.github.zero88.jooq.vertx.integtest.mysql"
+                        directory = "build/generated/mysql"
                     }
                 }
             }
