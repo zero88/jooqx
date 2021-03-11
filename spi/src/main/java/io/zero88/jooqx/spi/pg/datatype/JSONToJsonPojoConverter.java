@@ -1,4 +1,4 @@
-package io.zero88.jooqx.datatype;
+package io.zero88.jooqx.spi.pg.datatype;
 
 import org.jooq.Converter;
 import org.jooq.JSON;

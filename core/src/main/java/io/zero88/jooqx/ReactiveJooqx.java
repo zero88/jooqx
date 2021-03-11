@@ -5,12 +5,6 @@ import java.util.function.Function;
 import org.jooq.Query;
 import org.jooq.TableLike;
 
-import io.zero88.jooqx.MiscImpl.BatchResultImpl;
-import io.zero88.jooqx.ReactiveSQLImpl.ReactiveSQLPQ;
-import io.zero88.jooqx.ReactiveSQLImpl.ReactiveSQLRBC;
-import io.zero88.jooqx.SQLImpl.SQLEI;
-import io.zero88.jooqx.adapter.SQLResultAdapter;
-import io.zero88.jooqx.adapter.SelectListResultAdapter;
 import io.vertx.core.Future;
 import io.vertx.sqlclient.Pool;
 import io.vertx.sqlclient.Row;
@@ -19,6 +13,12 @@ import io.vertx.sqlclient.SqlClient;
 import io.vertx.sqlclient.SqlConnection;
 import io.vertx.sqlclient.Transaction;
 import io.vertx.sqlclient.Tuple;
+import io.zero88.jooqx.MiscImpl.BatchResultImpl;
+import io.zero88.jooqx.ReactiveSQLImpl.ReactiveSQLPQ;
+import io.zero88.jooqx.ReactiveSQLImpl.ReactiveSQLRBC;
+import io.zero88.jooqx.SQLImpl.SQLEI;
+import io.zero88.jooqx.adapter.SQLResultAdapter;
+import io.zero88.jooqx.adapter.SelectListResultAdapter;
 
 import lombok.Builder.Default;
 import lombok.Getter;
@@ -41,8 +41,8 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @SuperBuilder
 @Accessors(fluent = true)
-public final class ReactiveSQLExecutor<S extends SqlClient> extends SQLEI<S, Tuple, RowSet<Row>>
-    implements SQLTxExecutor<S, Tuple, RowSet<Row>, ReactiveSQLExecutor<S>>, ReactiveSQLBatchExecutor {
+public final class ReactiveJooqx<S extends SqlClient> extends SQLEI<S, Tuple, RowSet<Row>>
+    implements SQLTxExecutor<S, Tuple, RowSet<Row>, ReactiveJooqx<S>>, ReactiveSQLBatchExecutor {
 
     @Default
     @NonNull
@@ -59,7 +59,7 @@ public final class ReactiveSQLExecutor<S extends SqlClient> extends SQLEI<S, Tup
 
     @Override
     @SuppressWarnings("unchecked")
-    public @NonNull SQLTxExecutor<S, Tuple, RowSet<Row>, ReactiveSQLExecutor<S>> transaction() {
+    public @NonNull SQLTxExecutor<S, Tuple, RowSet<Row>, ReactiveJooqx<S>> transaction() {
         return this;
     }
 
@@ -84,7 +84,7 @@ public final class ReactiveSQLExecutor<S extends SqlClient> extends SQLEI<S, Tup
     }
 
     @Override
-    public <X> Future<X> run(@NonNull Function<ReactiveSQLExecutor<S>, Future<X>> function) {
+    public <X> Future<X> run(@NonNull Function<ReactiveJooqx<S>, Future<X>> function) {
         final S c = sqlClient();
         if (c instanceof Pool) {
             return ((Pool) c).getConnection()
@@ -102,18 +102,18 @@ public final class ReactiveSQLExecutor<S extends SqlClient> extends SQLEI<S, Tup
     }
 
     @Override
-    protected ReactiveSQLExecutor<S> withSqlClient(@NonNull S sqlClient) {
-        return ReactiveSQLExecutor.<S>builder().vertx(vertx())
-                                               .sqlClient(sqlClient)
-                                               .dsl(dsl())
-                                               .preparedQuery(preparedQuery())
-                                               .errorConverter(errorConverter())
-                                               .build();
+    protected ReactiveJooqx<S> withSqlClient(@NonNull S sqlClient) {
+        return ReactiveJooqx.<S>builder().vertx(vertx())
+                                         .sqlClient(sqlClient)
+                                         .dsl(dsl())
+                                         .preparedQuery(preparedQuery())
+                                         .errorConverter(errorConverter())
+                                         .build();
     }
 
     @SuppressWarnings("unchecked")
     private <X> Future<X> beginTx(@NonNull SqlConnection conn,
-                                  @NonNull Function<ReactiveSQLExecutor<S>, Future<X>> transaction) {
+                                  @NonNull Function<ReactiveJooqx<S>, Future<X>> transaction) {
         return conn.begin()
                    .flatMap(tx -> transaction.apply(withSqlClient((S) conn))
                                              .compose(res -> tx.commit().flatMap(v -> Future.succeededFuture(res)),

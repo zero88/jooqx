@@ -1,11 +1,11 @@
-package io.zero88.jooqx.spi;
+package io.zero88.jooqx.spi.db2;
 
 import java.sql.SQLException;
 
 import org.jooq.exception.DataAccessException;
 
-import io.zero88.jooqx.JooqErrorConverter;
 import io.vertx.db2client.DB2Exception;
+import io.zero88.jooqx.JooqErrorConverter;
 
 public final class DB2ErrorConverter implements JooqErrorConverter<DB2Exception> {
 

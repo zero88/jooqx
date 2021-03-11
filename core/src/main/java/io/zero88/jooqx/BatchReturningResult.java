@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.jooq.Query;
 
-import io.zero88.jooqx.adapter.SelectListResultAdapter;
 import io.vertx.core.Handler;
+import io.zero88.jooqx.adapter.SelectListResultAdapter;
 
 import lombok.NonNull;
 

@@ -9,8 +9,12 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import io.vertx.core.Vertx;
+import io.vertx.core.json.JsonObject;
+import io.vertx.junit5.Checkpoint;
+import io.vertx.junit5.VertxTestContext;
 import io.zero88.jooqx.JsonRecord;
-import io.zero88.jooqx.ReactiveDSLAdapter;
+import io.zero88.jooqx.ReactiveDSL;
 import io.zero88.jooqx.integtest.PostgreSQLHelper;
 import io.zero88.jooqx.integtest.pgsql.Public;
 import io.zero88.jooqx.integtest.pgsql.tables.pojos.Authors;
@@ -18,10 +22,6 @@ import io.zero88.jooqx.integtest.pgsql.tables.pojos.Books;
 import io.zero88.jooqx.integtest.pgsql.tables.records.AuthorsRecord;
 import io.zero88.jooqx.integtest.pgsql.tables.records.BooksRecord;
 import io.zero88.jooqx.spi.PostgreSQLReactiveTest.PostgreSQLPoolTest;
-import io.vertx.core.Vertx;
-import io.vertx.core.json.JsonObject;
-import io.vertx.junit5.Checkpoint;
-import io.vertx.junit5.VertxTestContext;
 
 class PgSQLComplexQueryTest extends PostgreSQLPoolTest implements PostgreSQLHelper {
 
@@ -42,7 +42,7 @@ class PgSQLComplexQueryTest extends PostgreSQLPoolTest implements PostgreSQLHelp
                                                      .join(schema.BOOKS_AUTHORS)
                                                      .onKey()
                                                      .where(schema.AUTHORS.ID.eq(2));
-        executor.execute(query, ReactiveDSLAdapter.instance().fetchJsonRecords(query.asTable()), ar -> {
+        executor.execute(query, ReactiveDSL.adapter().fetchJsonRecords(query.asTable()), ar -> {
             final List<JsonRecord<?>> records = assertRsSize(ctx, flag, ar, 2);
             ctx.verify(() -> {
                 Assertions.assertEquals(new JsonObject(
@@ -68,7 +68,7 @@ class PgSQLComplexQueryTest extends PostgreSQLPoolTest implements PostgreSQLHelp
                                                      .join(schema.BOOKS_AUTHORS)
                                                      .onKey()
                                                      .where(schema.AUTHORS.ID.eq(4));
-        executor.execute(query, ReactiveDSLAdapter.instance().fetchMany(query.asTable(), schema.AUTHORS), ar -> {
+        executor.execute(query, ReactiveDSL.adapter().fetchMany(query.asTable(), schema.AUTHORS), ar -> {
             final List<AuthorsRecord> records = assertRsSize(ctx, flag, ar, 1);
             final AuthorsRecord authorsRecord = records.get(0);
             ctx.verify(() -> {
@@ -93,7 +93,7 @@ class PgSQLComplexQueryTest extends PostgreSQLPoolTest implements PostgreSQLHelp
                                                      .join(schema.BOOKS)
                                                      .on(schema.BOOKS.ID.eq(schema.BOOKS_AUTHORS.BOOK_ID))
                                                      .where(schema.AUTHORS.ID.eq(1));
-        executor.execute(query, ReactiveDSLAdapter.instance().fetchJsonRecords(query.asTable()), ar -> {
+        executor.execute(query, ReactiveDSL.adapter().fetchJsonRecords(query.asTable()), ar -> {
             final List<JsonRecord<?>> records = assertRsSize(ctx, flag, ar, 3);
             ctx.verify(() -> {
                 final JsonRecord<?> record1 = records.get(0);
@@ -127,7 +127,7 @@ class PgSQLComplexQueryTest extends PostgreSQLPoolTest implements PostgreSQLHelp
         final Public schema = catalog().PUBLIC;
         AuthorsRecord a1 = new AuthorsRecord().setName("Lukas").setCountry("Ger");
         BooksRecord b1 = new BooksRecord().setTitle("jOOQ doc");
-        final ReactiveDSLAdapter adapter = ReactiveDSLAdapter.instance();
+        final ReactiveDSL adapter = ReactiveDSL.adapter();
         executor.transaction()
                 .run(tx -> tx.execute(dsl.insertInto(schema.AUTHORS, schema.AUTHORS.NAME, schema.AUTHORS.COUNTRY)
                                          .values(a1.value2(), a1.value3())

@@ -9,12 +9,12 @@ import org.testcontainers.containers.JdbcDatabaseContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
-import io.zero88.jooqx.DBProvider.DBContainerProvider;
-import io.zero88.jooqx.DBProvider.DBMemoryProvider;
 import io.github.zero88.utils.Strings;
 import io.vertx.core.Vertx;
 import io.vertx.junit5.VertxExtension;
 import io.vertx.junit5.VertxTestContext;
+import io.zero88.jooqx.DBProvider.DBContainerProvider;
+import io.zero88.jooqx.DBProvider.DBMemoryProvider;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;

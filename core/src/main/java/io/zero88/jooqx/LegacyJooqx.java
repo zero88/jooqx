@@ -29,7 +29,7 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @SuperBuilder
 @Accessors(fluent = true)
-public final class LegacySQLExecutor extends LegacySQLImpl.LegacySQLEI<SQLClient> {
+public final class LegacyJooqx extends LegacySQLImpl.LegacySQLEI<SQLClient> {
 
     @Override
     @SuppressWarnings("unchecked")
@@ -44,7 +44,7 @@ public final class LegacySQLExecutor extends LegacySQLImpl.LegacySQLEI<SQLClient
     }
 
     @Override
-    protected LegacySQLExecutor withSqlClient(@NonNull SQLClient sqlClient) {
+    protected LegacyJooqx withSqlClient(@NonNull SQLClient sqlClient) {
         throw new UnsupportedOperationException("No need");
     }
 
@@ -85,7 +85,7 @@ public final class LegacySQLExecutor extends LegacySQLImpl.LegacySQLEI<SQLClient
 
         @Override
         @SuppressWarnings("unchecked")
-        public @NonNull LegacySQLExecutor.LegacySQLTxExecutor transaction() {
+        public @NonNull LegacyJooqx.LegacySQLTxExecutor transaction() {
             return this;
         }
 

@@ -16,16 +16,16 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import io.zero88.jooqx.JsonRecord;
-import io.zero88.jooqx.ReactiveDSLAdapter;
-import io.zero88.jooqx.integtest.PostgreSQLHelper;
-import io.zero88.jooqx.integtest.pgsql.tables.records.AuthorsRecord;
-import io.zero88.jooqx.integtest.pgsql.tables.records.BooksRecord;
-import io.zero88.jooqx.spi.PostgreSQLReactiveTest.PostgreSQLClientTest;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
+import io.zero88.jooqx.JsonRecord;
+import io.zero88.jooqx.ReactiveDSL;
+import io.zero88.jooqx.integtest.PostgreSQLHelper;
+import io.zero88.jooqx.integtest.pgsql.tables.records.AuthorsRecord;
+import io.zero88.jooqx.integtest.pgsql.tables.records.BooksRecord;
+import io.zero88.jooqx.spi.PostgreSQLReactiveTest.PostgreSQLClientTest;
 
 /**
  * If using v4.0.0, pretty sure thread leak, but v4.0.2 is already fixed
@@ -45,7 +45,7 @@ class PgSQLSuccessTest extends PostgreSQLClientTest implements PostgreSQLHelper 
         final Checkpoint flag = ctx.checkpoint();
         final io.zero88.jooqx.integtest.pgsql.tables.Books table = catalog().PUBLIC.BOOKS;
         final SelectWhereStep<BooksRecord> query = executor.dsl().selectFrom(table);
-        executor.execute(query, ReactiveDSLAdapter.instance().fetchJsonRecords(table),
+        executor.execute(query, ReactiveDSL.adapter().fetchJsonRecords(table),
                          ar -> assertRsSize(ctx, flag, ar, 7));
     }
 
@@ -57,7 +57,7 @@ class PgSQLSuccessTest extends PostgreSQLClientTest implements PostgreSQLHelper 
                                                                     .selectCount()
                                                                     .from(table)
                                                                     .where(table.COUNTRY.eq("USA"));
-        executor.execute(query, ReactiveDSLAdapter.instance().fetchCount(query.asTable()), ar -> {
+        executor.execute(query, ReactiveDSL.adapter().fetchCount(query.asTable()), ar -> {
             ctx.verify(() -> Assertions.assertEquals(6, ar.result()));
             flag.flag();
         });
@@ -71,7 +71,7 @@ class PgSQLSuccessTest extends PostgreSQLClientTest implements PostgreSQLHelper 
         final SelectConditionStep<Record1<Integer>> q = dsl.selectOne()
                                                            .whereExists(dsl.selectFrom(table)
                                                                            .where(table.NAME.eq("Jane Austen")));
-        executor.execute(q, ReactiveDSLAdapter.instance().fetchExists(q.asTable()), ar -> {
+        executor.execute(q, ReactiveDSL.adapter().fetchExists(q.asTable()), ar -> {
             ctx.verify(() -> Assertions.assertTrue(ar.result()));
             flag.flag();
         });
@@ -87,7 +87,7 @@ class PgSQLSuccessTest extends PostgreSQLClientTest implements PostgreSQLHelper 
                                                              .orderBy(table.NAME.desc())
                                                              .limit(1)
                                                              .offset(1);
-        executor.execute(q, ReactiveDSLAdapter.instance().fetchJsonRecord(q.asTable()), ar -> {
+        executor.execute(q, ReactiveDSL.adapter().fetchJsonRecord(q.asTable()), ar -> {
             ctx.verify(() -> {
                 final JsonRecord<?> result = ar.result();
                 Assertions.assertNotNull(result);
@@ -106,7 +106,7 @@ class PgSQLSuccessTest extends PostgreSQLClientTest implements PostgreSQLHelper 
                                                              .selectFrom(table)
                                                              .where(table.COUNTRY.eq("USA"))
                                                              .orderBy(table.ID.desc());
-        executor.execute(q, ReactiveDSLAdapter.instance().fetchJsonRecord(q.asTable()), ar -> {
+        executor.execute(q, ReactiveDSL.adapter().fetchJsonRecord(q.asTable()), ar -> {
             ctx.verify(() -> {
                 final JsonRecord<?> result = ar.result();
                 Assertions.assertNotNull(result);
@@ -122,7 +122,7 @@ class PgSQLSuccessTest extends PostgreSQLClientTest implements PostgreSQLHelper 
         final Checkpoint flag = ctx.checkpoint(2);
         final io.zero88.jooqx.integtest.pgsql.tables.Authors table = catalog().PUBLIC.AUTHORS;
         final SelectWhereStep<AuthorsRecord> query = executor.dsl().selectFrom(table);
-        executor.execute(query, ReactiveDSLAdapter.instance().fetchMany(table, io.zero88.jooqx.integtest.pgsql.tables.pojos.Authors.class), ar -> {
+        executor.execute(query, ReactiveDSL.adapter().fetchMany(table, io.zero88.jooqx.integtest.pgsql.tables.pojos.Authors.class), ar -> {
             final List<io.zero88.jooqx.integtest.pgsql.tables.pojos.Authors> books = assertRsSize(ctx, flag, ar, 8);
             final io.zero88.jooqx.integtest.pgsql.tables.pojos.Authors authors = books.get(0);
             ctx.verify(() -> Assertions.assertEquals(1, authors.getId()));
@@ -135,7 +135,7 @@ class PgSQLSuccessTest extends PostgreSQLClientTest implements PostgreSQLHelper 
         final Checkpoint flag = ctx.checkpoint();
         final io.zero88.jooqx.integtest.pgsql.tables.Authors table = catalog().PUBLIC.AUTHORS;
         final SelectConditionStep<AuthorsRecord> query = executor.dsl().selectFrom(table).where(table.COUNTRY.eq("UK"));
-        executor.execute(query, ReactiveDSLAdapter.instance().fetchOne(table), ar -> {
+        executor.execute(query, ReactiveDSL.adapter().fetchOne(table), ar -> {
             ctx.verify(() -> {
                 Assertions.assertTrue(ar.succeeded());
                 final AuthorsRecord authors = ar.result();
@@ -155,7 +155,7 @@ class PgSQLSuccessTest extends PostgreSQLClientTest implements PostgreSQLHelper 
                                                              .insertInto(table, table.ID, table.TITLE)
                                                              .values(Arrays.asList(DSL.defaultValue(table.ID), "abc"))
                                                              .returning(table.ID);
-        executor.execute(insert, ReactiveDSLAdapter.instance().fetchOne(table, Collections.singletonList(table.ID)),
+        executor.execute(insert, ReactiveDSL.adapter().fetchOne(table, Collections.singletonList(table.ID)),
                          ar -> {
                              ctx.verify(() -> {
                                  final Record record = ar.result();

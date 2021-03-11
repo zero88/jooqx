@@ -27,10 +27,9 @@ import org.jooq.exception.SQLStateClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.zero88.jooqx.adapter.SelectStrategy;
-import io.zero88.jooqx.datatype.PgConverter;
 import io.vertx.core.Vertx;
 import io.vertx.core.buffer.Buffer;
+import io.zero88.jooqx.adapter.SelectStrategy;
 
 import lombok.AccessLevel;
 import lombok.Builder.Default;
@@ -138,9 +137,9 @@ final class SQLImpl {
                 }
                 return Buffer.buffer(bytes);
             }
-            if (param.getBinding().converter() instanceof PgConverter) {
-                return ((PgConverter) param.getBinding().converter()).rowConverter().to(val);
-            }
+            //            if (param.getBinding().converter() instanceof PgConverter) {
+            //                return ((PgConverter) param.getBinding().converter()).rowConverter().to(val);
+            //            }
             return ((Converter<Object, Object>) param.getBinding().converter()).to(val);
         }
 

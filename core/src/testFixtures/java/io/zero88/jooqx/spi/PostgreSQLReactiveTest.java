@@ -4,9 +4,6 @@ import java.util.concurrent.TimeUnit;
 
 import org.testcontainers.containers.PostgreSQLContainer;
 
-import io.zero88.jooqx.DBProvider.DBContainerProvider;
-import io.zero88.jooqx.ReactiveSQLTest;
-import io.zero88.jooqx.SQLConnectionOption;
 import io.vertx.core.Vertx;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
@@ -14,6 +11,9 @@ import io.vertx.pgclient.PgConnectOptions;
 import io.vertx.pgclient.PgConnection;
 import io.vertx.pgclient.PgPool;
 import io.vertx.sqlclient.SqlClient;
+import io.zero88.jooqx.DBProvider.DBContainerProvider;
+import io.zero88.jooqx.ReactiveSQLTest;
+import io.zero88.jooqx.SQLConnectionOption;
 
 public interface PostgreSQLReactiveTest<S extends SqlClient> extends PostgreSQLDBProvider,
                                                                      ReactiveSQLTest<S, PostgreSQLContainer<?>,

@@ -7,11 +7,11 @@ import org.jooq.Record;
 import org.jooq.Table;
 import org.jooq.TableLike;
 
+import io.vertx.sqlclient.Row;
+import io.vertx.sqlclient.RowSet;
 import io.zero88.jooqx.ReactiveSQLImpl.ReactiveDSLAI;
 import io.zero88.jooqx.ReactiveSQLImpl.ReactiveSQLRBC;
 import io.zero88.jooqx.adapter.SelectListResultAdapter;
-import io.vertx.sqlclient.Row;
-import io.vertx.sqlclient.RowSet;
 
 import lombok.NonNull;
 
@@ -21,13 +21,13 @@ import lombok.NonNull;
  * @see ReactiveSQLResultBatchConverter
  * @since 1.0.0
  */
-public interface ReactiveDSLAdapter extends DSLAdapter<RowSet<Row>, ReactiveSQLResultConverter> {
+public interface ReactiveDSL extends DSLAdapter<RowSet<Row>, ReactiveSQLResultConverter> {
 
-    static @NonNull ReactiveDSLAdapter instance() {
+    static @NonNull ReactiveDSL adapter() {
         return new ReactiveDSLAI();
     }
 
-    static @NonNull ReactiveDSLAdapter create(@NonNull ReactiveSQLResultConverter converter) {
+    static @NonNull ReactiveDSL create(@NonNull ReactiveSQLResultConverter converter) {
         return new ReactiveDSLAI(converter);
     }
 

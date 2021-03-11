@@ -11,9 +11,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.PostgreSQLContainer;
 
+import io.vertx.core.Vertx;
+import io.vertx.core.json.JsonObject;
+import io.vertx.junit5.Checkpoint;
+import io.vertx.junit5.VertxTestContext;
 import io.zero88.jooqx.BindBatchValues;
+import io.zero88.jooqx.JooqErrorConverter.JDBCErrorConverter;
 import io.zero88.jooqx.JsonRecord;
-import io.zero88.jooqx.LegacyDSLAdapter;
+import io.zero88.jooqx.LegacyDSL;
 import io.zero88.jooqx.LegacySQLTest.LegacyDBContainerTest;
 import io.zero88.jooqx.SQLErrorConverter;
 import io.zero88.jooqx.integtest.PostgreSQLHelper;
@@ -21,12 +26,7 @@ import io.zero88.jooqx.integtest.pgsql.tables.Authors;
 import io.zero88.jooqx.integtest.pgsql.tables.Books;
 import io.zero88.jooqx.integtest.pgsql.tables.records.AuthorsRecord;
 import io.zero88.jooqx.integtest.pgsql.tables.records.BooksRecord;
-import io.zero88.jooqx.spi.JDBCErrorConverter;
 import io.zero88.jooqx.spi.PostgreSQLLegacyTest;
-import io.vertx.core.Vertx;
-import io.vertx.core.json.JsonObject;
-import io.vertx.junit5.Checkpoint;
-import io.vertx.junit5.VertxTestContext;
 
 class PgSQLLegacyTest extends LegacyDBContainerTest<PostgreSQLContainer<?>>
     implements PostgreSQLLegacyTest, PostgreSQLHelper {
@@ -47,7 +47,7 @@ class PgSQLLegacyTest extends LegacyDBContainerTest<PostgreSQLContainer<?>>
     void test_query(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
         final Books table = catalog().PUBLIC.BOOKS;
-        executor.execute(executor.dsl().selectFrom(table), LegacyDSLAdapter.instance().fetchMany(table),
+        executor.execute(executor.dsl().selectFrom(table), LegacyDSL.adapter().fetchMany(table),
                          ar -> assertRsSize(ctx, flag, ar, 7));
     }
 
@@ -59,7 +59,7 @@ class PgSQLLegacyTest extends LegacyDBContainerTest<PostgreSQLContainer<?>>
                                                              .insertInto(table, table.ID, table.TITLE)
                                                              .values(Arrays.asList(DSL.defaultValue(table.ID), "abc"))
                                                              .returning(table.ID);
-        executor.execute(insert, LegacyDSLAdapter.instance().fetchJsonRecord(table), ar -> {
+        executor.execute(insert, LegacyDSL.adapter().fetchJsonRecord(table), ar -> {
             ctx.verify(
                 () -> Assertions.assertEquals(new JsonObject().put("id", 8).put("title", null), ar.result().toJson()));
             flag.flag();
@@ -82,7 +82,7 @@ class PgSQLLegacyTest extends LegacyDBContainerTest<PostgreSQLContainer<?>>
         executor.batch(insert, bindValues, ar -> {
             ctx.verify(() -> Assertions.assertEquals(3, ar.result().getSuccesses()));
             flag.flag();
-            executor.execute(executor.dsl().selectFrom(table), LegacyDSLAdapter.instance().fetchJsonRecords(table),
+            executor.execute(executor.dsl().selectFrom(table), LegacyDSL.adapter().fetchJsonRecords(table),
                              ar2 -> {
                                  final List<JsonRecord<?>> records = assertRsSize(ctx, flag, ar2, 10);
                                  ctx.verify(() -> {
@@ -107,16 +107,16 @@ class PgSQLLegacyTest extends LegacyDBContainerTest<PostgreSQLContainer<?>>
                                         .update(table)
                                         .set(DSL.row(table.TITLE), DSL.row("something"))
                                         .where(table.ID.eq(1))
-                                        .returning(), LegacyDSLAdapter.instance().fetchOne(table))
+                                        .returning(), LegacyDSL.adapter().fetchOne(table))
                              .flatMap(r -> tx.execute(tx.dsl()
                                                         .update(table)
                                                         .set(DSL.row(table.TITLE), DSL.row((String) null))
                                                         .where(table.ID.eq(2))
-                                                        .returning(), LegacyDSLAdapter.instance().fetchOne(table))),
+                                                        .returning(), LegacyDSL.adapter().fetchOne(table))),
                      ar -> {
                          assertJooqException(ctx, flag, ar, SQLStateClass.C23_INTEGRITY_CONSTRAINT_VIOLATION);
                          executor.execute(executor.dsl().selectFrom(table).where(table.ID.eq(1)),
-                                          LegacyDSLAdapter.instance().fetchOne(table), ar2 -> {
+                                          LegacyDSL.adapter().fetchOne(table), ar2 -> {
                                  ctx.verify(
                                      () -> Assertions.assertEquals("The Catcher in the Rye", ar2.result().getTitle()));
                                  flag.flag();
@@ -141,7 +141,7 @@ class PgSQLLegacyTest extends LegacyDBContainerTest<PostgreSQLContainer<?>>
                                              "  Detail: Failing row contains (10, n2, null).  Call " +
                                              "getNextException to see other errors in the batch.");
                          executor.execute(executor.dsl().selectFrom(table),
-                                          LegacyDSLAdapter.instance().fetchMany(table),
+                                          LegacyDSL.adapter().fetchMany(table),
                                           ar2 -> assertRsSize(ctx, flag, ar2, 8));
                      });
     }

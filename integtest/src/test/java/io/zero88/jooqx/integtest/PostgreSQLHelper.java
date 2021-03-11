@@ -2,11 +2,11 @@ package io.zero88.jooqx.integtest;
 
 import org.jooq.SQLDialect;
 
+import io.github.zero88.utils.Strings;
+import io.vertx.junit5.VertxTestContext;
 import io.zero88.jooqx.JooqSQL;
 import io.zero88.jooqx.SQLConnectionOption;
 import io.zero88.jooqx.integtest.pgsql.DefaultCatalog;
-import io.github.zero88.utils.Strings;
-import io.vertx.junit5.VertxTestContext;
 
 import com.zaxxer.hikari.HikariDataSource;
 

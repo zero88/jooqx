@@ -14,25 +14,25 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import io.zero88.jooqx.BatchResult;
-import io.zero88.jooqx.BatchReturningResult;
-import io.zero88.jooqx.BindBatchValues;
-import io.zero88.jooqx.JsonRecord;
-import io.zero88.jooqx.ReactiveDSLAdapter;
-import io.zero88.jooqx.SQLErrorConverter;
-import io.zero88.jooqx.integtest.PostgreSQLHelper;
-import io.zero88.jooqx.integtest.pgsql.tables.records.AuthorsRecord;
-import io.zero88.jooqx.integtest.pgsql.tables.records.BooksRecord;
-import io.zero88.jooqx.spi.PgErrorConverter;
-import io.zero88.jooqx.spi.PostgreSQLReactiveTest.PostgreSQLPoolTest;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.Json;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
+import io.zero88.jooqx.BatchResult;
+import io.zero88.jooqx.BatchReturningResult;
+import io.zero88.jooqx.BindBatchValues;
+import io.zero88.jooqx.JsonRecord;
+import io.zero88.jooqx.ReactiveDSL;
+import io.zero88.jooqx.SQLErrorConverter;
+import io.zero88.jooqx.integtest.PostgreSQLHelper;
 import io.zero88.jooqx.integtest.pgsql.tables.Authors;
 import io.zero88.jooqx.integtest.pgsql.tables.Books;
+import io.zero88.jooqx.integtest.pgsql.tables.records.AuthorsRecord;
+import io.zero88.jooqx.integtest.pgsql.tables.records.BooksRecord;
+import io.zero88.jooqx.spi.PostgreSQLReactiveTest.PostgreSQLPoolTest;
+import io.zero88.jooqx.spi.pg.PgErrorConverter;
 
 class PgSQLBatchInPoolTest extends PostgreSQLPoolTest implements PostgreSQLHelper {
 
@@ -75,8 +75,7 @@ class PgSQLBatchInPoolTest extends PostgreSQLPoolTest implements PostgreSQLHelpe
                         Assertions.assertEquals("[{\"id\":9,\"name\":\"abc\",\"country\":\"AU\"},{\"id\":10," +
                                                 "\"name\":\"haha\",\"country\":\"VN\"}]", v);
                     });
-                    executor.execute(executor.dsl().selectFrom(table),
-                                     ReactiveDSLAdapter.instance().fetchJsonRecords(table),
+                    executor.execute(executor.dsl().selectFrom(table), ReactiveDSL.adapter().fetchJsonRecords(table),
                                      ar2 -> assertRsSize(ctx, flag, ar2, 10));
                 } else {
                     ctx.failNow(ar.cause());
@@ -85,7 +84,7 @@ class PgSQLBatchInPoolTest extends PostgreSQLPoolTest implements PostgreSQLHelpe
                 flag.flag();
             }
         };
-        executor.batch(insert, bindValues, ReactiveDSLAdapter.instance().batchJsonRecords(table), handler);
+        executor.batch(insert, bindValues, ReactiveDSL.adapter().batchJsonRecords(table), handler);
     }
 
     @Test
@@ -113,8 +112,7 @@ class PgSQLBatchInPoolTest extends PostgreSQLPoolTest implements PostgreSQLHelpe
                         Assertions.assertEquals(10, result.getRecords().get(1).value1());
                         System.out.println(records);
                     });
-                    executor.execute(executor.dsl().selectFrom(table),
-                                     ReactiveDSLAdapter.instance().fetchJsonRecords(table),
+                    executor.execute(executor.dsl().selectFrom(table), ReactiveDSL.adapter().fetchJsonRecords(table),
                                      ar2 -> assertRsSize(ctx, flag, ar2, 10));
                 } else {
                     ctx.failNow(ar.cause());
@@ -123,8 +121,8 @@ class PgSQLBatchInPoolTest extends PostgreSQLPoolTest implements PostgreSQLHelpe
                 flag.flag();
             }
         };
-        executor.batch(insert, bindValues,
-                       ReactiveDSLAdapter.instance().batch(table, executor.dsl().newRecord(table.ID)), handler);
+        executor.batch(insert, bindValues, ReactiveDSL.adapter().batch(table, executor.dsl().newRecord(table.ID)),
+                       handler);
     }
 
     @Test
@@ -147,8 +145,7 @@ class PgSQLBatchInPoolTest extends PostgreSQLPoolTest implements PostgreSQLHelpe
                         Assertions.assertEquals(2, result.getTotal());
                         Assertions.assertEquals(2, result.getSuccesses());
                     });
-                    executor.execute(executor.dsl().selectFrom(table),
-                                     ReactiveDSLAdapter.instance().fetchJsonRecords(table),
+                    executor.execute(executor.dsl().selectFrom(table), ReactiveDSL.adapter().fetchJsonRecords(table),
                                      ar2 -> assertRsSize(ctx, flag, ar2, 10));
                 } else {
                     ctx.failNow(ar.cause());
@@ -172,12 +169,12 @@ class PgSQLBatchInPoolTest extends PostgreSQLPoolTest implements PostgreSQLHelpe
                                                        .insertInto(table, table.ID, table.TITLE)
                                                        .values(Arrays.asList(DSL.defaultValue(table.ID), "xyz"))
                                                        .returning(table.ID);
-            return tx.execute(q1, ReactiveDSLAdapter.instance().fetchOne(table))
-                     .flatMap(b1 -> tx.execute(q2, ReactiveDSLAdapter.instance().fetchOne(table)));
+            return tx.execute(q1, ReactiveDSL.adapter().fetchOne(table))
+                     .flatMap(b1 -> tx.execute(q2, ReactiveDSL.adapter().fetchOne(table)));
         }, ar -> {
             context.verify(() -> {
                 Assertions.assertTrue(ar.succeeded());
-                executor.execute(executor.dsl().selectFrom(table), ReactiveDSLAdapter.instance().fetchMany(table),
+                executor.execute(executor.dsl().selectFrom(table), ReactiveDSL.adapter().fetchMany(table),
                                  ar2 -> assertRsSize(context, flag, ar2, 9));
             });
             flag.flag();
@@ -197,15 +194,15 @@ class PgSQLBatchInPoolTest extends PostgreSQLPoolTest implements PostgreSQLHelpe
                                                        .insertInto(table, table.ID, table.TITLE)
                                                        .values(1, "xyz")
                                                        .returning(table.ID);
-            return tx.execute(q1, ReactiveDSLAdapter.instance().fetchOne(table))
-                     .flatMap(b1 -> tx.execute(q2, ReactiveDSLAdapter.instance().fetchOne(table)));
+            return tx.execute(q1, ReactiveDSL.adapter().fetchOne(table))
+                     .flatMap(b1 -> tx.execute(q2, ReactiveDSL.adapter().fetchOne(table)));
         }, ar -> {
             context.verify(() -> {
                 Assertions.assertTrue(ar.failed());
                 Assertions.assertTrue(ar.cause() instanceof DataAccessException);
                 Assertions.assertEquals(SQLStateClass.C23_INTEGRITY_CONSTRAINT_VIOLATION,
                                         ((DataAccessException) ar.cause()).sqlStateClass());
-                executor.execute(executor.dsl().selectFrom(table), ReactiveDSLAdapter.instance().fetchMany(table),
+                executor.execute(executor.dsl().selectFrom(table), ReactiveDSL.adapter().fetchMany(table),
                                  ar2 -> assertRsSize(context, flag, ar2, 7));
             });
             flag.flag();
@@ -229,7 +226,7 @@ class PgSQLBatchInPoolTest extends PostgreSQLPoolTest implements PostgreSQLHelpe
         }, ar -> {
             context.verify(() -> {
                 Assertions.assertTrue(ar.succeeded());
-                executor.execute(executor.dsl().selectFrom(table), ReactiveDSLAdapter.instance().fetchMany(table),
+                executor.execute(executor.dsl().selectFrom(table), ReactiveDSL.adapter().fetchMany(table),
                                  ar2 -> assertRsSize(context, flag, ar2, 10));
             });
             flag.flag();

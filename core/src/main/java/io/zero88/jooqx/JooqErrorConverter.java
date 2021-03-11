@@ -5,8 +5,6 @@ import java.util.function.Function;
 
 import org.jooq.exception.DataAccessException;
 
-import io.zero88.jooqx.spi.JDBCErrorConverter;
-
 import lombok.NonNull;
 
 /**
@@ -38,6 +36,20 @@ public interface JooqErrorConverter<A extends Throwable> extends SQLErrorConvert
             return new JDBCErrorConverter().handle(t);
         }
         return DEFAULT.handle(t);
+    }
+
+    final class JDBCErrorConverter implements JooqErrorConverter<SQLException> {
+
+        @Override
+        public DataAccessException apply(SQLException throwable) {
+            return new DataAccessException(throwable.getMessage(), throwable);
+        }
+
+        @Override
+        public Class<SQLException> throwableType() {
+            return SQLException.class;
+        }
+
     }
 
 }

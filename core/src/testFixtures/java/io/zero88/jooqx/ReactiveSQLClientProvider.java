@@ -1,6 +1,5 @@
 package io.zero88.jooqx;
 
-import io.zero88.jooqx.ReactiveSQLImpl.ReactiveSQLPQ;
 import io.vertx.core.Vertx;
 import io.vertx.jdbcclient.JDBCConnectOptions;
 import io.vertx.jdbcclient.JDBCPool;
@@ -9,6 +8,7 @@ import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.RowSet;
 import io.vertx.sqlclient.SqlClient;
 import io.vertx.sqlclient.Tuple;
+import io.zero88.jooqx.ReactiveSQLImpl.ReactiveSQLPQ;
 
 public interface ReactiveSQLClientProvider<S extends SqlClient> extends SQLClientProvider<S> {
 
@@ -18,16 +18,16 @@ public interface ReactiveSQLClientProvider<S extends SqlClient> extends SQLClien
     }
 
     interface ReactiveSQLExecutorProvider<S extends SqlClient>
-        extends SQLExecutorProvider<S, Tuple, RowSet<Row>, ReactiveSQLExecutor<S>> {
+        extends SQLExecutorProvider<S, Tuple, RowSet<Row>, ReactiveJooqx<S>> {
 
         @Override
-        default ReactiveSQLExecutor<S> createExecutor(Vertx vertx, JooqDSLProvider dslProvider, S sqlClient) {
-            return ReactiveSQLExecutor.<S>builder().vertx(vertx)
-                                                   .dsl(dslProvider.dsl())
-                                                   .sqlClient(sqlClient)
-                                                   .preparedQuery(createPreparedQuery())
-                                                   .errorConverter(createErrorConverter())
-                                                   .build();
+        default ReactiveJooqx<S> createExecutor(Vertx vertx, JooqDSLProvider dslProvider, S sqlClient) {
+            return ReactiveJooqx.<S>builder().vertx(vertx)
+                                             .dsl(dslProvider.dsl())
+                                             .sqlClient(sqlClient)
+                                             .preparedQuery(createPreparedQuery())
+                                             .errorConverter(createErrorConverter())
+                                             .build();
         }
 
         @Override

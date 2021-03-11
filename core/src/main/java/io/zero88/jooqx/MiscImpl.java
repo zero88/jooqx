@@ -14,11 +14,11 @@ import org.jooq.TableLike;
 import org.jooq.TableRecord;
 import org.jooq.impl.CustomRecord;
 
+import io.vertx.core.json.JsonObject;
 import io.zero88.jooqx.adapter.SelectCountResultAdapter;
 import io.zero88.jooqx.adapter.SelectExistsResultAdapter;
 import io.zero88.jooqx.adapter.SelectListResultAdapter;
 import io.zero88.jooqx.adapter.SelectOneResultAdapter;
-import io.vertx.core.json.JsonObject;
 
 import lombok.AccessLevel;
 import lombok.Getter;

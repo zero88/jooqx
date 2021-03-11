@@ -1,20 +1,20 @@
-package io.zero88.jooqx.datatype;
+package io.zero88.jooqx.spi.pg.datatype;
 
 import java.util.function.Function;
 
 import org.jooq.Converter;
 import org.jooq.JSONB;
 
-import io.vertx.core.json.JsonObject;
+import io.vertx.core.json.JsonArray;
 
 /**
  * @author jensklingsporn
  */
-public class JSONBToJsonObjectBinding extends PGJsonToVertxJsonBinding<JSONB, JsonObject> {
+public class JSONBToJsonArrayBinding extends PGJsonToVertxJsonBinding<JSONB, JsonArray> {
 
     @Override
-    public Converter<JSONB, JsonObject> converter() {
-        return JSONBToJsonObjectConverter.getInstance();
+    public Converter<JSONB, JsonArray> converter() {
+        return JSONBToJsonArrayConverter.getInstance();
     }
 
     @Override

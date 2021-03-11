@@ -15,15 +15,15 @@ import org.jooq.Record;
 import org.jooq.Table;
 import org.jooq.TableLike;
 
-import io.zero88.jooqx.MiscImpl.DSLAI;
-import io.zero88.jooqx.SQLImpl.SQLPQ;
-import io.zero88.jooqx.SQLImpl.SQLRSC;
-import io.zero88.jooqx.adapter.SelectStrategy;
 import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.RowIterator;
 import io.vertx.sqlclient.RowSet;
 import io.vertx.sqlclient.Tuple;
 import io.vertx.sqlclient.impl.ArrayTuple;
+import io.zero88.jooqx.MiscImpl.DSLAI;
+import io.zero88.jooqx.SQLImpl.SQLPQ;
+import io.zero88.jooqx.SQLImpl.SQLRSC;
+import io.zero88.jooqx.adapter.SelectStrategy;
 
 import lombok.NonNull;
 
@@ -107,7 +107,7 @@ final class ReactiveSQLImpl {
 
 
     static final class ReactiveDSLAI extends DSLAI<RowSet<Row>, ReactiveSQLResultConverter>
-        implements ReactiveDSLAdapter {
+        implements ReactiveDSL {
 
         ReactiveDSLAI() { super(new ReactiveSQLRSC()); }
 

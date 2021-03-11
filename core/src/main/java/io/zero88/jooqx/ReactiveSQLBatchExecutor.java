@@ -3,13 +3,13 @@ package io.zero88.jooqx;
 import org.jooq.Query;
 import org.jooq.TableLike;
 
-import io.zero88.jooqx.adapter.SelectListResultAdapter;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
 import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.RowSet;
 import io.vertx.sqlclient.SqlClient;
+import io.zero88.jooqx.adapter.SelectListResultAdapter;
 
 import lombok.NonNull;
 

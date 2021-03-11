@@ -1,11 +1,11 @@
-package io.zero88.jooqx.spi;
+package io.zero88.jooqx.spi.mssql;
 
 import java.sql.SQLException;
 
 import org.jooq.exception.DataAccessException;
 
-import io.zero88.jooqx.JooqErrorConverter;
 import io.vertx.mssqlclient.MSSQLException;
+import io.zero88.jooqx.JooqErrorConverter;
 
 public final class MSSQLErrorConverter implements JooqErrorConverter<MSSQLException> {
 

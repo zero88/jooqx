@@ -7,12 +7,15 @@ plugins {
 }
 
 dependencies {
+
+    testImplementation(project(":spi"))
+    testImplementation(testFixtures(project(":core")))
+
     jooqGenerator(DatabaseLibs.h2)
     jooqGenerator(DatabaseLibs.pgsql)
     jooqGenerator(DatabaseLibs.mysql)
     jooqGenerator(DatabaseLibs.jooqMetaExt)
 
-    testImplementation(testFixtures(project(":core")))
     testImplementation(DatabaseLibs.agroalApi)
     testImplementation(DatabaseLibs.agroalPool)
     testImplementation(DatabaseLibs.hikari)

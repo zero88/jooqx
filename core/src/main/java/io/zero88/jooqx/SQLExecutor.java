@@ -4,13 +4,13 @@ import org.jooq.DSLContext;
 import org.jooq.Query;
 import org.jooq.TableLike;
 
-import io.zero88.jooqx.adapter.SQLResultAdapter;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.ext.sql.SQLClient;
 import io.vertx.sqlclient.SqlClient;
+import io.zero88.jooqx.adapter.SQLResultAdapter;
 
 import lombok.NonNull;
 
@@ -20,8 +20,8 @@ import lombok.NonNull;
  * @param <S>  Type of Vertx SQL client. Might be {@link SqlClient} or {@link SQLClient}
  * @param <P>  Type of Vertx SQL bind value holder
  * @param <RS> Type of Vertx SQL Result set holder
- * @see LegacySQLExecutor
- * @see ReactiveSQLExecutor
+ * @see LegacyJooqx
+ * @see ReactiveJooqx
  * @see SQLBatchExecutor
  * @since 1.0.0
  */

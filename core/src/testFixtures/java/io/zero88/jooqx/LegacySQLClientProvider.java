@@ -1,6 +1,5 @@
 package io.zero88.jooqx;
 
-import io.zero88.jooqx.LegacySQLImpl.LegacySQLPQ;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
@@ -9,6 +8,7 @@ import io.vertx.ext.jdbc.spi.impl.HikariCPDataSourceProvider;
 import io.vertx.ext.sql.ResultSet;
 import io.vertx.ext.sql.SQLClient;
 import io.vertx.junit5.VertxTestContext;
+import io.zero88.jooqx.LegacySQLImpl.LegacySQLPQ;
 
 public interface LegacySQLClientProvider extends SQLClientProvider<SQLClient> {
 
@@ -33,17 +33,17 @@ public interface LegacySQLClientProvider extends SQLClientProvider<SQLClient> {
     }
 
     interface LegacySQLExecutorProvider
-        extends SQLExecutorProvider<SQLClient, JsonArray, ResultSet, LegacySQLExecutor> {
+        extends SQLExecutorProvider<SQLClient, JsonArray, ResultSet, LegacyJooqx> {
 
         @Override
-        default LegacySQLExecutor createExecutor(Vertx vertx, JooqDSLProvider dslProvider, SQLClient sqlClient) {
-            return LegacySQLExecutor.builder()
-                                    .vertx(vertx)
-                                    .dsl(dslProvider.dsl())
-                                    .sqlClient(sqlClient)
-                                    .preparedQuery(createPreparedQuery())
-                                    .errorConverter(createErrorConverter())
-                                    .build();
+        default LegacyJooqx createExecutor(Vertx vertx, JooqDSLProvider dslProvider, SQLClient sqlClient) {
+            return LegacyJooqx.builder()
+                              .vertx(vertx)
+                              .dsl(dslProvider.dsl())
+                              .sqlClient(sqlClient)
+                              .preparedQuery(createPreparedQuery())
+                              .errorConverter(createErrorConverter())
+                              .build();
         }
 
         @Override

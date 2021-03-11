@@ -10,14 +10,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.testcontainers.containers.PostgreSQLContainer;
 
+import io.vertx.core.Vertx;
+import io.vertx.junit5.Checkpoint;
+import io.vertx.junit5.VertxTestContext;
 import io.zero88.jooqx.LegacySQLTest.LegacyDBContainerTest;
 import io.zero88.jooqx.integtest.PostgreSQLHelper;
 import io.zero88.jooqx.integtest.pgsql.tables.Authors;
 import io.zero88.jooqx.integtest.pgsql.tables.records.AuthorsRecord;
 import io.zero88.jooqx.spi.PostgreSQLLegacyTest;
-import io.vertx.core.Vertx;
-import io.vertx.junit5.Checkpoint;
-import io.vertx.junit5.VertxTestContext;
 
 class PgSQLjOOQTest extends LegacyDBContainerTest<PostgreSQLContainer<?>>
     implements PostgreSQLLegacyTest, PostgreSQLHelper {

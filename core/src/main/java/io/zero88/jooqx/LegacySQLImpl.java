@@ -18,6 +18,12 @@ import org.jooq.Table;
 import org.jooq.TableLike;
 import org.jooq.conf.ParamType;
 
+import io.vertx.core.Future;
+import io.vertx.core.Promise;
+import io.vertx.core.json.JsonArray;
+import io.vertx.ext.sql.ResultSet;
+import io.vertx.ext.sql.SQLConnection;
+import io.vertx.ext.sql.SQLOperations;
 import io.zero88.jooqx.MiscImpl.BatchResultImpl;
 import io.zero88.jooqx.MiscImpl.DSLAI;
 import io.zero88.jooqx.SQLImpl.SQLEI;
@@ -25,12 +31,6 @@ import io.zero88.jooqx.SQLImpl.SQLPQ;
 import io.zero88.jooqx.SQLImpl.SQLRSC;
 import io.zero88.jooqx.adapter.SQLResultAdapter;
 import io.zero88.jooqx.adapter.SelectStrategy;
-import io.vertx.core.Future;
-import io.vertx.core.Promise;
-import io.vertx.core.json.JsonArray;
-import io.vertx.ext.sql.ResultSet;
-import io.vertx.ext.sql.SQLConnection;
-import io.vertx.ext.sql.SQLOperations;
 
 import lombok.Builder.Default;
 import lombok.Getter;
@@ -102,7 +102,7 @@ final class LegacySQLImpl {
     }
 
 
-    static final class LegacyDSLAI extends DSLAI<ResultSet, LegacySQLResultConverter> implements LegacyDSLAdapter {
+    static final class LegacyDSLAI extends DSLAI<ResultSet, LegacySQLResultConverter> implements LegacyDSL {
 
         LegacyDSLAI(@NonNull LegacySQLResultConverter converter) {
             super(converter);
