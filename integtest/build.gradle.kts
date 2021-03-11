@@ -60,7 +60,7 @@ jooq {
                         isDaos = true
                     }
                     target.apply {
-                        packageName = "io.github.zero88.jooq.vertx.integtest.h2"
+                        packageName = "io.zero88.jooqx.integtest.h2"
                         directory = "build/generated/h2"
                     }
                 }
@@ -96,7 +96,7 @@ jooq {
                         isDaos = true
                     }
                     target.apply {
-                        packageName = "io.github.zero88.jooq.vertx.integtest.pgsql"
+                        packageName = "io.zero88.jooqx.integtest.pgsql"
                         directory = "build/generated/pgsql"
                     }
                 }
@@ -132,7 +132,7 @@ jooq {
                         isDaos = true
                     }
                     target.apply {
-                        packageName = "io.github.zero88.jooq.vertx.integtest.mysql"
+                        packageName = "io.zero88.jooqx.integtest.mysql"
                         directory = "build/generated/mysql"
                     }
                 }

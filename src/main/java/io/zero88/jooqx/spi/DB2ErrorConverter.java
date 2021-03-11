@@ -1,0 +1,24 @@
+package io.zero88.jooqx.spi;
+
+import java.sql.SQLException;
+
+import org.jooq.exception.DataAccessException;
+
+import io.zero88.jooqx.JooqErrorConverter;
+import io.vertx.db2client.DB2Exception;
+
+public final class DB2ErrorConverter implements JooqErrorConverter<DB2Exception> {
+
+    @Override
+    public DataAccessException apply(DB2Exception e) {
+        return new DataAccessException(e.getMessage(),
+                                       new SQLException(e.getMessage(), e.getSqlState(), e.getErrorCode(),
+                                                        e.getCause()));
+    }
+
+    @Override
+    public Class<DB2Exception> throwableType() {
+        return DB2Exception.class;
+    }
+
+}

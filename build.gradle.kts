@@ -11,7 +11,7 @@ plugins {
 //apply(plugin = ZeroLibs.Plugins.root)
 allprojects {
     apply(plugin = ZeroLibs.Plugins.oss)
-    group = "io.github.zero88.jooq"
+    group = "io.github.zero88"
 
     repositories {
         mavenLocal()
