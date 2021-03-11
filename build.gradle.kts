@@ -68,10 +68,9 @@ allprojects {
 dependencies {
     api(LogLibs.slf4j)
     api(VertxLibs.core)
-    api(DatabaseLibs.jooq) {
-        exclude("org.reactivestreams")
-    }
+    api(DatabaseLibs.jooq)
 //    api(ZeroLibs.rql_jooq)
+
     compileOnly(VertxLibs.sqlClient)
     compileOnly(VertxLibs.jdbc)
     compileOnly(VertxLibs.pgsql)
