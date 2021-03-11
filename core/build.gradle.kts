@@ -11,7 +11,7 @@ dependencies {
     compileOnly(VertxLibs.jdbc)
     compileOnly(VertxLibs.rx2)
     compileOnly(VertxLibs.codegen)
-    annotationProcessor(VertxLibs.codegen)
+    annotationProcessor("${VertxLibs.codegen}:processor")
 
     testFixturesApi(project(":spi"))
     testFixturesApi(LogLibs.logback)
@@ -50,7 +50,7 @@ tasks.register<JavaCompile>("annotationProcessing") {
     destinationDir = project.file("src/main/generated")
     options.compilerArgs = listOf(
         "-proc:only",
-//        "-processor","io.vertx.codegen.CodeGenProcessor",
+        "-processor", "io.vertx.codegen.CodeGenProcessor",
         "-Acodegen.output=${project.projectDir}/src/main"
     )
 }
