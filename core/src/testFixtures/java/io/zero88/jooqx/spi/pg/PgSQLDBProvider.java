@@ -1,4 +1,4 @@
-package io.zero88.jooqx.spi;
+package io.zero88.jooqx.spi.pg;
 
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
@@ -6,9 +6,9 @@ import org.testcontainers.utility.DockerImageName;
 import io.zero88.jooqx.DBProvider.DBContainerProvider;
 import io.zero88.jooqx.HasDBProvider;
 
-public interface PostgreSQLDBProvider extends DBContainerProvider<PostgreSQLContainer<?>>,
-                                              HasDBProvider<PostgreSQLContainer<?>,
-                                                               DBContainerProvider<PostgreSQLContainer<?>>> {
+public interface PgSQLDBProvider extends DBContainerProvider<PostgreSQLContainer<?>>,
+                                         HasDBProvider<PostgreSQLContainer<?>,
+                                                          DBContainerProvider<PostgreSQLContainer<?>>> {
 
     @Override
     default PostgreSQLContainer<?> get() {
@@ -28,7 +28,7 @@ public interface PostgreSQLDBProvider extends DBContainerProvider<PostgreSQLCont
     }
 
     @Override
-    default PostgreSQLDBProvider dbProvider() {
+    default PgSQLDBProvider dbProvider() {
         return this;
     }
 

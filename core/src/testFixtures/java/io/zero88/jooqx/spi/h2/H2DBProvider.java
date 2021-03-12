@@ -1,4 +1,4 @@
-package io.zero88.jooqx.spi;
+package io.zero88.jooqx.spi.h2;
 
 import java.util.UUID;
 

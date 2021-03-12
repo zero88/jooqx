@@ -10,6 +10,7 @@ dependencies {
     compileOnly(VertxLibs.sqlClient)
     compileOnly(VertxLibs.jdbc)
 
+    testFixturesApi(project(":spi"))
     testFixturesApi(LogLibs.logback)
     testFixturesApi(TestLibs.junit5Api)
     testFixturesApi(TestLibs.junit5Engine)
