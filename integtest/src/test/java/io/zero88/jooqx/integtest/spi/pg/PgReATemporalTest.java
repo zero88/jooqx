@@ -1,7 +1,5 @@
 package io.zero88.jooqx.integtest.spi.pg;
 
-import java.util.Objects;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,19 +22,16 @@ class PgReATemporalTest extends PgSQLReactiveTest<PgPool>
     @BeforeEach
     public void tearUp(Vertx vertx, VertxTestContext ctx) {
         super.tearUp(vertx, ctx);
-        this.prepareDatabase(ctx, this, connOpt, "pg_datatype/temporal.sql");
+        this.prepareDatabase(ctx, this, connOpt, "pg_data/temporal.sql");
     }
 
     @Test
     void queryTemporal(VertxTestContext ctx) {
-        final Checkpoint flag = ctx.checkpoint();
+        Checkpoint cp = ctx.checkpoint();
         final TemporalDataType table = catalog().PUBLIC.TEMPORAL_DATA_TYPE;
         jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), ReactiveDSL.adapter().fetchOne(table), ar -> {
-            if (Objects.nonNull(ar.cause())) {
-                ar.cause().printStackTrace();
-            }
-            final TemporalDataTypeRecord record = ar.result();
             ctx.verify(() -> {
+                final TemporalDataTypeRecord record = assertSuccess(ctx, ar);
                 System.out.println(record);
                 Assertions.assertNotNull(record.getDate());
                 Assertions.assertNotNull(record.getTime());
@@ -44,8 +39,8 @@ class PgReATemporalTest extends PgSQLReactiveTest<PgPool>
                 Assertions.assertNotNull(record.getTimestamp());
                 Assertions.assertNotNull(record.getTimestamptz());
                 Assertions.assertNotNull(record.getInterval());
+                cp.flag();
             });
-            flag.flag();
         });
     }
 

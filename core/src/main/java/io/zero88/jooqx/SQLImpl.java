@@ -24,7 +24,6 @@ import org.jooq.Table;
 import org.jooq.TableLike;
 import org.jooq.conf.ParamType;
 import org.jooq.exception.SQLStateClass;
-import org.jooq.types.YearToSecond;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -235,12 +234,10 @@ final class SQLImpl {
             //                         Optional.ofNullable(f.getConverter().to(value))
             //                                 .map(v -> v.getClass().getName())
             //                                 .orElse(null));
-            {
-                if (f.getType() == YearToSecond.class) {
-                    record.set((Field<Object>) f, null);
-                    return;
-                }
-            }
+            //                if (f.getType() == YearToSecond.class) {
+            //                    record.set((Field<Object>) f, null);
+            //                    return;
+            //                }
             record.set((Field<Object>) f, value);
         }
 

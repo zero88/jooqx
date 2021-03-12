@@ -14,9 +14,9 @@ import lombok.NonNull;
 
 public interface PostgreSQLHelper extends JooqSQL<DefaultCatalog>, SQLTestHelper {
 
-    default void prepareDatabase(VertxTestContext ctx, JooqSQL<?> jooqSql, SQLConnectionOption connOption,
+    default void prepareDatabase(VertxTestContext context, JooqSQL<?> jooqSql, SQLConnectionOption connOption,
                                  String... otherDataFiles) {
-        SQLTestHelper.super.prepareDatabase(ctx, jooqSql, connOption,
+        SQLTestHelper.super.prepareDatabase(context, jooqSql, connOption,
                                             Stream.concat(Stream.of("pg_schema.sql"), Stream.of(otherDataFiles))
                                                   .toArray(String[]::new));
     }

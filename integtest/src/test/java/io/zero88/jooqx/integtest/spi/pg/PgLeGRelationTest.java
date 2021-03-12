@@ -10,6 +10,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import io.vertx.core.AsyncResult;
+import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.junit5.Checkpoint;
@@ -25,13 +27,13 @@ import io.zero88.jooqx.integtest.pgsql.tables.records.AuthorsRecord;
 import io.zero88.jooqx.integtest.pgsql.tables.records.BooksRecord;
 import io.zero88.jooqx.spi.pg.PgSQLLegacyTest;
 
-class PgLeGRelTest extends PgSQLLegacyTest implements PostgreSQLHelper {
+class PgLeGRelationTest extends PgSQLLegacyTest implements PostgreSQLHelper {
 
     @Override
     @BeforeEach
     public void tearUp(Vertx vertx, VertxTestContext ctx) {
         super.tearUp(vertx, ctx);
-        this.prepareDatabase(ctx, this, connOpt, "pg_datatype/book_author.sql");
+        this.prepareDatabase(ctx, this, connOpt, "pg_data/book_author.sql");
     }
 
     @Override
@@ -41,30 +43,29 @@ class PgLeGRelTest extends PgSQLLegacyTest implements PostgreSQLHelper {
 
     @Test
     void test_query(VertxTestContext ctx) {
-        final Checkpoint flag = ctx.checkpoint();
         final Books table = catalog().PUBLIC.BOOKS;
         jooqx.execute(jooqx.dsl().selectFrom(table), LegacyDSL.adapter().fetchMany(table),
-                      ar -> assertResultSize(ctx, flag, ar, 7));
+                      ar -> assertResultSize(ctx, ar, 7));
     }
 
     @Test
     void test_insert(VertxTestContext ctx) {
-        final Checkpoint flag = ctx.checkpoint(1);
+        Checkpoint flag = ctx.checkpoint();
         final Books table = catalog().PUBLIC.BOOKS;
         final InsertResultStep<BooksRecord> insert = jooqx.dsl()
                                                           .insertInto(table, table.ID, table.TITLE)
                                                           .values(Arrays.asList(DSL.defaultValue(table.ID), "abc"))
                                                           .returning(table.ID);
-        jooqx.execute(insert, LegacyDSL.adapter().fetchJsonRecord(table), ar -> {
-            ctx.verify(
-                () -> Assertions.assertEquals(new JsonObject().put("id", 8).put("title", null), ar.result().toJson()));
+        jooqx.execute(insert, LegacyDSL.adapter().fetchJsonRecord(table), ar -> ctx.verify(() -> {
+            final JsonRecord<?> jsonRecord = assertSuccess(ctx, ar);
+            Assertions.assertEquals(new JsonObject().put("id", 8).put("title", null), jsonRecord.toJson());
             flag.flag();
-        });
+        }));
     }
 
     @Test
     void test_batch_insert(VertxTestContext ctx) {
-        final Checkpoint flag = ctx.checkpoint(3);
+        final Checkpoint flag = ctx.checkpoint();
         final Books table = catalog().PUBLIC.BOOKS;
         BooksRecord rec1 = new BooksRecord().setTitle("abc");
         BooksRecord rec2 = new BooksRecord().setTitle("xyz");
@@ -77,24 +78,33 @@ class PgLeGRelTest extends PgSQLLegacyTest implements PostgreSQLHelper {
                                                           .returning();
         jooqx.batch(insert, bindValues, ar -> {
             ctx.verify(() -> Assertions.assertEquals(3, ar.result().getSuccesses()));
-            flag.flag();
-            jooqx.execute(jooqx.dsl().selectFrom(table), LegacyDSL.adapter().fetchJsonRecords(table), ar2 -> {
-                final List<JsonRecord<?>> records = assertResultSize(ctx, flag, ar2, 10);
-                ctx.verify(() -> {
-                    Assertions.assertEquals(new JsonObject().put("id", 8).put("title", "abc"), records.get(7).toJson());
-                    Assertions.assertEquals(new JsonObject().put("id", 9).put("title", "xyz"), records.get(8).toJson());
-                    Assertions.assertEquals(new JsonObject().put("id", 10).put("title", "qwe"),
-                                            records.get(9).toJson());
-                });
-                flag.flag();
-            });
+            jooqx.execute(jooqx.dsl().selectFrom(table), LegacyDSL.adapter().fetchJsonRecords(table),
+                          ar2 -> ctx.verify(() -> {
+                              final List<JsonRecord<?>> records = assertResultSize(ctx, ar2, 10);
+                              Assertions.assertEquals(new JsonObject().put("id", 8).put("title", "abc"),
+                                                      records.get(7).toJson());
+                              Assertions.assertEquals(new JsonObject().put("id", 9).put("title", "xyz"),
+                                                      records.get(8).toJson());
+                              Assertions.assertEquals(new JsonObject().put("id", 10).put("title", "qwe"),
+                                                      records.get(9).toJson());
+                              flag.flag();
+                          }));
         });
     }
 
     @Test
     void test_transaction_multiple_update_but_one_failed(VertxTestContext ctx) {
-        final Checkpoint flag = ctx.checkpoint(2);
+        final Checkpoint flag = ctx.checkpoint();
         final Books table = catalog().PUBLIC.BOOKS;
+        final Handler<AsyncResult<BooksRecord>> asserter = ar -> {
+            assertJooqException(ctx, ar, SQLStateClass.C23_INTEGRITY_CONSTRAINT_VIOLATION);
+            jooqx.execute(jooqx.dsl().selectFrom(table).where(table.ID.eq(1)), LegacyDSL.adapter().fetchOne(table),
+                          ar2 -> ctx.verify(() -> {
+                              final BooksRecord record = assertSuccess(ctx, ar2);
+                              Assertions.assertEquals("The Catcher in the Rye", record.getTitle());
+                              flag.flag();
+                          }));
+        };
         jooqx.transaction()
              .run(tx -> tx.execute(tx.dsl()
                                      .update(table)
@@ -105,34 +115,28 @@ class PgLeGRelTest extends PgSQLLegacyTest implements PostgreSQLHelper {
                                                      .update(table)
                                                      .set(DSL.row(table.TITLE), DSL.row((String) null))
                                                      .where(table.ID.eq(2))
-                                                     .returning(), LegacyDSL.adapter().fetchOne(table))), ar -> {
-                 assertJooqException(ctx, flag, ar, SQLStateClass.C23_INTEGRITY_CONSTRAINT_VIOLATION);
-                 jooqx.execute(jooqx.dsl().selectFrom(table).where(table.ID.eq(1)), LegacyDSL.adapter().fetchOne(table),
-                               ar2 -> {
-                                   ctx.verify(() -> Assertions.assertEquals("The Catcher in the Rye",
-                                                                            ar2.result().getTitle()));
-                                   flag.flag();
-                               });
-             });
+                                                     .returning(), LegacyDSL.adapter().fetchOne(table))), asserter);
     }
 
     @Test
     void test_transaction_batch_insert_failed(VertxTestContext ctx) {
-        final Checkpoint flag = ctx.checkpoint(2);
+        final Checkpoint flag = ctx.checkpoint();
         final Authors table = catalog().PUBLIC.AUTHORS;
         AuthorsRecord i1 = new AuthorsRecord().setName("n1").setCountry("AT");
         AuthorsRecord i2 = new AuthorsRecord().setName("n2");
         final BindBatchValues bindValues = new BindBatchValues().register(table.NAME, table.COUNTRY).add(i1, i2);
         jooqx.transaction()
              .run(tx -> tx.batch(tx.dsl().insertInto(table).set(bindValues.getDummyValues()), bindValues), result -> {
-                 assertJooqException(ctx, flag, result, SQLStateClass.C23_INTEGRITY_CONSTRAINT_VIOLATION,
+                 assertJooqException(ctx, result, SQLStateClass.C23_INTEGRITY_CONSTRAINT_VIOLATION,
                                      "Batch entry 1 insert into \"public\".\"authors\" (\"name\", " +
                                      "\"country\") values ('n2', NULL) was aborted: ERROR: null value" +
                                      " in column \"country\" violates not-null constraint\n" +
                                      "  Detail: Failing row contains (10, n2, null).  Call " +
                                      "getNextException to see other errors in the batch.");
-                 jooqx.execute(jooqx.dsl().selectFrom(table), LegacyDSL.adapter().fetchMany(table),
-                               ar2 -> assertResultSize(ctx, flag, ar2, 8));
+                 jooqx.execute(jooqx.dsl().selectFrom(table), LegacyDSL.adapter().fetchMany(table), ar2 -> {
+                     assertResultSize(ctx, ar2, 8);
+                     flag.flag();
+                 });
              });
     }
 

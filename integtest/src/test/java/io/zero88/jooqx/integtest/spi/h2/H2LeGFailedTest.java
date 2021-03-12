@@ -23,14 +23,13 @@ class H2LeGFailedTest extends LegacyDBMemoryTest<HikariCPDataSourceProvider>
 
     @Test
     void test(VertxTestContext testContext) {
-        final Checkpoint flag = testContext.checkpoint(1);
         final Author table = catalog().DEFAULT_SCHEMA.AUTHOR;
         final InsertResultStep<AuthorRecord> insert = jooqx.dsl()
                                                            .insertInto(table, table.ID, table.FIRST_NAME)
                                                            .values(Arrays.asList(DSL.defaultValue(table.ID), "abc"))
                                                            .returning(table.ID);
         jooqx.execute(insert, LegacyDSL.adapter().fetchJsonRecord(table),
-                      ar -> assertJooqException(testContext, flag, ar,
+                      ar -> assertJooqException(testContext, ar,
                                                 SQLStateClass.C42_SYNTAX_ERROR_OR_ACCESS_RULE_VIOLATION,
                                                 "Table \"AUTHOR\" not found; SQL statement:\n" +
                                                 "insert into \"AUTHOR\" (\"ID\", \"FIRST_NAME\") values (default, ?) " +

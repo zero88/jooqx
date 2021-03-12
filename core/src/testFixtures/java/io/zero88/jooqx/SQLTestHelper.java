@@ -1,6 +1,7 @@
 package io.zero88.jooqx;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.jooq.exception.DataAccessException;
 import org.jooq.exception.SQLStateClass;
@@ -15,50 +16,106 @@ import com.zaxxer.hikari.HikariDataSource;
 
 public interface SQLTestHelper {
 
-    default void prepareDatabase(VertxTestContext ctx, JooqSQL<?> jooqSql, SQLConnectionOption connOption,
+    /**
+     * Prepare database schema and data by plain JDBC connection. That use HikariDataSource
+     *
+     * @param context    test context
+     * @param jooqSql    jooqSQL
+     * @param connOption database connection option
+     * @param files      resource SQL files
+     */
+    default void prepareDatabase(VertxTestContext context, JooqSQL<?> jooqSql, SQLConnectionOption connOption,
                                  String... files) {
         HikariDataSource dataSource = jooqSql.createDataSource(connOption);
-        jooqSql.prepareDatabase(ctx, jooqSql.dsl(dataSource), files);
+        jooqSql.prepareDatabase(context, jooqSql.dsl(dataSource), files);
         jooqSql.closeDataSource(dataSource);
         System.out.println(Strings.duplicate("=", 150));
     }
 
-    default <R> List<R> assertResultSize(VertxTestContext ctx, Checkpoint flag, AsyncResult<List<R>> asyncResult,
-                                         int expected) {
-        try {
-            if (asyncResult.succeeded()) {
-                final List<R> records = asyncResult.result();
-                System.out.println(records);
-                ctx.verify(() -> Assertions.assertEquals(records.size(), expected));
-                return records;
-            } else {
-                ctx.failNow(asyncResult.cause());
-                return null;
-            }
-        } finally {
-            flag.flag();
+    /**
+     * Assert async result is completed successful
+     *
+     * @param <T>         type of output
+     * @param context     test context
+     * @param asyncResult async result
+     * @return output
+     */
+    default <T> T assertSuccess(VertxTestContext context, AsyncResult<T> asyncResult) {
+        Checkpoint flag = context.checkpoint();
+        context.verify(() -> Assertions.assertTrue(asyncResult.succeeded()));
+        if (Objects.nonNull(asyncResult.cause())) {
+            asyncResult.cause().printStackTrace();
         }
+        flag.flag();
+        return asyncResult.result();
     }
 
-    default <X> void assertJooqException(VertxTestContext ctx, Checkpoint flag, AsyncResult<X> ar,
-                                         SQLStateClass stateClass) {
-        ctx.verify(() -> assertJooqException(stateClass, ar.failed(), ar.cause()));
+    /**
+     * Assert async result is completed successful then compare result size
+     *
+     * @param context     test context
+     * @param asyncResult async result
+     * @param expected    expected size
+     * @param <R>         type of output
+     * @return list of output
+     */
+    default <R> List<R> assertResultSize(VertxTestContext context, AsyncResult<List<R>> asyncResult, int expected) {
+        Checkpoint flag = context.checkpoint();
+        final List<R> records = assertSuccess(context, asyncResult);
+        System.out.println(records);
+        context.verify(() -> Assertions.assertEquals(expected, records.size()));
+        flag.flag();
+        return records;
+    }
+
+    /**
+     * Assert async result is completed with error then compare exception
+     *
+     * @param context    test context
+     * @param ar         async result
+     * @param stateClass An expectation SQL state class
+     * @param <X>        type of result
+     * @see SQLStateClass
+     */
+    default <X> void assertJooqException(VertxTestContext context, AsyncResult<X> ar, SQLStateClass stateClass) {
+        Checkpoint flag = context.checkpoint();
+        context.verify(() -> assertJooqException(stateClass, ar.failed(), ar.cause()));
         flag.flag();
     }
 
-    default <X> void assertJooqException(VertxTestContext ctx, Checkpoint flag, AsyncResult<X> ar,
-                                         SQLStateClass stateClass, String errorMsg) {
-        ctx.verify(() -> {
+    /**
+     * Assert async result is completed with error then compare exception
+     *
+     * @param context    test context
+     * @param ar         async result
+     * @param stateClass An expectation SQL state class
+     * @param errorMsg   An expectation error message
+     * @param <X>        type of result
+     */
+    default <X> void assertJooqException(VertxTestContext context, AsyncResult<X> ar, SQLStateClass stateClass,
+                                         String errorMsg) {
+        Checkpoint flag = context.checkpoint();
+        context.verify(() -> {
             assertJooqException(stateClass, ar.failed(), ar.cause());
             Assertions.assertEquals(errorMsg, ar.cause().getMessage());
         });
         flag.flag();
     }
 
-    default <X> void assertJooqException(VertxTestContext ctx, Checkpoint flag, AsyncResult<X> ar,
-                                         SQLStateClass stateClass, String errorMsg,
-                                         Class<? extends Throwable> causeType) {
-        ctx.verify(() -> {
+    /**
+     * Assert async result is completed with error then compare exception
+     *
+     * @param context    test context
+     * @param ar         async result
+     * @param stateClass An expectation SQL state class
+     * @param errorMsg   An expectation error message
+     * @param causeType  An expectation cause type
+     * @param <X>        type of result
+     */
+    default <X> void assertJooqException(VertxTestContext context, AsyncResult<X> ar, SQLStateClass stateClass,
+                                         String errorMsg, Class<? extends Throwable> causeType) {
+        Checkpoint flag = context.checkpoint();
+        context.verify(() -> {
             assertJooqException(stateClass, ar.failed(), ar.cause());
             Assertions.assertEquals(errorMsg, ar.cause().getMessage());
             Assertions.assertNotNull(((DataAccessException) ar.cause()).getCause(causeType));
@@ -66,6 +123,9 @@ public interface SQLTestHelper {
         flag.flag();
     }
 
+    /**
+     * Internal compare. Don't use it directly
+     */
     default void assertJooqException(SQLStateClass stateClass, boolean failed, Throwable cause) {
         Assertions.assertTrue(failed);
         Assertions.assertTrue(cause instanceof DataAccessException);
