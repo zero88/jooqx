@@ -29,22 +29,22 @@ class PgReACharacterTest extends PgSQLReactiveTest<PgPool>
     void queryCharacter(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
         final CharacterDataType table = catalog().PUBLIC.CHARACTER_DATA_TYPE;
-        jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), ReactiveDSL.adapter().fetchOne(table), ar -> {
-            ctx.verify(() -> {
-                final CharacterDataTypeRecord record = assertSuccess(ctx, ar);
-                System.out.println(record);
-                Assertions.assertNotNull(record.getName());
+        jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), ReactiveDSL.adapter().fetchOne(table),
+                      ar -> ctx.verify(() -> {
+                          final CharacterDataTypeRecord record = assertSuccess(ctx, ar);
+                          System.out.println(record);
+                          Assertions.assertNotNull(record.getName());
 
-                Assertions.assertNotNull(record.getFixedchar());
-                Assertions.assertNotNull(record.getSinglechar());
+                          Assertions.assertNotNull(record.getFixedchar());
+                          Assertions.assertNotNull(record.getSinglechar());
 
-                Assertions.assertNotNull(record.getText());
-                Assertions.assertNotNull(record.getVarcharacter());
+                          Assertions.assertNotNull(record.getText());
+                          Assertions.assertNotNull(record.getVarcharacter());
 
-                Assertions.assertNotNull(record.getUuid());
-            });
-            flag.flag();
-        });
+                          Assertions.assertNotNull(record.getUuid());
+                          Assertions.assertNotNull(record.getBytea());
+                          flag.flag();
+                      }));
     }
 
 }

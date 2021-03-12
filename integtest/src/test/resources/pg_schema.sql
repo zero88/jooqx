@@ -63,7 +63,8 @@ CREATE TABLE character_data_type
     "FixedChar"    CHAR(3),
     "Text"         TEXT,
     "VarCharacter" VARCHAR,
-    "uuid"         UUID
+    "uuid"         UUID,
+    "bytea"        bytea
 );
 
 CREATE TABLE json_data_type
