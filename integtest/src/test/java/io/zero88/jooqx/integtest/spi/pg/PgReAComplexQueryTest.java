@@ -13,7 +13,7 @@ import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
-import io.vertx.pgclient.PgConnection;
+import io.vertx.pgclient.PgPool;
 import io.zero88.jooqx.JsonRecord;
 import io.zero88.jooqx.ReactiveDSL;
 import io.zero88.jooqx.integtest.pgsql.Public;
@@ -21,10 +21,10 @@ import io.zero88.jooqx.integtest.pgsql.tables.pojos.Authors;
 import io.zero88.jooqx.integtest.pgsql.tables.pojos.Books;
 import io.zero88.jooqx.integtest.pgsql.tables.records.AuthorsRecord;
 import io.zero88.jooqx.integtest.pgsql.tables.records.BooksRecord;
-import io.zero88.jooqx.spi.pg.PgConnProvider;
+import io.zero88.jooqx.spi.pg.PgPoolProvider;
 import io.zero88.jooqx.spi.pg.PgSQLReactiveTest;
 
-class PgReAComplexQueryTest extends PgSQLReactiveTest<PgConnection> implements PgConnProvider, PostgreSQLHelper {
+class PgReAComplexQueryTest extends PgSQLReactiveTest<PgPool> implements PgPoolProvider, PostgreSQLHelper {
 
     @Override
     @BeforeEach
@@ -142,25 +142,29 @@ class PgReAComplexQueryTest extends PgSQLReactiveTest<PgConnection> implements P
                                                   .values(r2.getId(), r1.getId())
                                                   .returning(), adapter.fetchOne(schema.BOOKS_AUTHORS)))))
              .onComplete(ar -> {
-                 ctx.verify(() -> Assertions.assertTrue(ar.succeeded()));
                  flag.flag();
-                 final SelectConditionStep<Record> query = dsl.select(schema.AUTHORS.asterisk(),
-                                                                      schema.BOOKS.ID.as("book_id"),
-                                                                      schema.BOOKS.TITLE.as("book_title"))
-                                                              .from(schema.AUTHORS)
-                                                              .join(schema.BOOKS_AUTHORS)
-                                                              .on(schema.AUTHORS.ID.eq(schema.BOOKS_AUTHORS.AUTHOR_ID))
-                                                              .join(schema.BOOKS)
-                                                              .on(schema.BOOKS.ID.eq(schema.BOOKS_AUTHORS.BOOK_ID))
-                                                              .where(schema.BOOKS_AUTHORS.ID.eq(ar.result().getId()));
-                 jooqx.execute(query, adapter.fetchJsonRecord(query.asTable()), ar2 -> {
-                     ctx.verify(() -> {
-                         Assertions.assertTrue(ar2.succeeded());
-                         Assertions.assertEquals(new JsonObject("{\"id\":9,\"name\":\"Lukas\",\"country\":\"Ger\"," +
-                                                                "\"book_id\":8,\"book_title\":\"jOOQ doc\"}"),
-                                                 ar2.result().toJson());
+                 ctx.verify(() -> {
+                     Assertions.assertTrue(ar.succeeded());
+                     final SelectConditionStep<Record> query = dsl.select(schema.AUTHORS.asterisk(),
+                                                                          schema.BOOKS.ID.as("book_id"),
+                                                                          schema.BOOKS.TITLE.as("book_title"))
+                                                                  .from(schema.AUTHORS)
+                                                                  .join(schema.BOOKS_AUTHORS)
+                                                                  .on(schema.AUTHORS.ID.eq(
+                                                                      schema.BOOKS_AUTHORS.AUTHOR_ID))
+                                                                  .join(schema.BOOKS)
+                                                                  .on(schema.BOOKS.ID.eq(schema.BOOKS_AUTHORS.BOOK_ID))
+                                                                  .where(
+                                                                      schema.BOOKS_AUTHORS.ID.eq(ar.result().getId()));
+                     jooqx.execute(query, adapter.fetchJsonRecord(query.asTable()), ar2 -> {
+                         ctx.verify(() -> {
+                             Assertions.assertTrue(ar2.succeeded());
+                             Assertions.assertEquals(new JsonObject(
+                                 "{\"id\":9,\"name\":\"Lukas\",\"country\":\"Ger\"," +
+                                 "\"book_id\":8,\"book_title\":\"jOOQ doc\"}"), ar2.result().toJson());
+                         });
+                         flag.flag();
                      });
-                     flag.flag();
                  });
              });
     }

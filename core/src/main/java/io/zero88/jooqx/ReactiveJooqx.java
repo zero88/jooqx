@@ -94,10 +94,6 @@ public final class ReactiveJooqx<S extends SqlClient> extends SQLEI<S, Tuple, Ro
         String msg = c instanceof SqlConnection
                      ? "Unsupported using connection on SQL connection: [" + c.getClass() + "]. Switch using SQL pool"
                      : "Unable to open transaction due to unknown SQL client: [" + c.getClass() + "]";
-        // TODO: maybe with SQL client provider in VertxReactiveBuilder to spawn new conn
-        //        if (c instanceof SqlConnection) {
-        //            return beginTransaction((SqlConnection) client, transaction);
-        //        }
         return Future.failedFuture(connFailed(msg));
     }
 

@@ -32,7 +32,7 @@ import io.zero88.jooqx.spi.pg.PgSQLReactiveTest;
  * If using v4.0.0, pretty sure thread leak, but v4.0.2 is already fixed
  * <a href="vertx-sql-client#909">https://github.com/eclipse-vertx/vertx-sql-client/issues/909</a>
  */
-class PgReAConnRelTest extends PgSQLReactiveTest<PgConnection> implements PgConnProvider, PostgreSQLHelper {
+class PgReARelTest extends PgSQLReactiveTest<PgConnection> implements PgConnProvider, PostgreSQLHelper {
 
     @Override
     @BeforeEach

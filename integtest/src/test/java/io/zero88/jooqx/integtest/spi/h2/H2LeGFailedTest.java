@@ -6,11 +6,9 @@ import org.jooq.InsertResultStep;
 import org.jooq.exception.SQLStateClass;
 import org.jooq.impl.DSL;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 
 import io.vertx.ext.jdbc.spi.impl.HikariCPDataSourceProvider;
 import io.vertx.junit5.Checkpoint;
-import io.vertx.junit5.VertxExtension;
 import io.vertx.junit5.VertxTestContext;
 import io.zero88.jooqx.LegacyDSL;
 import io.zero88.jooqx.LegacyTestDefinition.LegacyDBMemoryTest;
@@ -20,7 +18,6 @@ import io.zero88.jooqx.integtest.h2.tables.records.AuthorRecord;
 import io.zero88.jooqx.spi.h2.H2DBProvider;
 import io.zero88.jooqx.spi.jdbc.JDBCLegacyHikariProvider;
 
-@ExtendWith(VertxExtension.class)
 class H2LeGFailedTest extends LegacyDBMemoryTest<HikariCPDataSourceProvider>
     implements H2DBProvider, H2SQLHelper, JDBCLegacyHikariProvider, UseJdbcErrorConverter {
 
