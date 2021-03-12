@@ -10,4 +10,5 @@
 rootProject.name = "jooqx"
 include("core")
 include("spi")
+include("rxify")
 include("integtest")
