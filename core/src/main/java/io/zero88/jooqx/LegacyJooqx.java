@@ -105,7 +105,7 @@ public final class LegacyJooqx extends LegacySQLImpl.LegacySQLEI<SQLClient> {
                                       .build();
         }
 
-        private <X> void commit(@NonNull SQLConnection conn, @NonNull Promise<X> promise, @NonNull X output) {
+        private <X> void commit(@NonNull SQLConnection conn, @NonNull Promise<X> promise, X output) {
             conn.commit(v -> {
                 if (v.succeeded()) {
                     promise.complete(output);

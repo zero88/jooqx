@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -46,11 +47,12 @@ public interface JooqSQL<T extends Catalog> extends JooqDSLProvider, HasDSLProvi
     default void prepareDatabase(@NonNull VertxTestContext context, @NonNull DSLContext dsl, @NonNull String... files) {
         Arrays.stream(files).forEach(file -> {
             try {
-                final Path path = Paths.get(getClass().getClassLoader().getResource(file).toURI());
+                final Path path = Paths.get(
+                    Objects.requireNonNull(getClass().getClassLoader().getResource(file)).toURI());
                 try (Stream<String> lines = Files.lines(path)) {
                     dsl.execute(lines.collect(Collectors.joining("\n")));
                 }
-            } catch (URISyntaxException | IOException e) {
+            } catch (URISyntaxException | IOException | NullPointerException e) {
                 context.failNow(e);
             }
         });

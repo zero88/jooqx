@@ -28,6 +28,6 @@ docker run -d --name mysql-gen -p 3360:3306 \
         $mysql_img --bind-address=0.0.0.0
 
 sleep "$SLEEP_TIME"
-./gradlew generateJooq
+./gradlew clean generateJooq
 
 docker rm -f postgres-gen mysql-gen

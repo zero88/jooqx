@@ -1,6 +1,6 @@
 package io.zero88.jooqx;
 
-public interface HasDSLProvider {
+interface HasDSLProvider {
 
     JooqDSLProvider dslProvider();
 

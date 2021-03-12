@@ -1,8 +1,9 @@
-package io.zero88.jooqx.integtest;
+package io.zero88.jooqx.integtest.spi.h2;
 
 import org.jooq.SQLDialect;
 
 import io.zero88.jooqx.JooqSQL;
+import io.zero88.jooqx.SQLTestHelper;
 import io.zero88.jooqx.integtest.h2.DefaultCatalog;
 
 import lombok.NonNull;

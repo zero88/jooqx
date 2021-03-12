@@ -20,26 +20,26 @@ import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 
 @ExtendWith(VertxExtension.class)
-public abstract class BaseSQLTestImpl<S, P, R, E extends SQLExecutor<S, P, R>, K, D extends DBProvider<K>>
-    implements BaseSQLTest<S, P, R, E, K, D> {
+public abstract class SQLTestImpl<S, P, R, E extends SQLExecutor<S, P, R>, K, D extends DBProvider<K>>
+    implements SQLTest<S, P, R, E, K, D> {
 
-    protected E executor;
+    protected E jooqx;
     protected SQLConnectionOption connOpt;
 
     @BeforeAll
     public static void setup() {
         System.setProperty("vertx.logger-delegate-factory-class-name", "io.vertx.core.logging.SLF4JLogDelegateFactory");
         ((Logger) LoggerFactory.getLogger("ROOT")).setLevel(Level.INFO);
-        ((Logger) LoggerFactory.getLogger("io.github.zero88")).setLevel(Level.DEBUG);
         ((Logger) LoggerFactory.getLogger("io.vertx.sqlclient")).setLevel(Level.DEBUG);
         ((Logger) LoggerFactory.getLogger("org.jooq")).setLevel(Level.DEBUG);
+        ((Logger) LoggerFactory.getLogger(SQLTest.class.getPackage().getName())).setLevel(Level.DEBUG);
     }
 
     @BeforeEach
     public void tearUp(Vertx vertx, VertxTestContext ctx) {
         connOpt = dbProvider().connOpt(getDB());
-        executor = executorProvider().createExecutor(vertx, dslProvider(),
-                                                     clientProvider().createSqlClient(vertx, ctx, connOpt));
+        jooqx = jooqxProvider().createExecutor(vertx, dslProvider(),
+                                               clientProvider().createSqlClient(vertx, ctx, connOpt));
         System.out.println(Strings.duplicate("=", 150));
     }
 
@@ -50,15 +50,15 @@ public abstract class BaseSQLTestImpl<S, P, R, E extends SQLExecutor<S, P, R>, K
 
     @Override
     public S sqlClient() {
-        return executor.sqlClient();
+        return jooqx.sqlClient();
     }
 
     protected abstract K getDB();
 
     @Testcontainers
     public abstract static class DBContainerSQLTest<S, P, R, E extends SQLExecutor<S, P, R>,
-                                                                K extends JdbcDatabaseContainer<?>>
-        extends BaseSQLTestImpl<S, P, R, E, K, DBContainerProvider<K>> {
+                                                           K extends JdbcDatabaseContainer<?>>
+        extends SQLTestImpl<S, P, R, E, K, DBContainerProvider<K>> {
 
         @Container
         protected K db = dbProvider().get();
@@ -72,7 +72,7 @@ public abstract class BaseSQLTestImpl<S, P, R, E extends SQLExecutor<S, P, R>, K
 
 
     public abstract static class DBMemorySQLTest<S, P, R, E extends SQLExecutor<S, P, R>>
-        extends BaseSQLTestImpl<S, P, R, E, String, DBMemoryProvider> {
+        extends SQLTestImpl<S, P, R, E, String, DBMemoryProvider> {
 
         @Override
         protected String getDB() {

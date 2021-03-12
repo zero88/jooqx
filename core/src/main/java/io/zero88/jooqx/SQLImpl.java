@@ -115,7 +115,7 @@ final class SQLImpl {
             return sql;
         }
 
-        @SuppressWarnings( {"unchecked", "rawtypes"})
+        @SuppressWarnings( {"unchecked"})
         protected final Object toDatabaseType(String paramName, Param<?> param,
                                               BiFunction<String, Param<?>, ?> queryValue) {
             /*
@@ -137,9 +137,6 @@ final class SQLImpl {
                 }
                 return Buffer.buffer(bytes);
             }
-            //            if (param.getBinding().converter() instanceof PgConverter) {
-            //                return ((PgConverter) param.getBinding().converter()).rowConverter().to(val);
-            //            }
             return ((Converter<Object, Object>) param.getBinding().converter()).to(val);
         }
 

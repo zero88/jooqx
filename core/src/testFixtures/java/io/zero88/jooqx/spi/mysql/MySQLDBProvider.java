@@ -1,4 +1,4 @@
-package io.zero88.jooqx.spi;
+package io.zero88.jooqx.spi.mysql;
 
 import org.testcontainers.containers.MySQLContainer;
 import org.testcontainers.utility.DockerImageName;
