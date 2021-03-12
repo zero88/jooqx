@@ -15,7 +15,7 @@ import io.zero88.jooqx.adapter.SelectOneResultAdapter;
 
 import lombok.NonNull;
 
-interface DSLAdapter<RS, C extends SQLResultSetConverter<RS>> {
+interface DSLAdapter<RS, C extends SQLResultConverter<RS>> {
 
     /**
      * Fetch count

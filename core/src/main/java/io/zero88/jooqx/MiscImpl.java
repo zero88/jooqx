@@ -28,7 +28,7 @@ import lombok.RequiredArgsConstructor;
 final class MiscImpl {
 
     @RequiredArgsConstructor
-    static class DSLAI<RS, C extends SQLResultSetConverter<RS>> implements DSLAdapter<RS, C> {
+    static class DSLAI<RS, C extends SQLResultConverter<RS>> implements DSLAdapter<RS, C> {
 
         @NonNull
         private final C converter;

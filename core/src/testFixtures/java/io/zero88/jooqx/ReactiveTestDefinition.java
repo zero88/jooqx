@@ -8,16 +8,16 @@ import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.RowSet;
 import io.vertx.sqlclient.SqlClient;
 import io.vertx.sqlclient.Tuple;
-import io.zero88.jooqx.SQLTestImpl.DBContainerSQLTest;
-import io.zero88.jooqx.SQLTestImpl.DBMemorySQLTest;
 import io.zero88.jooqx.DBProvider.DBContainerProvider;
 import io.zero88.jooqx.DBProvider.DBMemoryProvider;
 import io.zero88.jooqx.ReactiveSQLImpl.ReactiveSQLPQ;
+import io.zero88.jooqx.SQLTestImpl.DBContainerSQLTest;
+import io.zero88.jooqx.SQLTestImpl.DBMemorySQLTest;
 
 public interface ReactiveTestDefinition {
 
     interface ReactiveJooqxProvider<S extends SqlClient>
-        extends JooqxProvider<S, Tuple, RowSet<Row>, ReactiveJooqx<S>> {
+        extends JooqxProvider<S, Tuple, RowSet<Row>, ReactiveSQLResultConverter, ReactiveJooqx<S>> {
 
         @Override
         default ReactiveJooqx<S> createExecutor(Vertx vertx, JooqDSLProvider dslProvider, S sqlClient) {
@@ -30,7 +30,7 @@ public interface ReactiveTestDefinition {
         }
 
         @Override
-        default SQLPreparedQuery<Tuple> createPreparedQuery() {
+        default ReactiveSQLPreparedQuery createPreparedQuery() {
             return new ReactiveSQLPQ();
         }
 
@@ -38,14 +38,14 @@ public interface ReactiveTestDefinition {
 
 
     abstract class ReactiveDBContainerTest<S extends SqlClient, K extends JdbcDatabaseContainer<?>>
-        extends DBContainerSQLTest<S, Tuple, RowSet<Row>, ReactiveJooqx<S>, K>
+        extends DBContainerSQLTest<S, Tuple, RowSet<Row>, ReactiveSQLResultConverter, ReactiveJooqx<S>, K>
         implements ReactiveSQLTest<S, K, DBContainerProvider<K>> {
 
     }
 
 
     abstract class ReactiveDBMemoryTest<S extends SqlClient>
-        extends DBMemorySQLTest<S, Tuple, RowSet<Row>, ReactiveJooqx<S>>
+        extends DBMemorySQLTest<S, Tuple, RowSet<Row>, ReactiveSQLResultConverter, ReactiveJooqx<S>>
         implements ReactiveSQLTest<S, String, DBMemoryProvider> {
 
     }
@@ -62,8 +62,8 @@ public interface ReactiveTestDefinition {
 
 
     interface ReactiveSQLTest<S extends SqlClient, K, D extends DBProvider<K>>
-        extends SQLTest<S, Tuple, RowSet<Row>, ReactiveJooqx<S>, K, D>, ReactiveJooqxProvider<S>,
-                ReactiveSQLClientProvider<S> {
+        extends SQLTest<S, Tuple, RowSet<Row>, ReactiveSQLResultConverter, ReactiveJooqx<S>, K, D>,
+                ReactiveJooqxProvider<S>, ReactiveSQLClientProvider<S> {
 
         @Override
         default SQLClientProvider<S> clientProvider() { return this; }

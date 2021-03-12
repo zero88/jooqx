@@ -6,13 +6,13 @@ import java.util.function.BiFunction;
 import org.jooq.Record;
 import org.jooq.TableLike;
 
-import io.zero88.jooqx.SQLResultSetConverter;
+import io.zero88.jooqx.SQLResultConverter;
 
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.Accessors;
 
-abstract class SQLResultAdapterImpl<R, C extends SQLResultSetConverter<R>, T extends TableLike<? extends Record>, O>
+abstract class SQLResultAdapterImpl<R, C extends SQLResultConverter<R>, T extends TableLike<? extends Record>, O>
     implements SQLResultAdapter<R, C, T, O> {
 
     @NonNull
@@ -34,7 +34,7 @@ abstract class SQLResultAdapterImpl<R, C extends SQLResultSetConverter<R>, T ext
         return converter;
     }
 
-    abstract static class InternalSelectResultAdapter<RS, C extends SQLResultSetConverter<RS>, T extends TableLike<? extends Record>, I, O>
+    abstract static class InternalSelectResultAdapter<RS, C extends SQLResultConverter<RS>, T extends TableLike<? extends Record>, I, O>
         extends SQLResultAdapterImpl<RS, C, T, O> {
 
         @Getter

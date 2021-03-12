@@ -12,11 +12,12 @@ import lombok.NonNull;
  * Represents for transaction executor
  *
  * @param <S>  Type of Vertx SQL client
- * @param <P>  Type of
- * @param <RS>
- * @param <E>
+ * @param <P>  Type of Vertx query param holder
+ * @param <RS> Type of Vertx result set
+ * @param <E>  Type of jOOQ.x executor
+ * @since 1.0.0
  */
-public interface SQLTxExecutor<S, P, RS, E extends SQLExecutor<S, P, RS>> {
+public interface SQLTxExecutor<S, P, RS, C extends SQLResultConverter<RS>, E extends SQLExecutor<S, P, RS, C>> {
 
     /**
      * Run the transactional code

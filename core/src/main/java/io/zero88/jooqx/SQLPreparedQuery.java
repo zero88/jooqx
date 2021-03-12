@@ -12,6 +12,8 @@ import lombok.NonNull;
  * Represents for SQL prepared query that transforms jOOQ Query to Vertx SQL prepared query
  *
  * @param <T> Type of Vertx bind value holder
+ * @see LegacySQLPreparedQuery
+ * @see ReactiveSQLPreparedQuery
  * @since 1.0.0
  */
 public interface SQLPreparedQuery<T> {

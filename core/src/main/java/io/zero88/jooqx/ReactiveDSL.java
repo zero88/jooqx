@@ -18,7 +18,7 @@ import lombok.NonNull;
 /**
  * Vertx Reactive SQL DSL
  *
- * @see ReactiveSQLResultBatchConverter
+ * @see ReactiveSQLBatchConverter
  * @since 1.0.0
  */
 public interface ReactiveDSL extends DSLAdapter<RowSet<Row>, ReactiveSQLResultConverter> {
@@ -38,7 +38,7 @@ public interface ReactiveDSL extends DSLAdapter<RowSet<Row>, ReactiveSQLResultCo
      * @param <T>   Type of table
      * @return batch adapter
      */
-    default <T extends TableLike<?>> SelectListResultAdapter<RowSet<Row>, ReactiveSQLResultBatchConverter, T,
+    default <T extends TableLike<?>> SelectListResultAdapter<RowSet<Row>, ReactiveSQLBatchConverter, T,
                                                                 JsonRecord<?>> batchJsonRecords(
         @NonNull T table) {
         return SelectListResultAdapter.jsonRecord(table, new ReactiveSQLRBC());
@@ -53,8 +53,7 @@ public interface ReactiveDSL extends DSLAdapter<RowSet<Row>, ReactiveSQLResultCo
      * @return batch adapter
      * @see TableLike
      */
-    default <T extends TableLike<? extends Record>> SelectListResultAdapter<RowSet<Row>,
-                                                                               ReactiveSQLResultBatchConverter, T,
+    default <T extends TableLike<? extends Record>> SelectListResultAdapter<RowSet<Row>, ReactiveSQLBatchConverter, T,
                                                                                Record> batch(
         @NonNull T table, @NonNull Collection<Field<?>> fields) {
         return SelectListResultAdapter.create(table, new ReactiveSQLRBC(), fields);
@@ -70,8 +69,7 @@ public interface ReactiveDSL extends DSLAdapter<RowSet<Row>, ReactiveSQLResultCo
      * @return batch adapter
      * @see TableLike
      */
-    default <T extends TableLike<? extends Record>, R> SelectListResultAdapter<RowSet<Row>,
-                                                                                  ReactiveSQLResultBatchConverter, T,
+    default <T extends TableLike<? extends Record>, R> SelectListResultAdapter<RowSet<Row>, ReactiveSQLBatchConverter, T,
                                                                                   R> batch(
         @NonNull T table, @NonNull Class<R> outputClass) {
         return SelectListResultAdapter.create(table, new ReactiveSQLRBC(), outputClass);
@@ -85,8 +83,7 @@ public interface ReactiveDSL extends DSLAdapter<RowSet<Row>, ReactiveSQLResultCo
      * @return batch adapter
      * @see TableLike
      */
-    default <T extends Table<R>, R extends Record> SelectListResultAdapter<RowSet<Row>,
-                                                                              ReactiveSQLResultBatchConverter, T, R> batch(
+    default <T extends Table<R>, R extends Record> SelectListResultAdapter<RowSet<Row>, ReactiveSQLBatchConverter, T, R> batch(
         @NonNull T table) {
         return SelectListResultAdapter.create(table, new ReactiveSQLRBC());
     }
@@ -101,7 +98,7 @@ public interface ReactiveDSL extends DSLAdapter<RowSet<Row>, ReactiveSQLResultCo
      * @return batch adapter
      * @see TableLike
      */
-    default <T extends TableLike<? extends Record>, R extends Record, Z extends Table<R>> SelectListResultAdapter<RowSet<Row>, ReactiveSQLResultBatchConverter, T, R> batch(
+    default <T extends TableLike<? extends Record>, R extends Record, Z extends Table<R>> SelectListResultAdapter<RowSet<Row>, ReactiveSQLBatchConverter, T, R> batch(
         @NonNull T table, @NonNull Z toTable) {
         return SelectListResultAdapter.create(table, new ReactiveSQLRBC(), toTable);
     }
@@ -115,8 +112,7 @@ public interface ReactiveDSL extends DSLAdapter<RowSet<Row>, ReactiveSQLResultCo
      * @param <R>    Type expectation record
      * @return batch adapter
      */
-    default <T extends TableLike<? extends Record>, R extends Record> SelectListResultAdapter<RowSet<Row>,
-                                                                                                 ReactiveSQLResultBatchConverter, T, R> batch(
+    default <T extends TableLike<? extends Record>, R extends Record> SelectListResultAdapter<RowSet<Row>, ReactiveSQLBatchConverter, T, R> batch(
         @NonNull T table, @NonNull R record) {
         return SelectListResultAdapter.create(table, new ReactiveSQLRBC(), record);
     }

@@ -18,11 +18,14 @@ import lombok.NonNull;
  * Represents for a converter that transforms SQL result set to jOOQ record
  *
  * @param <RS> Type of Vertx SQL result set
+ * @see LegacySQLConverter
+ * @see ReactiveSQLResultConverter
+ * @see ReactiveSQLBatchConverter
  * @since 1.0.0
  */
-public interface SQLResultSetConverter<RS> {
+public interface SQLResultConverter<RS> {
 
-    Logger LOGGER = LoggerFactory.getLogger(SQLResultSetConverter.class);
+    Logger LOGGER = LoggerFactory.getLogger(SQLResultConverter.class);
 
     /**
      * Setup strategy to handle result set
@@ -30,7 +33,7 @@ public interface SQLResultSetConverter<RS> {
      * @param strategy select strategy
      * @return a reference to this for fluent API
      */
-    @NonNull SQLResultSetConverter<RS> setup(@NonNull SelectStrategy strategy);
+    @NonNull SQLResultConverter<RS> setup(@NonNull SelectStrategy strategy);
 
     /**
      * Convert SQL result set to generic {@code Json record}

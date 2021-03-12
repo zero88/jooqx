@@ -36,7 +36,8 @@ public interface ReactiveSQLBatchExecutor extends SQLBatchExecutor {
      */
     default <T extends TableLike<?>, R> void batch(@NonNull Query query, @NonNull BindBatchValues bindBatchValues,
                                                    @NonNull SelectListResultAdapter<RowSet<Row>,
-                                                                                       ReactiveSQLResultBatchConverter, T, R> adapter,
+                                                                                       ReactiveSQLBatchConverter, T,
+                                                                                       R> adapter,
                                                    @NonNull Handler<AsyncResult<BatchReturningResult<R>>> handler) {
         batch(query, bindBatchValues, adapter).onComplete(handler);
     }
@@ -58,6 +59,6 @@ public interface ReactiveSQLBatchExecutor extends SQLBatchExecutor {
     <T extends TableLike<?>, R> Future<BatchReturningResult<R>> batch(@NonNull Query query,
                                                                       @NonNull BindBatchValues bindBatchValues,
                                                                       @NonNull SelectListResultAdapter<RowSet<Row>,
-                                                                                                          ReactiveSQLResultBatchConverter, T, R> adapter);
+                                                                                                          ReactiveSQLBatchConverter, T, R> adapter);
 
 }

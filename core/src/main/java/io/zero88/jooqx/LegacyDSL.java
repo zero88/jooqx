@@ -9,17 +9,17 @@ import lombok.NonNull;
 /**
  * Vertx DSL Adapter for Vertx legacy {@code SQL client}
  *
- * @see LegacySQLResultConverter
+ * @see LegacySQLConverter
  * @see SQLResultAdapter
  * @since 1.0.0
  */
-public interface LegacyDSL extends DSLAdapter<ResultSet, LegacySQLResultConverter> {
+public interface LegacyDSL extends DSLAdapter<ResultSet, LegacySQLConverter> {
 
     static @NonNull LegacyDSL adapter() {
         return new LegacyDSLAI();
     }
 
-    static @NonNull LegacyDSL create(@NonNull LegacySQLResultConverter converter) {
+    static @NonNull LegacyDSL create(@NonNull LegacySQLConverter converter) {
         return new LegacyDSLAI(converter);
     }
 

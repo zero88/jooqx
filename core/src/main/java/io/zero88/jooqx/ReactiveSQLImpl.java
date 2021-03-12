@@ -76,7 +76,7 @@ final class ReactiveSQLImpl {
     }
 
 
-    static final class ReactiveSQLRBC extends ReactiveSQLRSC implements ReactiveSQLResultBatchConverter {
+    static final class ReactiveSQLRBC extends ReactiveSQLRSC implements ReactiveSQLBatchConverter {
 
         @Override
         protected <T extends TableLike<? extends Record>, R> List<R> doConvert(@NonNull RowSet<Row> resultSet,

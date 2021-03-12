@@ -3,4 +3,9 @@ package io.zero88.jooqx;
 import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.RowSet;
 
-public interface ReactiveSQLResultConverter extends SQLResultSetConverter<RowSet<Row>> {}
+/**
+ * Reactive result set converter
+ *
+ * @since 1.0.0
+ */
+public interface ReactiveSQLResultConverter extends SQLResultConverter<RowSet<Row>> {}

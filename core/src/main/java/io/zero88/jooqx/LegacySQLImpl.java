@@ -22,6 +22,7 @@ import io.vertx.core.Future;
 import io.vertx.core.Promise;
 import io.vertx.core.json.JsonArray;
 import io.vertx.ext.sql.ResultSet;
+import io.vertx.ext.sql.SQLClient;
 import io.vertx.ext.sql.SQLConnection;
 import io.vertx.ext.sql.SQLOperations;
 import io.zero88.jooqx.MiscImpl.BatchResultImpl;
@@ -39,6 +40,20 @@ import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
 final class LegacySQLImpl {
+
+    interface LegacyInternal<S extends SQLOperations>
+        extends SQLExecutor<S, JsonArray, ResultSet, LegacySQLConverter> {
+
+        @Override
+        @NonNull LegacySQLPreparedQuery preparedQuery();
+
+        @Override
+        <T extends TableLike<?>, R> Future<R> execute(@NonNull Query query,
+                                                      @NonNull SQLResultAdapter<ResultSet, LegacySQLConverter,
+                                                                                   T, R> resultAdapter);
+
+    }
+
 
     static final class LegacySQLPQ extends SQLPQ<JsonArray> implements LegacySQLPreparedQuery {
 
@@ -59,7 +74,7 @@ final class LegacySQLImpl {
     }
 
 
-    static final class LegacySQLRSC extends SQLRSC<ResultSet> implements LegacySQLResultConverter {
+    static final class LegacySQLRSC extends SQLRSC<ResultSet> implements LegacySQLConverter {
 
         protected <T extends TableLike<? extends Record>, R> List<R> doConvert(ResultSet rs, T table,
                                                                                @NonNull Function<JsonRecord<?>, R> mapper) {
@@ -102,9 +117,9 @@ final class LegacySQLImpl {
     }
 
 
-    static final class LegacyDSLAI extends DSLAI<ResultSet, LegacySQLResultConverter> implements LegacyDSL {
+    static final class LegacyDSLAI extends DSLAI<ResultSet, LegacySQLConverter> implements LegacyDSL {
 
-        LegacyDSLAI(@NonNull LegacySQLResultConverter converter) {
+        LegacyDSLAI(@NonNull LegacySQLConverter converter) {
             super(converter);
         }
 
@@ -118,15 +133,16 @@ final class LegacySQLImpl {
     @Getter
     @SuperBuilder
     @Accessors(fluent = true)
-    abstract static class LegacySQLEI<S extends SQLOperations> extends SQLEI<S, JsonArray, ResultSet> {
+    abstract static class LegacySQLEI<S extends SQLOperations>
+        extends SQLEI<S, JsonArray, ResultSet, LegacySQLConverter> implements LegacyInternal<S> {
 
         @Default
         @NonNull
-        private final SQLPreparedQuery<JsonArray> preparedQuery = new LegacySQLPQ();
+        private final LegacySQLPreparedQuery preparedQuery = new LegacySQLPQ();
 
         @Override
-        public final <T extends TableLike<?>, C extends SQLResultSetConverter<ResultSet>, R> Future<R> execute(
-            @NonNull Query query, @NonNull SQLResultAdapter<ResultSet, C, T, R> adapter) {
+        public final <T extends TableLike<?>, R> Future<R> execute(@NonNull Query query,
+                                                                   @NonNull SQLResultAdapter<ResultSet, LegacySQLConverter, T, R> adapter) {
             final Promise<ResultSet> promise = Promise.promise();
             sqlClient().queryWithParams(preparedQuery().sql(dsl().configuration(), query),
                                         preparedQuery().bindValues(query), promise);
@@ -145,6 +161,109 @@ final class LegacySQLImpl {
         }
 
         protected abstract Future<SQLConnection> openConn();
+
+    }
+
+
+    @Getter
+    @SuperBuilder
+    @Accessors(fluent = true)
+    static final class LegacyJooqxImpl extends LegacySQLEI<SQLClient> implements LegacyJooqx {
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public @NonNull LegacyJooqxTx transaction() {
+            return LegacySQLImpl.LegacyJooqTxImpl.builder()
+                                                 .vertx(vertx())
+                                                 .dsl(dsl())
+                                                 .preparedQuery(preparedQuery())
+                                                 .errorConverter(errorConverter())
+                                                 .delegate(this)
+                                                 .build();
+        }
+
+        @Override
+        protected LegacyJooqxImpl withSqlClient(@NonNull SQLClient sqlClient) {
+            throw new UnsupportedOperationException("No need");
+        }
+
+        protected Future<SQLConnection> openConn() {
+            final Promise<SQLConnection> promise = Promise.promise();
+            sqlClient().getConnection(ar -> {
+                if (ar.failed()) {
+                    promise.fail(connFailed("Unable open SQL connection", ar.cause()));
+                } else {
+                    promise.complete(ar.result());
+                }
+            });
+            return promise.future();
+        }
+
+    }
+
+
+    @Getter
+    @SuperBuilder
+    @Accessors(fluent = true)
+    static final class LegacyJooqTxImpl extends LegacySQLEI<SQLConnection> implements LegacyJooqxTx {
+
+        private final LegacySQLEI<SQLClient> delegate;
+
+        @Override
+        public <X> Future<X> run(@NonNull Function<LegacyJooqxTx, Future<X>> block) {
+            final Promise<X> promise = Promise.promise();
+            delegate.openConn().map(conn -> conn.setAutoCommit(false, committable -> {
+                if (committable.failed()) {
+                    failed(conn, promise, connFailed("Unable begin transaction", committable.cause()));
+                } else {
+                    block.apply(withSqlClient(conn))
+                         .onSuccess(r -> commit(conn, promise, r))
+                         .onFailure(t -> rollback(conn, promise, t));
+                }
+            }));
+            return promise.future();
+        }
+
+        @Override
+        protected Future<SQLConnection> openConn() {
+            return Future.succeededFuture(sqlClient());
+        }
+
+        @Override
+        protected LegacyJooqTxImpl withSqlClient(@NonNull SQLConnection sqlConn) {
+            return LegacyJooqTxImpl.builder()
+                                   .vertx(vertx())
+                                   .sqlClient(sqlConn)
+                                   .dsl(dsl())
+                                   .preparedQuery(preparedQuery())
+                                   .errorConverter(errorConverter())
+                                   .build();
+        }
+
+        private <X> void commit(@NonNull SQLConnection conn, @NonNull Promise<X> promise, X output) {
+            conn.commit(v -> {
+                if (v.succeeded()) {
+                    promise.complete(output);
+                    conn.close();
+                } else {
+                    rollback(conn, promise, errorConverter().handle(v.cause()));
+                }
+            });
+        }
+
+        private <X> void rollback(@NonNull SQLConnection conn, @NonNull Promise<X> promise, @NonNull Throwable t) {
+            conn.rollback(rb -> {
+                if (!rb.succeeded()) {
+                    t.addSuppressed(rb.cause());
+                }
+                failed(conn, promise, t);
+            });
+        }
+
+        private <X> void failed(@NonNull SQLConnection conn, @NonNull Promise<X> promise, @NonNull Throwable t) {
+            promise.fail(t);
+            conn.close();
+        }
 
     }
 

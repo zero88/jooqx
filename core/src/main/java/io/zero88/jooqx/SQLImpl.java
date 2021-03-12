@@ -45,7 +45,7 @@ final class SQLImpl {
     @Getter
     @SuperBuilder
     @Accessors(fluent = true)
-    abstract static class SQLEI<S, P, RS> implements SQLExecutor<S, P, RS> {
+    abstract static class SQLEI<S, P, RS, C extends SQLResultConverter<RS>> implements SQLExecutor<S, P, RS, C> {
 
         private final Vertx vertx;
         private final DSLContext dsl;
@@ -165,12 +165,12 @@ final class SQLImpl {
 
 
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    abstract static class SQLRSC<RS> implements SQLResultSetConverter<RS> {
+    abstract static class SQLRSC<RS> implements SQLResultConverter<RS> {
 
         protected SelectStrategy strategy = SelectStrategy.MANY;
 
         @Override
-        public @NonNull SQLResultSetConverter<RS> setup(@NonNull SelectStrategy strategy) {
+        public @NonNull SQLResultConverter<RS> setup(@NonNull SelectStrategy strategy) {
             this.strategy = strategy;
             return this;
         }
