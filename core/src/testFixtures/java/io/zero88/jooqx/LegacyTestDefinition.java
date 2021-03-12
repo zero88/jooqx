@@ -18,7 +18,7 @@ import io.zero88.jooqx.LegacySQLImpl.LegacySQLPQ;
 
 public interface LegacyTestDefinition {
 
-    interface LegacyJooqxProvider extends SQLExecutorProvider<SQLClient, JsonArray, ResultSet, LegacyJooqx> {
+    interface LegacyJooqxProvider extends JooqxProvider<SQLClient, JsonArray, ResultSet, LegacyJooqx> {
 
         @Override
         default LegacyJooqx createExecutor(Vertx vertx, JooqDSLProvider dslProvider, SQLClient sqlClient) {
@@ -27,7 +27,7 @@ public interface LegacyTestDefinition {
                               .dsl(dslProvider.dsl())
                               .sqlClient(sqlClient)
                               .preparedQuery(createPreparedQuery())
-                              .errorConverter(createErrorConverter())
+                              .errorConverter(errorConverter())
                               .build();
         }
 
@@ -74,7 +74,7 @@ public interface LegacyTestDefinition {
         default SQLClientProvider<SQLClient> clientProvider() { return this; }
 
         @Override
-        default LegacyJooqxProvider executorProvider() { return this; }
+        default LegacyJooqxProvider jooqxProvider() { return this; }
 
     }
 

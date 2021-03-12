@@ -38,8 +38,8 @@ public abstract class SQLTestImpl<S, P, R, E extends SQLExecutor<S, P, R>, K, D 
     @BeforeEach
     public void tearUp(Vertx vertx, VertxTestContext ctx) {
         connOpt = dbProvider().connOpt(getDB());
-        jooqx = executorProvider().createExecutor(vertx, dslProvider(),
-                                                  clientProvider().createSqlClient(vertx, ctx, connOpt));
+        jooqx = jooqxProvider().createExecutor(vertx, dslProvider(),
+                                               clientProvider().createSqlClient(vertx, ctx, connOpt));
         System.out.println(Strings.duplicate("=", 150));
     }
 

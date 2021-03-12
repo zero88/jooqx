@@ -17,7 +17,7 @@ import io.zero88.jooqx.ReactiveSQLImpl.ReactiveSQLPQ;
 public interface ReactiveTestDefinition {
 
     interface ReactiveJooqxProvider<S extends SqlClient>
-        extends SQLExecutorProvider<S, Tuple, RowSet<Row>, ReactiveJooqx<S>> {
+        extends JooqxProvider<S, Tuple, RowSet<Row>, ReactiveJooqx<S>> {
 
         @Override
         default ReactiveJooqx<S> createExecutor(Vertx vertx, JooqDSLProvider dslProvider, S sqlClient) {
@@ -25,7 +25,7 @@ public interface ReactiveTestDefinition {
                                              .dsl(dslProvider.dsl())
                                              .sqlClient(sqlClient)
                                              .preparedQuery(createPreparedQuery())
-                                             .errorConverter(createErrorConverter())
+                                             .errorConverter(errorConverter())
                                              .build();
         }
 
@@ -68,7 +68,7 @@ public interface ReactiveTestDefinition {
         @Override
         default SQLClientProvider<S> clientProvider() { return this; }
 
-        default ReactiveJooqxProvider<S> executorProvider() { return this; }
+        default ReactiveJooqxProvider<S> jooqxProvider() { return this; }
 
     }
 

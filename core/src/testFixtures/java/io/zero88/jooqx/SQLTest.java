@@ -5,6 +5,6 @@ public interface SQLTest<S, P, R, E extends SQLExecutor<S, P, R>, K, D extends D
 
     SQLClientProvider<S> clientProvider();
 
-    SQLExecutorProvider<S, P, R, E> executorProvider();
+    JooqxProvider<S, P, R, E> jooqxProvider();
 
 }
