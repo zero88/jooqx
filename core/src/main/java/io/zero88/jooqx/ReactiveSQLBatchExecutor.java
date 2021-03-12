@@ -24,21 +24,20 @@ public interface ReactiveSQLBatchExecutor extends SQLBatchExecutor {
     /**
      * Batch execute
      *
+     * @param <T>             type of jOOQ table
+     * @param <R>             type of record
      * @param query           jOOQ query
      * @param bindBatchValues bind batch values
      * @param adapter         result adapter
      * @param handler         async result handler
-     * @param <Q>             type of jOOQ
-     * @param <T>             type of jOOQ table
-     * @param <R>             type of record
      * @see BindBatchValues
      * @see SelectListResultAdapter
      * @see BatchReturningResult
      */
-    default <Q extends Query, T extends TableLike<?>, R> void batch(@NonNull Q query,
-                                                                    @NonNull BindBatchValues bindBatchValues,
-                                                                    @NonNull SelectListResultAdapter<RowSet<Row>, ReactiveSQLResultBatchConverter, T, R> adapter,
-                                                                    @NonNull Handler<AsyncResult<BatchReturningResult<R>>> handler) {
+    default <T extends TableLike<?>, R> void batch(@NonNull Query query, @NonNull BindBatchValues bindBatchValues,
+                                                   @NonNull SelectListResultAdapter<RowSet<Row>,
+                                                                                       ReactiveSQLResultBatchConverter, T, R> adapter,
+                                                   @NonNull Handler<AsyncResult<BatchReturningResult<R>>> handler) {
         batch(query, bindBatchValues, adapter).onComplete(handler);
     }
 
@@ -46,19 +45,19 @@ public interface ReactiveSQLBatchExecutor extends SQLBatchExecutor {
      * Like {@link #batch(Query, BindBatchValues, SelectListResultAdapter, Handler)} but returns a {@code Future} of the
      * asynchronous result
      *
+     * @param <T>             type of jOOQ table
+     * @param <R>             type of record
      * @param query           jOOQ query
      * @param bindBatchValues bind batch values
      * @param adapter         result adapter
-     * @param <Q>             type of jOOQ
-     * @param <T>             type of jOOQ table
-     * @param <R>             type of record
      * @return a {@code Future} of the asynchronous result
      * @see BindBatchValues
      * @see SelectListResultAdapter
      * @see BatchReturningResult
      */
-    <Q extends Query, T extends TableLike<?>, R> Future<BatchReturningResult<R>> batch(@NonNull Q query,
-                                                                                       @NonNull BindBatchValues bindBatchValues,
-                                                                                       @NonNull SelectListResultAdapter<RowSet<Row>, ReactiveSQLResultBatchConverter, T, R> adapter);
+    <T extends TableLike<?>, R> Future<BatchReturningResult<R>> batch(@NonNull Query query,
+                                                                      @NonNull BindBatchValues bindBatchValues,
+                                                                      @NonNull SelectListResultAdapter<RowSet<Row>,
+                                                                                                          ReactiveSQLResultBatchConverter, T, R> adapter);
 
 }

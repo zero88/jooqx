@@ -125,8 +125,8 @@ final class LegacySQLImpl {
         private final SQLPreparedQuery<JsonArray> preparedQuery = new LegacySQLPQ();
 
         @Override
-        public final <Q extends Query, T extends TableLike<?>, C extends SQLResultSetConverter<ResultSet>, R> Future<R> execute(
-            @NonNull Q query, @NonNull SQLResultAdapter<ResultSet, C, T, R> adapter) {
+        public final <T extends TableLike<?>, C extends SQLResultSetConverter<ResultSet>, R> Future<R> execute(
+            @NonNull Query query, @NonNull SQLResultAdapter<ResultSet, C, T, R> adapter) {
             final Promise<ResultSet> promise = Promise.promise();
             sqlClient().queryWithParams(preparedQuery().sql(dsl().configuration(), query),
                                         preparedQuery().bindValues(query), promise);
@@ -134,8 +134,7 @@ final class LegacySQLImpl {
         }
 
         @Override
-        public final <Q extends Query> Future<BatchResult> batch(@NonNull Q query,
-                                                                 @NonNull BindBatchValues bindBatchValues) {
+        public final Future<BatchResult> batch(@NonNull Query query, @NonNull BindBatchValues bindBatchValues) {
             final Promise<List<Integer>> promise = Promise.promise();
             openConn().map(c -> c.batchWithParams(preparedQuery().sql(dsl().configuration(), query),
                                                   preparedQuery().bindValues(query, bindBatchValues), promise));

@@ -71,19 +71,18 @@ public interface SQLExecutor<S, P, RS> extends SQLBatchExecutor {
     /**
      * Execute {@code jOOQ query} then return async result
      *
-     * @param query         jOOQ query
-     * @param resultAdapter a result adapter
-     * @param handler       a async result handler
-     * @param <Q>           type of jOOQ Query
      * @param <T>           type of jOOQ TableLike
      * @param <C>           type of result set converter
      * @param <R>           type of expectation result
+     * @param query         jOOQ query
+     * @param resultAdapter a result adapter
+     * @param handler       a async result handler
      * @see Query
      * @see TableLike
      * @see SQLResultAdapter
      */
-    default <Q extends Query, T extends TableLike<?>, C extends SQLResultSetConverter<RS>, R> void execute(
-        @NonNull Q query, @NonNull SQLResultAdapter<RS, C, T, R> resultAdapter,
+    default <T extends TableLike<?>, C extends SQLResultSetConverter<RS>, R> void execute(
+        @NonNull Query query, @NonNull SQLResultAdapter<RS, C, T, R> resultAdapter,
         @NonNull Handler<AsyncResult<R>> handler) {
         execute(query, resultAdapter).onComplete(handler);
     }
@@ -91,16 +90,15 @@ public interface SQLExecutor<S, P, RS> extends SQLBatchExecutor {
     /**
      * Like {@link #execute(Query, SQLResultAdapter, Handler)} but returns a {@code Future} of the asynchronous result
      *
-     * @param query         jOOQ query
-     * @param resultAdapter a result adapter
-     * @param <Q>           type of jOOQ Query
      * @param <T>           type of jOOQ TableLike
      * @param <C>           type of result set converter
      * @param <R>           type of expectation result
+     * @param query         jOOQ query
+     * @param resultAdapter a result adapter
      * @return a {@code Future} of the asynchronous result
      */
-    <Q extends Query, T extends TableLike<?>, C extends SQLResultSetConverter<RS>, R> Future<R> execute(
-        @NonNull Q query, @NonNull SQLResultAdapter<RS, C, T, R> resultAdapter);
+    <T extends TableLike<?>, C extends SQLResultSetConverter<RS>, R> Future<R> execute(
+        @NonNull Query query, @NonNull SQLResultAdapter<RS, C, T, R> resultAdapter);
 
     /**
      * Open transaction executor
