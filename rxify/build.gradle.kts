@@ -8,18 +8,13 @@ dependencies {
     compileOnly(VertxLibs.rx2)
     compileOnly(VertxLibs.codegen)
     annotationProcessor(VertxLibs.codegen)
-
-    compileOnly(UtilLibs.lombok)
-    annotationProcessor(UtilLibs.lombok)
 }
 
 tasks.register<JavaCompile>("annotationProcessing") {
-    group = "build"
-
+    group = "other"
     source = sourceSets.getByName(SourceSet.MAIN_SOURCE_SET_NAME).java
     destinationDir = project.file("${project.buildDir}/generated/main/java")
     classpath = configurations.compileClasspath.get()
-
     options.annotationProcessorPath = configurations.compileClasspath.get()
     options.compilerArgs = listOf(
         "-proc:only",
