@@ -2,7 +2,6 @@ package io.zero88.jooqx;
 
 import org.jooq.Query;
 
-import io.vertx.codegen.annotations.VertxGen;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
@@ -14,7 +13,6 @@ import lombok.NonNull;
  *
  * @since 1.0.0
  */
-@VertxGen
 public interface SQLBatchExecutor {
 
     /**
