@@ -69,7 +69,7 @@ final class ReactiveSQLImpl {
                      .mapToObj(row::getColumnName)
                      .map(lookupField)
                      .filter(Objects::nonNull)
-                     .forEach(f -> record.set((Field<Object>) f, row.get(f.getType(), f.getName())));
+                     .forEach(f -> convertFieldType(record, f, row.getValue(f.getName())));
             return record;
         }
 
@@ -106,8 +106,7 @@ final class ReactiveSQLImpl {
     }
 
 
-    static final class ReactiveDSLAI extends DSLAI<RowSet<Row>, ReactiveSQLResultConverter>
-        implements ReactiveDSL {
+    static final class ReactiveDSLAI extends DSLAI<RowSet<Row>, ReactiveSQLResultConverter> implements ReactiveDSL {
 
         ReactiveDSLAI() { super(new ReactiveSQLRSC()); }
 

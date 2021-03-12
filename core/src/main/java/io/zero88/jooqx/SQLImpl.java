@@ -24,6 +24,7 @@ import org.jooq.Table;
 import org.jooq.TableLike;
 import org.jooq.conf.ParamType;
 import org.jooq.exception.SQLStateClass;
+import org.jooq.types.YearToSecond;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -219,6 +220,28 @@ final class SQLImpl {
             if (check) {
                 LOGGER.warn("Query strategy is [{}] but query result contains more than one row", strategy);
             }
+        }
+
+        @SuppressWarnings( {"unchecked", "rawtypes"})
+        protected void convertFieldType(@NonNull JsonRecord<?> record, @NonNull Field f, Object value) {
+            LOGGER.debug("Convert Field [{}] - jOOQ [{}] - Vertx [{}::{}]", f.getName(), f.getType().getName(), value,
+                         Optional.ofNullable(value).map(Object::getClass).map(Class::getName).orElse(null));
+            if (Objects.isNull(value)) {
+                record.set((Field<Object>) f, null);
+                return;
+            }
+            //            LOGGER.error("DataType: [{}] - Converter: [{}] - After convert [{}]", f.getDataType(), f
+            //            .getConverter(),
+            //                         Optional.ofNullable(f.getConverter().to(value))
+            //                                 .map(v -> v.getClass().getName())
+            //                                 .orElse(null));
+            {
+                if (f.getType() == YearToSecond.class) {
+                    record.set((Field<Object>) f, null);
+                    return;
+                }
+            }
+            record.set((Field<Object>) f, value);
         }
 
     }

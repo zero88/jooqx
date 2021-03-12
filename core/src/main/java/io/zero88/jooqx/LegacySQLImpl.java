@@ -84,7 +84,7 @@ final class LegacySQLImpl {
         private <T extends TableLike<? extends Record>> JsonRecord<?> toRecord(T table, Map<Integer, Field<?>> map,
                                                                                JsonArray row) {
             JsonRecord<?> record = JsonRecord.create((Table<JsonRecord>) table);
-            map.forEach((k, v) -> record.set((Field<Object>) v, v.getType().cast(row.getValue(k))));
+            map.forEach((k, v) -> convertFieldType(record, v, row.getValue(k)));
             return record;
         }
 
