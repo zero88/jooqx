@@ -1,4 +1,4 @@
-package io.zero88.jooqx.integtest.reactive;
+package io.zero88.jooqx.integtest.spi.pg;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -20,24 +20,25 @@ import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
+import io.vertx.pgclient.PgConnection;
 import io.zero88.jooqx.JsonRecord;
 import io.zero88.jooqx.ReactiveDSL;
-import io.zero88.jooqx.integtest.PostgreSQLHelper;
 import io.zero88.jooqx.integtest.pgsql.tables.records.AuthorsRecord;
 import io.zero88.jooqx.integtest.pgsql.tables.records.BooksRecord;
-import io.zero88.jooqx.spi.PostgreSQLReactiveTest.PostgreSQLClientTest;
+import io.zero88.jooqx.spi.pg.PgConnProvider;
+import io.zero88.jooqx.spi.pg.PgSQLReactiveTest;
 
 /**
  * If using v4.0.0, pretty sure thread leak, but v4.0.2 is already fixed
  * <a href="vertx-sql-client#909">https://github.com/eclipse-vertx/vertx-sql-client/issues/909</a>
  */
-class PgSQLSuccessTest extends PostgreSQLClientTest implements PostgreSQLHelper {
+class PgReAConnRelTest extends PgSQLReactiveTest<PgConnection> implements PgConnProvider, PostgreSQLHelper {
 
     @Override
     @BeforeEach
     public void tearUp(Vertx vertx, VertxTestContext ctx) {
         super.tearUp(vertx, ctx);
-        this.prepareDatabase(ctx, this, connOpt);
+        this.prepareDatabase(ctx, this, connOpt, "pg_datatype/book_author.sql");
     }
 
     @Test
@@ -45,8 +46,7 @@ class PgSQLSuccessTest extends PostgreSQLClientTest implements PostgreSQLHelper 
         final Checkpoint flag = ctx.checkpoint();
         final io.zero88.jooqx.integtest.pgsql.tables.Books table = catalog().PUBLIC.BOOKS;
         final SelectWhereStep<BooksRecord> query = jooqx.dsl().selectFrom(table);
-        jooqx.execute(query, ReactiveDSL.adapter().fetchJsonRecords(table),
-                         ar -> assertResultSize(ctx, flag, ar, 7));
+        jooqx.execute(query, ReactiveDSL.adapter().fetchJsonRecords(table), ar -> assertResultSize(ctx, flag, ar, 7));
     }
 
     @Test
@@ -122,12 +122,17 @@ class PgSQLSuccessTest extends PostgreSQLClientTest implements PostgreSQLHelper 
         final Checkpoint flag = ctx.checkpoint(2);
         final io.zero88.jooqx.integtest.pgsql.tables.Authors table = catalog().PUBLIC.AUTHORS;
         final SelectWhereStep<AuthorsRecord> query = jooqx.dsl().selectFrom(table);
-        jooqx.execute(query, ReactiveDSL.adapter().fetchMany(table, io.zero88.jooqx.integtest.pgsql.tables.pojos.Authors.class), ar -> {
-            final List<io.zero88.jooqx.integtest.pgsql.tables.pojos.Authors> books = assertResultSize(ctx, flag, ar, 8);
-            final io.zero88.jooqx.integtest.pgsql.tables.pojos.Authors authors = books.get(0);
-            ctx.verify(() -> Assertions.assertEquals(1, authors.getId()));
-            flag.flag();
-        });
+        jooqx.execute(query, ReactiveDSL.adapter()
+                                        .fetchMany(table, io.zero88.jooqx.integtest.pgsql.tables.pojos.Authors.class),
+                      ar -> {
+                          final List<io.zero88.jooqx.integtest.pgsql.tables.pojos.Authors> books = assertResultSize(ctx,
+                                                                                                                    flag,
+                                                                                                                    ar,
+                                                                                                                    8);
+                          final io.zero88.jooqx.integtest.pgsql.tables.pojos.Authors authors = books.get(0);
+                          ctx.verify(() -> Assertions.assertEquals(1, authors.getId()));
+                          flag.flag();
+                      });
     }
 
     @Test
@@ -155,25 +160,24 @@ class PgSQLSuccessTest extends PostgreSQLClientTest implements PostgreSQLHelper 
                                                           .insertInto(table, table.ID, table.TITLE)
                                                           .values(Arrays.asList(DSL.defaultValue(table.ID), "abc"))
                                                           .returning(table.ID);
-        jooqx.execute(insert, ReactiveDSL.adapter().fetchOne(table, Collections.singletonList(table.ID)),
-                         ar -> {
-                             ctx.verify(() -> {
-                                 final Record record = ar.result();
-                                 final BooksRecord into1 = record.into(BooksRecord.class);
-                                 Assertions.assertEquals(8, into1.getId());
-                                 Assertions.assertNull(into1.getTitle());
-                                 final io.zero88.jooqx.integtest.pgsql.tables.pojos.Books into2 = record.into(
-                                     io.zero88.jooqx.integtest.pgsql.tables.pojos.Books.class);
-                                 Assertions.assertEquals(8, into2.getId());
-                                 Assertions.assertNull(into2.getTitle());
-                                 final io.zero88.jooqx.integtest.pgsql.tables.pojos.Authors into3 = record.into(
-                                     io.zero88.jooqx.integtest.pgsql.tables.pojos.Authors.class);
-                                 Assertions.assertEquals(8, into3.getId());
-                                 Assertions.assertNull(into3.getCountry());
-                             });
+        jooqx.execute(insert, ReactiveDSL.adapter().fetchOne(table, Collections.singletonList(table.ID)), ar -> {
+            ctx.verify(() -> {
+                final Record record = ar.result();
+                final BooksRecord into1 = record.into(BooksRecord.class);
+                Assertions.assertEquals(8, into1.getId());
+                Assertions.assertNull(into1.getTitle());
+                final io.zero88.jooqx.integtest.pgsql.tables.pojos.Books into2 = record.into(
+                    io.zero88.jooqx.integtest.pgsql.tables.pojos.Books.class);
+                Assertions.assertEquals(8, into2.getId());
+                Assertions.assertNull(into2.getTitle());
+                final io.zero88.jooqx.integtest.pgsql.tables.pojos.Authors into3 = record.into(
+                    io.zero88.jooqx.integtest.pgsql.tables.pojos.Authors.class);
+                Assertions.assertEquals(8, into3.getId());
+                Assertions.assertNull(into3.getCountry());
+            });
 
-                             flag.flag();
-                         });
+            flag.flag();
+        });
     }
 
 }

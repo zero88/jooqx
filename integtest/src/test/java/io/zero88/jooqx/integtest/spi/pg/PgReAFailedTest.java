@@ -1,4 +1,4 @@
-package io.zero88.jooqx.integtest.reactive;
+package io.zero88.jooqx.integtest.spi.pg;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -17,19 +17,20 @@ import io.vertx.junit5.VertxTestContext;
 import io.vertx.pgclient.PgConnection;
 import io.vertx.pgclient.PgException;
 import io.zero88.jooqx.ReactiveDSL;
-import io.zero88.jooqx.integtest.PostgreSQLHelper;
-import io.zero88.jooqx.integtest.PostgreSQLHelper.UsePgSQLErrorConverter;
 import io.zero88.jooqx.integtest.pgsql.tables.Books;
 import io.zero88.jooqx.integtest.pgsql.tables.records.BooksRecord;
-import io.zero88.jooqx.spi.PostgreSQLReactiveTest.PostgreSQLClientTest;
+import io.zero88.jooqx.spi.pg.PgConnProvider;
+import io.zero88.jooqx.spi.pg.PgSQLReactiveTest;
+import io.zero88.jooqx.spi.pg.UsePgSQLErrorConverter;
 
-class PgSQLFailedTest extends PostgreSQLClientTest implements UsePgSQLErrorConverter<PgConnection>, PostgreSQLHelper {
+class PgReAFailedTest extends PgSQLReactiveTest<PgConnection>
+    implements PgConnProvider, PostgreSQLHelper, UsePgSQLErrorConverter {
 
     @Override
     @BeforeEach
     public void tearUp(Vertx vertx, VertxTestContext ctx) {
         super.tearUp(vertx, ctx);
-        this.prepareDatabase(ctx, this, connOpt);
+        this.prepareDatabase(ctx, this, connOpt, "pg_datatype/book_author.sql");
     }
 
     @Test
@@ -41,9 +42,9 @@ class PgSQLFailedTest extends PostgreSQLClientTest implements UsePgSQLErrorConve
                                                           .values(1, "abc")
                                                           .returning(table.ID);
         jooqx.execute(insert, ReactiveDSL.adapter().fetchOne(table, Collections.singletonList(table.ID)),
-                         ar -> assertJooqException(ctx, flag, ar, SQLStateClass.C23_INTEGRITY_CONSTRAINT_VIOLATION,
-                                                   "duplicate key value violates unique constraint \"books_pkey\"",
-                                                   PgException.class));
+                      ar -> assertJooqException(ctx, flag, ar, SQLStateClass.C23_INTEGRITY_CONSTRAINT_VIOLATION,
+                                                "duplicate key value violates unique constraint \"books_pkey\"",
+                                                PgException.class));
     }
 
     @Test
@@ -73,7 +74,7 @@ class PgSQLFailedTest extends PostgreSQLClientTest implements UsePgSQLErrorConve
                                 "Unsupported using connection on SQL connection: [class io.vertx.pgclient.impl" +
                                 ".PgConnectionImpl]. Switch using SQL pool");
             jooqx.execute(jooqx.dsl().selectFrom(table), ReactiveDSL.adapter().fetchMany(table),
-                             ar2 -> assertResultSize(context, flag, ar2, 7));
+                          ar2 -> assertResultSize(context, flag, ar2, 7));
         });
     }
 

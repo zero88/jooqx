@@ -1,4 +1,4 @@
-package io.zero88.jooqx.integtest;
+package io.zero88.jooqx.integtest.spi.h2;
 
 import org.jooq.SQLDialect;
 

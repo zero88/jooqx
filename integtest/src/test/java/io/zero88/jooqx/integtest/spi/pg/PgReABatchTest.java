@@ -1,4 +1,4 @@
-package io.zero88.jooqx.integtest.reactive;
+package io.zero88.jooqx.integtest.spi.pg;
 
 import java.util.Arrays;
 import java.util.List;
@@ -26,21 +26,22 @@ import io.zero88.jooqx.BatchReturningResult;
 import io.zero88.jooqx.BindBatchValues;
 import io.zero88.jooqx.JsonRecord;
 import io.zero88.jooqx.ReactiveDSL;
-import io.zero88.jooqx.integtest.PostgreSQLHelper;
-import io.zero88.jooqx.integtest.PostgreSQLHelper.UsePgSQLErrorConverter;
 import io.zero88.jooqx.integtest.pgsql.tables.Authors;
 import io.zero88.jooqx.integtest.pgsql.tables.Books;
 import io.zero88.jooqx.integtest.pgsql.tables.records.AuthorsRecord;
 import io.zero88.jooqx.integtest.pgsql.tables.records.BooksRecord;
-import io.zero88.jooqx.spi.PostgreSQLReactiveTest.PostgreSQLPoolTest;
+import io.zero88.jooqx.spi.pg.PgPoolProvider;
+import io.zero88.jooqx.spi.pg.PgSQLReactiveTest;
+import io.zero88.jooqx.spi.pg.UsePgSQLErrorConverter;
 
-class PgSQLBatchInPoolTest extends PostgreSQLPoolTest implements UsePgSQLErrorConverter<PgPool>, PostgreSQLHelper {
+class PgReABatchTest extends PgSQLReactiveTest<PgPool>
+    implements PgPoolProvider, PostgreSQLHelper, UsePgSQLErrorConverter {
 
     @Override
     @BeforeEach
     public void tearUp(Vertx vertx, VertxTestContext ctx) {
         super.tearUp(vertx, ctx);
-        this.prepareDatabase(ctx, this, connOpt);
+        this.prepareDatabase(ctx, this, connOpt, "pg_datatype/book_author.sql");
     }
 
     @Test
@@ -71,7 +72,7 @@ class PgSQLBatchInPoolTest extends PostgreSQLPoolTest implements UsePgSQLErrorCo
                                                 "\"name\":\"haha\",\"country\":\"VN\"}]", v);
                     });
                     jooqx.execute(jooqx.dsl().selectFrom(table), ReactiveDSL.adapter().fetchJsonRecords(table),
-                                     ar2 -> assertResultSize(ctx, flag, ar2, 10));
+                                  ar2 -> assertResultSize(ctx, flag, ar2, 10));
                 } else {
                     ctx.failNow(ar.cause());
                 }
@@ -108,7 +109,7 @@ class PgSQLBatchInPoolTest extends PostgreSQLPoolTest implements UsePgSQLErrorCo
                         System.out.println(records);
                     });
                     jooqx.execute(jooqx.dsl().selectFrom(table), ReactiveDSL.adapter().fetchJsonRecords(table),
-                                     ar2 -> assertResultSize(ctx, flag, ar2, 10));
+                                  ar2 -> assertResultSize(ctx, flag, ar2, 10));
                 } else {
                     ctx.failNow(ar.cause());
                 }
@@ -116,8 +117,7 @@ class PgSQLBatchInPoolTest extends PostgreSQLPoolTest implements UsePgSQLErrorCo
                 flag.flag();
             }
         };
-        jooqx.batch(insert, bindValues, ReactiveDSL.adapter().batch(table, jooqx.dsl().newRecord(table.ID)),
-                    handler);
+        jooqx.batch(insert, bindValues, ReactiveDSL.adapter().batch(table, jooqx.dsl().newRecord(table.ID)), handler);
     }
 
     @Test
@@ -129,9 +129,7 @@ class PgSQLBatchInPoolTest extends PostgreSQLPoolTest implements UsePgSQLErrorCo
         final BindBatchValues bindValues = new BindBatchValues().register(table.NAME)
                                                                 .registerValue(table.COUNTRY, "VN")
                                                                 .add(rec1, rec2);
-        final InsertSetMoreStep<AuthorsRecord> insert = jooqx.dsl()
-                                                             .insertInto(table)
-                                                             .set(bindValues.getDummyValues());
+        final InsertSetMoreStep<AuthorsRecord> insert = jooqx.dsl().insertInto(table).set(bindValues.getDummyValues());
         jooqx.batch(insert, bindValues, ar -> {
             try {
                 if (ar.succeeded()) {
@@ -141,7 +139,7 @@ class PgSQLBatchInPoolTest extends PostgreSQLPoolTest implements UsePgSQLErrorCo
                         Assertions.assertEquals(2, result.getSuccesses());
                     });
                     jooqx.execute(jooqx.dsl().selectFrom(table), ReactiveDSL.adapter().fetchJsonRecords(table),
-                                     ar2 -> assertResultSize(ctx, flag, ar2, 10));
+                                  ar2 -> assertResultSize(ctx, flag, ar2, 10));
                 } else {
                     ctx.failNow(ar.cause());
                 }
@@ -170,7 +168,7 @@ class PgSQLBatchInPoolTest extends PostgreSQLPoolTest implements UsePgSQLErrorCo
             context.verify(() -> {
                 Assertions.assertTrue(ar.succeeded());
                 jooqx.execute(jooqx.dsl().selectFrom(table), ReactiveDSL.adapter().fetchMany(table),
-                                 ar2 -> assertResultSize(context, flag, ar2, 9));
+                              ar2 -> assertResultSize(context, flag, ar2, 9));
             });
             flag.flag();
         });
@@ -198,7 +196,7 @@ class PgSQLBatchInPoolTest extends PostgreSQLPoolTest implements UsePgSQLErrorCo
                 Assertions.assertEquals(SQLStateClass.C23_INTEGRITY_CONSTRAINT_VIOLATION,
                                         ((DataAccessException) ar.cause()).sqlStateClass());
                 jooqx.execute(jooqx.dsl().selectFrom(table), ReactiveDSL.adapter().fetchMany(table),
-                                 ar2 -> assertResultSize(context, flag, ar2, 7));
+                              ar2 -> assertResultSize(context, flag, ar2, 7));
             });
             flag.flag();
         });
@@ -222,7 +220,7 @@ class PgSQLBatchInPoolTest extends PostgreSQLPoolTest implements UsePgSQLErrorCo
             context.verify(() -> {
                 Assertions.assertTrue(ar.succeeded());
                 jooqx.execute(jooqx.dsl().selectFrom(table), ReactiveDSL.adapter().fetchMany(table),
-                                 ar2 -> assertResultSize(context, flag, ar2, 10));
+                              ar2 -> assertResultSize(context, flag, ar2, 10));
             });
             flag.flag();
         });
