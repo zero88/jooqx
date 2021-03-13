@@ -24,6 +24,7 @@ import io.zero88.jooqx.MiscImpl.DSLAI;
 import io.zero88.jooqx.SQLImpl.SQLPQ;
 import io.zero88.jooqx.SQLImpl.SQLRC;
 import io.zero88.jooqx.adapter.SelectStrategy;
+import io.zero88.jooqx.datatype.SQLDataTypeRegistry;
 
 import lombok.NonNull;
 
@@ -31,12 +32,14 @@ final class ReactiveSQLImpl {
 
     static final class ReactiveSQLPQ extends SQLPQ<Tuple> implements ReactiveSQLPreparedQuery {
 
-        protected ArrayTuple doConvert(Map<String, Param<?>> params, BiFunction<String, Param<?>, ?> queryValue) {
+        protected ArrayTuple doConvert(Map<String, Param<?>> params, SQLDataTypeRegistry registry,
+                                       BiFunction<String, Param<?>, ?> queryValue) {
             final ArrayTuple bindValues = new ArrayTuple(params.size());
             params.entrySet()
                   .stream()
                   .filter(entry -> !entry.getValue().isInline())
-                  .forEachOrdered(etr -> bindValues.addValue(toDatabaseType(etr.getKey(), etr.getValue(), queryValue)));
+                  .forEachOrdered(
+                      etr -> bindValues.addValue(registry.toDatabaseType(etr.getKey(), etr.getValue(), queryValue)));
             return bindValues;
         }
 
@@ -69,7 +72,7 @@ final class ReactiveSQLImpl {
                      .mapToObj(row::getColumnName)
                      .map(lookupField)
                      .filter(Objects::nonNull)
-                     .forEach(f -> convertFieldType(record, f, row.getValue(f.getName())));
+                     .forEach(f -> record.set((Field<Object>) f, convertFieldType(f, row.getValue(f.getName()))));
             return record;
         }
 

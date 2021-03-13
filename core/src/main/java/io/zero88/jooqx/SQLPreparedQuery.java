@@ -6,6 +6,8 @@ import org.jooq.Configuration;
 import org.jooq.Param;
 import org.jooq.Query;
 
+import io.zero88.jooqx.datatype.SQLDataTypeRegistry;
+
 import lombok.NonNull;
 
 /**
@@ -16,7 +18,7 @@ import lombok.NonNull;
  * @see ReactiveSQLPreparedQuery
  * @since 1.0.0
  */
-public interface SQLPreparedQuery<T> {
+interface SQLPreparedQuery<T> {
 
     /**
      * Generate jOOQ query to sql query in String
@@ -31,23 +33,28 @@ public interface SQLPreparedQuery<T> {
     /**
      * Capture jOOQ param in jOOQ query and convert to Vertx bind value holder
      *
-     * @param query jOOQ query
+     * @param query          jOOQ query
+     * @param mapperRegistry Data type mapper registry
      * @return bind value holder
      * @see Param
      * @see Query
+     * @see SQLDataTypeRegistry
      */
-    @NonNull T bindValues(@NonNull Query query);
+    @NonNull T bindValues(@NonNull Query query, @NonNull SQLDataTypeRegistry mapperRegistry);
 
     /**
      * Capture jOOQ param in jOOQ query and convert to Vertx bind value holder
      *
      * @param query           jOOQ query
      * @param bindBatchValues bind batch values
+     * @param mapperRegistry  Data type mapper registry
      * @return list of bind value holder
      * @apiNote It is used for batch execution
      * @see BindBatchValues
      * @see SQLBatchExecutor#batch(Query, BindBatchValues)
+     * @see SQLDataTypeRegistry
      */
-    @NonNull List<T> bindValues(@NonNull Query query, @NonNull BindBatchValues bindBatchValues);
+    @NonNull List<T> bindValues(@NonNull Query query, @NonNull BindBatchValues bindBatchValues,
+                                @NonNull SQLDataTypeRegistry mapperRegistry);
 
 }

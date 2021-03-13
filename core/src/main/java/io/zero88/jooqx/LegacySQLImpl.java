@@ -32,6 +32,7 @@ import io.zero88.jooqx.SQLImpl.SQLPQ;
 import io.zero88.jooqx.SQLImpl.SQLRC;
 import io.zero88.jooqx.adapter.SQLResultAdapter;
 import io.zero88.jooqx.adapter.SelectStrategy;
+import io.zero88.jooqx.datatype.SQLDataTypeRegistry;
 
 import lombok.Builder.Default;
 import lombok.Getter;
@@ -41,16 +42,14 @@ import lombok.experimental.SuperBuilder;
 
 final class LegacySQLImpl {
 
-    interface LegacyInternal<S extends SQLOperations>
-        extends SQLExecutor<S, JsonArray, ResultSet, LegacySQLConverter> {
+    interface LegacyInternal<S extends SQLOperations> extends SQLExecutor<S, JsonArray, ResultSet, LegacySQLConverter> {
 
         @Override
         @NonNull LegacySQLPreparedQuery preparedQuery();
 
         @Override
         <T extends TableLike<?>, R> Future<R> execute(@NonNull Query query,
-                                                      @NonNull SQLResultAdapter<ResultSet, LegacySQLConverter,
-                                                                                   T, R> resultAdapter);
+                                                      @NonNull SQLResultAdapter<ResultSet, LegacySQLConverter, T, R> adapter);
 
     }
 
@@ -62,12 +61,13 @@ final class LegacySQLImpl {
         }
 
         @Override
-        protected JsonArray doConvert(Map<String, Param<?>> params, BiFunction<String, Param<?>, ?> queryValue) {
+        protected JsonArray doConvert(Map<String, Param<?>> params, SQLDataTypeRegistry registry,
+                                      BiFunction<String, Param<?>, ?> queryValue) {
             JsonArray array = new JsonArray();
             params.entrySet()
                   .stream()
                   .filter(entry -> !entry.getValue().isInline())
-                  .forEachOrdered(etr -> array.add(toDatabaseType(etr.getKey(), etr.getValue(), queryValue)));
+                  .forEachOrdered(etr -> array.add(registry.toDatabaseType(etr.getKey(), etr.getValue(), queryValue)));
             return array;
         }
 
@@ -99,7 +99,7 @@ final class LegacySQLImpl {
         private <T extends TableLike<? extends Record>> JsonRecord<?> toRecord(T table, Map<Integer, Field<?>> map,
                                                                                JsonArray row) {
             JsonRecord<?> record = JsonRecord.create((Table<JsonRecord>) table);
-            map.forEach((k, v) -> convertFieldType(record, v, row.getValue(k)));
+            map.forEach((k, v) -> record.set((Field<Object>) v, convertFieldType(v, row.getValue(k))));
             return record;
         }
 
@@ -141,21 +141,25 @@ final class LegacySQLImpl {
         private final LegacySQLPreparedQuery preparedQuery = new LegacySQLPQ();
 
         @Override
-        public final <T extends TableLike<?>, R> Future<R> execute(@NonNull Query query,
-                                                                   @NonNull SQLResultAdapter<ResultSet, LegacySQLConverter, T, R> adapter) {
+        public final <T extends TableLike<?>, R> Future<R> execute(
+            @NonNull Query query,
+            @NonNull SQLResultAdapter<ResultSet, LegacySQLConverter, T, R> adapter) {
             final Promise<ResultSet> promise = Promise.promise();
             sqlClient().queryWithParams(preparedQuery().sql(dsl().configuration(), query),
-                                        preparedQuery().bindValues(query), promise);
-            return promise.future().map(adapter::convert).otherwise(errorConverter()::reThrowError);
+                                        preparedQuery().bindValues(query, typeMapperHolder()), promise);
+            return promise.future()
+                          .map(rs -> adapter.convert(rs))
+                          .otherwise(errorConverter()::reThrowError);
         }
 
         @Override
         public final Future<BatchResult> batch(@NonNull Query query, @NonNull BindBatchValues bindBatchValues) {
             final Promise<List<Integer>> promise = Promise.promise();
             openConn().map(c -> c.batchWithParams(preparedQuery().sql(dsl().configuration(), query),
-                                                  preparedQuery().bindValues(query, bindBatchValues), promise));
+                                                  preparedQuery().bindValues(query, bindBatchValues,
+                                                                             typeMapperHolder()), promise));
             return promise.future()
-                          .map(r -> new LegacySQLRSC().batchResultSize(r))
+                          .map(r -> new LegacySQLRC().batchResultSize(r))
                           .map(s -> BatchResultImpl.create(bindBatchValues.size(), s))
                           .otherwise(errorConverter()::reThrowError);
         }
