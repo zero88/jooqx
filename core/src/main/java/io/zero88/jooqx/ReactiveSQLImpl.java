@@ -5,15 +5,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.function.BiFunction;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import org.jooq.Field;
 import org.jooq.Param;
-import org.jooq.Record;
-import org.jooq.Table;
-import org.jooq.TableLike;
 
 import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.RowIterator;
@@ -23,6 +17,7 @@ import io.vertx.sqlclient.impl.ArrayTuple;
 import io.zero88.jooqx.MiscImpl.DSLAI;
 import io.zero88.jooqx.SQLImpl.SQLPQ;
 import io.zero88.jooqx.SQLImpl.SQLRC;
+import io.zero88.jooqx.adapter.RowConverterStrategy;
 import io.zero88.jooqx.adapter.SelectStrategy;
 import io.zero88.jooqx.datatype.SQLDataTypeRegistry;
 
@@ -49,31 +44,26 @@ final class ReactiveSQLImpl {
     static class ReactiveSQLRC extends SQLRC<RowSet<Row>> implements ReactiveSQLResultConverter {
 
         @Override
-        protected <T extends TableLike<? extends Record>, R> List<R> doConvert(@NonNull RowSet<Row> resultSet, T table,
-                                                                               @NonNull Function<JsonRecord<?>, R> mapper) {
-            final Map<String, Field<?>> fieldMap = table.fieldStream()
-                                                        .collect(Collectors.toMap(Field::getName, Function.identity()));
+        public @NonNull <R> List<R> collect(@NonNull RowSet<Row> resultSet, @NonNull RowConverterStrategy<R> strategy) {
             final List<R> records = new ArrayList<>();
             final RowIterator<Row> iterator = resultSet.iterator();
-            if (strategy == SelectStrategy.MANY) {
-                iterator.forEachRemaining(row -> records.add(mapper.apply(toRecord(table, row, fieldMap::get))));
+            if (strategy.strategy() == SelectStrategy.MANY) {
+                iterator.forEachRemaining(row -> records.add(toRecord(strategy, row)));
             } else if (iterator.hasNext()) {
-                records.add(mapper.apply(toRecord(table, iterator.next(), fieldMap::get)));
-                warnManyResult(iterator.hasNext());
+                records.add(toRecord(strategy, iterator.next()));
+                warnManyResult(iterator.hasNext(), strategy.strategy());
             }
             return records;
         }
 
-        @SuppressWarnings( {"unchecked", "rawtypes"})
-        private JsonRecord<?> toRecord(@NonNull TableLike table, @NonNull Row row,
-                                       @NonNull Function<String, Field<?>> lookupField) {
-            JsonRecord<?> record = JsonRecord.create((Table<JsonRecord>) table);
-            IntStream.range(0, row.size())
-                     .mapToObj(row::getColumnName)
-                     .map(lookupField)
-                     .filter(Objects::nonNull)
-                     .forEach(f -> record.set((Field<Object>) f, convertFieldType(f, row.getValue(f.getName()))));
-            return record;
+        private <R> R toRecord(@NonNull RowConverterStrategy<R> strategy, @NonNull Row row) {
+            return IntStream.range(0, row.size())
+                            .mapToObj(row::getColumnName)
+                            .map(f -> strategy.fieldMap().get(f))
+                            .filter(Objects::nonNull)
+                            .reduce(strategy.newRecord().get(),
+                                    (r, field) -> strategy.addFieldData(r, field, row.getValue(field.getName())),
+                                    (r1, r2) -> r2);
         }
 
     }
@@ -82,12 +72,10 @@ final class ReactiveSQLImpl {
     static final class ReactiveSQLRBC extends ReactiveSQLRC implements ReactiveSQLBatchConverter {
 
         @Override
-        protected <T extends TableLike<? extends Record>, R> List<R> doConvert(@NonNull RowSet<Row> resultSet,
-                                                                               @NonNull T table,
-                                                                               @NonNull Function<JsonRecord<?>, R> mapper) {
+        public @NonNull <R> List<R> collect(@NonNull RowSet<Row> resultSet, @NonNull RowConverterStrategy<R> strategy) {
             final List<R> records = new ArrayList<>();
             while (resultSet != null) {
-                final List<R> rs = super.doConvert(resultSet, table, mapper);
+                final List<R> rs = super.collect(resultSet, strategy);
                 if (!rs.isEmpty()) {
                     records.add(rs.get(0));
                 }

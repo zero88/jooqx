@@ -1,11 +1,10 @@
 package io.zero88.jooqx.adapter;
 
-import java.util.function.BiFunction;
-
 import org.jooq.Record1;
 import org.jooq.TableLike;
 
 import io.zero88.jooqx.SQLResultConverter;
+import io.zero88.jooqx.datatype.SQLDataTypeRegistry;
 
 import lombok.NonNull;
 
@@ -19,20 +18,22 @@ import lombok.NonNull;
 public final class SelectCountAdapter<R, C extends SQLResultConverter<R>>
     extends SelectAdhocOneResultAdapter<R, C, TableLike<Record1<Integer>>, Integer> {
 
-    protected SelectCountAdapter(@NonNull TableLike<Record1<Integer>> table, @NonNull C converter,
-                                 @NonNull BiFunction<SQLResultAdapter<R, C, TableLike<Record1<Integer>>, Integer>, R,
-                                                        Integer> function) {
-        super(table, converter, function);
+    protected SelectCountAdapter(@NonNull TableLike<Record1<Integer>> table, @NonNull C converter) {
+        super(table, converter);
+    }
+
+    @Override
+    public Integer collect(@NonNull R resultSet, @NonNull SQLDataTypeRegistry registry) {
+        return converter().collect(resultSet, createConverterStrategy(registry))
+                          .stream()
+                          .findFirst()
+                          .map(r -> r.get(0, Integer.class))
+                          .orElse(0);
     }
 
     public static <RS, C extends SQLResultConverter<RS>> SelectCountAdapter<RS, C> count(
         @NonNull TableLike<Record1<Integer>> table, @NonNull C converter) {
-        return new SelectCountAdapter<>(table, converter, (a, rs) -> a.converter()
-                                                                      .convertJsonRecord(rs, a.table())
-                                                                      .stream()
-                                                                      .findFirst()
-                                                                      .map(s -> s.get(0, Integer.class))
-                                                                      .orElse(0));
+        return new SelectCountAdapter<>(table, converter);
     }
 
 }

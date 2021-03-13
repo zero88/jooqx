@@ -2,7 +2,9 @@ package io.zero88.jooqx.adapter;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.function.BiFunction;
+import java.util.Objects;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.jooq.Field;
 import org.jooq.Record;
@@ -13,6 +15,7 @@ import io.zero88.jooqx.JsonRecord;
 import io.zero88.jooqx.SQLResultConverter;
 import io.zero88.jooqx.adapter.HasStrategy.SelectMany;
 import io.zero88.jooqx.adapter.SQLResultAdapterImpl.InternalSelectResultAdapter;
+import io.zero88.jooqx.datatype.SQLDataTypeRegistry;
 
 import lombok.NonNull;
 
@@ -28,46 +31,55 @@ import lombok.NonNull;
 public final class SelectListAdapter<R, C extends SQLResultConverter<R>, T extends TableLike<? extends Record>, O>
     extends InternalSelectResultAdapter<R, C, T, O, List<O>> implements SelectMany {
 
-    private SelectListAdapter(@NonNull T table, @NonNull C converter,
-                              @NonNull BiFunction<SQLResultAdapter<R, C, T, List<O>>, R, List<O>> function) {
-        super(table, converter, function);
+    private SelectListAdapter(@NonNull T table, @NonNull C converter, @NonNull Function<JsonRecord<?>, O> mapper) {
+        super(table, converter, mapper);
     }
 
     @Override
-    public @NonNull List<O> convert(@NonNull R resultSet) {
-        return getFunction().apply(this, resultSet);
+    public @NonNull List<O> collect(@NonNull R resultSet, @NonNull SQLDataTypeRegistry registry) {
+        return converter().collect(resultSet, createConverterStrategy(registry))
+                          .stream()
+                          .map(getMapper())
+                          .collect(Collectors.toList());
     }
 
-    public static <RS, C extends SQLResultConverter<RS>, T extends TableLike<? extends Record>> SelectListAdapter<RS, C, T, JsonRecord<?>> jsonRecord(
+    public static <RS, C extends SQLResultConverter<RS>, T extends TableLike<? extends Record>> SelectListAdapter<RS,
+                                                                                                                     C, T, JsonRecord<?>> jsonRecord(
         @NonNull T table, @NonNull C converter) {
-        return new SelectListAdapter<>(table, converter, (a, rs) -> a.converter().convertJsonRecord(rs, a.table()));
+        return new SelectListAdapter<>(table, converter, Function.identity());
     }
 
     public static <RS, C extends SQLResultConverter<RS>, T extends TableLike<? extends Record>, R extends Record> SelectListAdapter<RS, C, T, R> create(
         @NonNull T table, @NonNull C converter, @NonNull R record) {
-        return new SelectListAdapter<>(table, converter, (a, rs) -> a.converter().convert(rs, a.table(), record));
+        return new SelectListAdapter<>(table, converter, r -> r.into(record));
     }
 
     public static <RS, C extends SQLResultConverter<RS>, T extends TableLike<? extends Record>> SelectListAdapter<RS,
                                                                                                                      C, T, Record> create(
         @NonNull T table, @NonNull C converter, @NonNull Collection<Field<?>> fields) {
-        return new SelectListAdapter<>(table, converter, (a, rs) -> a.converter().convert(rs, a.table(), fields));
+        return new SelectListAdapter<>(table, converter,
+                                       r -> r.into(fields.stream().filter(Objects::nonNull).toArray(Field[]::new)));
     }
 
     public static <RS, C extends SQLResultConverter<RS>, T extends TableLike<? extends Record>, R> SelectListAdapter<RS, C, T, R> create(
         @NonNull T table, @NonNull C converter, @NonNull Class<R> outputClass) {
-        return new SelectListAdapter<>(table, converter, (a, rs) -> a.converter().convert(rs, a.table(), outputClass));
+        return new SelectListAdapter<>(table, converter, r -> r.into(outputClass));
     }
 
-    public static <RS, C extends SQLResultConverter<RS>, T extends Table<R>, R extends Record> SelectListAdapter<RS, C , T , R> create(
+    public static <RS, C extends SQLResultConverter<RS>, T extends Table<R>, R extends Record> SelectListAdapter<RS,
+                                                                                                                    C
+                                                                                                                    ,
+                                                                                                                    T
+                                                                                                                    ,
+                                                                                                                    R> create(
         @NonNull T table, @NonNull C converter) {
-        return new SelectListAdapter<>(table, converter, (a, rs) -> a.converter().convert(rs, a.table()));
+        return new SelectListAdapter<>(table, converter, r -> r.into(table));
     }
 
     public static <RS, C extends SQLResultConverter<RS>, T extends TableLike<? extends Record>, R extends Record,
                       Z extends Table<R>> SelectListAdapter<RS, C, T, R> create(
         @NonNull T table, @NonNull C converter, @NonNull Z toTable) {
-        return new SelectListAdapter<>(table, converter, (a, rs) -> a.converter().convert(rs, a.table(), toTable));
+        return new SelectListAdapter<>(table, converter, r -> r.into(toTable));
     }
 
 }

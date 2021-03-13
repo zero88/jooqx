@@ -70,7 +70,7 @@ public interface SQLExecutor<S, P, RS, C extends SQLResultConverter<RS>> extends
      */
     @NonNull SQLErrorConverter<? extends Throwable, ? extends RuntimeException> errorConverter();
 
-    @NonNull SQLDataTypeRegistry typeMapperHolder();
+    @NonNull SQLDataTypeRegistry typeMapperRegistry();
 
     /**
      * Execute {@code jOOQ query} then return async result

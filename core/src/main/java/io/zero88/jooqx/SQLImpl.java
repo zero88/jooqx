@@ -2,25 +2,18 @@ package io.zero88.jooqx;
 
 import java.sql.SQLNonTransientConnectionException;
 import java.sql.SQLTransientConnectionException;
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiFunction;
-import java.util.function.Function;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.jooq.Configuration;
 import org.jooq.DSLContext;
-import org.jooq.Field;
 import org.jooq.Param;
 import org.jooq.Query;
-import org.jooq.Record;
 import org.jooq.SQLDialect;
-import org.jooq.Table;
-import org.jooq.TableLike;
 import org.jooq.conf.ParamType;
 import org.jooq.exception.SQLStateClass;
 import org.slf4j.Logger;
@@ -54,7 +47,7 @@ final class SQLImpl {
         private final SQLErrorConverter<? extends Throwable, ? extends RuntimeException> errorConverter
             = SQLErrorConverter.DEFAULT;
         @Default
-        private final SQLDataTypeRegistry typeMapperHolder = new SQLDataTypeRegistry();
+        private final SQLDataTypeRegistry typeMapperRegistry = new SQLDataTypeRegistry();
 
         protected final RuntimeException connFailed(String errorMsg, Throwable cause) {
             return errorConverter().handle(
@@ -150,76 +143,10 @@ final class SQLImpl {
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     abstract static class SQLRC<RS> implements SQLResultConverter<RS> {
 
-        protected SelectStrategy strategy = SelectStrategy.MANY;
-
-        @Override
-        public @NonNull SQLResultConverter<RS> setup(@NonNull SelectStrategy strategy) {
-            this.strategy = strategy;
-            return this;
-        }
-
-        @Override
-        public <T extends TableLike<? extends Record>> List<JsonRecord<?>> convertJsonRecord(@NonNull RS resultSet,
-                                                                                             T table) {
-            return doConvert(resultSet, table, Function.identity());
-        }
-
-        @Override
-        public <T extends Table<R>, R extends Record> List<R> convert(@NonNull RS resultSet, @NonNull T table) {
-            return doConvert(resultSet, table, r -> r.into(table));
-        }
-
-        @Override
-        public <T extends TableLike<? extends Record>, R> List<R> convert(@NonNull RS resultSet, T table,
-                                                                          @NonNull Class<R> recordClass) {
-            return doConvert(resultSet, table, r -> r.into(recordClass));
-        }
-
-        @Override
-        @SuppressWarnings("unchecked")
-        public <T extends TableLike<? extends Record>, R extends Record> List<R> convert(@NonNull RS resultSet, T table,
-                                                                                         @NonNull R record) {
-            return doConvert(resultSet, table, r -> (R) r.into(record.fields()));
-        }
-
-        @Override
-        public <T extends TableLike<? extends Record>, R extends Record> List<R> convert(@NonNull RS resultSet, T table,
-                                                                                         @NonNull Table<R> toTable) {
-            return doConvert(resultSet, table, r -> r.into(toTable));
-        }
-
-        @Override
-        public <T extends TableLike<? extends Record>> List<Record> convert(@NonNull RS resultSet, T table,
-                                                                            @NonNull Collection<Field<?>> fields) {
-            return doConvert(resultSet, table,
-                             r -> r.into(fields.stream().filter(Objects::nonNull).toArray(Field[]::new)));
-        }
-
-        protected abstract <T extends TableLike<? extends Record>, R> List<R> doConvert(@NonNull RS resultSet, T table,
-                                                                                        @NonNull Function<JsonRecord<?>, R> mapper);
-
-        protected void warnManyResult(boolean check) {
+        protected void warnManyResult(boolean check, @NonNull SelectStrategy strategy) {
             if (check) {
                 LOGGER.warn("Query strategy is [{}] but query result contains more than one row", strategy);
             }
-        }
-
-        protected Object convertFieldType(@NonNull Field f, Object value) {
-            LOGGER.debug("Convert Field [{}] - jOOQ [{}] - Vertx [{}::{}]", f.getName(), f.getType().getName(), value,
-                         Optional.ofNullable(value).map(Object::getClass).map(Class::getName).orElse(null));
-            if (Objects.isNull(value)) {
-                return null;
-            }
-            //            LOGGER.error("DataType: [{}] - Converter: [{}] - After convert [{}]", f.getDataType(), f
-            //            .getConverter(),
-            //                         Optional.ofNullable(f.getConverter().to(value))
-            //                                 .map(v -> v.getClass().getName())
-            //                                 .orElse(null));
-            //                if (f.getType() == YearToSecond.class) {
-            //                    record.set((Field<Object>) f, null);
-            //                    return;
-            //                }
-            return value;
         }
 
     }

@@ -1,12 +1,13 @@
 package io.zero88.jooqx.adapter;
 
-import java.util.List;
-import java.util.function.BiFunction;
+import java.util.function.Function;
 
 import org.jooq.Record;
 import org.jooq.TableLike;
 
+import io.zero88.jooqx.JsonRecord;
 import io.zero88.jooqx.SQLResultConverter;
+import io.zero88.jooqx.datatype.SQLDataTypeRegistry;
 
 import lombok.Getter;
 import lombok.NonNull;
@@ -22,10 +23,9 @@ abstract class SQLResultAdapterImpl<R, C extends SQLResultConverter<R>, T extend
     @NonNull
     private final C converter;
 
-    @SuppressWarnings("unchecked")
     protected SQLResultAdapterImpl(@NonNull T table, @NonNull C converter) {
         this.table = table;
-        this.converter = (C) converter.setup(strategy());
+        this.converter = converter;
     }
 
     @Override
@@ -34,16 +34,20 @@ abstract class SQLResultAdapterImpl<R, C extends SQLResultConverter<R>, T extend
         return converter;
     }
 
+    protected final RowConverterStrategyImpl createConverterStrategy(@NonNull SQLDataTypeRegistry registry) {
+        return new RowConverterStrategyImpl(strategy(), registry, table());
+    }
+
     abstract static class InternalSelectResultAdapter<RS, C extends SQLResultConverter<RS>, T extends TableLike<? extends Record>, I, O>
         extends SQLResultAdapterImpl<RS, C, T, O> {
 
         @Getter
-        private final BiFunction<SQLResultAdapter<RS, C, T, O>, RS, List<I>> function;
+        private final Function<JsonRecord<?>, I> mapper;
 
         protected InternalSelectResultAdapter(@NonNull T table, @NonNull C converter,
-                                              @NonNull BiFunction<SQLResultAdapter<RS, C, T, O>, RS, List<I>> function) {
+                                              @NonNull Function<JsonRecord<?>, I> mapper) {
             super(table, converter);
-            this.function = function;
+            this.mapper = mapper;
         }
 
     }

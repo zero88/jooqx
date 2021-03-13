@@ -4,6 +4,7 @@ import org.jooq.Record;
 import org.jooq.TableLike;
 
 import io.zero88.jooqx.SQLResultConverter;
+import io.zero88.jooqx.datatype.SQLDataTypeRegistry;
 
 import lombok.NonNull;
 
@@ -38,11 +39,13 @@ public interface SQLResultAdapter<R, C extends SQLResultConverter<R>, T extends 
     @NonNull C converter();
 
     /**
-     * Convert result set to expected result
+     * Collect result set to expected result
      *
      * @param resultSet result set
+     * @param registry  SQL data type mapper registry
      * @return result
+     * @see SQLDataTypeRegistry
      */
-    O convert(@NonNull R resultSet);
+    O collect(@NonNull R resultSet, @NonNull SQLDataTypeRegistry registry);
 
 }

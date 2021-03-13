@@ -1,7 +1,5 @@
 package io.zero88.jooqx.adapter;
 
-import java.util.function.BiFunction;
-
 import org.jooq.Record;
 import org.jooq.TableLike;
 
@@ -24,17 +22,8 @@ import lombok.NonNull;
 public abstract class SelectAdhocOneResultAdapter<R, C extends SQLResultConverter<R>, T extends TableLike<? extends Record>, O>
     extends SQLResultAdapterImpl<R, C, T, O> implements SelectOne {
 
-    private final BiFunction<SQLResultAdapter<R, C, T, O>, R, O> function;
-
-    protected SelectAdhocOneResultAdapter(@NonNull T table, @NonNull C converter,
-                                          BiFunction<SQLResultAdapter<R, C, T, O>, R, O> function) {
+    protected SelectAdhocOneResultAdapter(@NonNull T table, @NonNull C converter) {
         super(table, converter);
-        this.function = function;
-    }
-
-    @Override
-    public @NonNull O convert(@NonNull R resultSet) {
-        return function.apply(this, resultSet);
     }
 
 }
