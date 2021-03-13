@@ -3,7 +3,7 @@ package io.zero88.jooqx.adapter;
 import org.jooq.Record;
 import org.jooq.TableLike;
 
-import io.zero88.jooqx.SQLResultConverter;
+import io.zero88.jooqx.SQLResultCollector;
 import io.zero88.jooqx.datatype.SQLDataTypeRegistry;
 
 import lombok.NonNull;
@@ -11,16 +11,16 @@ import lombok.NonNull;
 /**
  * SQL Result adapter receives Result set then mapping to expected result
  *
- * @param <R> Type of Vertx Result set
- * @param <C> Type of result set converter
- * @param <T> Type of jOOQ Table
- * @param <O> Type of an expectation output
+ * @param <RS> Type of Vertx Result set
+ * @param <C>  Type of SQL result set collector
+ * @param <T>  Type of jOOQ Table in Query context
+ * @param <O>  Type of an expectation output
  * @see TableLike
  * @see Record
- * @see SQLResultConverter
+ * @see SQLResultCollector
  * @since 1.0.0
  */
-public interface SQLResultAdapter<R, C extends SQLResultConverter<R>, T extends TableLike<? extends Record>, O>
+public interface SQLResultAdapter<RS, C extends SQLResultCollector<RS>, T extends TableLike<? extends Record>, O>
     extends HasStrategy {
 
     /**
@@ -46,6 +46,35 @@ public interface SQLResultAdapter<R, C extends SQLResultConverter<R>, T extends 
      * @return result
      * @see SQLDataTypeRegistry
      */
-    O collect(@NonNull R resultSet, @NonNull SQLDataTypeRegistry registry);
+    O collect(@NonNull RS resultSet, @NonNull SQLDataTypeRegistry registry);
+
+    /**
+     * Indicates select only one row
+     *
+     * @since 1.0.0
+     */
+    interface SelectOne extends HasStrategy {
+
+        @Override
+        default @NonNull SelectStrategy strategy() {
+            return SelectStrategy.FIRST_ONE;
+        }
+
+    }
+
+
+    /**
+     * Indicates select many row
+     *
+     * @since 1.0.0
+     */
+    interface SelectMany extends HasStrategy {
+
+        @Override
+        default @NonNull SelectStrategy strategy() {
+            return SelectStrategy.MANY;
+        }
+
+    }
 
 }
