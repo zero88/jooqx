@@ -22,7 +22,7 @@ import io.vertx.sqlclient.Tuple;
 import io.vertx.sqlclient.impl.ArrayTuple;
 import io.zero88.jooqx.MiscImpl.DSLAI;
 import io.zero88.jooqx.SQLImpl.SQLPQ;
-import io.zero88.jooqx.SQLImpl.SQLRSC;
+import io.zero88.jooqx.SQLImpl.SQLRC;
 import io.zero88.jooqx.adapter.SelectStrategy;
 
 import lombok.NonNull;
@@ -43,7 +43,7 @@ final class ReactiveSQLImpl {
     }
 
 
-    static class ReactiveSQLRSC extends SQLRSC<RowSet<Row>> implements ReactiveSQLResultConverter {
+    static class ReactiveSQLRC extends SQLRC<RowSet<Row>> implements ReactiveSQLResultConverter {
 
         @Override
         protected <T extends TableLike<? extends Record>, R> List<R> doConvert(@NonNull RowSet<Row> resultSet, T table,
@@ -76,7 +76,7 @@ final class ReactiveSQLImpl {
     }
 
 
-    static final class ReactiveSQLRBC extends ReactiveSQLRSC implements ReactiveSQLBatchConverter {
+    static final class ReactiveSQLRBC extends ReactiveSQLRC implements ReactiveSQLBatchConverter {
 
         @Override
         protected <T extends TableLike<? extends Record>, R> List<R> doConvert(@NonNull RowSet<Row> resultSet,
@@ -106,11 +106,12 @@ final class ReactiveSQLImpl {
     }
 
 
-    static final class ReactiveDSLAI extends DSLAI<RowSet<Row>, ReactiveSQLResultConverter> implements ReactiveDSL {
+    static final class ReactiveDSLAdapter extends DSLAI<RowSet<Row>, ReactiveSQLResultConverter>
+        implements ReactiveDSL {
 
-        ReactiveDSLAI() { super(new ReactiveSQLRSC()); }
+        ReactiveDSLAdapter() { super(new ReactiveSQLRC()); }
 
-        ReactiveDSLAI(@NonNull ReactiveSQLResultConverter converter) {
+        ReactiveDSLAdapter(@NonNull ReactiveSQLResultConverter converter) {
             super(converter);
         }
 

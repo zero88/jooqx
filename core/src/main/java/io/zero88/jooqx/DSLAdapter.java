@@ -8,10 +8,10 @@ import org.jooq.Record1;
 import org.jooq.Table;
 import org.jooq.TableLike;
 
-import io.zero88.jooqx.adapter.SelectCountResultAdapter;
-import io.zero88.jooqx.adapter.SelectExistsResultAdapter;
-import io.zero88.jooqx.adapter.SelectListResultAdapter;
-import io.zero88.jooqx.adapter.SelectOneResultAdapter;
+import io.zero88.jooqx.adapter.SelectCountAdapter;
+import io.zero88.jooqx.adapter.SelectExistsAdapter;
+import io.zero88.jooqx.adapter.SelectListAdapter;
+import io.zero88.jooqx.adapter.SelectOneAdapter;
 
 import lombok.NonNull;
 
@@ -23,7 +23,7 @@ interface DSLAdapter<RS, C extends SQLResultConverter<RS>> {
      * @param table given table
      * @return select count
      */
-    SelectCountResultAdapter<RS, C> fetchCount(@NonNull TableLike<Record1<Integer>> table);
+    SelectCountAdapter<RS, C> fetchCount(@NonNull TableLike<Record1<Integer>> table);
 
     /**
      * Fetch exists
@@ -31,7 +31,7 @@ interface DSLAdapter<RS, C extends SQLResultConverter<RS>> {
      * @param table given table
      * @return select exists
      */
-    SelectExistsResultAdapter<RS, C> fetchExists(@NonNull TableLike<Record1<Integer>> table);
+    SelectExistsAdapter<RS, C> fetchExists(@NonNull TableLike<Record1<Integer>> table);
 
     /**
      * Fetch one JsonRecord
@@ -42,7 +42,7 @@ interface DSLAdapter<RS, C extends SQLResultConverter<RS>> {
      * @see TableLike
      * @see JsonRecord
      */
-    <T extends TableLike<? extends Record>> SelectOneResultAdapter<RS, C, T, JsonRecord<?>> fetchJsonRecord(
+    <T extends TableLike<? extends Record>> SelectOneAdapter<RS, C, T, JsonRecord<?>> fetchJsonRecord(
         @NonNull T table);
 
     /**
@@ -55,7 +55,7 @@ interface DSLAdapter<RS, C extends SQLResultConverter<RS>> {
      * @return select one adapter
      * @see TableLike
      */
-    <T extends TableLike<? extends Record>, R extends Record> SelectOneResultAdapter<RS, C, T, R> fetchOne(
+    <T extends TableLike<? extends Record>, R extends Record> SelectOneAdapter<RS, C, T, R> fetchOne(
         @NonNull T table, @NonNull R record);
 
     /**
@@ -67,8 +67,8 @@ interface DSLAdapter<RS, C extends SQLResultConverter<RS>> {
      * @return select one adapter
      * @see TableLike
      */
-    <T extends TableLike<? extends Record>> SelectOneResultAdapter<RS, C, T, Record> fetchOne(@NonNull T table,
-                                                                                              @NonNull Collection<Field<?>> fields);
+    <T extends TableLike<? extends Record>> SelectOneAdapter<RS, C, T, Record> fetchOne(@NonNull T table,
+                                                                                        @NonNull Collection<Field<?>> fields);
 
     /**
      * Fetch one
@@ -80,8 +80,8 @@ interface DSLAdapter<RS, C extends SQLResultConverter<RS>> {
      * @return select one adapter
      * @see TableLike
      */
-    <T extends TableLike<? extends Record>, R> SelectOneResultAdapter<RS, C, T, R> fetchOne(@NonNull T table,
-                                                                                            @NonNull Class<R> outputClass);
+    <T extends TableLike<? extends Record>, R> SelectOneAdapter<RS, C, T, R> fetchOne(@NonNull T table,
+                                                                                      @NonNull Class<R> outputClass);
 
     /**
      * Fetch one
@@ -91,7 +91,7 @@ interface DSLAdapter<RS, C extends SQLResultConverter<RS>> {
      * @return select one adapter
      * @see TableLike
      */
-    <T extends Table<R>, R extends Record> SelectOneResultAdapter<RS, C, T, R> fetchOne(@NonNull T table);
+    <T extends Table<R>, R extends Record> SelectOneAdapter<RS, C, T, R> fetchOne(@NonNull T table);
 
     /**
      * Fetch one
@@ -103,7 +103,7 @@ interface DSLAdapter<RS, C extends SQLResultConverter<RS>> {
      * @return select one adapter
      * @see TableLike
      */
-    <T extends TableLike<? extends Record>, R extends Record, Z extends Table<R>> SelectOneResultAdapter<RS, C, T, R> fetchOne(
+    <T extends TableLike<? extends Record>, R extends Record, Z extends Table<R>> SelectOneAdapter<RS, C, T, R> fetchOne(
         @NonNull T table, @NonNull Z toTable);
 
     /**
@@ -115,7 +115,7 @@ interface DSLAdapter<RS, C extends SQLResultConverter<RS>> {
      * @see TableLike
      * @see JsonRecord
      */
-    <T extends TableLike<? extends Record>> SelectListResultAdapter<RS, C, T, JsonRecord<?>> fetchJsonRecords(
+    <T extends TableLike<? extends Record>> SelectListAdapter<RS, C, T, JsonRecord<?>> fetchJsonRecords(
         @NonNull T table);
 
     /**
@@ -128,7 +128,7 @@ interface DSLAdapter<RS, C extends SQLResultConverter<RS>> {
      * @return select many adapter
      * @see TableLike
      */
-    <T extends TableLike<? extends Record>, R extends Record> SelectListResultAdapter<RS, C, T, R> fetchMany(
+    <T extends TableLike<? extends Record>, R extends Record> SelectListAdapter<RS, C, T, R> fetchMany(
         @NonNull T table, @NonNull R record);
 
     /**
@@ -140,8 +140,8 @@ interface DSLAdapter<RS, C extends SQLResultConverter<RS>> {
      * @return select many adapter
      * @see TableLike
      */
-    <T extends TableLike<? extends Record>> SelectListResultAdapter<RS, C, T, Record> fetchMany(@NonNull T table,
-                                                                                                @NonNull Collection<Field<?>> fields);
+    <T extends TableLike<? extends Record>> SelectListAdapter<RS, C, T, Record> fetchMany(@NonNull T table,
+                                                                                          @NonNull Collection<Field<?>> fields);
 
     /**
      * Fetch many
@@ -153,8 +153,8 @@ interface DSLAdapter<RS, C extends SQLResultConverter<RS>> {
      * @return select many adapter
      * @see TableLike
      */
-    <T extends TableLike<? extends Record>, R> SelectListResultAdapter<RS, C, T, R> fetchMany(@NonNull T table,
-                                                                                              @NonNull Class<R> outputClass);
+    <T extends TableLike<? extends Record>, R> SelectListAdapter<RS, C, T, R> fetchMany(@NonNull T table,
+                                                                                        @NonNull Class<R> outputClass);
 
     /**
      * Fetch many
@@ -164,7 +164,7 @@ interface DSLAdapter<RS, C extends SQLResultConverter<RS>> {
      * @return select many adapter
      * @see TableLike
      */
-    <T extends Table<R>, R extends Record> SelectListResultAdapter<RS, C, T, R> fetchMany(@NonNull T table);
+    <T extends Table<R>, R extends Record> SelectListAdapter<RS, C, T, R> fetchMany(@NonNull T table);
 
     /**
      * Fetch many
@@ -176,8 +176,8 @@ interface DSLAdapter<RS, C extends SQLResultConverter<RS>> {
      * @return select many adapter
      * @see TableLike
      */
-    <T extends TableLike<? extends Record>, R extends Record, Z extends Table<R>> SelectListResultAdapter<RS, C, T,
-                                                                                                             R> fetchMany(
+    <T extends TableLike<? extends Record>, R extends Record, Z extends Table<R>> SelectListAdapter<RS, C, T,
+                                                                                                                 R> fetchMany(
         @NonNull T table, @NonNull Z toTable);
 
 }

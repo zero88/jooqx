@@ -1,7 +1,7 @@
 package io.zero88.jooqx;
 
 import io.vertx.ext.sql.ResultSet;
-import io.zero88.jooqx.LegacySQLImpl.LegacyDSLAI;
+import io.zero88.jooqx.LegacySQLImpl.LegacyDSLAdapter;
 import io.zero88.jooqx.adapter.SQLResultAdapter;
 
 import lombok.NonNull;
@@ -16,11 +16,11 @@ import lombok.NonNull;
 public interface LegacyDSL extends DSLAdapter<ResultSet, LegacySQLConverter> {
 
     static @NonNull LegacyDSL adapter() {
-        return new LegacyDSLAI();
+        return new LegacyDSLAdapter();
     }
 
     static @NonNull LegacyDSL create(@NonNull LegacySQLConverter converter) {
-        return new LegacyDSLAI(converter);
+        return new LegacyDSLAdapter(converter);
     }
 
 }

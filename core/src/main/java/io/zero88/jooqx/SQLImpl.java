@@ -165,7 +165,7 @@ final class SQLImpl {
 
 
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    abstract static class SQLRSC<RS> implements SQLResultConverter<RS> {
+    abstract static class SQLRC<RS> implements SQLResultConverter<RS> {
 
         protected SelectStrategy strategy = SelectStrategy.MANY;
 

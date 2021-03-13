@@ -18,7 +18,7 @@ import io.zero88.jooqx.ReactiveSQLImpl.ReactiveSQLPQ;
 import io.zero88.jooqx.ReactiveSQLImpl.ReactiveSQLRBC;
 import io.zero88.jooqx.SQLImpl.SQLEI;
 import io.zero88.jooqx.adapter.SQLResultAdapter;
-import io.zero88.jooqx.adapter.SelectListResultAdapter;
+import io.zero88.jooqx.adapter.SelectListAdapter;
 
 import lombok.Builder.Default;
 import lombok.Getter;
@@ -78,7 +78,7 @@ final class ReactiveJooqxImpl<S extends SqlClient> extends SQLEI<S, Tuple, RowSe
     @Override
     public <T extends TableLike<?>, R> Future<BatchReturningResult<R>> batch(@NonNull Query query,
                                                                              @NonNull BindBatchValues bindBatchValues,
-                                                                             @NonNull SelectListResultAdapter<RowSet<Row>, ReactiveSQLBatchConverter, T, R> adapter) {
+                                                                             @NonNull SelectListAdapter<RowSet<Row>, ReactiveSQLBatchConverter, T, R> adapter) {
         return sqlClient().preparedQuery(preparedQuery().sql(dsl().configuration(), query))
                           .executeBatch(preparedQuery().bindValues(query, bindBatchValues))
                           .map(adapter::convert)

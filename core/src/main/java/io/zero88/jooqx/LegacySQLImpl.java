@@ -29,7 +29,7 @@ import io.zero88.jooqx.MiscImpl.BatchResultImpl;
 import io.zero88.jooqx.MiscImpl.DSLAI;
 import io.zero88.jooqx.SQLImpl.SQLEI;
 import io.zero88.jooqx.SQLImpl.SQLPQ;
-import io.zero88.jooqx.SQLImpl.SQLRSC;
+import io.zero88.jooqx.SQLImpl.SQLRC;
 import io.zero88.jooqx.adapter.SQLResultAdapter;
 import io.zero88.jooqx.adapter.SelectStrategy;
 
@@ -74,7 +74,7 @@ final class LegacySQLImpl {
     }
 
 
-    static final class LegacySQLRSC extends SQLRSC<ResultSet> implements LegacySQLConverter {
+    static final class LegacySQLRC extends SQLRC<ResultSet> implements LegacySQLConverter {
 
         protected <T extends TableLike<? extends Record>, R> List<R> doConvert(ResultSet rs, T table,
                                                                                @NonNull Function<JsonRecord<?>, R> mapper) {
@@ -117,14 +117,14 @@ final class LegacySQLImpl {
     }
 
 
-    static final class LegacyDSLAI extends DSLAI<ResultSet, LegacySQLConverter> implements LegacyDSL {
+    static final class LegacyDSLAdapter extends DSLAI<ResultSet, LegacySQLConverter> implements LegacyDSL {
 
-        LegacyDSLAI(@NonNull LegacySQLConverter converter) {
+        LegacyDSLAdapter(@NonNull LegacySQLConverter converter) {
             super(converter);
         }
 
-        LegacyDSLAI() {
-            super(new LegacySQLRSC());
+        LegacyDSLAdapter() {
+            super(new LegacySQLRC());
         }
 
     }
