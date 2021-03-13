@@ -17,7 +17,7 @@ import io.zero88.jooqx.SQLTestImpl.DBMemorySQLTest;
 public interface ReactiveTestDefinition {
 
     interface ReactiveJooqxProvider<S extends SqlClient>
-        extends JooqxProvider<S, Tuple, RowSet<Row>, ReactiveSQLResultConverter, ReactiveJooqx<S>> {
+        extends JooqxProvider<S, Tuple, RowSet<Row>, ReactiveSQLResultCollector, ReactiveJooqx<S>> {
 
         @Override
         default ReactiveJooqx<S> createExecutor(Vertx vertx, JooqDSLProvider dslProvider, S sqlClient) {
@@ -38,14 +38,14 @@ public interface ReactiveTestDefinition {
 
 
     abstract class ReactiveDBContainerTest<S extends SqlClient, K extends JdbcDatabaseContainer<?>>
-        extends DBContainerSQLTest<S, Tuple, RowSet<Row>, ReactiveSQLResultConverter, ReactiveJooqx<S>, K>
+        extends DBContainerSQLTest<S, Tuple, RowSet<Row>, ReactiveSQLResultCollector, ReactiveJooqx<S>, K>
         implements ReactiveSQLTest<S, K, DBContainerProvider<K>> {
 
     }
 
 
     abstract class ReactiveDBMemoryTest<S extends SqlClient>
-        extends DBMemorySQLTest<S, Tuple, RowSet<Row>, ReactiveSQLResultConverter, ReactiveJooqx<S>>
+        extends DBMemorySQLTest<S, Tuple, RowSet<Row>, ReactiveSQLResultCollector, ReactiveJooqx<S>>
         implements ReactiveSQLTest<S, String, DBMemoryProvider> {
 
     }
@@ -62,7 +62,7 @@ public interface ReactiveTestDefinition {
 
 
     interface ReactiveSQLTest<S extends SqlClient, K, D extends DBProvider<K>>
-        extends SQLTest<S, Tuple, RowSet<Row>, ReactiveSQLResultConverter, ReactiveJooqx<S>, K, D>,
+        extends SQLTest<S, Tuple, RowSet<Row>, ReactiveSQLResultCollector, ReactiveJooqx<S>, K, D>,
                 ReactiveJooqxProvider<S>, ReactiveSQLClientProvider<S> {
 
         @Override

@@ -27,8 +27,8 @@ import lombok.NonNull;
  * @since 1.0.0
  */
 public interface ReactiveJooqx<S extends SqlClient>
-    extends SQLExecutor<S, Tuple, RowSet<Row>, ReactiveSQLResultConverter>,
-            SQLTxExecutor<S, Tuple, RowSet<Row>, ReactiveSQLResultConverter, ReactiveJooqxImpl<S>>,
+    extends SQLExecutor<S, Tuple, RowSet<Row>, ReactiveSQLResultCollector>,
+            SQLTxExecutor<S, Tuple, RowSet<Row>, ReactiveSQLResultCollector, ReactiveJooqxImpl<S>>,
             ReactiveSQLBatchExecutor {
 
     static <S extends SqlClient> ReactiveJooqxImpl.ReactiveJooqxImplBuilder<S, ?, ?> builder() {
@@ -40,7 +40,7 @@ public interface ReactiveJooqx<S extends SqlClient>
 
     @Override
     <T extends TableLike<?>, R> Future<R> execute(@NonNull Query query,
-                                                  @NonNull SQLResultAdapter<RowSet<Row>, ReactiveSQLResultConverter,
+                                                  @NonNull SQLResultAdapter<RowSet<Row>, ReactiveSQLResultCollector,
                                                                                T, R> resultAdapter);
 
 }

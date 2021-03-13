@@ -7,10 +7,10 @@ import lombok.NonNull;
  *
  * @param <RS> Type of Vertx SQL result set
  * @param <BR> Type of Vertx SQL batch result
- * @see SQLResultConverter
+ * @see SQLResultCollector
  * @since 1.0.0
  */
-interface SQLBatchConverter<RS, BR> extends SQLResultConverter<RS> {
+interface SQLBatchCollector<RS, BR> extends SQLResultCollector<RS> {
 
     /**
      * Compute Batch Result size

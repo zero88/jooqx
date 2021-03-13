@@ -10,17 +10,17 @@ import io.zero88.jooqx.adapter.RowConverterStrategy;
 import lombok.NonNull;
 
 /**
- * Represents for a converter that transforms SQL result set to jOOQ record
+ * Represents for a collector that collects {@code Vert.x SQL result} to an expectation output
  *
  * @param <RS> Type of Vertx SQL result set
- * @see LegacySQLConverter
- * @see ReactiveSQLResultConverter
- * @see ReactiveSQLBatchConverter
+ * @see LegacySQLCollector
+ * @see ReactiveSQLResultCollector
+ * @see ReactiveSQLBatchCollector
  * @since 1.0.0
  */
-public interface SQLResultConverter<RS> {
+public interface SQLResultCollector<RS> {
 
-    Logger LOGGER = LoggerFactory.getLogger(SQLResultConverter.class);
+    Logger LOGGER = LoggerFactory.getLogger(SQLResultCollector.class);
 
     /**
      * Collect result set to an expectation result

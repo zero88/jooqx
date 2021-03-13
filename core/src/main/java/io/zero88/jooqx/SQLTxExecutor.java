@@ -17,7 +17,7 @@ import lombok.NonNull;
  * @param <E>  Type of jOOQ.x executor
  * @since 1.0.0
  */
-public interface SQLTxExecutor<S, P, RS, C extends SQLResultConverter<RS>, E extends SQLExecutor<S, P, RS, C>> {
+public interface SQLTxExecutor<S, P, RS, C extends SQLResultCollector<RS>, E extends SQLExecutor<S, P, RS, C>> {
 
     /**
      * Run the transactional code

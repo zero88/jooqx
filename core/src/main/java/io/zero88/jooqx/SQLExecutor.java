@@ -21,13 +21,13 @@ import lombok.NonNull;
  * @param <S>  Type of Vertx SQL client. Might be {@link SqlClient} or {@link SQLClient}
  * @param <P>  Type of Vertx SQL bind value holder
  * @param <RS> Type of Vertx SQL result set holder
- * @param <C>  type of result set converter
+ * @param <C>  Type of SQL result set collector
  * @see LegacyJooqx
  * @see ReactiveJooqx
  * @see SQLBatchExecutor
  * @since 1.0.0
  */
-public interface SQLExecutor<S, P, RS, C extends SQLResultConverter<RS>> extends SQLBatchExecutor {
+public interface SQLExecutor<S, P, RS, C extends SQLResultCollector<RS>> extends SQLBatchExecutor {
 
     /**
      * Vertx

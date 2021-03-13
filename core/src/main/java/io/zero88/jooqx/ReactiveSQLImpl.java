@@ -41,7 +41,7 @@ final class ReactiveSQLImpl {
     }
 
 
-    static class ReactiveSQLRC extends SQLRC<RowSet<Row>> implements ReactiveSQLResultConverter {
+    static class ReactiveSQLRC extends SQLRC<RowSet<Row>> implements ReactiveSQLResultCollector {
 
         @Override
         public @NonNull <R> List<R> collect(@NonNull RowSet<Row> resultSet, @NonNull RowConverterStrategy<R> strategy) {
@@ -69,7 +69,7 @@ final class ReactiveSQLImpl {
     }
 
 
-    static final class ReactiveSQLRBC extends ReactiveSQLRC implements ReactiveSQLBatchConverter {
+    static final class ReactiveSQLRBC extends ReactiveSQLRC implements ReactiveSQLBatchCollector {
 
         @Override
         public @NonNull <R> List<R> collect(@NonNull RowSet<Row> resultSet, @NonNull RowConverterStrategy<R> strategy) {
@@ -97,12 +97,12 @@ final class ReactiveSQLImpl {
     }
 
 
-    static final class ReactiveDSLAdapter extends DSLAI<RowSet<Row>, ReactiveSQLResultConverter>
+    static final class ReactiveDSLAdapter extends DSLAI<RowSet<Row>, ReactiveSQLResultCollector>
         implements ReactiveDSL {
 
         ReactiveDSLAdapter() { super(new ReactiveSQLRC()); }
 
-        ReactiveDSLAdapter(@NonNull ReactiveSQLResultConverter converter) {
+        ReactiveDSLAdapter(@NonNull ReactiveSQLResultCollector converter) {
             super(converter);
         }
 

@@ -16,7 +16,7 @@ import lombok.NonNull;
  * @since 1.0.0
  */
 public interface LegacyJooqxTx extends LegacyInternal<SQLConnection>,
-                                       SQLTxExecutor<SQLConnection, JsonArray, ResultSet, LegacySQLConverter,
+                                       SQLTxExecutor<SQLConnection, JsonArray, ResultSet, LegacySQLCollector,
                                                         LegacyJooqxTx> {
 
     @Override

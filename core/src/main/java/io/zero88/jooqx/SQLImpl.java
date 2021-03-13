@@ -37,7 +37,7 @@ final class SQLImpl {
     @Getter
     @SuperBuilder
     @Accessors(fluent = true)
-    abstract static class SQLEI<S, P, RS, C extends SQLResultConverter<RS>> implements SQLExecutor<S, P, RS, C> {
+    abstract static class SQLEI<S, P, RS, C extends SQLResultCollector<RS>> implements SQLExecutor<S, P, RS, C> {
 
         private final Vertx vertx;
         private final DSLContext dsl;
@@ -141,7 +141,7 @@ final class SQLImpl {
 
 
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    abstract static class SQLRC<RS> implements SQLResultConverter<RS> {
+    abstract static class SQLRC<RS> implements SQLResultCollector<RS> {
 
         protected void warnManyResult(boolean check, @NonNull SelectStrategy strategy) {
             if (check) {

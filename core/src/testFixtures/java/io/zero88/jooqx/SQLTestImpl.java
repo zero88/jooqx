@@ -20,7 +20,7 @@ import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 
 @ExtendWith(VertxExtension.class)
-public abstract class SQLTestImpl<S, P, R, C extends SQLResultConverter<R>, E extends SQLExecutor<S, P, R, C>, K,
+public abstract class SQLTestImpl<S, P, R, C extends SQLResultCollector<R>, E extends SQLExecutor<S, P, R, C>, K,
                                      D extends DBProvider<K>>
     implements SQLTest<S, P, R, C, E, K, D> {
 
@@ -57,7 +57,7 @@ public abstract class SQLTestImpl<S, P, R, C extends SQLResultConverter<R>, E ex
     protected abstract K getDB();
 
     @Testcontainers
-    public abstract static class DBContainerSQLTest<S, P, R, C extends SQLResultConverter<R>,
+    public abstract static class DBContainerSQLTest<S, P, R, C extends SQLResultCollector<R>,
                                                            E extends SQLExecutor<S, P, R, C>,
                                                            K extends JdbcDatabaseContainer<?>>
         extends SQLTestImpl<S, P, R, C, E, K, DBContainerProvider<K>> {
@@ -73,7 +73,7 @@ public abstract class SQLTestImpl<S, P, R, C extends SQLResultConverter<R>, E ex
     }
 
 
-    public abstract static class DBMemorySQLTest<S, P, R, C extends SQLResultConverter<R>, E extends SQLExecutor<S, P, R, C>>
+    public abstract static class DBMemorySQLTest<S, P, R, C extends SQLResultCollector<R>, E extends SQLExecutor<S, P, R, C>>
         extends SQLTestImpl<S, P, R, C, E, String, DBMemoryProvider> {
 
         @Override

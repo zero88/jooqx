@@ -8,4 +8,4 @@ import io.vertx.sqlclient.RowSet;
  *
  * @since 1.0.0
  */
-public interface ReactiveSQLResultConverter extends SQLResultConverter<RowSet<Row>> {}
+public interface ReactiveSQLResultCollector extends SQLResultCollector<RowSet<Row>> {}

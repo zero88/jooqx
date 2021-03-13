@@ -41,8 +41,8 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @SuperBuilder
 @Accessors(fluent = true)
-final class ReactiveJooqxImpl<S extends SqlClient> extends SQLEI<S, Tuple, RowSet<Row>, ReactiveSQLResultConverter>
-    implements ReactiveJooqx<S>, SQLTxExecutor<S, Tuple, RowSet<Row>, ReactiveSQLResultConverter, ReactiveJooqxImpl<S>>,
+final class ReactiveJooqxImpl<S extends SqlClient> extends SQLEI<S, Tuple, RowSet<Row>, ReactiveSQLResultCollector>
+    implements ReactiveJooqx<S>, SQLTxExecutor<S, Tuple, RowSet<Row>, ReactiveSQLResultCollector, ReactiveJooqxImpl<S>>,
                ReactiveSQLBatchExecutor {
 
     @Default
@@ -51,8 +51,7 @@ final class ReactiveJooqxImpl<S extends SqlClient> extends SQLEI<S, Tuple, RowSe
 
     @Override
     public <T extends TableLike<?>, R> Future<R> execute(@NonNull Query query,
-                                                         @NonNull SQLResultAdapter<RowSet<Row>,
-                                                                                      ReactiveSQLResultConverter, T,
+                                                         @NonNull SQLResultAdapter<RowSet<Row>, ReactiveSQLResultCollector, T,
                                                                                       R> adapter) {
         return sqlClient().preparedQuery(preparedQuery().sql(dsl().configuration(), query))
                           .execute(preparedQuery().bindValues(query, typeMapperRegistry()))
@@ -62,7 +61,7 @@ final class ReactiveJooqxImpl<S extends SqlClient> extends SQLEI<S, Tuple, RowSe
 
     @Override
     @SuppressWarnings("unchecked")
-    public @NonNull SQLTxExecutor<S, Tuple, RowSet<Row>, ReactiveSQLResultConverter, ReactiveJooqxImpl<S>> transaction() {
+    public @NonNull SQLTxExecutor<S, Tuple, RowSet<Row>, ReactiveSQLResultCollector, ReactiveJooqxImpl<S>> transaction() {
         return this;
     }
 
@@ -78,8 +77,7 @@ final class ReactiveJooqxImpl<S extends SqlClient> extends SQLEI<S, Tuple, RowSe
     @Override
     public <T extends TableLike<?>, R> Future<BatchReturningResult<R>> batch(@NonNull Query query,
                                                                              @NonNull BindBatchValues bindBatchValues,
-                                                                             @NonNull SelectListAdapter<RowSet<Row>,
-                                                                                                           ReactiveSQLBatchConverter, T, R> adapter) {
+                                                                             @NonNull SelectListAdapter<RowSet<Row>, ReactiveSQLBatchCollector, T, R> adapter) {
         return sqlClient().preparedQuery(preparedQuery().sql(dsl().configuration(), query))
                           .executeBatch(preparedQuery().bindValues(query, bindBatchValues, typeMapperRegistry()))
                           .map(resultSet -> adapter.collect(resultSet, typeMapperRegistry()))

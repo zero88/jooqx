@@ -43,14 +43,14 @@ import lombok.experimental.SuperBuilder;
 
 final class LegacySQLImpl {
 
-    interface LegacyInternal<S extends SQLOperations> extends SQLExecutor<S, JsonArray, ResultSet, LegacySQLConverter> {
+    interface LegacyInternal<S extends SQLOperations> extends SQLExecutor<S, JsonArray, ResultSet, LegacySQLCollector> {
 
         @Override
         @NonNull LegacySQLPreparedQuery preparedQuery();
 
         @Override
         <T extends TableLike<?>, R> Future<R> execute(@NonNull Query query,
-                                                      @NonNull SQLResultAdapter<ResultSet, LegacySQLConverter, T, R> adapter);
+                                                      @NonNull SQLResultAdapter<ResultSet, LegacySQLCollector, T, R> adapter);
 
     }
 
@@ -75,7 +75,7 @@ final class LegacySQLImpl {
     }
 
 
-    static final class LegacySQLRC extends SQLRC<ResultSet> implements LegacySQLConverter {
+    static final class LegacySQLRC extends SQLRC<ResultSet> implements LegacySQLCollector {
 
         @Override
         public @NonNull <R> List<R> collect(@NonNull ResultSet resultSet, @NonNull RowConverterStrategy<R> strategy) {
@@ -115,9 +115,9 @@ final class LegacySQLImpl {
     }
 
 
-    static final class LegacyDSLAdapter extends DSLAI<ResultSet, LegacySQLConverter> implements LegacyDSL {
+    static final class LegacyDSLAdapter extends DSLAI<ResultSet, LegacySQLCollector> implements LegacyDSL {
 
-        LegacyDSLAdapter(@NonNull LegacySQLConverter converter) {
+        LegacyDSLAdapter(@NonNull LegacySQLCollector converter) {
             super(converter);
         }
 
@@ -132,7 +132,7 @@ final class LegacySQLImpl {
     @SuperBuilder
     @Accessors(fluent = true)
     abstract static class LegacySQLEI<S extends SQLOperations>
-        extends SQLEI<S, JsonArray, ResultSet, LegacySQLConverter> implements LegacyInternal<S> {
+        extends SQLEI<S, JsonArray, ResultSet, LegacySQLCollector> implements LegacyInternal<S> {
 
         @Default
         @NonNull
@@ -140,8 +140,7 @@ final class LegacySQLImpl {
 
         @Override
         public final <T extends TableLike<?>, R> Future<R> execute(@NonNull Query query,
-                                                                   @NonNull SQLResultAdapter<ResultSet,
-                                                                                                LegacySQLConverter, T
+                                                                   @NonNull SQLResultAdapter<ResultSet, LegacySQLCollector, T
                                                                                                 , R> adapter) {
             final Promise<ResultSet> promise = Promise.promise();
             sqlClient().queryWithParams(preparedQuery().sql(dsl().configuration(), query),

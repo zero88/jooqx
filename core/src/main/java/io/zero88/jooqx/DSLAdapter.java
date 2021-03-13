@@ -15,12 +15,12 @@ import io.zero88.jooqx.adapter.SelectOneAdapter;
 
 import lombok.NonNull;
 
-interface DSLAdapter<RS, C extends SQLResultConverter<RS>> {
+interface DSLAdapter<RS, C extends SQLResultCollector<RS>> {
 
     /**
      * Fetch count
      *
-     * @param table given table
+     * @param table a query table context
      * @return select count
      */
     SelectCountAdapter<RS, C> fetchCount(@NonNull TableLike<Record1<Integer>> table);
@@ -28,7 +28,7 @@ interface DSLAdapter<RS, C extends SQLResultConverter<RS>> {
     /**
      * Fetch exists
      *
-     * @param table given table
+     * @param table a query table context
      * @return select exists
      */
     SelectExistsAdapter<RS, C> fetchExists(@NonNull TableLike<Record1<Integer>> table);
@@ -36,34 +36,33 @@ interface DSLAdapter<RS, C extends SQLResultConverter<RS>> {
     /**
      * Fetch one JsonRecord
      *
-     * @param table given table
-     * @param <T>   Type of table
+     * @param table a query table context
+     * @param <T>   Type of jOOQ Table in Query context
      * @return select one adapter
      * @see TableLike
      * @see JsonRecord
      */
-    <T extends TableLike<? extends Record>> SelectOneAdapter<RS, C, T, JsonRecord<?>> fetchJsonRecord(
-        @NonNull T table);
+    <T extends TableLike<? extends Record>> SelectOneAdapter<RS, C, T, JsonRecord<?>> fetchJsonRecord(@NonNull T table);
 
     /**
      * Fetch one
      *
-     * @param table  given table
+     * @param table  a query table context
      * @param record record
-     * @param <T>    Type of table
-     * @param <R>    Type of record
+     * @param <T>    Type of jOOQ Table in Query context
+     * @param <R>    Type of output jOOQ record
      * @return select one adapter
      * @see TableLike
      */
-    <T extends TableLike<? extends Record>, R extends Record> SelectOneAdapter<RS, C, T, R> fetchOne(
-        @NonNull T table, @NonNull R record);
+    <T extends TableLike<? extends Record>, R extends Record> SelectOneAdapter<RS, C, T, R> fetchOne(@NonNull T table,
+                                                                                                     @NonNull R record);
 
     /**
      * Fetch one
      *
-     * @param table  given table
+     * @param table  a query table context
      * @param fields given fields
-     * @param <T>    Type of table
+     * @param <T>    Type of jOOQ Table in Query context
      * @return select one adapter
      * @see TableLike
      */
@@ -73,9 +72,9 @@ interface DSLAdapter<RS, C extends SQLResultConverter<RS>> {
     /**
      * Fetch one
      *
-     * @param table       given table
+     * @param table       a query table context
      * @param outputClass given output class
-     * @param <T>         Type of table
+     * @param <T>         Type of jOOQ Table in Query context
      * @param <R>         Type ot output class
      * @return select one adapter
      * @see TableLike
@@ -86,8 +85,8 @@ interface DSLAdapter<RS, C extends SQLResultConverter<RS>> {
     /**
      * Fetch one
      *
-     * @param table given table
-     * @param <T>   Type of table
+     * @param table a query table context
+     * @param <T>   Type of jOOQ Table in Query context
      * @return select one adapter
      * @see TableLike
      */
@@ -96,10 +95,10 @@ interface DSLAdapter<RS, C extends SQLResultConverter<RS>> {
     /**
      * Fetch one
      *
-     * @param <T>   Type of table
+     * @param <T>   Type of jOOQ Table in Query context
      * @param <R>   Type of record
      * @param <Z>   Type of expectation table
-     * @param table given table
+     * @param table a query table context
      * @return select one adapter
      * @see TableLike
      */
@@ -109,8 +108,8 @@ interface DSLAdapter<RS, C extends SQLResultConverter<RS>> {
     /**
      * Fetch many Json record
      *
-     * @param table given table
-     * @param <T>   Type of table
+     * @param table a query table context
+     * @param <T>   Type of jOOQ Table in Query context
      * @return select many adapter
      * @see TableLike
      * @see JsonRecord
@@ -121,22 +120,22 @@ interface DSLAdapter<RS, C extends SQLResultConverter<RS>> {
     /**
      * Fetch many
      *
-     * @param table  given table
+     * @param table  a query table context
      * @param record record
-     * @param <T>    Type of table
+     * @param <T>    Type of jOOQ Table in Query context
      * @param <R>    Type of record
      * @return select many adapter
      * @see TableLike
      */
-    <T extends TableLike<? extends Record>, R extends Record> SelectListAdapter<RS, C, T, R> fetchMany(
-        @NonNull T table, @NonNull R record);
+    <T extends TableLike<? extends Record>, R extends Record> SelectListAdapter<RS, C, T, R> fetchMany(@NonNull T table,
+                                                                                                       @NonNull R record);
 
     /**
      * Fetch many
      *
-     * @param table  given table
+     * @param table  a query table context
      * @param fields given fields
-     * @param <T>    Type of table
+     * @param <T>    Type of jOOQ Table in Query context
      * @return select many adapter
      * @see TableLike
      */
@@ -146,9 +145,9 @@ interface DSLAdapter<RS, C extends SQLResultConverter<RS>> {
     /**
      * Fetch many
      *
-     * @param table       given table
+     * @param table       a query table context
      * @param outputClass given output class
-     * @param <T>         Type of table
+     * @param <T>         Type of jOOQ Table in Query context
      * @param <R>         Type ot output class
      * @return select many adapter
      * @see TableLike
@@ -159,8 +158,8 @@ interface DSLAdapter<RS, C extends SQLResultConverter<RS>> {
     /**
      * Fetch many
      *
-     * @param table given table
-     * @param <T>   Type of table
+     * @param table a query table context
+     * @param <T>   Type of jOOQ Table in Query context
      * @return select many adapter
      * @see TableLike
      */
@@ -169,15 +168,14 @@ interface DSLAdapter<RS, C extends SQLResultConverter<RS>> {
     /**
      * Fetch many
      *
-     * @param <T>   Type of table
+     * @param <T>   Type of jOOQ Table in Query context
      * @param <R>   Type of record
      * @param <Z>   Type of expectation table
-     * @param table given table
+     * @param table a query table context
      * @return select many adapter
      * @see TableLike
      */
-    <T extends TableLike<? extends Record>, R extends Record, Z extends Table<R>> SelectListAdapter<RS, C, T,
-                                                                                                                 R> fetchMany(
+    <T extends TableLike<? extends Record>, R extends Record, Z extends Table<R>> SelectListAdapter<RS, C, T, R> fetchMany(
         @NonNull T table, @NonNull Z toTable);
 
 }
