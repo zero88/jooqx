@@ -24,7 +24,7 @@ public interface SQLBatchExecutor {
      * @see BindBatchValues
      * @see BatchResult
      */
-    default void batch(@NonNull Query query, @NonNull BindBatchValues bindBatchValues,
+    default void batch(Query query, @NonNull BindBatchValues bindBatchValues,
                        @NonNull Handler<AsyncResult<BatchResult>> handler) {
         batch(query, bindBatchValues).onComplete(handler);
     }

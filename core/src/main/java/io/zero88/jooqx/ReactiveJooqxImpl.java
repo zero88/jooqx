@@ -20,11 +20,9 @@ import io.zero88.jooqx.SQLImpl.SQLEI;
 import io.zero88.jooqx.adapter.SQLResultAdapter;
 import io.zero88.jooqx.adapter.SelectListResultAdapter;
 
-import lombok.Builder.Default;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.Accessors;
-import lombok.experimental.SuperBuilder;
 
 /**
  * Represents for an executor that executes {@code jOOQ query} on {@code Vertx reactive SQL client} connection
@@ -39,15 +37,20 @@ import lombok.experimental.SuperBuilder;
  * @since 1.0.0
  */
 @Getter
-@SuperBuilder
 @Accessors(fluent = true)
 final class ReactiveJooqxImpl<S extends SqlClient> extends SQLEI<S, Tuple, RowSet<Row>, ReactiveSQLResultConverter>
-    implements ReactiveJooqx<S>, SQLTxExecutor<S, Tuple, RowSet<Row>, ReactiveSQLResultConverter, ReactiveJooqxImpl<S>>,
+    implements ReactiveJooqx<S>, SQLTxExecutor<S, Tuple, RowSet<Row>, ReactiveSQLResultConverter, ReactiveJooqx<S>>,
                ReactiveSQLBatchExecutor {
 
-    @Default
     @NonNull
-    private final ReactiveSQLPreparedQuery preparedQuery = new ReactiveSQLPQ();
+    private ReactiveSQLPreparedQuery preparedQuery = new ReactiveSQLPQ();
+
+    protected ReactiveJooqxImpl(ReactiveJooqxImplBuilder<S, ?, ?> b) {
+        super(b);
+        this.preparedQuery = b.preparedQuery$value;
+    }
+
+    public static <S extends SqlClient> ReactiveJooqxImplBuilder<S, ?, ?> builder() {return new ReactiveJooqxImplBuilderImpl<S>();}
 
     @Override
     public <T extends TableLike<?>, R> Future<R> execute(@NonNull Query query,
@@ -62,7 +65,7 @@ final class ReactiveJooqxImpl<S extends SqlClient> extends SQLEI<S, Tuple, RowSe
 
     @Override
     @SuppressWarnings("unchecked")
-    public @NonNull SQLTxExecutor<S, Tuple, RowSet<Row>, ReactiveSQLResultConverter, ReactiveJooqxImpl<S>> transaction() {
+    public @NonNull ReactiveJooqx<S> transaction() {
         return this;
     }
 
@@ -87,7 +90,7 @@ final class ReactiveJooqxImpl<S extends SqlClient> extends SQLEI<S, Tuple, RowSe
     }
 
     @Override
-    public <X> Future<X> run(@NonNull Function<ReactiveJooqxImpl<S>, Future<X>> function) {
+    public <X> Future<X> run(@NonNull Function<ReactiveJooqx<S>, Future<X>> function) {
         final S c = sqlClient();
         if (c instanceof Pool) {
             return ((Pool) c).getConnection()
@@ -112,7 +115,7 @@ final class ReactiveJooqxImpl<S extends SqlClient> extends SQLEI<S, Tuple, RowSe
 
     @SuppressWarnings("unchecked")
     private <X> Future<X> beginTx(@NonNull SqlConnection conn,
-                                  @NonNull Function<ReactiveJooqxImpl<S>, Future<X>> transaction) {
+                                  @NonNull Function<ReactiveJooqx<S>, Future<X>> transaction) {
         return conn.begin()
                    .flatMap(tx -> transaction.apply(withSqlClient((S) conn))
                                              .compose(res -> tx.commit().flatMap(v -> Future.succeededFuture(res)),
@@ -122,6 +125,42 @@ final class ReactiveJooqxImpl<S extends SqlClient> extends SQLEI<S, Tuple, RowSe
 
     private <X> Future<X> rollbackHandler(@NonNull Transaction tx, @NonNull RuntimeException t) {
         return tx.rollback().compose(v -> Future.failedFuture(t), failure -> Future.failedFuture(t));
+    }
+
+    public static abstract class ReactiveJooqxImplBuilder<S extends SqlClient, C extends ReactiveJooqxImpl<S>,
+                                                             B extends ReactiveJooqxImplBuilder<S, C, B>>
+        extends SQLEIBuilder<S, Tuple, RowSet<Row>, ReactiveSQLResultConverter, C, B> {
+
+        private @NonNull ReactiveSQLPreparedQuery preparedQuery$value;
+        private boolean preparedQuery$set;
+
+        public B preparedQuery(@NonNull ReactiveSQLPreparedQuery preparedQuery) {
+            this.preparedQuery$value = preparedQuery;
+            this.preparedQuery$set = true;
+            return self();
+        }
+
+        protected abstract B self();
+
+        public abstract C build();
+
+        public String toString() {
+            return "ReactiveJooqxImpl.ReactiveJooqxImplBuilder(super=" + super.toString() + ", preparedQuery$value=" +
+                   this.preparedQuery$value + ")";
+        }
+
+    }
+
+
+    private static final class ReactiveJooqxImplBuilderImpl<S extends SqlClient>
+        extends ReactiveJooqxImplBuilder<S, ReactiveJooqxImpl<S>, ReactiveJooqxImplBuilderImpl<S>> {
+
+        private ReactiveJooqxImplBuilderImpl()           {}
+
+        protected ReactiveJooqxImplBuilderImpl<S> self() {return this;}
+
+        public ReactiveJooqxImpl<S> build()              {return new ReactiveJooqxImpl<S>(this);}
+
     }
 
 }

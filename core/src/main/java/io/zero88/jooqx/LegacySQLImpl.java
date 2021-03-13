@@ -33,7 +33,6 @@ import io.zero88.jooqx.SQLImpl.SQLRSC;
 import io.zero88.jooqx.adapter.SQLResultAdapter;
 import io.zero88.jooqx.adapter.SelectStrategy;
 
-import lombok.Builder.Default;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.Accessors;
@@ -41,16 +40,14 @@ import lombok.experimental.SuperBuilder;
 
 final class LegacySQLImpl {
 
-    interface LegacyInternal<S extends SQLOperations>
-        extends SQLExecutor<S, JsonArray, ResultSet, LegacySQLConverter> {
+    interface LegacyInternal<S extends SQLOperations> extends SQLExecutor<S, JsonArray, ResultSet, LegacySQLConverter> {
 
         @Override
         @NonNull LegacySQLPreparedQuery preparedQuery();
 
         @Override
         <T extends TableLike<?>, R> Future<R> execute(@NonNull Query query,
-                                                      @NonNull SQLResultAdapter<ResultSet, LegacySQLConverter,
-                                                                                   T, R> resultAdapter);
+                                                      @NonNull SQLResultAdapter<ResultSet, LegacySQLConverter, T, R> resultAdapter);
 
     }
 
@@ -131,18 +128,23 @@ final class LegacySQLImpl {
 
 
     @Getter
-    @SuperBuilder
     @Accessors(fluent = true)
     abstract static class LegacySQLEI<S extends SQLOperations>
         extends SQLEI<S, JsonArray, ResultSet, LegacySQLConverter> implements LegacyInternal<S> {
 
-        @Default
         @NonNull
-        private final LegacySQLPreparedQuery preparedQuery = new LegacySQLPQ();
+        private LegacySQLPreparedQuery preparedQuery = new LegacySQLPQ();
+
+        protected LegacySQLEI(LegacySQLEIBuilder<S, ?, ?> b) {
+            super(b);
+            this.preparedQuery = b.preparedQuery$value;
+        }
 
         @Override
         public final <T extends TableLike<?>, R> Future<R> execute(@NonNull Query query,
-                                                                   @NonNull SQLResultAdapter<ResultSet, LegacySQLConverter, T, R> adapter) {
+                                                                   @NonNull SQLResultAdapter<ResultSet,
+                                                                                                LegacySQLConverter, T
+                                                                                                , R> adapter) {
             final Promise<ResultSet> promise = Promise.promise();
             sqlClient().queryWithParams(preparedQuery().sql(dsl().configuration(), query),
                                         preparedQuery().bindValues(query), promise);
@@ -162,13 +164,42 @@ final class LegacySQLImpl {
 
         protected abstract Future<SQLConnection> openConn();
 
+        public static abstract class LegacySQLEIBuilder<S extends SQLOperations, C extends LegacySQLEI<S>,
+                                                           B extends LegacySQLEIBuilder<S, C, B>>
+            extends SQLEIBuilder<S, JsonArray, ResultSet, LegacySQLConverter, C, B> {
+
+            private @NonNull LegacySQLPreparedQuery preparedQuery$value;
+            private boolean preparedQuery$set;
+
+            public B preparedQuery(@NonNull LegacySQLPreparedQuery preparedQuery) {
+                this.preparedQuery$value = preparedQuery;
+                this.preparedQuery$set = true;
+                return self();
+            }
+
+            protected abstract B self();
+
+            public abstract C build();
+
+            public String toString() {
+                return "LegacySQLImpl.LegacySQLEI.LegacySQLEIBuilder(super=" + super.toString() +
+                       ", preparedQuery$value=" + this.preparedQuery$value + ")";
+            }
+
+        }
+
     }
 
 
     @Getter
-    @SuperBuilder
     @Accessors(fluent = true)
     static final class LegacyJooqxImpl extends LegacySQLEI<SQLClient> implements LegacyJooqx {
+
+        protected LegacyJooqxImpl(LegacyJooqxImplBuilder<?, ?> b) {
+            super(b);
+        }
+
+        public static LegacyJooqxImplBuilder<?, ?> builder() {return new LegacyJooqxImplBuilderImpl();}
 
         @Override
         @SuppressWarnings("unchecked")
@@ -197,6 +228,32 @@ final class LegacySQLImpl {
                 }
             });
             return promise.future();
+        }
+
+        public static abstract class LegacyJooqxImplBuilder<C extends LegacyJooqxImpl,
+                                                               B extends LegacyJooqxImplBuilder<C, B>>
+            extends LegacySQLEIBuilder<SQLClient, C, B> {
+
+            protected abstract B self();
+
+            public abstract C build();
+
+            public String toString() {
+                return "LegacySQLImpl.LegacyJooqxImpl.LegacyJooqxImplBuilder(super=" + super.toString() + ")";
+            }
+
+        }
+
+
+        private static final class LegacyJooqxImplBuilderImpl
+            extends LegacyJooqxImplBuilder<LegacyJooqxImpl, LegacyJooqxImplBuilderImpl> {
+
+            private LegacyJooqxImplBuilderImpl()        {}
+
+            protected LegacyJooqxImplBuilderImpl self() {return this;}
+
+            public LegacyJooqxImpl build()              {return new LegacyJooqxImpl(this);}
+
         }
 
     }

@@ -32,18 +32,15 @@ import io.vertx.core.buffer.Buffer;
 import io.zero88.jooqx.adapter.SelectStrategy;
 
 import lombok.AccessLevel;
-import lombok.Builder.Default;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.With;
 import lombok.experimental.Accessors;
-import lombok.experimental.SuperBuilder;
 
 final class SQLImpl {
 
     @Getter
-    @SuperBuilder
     @Accessors(fluent = true)
     abstract static class SQLEI<S, P, RS, C extends SQLResultConverter<RS>> implements SQLExecutor<S, P, RS, C> {
 
@@ -51,9 +48,15 @@ final class SQLImpl {
         private final DSLContext dsl;
         @With(AccessLevel.PROTECTED)
         private final S sqlClient;
-        @Default
-        private final SQLErrorConverter<? extends Throwable, ? extends RuntimeException> errorConverter
+        private SQLErrorConverter<? extends Throwable, ? extends RuntimeException> errorConverter
             = SQLErrorConverter.DEFAULT;
+
+        protected SQLEI(SQLEIBuilder<S, P, RS, C, ?, ?> b) {
+            this.vertx = b.vertx;
+            this.dsl = b.dsl;
+            this.sqlClient = b.sqlClient;
+            this.errorConverter = b.errorConverter$value;
+        }
 
         protected final RuntimeException connFailed(String errorMsg, Throwable cause) {
             return errorConverter().handle(
@@ -64,6 +67,49 @@ final class SQLImpl {
         protected final RuntimeException connFailed(String errorMsg) {
             return errorConverter().handle(
                 new SQLNonTransientConnectionException(errorMsg, SQLStateClass.C08_CONNECTION_EXCEPTION.className()));
+        }
+
+        public static abstract class SQLEIBuilder<S, P, RS, C extends SQLResultConverter<RS>, C2 extends SQLEI<S, P,
+                                                                                                                  RS,
+                                                                                                                  C>,
+                                                     B extends SQLEIBuilder<S, P, RS, C, C2, B>> {
+
+            private Vertx vertx;
+            private DSLContext dsl;
+            private S sqlClient;
+            private SQLErrorConverter<? extends Throwable, ? extends RuntimeException> errorConverter$value;
+            private boolean errorConverter$set;
+
+            public B vertx(Vertx vertx) {
+                this.vertx = vertx;
+                return self();
+            }
+
+            public B dsl(DSLContext dsl) {
+                this.dsl = dsl;
+                return self();
+            }
+
+            public B sqlClient(S sqlClient) {
+                this.sqlClient = sqlClient;
+                return self();
+            }
+
+            public B errorConverter(SQLErrorConverter<? extends Throwable, ? extends RuntimeException> errorConverter) {
+                this.errorConverter$value = errorConverter;
+                this.errorConverter$set = true;
+                return self();
+            }
+
+            protected abstract B self();
+
+            public abstract C2 build();
+
+            public String toString() {
+                return "SQLImpl.SQLEI.SQLEIBuilder(vertx=" + this.vertx + ", dsl=" + this.dsl + ", sqlClient=" +
+                       this.sqlClient + ", errorConverter$value=" + this.errorConverter$value + ")";
+            }
+
         }
 
     }

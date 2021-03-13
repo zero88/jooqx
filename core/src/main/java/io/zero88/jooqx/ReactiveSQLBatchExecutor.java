@@ -20,7 +20,6 @@ import lombok.NonNull;
  *
  * @since 1.0.0
  */
-@VertxGen
 public interface ReactiveSQLBatchExecutor extends SQLBatchExecutor {
 
     /**
