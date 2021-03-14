@@ -8,6 +8,7 @@ import java.util.function.BiFunction;
 import java.util.stream.IntStream;
 
 import org.jooq.Param;
+import org.jooq.Record;
 
 import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.RowIterator;
@@ -44,8 +45,9 @@ final class ReactiveSQLImpl {
     static class ReactiveSQLRC extends SQLRC<RowSet<Row>> implements ReactiveSQLResultCollector {
 
         @Override
-        public @NonNull <R> List<R> collect(@NonNull RowSet<Row> resultSet, @NonNull RowConverterStrategy<R> strategy) {
-            final List<R> records = new ArrayList<>();
+        public @NonNull <R extends Record, O> List<O> collect(@NonNull RowSet<Row> resultSet,
+                                                              @NonNull RowConverterStrategy<R, O> strategy) {
+            final List<O> records = new ArrayList<>();
             final RowIterator<Row> iterator = resultSet.iterator();
             if (strategy.strategy() == SelectStrategy.MANY) {
                 iterator.forEachRemaining(row -> records.add(toRecord(strategy, row)));
@@ -56,14 +58,12 @@ final class ReactiveSQLImpl {
             return records;
         }
 
-        private <R> R toRecord(@NonNull RowConverterStrategy<R> strategy, @NonNull Row row) {
+        private <R extends Record, O> O toRecord(@NonNull RowConverterStrategy<R, O> strategy, @NonNull Row row) {
             return IntStream.range(0, row.size())
                             .mapToObj(row::getColumnName)
-                            .map(f -> strategy.fieldMap().get(f))
+                            .map(strategy::lookupField)
                             .filter(Objects::nonNull)
-                            .reduce(strategy.newRecord().get(),
-                                    (r, field) -> strategy.addFieldData(r, field, row.getValue(field.getName())),
-                                    (r1, r2) -> r2);
+                            .collect(strategy.createCollector(f -> row.getValue(f.getName())));
         }
 
     }
@@ -72,12 +72,13 @@ final class ReactiveSQLImpl {
     static final class ReactiveSQLRBC extends ReactiveSQLRC implements ReactiveSQLBatchCollector {
 
         @Override
-        public @NonNull <R> List<R> collect(@NonNull RowSet<Row> resultSet, @NonNull RowConverterStrategy<R> strategy) {
-            final List<R> records = new ArrayList<>();
+        public @NonNull <R extends Record, O> List<O> collect(@NonNull RowSet<Row> resultSet,
+                                                              @NonNull RowConverterStrategy<R, O> strategy) {
+            final List<O> records = new ArrayList<>();
             while (resultSet != null) {
-                final List<R> rs = super.collect(resultSet, strategy);
-                if (!rs.isEmpty()) {
-                    records.add(rs.get(0));
+                final List<O> rows = super.collect(resultSet, strategy);
+                if (!rows.isEmpty()) {
+                    records.add(rows.get(0));
                 }
                 resultSet = resultSet.next();
             }
@@ -101,10 +102,6 @@ final class ReactiveSQLImpl {
         implements ReactiveDSL {
 
         ReactiveDSLAdapter() { super(new ReactiveSQLRC()); }
-
-        ReactiveDSLAdapter(@NonNull ReactiveSQLResultCollector converter) {
-            super(converter);
-        }
 
     }
 

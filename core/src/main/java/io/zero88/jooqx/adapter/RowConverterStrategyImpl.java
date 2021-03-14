@@ -1,49 +1,42 @@
 package io.zero88.jooqx.adapter;
 
-import java.util.Map;
 import java.util.function.Function;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
+import java.util.stream.Collector;
 
+import org.jooq.DSLContext;
 import org.jooq.Field;
 import org.jooq.Record;
 import org.jooq.TableLike;
-import org.jooq.TableRecord;
 
-import io.zero88.jooqx.JsonRecord;
 import io.zero88.jooqx.datatype.SQLDataTypeRegistry;
 
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 
-@Getter
 @Accessors(fluent = true)
-final class RowConverterStrategyImpl implements RowConverterStrategy<JsonRecord<?>> {
+@RequiredArgsConstructor
+final class RowConverterStrategyImpl<R extends Record, O> implements RowConverterStrategy<R, O> {
 
+    @Getter
     private final SelectStrategy strategy;
+    private final TableLike<? extends Record> table;
+    private final DSLContext dsl;
     private final SQLDataTypeRegistry dataTypeRegistry;
-    private final Map<String, Field<?>> fieldMap;
-    private final Supplier<JsonRecord<? extends TableRecord>> supplier;
+    private final CollectorPart<R, O> collectorPart;
 
-    public RowConverterStrategyImpl(@NonNull SelectStrategy strategy, @NonNull SQLDataTypeRegistry dataTypeRegistry,
-                                    @NonNull TableLike<? extends Record> table) {
-        this.strategy = strategy;
-        this.dataTypeRegistry = dataTypeRegistry;
-        this.fieldMap = table.fieldStream().collect(Collectors.toMap(Field::getName, Function.identity()));
-        this.supplier = () -> JsonRecord.create((TableLike<TableRecord>) table);
+    @Override
+    public Field<?> lookupField(@NonNull String fieldName) {
+        return table.field(fieldName);
     }
 
     @Override
-    public Supplier<JsonRecord<?>> newRecord() {
-        return supplier;
-    }
-
-    @Override
-    public @NonNull JsonRecord<?> addFieldData(@NonNull JsonRecord<?> record, @NonNull Field<?> field,
-                                               Object fieldValue) {
-        record.set((Field<Object>) field, dataTypeRegistry.convertFieldType(field, fieldValue));
-        return record;
+    @SuppressWarnings("unchecked")
+    public Collector<Field<?>, R, O> createCollector(@NonNull Function<Field<?>, Object> getValue) {
+        return Collector.of(() -> collectorPart.toRecord(dsl),
+                            (r, f) -> r.set((Field<Object>) f, dataTypeRegistry.convertFieldType(f, getValue.apply(f))),
+                            (r, r2) -> r2, collectorPart.converter());
     }
 
 }

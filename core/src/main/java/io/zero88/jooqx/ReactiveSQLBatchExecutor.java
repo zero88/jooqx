@@ -1,6 +1,7 @@
 package io.zero88.jooqx;
 
 import org.jooq.Query;
+import org.jooq.Record;
 import org.jooq.TableLike;
 
 import io.vertx.core.AsyncResult;
@@ -34,10 +35,11 @@ public interface ReactiveSQLBatchExecutor extends SQLBatchExecutor {
      * @see SelectListAdapter
      * @see BatchReturningResult
      */
-    default <T extends TableLike<?>, R> void batch(@NonNull Query query, @NonNull BindBatchValues bindBatchValues,
-                                                   @NonNull SelectListAdapter<RowSet<Row>, ReactiveSQLBatchCollector,
-                                                                                 T, R> adapter,
-                                                   @NonNull Handler<AsyncResult<BatchReturningResult<R>>> handler) {
+    default <T extends TableLike<?>, R extends Record, O> void batch(@NonNull Query query,
+                                                                     @NonNull BindBatchValues bindBatchValues,
+                                                                     @NonNull SelectListAdapter<RowSet<Row>,
+                                                                                                   ReactiveSQLBatchCollector, T, R, O> adapter,
+                                                                     @NonNull Handler<AsyncResult<BatchReturningResult<O>>> handler) {
         batch(query, bindBatchValues, adapter).onComplete(handler);
     }
 
@@ -55,8 +57,8 @@ public interface ReactiveSQLBatchExecutor extends SQLBatchExecutor {
      * @see SelectListAdapter
      * @see BatchReturningResult
      */
-    <T extends TableLike<?>, R> Future<BatchReturningResult<R>> batch(@NonNull Query query,
-                                                                      @NonNull BindBatchValues bindBatchValues,
-                                                                      @NonNull SelectListAdapter<RowSet<Row>, ReactiveSQLBatchCollector, T, R> adapter);
+    <T extends TableLike<?>, R extends Record, O> Future<BatchReturningResult<O>> batch(@NonNull Query query,
+                                                                                        @NonNull BindBatchValues bindBatchValues,
+                                                                                        @NonNull SelectListAdapter<RowSet<Row>, ReactiveSQLBatchCollector, T, R, O> adapter);
 
 }

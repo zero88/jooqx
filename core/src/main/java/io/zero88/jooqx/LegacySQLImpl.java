@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -15,6 +17,7 @@ import org.jooq.Configuration;
 import org.jooq.Field;
 import org.jooq.Param;
 import org.jooq.Query;
+import org.jooq.Record;
 import org.jooq.TableLike;
 import org.jooq.conf.ParamType;
 
@@ -78,8 +81,9 @@ final class LegacySQLImpl {
     static final class LegacySQLRC extends SQLRC<ResultSet> implements LegacySQLCollector {
 
         @Override
-        public @NonNull <R> List<R> collect(@NonNull ResultSet resultSet, @NonNull RowConverterStrategy<R> strategy) {
-            final Map<Integer, Field<?>> map = getColumnMap(resultSet, f -> strategy.fieldMap().get(f));
+        public @NonNull <R extends Record, O> List<O> collect(@NonNull ResultSet resultSet,
+                                                              @NonNull RowConverterStrategy<R, O> strategy) {
+            final Map<Field<?>, Integer> map = getColumnMap(resultSet, strategy::lookupField);
             final List<JsonArray> results = resultSet.getResults();
             if (strategy.strategy() == SelectStrategy.MANY) {
                 return results.stream().map(row -> toRecord(strategy, map, row)).collect(Collectors.toList());
@@ -92,19 +96,19 @@ final class LegacySQLImpl {
                           .orElse(new ArrayList<>());
         }
 
-        private <R> R toRecord(RowConverterStrategy<R> strategy, Map<Integer, Field<?>> map, JsonArray row) {
-            return IntStream.range(0, row.size())
-                            .filter(idx -> Objects.nonNull(map.get(idx)))
-                            .mapToObj(idx -> new SimpleEntry<>(map.get(idx), row.getValue(idx)))
-                            .reduce(strategy.newRecord().get(),
-                                    (r, entry) -> strategy.addFieldData(r, entry.getKey(), entry.getValue()),
-                                    (r1, r2) -> r2);
+        private <R extends Record, O> O toRecord(RowConverterStrategy<R, O> strategy, Map<Field<?>, Integer> map,
+                                                 JsonArray row) {
+            return map.keySet().stream().collect(strategy.createCollector(f -> row.getValue(map.get(f))));
         }
 
-        private Map<Integer, Field<?>> getColumnMap(ResultSet rs, Function<String, Field<?>> lookupField) {
+        private Map<Field<?>, Integer> getColumnMap(ResultSet rs, Function<String, Field<?>> lookupField) {
             return IntStream.range(0, rs.getNumColumns())
                             .boxed()
-                            .collect(Collectors.toMap(i -> i, i -> lookupField.apply(rs.getColumnNames().get(i))));
+                            .map(i -> Optional.ofNullable(lookupField.apply(rs.getColumnNames().get(i)))
+                                              .map(f -> new SimpleEntry<>(f, i))
+                                              .orElse(null))
+                            .filter(Objects::nonNull)
+                            .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
         }
 
         @Override
@@ -116,10 +120,6 @@ final class LegacySQLImpl {
 
 
     static final class LegacyDSLAdapter extends DSLAI<ResultSet, LegacySQLCollector> implements LegacyDSL {
-
-        LegacyDSLAdapter(@NonNull LegacySQLCollector converter) {
-            super(converter);
-        }
 
         LegacyDSLAdapter() {
             super(new LegacySQLRC());
@@ -140,13 +140,14 @@ final class LegacySQLImpl {
 
         @Override
         public final <T extends TableLike<?>, R> Future<R> execute(@NonNull Query query,
-                                                                   @NonNull SQLResultAdapter<ResultSet, LegacySQLCollector, T
+                                                                   @NonNull SQLResultAdapter<ResultSet,
+                                                                                                LegacySQLCollector, T
                                                                                                 , R> adapter) {
             final Promise<ResultSet> promise = Promise.promise();
             sqlClient().queryWithParams(preparedQuery().sql(dsl().configuration(), query),
                                         preparedQuery().bindValues(query, typeMapperRegistry()), promise);
             return promise.future()
-                          .map(rs -> adapter.collect(rs, typeMapperRegistry()))
+                          .map(rs -> adapter.collect(rs, dsl(), typeMapperRegistry()))
                           .otherwise(errorConverter()::reThrowError);
         }
 

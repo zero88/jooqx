@@ -2,6 +2,7 @@ package io.zero88.jooqx;
 
 import java.util.List;
 
+import org.jooq.Record;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -25,11 +26,11 @@ public interface SQLResultCollector<RS> {
     /**
      * Collect result set to an expectation result
      *
+     * @param <R>       Type of output
      * @param resultSet result set
      * @param strategy  row converter strategy
-     * @param <R>       Type of output
      * @return list output
      */
-    @NonNull <R> List<R> collect(@NonNull RS resultSet, @NonNull RowConverterStrategy<R> strategy);
+    @NonNull <R extends Record, O> List<O> collect(@NonNull RS resultSet, @NonNull RowConverterStrategy<R, O> strategy);
 
 }

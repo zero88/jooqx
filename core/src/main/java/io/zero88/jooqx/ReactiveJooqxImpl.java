@@ -3,6 +3,7 @@ package io.zero88.jooqx;
 import java.util.function.Function;
 
 import org.jooq.Query;
+import org.jooq.Record;
 import org.jooq.TableLike;
 
 import io.vertx.core.Future;
@@ -51,11 +52,12 @@ final class ReactiveJooqxImpl<S extends SqlClient> extends SQLEI<S, Tuple, RowSe
 
     @Override
     public <T extends TableLike<?>, R> Future<R> execute(@NonNull Query query,
-                                                         @NonNull SQLResultAdapter<RowSet<Row>, ReactiveSQLResultCollector, T,
+                                                         @NonNull SQLResultAdapter<RowSet<Row>,
+                                                                                      ReactiveSQLResultCollector, T,
                                                                                       R> adapter) {
         return sqlClient().preparedQuery(preparedQuery().sql(dsl().configuration(), query))
                           .execute(preparedQuery().bindValues(query, typeMapperRegistry()))
-                          .map(rs -> adapter.collect(rs, typeMapperRegistry()))
+                          .map(rs -> adapter.collect(rs, dsl(), typeMapperRegistry()))
                           .otherwise(errorConverter()::reThrowError);
     }
 
@@ -75,12 +77,12 @@ final class ReactiveJooqxImpl<S extends SqlClient> extends SQLEI<S, Tuple, RowSe
     }
 
     @Override
-    public <T extends TableLike<?>, R> Future<BatchReturningResult<R>> batch(@NonNull Query query,
-                                                                             @NonNull BindBatchValues bindBatchValues,
-                                                                             @NonNull SelectListAdapter<RowSet<Row>, ReactiveSQLBatchCollector, T, R> adapter) {
+    public <T extends TableLike<?>, R extends Record, O> Future<BatchReturningResult<O>> batch(@NonNull Query query,
+                                                                                               @NonNull BindBatchValues bindBatchValues,
+                                                                                               @NonNull SelectListAdapter<RowSet<Row>, ReactiveSQLBatchCollector, T, R, O> adapter) {
         return sqlClient().preparedQuery(preparedQuery().sql(dsl().configuration(), query))
                           .executeBatch(preparedQuery().bindValues(query, bindBatchValues, typeMapperRegistry()))
-                          .map(resultSet -> adapter.collect(resultSet, typeMapperRegistry()))
+                          .map(resultSet -> adapter.collect(resultSet, dsl(), typeMapperRegistry()))
                           .map(rs -> BatchResultImpl.create(bindBatchValues.size(), rs))
                           .otherwise(errorConverter()::reThrowError);
     }
