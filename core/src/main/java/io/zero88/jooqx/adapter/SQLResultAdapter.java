@@ -87,7 +87,7 @@ public interface SQLResultAdapter<RS, C extends SQLResultCollector<RS>, T extend
      *
      * @since 1.0.0
      */
-    interface SelectOne extends HasStrategy {
+    interface SelectOneStrategy extends HasStrategy {
 
         @Override
         default @NonNull SelectStrategy strategy() {
@@ -102,7 +102,7 @@ public interface SQLResultAdapter<RS, C extends SQLResultCollector<RS>, T extend
      *
      * @since 1.0.0
      */
-    interface SelectMany extends HasStrategy {
+    interface SelectManyStrategy extends HasStrategy {
 
         @Override
         default @NonNull SelectStrategy strategy() {

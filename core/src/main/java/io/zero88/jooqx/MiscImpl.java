@@ -16,10 +16,10 @@ import org.jooq.impl.CustomRecord;
 
 import io.vertx.core.json.JsonObject;
 import io.zero88.jooqx.adapter.SQLResultAdapter;
-import io.zero88.jooqx.adapter.SelectCountAdapter;
-import io.zero88.jooqx.adapter.SelectExistsAdapter;
-import io.zero88.jooqx.adapter.SelectListAdapter;
-import io.zero88.jooqx.adapter.SelectOneAdapter;
+import io.zero88.jooqx.adapter.SelectCount;
+import io.zero88.jooqx.adapter.SelectExists;
+import io.zero88.jooqx.adapter.SelectList;
+import io.zero88.jooqx.adapter.SelectOne;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -35,83 +35,83 @@ final class MiscImpl {
         private final C converter;
 
         @Override
-        public SelectCountAdapter<RS, C> fetchCount(@NonNull TableLike<Record1<Integer>> table) {
-            return SelectCountAdapter.count(table, converter);
+        public SelectCount<RS, C> fetchCount(@NonNull TableLike<Record1<Integer>> table) {
+            return SelectCount.count(table, converter);
         }
 
         @Override
-        public SelectExistsAdapter<RS, C> fetchExists(@NonNull TableLike<Record1<Integer>> table) {
-            return SelectExistsAdapter.exist(table, converter);
+        public SelectExists<RS, C> fetchExists(@NonNull TableLike<Record1<Integer>> table) {
+            return SelectExists.exist(table, converter);
         }
 
         @Override
-        public <T extends TableLike<? extends Record>> SelectOneAdapter<RS, C, T, JsonRecord<?>, JsonRecord<?>> fetchJsonRecord(
+        public <T extends TableLike<? extends Record>> SelectOne<RS, C, T, JsonRecord<?>, JsonRecord<?>> fetchJsonRecord(
             @NonNull T table) {
-            return new SelectOneAdapter<>(table, converter, SQLResultAdapter.byJson());
+            return new SelectOne<>(table, converter, SQLResultAdapter.byJson());
         }
 
         @Override
-        public <T extends TableLike<? extends Record>, R extends TableRecord<R>> SelectOneAdapter<RS, C, T, R, R> fetchOne(
+        public <T extends TableLike<? extends Record>, R extends TableRecord<R>> SelectOne<RS, C, T, R, R> fetchOne(
             @NonNull T table, @NonNull R record) {
-            return new SelectOneAdapter<>(table, converter, SQLResultAdapter.byRecord(record));
+            return new SelectOne<>(table, converter, SQLResultAdapter.byRecord(record));
         }
 
         @Override
-        public <T extends TableLike<? extends Record>> SelectOneAdapter<RS, C, T, Record, Record> fetchOne(
+        public <T extends TableLike<? extends Record>> SelectOne<RS, C, T, Record, Record> fetchOne(
             @NonNull T table, @NonNull Collection<Field<?>> fields) {
-            return new SelectOneAdapter<>(table, converter, SQLResultAdapter.byFields(fields));
+            return new SelectOne<>(table, converter, SQLResultAdapter.byFields(fields));
         }
 
         @Override
-        public <T extends TableLike<? extends Record>, R> SelectOneAdapter<RS, C, T, JsonRecord<?>, R> fetchOne(
+        public <T extends TableLike<? extends Record>, R> SelectOne<RS, C, T, JsonRecord<?>, R> fetchOne(
             @NonNull T table, @NonNull Class<R> outputClass) {
-            return new SelectOneAdapter<>(table, converter, SQLResultAdapter.byClass(outputClass));
+            return new SelectOne<>(table, converter, SQLResultAdapter.byClass(outputClass));
         }
 
         @Override
-        public <T extends Table<R>, R extends Record> SelectOneAdapter<RS, C, T, R, R> fetchOne(@NonNull T table) {
-            return new SelectOneAdapter<>(table, converter, SQLResultAdapter.byTable(table));
+        public <T extends Table<R>, R extends Record> SelectOne<RS, C, T, R, R> fetchOne(@NonNull T table) {
+            return new SelectOne<>(table, converter, SQLResultAdapter.byTable(table));
         }
 
         @Override
-        public <T extends TableLike<? extends Record>, R extends Record, Z extends Table<R>> SelectOneAdapter<RS, C, T, R, R> fetchOne(
+        public <T extends TableLike<? extends Record>, R extends Record, Z extends Table<R>> SelectOne<RS, C, T, R, R> fetchOne(
             @NonNull T table, @NonNull Z toTable) {
-            return new SelectOneAdapter<>(table, converter, SQLResultAdapter.byTable(toTable));
+            return new SelectOne<>(table, converter, SQLResultAdapter.byTable(toTable));
         }
 
         @Override
-        public <T extends TableLike<? extends Record>> SelectListAdapter<RS, C, T, JsonRecord<?>, JsonRecord<?>> fetchJsonRecords(
+        public <T extends TableLike<? extends Record>> SelectList<RS, C, T, JsonRecord<?>, JsonRecord<?>> fetchJsonRecords(
             @NonNull T table) {
-            return new SelectListAdapter<>(table, converter, SQLResultAdapter.byJson());
+            return new SelectList<>(table, converter, SQLResultAdapter.byJson());
         }
 
         @Override
-        public <T extends TableLike<? extends Record>, R extends TableRecord<R>> SelectListAdapter<RS, C, T, R, R> fetchMany(
+        public <T extends TableLike<? extends Record>, R extends TableRecord<R>> SelectList<RS, C, T, R, R> fetchMany(
             @NonNull T table, @NonNull R record) {
-            return new SelectListAdapter<>(table, converter, SQLResultAdapter.byRecord(record));
+            return new SelectList<>(table, converter, SQLResultAdapter.byRecord(record));
         }
 
         @Override
-        public <T extends TableLike<? extends Record>> SelectListAdapter<RS, C, T, Record, Record> fetchMany(
+        public <T extends TableLike<? extends Record>> SelectList<RS, C, T, Record, Record> fetchMany(
             @NonNull T table, @NonNull Collection<Field<?>> fields) {
-            return new SelectListAdapter<>(table, converter, SQLResultAdapter.byFields(fields));
+            return new SelectList<>(table, converter, SQLResultAdapter.byFields(fields));
         }
 
         @Override
-        public <T extends TableLike<? extends Record>, R> SelectListAdapter<RS, C, T, JsonRecord<?>, R> fetchMany(
+        public <T extends TableLike<? extends Record>, R> SelectList<RS, C, T, JsonRecord<?>, R> fetchMany(
             @NonNull T table, @NonNull Class<R> outputClass) {
-            return new SelectListAdapter<>(table, converter, SQLResultAdapter.byClass(outputClass));
+            return new SelectList<>(table, converter, SQLResultAdapter.byClass(outputClass));
         }
 
         @Override
-        public <T extends Table<R>, R extends Record> SelectListAdapter<RS, C, T, R, R> fetchMany(@NonNull T table) {
-            return new SelectListAdapter<>(table, converter, SQLResultAdapter.byTable(table));
+        public <T extends Table<R>, R extends Record> SelectList<RS, C, T, R, R> fetchMany(@NonNull T table) {
+            return new SelectList<>(table, converter, SQLResultAdapter.byTable(table));
         }
 
         @Override
-        public <T extends TableLike<? extends Record>, R extends Record, Z extends Table<R>> SelectListAdapter<RS, C, T, R, R> fetchMany(
+        public <T extends TableLike<? extends Record>, R extends Record, Z extends Table<R>> SelectList<RS, C, T, JsonRecord<?>, R> fetchMany(
             @NonNull T table, @NonNull Z toTable) {
-            return new SelectListAdapter<>(table, converter, SQLResultAdapter.byTable(toTable));
+            return new SelectList<>(table, converter, SQLResultAdapter.byJson().andThen(r -> r.into(toTable)));
         }
 
     }

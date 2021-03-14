@@ -26,13 +26,13 @@ public class CollectorPart<R extends Record, O> {
         return provider.apply(dsl, queryTable);
     }
 
-    public static class IdentityCollectorPart<R extends Record> extends CollectorPart<R, R> {
+    public static final class IdentityCollectorPart<R extends Record> extends CollectorPart<R, R> {
 
         public IdentityCollectorPart(BiFunction<DSLContext, TableLike<? extends Record>, R> provider) {
             super(provider, Function.identity());
         }
 
-        <O> CollectorPart<R, O> andThen(Function<R, O> converter) {
+        public <O> CollectorPart<R, O> andThen(Function<R, O> converter) {
             return new CollectorPart<>(provider(), converter);
         }
 

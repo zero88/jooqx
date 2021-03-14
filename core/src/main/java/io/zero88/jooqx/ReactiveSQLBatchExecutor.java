@@ -10,7 +10,7 @@ import io.vertx.core.Handler;
 import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.RowSet;
 import io.vertx.sqlclient.SqlClient;
-import io.zero88.jooqx.adapter.SelectListAdapter;
+import io.zero88.jooqx.adapter.SelectList;
 
 import lombok.NonNull;
 
@@ -32,19 +32,19 @@ public interface ReactiveSQLBatchExecutor extends SQLBatchExecutor {
      * @param adapter         result adapter
      * @param handler         async result handler
      * @see BindBatchValues
-     * @see SelectListAdapter
+     * @see SelectList
      * @see BatchReturningResult
      */
     default <T extends TableLike<?>, R extends Record, O> void batch(@NonNull Query query,
                                                                      @NonNull BindBatchValues bindBatchValues,
-                                                                     @NonNull SelectListAdapter<RowSet<Row>,
-                                                                                                   ReactiveSQLBatchCollector, T, R, O> adapter,
+                                                                     @NonNull SelectList<RowSet<Row>,
+                                                                                                                                                                        ReactiveSQLBatchCollector, T, R, O> adapter,
                                                                      @NonNull Handler<AsyncResult<BatchReturningResult<O>>> handler) {
         batch(query, bindBatchValues, adapter).onComplete(handler);
     }
 
     /**
-     * Like {@link #batch(Query, BindBatchValues, SelectListAdapter, Handler)} but returns a {@code Future} of the
+     * Like {@link #batch(Query, BindBatchValues, SelectList, Handler)} but returns a {@code Future} of the
      * asynchronous result
      *
      * @param <T>             type of jOOQ table
@@ -54,11 +54,11 @@ public interface ReactiveSQLBatchExecutor extends SQLBatchExecutor {
      * @param adapter         result adapter
      * @return a {@code Future} of the asynchronous result
      * @see BindBatchValues
-     * @see SelectListAdapter
+     * @see SelectList
      * @see BatchReturningResult
      */
     <T extends TableLike<?>, R extends Record, O> Future<BatchReturningResult<O>> batch(@NonNull Query query,
                                                                                         @NonNull BindBatchValues bindBatchValues,
-                                                                                        @NonNull SelectListAdapter<RowSet<Row>, ReactiveSQLBatchCollector, T, R, O> adapter);
+                                                                                        @NonNull SelectList<RowSet<Row>, ReactiveSQLBatchCollector, T, R, O> adapter);
 
 }

@@ -15,13 +15,13 @@ import lombok.NonNull;
  * Select exists result adapter that defines output in {@code Boolean} type
  *
  * @see SelectAdhocOneResultAdapter
- * @see SelectOne
+ * @see SelectOneStrategy
  * @since 1.0.0
  */
-public final class SelectExistsAdapter<RS, C extends SQLResultCollector<RS>>
+public final class SelectExists<RS, C extends SQLResultCollector<RS>>
     extends SelectAdhocOneResultAdapter<RS, C, TableLike<Record1<Integer>>, Boolean> {
 
-    private SelectExistsAdapter(@NonNull TableLike<Record1<Integer>> table, @NonNull C converter) {
+    private SelectExists(@NonNull TableLike<Record1<Integer>> table, @NonNull C converter) {
         super(table, converter);
     }
 
@@ -34,9 +34,9 @@ public final class SelectExistsAdapter<RS, C extends SQLResultCollector<RS>>
                           .isPresent();
     }
 
-    public static <RS, C extends SQLResultCollector<RS>> SelectExistsAdapter<RS, C> exist(
+    public static <RS, C extends SQLResultCollector<RS>> SelectExists<RS, C> exist(
         @NonNull TableLike<Record1<Integer>> table, @NonNull C converter) {
-        return new SelectExistsAdapter<>(table, converter);
+        return new SelectExists<>(table, converter);
     }
 
 }

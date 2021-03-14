@@ -7,7 +7,7 @@ import org.jooq.Record;
 import org.jooq.TableLike;
 
 import io.zero88.jooqx.SQLResultCollector;
-import io.zero88.jooqx.adapter.SQLResultAdapter.SelectMany;
+import io.zero88.jooqx.adapter.SQLResultAdapter.SelectManyStrategy;
 import io.zero88.jooqx.datatype.SQLDataTypeRegistry;
 
 import lombok.NonNull;
@@ -16,14 +16,14 @@ import lombok.NonNull;
  * Select list result adapter that returns list of output
  *
  * @see SQLResultAdapter
- * @see SelectMany
+ * @see SelectManyStrategy
  * @since 1.0.0
  */
-public final class SelectListAdapter<RS, C extends SQLResultCollector<RS>, T extends TableLike<? extends Record>,
-                                        R extends Record, O>
-    extends SQLResultAdapterImpl.SelectResultInternal<RS, C, T, R, O, List<O>> implements SelectMany {
+public final class SelectList<RS, C extends SQLResultCollector<RS>, T extends TableLike<? extends Record>,
+                                 R extends Record, O>
+    extends SQLResultAdapterImpl.SelectResultInternal<RS, C, T, R, O, List<O>> implements SelectManyStrategy {
 
-    public SelectListAdapter(@NonNull T table, @NonNull C converter, @NonNull CollectorPart<R, O> collectorPart) {
+    public SelectList(@NonNull T table, @NonNull C converter, @NonNull CollectorPart<R, O> collectorPart) {
         super(table, converter, collectorPart);
     }
 
