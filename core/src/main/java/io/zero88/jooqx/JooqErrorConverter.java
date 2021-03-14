@@ -1,7 +1,6 @@
 package io.zero88.jooqx;
 
 import java.sql.SQLException;
-import java.util.function.Function;
 
 import org.jooq.exception.DataAccessException;
 
@@ -10,43 +9,36 @@ import lombok.NonNull;
 /**
  * Represents for SQL error maker that transforms SQL exception to {@code jOOQ} {@link DataAccessException}
  *
- * @param <A> Type of Throwable
+ * @param <T> Type of Throwable
  * @see DataAccessException
  * @since 1.0.0
  */
-public interface JooqErrorConverter<A extends Throwable> extends SQLErrorConverter<A, DataAccessException> {
+public interface JooqErrorConverter<T extends Throwable> extends SQLErrorConverter {
 
-    default <T extends RuntimeException> SQLErrorConverter<A, T> to(@NonNull Function<DataAccessException, T> to) {
-        return new SQLErrorConverter<A, T>() {
-            @Override
-            public Class<A> throwableType() { return JooqErrorConverter.this.throwableType(); }
+    @NonNull DataAccessException transform(T t);
 
-            @Override
-            public T apply(A throwable) { return JooqErrorConverter.this.andThen(to).apply(throwable); }
-        };
-    }
+    @NonNull Class<T> throwableType();
 
     @Override
-    @SuppressWarnings("unchecked")
-    default RuntimeException handle(@NonNull Throwable t) {
-        if (throwableType().isInstance(t)) {
-            return apply((A) t);
+    default RuntimeException handle(Throwable throwable) {
+        if (throwableType().isInstance(throwable)) {
+            return transform(throwableType().cast(throwable));
         }
-        if (t instanceof SQLException) {
-            return new JDBCErrorConverter().handle(t);
+        if (throwable instanceof SQLException) {
+            return new JDBCErrorConverter().handle(throwable);
         }
-        return DEFAULT.handle(t);
+        return SQLErrorConverter.super.handle(throwable);
     }
 
-    final class JDBCErrorConverter implements JooqErrorConverter<SQLException> {
+    class JDBCErrorConverter implements JooqErrorConverter<SQLException> {
 
         @Override
-        public DataAccessException apply(SQLException throwable) {
-            return new DataAccessException(throwable.getMessage(), throwable);
+        public DataAccessException transform(SQLException t) {
+            return new DataAccessException(t.getMessage(), t);
         }
 
         @Override
-        public Class<SQLException> throwableType() {
+        public @NonNull Class<SQLException> throwableType() {
             return SQLException.class;
         }
 

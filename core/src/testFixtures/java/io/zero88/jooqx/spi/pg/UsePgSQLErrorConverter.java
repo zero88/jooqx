@@ -6,7 +6,7 @@ import io.zero88.jooqx.SQLErrorConverter;
 public interface UsePgSQLErrorConverter extends ErrorConverterCreator {
 
     @Override
-    default SQLErrorConverter<? extends Throwable, ? extends RuntimeException> errorConverter() {
+    default SQLErrorConverter errorConverter() {
         return new PgErrorConverter();
     }
 

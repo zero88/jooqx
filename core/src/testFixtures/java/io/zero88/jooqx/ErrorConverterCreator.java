@@ -2,7 +2,7 @@ package io.zero88.jooqx;
 
 public interface ErrorConverterCreator {
 
-    default SQLErrorConverter<? extends Throwable, ? extends RuntimeException> errorConverter() {
+    default SQLErrorConverter errorConverter() {
         return SQLErrorConverter.DEFAULT;
     }
 

@@ -68,7 +68,7 @@ public interface SQLExecutor<S, P, RS, C extends SQLResultCollector<RS>> extends
      * @apiNote Default is {@link SQLErrorConverter#DEFAULT} that keeps error as it is
      * @see SQLErrorConverter
      */
-    @NonNull SQLErrorConverter<? extends Throwable, ? extends RuntimeException> errorConverter();
+    @NonNull SQLErrorConverter errorConverter();
 
     @NonNull SQLDataTypeRegistry typeMapperRegistry();
 

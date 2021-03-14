@@ -21,24 +21,20 @@ import io.zero88.jooqx.JooqErrorConverter.JDBCErrorConverter;
 import io.zero88.jooqx.JsonRecord;
 import io.zero88.jooqx.LegacyDSL;
 import io.zero88.jooqx.SQLErrorConverter;
+import io.zero88.jooqx.UseJdbcErrorConverter;
 import io.zero88.jooqx.integtest.pgsql.tables.Authors;
 import io.zero88.jooqx.integtest.pgsql.tables.Books;
 import io.zero88.jooqx.integtest.pgsql.tables.records.AuthorsRecord;
 import io.zero88.jooqx.integtest.pgsql.tables.records.BooksRecord;
 import io.zero88.jooqx.spi.pg.PgSQLLegacyTest;
 
-class PgLeGRelationTest extends PgSQLLegacyTest implements PostgreSQLHelper {
+class PgLeGRelationTest extends PgSQLLegacyTest implements PostgreSQLHelper, UseJdbcErrorConverter {
 
     @Override
     @BeforeEach
     public void tearUp(Vertx vertx, VertxTestContext ctx) {
         super.tearUp(vertx, ctx);
         this.prepareDatabase(ctx, this, connOpt, "pg_data/book_author.sql");
-    }
-
-    @Override
-    public SQLErrorConverter<? extends Throwable, ? extends RuntimeException> errorConverter() {
-        return new JDBCErrorConverter();
     }
 
     @Test

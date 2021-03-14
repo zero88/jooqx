@@ -44,8 +44,7 @@ final class SQLImpl {
         @With(AccessLevel.PROTECTED)
         private final S sqlClient;
         @Default
-        private final SQLErrorConverter<? extends Throwable, ? extends RuntimeException> errorConverter
-            = SQLErrorConverter.DEFAULT;
+        private final SQLErrorConverter errorConverter = SQLErrorConverter.DEFAULT;
         @Default
         private final SQLDataTypeRegistry typeMapperRegistry = new SQLDataTypeRegistry();
 
