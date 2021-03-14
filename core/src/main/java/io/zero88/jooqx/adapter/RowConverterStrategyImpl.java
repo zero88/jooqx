@@ -34,7 +34,7 @@ final class RowConverterStrategyImpl<R extends Record, O> implements RowConverte
     @Override
     @SuppressWarnings("unchecked")
     public Collector<Field<?>, R, O> createCollector(@NonNull Function<Field<?>, Object> getValue) {
-        return Collector.of(() -> collectorPart.toRecord(dsl),
+        return Collector.of(() -> collectorPart.toRecord(dsl, table),
                             (r, f) -> r.set((Field<Object>) f, dataTypeRegistry.convertFieldType(f, getValue.apply(f))),
                             (r, r2) -> r2, collectorPart.converter());
     }

@@ -25,7 +25,7 @@ public final class SelectCountAdapter<RS, C extends SQLResultCollector<RS>>
 
     @Override
     public Integer collect(@NonNull RS resultSet, @NonNull DSLContext dsl, @NonNull SQLDataTypeRegistry registry) {
-        return converter().collect(resultSet, initStrategy(dsl, registry, SQLResultAdapter.byJson(table())
+        return converter().collect(resultSet, initStrategy(dsl, registry, SQLResultAdapter.byJson()
                                                                                           .andThen(r -> r.get(0,
                                                                                                               Integer.class))))
                           .stream()

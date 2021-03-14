@@ -33,26 +33,27 @@ public interface SQLResultAdapter<RS, C extends SQLResultCollector<RS>, T extend
     extends HasStrategy {
 
     @SuppressWarnings({"rawtypes", "unchecked"})
-    static IdentityCollectorPart<JsonRecord<?>> byJson(TableLike<? extends Record> table) {
-        return new IdentityCollectorPart<>(dsl -> JsonRecord.create((TableLike<TableRecord>) table));
+    static IdentityCollectorPart<JsonRecord<?>> byJson() {
+        return new IdentityCollectorPart<>((dsl, queryTbl) -> JsonRecord.create((TableLike<TableRecord>) queryTbl));
     }
 
     static <R extends Record> IdentityCollectorPart<R> byRecord(R record) {
-        return new IdentityCollectorPart<>(dsl -> dsl.newRecord(DSL.table(record)));
+        return new IdentityCollectorPart<>((dsl, queryTbl) -> dsl.newRecord(DSL.table(record)));
     }
 
     static IdentityCollectorPart<Record> byFields(Collection<Field<?>> fields) {
-        return new IdentityCollectorPart<>(dsl -> dsl.newRecord(fields));
+        return new IdentityCollectorPart<>((dsl, queryTbl) -> dsl.newRecord(fields));
     }
 
-    static <R> CollectorPart<JsonRecord<?>, R> byClass(TableLike<? extends Record> table, Class<R> outputClass) {
-        return byJson(table).andThen(r -> r.into(outputClass));
+    static <R> CollectorPart<JsonRecord<?>, R> byClass(Class<R> outputClass) {
+        return byJson().andThen(r -> r.into(outputClass));
     }
 
     @SuppressWarnings("unchecked")
     static <R extends Record, T extends TableLike<R>> IdentityCollectorPart<R> byTable(T table) {
-        return new IdentityCollectorPart<>(
-            dsl -> table instanceof Table ? ((Table<R>) table).newRecord() : dsl.newRecord(table.asTable()));
+        return new IdentityCollectorPart<>((dsl, queryTbl) -> table instanceof Table
+                                                              ? ((Table<R>) table).newRecord()
+                                                              : dsl.newRecord(table.asTable()));
     }
 
     /**

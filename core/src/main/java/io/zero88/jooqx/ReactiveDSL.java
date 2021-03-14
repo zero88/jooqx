@@ -38,7 +38,7 @@ public interface ReactiveDSL extends DSLAdapter<RowSet<Row>, ReactiveSQLResultCo
     default <T extends TableLike<?>> SelectListAdapter<RowSet<Row>, ReactiveSQLBatchCollector, T, JsonRecord<?>,
                                                           JsonRecord<?>> batchJsonRecords(
         @NonNull T table) {
-        return new SelectListAdapter<>(table, new ReactiveSQLRBC(), SQLResultAdapter.byJson(table));
+        return new SelectListAdapter<>(table, new ReactiveSQLRBC(), SQLResultAdapter.byJson());
     }
 
     /**
@@ -69,7 +69,7 @@ public interface ReactiveDSL extends DSLAdapter<RowSet<Row>, ReactiveSQLResultCo
     default <T extends TableLike<? extends Record>, R> SelectListAdapter<RowSet<Row>, ReactiveSQLBatchCollector, T,
                                                                             JsonRecord<?>, R> batch(
         @NonNull T table, @NonNull Class<R> outputClass) {
-        return new SelectListAdapter<>(table, new ReactiveSQLRBC(), SQLResultAdapter.byClass(table, outputClass));
+        return new SelectListAdapter<>(table, new ReactiveSQLRBC(), SQLResultAdapter.byClass(outputClass));
     }
 
     /**

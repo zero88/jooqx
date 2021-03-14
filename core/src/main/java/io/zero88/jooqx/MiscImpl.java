@@ -47,7 +47,7 @@ final class MiscImpl {
         @Override
         public <T extends TableLike<? extends Record>> SelectOneAdapter<RS, C, T, JsonRecord<?>, JsonRecord<?>> fetchJsonRecord(
             @NonNull T table) {
-            return new SelectOneAdapter<>(table, converter, SQLResultAdapter.byJson(table));
+            return new SelectOneAdapter<>(table, converter, SQLResultAdapter.byJson());
         }
 
         @Override
@@ -65,7 +65,7 @@ final class MiscImpl {
         @Override
         public <T extends TableLike<? extends Record>, R> SelectOneAdapter<RS, C, T, JsonRecord<?>, R> fetchOne(
             @NonNull T table, @NonNull Class<R> outputClass) {
-            return new SelectOneAdapter<>(table, converter, SQLResultAdapter.byClass(table, outputClass));
+            return new SelectOneAdapter<>(table, converter, SQLResultAdapter.byClass(outputClass));
         }
 
         @Override
@@ -82,7 +82,7 @@ final class MiscImpl {
         @Override
         public <T extends TableLike<? extends Record>> SelectListAdapter<RS, C, T, JsonRecord<?>, JsonRecord<?>> fetchJsonRecords(
             @NonNull T table) {
-            return new SelectListAdapter<>(table, converter, SQLResultAdapter.byJson(table));
+            return new SelectListAdapter<>(table, converter, SQLResultAdapter.byJson());
         }
 
         @Override
@@ -100,7 +100,7 @@ final class MiscImpl {
         @Override
         public <T extends TableLike<? extends Record>, R> SelectListAdapter<RS, C, T, JsonRecord<?>, R> fetchMany(
             @NonNull T table, @NonNull Class<R> outputClass) {
-            return new SelectListAdapter<>(table, converter, SQLResultAdapter.byClass(table, outputClass));
+            return new SelectListAdapter<>(table, converter, SQLResultAdapter.byClass(outputClass));
         }
 
         @Override
