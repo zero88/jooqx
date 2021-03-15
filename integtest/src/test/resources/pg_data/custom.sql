@@ -6,5 +6,5 @@ INSERT INTO enum_data_type ("id", "currentMood", "currentWeather") VALUES (4, nu
 INSERT INTO enum_data_type ("id", "currentMood", "currentWeather") VALUES (5, 'ok', 'sunny');
 
 --- CustomDataType
-INSERT INTO udt_data_type ("id", "address") VALUES (1, ('Anytown', 'Main St', true));
-INSERT INTO udt_data_type ("id", "address") VALUES (2, ('Anytown', 'First St', false));
+INSERT INTO udt_data_type ("id", "address") VALUES (1, ('US Open', 'Any,town', null, 10, true));
+INSERT INTO udt_data_type ("id", "address") VALUES (2, ('Any""town', 'special","town', '',10, false));
