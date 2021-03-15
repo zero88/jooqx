@@ -13,12 +13,13 @@ import io.zero88.jooqx.integtest.pgsql.tables.JsonDataType;
 import io.zero88.jooqx.integtest.pgsql.tables.JsonbDataType;
 import io.zero88.jooqx.integtest.pgsql.tables.records.JsonDataTypeRecord;
 import io.zero88.jooqx.integtest.pgsql.tables.records.JsonbDataTypeRecord;
+import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgUseJooqType;
 import io.zero88.jooqx.spi.pg.PgPoolProvider;
 import io.zero88.jooqx.spi.pg.PgSQLReactiveTest;
 import io.zero88.jooqx.spi.pg.UsePgSQLErrorConverter;
 
 class PgReAJsonTest extends PgSQLReactiveTest<PgPool>
-    implements UsePgSQLErrorConverter, PgPoolProvider, PostgreSQLHelper {
+    implements UsePgSQLErrorConverter, PgPoolProvider, PostgreSQLHelper, PgUseJooqType {
 
     @Override
     @BeforeEach

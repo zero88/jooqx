@@ -6,7 +6,7 @@ import org.jooq.Configuration;
 import org.jooq.Param;
 import org.jooq.Query;
 
-import io.zero88.jooqx.datatype.SQLDataTypeRegistry;
+import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
 import lombok.NonNull;
 
@@ -38,9 +38,9 @@ interface SQLPreparedQuery<T> {
      * @return bind value holder
      * @see Param
      * @see Query
-     * @see SQLDataTypeRegistry
+     * @see DataTypeMapperRegistry
      */
-    @NonNull T bindValues(@NonNull Query query, @NonNull SQLDataTypeRegistry mapperRegistry);
+    @NonNull T bindValues(@NonNull Query query, @NonNull DataTypeMapperRegistry mapperRegistry);
 
     /**
      * Capture jOOQ param in jOOQ query and convert to Vertx bind value holder
@@ -52,9 +52,9 @@ interface SQLPreparedQuery<T> {
      * @apiNote It is used for batch execution
      * @see BindBatchValues
      * @see SQLBatchExecutor#batch(Query, BindBatchValues)
-     * @see SQLDataTypeRegistry
+     * @see DataTypeMapperRegistry
      */
     @NonNull List<T> bindValues(@NonNull Query query, @NonNull BindBatchValues bindBatchValues,
-                                @NonNull SQLDataTypeRegistry mapperRegistry);
+                                @NonNull DataTypeMapperRegistry mapperRegistry);
 
 }

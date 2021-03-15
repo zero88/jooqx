@@ -6,7 +6,7 @@ import org.jooq.TableLike;
 
 import io.zero88.jooqx.SQLResultCollector;
 import io.zero88.jooqx.adapter.SQLResultAdapter.SelectOneStrategy;
-import io.zero88.jooqx.datatype.SQLDataTypeRegistry;
+import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
 import lombok.NonNull;
 
@@ -26,7 +26,7 @@ public final class SelectOne<RS, C extends SQLResultCollector<RS>, T extends Tab
     }
 
     @Override
-    public O collect(@NonNull RS resultSet, @NonNull DSLContext dsl, @NonNull SQLDataTypeRegistry registry) {
+    public O collect(@NonNull RS resultSet, @NonNull DSLContext dsl, @NonNull DataTypeMapperRegistry registry) {
         return converter().collect(resultSet, createStrategy(registry, dsl)).stream().findFirst().orElse(null);
     }
 

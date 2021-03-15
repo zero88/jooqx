@@ -11,12 +11,13 @@ import io.vertx.pgclient.PgPool;
 import io.zero88.jooqx.ReactiveDSL;
 import io.zero88.jooqx.integtest.pgsql.tables.CharacterDataType;
 import io.zero88.jooqx.integtest.pgsql.tables.records.CharacterDataTypeRecord;
+import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgUseJooqType;
 import io.zero88.jooqx.spi.pg.PgPoolProvider;
 import io.zero88.jooqx.spi.pg.PgSQLReactiveTest;
 import io.zero88.jooqx.spi.pg.UsePgSQLErrorConverter;
 
 class PgReACharacterTest extends PgSQLReactiveTest<PgPool>
-    implements UsePgSQLErrorConverter, PgPoolProvider, PostgreSQLHelper {
+    implements UsePgSQLErrorConverter, PgPoolProvider, PostgreSQLHelper, PgUseJooqType {
 
     @Override
     @BeforeEach

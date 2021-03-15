@@ -13,7 +13,7 @@ import org.jooq.impl.DSL;
 import io.zero88.jooqx.JsonRecord;
 import io.zero88.jooqx.SQLResultCollector;
 import io.zero88.jooqx.adapter.CollectorPart.IdentityCollectorPart;
-import io.zero88.jooqx.datatype.SQLDataTypeRegistry;
+import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
 import lombok.NonNull;
 
@@ -32,7 +32,7 @@ import lombok.NonNull;
 public interface SQLResultAdapter<RS, C extends SQLResultCollector<RS>, T extends TableLike<? extends Record>, O>
     extends HasStrategy {
 
-    @SuppressWarnings({"rawtypes", "unchecked"})
+    @SuppressWarnings( {"rawtypes", "unchecked"})
     static IdentityCollectorPart<JsonRecord<?>> byJson() {
         return new IdentityCollectorPart<>((dsl, queryTbl) -> JsonRecord.create((TableLike<TableRecord>) queryTbl));
     }
@@ -78,9 +78,9 @@ public interface SQLResultAdapter<RS, C extends SQLResultCollector<RS>, T extend
      * @param dsl       jOOQ DSL context
      * @param registry  SQL data type mapper registry
      * @return an expected result
-     * @see SQLDataTypeRegistry
+     * @see DataTypeMapperRegistry
      */
-    @NonNull O collect(@NonNull RS resultSet, @NonNull DSLContext dsl, @NonNull SQLDataTypeRegistry registry);
+    @NonNull O collect(@NonNull RS resultSet, @NonNull DSLContext dsl, @NonNull DataTypeMapperRegistry registry);
 
     /**
      * Indicates select only one row

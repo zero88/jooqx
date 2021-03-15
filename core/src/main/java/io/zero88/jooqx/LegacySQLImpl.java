@@ -36,7 +36,7 @@ import io.zero88.jooqx.SQLImpl.SQLRC;
 import io.zero88.jooqx.adapter.RowConverterStrategy;
 import io.zero88.jooqx.adapter.SQLResultAdapter;
 import io.zero88.jooqx.adapter.SelectStrategy;
-import io.zero88.jooqx.datatype.SQLDataTypeRegistry;
+import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
 import lombok.Builder.Default;
 import lombok.Getter;
@@ -65,7 +65,7 @@ final class LegacySQLImpl {
         }
 
         @Override
-        protected JsonArray doConvert(Map<String, Param<?>> params, SQLDataTypeRegistry registry,
+        protected JsonArray doConvert(Map<String, Param<?>> params, DataTypeMapperRegistry registry,
                                       BiFunction<String, Param<?>, ?> queryValue) {
             JsonArray array = new JsonArray();
             params.entrySet()

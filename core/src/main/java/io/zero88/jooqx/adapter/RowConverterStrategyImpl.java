@@ -8,7 +8,7 @@ import org.jooq.Field;
 import org.jooq.Record;
 import org.jooq.TableLike;
 
-import io.zero88.jooqx.datatype.SQLDataTypeRegistry;
+import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
 import lombok.Getter;
 import lombok.NonNull;
@@ -23,7 +23,7 @@ final class RowConverterStrategyImpl<R extends Record, O> implements RowConverte
     private final SelectStrategy strategy;
     private final TableLike<? extends Record> table;
     private final DSLContext dsl;
-    private final SQLDataTypeRegistry dataTypeRegistry;
+    private final DataTypeMapperRegistry dataTypeRegistry;
     private final CollectorPart<R, O> collectorPart;
 
     @Override
@@ -35,7 +35,7 @@ final class RowConverterStrategyImpl<R extends Record, O> implements RowConverte
     @SuppressWarnings("unchecked")
     public Collector<Field<?>, R, O> createCollector(@NonNull Function<Field<?>, Object> getValue) {
         return Collector.of(() -> collectorPart.toRecord(dsl, table),
-                            (r, f) -> r.set((Field<Object>) f, dataTypeRegistry.convertFieldType(f, getValue.apply(f))),
+                            (r, f) -> r.set((Field<Object>) f, dataTypeRegistry.toUserType(f, getValue.apply(f))),
                             (r, r2) -> r2, collectorPart.converter());
     }
 

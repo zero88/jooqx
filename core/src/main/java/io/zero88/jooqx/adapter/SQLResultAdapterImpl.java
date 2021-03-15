@@ -5,7 +5,7 @@ import org.jooq.Record;
 import org.jooq.TableLike;
 
 import io.zero88.jooqx.SQLResultCollector;
-import io.zero88.jooqx.datatype.SQLDataTypeRegistry;
+import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -25,7 +25,7 @@ abstract class SQLResultAdapterImpl<RS, C extends SQLResultCollector<RS>, T exte
     private final C converter;
 
     protected final <R extends Record, I> RowConverterStrategy<R, I> initStrategy(@NonNull DSLContext dsl,
-                                                                                  @NonNull SQLDataTypeRegistry registry,
+                                                                                  @NonNull DataTypeMapperRegistry registry,
                                                                                   @NonNull CollectorPart<R, I> collectorPart) {
         return new RowConverterStrategyImpl<>(strategy(), table(), dsl, registry, collectorPart);
     }
@@ -41,7 +41,7 @@ abstract class SQLResultAdapterImpl<RS, C extends SQLResultCollector<RS>, T exte
             this.collectorPart = collectorPart;
         }
 
-        RowConverterStrategy<R, I> createStrategy(@NonNull SQLDataTypeRegistry registry, @NonNull DSLContext dsl) {
+        RowConverterStrategy<R, I> createStrategy(@NonNull DataTypeMapperRegistry registry, @NonNull DSLContext dsl) {
             return initStrategy(dsl, registry, collectorPart);
         }
 

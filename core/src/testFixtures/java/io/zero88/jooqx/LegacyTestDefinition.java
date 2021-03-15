@@ -29,6 +29,7 @@ public interface LegacyTestDefinition {
                               .sqlClient(sqlClient)
                               .preparedQuery(createPreparedQuery())
                               .errorConverter(errorConverter())
+                              .typeMapperRegistry(typeMapperRegistry())
                               .build();
         }
 

@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import io.vertx.core.Vertx;
 import io.zero88.jooqx.adapter.SelectStrategy;
-import io.zero88.jooqx.datatype.SQLDataTypeRegistry;
+import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
 import lombok.AccessLevel;
 import lombok.Builder.Default;
@@ -46,7 +46,7 @@ final class SQLImpl {
         @Default
         private final SQLErrorConverter errorConverter = SQLErrorConverter.DEFAULT;
         @Default
-        private final SQLDataTypeRegistry typeMapperRegistry = new SQLDataTypeRegistry();
+        private final DataTypeMapperRegistry typeMapperRegistry = new DataTypeMapperRegistry();
 
         protected final RuntimeException connFailed(String errorMsg, Throwable cause) {
             return errorConverter().handle(
@@ -72,16 +72,16 @@ final class SQLImpl {
             return sql(configuration, query, null);
         }
 
-        public T bindValues(@NonNull Query query, @NonNull SQLDataTypeRegistry mapperRegistry) {
+        public T bindValues(@NonNull Query query, @NonNull DataTypeMapperRegistry mapperRegistry) {
             return this.convert(query.getParams(), mapperRegistry);
         }
 
         public List<T> bindValues(@NonNull Query query, @NonNull BindBatchValues bindBatchValues,
-                                  @NonNull SQLDataTypeRegistry mapperRegistry) {
+                                  @NonNull DataTypeMapperRegistry mapperRegistry) {
             return this.convert(query.getParams(), bindBatchValues, mapperRegistry);
         }
 
-        protected abstract T doConvert(Map<String, Param<?>> params, SQLDataTypeRegistry registry,
+        protected abstract T doConvert(Map<String, Param<?>> params, DataTypeMapperRegistry registry,
                                        BiFunction<String, Param<?>, ?> queryValue);
 
         protected final String sql(@NonNull Configuration configuration, @NonNull Query query, ParamType paramType) {
@@ -110,12 +110,12 @@ final class SQLImpl {
             return sql;
         }
 
-        private T convert(@NonNull Map<String, Param<?>> params, @NonNull SQLDataTypeRegistry registry) {
+        private T convert(@NonNull Map<String, Param<?>> params, @NonNull DataTypeMapperRegistry registry) {
             return doConvert(params, registry, (k, v) -> v.getValue());
         }
 
         private List<T> convert(@NonNull Map<String, Param<?>> params, @NonNull BindBatchValues bindBatchValues,
-                                @NonNull SQLDataTypeRegistry registry) {
+                                @NonNull DataTypeMapperRegistry registry) {
             final List<String> fields = bindBatchValues.getMappingFields();
             final List<Object> values = bindBatchValues.getMappingValues();
             return bindBatchValues.getRecords()

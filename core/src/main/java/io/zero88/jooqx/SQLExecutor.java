@@ -11,7 +11,7 @@ import io.vertx.core.Vertx;
 import io.vertx.ext.sql.SQLClient;
 import io.vertx.sqlclient.SqlClient;
 import io.zero88.jooqx.adapter.SQLResultAdapter;
-import io.zero88.jooqx.datatype.SQLDataTypeRegistry;
+import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
 import lombok.NonNull;
 
@@ -70,7 +70,7 @@ public interface SQLExecutor<S, P, RS, C extends SQLResultCollector<RS>> extends
      */
     @NonNull SQLErrorConverter errorConverter();
 
-    @NonNull SQLDataTypeRegistry typeMapperRegistry();
+    @NonNull DataTypeMapperRegistry typeMapperRegistry();
 
     /**
      * Execute {@code jOOQ query} then return async result

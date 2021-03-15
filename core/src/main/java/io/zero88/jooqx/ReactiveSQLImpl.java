@@ -20,7 +20,7 @@ import io.zero88.jooqx.SQLImpl.SQLPQ;
 import io.zero88.jooqx.SQLImpl.SQLRC;
 import io.zero88.jooqx.adapter.RowConverterStrategy;
 import io.zero88.jooqx.adapter.SelectStrategy;
-import io.zero88.jooqx.datatype.SQLDataTypeRegistry;
+import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
 import lombok.NonNull;
 
@@ -28,7 +28,7 @@ final class ReactiveSQLImpl {
 
     static final class ReactiveSQLPQ extends SQLPQ<Tuple> implements ReactiveSQLPreparedQuery {
 
-        protected ArrayTuple doConvert(Map<String, Param<?>> params, SQLDataTypeRegistry registry,
+        protected ArrayTuple doConvert(Map<String, Param<?>> params, DataTypeMapperRegistry registry,
                                        BiFunction<String, Param<?>, ?> queryValue) {
             final ArrayTuple bindValues = new ArrayTuple(params.size());
             params.entrySet()

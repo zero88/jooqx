@@ -26,6 +26,7 @@ public interface ReactiveTestDefinition {
                                              .sqlClient(sqlClient)
                                              .preparedQuery(createPreparedQuery())
                                              .errorConverter(errorConverter())
+                                             .typeMapperRegistry(typeMapperRegistry())
                                              .build();
         }
 

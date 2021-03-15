@@ -7,7 +7,7 @@ import org.jooq.Record1;
 import org.jooq.TableLike;
 
 import io.zero88.jooqx.SQLResultCollector;
-import io.zero88.jooqx.datatype.SQLDataTypeRegistry;
+import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
 import lombok.NonNull;
 
@@ -26,7 +26,7 @@ public final class SelectExists<RS, C extends SQLResultCollector<RS>>
     }
 
     @Override
-    public Boolean collect(@NonNull RS resultSet, @NonNull DSLContext dsl, @NonNull SQLDataTypeRegistry registry) {
+    public Boolean collect(@NonNull RS resultSet, @NonNull DSLContext dsl, @NonNull DataTypeMapperRegistry registry) {
         return converter().collect(resultSet, initStrategy(dsl, registry,
                                                            SQLResultAdapter.byTable(table()).andThen(Objects::nonNull)))
                           .stream()

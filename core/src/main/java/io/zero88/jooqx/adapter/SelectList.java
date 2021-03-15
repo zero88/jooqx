@@ -8,7 +8,7 @@ import org.jooq.TableLike;
 
 import io.zero88.jooqx.SQLResultCollector;
 import io.zero88.jooqx.adapter.SQLResultAdapter.SelectManyStrategy;
-import io.zero88.jooqx.datatype.SQLDataTypeRegistry;
+import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
 import lombok.NonNull;
 
@@ -28,7 +28,7 @@ public final class SelectList<RS, C extends SQLResultCollector<RS>, T extends Ta
     }
 
     @Override
-    public List<O> collect(@NonNull RS resultSet, @NonNull DSLContext dsl, @NonNull SQLDataTypeRegistry registry) {
+    public List<O> collect(@NonNull RS resultSet, @NonNull DSLContext dsl, @NonNull DataTypeMapperRegistry registry) {
         return converter().collect(resultSet, createStrategy(registry, dsl));
     }
 
