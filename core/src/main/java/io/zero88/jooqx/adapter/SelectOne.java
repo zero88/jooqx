@@ -21,7 +21,7 @@ public final class SelectOne<RS, C extends SQLResultCollector<RS>, T extends Tab
                                 R extends Record, O>
     extends SQLResultAdapterImpl.SelectResultInternal<RS, C, T, R, O, O> implements SelectOneStrategy {
 
-    public SelectOne(@NonNull T table, @NonNull C converter, @NonNull CollectorPart<R, O> collectorPart) {
+    public SelectOne(@NonNull T table, @NonNull C converter, @NonNull SQLCollectorPart<R, O> collectorPart) {
         super(table, converter, collectorPart);
     }
 
@@ -31,7 +31,7 @@ public final class SelectOne<RS, C extends SQLResultCollector<RS>, T extends Tab
     }
 
     public static <RS, C extends SQLResultCollector<RS>, T extends TableLike<? extends Record>, R extends Record, O> SelectOne<RS, C, T, R, O> create(
-        @NonNull T table, @NonNull C converter, @NonNull CollectorPart<R, O> collectorPart) {
+        @NonNull T table, @NonNull C converter, @NonNull SQLCollectorPart<R, O> collectorPart) {
         return new SelectOne<>(table, converter, collectorPart);
     }
 

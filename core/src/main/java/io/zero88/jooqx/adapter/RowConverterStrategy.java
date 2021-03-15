@@ -9,10 +9,12 @@ import org.jooq.Record;
 import lombok.NonNull;
 
 /**
+ * A row converter strategy collects each row in result set to an expectation result
+ *
  * @param <R> Type of current record
- * @param <O> Type of output
+ * @param <I> Type of output
  */
-public interface RowConverterStrategy<R extends Record, O> extends HasStrategy {
+public interface RowConverterStrategy<R extends Record, I> extends HasStrategy {
 
     /**
      * Lookup jOOQ field in current jOOQ Query context
@@ -28,6 +30,6 @@ public interface RowConverterStrategy<R extends Record, O> extends HasStrategy {
      * @param getValue a function to collect field value by field
      * @return a collector
      */
-    @NonNull Collector<Field<?>, R, O> createCollector(@NonNull Function<Field<?>, Object> getValue);
+    @NonNull Collector<Field<?>, R, I> createCollector(@NonNull Function<Field<?>, Object> getValue);
 
 }

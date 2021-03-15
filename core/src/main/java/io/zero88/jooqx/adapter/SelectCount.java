@@ -26,8 +26,8 @@ public final class SelectCount<RS, C extends SQLResultCollector<RS>>
 
     @Override
     public Integer collect(@NonNull RS resultSet, @NonNull DSLContext dsl, @NonNull DataTypeMapperRegistry registry) {
-        final CollectorPart<JsonRecord<?>, Integer> part = SQLResultAdapter.byJson()
-                                                                           .andThen(r -> r.get(0, Integer.class));
+        final SQLCollectorPart<JsonRecord<?>, Integer> part = SQLResultAdapter.byJson()
+                                                                              .andThen(r -> r.get(0, Integer.class));
         return converter().collect(resultSet, initStrategy(dsl, registry, part)).stream().findFirst().orElse(0);
     }
 

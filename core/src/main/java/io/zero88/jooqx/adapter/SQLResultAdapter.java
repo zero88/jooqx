@@ -12,7 +12,7 @@ import org.jooq.impl.DSL;
 
 import io.zero88.jooqx.JsonRecord;
 import io.zero88.jooqx.SQLResultCollector;
-import io.zero88.jooqx.adapter.CollectorPart.IdentityCollectorPart;
+import io.zero88.jooqx.adapter.SQLCollectorPart.IdentityCollectorPart;
 import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
 import lombok.NonNull;
@@ -45,7 +45,7 @@ public interface SQLResultAdapter<RS, C extends SQLResultCollector<RS>, T extend
         return new IdentityCollectorPart<>((dsl, queryTbl) -> dsl.newRecord(fields));
     }
 
-    static <R> CollectorPart<JsonRecord<?>, R> byClass(Class<R> outputClass) {
+    static <R> SQLCollectorPart<JsonRecord<?>, R> byClass(Class<R> outputClass) {
         return byJson().andThen(r -> r.into(outputClass));
     }
 

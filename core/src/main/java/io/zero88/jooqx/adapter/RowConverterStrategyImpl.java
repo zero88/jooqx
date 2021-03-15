@@ -24,7 +24,7 @@ final class RowConverterStrategyImpl<R extends Record, O> implements RowConverte
     private final TableLike<? extends Record> table;
     private final DSLContext dsl;
     private final DataTypeMapperRegistry dataTypeRegistry;
-    private final CollectorPart<R, O> collectorPart;
+    private final SQLCollectorPart<R, O> collectorPart;
 
     @Override
     public Field<?> lookupField(@NonNull String fieldName) {

@@ -26,17 +26,17 @@ abstract class SQLResultAdapterImpl<RS, C extends SQLResultCollector<RS>, T exte
 
     protected final <R extends Record, I> RowConverterStrategy<R, I> initStrategy(@NonNull DSLContext dsl,
                                                                                   @NonNull DataTypeMapperRegistry registry,
-                                                                                  @NonNull CollectorPart<R, I> collectorPart) {
+                                                                                  @NonNull SQLCollectorPart<R, I> collectorPart) {
         return new RowConverterStrategyImpl<>(strategy(), table(), dsl, registry, collectorPart);
     }
 
     abstract static class SelectResultInternal<RS, C extends SQLResultCollector<RS>, T extends TableLike<? extends Record>, R extends Record, I, O>
         extends SQLResultAdapterImpl<RS, C, T, O> {
 
-        private final CollectorPart<R, I> collectorPart;
+        private final SQLCollectorPart<R, I> collectorPart;
 
         protected SelectResultInternal(@NonNull T table, @NonNull C converter,
-                                       @NonNull CollectorPart<R, I> collectorPart) {
+                                       @NonNull SQLCollectorPart<R, I> collectorPart) {
             super(table, converter);
             this.collectorPart = collectorPart;
         }

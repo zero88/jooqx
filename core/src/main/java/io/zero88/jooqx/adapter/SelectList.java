@@ -23,7 +23,7 @@ public final class SelectList<RS, C extends SQLResultCollector<RS>, T extends Ta
                                  R extends Record, O>
     extends SQLResultAdapterImpl.SelectResultInternal<RS, C, T, R, O, List<O>> implements SelectManyStrategy {
 
-    public SelectList(@NonNull T table, @NonNull C converter, @NonNull CollectorPart<R, O> collectorPart) {
+    public SelectList(@NonNull T table, @NonNull C converter, @NonNull SQLCollectorPart<R, O> collectorPart) {
         super(table, converter, collectorPart);
     }
 
