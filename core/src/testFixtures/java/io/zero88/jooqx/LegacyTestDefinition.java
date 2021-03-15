@@ -10,15 +10,16 @@ import io.vertx.ext.jdbc.spi.DataSourceProvider;
 import io.vertx.ext.sql.ResultSet;
 import io.vertx.ext.sql.SQLClient;
 import io.vertx.junit5.VertxTestContext;
-import io.zero88.jooqx.SQLTestImpl.DBContainerSQLTest;
-import io.zero88.jooqx.SQLTestImpl.DBMemorySQLTest;
 import io.zero88.jooqx.DBProvider.DBContainerProvider;
 import io.zero88.jooqx.DBProvider.DBMemoryProvider;
 import io.zero88.jooqx.LegacySQLImpl.LegacySQLPQ;
+import io.zero88.jooqx.SQLTestImpl.DBContainerSQLTest;
+import io.zero88.jooqx.SQLTestImpl.DBMemorySQLTest;
 
 public interface LegacyTestDefinition {
 
-    interface LegacyJooqxProvider extends JooqxProvider<SQLClient, JsonArray, ResultSet, LegacyJooqx> {
+    interface LegacyJooqxProvider
+        extends JooqxProvider<SQLClient, JsonArray, ResultSet, LegacySQLCollector, LegacyJooqx> {
 
         @Override
         default LegacyJooqx createExecutor(Vertx vertx, JooqDSLProvider dslProvider, SQLClient sqlClient) {
@@ -28,11 +29,12 @@ public interface LegacyTestDefinition {
                               .sqlClient(sqlClient)
                               .preparedQuery(createPreparedQuery())
                               .errorConverter(errorConverter())
+                              .typeMapperRegistry(typeMapperRegistry())
                               .build();
         }
 
         @Override
-        default SQLPreparedQuery<JsonArray> createPreparedQuery() {
+        default LegacySQLPreparedQuery createPreparedQuery() {
             return new LegacySQLPQ();
         }
 
@@ -67,8 +69,8 @@ public interface LegacyTestDefinition {
 
 
     interface LegacySQLTest<K, D extends DBProvider<K>, P extends DataSourceProvider>
-        extends SQLTest<SQLClient, JsonArray, ResultSet, LegacyJooqx, K, D>, LegacyJooqxProvider,
-                LegacySQLClientProvider<P> {
+        extends SQLTest<SQLClient, JsonArray, ResultSet, LegacySQLCollector, LegacyJooqx, K, D>,
+                LegacyJooqxProvider, LegacySQLClientProvider<P> {
 
         @Override
         default SQLClientProvider<SQLClient> clientProvider() { return this; }
@@ -80,14 +82,14 @@ public interface LegacyTestDefinition {
 
 
     abstract class LegacyDBContainerTest<K extends JdbcDatabaseContainer<?>, P extends DataSourceProvider>
-        extends DBContainerSQLTest<SQLClient, JsonArray, ResultSet, LegacyJooqx, K>
+        extends DBContainerSQLTest<SQLClient, JsonArray, ResultSet, LegacySQLCollector, LegacyJooqx, K>
         implements LegacySQLTest<K, DBContainerProvider<K>, P> {
 
     }
 
 
     abstract class LegacyDBMemoryTest<P extends DataSourceProvider>
-        extends DBMemorySQLTest<SQLClient, JsonArray, ResultSet, LegacyJooqx>
+        extends DBMemorySQLTest<SQLClient, JsonArray, ResultSet, LegacySQLCollector, LegacyJooqx>
         implements LegacySQLTest<String, DBMemoryProvider, P> {
 
     }

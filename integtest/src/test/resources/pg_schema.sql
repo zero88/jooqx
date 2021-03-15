@@ -24,9 +24,11 @@ CREATE TYPE mood AS ENUM ('sad', 'ok', 'happy', 'unhappy');
 CREATE TYPE weather AS ENUM ('sunny', 'cloudy', 'rainy');
 CREATE TYPE full_address AS
 (
-    city   TEXT,
-    street TEXT,
-    home   BOOLEAN
+    state    VARCHAR(100),
+    city     TEXT,
+    street   TEXT,
+    noA      INT4,
+    home     BOOLEAN
 );
 
 CREATE TABLE numeric_data_type
@@ -63,7 +65,8 @@ CREATE TABLE character_data_type
     "FixedChar"    CHAR(3),
     "Text"         TEXT,
     "VarCharacter" VARCHAR,
-    "uuid"         UUID
+    "uuid"         UUID,
+    "bytea"        bytea
 );
 
 CREATE TABLE json_data_type

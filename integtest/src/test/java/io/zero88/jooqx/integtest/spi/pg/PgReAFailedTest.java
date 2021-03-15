@@ -30,19 +30,18 @@ class PgReAFailedTest extends PgSQLReactiveTest<PgConnection>
     @BeforeEach
     public void tearUp(Vertx vertx, VertxTestContext ctx) {
         super.tearUp(vertx, ctx);
-        this.prepareDatabase(ctx, this, connOpt, "pg_datatype/book_author.sql");
+        this.prepareDatabase(ctx, this, connOpt, "pg_data/book_author.sql");
     }
 
     @Test
     void test_insert_failed(VertxTestContext ctx) {
-        final Checkpoint flag = ctx.checkpoint();
         final Books table = catalog().PUBLIC.BOOKS;
         final InsertResultStep<BooksRecord> insert = jooqx.dsl()
                                                           .insertInto(table, table.ID, table.TITLE)
                                                           .values(1, "abc")
                                                           .returning(table.ID);
         jooqx.execute(insert, ReactiveDSL.adapter().fetchOne(table, Collections.singletonList(table.ID)),
-                      ar -> assertJooqException(ctx, flag, ar, SQLStateClass.C23_INTEGRITY_CONSTRAINT_VIOLATION,
+                      ar -> assertJooqException(ctx, ar, SQLStateClass.C23_INTEGRITY_CONSTRAINT_VIOLATION,
                                                 "duplicate key value violates unique constraint \"books_pkey\"",
                                                 PgException.class));
     }
@@ -52,29 +51,29 @@ class PgReAFailedTest extends PgSQLReactiveTest<PgConnection>
         final Checkpoint flag = ctx.checkpoint();
         final Books table = catalog().PUBLIC.BOOKS;
         final SelectConditionStep<BooksRecord> insert = jooqx.dsl().selectFrom(table).where(table.ID.eq(1000));
-        jooqx.execute(insert, ReactiveDSL.adapter().fetchOne(table, Collections.singletonList(table.ID)), ar -> {
-            ctx.verify(() -> {
-                Assertions.assertTrue(ar.succeeded());
-                Assertions.assertNull(ar.result());
-            });
-            flag.flag();
-        });
+        jooqx.execute(insert, ReactiveDSL.adapter().fetchOne(table, Collections.singletonList(table.ID)),
+                      ar -> ctx.verify(() -> {
+                          Assertions.assertNull(assertSuccess(ctx, ar));
+                          flag.flag();
+                      }));
     }
 
     @Test
     void transaction_failed_due_to_unsupported(VertxTestContext context) {
-        final Checkpoint flag = context.checkpoint(2);
+        final Checkpoint flag = context.checkpoint();
         final Books table = catalog().PUBLIC.BOOKS;
         final InsertResultStep<BooksRecord> q = jooqx.dsl()
                                                      .insertInto(table, table.ID, table.TITLE)
                                                      .values(Arrays.asList(DSL.defaultValue(), "1"))
                                                      .returning();
         jooqx.transaction().run(tx -> tx.execute(q, ReactiveDSL.adapter().fetchOne(table)), async -> {
-            assertJooqException(context, flag, async, SQLStateClass.C08_CONNECTION_EXCEPTION,
+            assertJooqException(context, async, SQLStateClass.C08_CONNECTION_EXCEPTION,
                                 "Unsupported using connection on SQL connection: [class io.vertx.pgclient.impl" +
                                 ".PgConnectionImpl]. Switch using SQL pool");
-            jooqx.execute(jooqx.dsl().selectFrom(table), ReactiveDSL.adapter().fetchMany(table),
-                          ar2 -> assertResultSize(context, flag, ar2, 7));
+            jooqx.execute(jooqx.dsl().selectFrom(table), ReactiveDSL.adapter().fetchMany(table), ar2 -> {
+                assertResultSize(context, ar2, 7);
+                flag.flag();
+            });
         });
     }
 

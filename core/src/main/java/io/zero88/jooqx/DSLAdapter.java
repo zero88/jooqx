@@ -7,177 +7,178 @@ import org.jooq.Record;
 import org.jooq.Record1;
 import org.jooq.Table;
 import org.jooq.TableLike;
+import org.jooq.TableRecord;
 
-import io.zero88.jooqx.adapter.SelectCountResultAdapter;
-import io.zero88.jooqx.adapter.SelectExistsResultAdapter;
-import io.zero88.jooqx.adapter.SelectListResultAdapter;
-import io.zero88.jooqx.adapter.SelectOneResultAdapter;
+import io.zero88.jooqx.adapter.SelectCount;
+import io.zero88.jooqx.adapter.SelectExists;
+import io.zero88.jooqx.adapter.SelectList;
+import io.zero88.jooqx.adapter.SelectOne;
 
 import lombok.NonNull;
 
-interface DSLAdapter<RS, C extends SQLResultSetConverter<RS>> {
+interface DSLAdapter<RS, C extends SQLResultCollector<RS>> {
 
     /**
      * Fetch count
      *
-     * @param table given table
+     * @param table a query table context
      * @return select count
      */
-    SelectCountResultAdapter<RS, C> fetchCount(@NonNull TableLike<Record1<Integer>> table);
+    SelectCount<RS, C> fetchCount(@NonNull TableLike<Record1<Integer>> table);
 
     /**
      * Fetch exists
      *
-     * @param table given table
+     * @param table a query table context
      * @return select exists
      */
-    SelectExistsResultAdapter<RS, C> fetchExists(@NonNull TableLike<Record1<Integer>> table);
+    SelectExists<RS, C> fetchExists(@NonNull TableLike<Record1<Integer>> table);
 
     /**
      * Fetch one JsonRecord
      *
-     * @param table given table
-     * @param <T>   Type of table
+     * @param table a query table context
+     * @param <T>   Type of jOOQ Table in Query context
      * @return select one adapter
      * @see TableLike
      * @see JsonRecord
      */
-    <T extends TableLike<? extends Record>> SelectOneResultAdapter<RS, C, T, JsonRecord<?>> fetchJsonRecord(
+    <T extends TableLike<? extends Record>> SelectOne<RS, C, T, JsonRecord<?>, JsonRecord<?>> fetchJsonRecord(
         @NonNull T table);
 
     /**
      * Fetch one
      *
-     * @param table  given table
+     * @param table  a query table context
      * @param record record
-     * @param <T>    Type of table
-     * @param <R>    Type of record
+     * @param <T>    Type of jOOQ Table in Query context
+     * @param <R>    Type of output jOOQ record
      * @return select one adapter
      * @see TableLike
      */
-    <T extends TableLike<? extends Record>, R extends Record> SelectOneResultAdapter<RS, C, T, R> fetchOne(
+    <T extends TableLike<? extends Record>, R extends TableRecord<R>> SelectOne<RS, C, T, R, R> fetchOne(
         @NonNull T table, @NonNull R record);
 
     /**
      * Fetch one
      *
-     * @param table  given table
+     * @param table  a query table context
      * @param fields given fields
-     * @param <T>    Type of table
+     * @param <T>    Type of jOOQ Table in Query context
      * @return select one adapter
      * @see TableLike
      */
-    <T extends TableLike<? extends Record>> SelectOneResultAdapter<RS, C, T, Record> fetchOne(@NonNull T table,
-                                                                                              @NonNull Collection<Field<?>> fields);
+    <T extends TableLike<? extends Record>> SelectOne<RS, C, T, Record, Record> fetchOne(@NonNull T table,
+                                                                                         @NonNull Collection<Field<?>> fields);
 
     /**
      * Fetch one
      *
-     * @param table       given table
+     * @param table       a query table context
      * @param outputClass given output class
-     * @param <T>         Type of table
+     * @param <T>         Type of jOOQ Table in Query context
      * @param <R>         Type ot output class
      * @return select one adapter
      * @see TableLike
      */
-    <T extends TableLike<? extends Record>, R> SelectOneResultAdapter<RS, C, T, R> fetchOne(@NonNull T table,
-                                                                                            @NonNull Class<R> outputClass);
+    <T extends TableLike<? extends Record>, R> SelectOne<RS, C, T, JsonRecord<?>, R> fetchOne(@NonNull T table,
+                                                                                              @NonNull Class<R> outputClass);
 
     /**
      * Fetch one
      *
-     * @param table given table
-     * @param <T>   Type of table
+     * @param table a query table context
+     * @param <T>   Type of jOOQ Table in Query context
      * @return select one adapter
      * @see TableLike
      */
-    <T extends Table<R>, R extends Record> SelectOneResultAdapter<RS, C, T, R> fetchOne(@NonNull T table);
+    <T extends Table<R>, R extends Record> SelectOne<RS, C, T, R, R> fetchOne(@NonNull T table);
 
     /**
      * Fetch one
      *
-     * @param <T>   Type of table
+     * @param <T>   Type of jOOQ Table in Query context
      * @param <R>   Type of record
      * @param <Z>   Type of expectation table
-     * @param table given table
+     * @param table a query table context
      * @return select one adapter
      * @see TableLike
      */
-    <T extends TableLike<? extends Record>, R extends Record, Z extends Table<R>> SelectOneResultAdapter<RS, C, T, R> fetchOne(
+    <T extends TableLike<? extends Record>, R extends Record, Z extends Table<R>> SelectOne<RS, C, T, R, R> fetchOne(
         @NonNull T table, @NonNull Z toTable);
 
     /**
      * Fetch many Json record
      *
-     * @param table given table
-     * @param <T>   Type of table
+     * @param table a query table context
+     * @param <T>   Type of jOOQ Table in Query context
      * @return select many adapter
      * @see TableLike
      * @see JsonRecord
      */
-    <T extends TableLike<? extends Record>> SelectListResultAdapter<RS, C, T, JsonRecord<?>> fetchJsonRecords(
+    <T extends TableLike<? extends Record>> SelectList<RS, C, T, JsonRecord<?>, JsonRecord<?>> fetchJsonRecords(
         @NonNull T table);
 
     /**
      * Fetch many
      *
-     * @param table  given table
+     * @param table  a query table context
      * @param record record
-     * @param <T>    Type of table
+     * @param <T>    Type of jOOQ Table in Query context
      * @param <R>    Type of record
      * @return select many adapter
      * @see TableLike
      */
-    <T extends TableLike<? extends Record>, R extends Record> SelectListResultAdapter<RS, C, T, R> fetchMany(
+    <T extends TableLike<? extends Record>, R extends TableRecord<R>> SelectList<RS, C, T, R, R> fetchMany(
         @NonNull T table, @NonNull R record);
 
     /**
      * Fetch many
      *
-     * @param table  given table
+     * @param table  a query table context
      * @param fields given fields
-     * @param <T>    Type of table
+     * @param <T>    Type of jOOQ Table in Query context
      * @return select many adapter
      * @see TableLike
      */
-    <T extends TableLike<? extends Record>> SelectListResultAdapter<RS, C, T, Record> fetchMany(@NonNull T table,
-                                                                                                @NonNull Collection<Field<?>> fields);
+    <T extends TableLike<? extends Record>> SelectList<RS, C, T, Record, Record> fetchMany(@NonNull T table,
+                                                                                           @NonNull Collection<Field<?>> fields);
 
     /**
      * Fetch many
      *
-     * @param table       given table
+     * @param table       a query table context
      * @param outputClass given output class
-     * @param <T>         Type of table
+     * @param <T>         Type of jOOQ Table in Query context
      * @param <R>         Type ot output class
      * @return select many adapter
      * @see TableLike
      */
-    <T extends TableLike<? extends Record>, R> SelectListResultAdapter<RS, C, T, R> fetchMany(@NonNull T table,
-                                                                                              @NonNull Class<R> outputClass);
+    <T extends TableLike<? extends Record>, R> SelectList<RS, C, T, JsonRecord<?>, R> fetchMany(@NonNull T table,
+                                                                                                @NonNull Class<R> outputClass);
 
     /**
      * Fetch many
      *
-     * @param table given table
-     * @param <T>   Type of table
+     * @param table a query table context
+     * @param <T>   Type of jOOQ Table in Query context
      * @return select many adapter
      * @see TableLike
      */
-    <T extends Table<R>, R extends Record> SelectListResultAdapter<RS, C, T, R> fetchMany(@NonNull T table);
+    <T extends Table<R>, R extends Record> SelectList<RS, C, T, R, R> fetchMany(@NonNull T table);
 
     /**
      * Fetch many
      *
-     * @param <T>   Type of table
+     * @param <T>   Type of jOOQ Table in Query context
      * @param <R>   Type of record
      * @param <Z>   Type of expectation table
-     * @param table given table
+     * @param table a query table context
      * @return select many adapter
      * @see TableLike
      */
-    <T extends TableLike<? extends Record>, R extends Record, Z extends Table<R>> SelectListResultAdapter<RS, C, T,
-                                                                                                             R> fetchMany(
+    <T extends TableLike<? extends Record>, R extends Record, Z extends Table<R>> SelectList<RS, C, T, JsonRecord<?>,
+                                                                                                R> fetchMany(
         @NonNull T table, @NonNull Z toTable);
 
 }

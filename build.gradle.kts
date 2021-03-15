@@ -39,6 +39,7 @@ subprojects {
     }
 
     dependencies {
+        compileOnly(UtilLibs.jetbrainsAnnotations)
         compileOnly(UtilLibs.lombok)
         annotationProcessor(UtilLibs.lombok)
 

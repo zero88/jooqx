@@ -21,12 +21,11 @@ public interface SQLBatchExecutor {
      * @param query           query
      * @param bindBatchValues bind batch values
      * @param handler         async result handler
-     * @param <Q>             type of jOOQ query
      * @see BindBatchValues
      * @see BatchResult
      */
-    default <Q extends Query> void batch(@NonNull Q query, @NonNull BindBatchValues bindBatchValues,
-                                         @NonNull Handler<AsyncResult<BatchResult>> handler) {
+    default void batch(@NonNull Query query, @NonNull BindBatchValues bindBatchValues,
+                       @NonNull Handler<AsyncResult<BatchResult>> handler) {
         batch(query, bindBatchValues).onComplete(handler);
     }
 
@@ -35,9 +34,8 @@ public interface SQLBatchExecutor {
      *
      * @param query           query
      * @param bindBatchValues bind batch values
-     * @param <Q>             type of jOOQ query
      * @return a {@code Future} of the asynchronous result
      */
-    <Q extends Query> Future<BatchResult> batch(@NonNull Q query, @NonNull BindBatchValues bindBatchValues);
+    Future<BatchResult> batch(@NonNull Query query, @NonNull BindBatchValues bindBatchValues);
 
 }

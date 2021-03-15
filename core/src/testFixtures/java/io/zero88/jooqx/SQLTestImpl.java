@@ -20,8 +20,9 @@ import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 
 @ExtendWith(VertxExtension.class)
-public abstract class SQLTestImpl<S, P, R, E extends SQLExecutor<S, P, R>, K, D extends DBProvider<K>>
-    implements SQLTest<S, P, R, E, K, D> {
+abstract class SQLTestImpl<S, P, R, C extends SQLResultCollector<R>, E extends SQLExecutor<S, P, R, C>, K,
+                                     D extends DBProvider<K>>
+    implements SQLTest<S, P, R, C, E, K, D> {
 
     protected E jooqx;
     protected SQLConnectionOption connOpt;
@@ -56,9 +57,10 @@ public abstract class SQLTestImpl<S, P, R, E extends SQLExecutor<S, P, R>, K, D 
     protected abstract K getDB();
 
     @Testcontainers
-    public abstract static class DBContainerSQLTest<S, P, R, E extends SQLExecutor<S, P, R>,
+    abstract static class DBContainerSQLTest<S, P, R, C extends SQLResultCollector<R>,
+                                                           E extends SQLExecutor<S, P, R, C>,
                                                            K extends JdbcDatabaseContainer<?>>
-        extends SQLTestImpl<S, P, R, E, K, DBContainerProvider<K>> {
+        extends SQLTestImpl<S, P, R, C, E, K, DBContainerProvider<K>> {
 
         @Container
         protected K db = dbProvider().get();
@@ -71,8 +73,8 @@ public abstract class SQLTestImpl<S, P, R, E extends SQLExecutor<S, P, R>, K, D 
     }
 
 
-    public abstract static class DBMemorySQLTest<S, P, R, E extends SQLExecutor<S, P, R>>
-        extends SQLTestImpl<S, P, R, E, String, DBMemoryProvider> {
+    abstract static class DBMemorySQLTest<S, P, R, C extends SQLResultCollector<R>, E extends SQLExecutor<S, P, R, C>>
+        extends SQLTestImpl<S, P, R, C, E, String, DBMemoryProvider> {
 
         @Override
         protected String getDB() {

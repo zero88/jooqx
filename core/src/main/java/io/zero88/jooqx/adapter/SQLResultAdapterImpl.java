@@ -1,49 +1,48 @@
 package io.zero88.jooqx.adapter;
 
-import java.util.List;
-import java.util.function.BiFunction;
-
+import org.jooq.DSLContext;
 import org.jooq.Record;
 import org.jooq.TableLike;
 
-import io.zero88.jooqx.SQLResultSetConverter;
+import io.zero88.jooqx.SQLResultCollector;
+import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 
-abstract class SQLResultAdapterImpl<R, C extends SQLResultSetConverter<R>, T extends TableLike<? extends Record>, O>
-    implements SQLResultAdapter<R, C, T, O> {
+@Getter
+@Accessors(fluent = true)
+@RequiredArgsConstructor(access = AccessLevel.PROTECTED)
+abstract class SQLResultAdapterImpl<RS, C extends SQLResultCollector<RS>, T extends TableLike<? extends Record>, O>
+    implements SQLResultAdapter<RS, C, T, O> {
 
     @NonNull
-    @Getter
-    @Accessors(fluent = true)
     private final T table;
     @NonNull
     private final C converter;
 
-    @SuppressWarnings("unchecked")
-    protected SQLResultAdapterImpl(@NonNull T table, @NonNull C converter) {
-        this.table = table;
-        this.converter = (C) converter.setup(strategy());
+    protected final <R extends Record, I> RowConverterStrategy<R, I> initStrategy(@NonNull DSLContext dsl,
+                                                                                  @NonNull DataTypeMapperRegistry registry,
+                                                                                  @NonNull SQLCollectorPart<R, I> collectorPart) {
+        return new RowConverterStrategyImpl<>(strategy(), table(), dsl, registry, collectorPart);
     }
 
-    @Override
-    @NonNull
-    public final C converter() {
-        return converter;
-    }
-
-    abstract static class InternalSelectResultAdapter<RS, C extends SQLResultSetConverter<RS>, T extends TableLike<? extends Record>, I, O>
+    abstract static class SelectResultInternal<RS, C extends SQLResultCollector<RS>, T extends TableLike<? extends Record>, R extends Record, I, O>
         extends SQLResultAdapterImpl<RS, C, T, O> {
 
-        @Getter
-        private final BiFunction<SQLResultAdapter<RS, C, T, O>, RS, List<I>> function;
+        private final SQLCollectorPart<R, I> collectorPart;
 
-        protected InternalSelectResultAdapter(@NonNull T table, @NonNull C converter,
-                                              @NonNull BiFunction<SQLResultAdapter<RS, C, T, O>, RS, List<I>> function) {
+        protected SelectResultInternal(@NonNull T table, @NonNull C converter,
+                                       @NonNull SQLCollectorPart<R, I> collectorPart) {
             super(table, converter);
-            this.function = function;
+            this.collectorPart = collectorPart;
+        }
+
+        RowConverterStrategy<R, I> createStrategy(@NonNull DataTypeMapperRegistry registry, @NonNull DSLContext dsl) {
+            return initStrategy(dsl, registry, collectorPart);
         }
 
     }

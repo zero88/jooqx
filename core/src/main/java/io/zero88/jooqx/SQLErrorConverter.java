@@ -8,34 +8,48 @@ import lombok.NonNull;
  * Represents for a maker that unifies SQL error to a general SQL error when executing SQL command on across among
  * Database SPI
  *
- * @param <A> Type of Throwable
- * @param <E> Type of runtime exception
  * @since 1.0.0
  */
-public interface SQLErrorConverter<A extends Throwable, E extends RuntimeException> extends Function<A, E> {
+public interface SQLErrorConverter {
 
-    SQLErrorConverter<Throwable, RuntimeException> DEFAULT = new SQLErrorConverter<Throwable, RuntimeException>() {
-        @Override
-        public Class<Throwable> throwableType() { return Throwable.class; }
+    SQLErrorConverter DEFAULT = new SQLErrorConverter() {};
 
-        @Override
-        public RuntimeException apply(Throwable t) {
-            return t instanceof RuntimeException ? (RuntimeException) t : new RuntimeException(t);
-        }
-    };
-
-    Class<A> throwableType();
-
-    @SuppressWarnings("unchecked")
-    default RuntimeException handle(@NonNull Throwable t) {
-        if (throwableType().isInstance(t)) {
-            return apply((A) t);
-        }
-        return DEFAULT.handle(t);
+    /**
+     * Handle throwable to runtime exception
+     *
+     * @param throwable throwable
+     * @return runtime exception that wraps given exception if the given is not runtime exception
+     */
+    default RuntimeException handle(Throwable throwable) {
+        return throwable instanceof RuntimeException ? (RuntimeException) throwable : new RuntimeException(throwable);
     }
 
+    /**
+     * Handle and throw error
+     *
+     * @param throwable throwable
+     * @param <X>       any type
+     * @return nothing because it will throw error
+     * @see #handle(Throwable)
+     */
     default <X> X reThrowError(@NonNull Throwable throwable) {
         throw this.handle(throwable);
+    }
+
+    /**
+     * Create new SQL error converter to easy integrate with current application exception
+     *
+     * @param andThen function that transform output of current {@link #handle(Throwable)} to an expectation
+     * @param <R>     Type of runtime exception
+     * @return new SQL error converter
+     */
+    default <R extends RuntimeException> SQLErrorConverter andThen(@NonNull Function<RuntimeException, R> andThen) {
+        return new SQLErrorConverter() {
+            @Override
+            public RuntimeException handle(Throwable throwable) {
+                return andThen.apply(SQLErrorConverter.this.handle(throwable));
+            }
+        };
     }
 
 }

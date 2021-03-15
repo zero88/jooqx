@@ -10,7 +10,7 @@ import io.zero88.jooqx.JooqErrorConverter;
 public final class DB2ErrorConverter implements JooqErrorConverter<DB2Exception> {
 
     @Override
-    public DataAccessException apply(DB2Exception e) {
+    public DataAccessException transform(DB2Exception e) {
         return new DataAccessException(e.getMessage(),
                                        new SQLException(e.getMessage(), e.getSqlState(), e.getErrorCode(),
                                                         e.getCause()));

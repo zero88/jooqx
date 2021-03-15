@@ -11,6 +11,7 @@ import io.vertx.core.Vertx;
 import io.vertx.ext.sql.SQLClient;
 import io.vertx.sqlclient.SqlClient;
 import io.zero88.jooqx.adapter.SQLResultAdapter;
+import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
 import lombok.NonNull;
 
@@ -19,13 +20,14 @@ import lombok.NonNull;
  *
  * @param <S>  Type of Vertx SQL client. Might be {@link SqlClient} or {@link SQLClient}
  * @param <P>  Type of Vertx SQL bind value holder
- * @param <RS> Type of Vertx SQL Result set holder
+ * @param <RS> Type of Vertx SQL result set holder
+ * @param <C>  Type of SQL result set collector
  * @see LegacyJooqx
  * @see ReactiveJooqx
  * @see SQLBatchExecutor
  * @since 1.0.0
  */
-public interface SQLExecutor<S, P, RS> extends SQLBatchExecutor {
+public interface SQLExecutor<S, P, RS, C extends SQLResultCollector<RS>> extends SQLBatchExecutor {
 
     /**
      * Vertx
@@ -66,41 +68,39 @@ public interface SQLExecutor<S, P, RS> extends SQLBatchExecutor {
      * @apiNote Default is {@link SQLErrorConverter#DEFAULT} that keeps error as it is
      * @see SQLErrorConverter
      */
-    @NonNull SQLErrorConverter<? extends Throwable, ? extends RuntimeException> errorConverter();
+    @NonNull SQLErrorConverter errorConverter();
+
+    @NonNull DataTypeMapperRegistry typeMapperRegistry();
 
     /**
      * Execute {@code jOOQ query} then return async result
      *
+     * @param <T>           type of jOOQ TableLike
+     * @param <R>           type of expectation result
      * @param query         jOOQ query
      * @param resultAdapter a result adapter
      * @param handler       a async result handler
-     * @param <Q>           type of jOOQ Query
-     * @param <T>           type of jOOQ TableLike
-     * @param <C>           type of result set converter
-     * @param <R>           type of expectation result
      * @see Query
      * @see TableLike
      * @see SQLResultAdapter
      */
-    default <Q extends Query, T extends TableLike<?>, C extends SQLResultSetConverter<RS>, R> void execute(
-        @NonNull Q query, @NonNull SQLResultAdapter<RS, C, T, R> resultAdapter,
-        @NonNull Handler<AsyncResult<R>> handler) {
+    default <T extends TableLike<?>, R> void execute(@NonNull Query query,
+                                                     @NonNull SQLResultAdapter<RS, C, T, R> resultAdapter,
+                                                     @NonNull Handler<AsyncResult<R>> handler) {
         execute(query, resultAdapter).onComplete(handler);
     }
 
     /**
      * Like {@link #execute(Query, SQLResultAdapter, Handler)} but returns a {@code Future} of the asynchronous result
      *
+     * @param <T>           type of jOOQ TableLike
+     * @param <R>           type of expectation result
      * @param query         jOOQ query
      * @param resultAdapter a result adapter
-     * @param <Q>           type of jOOQ Query
-     * @param <T>           type of jOOQ TableLike
-     * @param <C>           type of result set converter
-     * @param <R>           type of expectation result
      * @return a {@code Future} of the asynchronous result
      */
-    <Q extends Query, T extends TableLike<?>, C extends SQLResultSetConverter<RS>, R> Future<R> execute(
-        @NonNull Q query, @NonNull SQLResultAdapter<RS, C, T, R> resultAdapter);
+    <T extends TableLike<?>, R> Future<R> execute(@NonNull Query query,
+                                                  @NonNull SQLResultAdapter<RS, C, T, R> resultAdapter);
 
     /**
      * Open transaction executor
@@ -109,6 +109,6 @@ public interface SQLExecutor<S, P, RS> extends SQLBatchExecutor {
      * @return transaction executor
      * @see SQLTxExecutor
      */
-    @NonNull <E extends SQLExecutor<S, P, RS>> SQLTxExecutor<S, P, RS, E> transaction();
+    @NonNull <E extends SQLExecutor<S, P, RS, C>> SQLTxExecutor<S, P, RS, C, E> transaction();
 
 }

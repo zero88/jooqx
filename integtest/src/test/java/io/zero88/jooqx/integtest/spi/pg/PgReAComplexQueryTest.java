@@ -20,6 +20,7 @@ import io.zero88.jooqx.integtest.pgsql.Public;
 import io.zero88.jooqx.integtest.pgsql.tables.pojos.Authors;
 import io.zero88.jooqx.integtest.pgsql.tables.pojos.Books;
 import io.zero88.jooqx.integtest.pgsql.tables.records.AuthorsRecord;
+import io.zero88.jooqx.integtest.pgsql.tables.records.BooksAuthorsRecord;
 import io.zero88.jooqx.integtest.pgsql.tables.records.BooksRecord;
 import io.zero88.jooqx.spi.pg.PgPoolProvider;
 import io.zero88.jooqx.spi.pg.PgSQLReactiveTest;
@@ -30,12 +31,12 @@ class PgReAComplexQueryTest extends PgSQLReactiveTest<PgPool> implements PgPoolP
     @BeforeEach
     public void tearUp(Vertx vertx, VertxTestContext ctx) {
         super.tearUp(vertx, ctx);
-        this.prepareDatabase(ctx, this, connOpt, "pg_datatype/book_author.sql");
+        this.prepareDatabase(ctx, this, connOpt, "pg_data/book_author.sql");
     }
 
     @Test
     void test_join_2_tables(VertxTestContext ctx) {
-        final Checkpoint flag = ctx.checkpoint(2);
+        final Checkpoint flag = ctx.checkpoint();
         final DSLContext dsl = jooqx.dsl();
         final Public schema = catalog().PUBLIC;
         final SelectConditionStep<Record> query = dsl.select(schema.AUTHORS.asterisk(), schema.BOOKS_AUTHORS.BOOK_ID)
@@ -43,25 +44,21 @@ class PgReAComplexQueryTest extends PgSQLReactiveTest<PgPool> implements PgPoolP
                                                      .join(schema.BOOKS_AUTHORS)
                                                      .onKey()
                                                      .where(schema.AUTHORS.ID.eq(2));
-        jooqx.execute(query, ReactiveDSL.adapter().fetchJsonRecords(query.asTable()), ar -> {
-            final List<JsonRecord<?>> records = assertResultSize(ctx, flag, ar, 2);
-            ctx.verify(() -> {
-                Assertions.assertEquals(new JsonObject(
-                                            "{\"id\":2,\"name\":\"F. Scott. Fitzgerald\",\"country\":\"USA\"," +
-                                            "\"book_id\":4}"),
-                                        records.get(0).toJson());
-                Assertions.assertEquals(new JsonObject(
-                                            "{\"id\":2,\"name\":\"F. Scott. Fitzgerald\",\"country\":\"USA\"," +
-                                            "\"book_id\":5}"),
-                                        records.get(1).toJson());
-            });
+        jooqx.execute(query, ReactiveDSL.adapter().fetchJsonRecords(query.asTable()), ar -> ctx.verify(() -> {
+            final List<JsonRecord<?>> records = assertResultSize(ctx, ar, 2);
+            Assertions.assertEquals(
+                new JsonObject("{\"id\":2,\"name\":\"F. Scott. Fitzgerald\",\"country\":\"USA\",\"book_id\":4}"),
+                records.get(0).toJson());
+            Assertions.assertEquals(
+                new JsonObject("{\"id\":2,\"name\":\"F. Scott. Fitzgerald\",\"country\":\"USA\",\"book_id\":5}"),
+                records.get(1).toJson());
             flag.flag();
-        });
+        }));
     }
 
     @Test
     void test_join_2_tables_then_map_to_another_table(VertxTestContext ctx) {
-        final Checkpoint flag = ctx.checkpoint(2);
+        final Checkpoint flag = ctx.checkpoint();
         final DSLContext dsl = jooqx.dsl();
         final Public schema = catalog().PUBLIC;
         final SelectConditionStep<Record> query = dsl.select(schema.AUTHORS.asterisk(), schema.BOOKS_AUTHORS.BOOK_ID)
@@ -69,21 +66,19 @@ class PgReAComplexQueryTest extends PgSQLReactiveTest<PgPool> implements PgPoolP
                                                      .join(schema.BOOKS_AUTHORS)
                                                      .onKey()
                                                      .where(schema.AUTHORS.ID.eq(4));
-        jooqx.execute(query, ReactiveDSL.adapter().fetchMany(query.asTable(), schema.AUTHORS), ar -> {
-            final List<AuthorsRecord> records = assertResultSize(ctx, flag, ar, 1);
+        jooqx.execute(query, ReactiveDSL.adapter().fetchMany(query.asTable(), schema.AUTHORS), ar -> ctx.verify(() -> {
+            final List<AuthorsRecord> records = assertResultSize(ctx, ar, 1);
             final AuthorsRecord authorsRecord = records.get(0);
-            ctx.verify(() -> {
-                Assertions.assertEquals(4, authorsRecord.getId());
-                Assertions.assertEquals("Scott Hanselman", authorsRecord.getName());
-                Assertions.assertEquals("USA", authorsRecord.getCountry());
-            });
+            Assertions.assertEquals(4, authorsRecord.getId());
+            Assertions.assertEquals("Scott Hanselman", authorsRecord.getName());
+            Assertions.assertEquals("USA", authorsRecord.getCountry());
             flag.flag();
-        });
+        }));
     }
 
     @Test
     void test_join_3_tables(VertxTestContext ctx) {
-        final Checkpoint flag = ctx.checkpoint(2);
+        final Checkpoint flag = ctx.checkpoint();
         final DSLContext dsl = jooqx.dsl();
         final Public schema = catalog().PUBLIC;
         final SelectConditionStep<Record> query = dsl.select(schema.AUTHORS.asterisk(), schema.BOOKS.ID.as("book_id"),
@@ -94,36 +89,34 @@ class PgReAComplexQueryTest extends PgSQLReactiveTest<PgPool> implements PgPoolP
                                                      .join(schema.BOOKS)
                                                      .on(schema.BOOKS.ID.eq(schema.BOOKS_AUTHORS.BOOK_ID))
                                                      .where(schema.AUTHORS.ID.eq(1));
-        jooqx.execute(query, ReactiveDSL.adapter().fetchJsonRecords(query.asTable()), ar -> {
-            final List<JsonRecord<?>> records = assertResultSize(ctx, flag, ar, 3);
-            ctx.verify(() -> {
-                final JsonRecord<?> record1 = records.get(0);
-                Assertions.assertEquals(new JsonObject("{\"id\":1,\"name\":\"J.D. Salinger\",\"country\":\"USA\"," +
-                                                       "\"book_id\":1,\"book_title\":\"The Catcher in the Rye\"}"),
-                                        record1.toJson());
-                Assertions.assertEquals(new JsonObject("{\"id\":1,\"name\":\"J.D. Salinger\",\"country\":\"USA\"," +
-                                                       "\"book_id\":2,\"book_title\":\"Nine Stories\"}"),
-                                        records.get(1).toJson());
-                Assertions.assertEquals(new JsonObject("{\"id\":1,\"name\":\"J.D. Salinger\",\"country\":\"USA\"," +
-                                                       "\"book_id\":3,\"book_title\":\"Franny and Zooey\"}"),
-                                        records.get(2).toJson());
-                final Authors author = record1.into(Authors.class);
-                Assertions.assertEquals(author.getId(), 1);
-                Assertions.assertEquals(author.getName(), "J.D. Salinger");
-                Assertions.assertEquals(author.getCountry(), "USA");
-                final Books book2 = record1.map(
-                    r -> new Books().setId(r.get(record1.getTable().field("book_id"), Integer.class))
-                                    .setTitle(r.get(record1.getTable().field("book_title"), String.class)));
-                Assertions.assertEquals(book2.getId(), 1);
-                Assertions.assertEquals(book2.getTitle(), "The Catcher in the Rye");
-            });
+        jooqx.execute(query, ReactiveDSL.adapter().fetchJsonRecords(query.asTable()), ar -> ctx.verify(() -> {
+            final List<JsonRecord<?>> records = assertResultSize(ctx, ar, 3);
+            final JsonRecord<?> record1 = records.get(0);
+            Assertions.assertEquals(new JsonObject("{\"id\":1,\"name\":\"J.D. Salinger\",\"country\":\"USA\"," +
+                                                   "\"book_id\":1,\"book_title\":\"The Catcher in the Rye\"}"),
+                                    record1.toJson());
+            Assertions.assertEquals(new JsonObject("{\"id\":1,\"name\":\"J.D. Salinger\",\"country\":\"USA\"," +
+                                                   "\"book_id\":2,\"book_title\":\"Nine Stories\"}"),
+                                    records.get(1).toJson());
+            Assertions.assertEquals(new JsonObject("{\"id\":1,\"name\":\"J.D. Salinger\",\"country\":\"USA\"," +
+                                                   "\"book_id\":3,\"book_title\":\"Franny and Zooey\"}"),
+                                    records.get(2).toJson());
+            final Authors author = record1.into(Authors.class);
+            Assertions.assertEquals(author.getId(), 1);
+            Assertions.assertEquals(author.getName(), "J.D. Salinger");
+            Assertions.assertEquals(author.getCountry(), "USA");
+            final Books book2 = record1.map(
+                r -> new Books().setId(r.get(record1.getTable().field("book_id"), Integer.class))
+                                .setTitle(r.get(record1.getTable().field("book_title"), String.class)));
+            Assertions.assertEquals(book2.getId(), 1);
+            Assertions.assertEquals(book2.getTitle(), "The Catcher in the Rye");
             flag.flag();
-        });
+        }));
     }
 
     @Test
     void test_transaction_insert_into_3_tables(VertxTestContext ctx) {
-        final Checkpoint flag = ctx.checkpoint(2);
+        final Checkpoint flag = ctx.checkpoint();
         final DSLContext dsl = jooqx.dsl();
         final Public schema = catalog().PUBLIC;
         AuthorsRecord a1 = new AuthorsRecord().setName("Lukas").setCountry("Ger");
@@ -141,32 +134,29 @@ class PgReAComplexQueryTest extends PgSQLReactiveTest<PgPool> implements PgPoolP
                                                               schema.BOOKS_AUTHORS.AUTHOR_ID)
                                                   .values(r2.getId(), r1.getId())
                                                   .returning(), adapter.fetchOne(schema.BOOKS_AUTHORS)))))
-             .onComplete(ar -> {
-                 flag.flag();
-                 ctx.verify(() -> {
-                     Assertions.assertTrue(ar.succeeded());
-                     final SelectConditionStep<Record> query = dsl.select(schema.AUTHORS.asterisk(),
-                                                                          schema.BOOKS.ID.as("book_id"),
-                                                                          schema.BOOKS.TITLE.as("book_title"))
-                                                                  .from(schema.AUTHORS)
-                                                                  .join(schema.BOOKS_AUTHORS)
-                                                                  .on(schema.AUTHORS.ID.eq(
-                                                                      schema.BOOKS_AUTHORS.AUTHOR_ID))
-                                                                  .join(schema.BOOKS)
-                                                                  .on(schema.BOOKS.ID.eq(schema.BOOKS_AUTHORS.BOOK_ID))
-                                                                  .where(
-                                                                      schema.BOOKS_AUTHORS.ID.eq(ar.result().getId()));
-                     jooqx.execute(query, adapter.fetchJsonRecord(query.asTable()), ar2 -> {
-                         ctx.verify(() -> {
-                             Assertions.assertTrue(ar2.succeeded());
-                             Assertions.assertEquals(new JsonObject(
-                                 "{\"id\":9,\"name\":\"Lukas\",\"country\":\"Ger\"," +
-                                 "\"book_id\":8,\"book_title\":\"jOOQ doc\"}"), ar2.result().toJson());
-                         });
-                         flag.flag();
-                     });
-                 });
-             });
+             .onComplete(ar -> ctx.verify(() -> {
+                 final BooksAuthorsRecord record = assertSuccess(ctx, ar);
+                 Assertions.assertNotNull(record);
+                 Assertions.assertEquals(12, record.getId());
+                 Assertions.assertEquals(9, record.getAuthorId());
+                 Assertions.assertEquals(8, record.getBookId());
+                 final SelectConditionStep<Record> query = dsl.select(schema.AUTHORS.asterisk(),
+                                                                      schema.BOOKS.ID.as("book_id"),
+                                                                      schema.BOOKS.TITLE.as("book_title"))
+                                                              .from(schema.AUTHORS)
+                                                              .join(schema.BOOKS_AUTHORS)
+                                                              .on(schema.AUTHORS.ID.eq(schema.BOOKS_AUTHORS.AUTHOR_ID))
+                                                              .join(schema.BOOKS)
+                                                              .on(schema.BOOKS.ID.eq(schema.BOOKS_AUTHORS.BOOK_ID))
+                                                              .where(schema.BOOKS_AUTHORS.ID.eq(ar.result().getId()));
+                 jooqx.execute(query, adapter.fetchJsonRecord(query.asTable()), ar2 -> ctx.verify(() -> {
+                     final JsonRecord<?> jsonRecord = assertSuccess(ctx, ar2);
+                     Assertions.assertEquals(new JsonObject("{\"id\":9,\"name\":\"Lukas\",\"country\":\"Ger\"," +
+                                                            "\"book_id\":8,\"book_title\":\"jOOQ doc\"}"),
+                                             jsonRecord.toJson());
+                     flag.flag();
+                 }));
+             }));
     }
 
 }

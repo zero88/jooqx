@@ -1,40 +1,27 @@
 package io.zero88.jooqx.adapter;
 
-import java.util.function.BiFunction;
-
 import org.jooq.Record;
 import org.jooq.TableLike;
 
-import io.zero88.jooqx.SQLResultSetConverter;
-import io.zero88.jooqx.adapter.HasStrategy.SelectOne;
+import io.zero88.jooqx.SQLResultCollector;
+import io.zero88.jooqx.adapter.SQLResultAdapter.SelectOneStrategy;
 
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.experimental.Accessors;
 
 /**
- * Select Adhoc for one result adapter
+ * Select Adhoc result adapter is a base class for custom {@code Select} implementations in client code.
  *
- * @param <R> Type of Vertx Result set
- * @param <C> Type of result set converter
- * @param <T> Type of jOOQ Table
- * @param <O> Type of an expectation output
- * @see SQLResultAdapterImpl
- * @see SelectOne
- * @since 1.0.0
+ * @see SQLResultAdapter
  */
-public abstract class SelectAdhocOneResultAdapter<R, C extends SQLResultSetConverter<R>, T extends TableLike<? extends Record>, O>
-    extends SQLResultAdapterImpl<R, C, T, O> implements SelectOne {
+@Getter
+@Accessors(fluent = true)
+public abstract class SelectAdhocOneResultAdapter<RS, C extends SQLResultCollector<RS>, T extends TableLike<? extends Record>, O>
+    extends SQLResultAdapterImpl<RS, C, T, O> implements SelectOneStrategy {
 
-    private final BiFunction<SQLResultAdapter<R, C, T, O>, R, O> function;
-
-    protected SelectAdhocOneResultAdapter(@NonNull T table, @NonNull C converter,
-                                          BiFunction<SQLResultAdapter<R, C, T, O>, R, O> function) {
+    protected SelectAdhocOneResultAdapter(@NonNull T table, @NonNull C converter) {
         super(table, converter);
-        this.function = function;
-    }
-
-    @Override
-    public @NonNull O convert(@NonNull R resultSet) {
-        return function.apply(this, resultSet);
     }
 
 }

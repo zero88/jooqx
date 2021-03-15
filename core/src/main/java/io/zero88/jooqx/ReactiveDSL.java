@@ -9,116 +9,116 @@ import org.jooq.TableLike;
 
 import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.RowSet;
-import io.zero88.jooqx.ReactiveSQLImpl.ReactiveDSLAI;
+import io.zero88.jooqx.ReactiveSQLImpl.ReactiveDSLAdapter;
 import io.zero88.jooqx.ReactiveSQLImpl.ReactiveSQLRBC;
-import io.zero88.jooqx.adapter.SelectListResultAdapter;
+import io.zero88.jooqx.adapter.SQLResultAdapter;
+import io.zero88.jooqx.adapter.SelectList;
 
 import lombok.NonNull;
 
 /**
- * Vertx Reactive SQL DSL
+ * DSL for for Vert.x Reactive SQL
  *
- * @see ReactiveSQLResultBatchConverter
+ * @see ReactiveSQLBatchCollector
  * @since 1.0.0
  */
-public interface ReactiveDSL extends DSLAdapter<RowSet<Row>, ReactiveSQLResultConverter> {
+public interface ReactiveDSL extends DSLAdapter<RowSet<Row>, ReactiveSQLResultCollector> {
 
+    /**
+     * Create new reactive DSL adapter
+     *
+     * @return new instance
+     */
     static @NonNull ReactiveDSL adapter() {
-        return new ReactiveDSLAI();
-    }
-
-    static @NonNull ReactiveDSL create(@NonNull ReactiveSQLResultConverter converter) {
-        return new ReactiveDSLAI(converter);
+        return new ReactiveDSLAdapter();
     }
 
     /**
      * Batch
      *
-     * @param table give table
-     * @param <T>   Type of table
+     * @param table a query table context
+     * @param <T>   Type of jOOQ Table in Query context
      * @return batch adapter
      */
-    default <T extends TableLike<?>> SelectListResultAdapter<RowSet<Row>, ReactiveSQLResultBatchConverter, T,
-                                                                JsonRecord<?>> batchJsonRecords(
+    default <T extends TableLike<?>> SelectList<RowSet<Row>, ReactiveSQLBatchCollector, T, JsonRecord<?>, JsonRecord<?>> batchJsonRecords(
         @NonNull T table) {
-        return SelectListResultAdapter.jsonRecord(table, new ReactiveSQLRBC());
+        return new SelectList<>(table, new ReactiveSQLRBC(), SQLResultAdapter.byJson());
     }
 
     /**
      * Batch
      *
-     * @param table  given table
+     * @param table  a query table context
      * @param fields given fields
-     * @param <T>    Type of table
+     * @param <T>    Type of jOOQ Table in Query context
      * @return batch adapter
      * @see TableLike
      */
-    default <T extends TableLike<? extends Record>> SelectListResultAdapter<RowSet<Row>,
-                                                                               ReactiveSQLResultBatchConverter, T,
-                                                                               Record> batch(
+    default <T extends TableLike<? extends Record>> SelectList<RowSet<Row>, ReactiveSQLBatchCollector, T, Record,
+                                                                  Record> batch(
         @NonNull T table, @NonNull Collection<Field<?>> fields) {
-        return SelectListResultAdapter.create(table, new ReactiveSQLRBC(), fields);
+        return new SelectList<>(table, new ReactiveSQLRBC(), SQLResultAdapter.byFields(fields));
     }
 
     /**
      * Batch
      *
-     * @param table       given table
+     * @param table       a query table context
      * @param outputClass given output class
-     * @param <T>         Type of table
+     * @param <T>         Type of jOOQ Table in Query context
      * @param <R>         Type ot output class
      * @return batch adapter
      * @see TableLike
      */
-    default <T extends TableLike<? extends Record>, R> SelectListResultAdapter<RowSet<Row>,
-                                                                                  ReactiveSQLResultBatchConverter, T,
-                                                                                  R> batch(
+    default <T extends TableLike<? extends Record>, R> SelectList<RowSet<Row>, ReactiveSQLBatchCollector, T,
+                                                                     JsonRecord<?>, R> batch(
         @NonNull T table, @NonNull Class<R> outputClass) {
-        return SelectListResultAdapter.create(table, new ReactiveSQLRBC(), outputClass);
+        return new SelectList<>(table, new ReactiveSQLRBC(), SQLResultAdapter.byClass(outputClass));
     }
 
     /**
      * Batch
      *
-     * @param table given table
-     * @param <T>   Type of table
+     * @param table a query table context
+     * @param <T>   Type of jOOQ Table in Query context
      * @return batch adapter
      * @see TableLike
      */
-    default <T extends Table<R>, R extends Record> SelectListResultAdapter<RowSet<Row>,
-                                                                              ReactiveSQLResultBatchConverter, T, R> batch(
+    default <T extends Table<R>, R extends Record> SelectList<RowSet<Row>, ReactiveSQLBatchCollector, T, R, R> batch(
         @NonNull T table) {
-        return SelectListResultAdapter.create(table, new ReactiveSQLRBC());
+        return new SelectList<>(table, new ReactiveSQLRBC(), SQLResultAdapter.byTable(table));
     }
 
     /**
      * Batch
      *
-     * @param <T>   Type of table
+     * @param <T>   Type of jOOQ Table in Query context
      * @param <R>   Type of record
      * @param <Z>   Type of expectation table
-     * @param table given table
+     * @param table a query table context
      * @return batch adapter
      * @see TableLike
      */
-    default <T extends TableLike<? extends Record>, R extends Record, Z extends Table<R>> SelectListResultAdapter<RowSet<Row>, ReactiveSQLResultBatchConverter, T, R> batch(
+    default <T extends TableLike<? extends Record>, R extends Record, Z extends Table<R>> SelectList<RowSet<Row>,
+                                                                                                        ReactiveSQLBatchCollector, T, JsonRecord<?>, R> batch(
         @NonNull T table, @NonNull Z toTable) {
-        return SelectListResultAdapter.create(table, new ReactiveSQLRBC(), toTable);
+        return new SelectList<>(table, new ReactiveSQLRBC(), SQLResultAdapter.byJson().andThen(r -> r.into(toTable)));
     }
 
     /**
      * Batch
      *
-     * @param table  given table
+     * @param table  a query table context
      * @param record Type of record
-     * @param <T>    Type of table
+     * @param <T>    Type of jOOQ Table in Query context
      * @param <R>    Type expectation record
      * @return batch adapter
      */
-    default <T extends TableLike<? extends Record>, R extends Record> SelectListResultAdapter<RowSet<Row>,
-                                                                                                 ReactiveSQLResultBatchConverter, T, R> batch(
+    default <T extends TableLike<? extends Record>, R extends Record> SelectList<RowSet<Row>,
+                                                                                    ReactiveSQLBatchCollector, T, R,
+                                                                                    R> batch(
         @NonNull T table, @NonNull R record) {
-        return SelectListResultAdapter.create(table, new ReactiveSQLRBC(), record);
+        return new SelectList<>(table, new ReactiveSQLRBC(), SQLResultAdapter.byRecord(record));
     }
 
 }
