@@ -24,6 +24,11 @@ import lombok.NonNull;
  */
 public interface ReactiveDSL extends DSLAdapter<RowSet<Row>, ReactiveSQLResultCollector> {
 
+    /**
+     * Create new reactive DSL adapter
+     *
+     * @return new instance
+     */
     static @NonNull ReactiveDSL adapter() {
         return new ReactiveDSLAdapter();
     }
@@ -35,8 +40,7 @@ public interface ReactiveDSL extends DSLAdapter<RowSet<Row>, ReactiveSQLResultCo
      * @param <T>   Type of jOOQ Table in Query context
      * @return batch adapter
      */
-    default <T extends TableLike<?>> SelectList<RowSet<Row>, ReactiveSQLBatchCollector, T, JsonRecord<?>,
-                                                              JsonRecord<?>> batchJsonRecords(
+    default <T extends TableLike<?>> SelectList<RowSet<Row>, ReactiveSQLBatchCollector, T, JsonRecord<?>, JsonRecord<?>> batchJsonRecords(
         @NonNull T table) {
         return new SelectList<>(table, new ReactiveSQLRBC(), SQLResultAdapter.byJson());
     }
@@ -50,8 +54,8 @@ public interface ReactiveDSL extends DSLAdapter<RowSet<Row>, ReactiveSQLResultCo
      * @return batch adapter
      * @see TableLike
      */
-    default <T extends TableLike<? extends Record>> SelectList<RowSet<Row>, ReactiveSQLBatchCollector, T,
-                                                                             Record, Record> batch(
+    default <T extends TableLike<? extends Record>> SelectList<RowSet<Row>, ReactiveSQLBatchCollector, T, Record,
+                                                                  Record> batch(
         @NonNull T table, @NonNull Collection<Field<?>> fields) {
         return new SelectList<>(table, new ReactiveSQLRBC(), SQLResultAdapter.byFields(fields));
     }
@@ -67,7 +71,7 @@ public interface ReactiveDSL extends DSLAdapter<RowSet<Row>, ReactiveSQLResultCo
      * @see TableLike
      */
     default <T extends TableLike<? extends Record>, R> SelectList<RowSet<Row>, ReactiveSQLBatchCollector, T,
-                                                                                JsonRecord<?>, R> batch(
+                                                                     JsonRecord<?>, R> batch(
         @NonNull T table, @NonNull Class<R> outputClass) {
         return new SelectList<>(table, new ReactiveSQLRBC(), SQLResultAdapter.byClass(outputClass));
     }
@@ -95,10 +99,10 @@ public interface ReactiveDSL extends DSLAdapter<RowSet<Row>, ReactiveSQLResultCo
      * @return batch adapter
      * @see TableLike
      */
-    default <T extends TableLike<? extends Record>, R extends Record, Z extends Table<R>> SelectList<RowSet<Row>, ReactiveSQLBatchCollector, T, JsonRecord<?>, R> batch(
+    default <T extends TableLike<? extends Record>, R extends Record, Z extends Table<R>> SelectList<RowSet<Row>,
+                                                                                                        ReactiveSQLBatchCollector, T, JsonRecord<?>, R> batch(
         @NonNull T table, @NonNull Z toTable) {
-        return new SelectList<>(table, new ReactiveSQLRBC(),
-                                SQLResultAdapter.byJson().andThen(r -> r.into(toTable)));
+        return new SelectList<>(table, new ReactiveSQLRBC(), SQLResultAdapter.byJson().andThen(r -> r.into(toTable)));
     }
 
     /**
@@ -111,8 +115,8 @@ public interface ReactiveDSL extends DSLAdapter<RowSet<Row>, ReactiveSQLResultCo
      * @return batch adapter
      */
     default <T extends TableLike<? extends Record>, R extends Record> SelectList<RowSet<Row>,
-                                                                                               ReactiveSQLBatchCollector,
-                                                                                               T, R, R> batch(
+                                                                                    ReactiveSQLBatchCollector, T, R,
+                                                                                    R> batch(
         @NonNull T table, @NonNull R record) {
         return new SelectList<>(table, new ReactiveSQLRBC(), SQLResultAdapter.byRecord(record));
     }

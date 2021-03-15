@@ -24,7 +24,7 @@ public interface UserTypeAsVertxType<V, J> extends DataTypeMapper<V, J, V>, Jooq
     }
 
     /**
-     * Create new instance by {@link JooqxConverter}
+     * Create new instance UserTypeAsVertxType by {@link JooqxConverter}
      *
      * @param jooqxConverter jooqx converter
      * @param <V>            The Vert.x SQL data type and an user type

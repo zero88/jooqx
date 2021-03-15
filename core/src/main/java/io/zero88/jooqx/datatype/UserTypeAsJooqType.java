@@ -36,6 +36,14 @@ public interface UserTypeAsJooqType<V, J> extends DataTypeMapper<V, J, J> {
         return jooqxConverter().toType();
     }
 
+    /**
+     * Create new instance UserTypeAsJooqType by {@link JooqxConverter}
+     *
+     * @param jooqxConverter jooqx converter
+     * @param <V>            The Vert.x SQL data type and an user type
+     * @param <J>            The jOOQ type
+     * @return new instance
+     */
     static <V, J> UserTypeAsJooqType<V, J> create(JooqxConverter<V, J> jooqxConverter) {
         return () -> jooqxConverter;
     }
