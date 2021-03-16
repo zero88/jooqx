@@ -27,13 +27,11 @@ class H2ReAFailedTest extends ReactiveDBMemoryTest<JDBCPool>
                                                            .insertInto(table, table.ID, table.FIRST_NAME)
                                                            .values(Arrays.asList(DSL.defaultValue(table.ID), "abc"))
                                                            .returning(table.ID);
-        jooqx.execute(insert, DSLAdapter.fetchJsonRecord(table), ar -> assertJooqException(testContext, ar,
-                                                                                           SQLStateClass.C42_SYNTAX_ERROR_OR_ACCESS_RULE_VIOLATION,
-                                                                                           "Table \"AUTHOR\" not " +
-                                                                                           "found; SQL statement:\n" +
-                                                                                           "insert into \"AUTHOR\" " +
-                                                                                           "(\"ID\", \"FIRST_NAME\") values (default, " +
-                                                                                           "?) " + "[42102-200]"));
+        jooqx.execute(insert, DSLAdapter.fetchJsonRecord(table), ar -> {
+            final String errorMsg = "Table \"AUTHOR\" not found; SQL statement:\n" + "insert into \"AUTHOR\" " +
+                                    "(\"ID\", \"FIRST_NAME\") values (default, ?) [42102-200]";
+            assertJooqException(testContext, ar, SQLStateClass.C42_SYNTAX_ERROR_OR_ACCESS_RULE_VIOLATION, errorMsg);
+        });
     }
 
 }

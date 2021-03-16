@@ -14,7 +14,10 @@ import io.vertx.sqlclient.SqlClient;
 import io.zero88.jooqx.adapter.SQLResultAdapter;
 import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
+import lombok.Getter;
 import lombok.NonNull;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
 /**
  * Represents for an executor that executes {@code jOOQ query} on {@code Vertx SQL client} connection
@@ -100,9 +103,8 @@ public interface SQLExecutor<S, B, P extends SQLPreparedQuery<B>, RS, C extends 
      * @see TableLike
      * @see SQLResultAdapter
      */
-    default <T extends TableLike<?>, R> void execute(@NonNull Query query,
-                                                     @NonNull SQLResultAdapter<T, R> resultAdapter,
-                                                     @NonNull Handler<AsyncResult<@Nullable R>> handler) {
+    default <T, R> void execute(@NonNull Query query, @NonNull SQLResultAdapter<T, R> resultAdapter,
+                                @NonNull Handler<AsyncResult<@Nullable R>> handler) {
         execute(query, resultAdapter).onComplete(handler);
     }
 
@@ -115,8 +117,7 @@ public interface SQLExecutor<S, B, P extends SQLPreparedQuery<B>, RS, C extends 
      * @param resultAdapter a result adapter
      * @return a {@code Future} of the asynchronous result
      */
-    <T extends TableLike<?>, R> Future<@Nullable R> execute(@NonNull Query query,
-                                                            @NonNull SQLResultAdapter<T, R> resultAdapter);
+    <T, R> Future<@Nullable R> execute(@NonNull Query query, @NonNull SQLResultAdapter<T, R> resultAdapter);
 
     /**
      * Open transaction executor
@@ -126,5 +127,26 @@ public interface SQLExecutor<S, B, P extends SQLPreparedQuery<B>, RS, C extends 
      * @see SQLTxExecutor
      */
     @NonNull <E extends SQLExecutor<S, B, P, RS, C>> SQLTxExecutor<S, B, P, RS, C, E> transaction();
+
+    @Getter
+    @Setter
+    @Accessors(fluent = true)
+    abstract class SQLExecutorBuilder<S, B, P extends SQLPreparedQuery<B>, RS, C extends SQLResultCollector<RS>,
+                                             E extends SQLExecutor<S, B, P, RS, C>> {
+
+        @NonNull
+        private Vertx vertx;
+        @NonNull
+        private DSLContext dsl;
+        @NonNull
+        private S sqlClient;
+        private P preparedQuery;
+        private C resultCollector;
+        private SQLErrorConverter errorConverter;
+        private DataTypeMapperRegistry typeMapperRegistry;
+
+        public abstract E build();
+
+    }
 
 }

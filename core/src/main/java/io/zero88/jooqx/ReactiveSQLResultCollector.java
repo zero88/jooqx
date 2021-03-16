@@ -2,8 +2,6 @@ package io.zero88.jooqx;
 
 import java.util.List;
 
-import org.jooq.Record;
-
 import io.vertx.codegen.annotations.GenIgnore;
 import io.vertx.codegen.annotations.VertxGen;
 import io.vertx.sqlclient.Row;
@@ -22,7 +20,6 @@ public interface ReactiveSQLResultCollector extends SQLResultCollector<RowSet<Ro
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    @NonNull <R extends Record, O> List<O> collect(@NonNull RowSet<Row> resultSet,
-                                                   @NonNull RowConverterStrategy<R, O> strategy);
+    @NonNull <T, R> List<R> collect(@NonNull RowSet<Row> resultSet, @NonNull RowConverterStrategy<T, R> strategy);
 
 }

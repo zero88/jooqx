@@ -13,11 +13,11 @@ import lombok.NonNull;
 /**
  * Select count result adapter that defines output in {@code Integer} type
  *
- * @see SelectAdhocOneResultAdapter
- * @see SelectOneStrategy
+ * @see SelectAdhocOneResult
+ * @see SQLResultAdapter.SQLResultOneAdapter
  * @since 1.0.0
  */
-public final class SelectCount extends SelectAdhocOneResultAdapter<TableLike<Record1<Integer>>, Integer> {
+public final class SelectCount extends SelectAdhocOneResult<TableLike<Record1<Integer>>, Integer> {
 
     public SelectCount(@NonNull TableLike<Record1<Integer>> table) {
         super(table);

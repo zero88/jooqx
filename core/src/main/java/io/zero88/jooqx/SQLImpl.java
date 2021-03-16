@@ -80,24 +80,6 @@ final class SQLImpl {
             return new DataTypeMapperRegistry();
         }
 
-        @Getter
-        @Setter
-        @Accessors(fluent = true)
-        static abstract class SQLExecutorBuilder<S, B, P extends SQLPreparedQuery<B>, RS,
-                                                            C extends SQLResultCollector<RS>, E extends SQLExecutor<S, B, P, RS, C>> {
-
-            private Vertx vertx;
-            private DSLContext dsl;
-            private S sqlClient;
-            private P preparedQuery;
-            private C resultCollector;
-            private SQLErrorConverter errorConverter;
-            private DataTypeMapperRegistry typeMapperRegistry;
-
-            public abstract E build();
-
-        }
-
     }
 
 

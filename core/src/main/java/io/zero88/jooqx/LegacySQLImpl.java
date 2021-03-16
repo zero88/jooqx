@@ -18,8 +18,6 @@ import org.jooq.DSLContext;
 import org.jooq.Field;
 import org.jooq.Param;
 import org.jooq.Query;
-import org.jooq.Record;
-import org.jooq.TableLike;
 import org.jooq.conf.ParamType;
 
 import io.vertx.core.Future;
@@ -40,7 +38,6 @@ import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.Setter;
 import lombok.experimental.Accessors;
 
 final class LegacySQLImpl {
@@ -53,9 +50,6 @@ final class LegacySQLImpl {
 
         @Override
         @NonNull LegacySQLCollector resultCollector();
-
-        @Override
-        <T extends TableLike<?>, R> Future<R> execute(@NonNull Query query, @NonNull SQLResultAdapter<T, R> adapter);
 
     }
 
@@ -84,8 +78,7 @@ final class LegacySQLImpl {
 
         @NonNull
         @Override
-        public <R extends Record, O> List<O> collect(@NonNull ResultSet resultSet,
-                                                     @NonNull RowConverterStrategy<R, O> strategy) {
+        public <T, R> List<R> collect(@NonNull ResultSet resultSet, @NonNull RowConverterStrategy<T, R> strategy) {
             final Map<Field<?>, Integer> map = getColumnMap(resultSet, strategy::lookupField);
             final List<JsonArray> results = resultSet.getResults();
             if (strategy.strategy() == SelectStrategy.MANY) {
@@ -99,8 +92,7 @@ final class LegacySQLImpl {
                           .orElse(new ArrayList<>());
         }
 
-        private <R extends Record, O> O toRecord(RowConverterStrategy<R, O> strategy, Map<Field<?>, Integer> map,
-                                                 JsonArray row) {
+        private <T, R> R toRecord(RowConverterStrategy<T, R> strategy, Map<Field<?>, Integer> map, JsonArray row) {
             return map.keySet().stream().collect(strategy.createCollector(f -> row.getValue(map.get(f))));
         }
 
@@ -135,8 +127,7 @@ final class LegacySQLImpl {
         }
 
         @Override
-        public final <T extends TableLike<?>, R> Future<R> execute(@NonNull Query query,
-                                                                   @NonNull SQLResultAdapter<T, R> adapter) {
+        public final <T, R> Future<R> execute(@NonNull Query query, @NonNull SQLResultAdapter<T, R> adapter) {
             final Promise<ResultSet> promise = Promise.promise();
             sqlClient().queryWithParams(preparedQuery().sql(dsl().configuration(), query),
                                         preparedQuery().bindValues(query, typeMapperRegistry()), promise);
@@ -185,7 +176,7 @@ final class LegacySQLImpl {
         @Override
         @SuppressWarnings("unchecked")
         public @NonNull LegacyJooqxTx transaction() {
-            return LegacyJooqTxImpl.builder().delegate(this).build();
+            return new LegacyJooqTxImpl(this);
         }
 
         @Override
@@ -203,22 +194,6 @@ final class LegacySQLImpl {
                 }
             });
             return promise.future();
-        }
-
-        public static LegacyJooqxBuilder builder() {
-            return new LegacyJooqxBuilder();
-        }
-
-        static class LegacyJooqxBuilder extends
-                                        SQLExecutorBuilder<SQLClient, JsonArray, LegacySQLPreparedQuery, ResultSet,
-                                                              LegacySQLCollector, LegacyJooqx> {
-
-            @Override
-            public LegacyJooqx build() {
-                return new LegacyJooqxImpl(vertx(), dsl(), sqlClient(), preparedQuery(), resultCollector(),
-                                           errorConverter(), typeMapperRegistry());
-            }
-
         }
 
     }
@@ -241,10 +216,6 @@ final class LegacySQLImpl {
             super(delegate.vertx(), delegate.dsl(), null, delegate.preparedQuery(), delegate.resultCollector(),
                   delegate.errorConverter(), delegate.typeMapperRegistry());
             this.delegate = delegate;
-        }
-
-        private static LegacyJooqxTxBuilder builder() {
-            return new LegacyJooqxTxBuilder();
         }
 
         @Override
@@ -296,22 +267,6 @@ final class LegacySQLImpl {
         private <X> void failed(@NonNull SQLConnection conn, @NonNull Promise<X> promise, @NonNull Throwable t) {
             promise.fail(t);
             conn.close();
-        }
-
-        private static class LegacyJooqxTxBuilder extends
-                                                  SQLExecutorBuilder<SQLConnection, JsonArray, LegacySQLPreparedQuery
-                                                                        , ResultSet, LegacySQLCollector,
-                                                                        LegacyJooqxTx> {
-
-            @Setter
-            @Accessors(fluent = true)
-            private LegacySQLEI<SQLClient> delegate;
-
-            @Override
-            public LegacyJooqxTx build() {
-                return new LegacyJooqTxImpl(Objects.requireNonNull(delegate));
-            }
-
         }
 
     }

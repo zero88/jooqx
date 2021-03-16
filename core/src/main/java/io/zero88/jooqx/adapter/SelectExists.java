@@ -14,11 +14,11 @@ import lombok.NonNull;
 /**
  * Select exists result adapter that defines output in {@code Boolean} type
  *
- * @see SelectAdhocOneResultAdapter
- * @see SelectOneStrategy
+ * @see SelectAdhocOneResult
+ * @see SQLResultAdapter.SQLResultOneAdapter
  * @since 1.0.0
  */
-public final class SelectExists extends SelectAdhocOneResultAdapter<TableLike<Record1<Integer>>, Boolean> {
+public final class SelectExists extends SelectAdhocOneResult<TableLike<Record1<Integer>>, Boolean> {
 
     public SelectExists(@NonNull TableLike<Record1<Integer>> table) {
         super(table);
