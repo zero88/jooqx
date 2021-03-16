@@ -175,6 +175,7 @@ jobs:
     needs: [ build, context ]
     if: needs.context.outputs.isRelease == 'true'
     steps:
+      - uses: actions/checkout@v2
       - run: |
           ./gradlew closeAndReleaseRepository \
                             -Pnexus.username=${{ secrets.OSS_SONATYPE_USER }} \
