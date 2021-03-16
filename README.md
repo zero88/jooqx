@@ -199,7 +199,7 @@ jooqx.execute(query, DSLAdapter.fetchCount(query.asTable()), ar ->  System.out.p
 //output: 10
 ```
 
-Interesting? Please checkout more features, [here](FEATURES.md)
+Interesting? Please checkout more features, [here](FEATURES.md) and [java-doc](https://zero88.github.io/jooqx/docs/javadoc/index.html)
 
 ## Contributions
 

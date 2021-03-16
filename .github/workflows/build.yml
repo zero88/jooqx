@@ -54,7 +54,7 @@ jobs:
         id: semantic
         shell: bash
         run: |
-          echo ::set-output name=semanticVersion::$(grep semanticVersion gradle.properties | cut -d'=' -f2)
+          [[ "${{ steps.context.outputs.isTag }}" == "true" ]] && sv="" || sv=$(grep semanticVersion gradle.properties | cut -d'=' -f2)
 
   build:
     runs-on: ubuntu-latest
