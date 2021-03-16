@@ -10,10 +10,10 @@ dependencies {
 
     testImplementation(testFixtures(project(":core")))
     testImplementation(VertxLibs.sqlClient)
-//    testImplementation(VertxLibs.jdbc)
-//    testImplementation(VertxLibs.pgsql)
-//    testImplementation(VertxLibs.mysql)
-//    testImplementation(VertxLibs.mssql)
-//    testImplementation(VertxLibs.db2)
+    testImplementation(VertxLibs.jdbc)
+    testImplementation(VertxLibs.pgsql)
+    testImplementation(VertxLibs.mysql)
+    testImplementation(VertxLibs.mssql)
+    testImplementation(VertxLibs.db2)
 
 }
