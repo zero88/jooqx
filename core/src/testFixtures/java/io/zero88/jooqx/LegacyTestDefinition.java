@@ -16,6 +16,8 @@ import io.zero88.jooqx.LegacySQLImpl.LegacySQLPQ;
 import io.zero88.jooqx.SQLTestImpl.DBContainerSQLTest;
 import io.zero88.jooqx.SQLTestImpl.DBMemorySQLTest;
 
+import lombok.NonNull;
+
 public interface LegacyTestDefinition {
 
     interface LegacyJooqxProvider extends
@@ -70,8 +72,8 @@ public interface LegacyTestDefinition {
 
 
     interface LegacySQLTest<K, D extends DBProvider<K>, P extends DataSourceProvider>
-        extends SQLTest<SQLClient, JsonArray, LegacySQLPreparedQuery, ResultSet, LegacySQLCollector, LegacyJooqx, K, D>, LegacyJooqxProvider,
-                LegacySQLClientProvider<P> {
+        extends SQLTest<SQLClient, JsonArray, LegacySQLPreparedQuery, ResultSet, LegacySQLCollector, LegacyJooqx, K, D>,
+                LegacyJooqxProvider, LegacySQLClientProvider<P> {
 
         @Override
         default SQLClientProvider<SQLClient> clientProvider() { return this; }
@@ -92,6 +94,24 @@ public interface LegacyTestDefinition {
     abstract class LegacyDBMemoryTest<P extends DataSourceProvider>
         extends DBMemorySQLTest<SQLClient, JsonArray, LegacySQLPreparedQuery, ResultSet, LegacySQLCollector, LegacyJooqx>
         implements LegacySQLTest<String, DBMemoryProvider, P> {
+
+    }
+
+
+    interface LegacyRxHelper {
+
+        default io.zero88.jooqx.reactivex.LegacyJooqx rxInstance(@NonNull LegacyJooqx jooqx) {
+            final LegacyJooqx jooqx1 = LegacyJooqx.builder()
+                                                  .vertx(jooqx.vertx())
+                                                  .dsl(jooqx.dsl())
+                                                  .sqlClient(jooqx.sqlClient())
+                                                  .preparedQuery(jooqx.preparedQuery())
+                                                  .resultCollector(jooqx.resultCollector())
+                                                  .errorConverter(jooqx.errorConverter())
+                                                  .typeMapperRegistry(jooqx.typeMapperRegistry())
+                                                  .build();
+            return io.zero88.jooqx.reactivex.LegacyJooqx.newInstance(jooqx1);
+        }
 
     }
 

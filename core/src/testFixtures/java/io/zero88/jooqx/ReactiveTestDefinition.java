@@ -4,15 +4,19 @@ import org.testcontainers.containers.JdbcDatabaseContainer;
 
 import io.vertx.core.Vertx;
 import io.vertx.junit5.VertxTestContext;
+import io.vertx.sqlclient.Pool;
 import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.RowSet;
 import io.vertx.sqlclient.SqlClient;
+import io.vertx.sqlclient.SqlConnection;
 import io.vertx.sqlclient.Tuple;
 import io.zero88.jooqx.DBProvider.DBContainerProvider;
 import io.zero88.jooqx.DBProvider.DBMemoryProvider;
 import io.zero88.jooqx.ReactiveSQLImpl.ReactiveSQLPQ;
 import io.zero88.jooqx.SQLTestImpl.DBContainerSQLTest;
 import io.zero88.jooqx.SQLTestImpl.DBMemorySQLTest;
+
+import lombok.NonNull;
 
 public interface ReactiveTestDefinition {
 
@@ -72,6 +76,38 @@ public interface ReactiveTestDefinition {
         default SQLClientProvider<S> clientProvider() { return this; }
 
         default ReactiveJooqxProvider<S> jooqxProvider() { return this; }
+
+    }
+
+
+    interface ReactiveRxHelper {
+
+        default <S extends Pool> io.zero88.jooqx.reactivex.ReactivePoolJooqx rxPool(@NonNull ReactiveJooqx<S> jooqx) {
+            return io.zero88.jooqx.reactivex.ReactivePoolJooqx.newInstance(
+                (ReactivePoolJooqx) ReactivePoolJooqx.poolBuilder()
+                                                     .vertx(jooqx.vertx())
+                                                     .dsl(jooqx.dsl())
+                                                     .sqlClient(jooqx.sqlClient())
+                                                     .preparedQuery(jooqx.preparedQuery())
+                                                     .resultCollector(jooqx.resultCollector())
+                                                     .errorConverter(jooqx.errorConverter())
+                                                     .typeMapperRegistry(jooqx.typeMapperRegistry())
+                                                     .build());
+        }
+
+        default <S extends SqlConnection> io.zero88.jooqx.reactivex.ReactiveConnJooqx rxConn(
+            @NonNull ReactiveJooqx<S> jooqx) {
+            return io.zero88.jooqx.reactivex.ReactiveConnJooqx.newInstance(
+                (ReactiveConnJooqx) ReactiveConnJooqx.connBuilder()
+                                                     .vertx(jooqx.vertx())
+                                                     .dsl(jooqx.dsl())
+                                                     .sqlClient(jooqx.sqlClient())
+                                                     .preparedQuery(jooqx.preparedQuery())
+                                                     .resultCollector(jooqx.resultCollector())
+                                                     .errorConverter(jooqx.errorConverter())
+                                                     .typeMapperRegistry(jooqx.typeMapperRegistry())
+                                                     .build());
+        }
 
     }
 

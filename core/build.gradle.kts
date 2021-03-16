@@ -26,6 +26,8 @@ dependencies {
     testFixturesCompileOnly(UtilLibs.lombok)
     testFixturesAnnotationProcessor(UtilLibs.lombok)
 
+    testFixturesImplementation(VertxLibs.rx2)
+
     testFixturesImplementation(VertxLibs.jdbc)
     testFixturesImplementation(DatabaseLibs.h2)
 
