@@ -29,7 +29,7 @@ class PgReAJDBCPoolTest extends PgSQLReactiveTest<JDBCPool>
     @Test
     void queryTemporal(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
-        final TemporalDataType table = catalog().PUBLIC.TEMPORAL_DATA_TYPE;
+        final TemporalDataType table = schema().TEMPORAL_DATA_TYPE;
         jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> {
             ctx.verify(() -> {
                 final TemporalDataTypeRecord record = assertSuccess(ctx, ar);

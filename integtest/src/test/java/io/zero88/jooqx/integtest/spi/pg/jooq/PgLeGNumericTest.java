@@ -8,7 +8,6 @@ import io.vertx.core.Vertx;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 import io.zero88.jooqx.DSLAdapter;
-import io.zero88.jooqx.integtest.pgsql.DefaultCatalog;
 import io.zero88.jooqx.integtest.pgsql.tables.NumericDataType;
 import io.zero88.jooqx.integtest.pgsql.tables.records.NumericDataTypeRecord;
 import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgLegacyType;
@@ -26,7 +25,7 @@ class PgLeGNumericTest extends PgSQLLegacyTest implements PgLegacyType {
     @Test
     void queryNumeric(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
-        final NumericDataType table = catalog().PUBLIC.NUMERIC_DATA_TYPE;
+        final NumericDataType table = schema().NUMERIC_DATA_TYPE;
         jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
             final NumericDataTypeRecord record = assertSuccess(ctx, ar);
             System.out.println(record);

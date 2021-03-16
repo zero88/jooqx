@@ -38,7 +38,7 @@ class PgLeGRelationTest extends PgSQLLegacyTest implements PgLegacyType, UseJdbc
 
     @Test
     void test_query(VertxTestContext ctx) {
-        final Books table = catalog().PUBLIC.BOOKS;
+        final Books table = schema().BOOKS;
         jooqx.execute(jooqx.dsl().selectFrom(table), DSLAdapter.fetchMany(table),
                       ar -> assertResultSize(ctx, ar, 7));
     }
@@ -46,7 +46,7 @@ class PgLeGRelationTest extends PgSQLLegacyTest implements PgLegacyType, UseJdbc
     @Test
     void test_insert(VertxTestContext ctx) {
         Checkpoint flag = ctx.checkpoint();
-        final Books table = catalog().PUBLIC.BOOKS;
+        final Books table = schema().BOOKS;
         final InsertResultStep<BooksRecord> insert = jooqx.dsl()
                                                           .insertInto(table, table.ID, table.TITLE)
                                                           .values(Arrays.asList(DSL.defaultValue(table.ID), "abc"))
@@ -61,7 +61,7 @@ class PgLeGRelationTest extends PgSQLLegacyTest implements PgLegacyType, UseJdbc
     @Test
     void test_batch_insert(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
-        final Books table = catalog().PUBLIC.BOOKS;
+        final Books table = schema().BOOKS;
         BooksRecord rec1 = new BooksRecord().setTitle("abc");
         BooksRecord rec2 = new BooksRecord().setTitle("xyz");
         BooksRecord rec3 = new BooksRecord().setTitle("qwe");
@@ -90,7 +90,7 @@ class PgLeGRelationTest extends PgSQLLegacyTest implements PgLegacyType, UseJdbc
     @Test
     void test_transaction_multiple_update_but_one_failed(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
-        final Books table = catalog().PUBLIC.BOOKS;
+        final Books table = schema().BOOKS;
         final Handler<AsyncResult<BooksRecord>> asserter = ar -> {
             assertJooqException(ctx, ar, SQLStateClass.C23_INTEGRITY_CONSTRAINT_VIOLATION);
             jooqx.execute(jooqx.dsl().selectFrom(table).where(table.ID.eq(1)), DSLAdapter.fetchOne(table),
@@ -116,7 +116,7 @@ class PgLeGRelationTest extends PgSQLLegacyTest implements PgLegacyType, UseJdbc
     @Test
     void test_transaction_batch_insert_failed(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
-        final Authors table = catalog().PUBLIC.AUTHORS;
+        final Authors table = schema().AUTHORS;
         AuthorsRecord i1 = new AuthorsRecord().setName("n1").setCountry("AT");
         AuthorsRecord i2 = new AuthorsRecord().setName("n2");
         final BindBatchValues bindValues = new BindBatchValues().register(table.NAME, table.COUNTRY).add(i1, i2);

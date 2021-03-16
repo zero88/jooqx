@@ -39,7 +39,7 @@ class PgReAComplexQueryTest extends PgSQLReactiveTest<PgPool> implements PgPoolP
     void test_join_2_tables(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
         final DSLContext dsl = jooqx.dsl();
-        final Public schema = catalog().PUBLIC;
+        final Public schema = schema().PUBLIC;
         final SelectConditionStep<Record> query = dsl.select(schema.AUTHORS.asterisk(), schema.BOOKS_AUTHORS.BOOK_ID)
                                                      .from(schema.AUTHORS)
                                                      .join(schema.BOOKS_AUTHORS)
@@ -61,7 +61,7 @@ class PgReAComplexQueryTest extends PgSQLReactiveTest<PgPool> implements PgPoolP
     void test_join_2_tables_then_map_to_another_table(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
         final DSLContext dsl = jooqx.dsl();
-        final Public schema = catalog().PUBLIC;
+        final Public schema = schema().PUBLIC;
         final SelectConditionStep<Record> query = dsl.select(schema.AUTHORS.asterisk(), schema.BOOKS_AUTHORS.BOOK_ID)
                                                      .from(schema.AUTHORS)
                                                      .join(schema.BOOKS_AUTHORS)
@@ -81,7 +81,7 @@ class PgReAComplexQueryTest extends PgSQLReactiveTest<PgPool> implements PgPoolP
     void test_join_3_tables(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
         final DSLContext dsl = jooqx.dsl();
-        final Public schema = catalog().PUBLIC;
+        final Public schema = schema().PUBLIC;
         final SelectConditionStep<Record> query = dsl.select(schema.AUTHORS.asterisk(), schema.BOOKS.ID.as("book_id"),
                                                              schema.BOOKS.TITLE.as("book_title"))
                                                      .from(schema.AUTHORS)
@@ -119,7 +119,7 @@ class PgReAComplexQueryTest extends PgSQLReactiveTest<PgPool> implements PgPoolP
     void test_transaction_insert_into_3_tables(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
         final DSLContext dsl = jooqx.dsl();
-        final Public schema = catalog().PUBLIC;
+        final Public schema = schema().PUBLIC;
         AuthorsRecord a1 = new AuthorsRecord().setName("Lukas").setCountry("Ger");
         BooksRecord b1 = new BooksRecord().setTitle("jOOQ doc");
         jooqx.transaction()

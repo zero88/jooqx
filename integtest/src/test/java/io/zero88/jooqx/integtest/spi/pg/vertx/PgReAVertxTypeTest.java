@@ -48,7 +48,7 @@ class PgReAVertxTypeTest extends PgSQLReactiveTest<PgPool>
     @Test
     void test_query_temporal(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
-        final TemporalDataType table = catalog().PUBLIC.TEMPORAL_DATA_TYPE;
+        final TemporalDataType table = schema().TEMPORAL_DATA_TYPE;
         jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
             final TemporalDataTypeRecord record = assertSuccess(ctx, ar);
             System.out.println(record);
@@ -60,7 +60,7 @@ class PgReAVertxTypeTest extends PgSQLReactiveTest<PgPool>
     @Test
     void test_insert_interval(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
-        final TemporalDataType table = catalog().PUBLIC.TEMPORAL_DATA_TYPE;
+        final TemporalDataType table = schema().TEMPORAL_DATA_TYPE;
         final Interval interval = Interval.of(1, 2, 3, 4, 5, 6, 1000);
         jooqx.execute(jooqx.dsl().insertInto(table, table.ID, table.INTERVAL).values(10, interval).returning(),
                       DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
@@ -74,7 +74,7 @@ class PgReAVertxTypeTest extends PgSQLReactiveTest<PgPool>
     @Test
     void test_query_buffer(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
-        final CharacterDataType table = catalog().PUBLIC.CHARACTER_DATA_TYPE;
+        final CharacterDataType table = schema().CHARACTER_DATA_TYPE;
         jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
             final CharacterDataTypeRecord record = assertSuccess(ctx, ar);
             System.out.println(record);
@@ -87,7 +87,7 @@ class PgReAVertxTypeTest extends PgSQLReactiveTest<PgPool>
     @Test
     void test_json_object_json_array(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
-        final JsonDataType table = catalog().PUBLIC.JSON_DATA_TYPE;
+        final JsonDataType table = schema().JSON_DATA_TYPE;
         jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
             final JsonDataTypeRecord record = assertSuccess(ctx, ar);
             System.out.println(record);
@@ -103,7 +103,7 @@ class PgReAVertxTypeTest extends PgSQLReactiveTest<PgPool>
     @Test
     void test_jsonb_object_json_array(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
-        final JsonbDataType table = catalog().PUBLIC.JSONB_DATA_TYPE;
+        final JsonbDataType table = schema().JSONB_DATA_TYPE;
         jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
             final JsonbDataTypeRecord record = assertSuccess(ctx, ar);
             System.out.println(record);
@@ -119,7 +119,7 @@ class PgReAVertxTypeTest extends PgSQLReactiveTest<PgPool>
     @Test
     void test_f_interval_as_duration(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
-        final AllDataTypes table = catalog().PUBLIC.ALL_DATA_TYPES;
+        final AllDataTypes table = schema().ALL_DATA_TYPES;
         jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
             final AllDataTypesRecord record = assertSuccess(ctx, ar);
             System.out.println(record);

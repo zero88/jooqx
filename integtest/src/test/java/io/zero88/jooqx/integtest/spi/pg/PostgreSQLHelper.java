@@ -3,8 +3,8 @@ package io.zero88.jooqx.integtest.spi.pg;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
-import org.jooq.Catalog;
 import org.jooq.SQLDialect;
+import org.jooq.Schema;
 import org.jooq.impl.EnumConverter;
 
 import io.vertx.junit5.VertxTestContext;
@@ -16,6 +16,7 @@ import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 import io.zero88.jooqx.datatype.JooqxConverter;
 import io.zero88.jooqx.datatype.basic.UDTParser;
 import io.zero88.jooqx.integtest.pgsql.DefaultCatalog;
+import io.zero88.jooqx.integtest.pgsql.Public;
 import io.zero88.jooqx.integtest.pgsql.enums.Mood;
 import io.zero88.jooqx.integtest.pgsql.enums.Weather;
 import io.zero88.jooqx.integtest.pgsql.udt.FullAddress;
@@ -24,7 +25,7 @@ import io.zero88.jooqx.spi.pg.datatype.PgTypeMapperRegistry;
 
 import lombok.NonNull;
 
-public interface PostgreSQLHelper<T extends Catalog> extends JooqSQL<T>, SQLTestHelper {
+public interface PostgreSQLHelper<S extends Schema> extends JooqSQL<S>, SQLTestHelper {
 
     default void prepareDatabase(VertxTestContext context, JooqSQL<?> jooqSql, SQLConnectionOption connOption,
                                  String... otherDataFiles) {
@@ -38,17 +39,17 @@ public interface PostgreSQLHelper<T extends Catalog> extends JooqSQL<T>, SQLTest
         return SQLDialect.POSTGRES;
     }
 
-    interface PgLegacyType extends PostgreSQLHelper<DefaultCatalog> {
+    interface PgLegacyType extends PostgreSQLHelper<Public> {
 
         @Override
-        default DefaultCatalog catalog() {
-            return DefaultCatalog.DEFAULT_CATALOG;
+        default Public schema() {
+            return DefaultCatalog.DEFAULT_CATALOG.PUBLIC;
         }
 
     }
 
 
-    interface PgUseJooqType extends TypeMapperRegistryCreator, PostgreSQLHelper<DefaultCatalog> {
+    interface PgUseJooqType extends TypeMapperRegistryCreator, PostgreSQLHelper<Public> {
 
         @Override
         default DataTypeMapperRegistry typeMapperRegistry() {
@@ -56,15 +57,15 @@ public interface PostgreSQLHelper<T extends Catalog> extends JooqSQL<T>, SQLTest
         }
 
         @Override
-        default DefaultCatalog catalog() {
-            return DefaultCatalog.DEFAULT_CATALOG;
+        default Public schema() {
+            return DefaultCatalog.DEFAULT_CATALOG.PUBLIC;
         }
 
     }
 
 
     interface PgUseVertxType
-        extends TypeMapperRegistryCreator, PostgreSQLHelper<io.zero88.jooqx.integtest.pgsql2.DefaultCatalog> {
+        extends TypeMapperRegistryCreator, PostgreSQLHelper<io.zero88.jooqx.integtest.pgsql2.Public> {
 
         @Override
         default DataTypeMapperRegistry typeMapperRegistry() {
@@ -75,8 +76,8 @@ public interface PostgreSQLHelper<T extends Catalog> extends JooqSQL<T>, SQLTest
         }
 
         @Override
-        default io.zero88.jooqx.integtest.pgsql2.DefaultCatalog catalog() {
-            return io.zero88.jooqx.integtest.pgsql2.DefaultCatalog.DEFAULT_CATALOG;
+        default io.zero88.jooqx.integtest.pgsql2.Public schema() {
+            return io.zero88.jooqx.integtest.pgsql2.DefaultCatalog.DEFAULT_CATALOG.PUBLIC;
         }
 
         boolean alreadyGenerated();

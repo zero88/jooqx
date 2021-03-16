@@ -46,7 +46,7 @@ class PgReARelationTest extends PgSQLReactiveTest<PgConnection> implements PgCon
     @Test
     void test_count(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
-        final io.zero88.jooqx.integtest.pgsql.tables.Authors table = catalog().PUBLIC.AUTHORS;
+        final io.zero88.jooqx.integtest.pgsql.tables.Authors table = schema().AUTHORS;
         final SelectConditionStep<Record1<Integer>> query = jooqx.dsl()
                                                                  .selectCount()
                                                                  .from(table)
@@ -60,7 +60,7 @@ class PgReARelationTest extends PgSQLReactiveTest<PgConnection> implements PgCon
     @Test
     void test_exist(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
-        final io.zero88.jooqx.integtest.pgsql.tables.Authors table = catalog().PUBLIC.AUTHORS;
+        final io.zero88.jooqx.integtest.pgsql.tables.Authors table = schema().AUTHORS;
         final DSLContext dsl = jooqx.dsl();
         final SelectConditionStep<Record1<Integer>> q = dsl.selectOne()
                                                            .whereExists(dsl.selectFrom(table)
@@ -74,7 +74,7 @@ class PgReARelationTest extends PgSQLReactiveTest<PgConnection> implements PgCon
     @Test
     void test_insert_returning_id(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
-        final io.zero88.jooqx.integtest.pgsql.tables.Books table = catalog().PUBLIC.BOOKS;
+        final io.zero88.jooqx.integtest.pgsql.tables.Books table = schema().BOOKS;
         final InsertResultStep<BooksRecord> insert = jooqx.dsl()
                                                           .insertInto(table, table.ID, table.TITLE)
                                                           .values(Arrays.asList(DSL.defaultValue(table.ID), "abc"))
@@ -98,7 +98,7 @@ class PgReARelationTest extends PgSQLReactiveTest<PgConnection> implements PgCon
     @Test
     void test_select_one_convert_by_json_record(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
-        final io.zero88.jooqx.integtest.pgsql.tables.Authors table = catalog().PUBLIC.AUTHORS;
+        final io.zero88.jooqx.integtest.pgsql.tables.Authors table = schema().AUTHORS;
         final SelectForUpdateStep<AuthorsRecord> q = jooqx.dsl()
                                                           .selectFrom(table)
                                                           .where(table.COUNTRY.eq("USA"))
@@ -117,7 +117,7 @@ class PgReARelationTest extends PgSQLReactiveTest<PgConnection> implements PgCon
     @Test
     void test_select_one_convert_by_table(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
-        final io.zero88.jooqx.integtest.pgsql.tables.Authors table = catalog().PUBLIC.AUTHORS;
+        final io.zero88.jooqx.integtest.pgsql.tables.Authors table = schema().AUTHORS;
         final SelectConditionStep<AuthorsRecord> query = jooqx.dsl().selectFrom(table).where(table.COUNTRY.eq("UK"));
         jooqx.execute(query, DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
             Assertions.assertTrue(ar.succeeded());
@@ -132,7 +132,7 @@ class PgReARelationTest extends PgSQLReactiveTest<PgConnection> implements PgCon
     @Test
     void test_select_one_but_give_query_that_returns_many(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
-        final io.zero88.jooqx.integtest.pgsql.tables.Authors table = catalog().PUBLIC.AUTHORS;
+        final io.zero88.jooqx.integtest.pgsql.tables.Authors table = schema().AUTHORS;
         final SelectForUpdateStep<AuthorsRecord> q = jooqx.dsl()
                                                           .selectFrom(table)
                                                           .where(table.COUNTRY.eq("USA"))
@@ -148,7 +148,7 @@ class PgReARelationTest extends PgSQLReactiveTest<PgConnection> implements PgCon
 
     @Test
     void test_select_many_convert_by_json_record(VertxTestContext ctx) {
-        final io.zero88.jooqx.integtest.pgsql.tables.Books table = catalog().PUBLIC.BOOKS;
+        final io.zero88.jooqx.integtest.pgsql.tables.Books table = schema().BOOKS;
         final SelectWhereStep<BooksRecord> query = jooqx.dsl().selectFrom(table);
         jooqx.execute(query, DSLAdapter.fetchJsonRecords(table), ar -> assertResultSize(ctx, ar, 7));
     }
@@ -156,7 +156,7 @@ class PgReARelationTest extends PgSQLReactiveTest<PgConnection> implements PgCon
     @Test
     void test_select_many_convert_by_record_class(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
-        final io.zero88.jooqx.integtest.pgsql.tables.Authors table = catalog().PUBLIC.AUTHORS;
+        final io.zero88.jooqx.integtest.pgsql.tables.Authors table = schema().AUTHORS;
         final SelectWhereStep<AuthorsRecord> query = jooqx.dsl().selectFrom(table);
         jooqx.execute(query, DSLAdapter.fetchMany(table, io.zero88.jooqx.integtest.pgsql.tables.pojos.Authors.class),
                       ar -> {

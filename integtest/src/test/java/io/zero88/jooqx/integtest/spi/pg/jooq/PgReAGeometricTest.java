@@ -29,7 +29,7 @@ class PgReAGeometricTest extends PgSQLReactiveTest<PgPool>
     @Test
     void queryGeometric(VertxTestContext ctx) {
         final Checkpoint cp = ctx.checkpoint();
-        final GeometricDataType table = catalog().PUBLIC.GEOMETRIC_DATA_TYPE;
+        final GeometricDataType table = schema().GEOMETRIC_DATA_TYPE;
         jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
             final GeometricDataTypeRecord record = assertSuccess(ctx, ar);
             System.out.println(record);

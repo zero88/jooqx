@@ -37,16 +37,16 @@ class PgReAJsonTest extends PgSQLReactiveTest<PgPool> implements UsePgSQLErrorCo
     @Override
     public DataTypeMapperRegistry typeMapperRegistry() {
         return PgUseJooqType.super.typeMapperRegistry()
-                                  .addByColumn(catalog().PUBLIC.JSON_DATA_TYPE.JSONARRAY,
+                                  .addByColumn(schema().JSON_DATA_TYPE.JSONARRAY,
                                                UserTypeAsJooqType.create(new JsonArrayJSONConverter()))
-                                  .addByColumn(catalog().PUBLIC.JSONB_DATA_TYPE.JSONARRAY,
+                                  .addByColumn(schema().JSONB_DATA_TYPE.JSONARRAY,
                                                UserTypeAsJooqType.create(new JsonArrayJSONBConverter()));
     }
 
     @Test
     void queryJson(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
-        final JsonDataType table = catalog().PUBLIC.JSON_DATA_TYPE;
+        final JsonDataType table = schema().JSON_DATA_TYPE;
         jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
             final JsonDataTypeRecord record = assertSuccess(ctx, ar);
             System.out.println(record);
@@ -70,7 +70,7 @@ class PgReAJsonTest extends PgSQLReactiveTest<PgPool> implements UsePgSQLErrorCo
     @Test
     void queryJsonb(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
-        final JsonbDataType table = catalog().PUBLIC.JSONB_DATA_TYPE;
+        final JsonbDataType table = schema().JSONB_DATA_TYPE;
         jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
             final JsonbDataTypeRecord record = assertSuccess(ctx, ar);
             System.out.println(record);

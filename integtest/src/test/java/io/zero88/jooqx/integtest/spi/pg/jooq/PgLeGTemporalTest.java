@@ -29,7 +29,7 @@ class PgLeGTemporalTest extends PgSQLLegacyTest implements PgLegacyType {
         //FIXME: Vert.x unreliable
     void queryTemporal(VertxTestContext ctx) {
         Checkpoint flag = ctx.checkpoint();
-        final TemporalDataType table = catalog().PUBLIC.TEMPORAL_DATA_TYPE;
+        final TemporalDataType table = schema().TEMPORAL_DATA_TYPE;
         jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
             final TemporalDataTypeRecord record = assertSuccess(ctx, ar);
             System.out.println(record);
@@ -47,7 +47,7 @@ class PgLeGTemporalTest extends PgSQLLegacyTest implements PgLegacyType {
     void test_jooq_query(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
         final DSLContext dsl = dsl(createDataSource(connOpt));
-        final TemporalDataTypeRecord record = dsl.selectFrom(catalog().PUBLIC.TEMPORAL_DATA_TYPE).limit(1).fetchOne();
+        final TemporalDataTypeRecord record = dsl.selectFrom(schema().TEMPORAL_DATA_TYPE).limit(1).fetchOne();
         ctx.verify(() -> {
             System.out.println(record);
             Assertions.assertNotNull(record);

@@ -32,7 +32,7 @@ class PgReATemporalTest extends PgSQLReactiveTest<PgPool>
     @Test
     void queryTemporal(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
-        final TemporalDataType table = catalog().PUBLIC.TEMPORAL_DATA_TYPE;
+        final TemporalDataType table = schema().TEMPORAL_DATA_TYPE;
         jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
             final TemporalDataTypeRecord record = assertSuccess(ctx, ar);
             System.out.println(record);
@@ -49,7 +49,7 @@ class PgReATemporalTest extends PgSQLReactiveTest<PgPool>
     @Test
     void test_insert_interval(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
-        final TemporalDataType table = catalog().PUBLIC.TEMPORAL_DATA_TYPE;
+        final TemporalDataType table = schema().TEMPORAL_DATA_TYPE;
         final YearToSecond value1 = YearToSecond.valueOf(Period.of(1, 2, 3));
         jooqx.execute(jooqx.dsl().insertInto(table, table.ID, table.INTERVAL).values(10, value1).returning(),
                       DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {

@@ -31,7 +31,7 @@ class PgReACharacterTest extends PgSQLReactiveTest<PgPool>
     @Test
     void queryCharacter(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
-        final CharacterDataType table = catalog().PUBLIC.CHARACTER_DATA_TYPE;
+        final CharacterDataType table = schema().CHARACTER_DATA_TYPE;
         jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
             final CharacterDataTypeRecord record = assertSuccess(ctx, ar);
             System.out.println(record);

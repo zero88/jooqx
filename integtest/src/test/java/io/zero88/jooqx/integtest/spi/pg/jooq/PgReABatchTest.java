@@ -47,7 +47,7 @@ class PgReABatchTest extends PgSQLReactiveTest<PgPool>
     @Test
     void test_batch_insert_and_returning_all(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
-        final Authors table = catalog().PUBLIC.AUTHORS;
+        final Authors table = schema().AUTHORS;
         AuthorsRecord rec1 = new AuthorsRecord().setName("abc").setCountry("AU");
         AuthorsRecord rec2 = new AuthorsRecord().setName("haha");
 
@@ -77,7 +77,7 @@ class PgReABatchTest extends PgSQLReactiveTest<PgPool>
     @Test
     void test_batch_insert_and_returning_id(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
-        final Authors table = catalog().PUBLIC.AUTHORS;
+        final Authors table = schema().AUTHORS;
         AuthorsRecord rec1 = new AuthorsRecord().setName("abc").setCountry("AU");
         AuthorsRecord rec2 = new AuthorsRecord().setName("haha");
         final BindBatchValues bindValues = new BindBatchValues().register(table.NAME)
@@ -107,7 +107,7 @@ class PgReABatchTest extends PgSQLReactiveTest<PgPool>
     @Test
     void test_batch_insert_and_returning_count(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
-        final Authors table = catalog().PUBLIC.AUTHORS;
+        final Authors table = schema().AUTHORS;
         AuthorsRecord rec1 = new AuthorsRecord().setName("abc").setCountry("AU");
         AuthorsRecord rec2 = new AuthorsRecord().setName("haha");
         final BindBatchValues bindValues = new BindBatchValues().register(table.NAME)
@@ -128,7 +128,7 @@ class PgReABatchTest extends PgSQLReactiveTest<PgPool>
     @Test
     void transaction_insert_success(VertxTestContext context) {
         final Checkpoint flag = context.checkpoint();
-        final Books table = catalog().PUBLIC.BOOKS;
+        final Books table = schema().BOOKS;
         jooqx.transaction().run(tx -> {
             final InsertResultStep<BooksRecord> q1 = tx.dsl()
                                                        .insertInto(table, table.ID, table.TITLE)
@@ -153,7 +153,7 @@ class PgReABatchTest extends PgSQLReactiveTest<PgPool>
     @Test
     void transaction_failed_due_to_conflict_key(VertxTestContext context) {
         final Checkpoint flag = context.checkpoint();
-        final Books table = catalog().PUBLIC.BOOKS;
+        final Books table = schema().BOOKS;
         jooqx.transaction().run(tx -> {
             final InsertResultStep<BooksRecord> q1 = tx.dsl()
                                                        .insertInto(table, table.ID, table.TITLE)
@@ -176,7 +176,7 @@ class PgReABatchTest extends PgSQLReactiveTest<PgPool>
     @Test
     void transaction_batch_success(VertxTestContext context) {
         final Checkpoint flag = context.checkpoint();
-        final Authors table = catalog().PUBLIC.AUTHORS;
+        final Authors table = schema().AUTHORS;
         jooqx.transaction().run(tx -> {
             AuthorsRecord rec1 = new AuthorsRecord().setName("abc").setCountry("AU");
             AuthorsRecord rec2 = new AuthorsRecord().setName("haha");

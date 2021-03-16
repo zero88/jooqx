@@ -13,16 +13,11 @@ import io.vertx.junit5.VertxTestContext;
 import io.vertx.sqlclient.Tuple;
 import io.zero88.jooqx.DSLAdapter;
 import io.zero88.jooqx.UseJdbcErrorConverter;
-import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
-import io.zero88.jooqx.datatype.UserTypeAsJooqType;
-import io.zero88.jooqx.datatype.basic.JsonArrayJSONBConverter;
-import io.zero88.jooqx.datatype.basic.JsonArrayJSONConverter;
 import io.zero88.jooqx.integtest.pgsql.tables.JsonDataType;
 import io.zero88.jooqx.integtest.pgsql.tables.JsonbDataType;
 import io.zero88.jooqx.integtest.pgsql.tables.records.JsonDataTypeRecord;
 import io.zero88.jooqx.integtest.pgsql.tables.records.JsonbDataTypeRecord;
 import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgLegacyType;
-import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgUseJooqType;
 import io.zero88.jooqx.spi.pg.PgSQLLegacyTest;
 
 //FIXME: Vert.x unreliable
@@ -39,7 +34,7 @@ class PgLeGJsonTest extends PgSQLLegacyTest implements UseJdbcErrorConverter, Pg
     @Test
     void queryJson(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
-        final JsonDataType table = catalog().PUBLIC.JSON_DATA_TYPE;
+        final JsonDataType table = schema().JSON_DATA_TYPE;
         jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table),
                       ar -> ctx.verify(() -> {
                           final JsonDataTypeRecord record = assertSuccess(ctx, ar);
@@ -65,7 +60,7 @@ class PgLeGJsonTest extends PgSQLLegacyTest implements UseJdbcErrorConverter, Pg
     @Test
     void queryJsonb(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
-        final JsonbDataType table = catalog().PUBLIC.JSONB_DATA_TYPE;
+        final JsonbDataType table = schema().JSONB_DATA_TYPE;
         jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table),
                       ar -> ctx.verify(() -> {
                           final JsonbDataTypeRecord record = assertSuccess(ctx, ar);
