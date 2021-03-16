@@ -18,8 +18,9 @@ import io.zero88.jooqx.SQLTestImpl.DBMemorySQLTest;
 
 public interface LegacyTestDefinition {
 
-    interface LegacyJooqxProvider
-        extends JooqxProvider<SQLClient, JsonArray, ResultSet, LegacySQLCollector, LegacyJooqx> {
+    interface LegacyJooqxProvider extends
+                                  JooqxProvider<SQLClient, JsonArray, LegacySQLPreparedQuery, ResultSet,
+                                                   LegacySQLCollector, LegacyJooqx> {
 
         @Override
         default LegacyJooqx createExecutor(Vertx vertx, JooqDSLProvider dslProvider, SQLClient sqlClient) {
@@ -69,8 +70,8 @@ public interface LegacyTestDefinition {
 
 
     interface LegacySQLTest<K, D extends DBProvider<K>, P extends DataSourceProvider>
-        extends SQLTest<SQLClient, JsonArray, ResultSet, LegacySQLCollector, LegacyJooqx, K, D>,
-                LegacyJooqxProvider, LegacySQLClientProvider<P> {
+        extends SQLTest<SQLClient, JsonArray, LegacySQLPreparedQuery, ResultSet, LegacySQLCollector, LegacyJooqx, K, D>, LegacyJooqxProvider,
+                LegacySQLClientProvider<P> {
 
         @Override
         default SQLClientProvider<SQLClient> clientProvider() { return this; }
@@ -82,14 +83,14 @@ public interface LegacyTestDefinition {
 
 
     abstract class LegacyDBContainerTest<K extends JdbcDatabaseContainer<?>, P extends DataSourceProvider>
-        extends DBContainerSQLTest<SQLClient, JsonArray, ResultSet, LegacySQLCollector, LegacyJooqx, K>
+        extends DBContainerSQLTest<SQLClient, JsonArray, LegacySQLPreparedQuery, ResultSet, LegacySQLCollector, LegacyJooqx, K>
         implements LegacySQLTest<K, DBContainerProvider<K>, P> {
 
     }
 
 
     abstract class LegacyDBMemoryTest<P extends DataSourceProvider>
-        extends DBMemorySQLTest<SQLClient, JsonArray, ResultSet, LegacySQLCollector, LegacyJooqx>
+        extends DBMemorySQLTest<SQLClient, JsonArray, LegacySQLPreparedQuery, ResultSet, LegacySQLCollector, LegacyJooqx>
         implements LegacySQLTest<String, DBMemoryProvider, P> {
 
     }

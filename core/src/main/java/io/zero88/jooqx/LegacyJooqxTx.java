@@ -28,8 +28,8 @@ import lombok.NonNull;
  */
 //@VertxGen
 public interface LegacyJooqxTx extends LegacyInternal<SQLConnection>,
-                                       SQLTxExecutor<SQLConnection, JsonArray, ResultSet, LegacySQLCollector,
-                                                        LegacyJooqxTx> {
+                                       SQLTxExecutor<SQLConnection, JsonArray, LegacySQLPreparedQuery, ResultSet,
+                                                        LegacySQLCollector, LegacyJooqxTx> {
 
     @Override
     @NonNull Vertx vertx();

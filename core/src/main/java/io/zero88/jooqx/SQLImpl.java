@@ -20,43 +20,82 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.vertx.core.Vertx;
-import io.zero88.jooqx.adapter.SelectStrategy;
 import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
 import lombok.AccessLevel;
-import lombok.Builder.Default;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.Setter;
 import lombok.With;
 import lombok.experimental.Accessors;
-import lombok.experimental.SuperBuilder;
 
 final class SQLImpl {
 
     @Getter
-    @SuperBuilder
     @Accessors(fluent = true)
-    abstract static class SQLEI<S, P, RS, C extends SQLResultCollector<RS>> implements SQLExecutor<S, P, RS, C> {
+    abstract static class SQLEI<S, B, P extends SQLPreparedQuery<B>, RS, C extends SQLResultCollector<RS>>
+        implements SQLExecutor<S, B, P, RS, C> {
 
         private final Vertx vertx;
         private final DSLContext dsl;
         @With(AccessLevel.PROTECTED)
         private final S sqlClient;
-        @Default
-        private final SQLErrorConverter errorConverter = SQLErrorConverter.DEFAULT;
-        @Default
-        private final DataTypeMapperRegistry typeMapperRegistry = new DataTypeMapperRegistry();
+        private final P preparedQuery;
+        private final C resultCollector;
+        private final SQLErrorConverter errorConverter;
+        private final DataTypeMapperRegistry typeMapperRegistry;
+
+        public SQLEI(Vertx vertx, DSLContext dsl, S sqlClient, P preparedQuery, C resultCollector,
+                     SQLErrorConverter errorConverter, DataTypeMapperRegistry typeMapperRegistry) {
+            this.vertx = vertx;
+            this.dsl = dsl;
+            this.sqlClient = sqlClient;
+            this.preparedQuery = Optional.ofNullable(preparedQuery).orElseGet(this::defPrepareQuery);
+            this.resultCollector = Optional.ofNullable(resultCollector).orElseGet(this::defResultCollector);
+            this.errorConverter = Optional.ofNullable(errorConverter).orElseGet(this::defErrorConverter);
+            this.typeMapperRegistry = Optional.ofNullable(typeMapperRegistry).orElseGet(this::defMapperRegistry);
+        }
 
         protected final RuntimeException connFailed(String errorMsg, Throwable cause) {
-            return errorConverter().handle(
-                new SQLTransientConnectionException(errorMsg, SQLStateClass.C08_CONNECTION_EXCEPTION.className(),
-                                                    cause));
+            final String sqlState = SQLStateClass.C08_CONNECTION_EXCEPTION.className();
+            return this.errorConverter().handle(new SQLTransientConnectionException(errorMsg, sqlState, cause));
         }
 
         protected final RuntimeException connFailed(String errorMsg) {
-            return errorConverter().handle(
-                new SQLNonTransientConnectionException(errorMsg, SQLStateClass.C08_CONNECTION_EXCEPTION.className()));
+            final String sqlState = SQLStateClass.C08_CONNECTION_EXCEPTION.className();
+            return this.errorConverter().handle(new SQLNonTransientConnectionException(errorMsg, sqlState));
+        }
+
+        protected abstract P defPrepareQuery();
+
+        protected abstract C defResultCollector();
+
+        @NonNull
+        protected SQLErrorConverter defErrorConverter() {
+            return SQLErrorConverter.DEFAULT;
+        }
+
+        @NonNull
+        protected DataTypeMapperRegistry defMapperRegistry() {
+            return new DataTypeMapperRegistry();
+        }
+
+        @Getter
+        @Setter
+        @Accessors(fluent = true)
+        static abstract class SQLExecutorBuilder<S, B, P extends SQLPreparedQuery<B>, RS,
+                                                            C extends SQLResultCollector<RS>, E extends SQLExecutor<S, B, P, RS, C>> {
+
+            private Vertx vertx;
+            private DSLContext dsl;
+            private S sqlClient;
+            private P preparedQuery;
+            private C resultCollector;
+            private SQLErrorConverter errorConverter;
+            private DataTypeMapperRegistry typeMapperRegistry;
+
+            public abstract E build();
+
         }
 
     }

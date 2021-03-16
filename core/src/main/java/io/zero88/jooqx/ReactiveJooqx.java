@@ -39,11 +39,13 @@ import lombok.NonNull;
  */
 //@VertxGen
 public interface ReactiveJooqx<S extends SqlClient>
-    extends SQLExecutor<S, Tuple, RowSet<Row>, ReactiveSQLResultCollector>,
-            SQLTxExecutor<S, Tuple, RowSet<Row>, ReactiveSQLResultCollector, ReactiveJooqx<S>>, ReactiveSQLBatchExecutor {
+    extends SQLExecutor<S, Tuple, ReactiveSQLPreparedQuery, RowSet<Row>, ReactiveSQLResultCollector>,
+            SQLTxExecutor<S, Tuple, ReactiveSQLPreparedQuery, RowSet<Row>, ReactiveSQLResultCollector,
+                             ReactiveJooqx<S>>,
+            ReactiveSQLBatchExecutor {
 
     @GenIgnore
-    static <S extends SqlClient> ReactiveJooqxImpl.ReactiveJooqxImplBuilder<S, ?, ?> builder() {
+    static <S extends SqlClient> ReactiveJooqxImpl.ReactiveJooqxBuilder<S> builder() {
         return ReactiveJooqxImpl.builder();
     }
 
@@ -80,13 +82,11 @@ public interface ReactiveJooqx<S extends SqlClient>
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    <T extends TableLike<?>, R> Future<R> execute(@NonNull Query query,
-                                                  @NonNull SQLResultAdapter<T, R> adapter);
+    <T extends TableLike<?>, R> Future<R> execute(@NonNull Query query, @NonNull SQLResultAdapter<T, R> adapter);
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    default <T extends TableLike<?>, R> void execute(@NonNull Query query,
-                                                     @NonNull SQLResultAdapter<T, R> adapter,
+    default <T extends TableLike<?>, R> void execute(@NonNull Query query, @NonNull SQLResultAdapter<T, R> adapter,
                                                      @NonNull Handler<AsyncResult<@Nullable R>> handler) {
         SQLExecutor.super.execute(query, adapter, handler);
     }

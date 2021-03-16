@@ -2,11 +2,13 @@ package io.zero88.jooqx;
 
 import java.util.function.Function;
 
+import org.jooq.DSLContext;
 import org.jooq.Query;
 import org.jooq.Record;
 import org.jooq.TableLike;
 
 import io.vertx.core.Future;
+import io.vertx.core.Vertx;
 import io.vertx.sqlclient.Pool;
 import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.RowSet;
@@ -15,18 +17,17 @@ import io.vertx.sqlclient.SqlConnection;
 import io.vertx.sqlclient.Transaction;
 import io.vertx.sqlclient.Tuple;
 import io.zero88.jooqx.MiscImpl.BatchResultImpl;
-import io.zero88.jooqx.ReactiveSQLImpl.ReactiveSQLPQ;
 import io.zero88.jooqx.ReactiveSQLImpl.ReactiveSQLBC;
+import io.zero88.jooqx.ReactiveSQLImpl.ReactiveSQLPQ;
 import io.zero88.jooqx.ReactiveSQLImpl.ReactiveSQLRC;
 import io.zero88.jooqx.SQLImpl.SQLEI;
 import io.zero88.jooqx.adapter.SQLResultAdapter;
 import io.zero88.jooqx.adapter.SelectList;
+import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
-import lombok.Builder.Default;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.Accessors;
-import lombok.experimental.SuperBuilder;
 
 /**
  * Represents for an executor that executes {@code jOOQ query} on {@code Vertx reactive SQL client} connection
@@ -41,17 +42,16 @@ import lombok.experimental.SuperBuilder;
  * @since 1.0.0
  */
 @Getter
-@SuperBuilder
 @Accessors(fluent = true)
-final class ReactiveJooqxImpl<S extends SqlClient> extends SQLEI<S, Tuple, RowSet<Row>, ReactiveSQLResultCollector>
+final class ReactiveJooqxImpl<S extends SqlClient>
+    extends SQLEI<S, Tuple, ReactiveSQLPreparedQuery, RowSet<Row>, ReactiveSQLResultCollector>
     implements ReactiveJooqx<S> {
 
-    @NonNull
-    @Default
-    private final ReactiveSQLPreparedQuery preparedQuery = new ReactiveSQLPQ();
-    @NonNull
-    @Default
-    private final ReactiveSQLResultCollector resultCollector = new ReactiveSQLRC();
+    ReactiveJooqxImpl(Vertx vertx, DSLContext dsl, S sqlClient, ReactiveSQLPreparedQuery preparedQuery,
+                      ReactiveSQLResultCollector resultCollector, SQLErrorConverter errorConverter,
+                      DataTypeMapperRegistry typeMapperRegistry) {
+        super(vertx, dsl, sqlClient, preparedQuery, resultCollector, errorConverter, typeMapperRegistry);
+    }
 
     @Override
     @SuppressWarnings("unchecked")
@@ -83,8 +83,7 @@ final class ReactiveJooqxImpl<S extends SqlClient> extends SQLEI<S, Tuple, RowSe
                                                                                                @NonNull SelectList<T, R, O> adapter) {
         return sqlClient().preparedQuery(preparedQuery().sql(dsl().configuration(), query))
                           .executeBatch(preparedQuery().bindValues(query, bindBatchValues, typeMapperRegistry()))
-                          .map(resultSet -> adapter.collect(resultSet, new ReactiveSQLBC(), dsl(),
-                                                            typeMapperRegistry()))
+                          .map(rs -> adapter.collect(rs, new ReactiveSQLBC(), dsl(), typeMapperRegistry()))
                           .map(rs -> BatchResultImpl.create(bindBatchValues.size(), rs))
                           .otherwise(errorConverter()::reThrowError);
     }
@@ -105,12 +104,18 @@ final class ReactiveJooqxImpl<S extends SqlClient> extends SQLEI<S, Tuple, RowSe
 
     @Override
     protected ReactiveJooqxImpl<S> withSqlClient(@NonNull S sqlClient) {
-        return ReactiveJooqxImpl.<S>builder().vertx(vertx())
-                                             .sqlClient(sqlClient)
-                                             .dsl(dsl())
-                                             .preparedQuery(preparedQuery())
-                                             .errorConverter(errorConverter())
-                                             .build();
+        return (ReactiveJooqxImpl<S>) ReactiveJooqxImpl.<S>builder().vertx(vertx())
+                                                                    .sqlClient(sqlClient)
+                                                                    .dsl(dsl())
+                                                                    .preparedQuery(preparedQuery())
+                                                                    .resultCollector(resultCollector())
+                                                                    .errorConverter(errorConverter())
+                                                                    .typeMapperRegistry(typeMapperRegistry())
+                                                                    .build();
+    }
+
+    static <S extends SqlClient> ReactiveJooqxBuilder<S> builder() {
+        return new ReactiveJooqxBuilder<>();
     }
 
     @SuppressWarnings("unchecked")
@@ -125,6 +130,30 @@ final class ReactiveJooqxImpl<S extends SqlClient> extends SQLEI<S, Tuple, RowSe
 
     private <X> Future<X> rollbackHandler(@NonNull Transaction tx, @NonNull RuntimeException t) {
         return tx.rollback().compose(v -> Future.failedFuture(t), failure -> Future.failedFuture(t));
+    }
+
+    @Override
+    protected ReactiveSQLPreparedQuery defPrepareQuery() {
+        return new ReactiveSQLPQ();
+    }
+
+    @Override
+    protected ReactiveSQLResultCollector defResultCollector() {
+        return new ReactiveSQLRC();
+    }
+
+    static class ReactiveJooqxBuilder<S extends SqlClient> extends
+                                                           SQLExecutorBuilder<S, Tuple, ReactiveSQLPreparedQuery,
+                                                                                 RowSet<Row>,
+                                                                                 ReactiveSQLResultCollector,
+                                                                                 ReactiveJooqx<S>> {
+
+        @Override
+        public ReactiveJooqx<S> build() {
+            return new ReactiveJooqxImpl<>(vertx(), dsl(), sqlClient(), preparedQuery(), resultCollector(),
+                                           errorConverter(), typeMapperRegistry());
+        }
+
     }
 
 }

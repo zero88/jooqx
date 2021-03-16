@@ -35,7 +35,7 @@ import lombok.NonNull;
 public interface LegacyJooqx extends LegacySQLImpl.LegacyInternal<SQLClient> {
 
     @GenIgnore
-    static LegacySQLImpl.LegacyJooqxImpl.LegacyJooqxImplBuilder<?, ?> builder() {
+    static LegacySQLImpl.LegacyJooqxImpl.LegacyJooqxBuilder builder() {
         return LegacySQLImpl.LegacyJooqxImpl.builder();
     }
 
