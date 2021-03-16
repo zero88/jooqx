@@ -44,7 +44,7 @@ jooqx.execute(insert, DSLAdapter.fetchOne(table, Collections.singletonList(table
 // output: 10
 ```
 
-Please checkout 2 `DSL adapter`: [ReactiveDSL](core/src/main/java/io/zero88/jooqx/ReactiveDSL.java) and [LegacyDSL](core/src/main/java/io/zero88/jooqx/LegacyDSL.java) to see which method that suite for you.
+Please checkout 2 [DSL adapter](core/src/main/java/io/zero88/jooqx/DSLAdapter.java) to see which method that suite for you.
 
 ## SQL Batch
 
@@ -103,7 +103,7 @@ It is easy to configure when building `executor`
 
 ```java
 // with Reactive PostgreSQL sql client exception
-ReactiveJooqx<PgPool> jooqx = ReactiveJooqx.<PgPool>builder().vertx(vertx)
+ReactiveJooqx jooqx = ReactiveJooqx.builder().vertx(vertx)
                                                             .dsl(dsl)
                                                             .sqlClient(sqlClient)
                                                             .errorConverter(new PgErrorConverter())
@@ -112,7 +112,7 @@ ReactiveJooqx<PgPool> jooqx = ReactiveJooqx.<PgPool>builder().vertx(vertx)
 // with JDBC sql client exception
 
 //reactive
-ReactiveJooqx<JDBCPool> jooqx = ReactiveJooqx.<JDBCPool>builder().vertx(vertx)
+ReactiveJooqx jooqx = ReactiveJooqx.builder().vertx(vertx)
                                                                 .dsl(dsl)
                                                                 .sqlClient(sqlClient)
                                                                 .errorConverter(new JDBCErrorConverter())
@@ -167,7 +167,7 @@ dependencies {
 Then you can use same as `Vertx rx-java2 Rxified API`
 
 ```java
-ReactivePoolJooqx jooqx = ReactivePoolJooqx.newInstance(io.zero88.jooqx.ReactivePoolJooqx.poolBuilder()
+ReactiveJooqx jooqx = ReactiveJooqx.newInstance(io.zero88.jooqx.ReactiveJooqx.poolBuilder()
                                        .vertx(vertx)
                                        .dsl(dsl)
                                        .sqlClient(sqlClient)
