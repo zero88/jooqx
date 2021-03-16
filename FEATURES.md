@@ -71,7 +71,7 @@ InsertResultStep<AuthorsRecord> insert = jooqx.dsl()
                                             .set(bindValues.getDummyValues())
                                             .returning(table.ID);
 jooqx.batch(insert, bindValues,
-                       DSLAdapter.fetchMany(table, jooqx.dsl().newRecord(table.ID)), handler);
+            DSLAdapter.fetchMany(table, jooqx.dsl().newRecord(table.ID)), handler);
 ```
 
 ## SQL transaction
@@ -104,32 +104,32 @@ It is easy to configure when building `executor`
 ```java
 // with Reactive PostgreSQL sql client exception
 ReactiveJooqx jooqx = ReactiveJooqx.builder().vertx(vertx)
-                                                            .dsl(dsl)
-                                                            .sqlClient(sqlClient)
-                                                            .errorConverter(new PgErrorConverter())
-                                                            .build();
+                                            .dsl(dsl)
+                                            .sqlClient(sqlClient)
+                                            .errorConverter(new PgErrorConverter())
+                                            .build();
 
 // with JDBC sql client exception
 
 //reactive
 ReactiveJooqx jooqx = ReactiveJooqx.builder().vertx(vertx)
-                                                                .dsl(dsl)
-                                                                .sqlClient(sqlClient)
-                                                                .errorConverter(new JDBCErrorConverter())
-                                                                .build();
+                                            .dsl(dsl)
+                                            .sqlClient(sqlClient)
+                                            .errorConverter(new JDBCErrorConverter())
+                                            .build();
 //legacy
 LegacyJooqx jooqx = LegacyJooqx.builder().vertx(vertx)
-                                                .dsl(dsl)
-                                                .sqlClient(sqlClient)
-                                                .errorConverter(new JDBCErrorConverter())
-                                                .build();
+                                        .dsl(dsl)
+                                        .sqlClient(sqlClient)
+                                        .errorConverter(new JDBCErrorConverter())
+                                        .build();
 ```
 
 And so more, you can convert to your existing application exception (must `extends RuntimeException`) by
 
 ```java
 // For example from JDBCErrorConverter
-new JDBCErrorConverter().to(dataAccessException -> new DatabaseError(ErrorCode.Duplicate, dataAccessException))
+new JDBCErrorConverter().andThen(dataAccessException -> new DatabaseError(ErrorCode.Duplicate, dataAccessException))
 ```
 
 ## Rxify
@@ -184,7 +184,7 @@ jooqx.rxExecute(jooqx.dsl().selectFrom(table), DSLAdapter.fetchJsonRecords(table
 - Vertx SQL data type (a.k.a database type) is different to `jOOQ` JDBC type, then you might want one of these solutions:
   - Use `jOOQ` data type as an user type (a.k.a your application type)
   - Use `Vertx` data type as an user type
-  - Keep `Vertx` data type as database type, `jOOQ` is intermediated type, and your custom type in application
+  - Keep `Vertx` data type as database type, `jOOQ` is intermediate type, and your custom type in application
 
 So, to resolve these situations, `jooqx` introduce [DataTypeMapper](core/src/main/java/io/zero88/jooqx/datatype/DataTypeMapper.java) to make three-way-conversion that based on `jOOQ converter`. Besides that, `jooqx` provides some default mapper utilities for make converter is easier with `UserTypeAsJooqType` and `UserTypeAsVertxType`.
 
@@ -230,3 +230,67 @@ assert record.getFInterval1().getClass().getName() == "io.vertx.pgclient.data.In
 assert record.getFInterval2().getClass().getName() == "org.jooq.types.YearToSecond"
 assert record.getFInterval3().getClass().getName() == "java.time.Duration"
 ```
+
+## Test fixtures API
+
+`jooqx` provides a test API to you can try out and provide a produce a minimum reproducer. Simplify add lib in your build descriptor
+
+- Maven
+
+```xml
+<dependency>
+  <groupId>io.github.zero88</groupId>
+  <artifactId>jooqx-core</artifactId>
+  <version>1.0.0</version>
+  <scope>test</scope>
+  <classifier>test-fixtures</classifier>
+</dependency>
+<!-- And your database client/jdbc lib -->
+```
+
+- Gradle
+
+```groovy
+testImplementation(testFixtures("io.github.zero88:jooqx-core:1.0.0"))
+// And your database client/jdbc lib
+```
+
+Then extends some based classes:
+
+- [LegacyTestDefinition](core/src/testFixtures/java/io/zero88/jooqx/LegacyTestDefinition.java)
+- [ReactiveTestDefinition](core/src/testFixtures/java/io/zero88/jooqx/ReactiveTestDefinition.java)
+- [PgSQLReactiveTest](core/src/testFixtures/java/io/zero88/jooqx/spi/pg/PgSQLReactiveTest.java)
+- [PgSQLReactiveTest](core/src/testFixtures/java/io/zero88/jooqx/spi/pg/PgSQLReactiveTest.java)
+- [MySQLReactiveTest](core/src/testFixtures/java/io/zero88/jooqx/spi/mysql/MySQLReactiveTest.java)
+- [JDBCReactiveProvider](core/src/testFixtures/java/io/zero88/jooqx/spi/jdbc/JDBCReactiveProvider.java)
+- [H2DBProvider](core/src/testFixtures/java/io/zero88/jooqx/spi/h2/H2DBProvider.java)
+
+These supports setup `DB memory` or `DB in container` (thanks to [TestContainer](https://www.testcontainers.org/)) and `jooqx` instance in setup.
+
+This is typical test that you should to try
+
+```java
+class PgReARxTest extends PgSQLReactiveTest<JDBCPool>
+    implements PgUseJooqType, JDBCReactiveProvider, UseJdbcErrorConverter, ReactiveRxHelper {
+
+    @Override
+    @BeforeEach
+    public void tearUp(Vertx vertx, VertxTestContext ctx) {
+        super.tearUp(vertx, ctx);
+        this.prepareDatabase(ctx, this, connOpt, "pg_data/book_author.sql");
+    }
+
+    @Test
+    void test_simple_rx(VertxTestContext ctx) {
+        final io.zero88.jooqx.integtest.pgsql.tables.Books table = schema().BOOKS;
+        Checkpoint cp = ctx.checkpoint();
+        rxPool(jooqx).rxExecute(jooqx.dsl().selectFrom(table), DSLAdapter.fetchJsonRecords(table)).subscribe(recs -> {
+            ctx.verify(() -> Assertions.assertEquals(7, recs.size()));
+            cp.flag();
+        }, ctx::failNow);
+    }
+
+}
+```
+
+Please checkout more in [integtest project](integtest) to see in detail.

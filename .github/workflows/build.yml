@@ -39,7 +39,7 @@ jobs:
           git-user-signingkey: true
           git-commit-gpgsign: true
           git-tag-gpgsign: true
-          git-push-gpgsign: true
+          git-push-gpgsign: false
           gpg-private-key: ${{ secrets.CI_GPG_PRIVATE_KEY }}
           passphrase: ${{ secrets.CI_GPG_PASSPHARSE }}
 
@@ -48,6 +48,7 @@ jobs:
         uses: zero88/gh-project-context@v1
         with:
           dry: false
+          mustSign: true
 
       - name: Find semantic version
         id: semantic

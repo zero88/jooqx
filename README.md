@@ -58,6 +58,12 @@ To use `jooqx` add the following dependency to the dependencies section of your 
     <artifactId>jooqx-core</artifactId>
     <version>1.0.0</version>
 </dependency>
+<!-- For some SPI includes specific converter based on Vert.x database client -->
+<dependency>
+  <groupId>io.github.zero88</groupId>
+  <artifactId>jooqx-spi</artifactId>
+  <version>1.0.0</version>
+</dependency>
 ```
 
 - `Gradle` (in your `build.gradle`):
@@ -65,6 +71,8 @@ To use `jooqx` add the following dependency to the dependencies section of your 
 ```groovy
 dependencies {
     api("io.github.zero88:jooqx-core:1.0.0")
+    // For some SPI includes specific converter based on Vert.x database client
+    api("io.github.zero88:jooqx-spi:1.0.0")
 }
 ```
 
