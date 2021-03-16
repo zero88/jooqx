@@ -25,7 +25,6 @@ import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NonNull;
-import lombok.Setter;
 import lombok.With;
 import lombok.experimental.Accessors;
 
@@ -56,12 +55,12 @@ final class SQLImpl {
             this.typeMapperRegistry = Optional.ofNullable(typeMapperRegistry).orElseGet(this::defMapperRegistry);
         }
 
-        protected final RuntimeException connFailed(String errorMsg, Throwable cause) {
+        protected final RuntimeException transientConnFailed(String errorMsg, Throwable cause) {
             final String sqlState = SQLStateClass.C08_CONNECTION_EXCEPTION.className();
             return this.errorConverter().handle(new SQLTransientConnectionException(errorMsg, sqlState, cause));
         }
 
-        protected final RuntimeException connFailed(String errorMsg) {
+        protected final RuntimeException nonTransientConnFailed(String errorMsg) {
             final String sqlState = SQLStateClass.C08_CONNECTION_EXCEPTION.className();
             return this.errorConverter().handle(new SQLNonTransientConnectionException(errorMsg, sqlState));
         }
@@ -89,26 +88,11 @@ final class SQLImpl {
         private static final Logger LOGGER = LoggerFactory.getLogger(SQLPreparedQuery.class);
 
         @Override
-        public @NonNull String sql(@NonNull Configuration configuration, @NonNull Query query) {
-            return sql(configuration, query, null);
-        }
-
-        public T bindValues(@NonNull Query query, @NonNull DataTypeMapperRegistry mapperRegistry) {
-            return this.convert(query.getParams(), mapperRegistry);
-        }
-
-        public List<T> bindValues(@NonNull Query query, @NonNull BindBatchValues bindBatchValues,
-                                  @NonNull DataTypeMapperRegistry mapperRegistry) {
-            return this.convert(query.getParams(), bindBatchValues, mapperRegistry);
-        }
-
-        protected abstract T doConvert(Map<String, Param<?>> params, DataTypeMapperRegistry registry,
-                                       BiFunction<String, Param<?>, ?> queryValue);
-
-        protected final String sql(@NonNull Configuration configuration, @NonNull Query query, ParamType paramType) {
+        public final @NonNull String sql(@NonNull Configuration configuration, @NonNull Query query) {
             if (!query.isExecutable()) {
                 throw new IllegalArgumentException("Query is not executable: " + query.getSQL());
             }
+            final ParamType paramType = configuration.settings().getParamType();
             if (LOGGER.isTraceEnabled()) {
                 LOGGER.debug("DEFAULT:             {}", query.getSQL());
                 LOGGER.debug("NAMED:               {}", query.getSQL(ParamType.NAMED));
@@ -117,8 +101,8 @@ final class SQLImpl {
                 LOGGER.debug("INDEXED:             {}", query.getSQL(ParamType.INDEXED));
                 LOGGER.debug("FORCE_INDEXED:       {}", query.getSQL(ParamType.FORCE_INDEXED));
             }
-            if (SQLDialect.POSTGRES.supports(configuration.dialect()) && paramType == null) {
-                final String sql = NAMED_PARAM_PATTERN.matcher(query.getSQL(ParamType.NAMED)).replaceAll("\\$");
+            if (SQLDialect.POSTGRES.supports(configuration.dialect()) && paramType == ParamType.NAMED) {
+                final String sql = NAMED_PARAM_PATTERN.matcher(query.getSQL(paramType)).replaceAll("\\$");
                 if (LOGGER.isDebugEnabled()) {
                     LOGGER.debug("POSTGRESQL:          {}", sql);
                 }
@@ -130,6 +114,18 @@ final class SQLImpl {
             }
             return sql;
         }
+
+        public final T bindValues(@NonNull Query query, @NonNull DataTypeMapperRegistry mapperRegistry) {
+            return this.convert(query.getParams(), mapperRegistry);
+        }
+
+        public final List<T> bindValues(@NonNull Query query, @NonNull BindBatchValues bindBatchValues,
+                                        @NonNull DataTypeMapperRegistry mapperRegistry) {
+            return this.convert(query.getParams(), bindBatchValues, mapperRegistry);
+        }
+
+        protected abstract T doConvert(Map<String, Param<?>> params, DataTypeMapperRegistry registry,
+                                       BiFunction<String, Param<?>, ?> queryValue);
 
         private T convert(@NonNull Map<String, Param<?>> params, @NonNull DataTypeMapperRegistry registry) {
             return doConvert(params, registry, (k, v) -> v.getValue());

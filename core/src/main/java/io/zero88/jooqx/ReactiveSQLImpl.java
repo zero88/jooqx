@@ -12,6 +12,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jooq.DSLContext;
 import org.jooq.Param;
 import org.jooq.Query;
+import org.jooq.conf.ParamType;
+import org.jooq.conf.Settings;
 
 import io.vertx.codegen.annotations.Nullable;
 import io.vertx.core.Future;
@@ -144,8 +146,8 @@ final class ReactiveSQLImpl {
         public <X> Future<@Nullable X> run(@NonNull Function<ReactiveJooqxTx, Future<X>> function) {
             return delegate().sqlClient()
                              .getConnection()
-                             .compose(conn -> beginTx(conn, function),
-                                      t -> Future.failedFuture(connFailed("Unable to open SQL connection", t)));
+                             .compose(conn -> beginTx(conn, function), t -> Future.failedFuture(
+                                 transientConnFailed("Unable to open SQL connection", t)));
         }
 
         private <X> Future<X> beginTx(@NonNull SqlConnection conn,
@@ -201,6 +203,24 @@ final class ReactiveSQLImpl {
                           ReactiveSQLResultCollector resultCollector, SQLErrorConverter errorConverter,
                           DataTypeMapperRegistry typeMapperRegistry) {
             super(vertx, dsl, sqlClient, preparedQuery, resultCollector, errorConverter, typeMapperRegistry);
+            tweakDSLSetting();
+        }
+
+        private void tweakDSLSetting() {
+            final Settings settings = dsl().configuration().settings();
+            try {
+                final Class<?> pgConn = ReactiveJooqxImpl.class.getClassLoader()
+                                                               .loadClass("io.vertx.pgclient.PgConnection");
+                final Class<?> pgPool = ReactiveJooqxImpl.class.getClassLoader().loadClass("io.vertx.pgclient.PgPool");
+                if (pgConn.isInstance(sqlClient()) || pgPool.isInstance(sqlClient())) {
+                    if (settings.getParamType() != ParamType.INDEXED) {
+                        return;
+                    }
+                    settings.setParamType(ParamType.NAMED);
+                }
+            } catch (ClassNotFoundException ex) {
+                //nothing happens with another SQL client
+            }
         }
 
         @Override

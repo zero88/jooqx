@@ -56,10 +56,6 @@ final class LegacySQLImpl {
 
     static final class LegacySQLPQ extends SQLPQ<JsonArray> implements LegacySQLPreparedQuery {
 
-        public String sql(@NonNull Configuration configuration, @NonNull Query query) {
-            return sql(configuration, query, ParamType.INDEXED);
-        }
-
         @Override
         protected JsonArray doConvert(Map<String, Param<?>> params, DataTypeMapperRegistry registry,
                                       BiFunction<String, Param<?>, ?> queryValue) {
@@ -188,7 +184,7 @@ final class LegacySQLImpl {
             final Promise<SQLConnection> promise = Promise.promise();
             sqlClient().getConnection(ar -> {
                 if (ar.failed()) {
-                    promise.fail(connFailed("Unable open SQL connection", ar.cause()));
+                    promise.fail(transientConnFailed("Unable open SQL connection", ar.cause()));
                 } else {
                     promise.complete(ar.result());
                 }
@@ -223,7 +219,7 @@ final class LegacySQLImpl {
             final Promise<X> promise = Promise.promise();
             delegate.openConn().map(conn -> conn.setAutoCommit(false, committable -> {
                 if (committable.failed()) {
-                    failed(conn, promise, connFailed("Unable begin transaction", committable.cause()));
+                    failed(conn, promise, transientConnFailed("Unable begin transaction", committable.cause()));
                 } else {
                     block.apply(withSqlClient(conn))
                          .onSuccess(r -> commit(conn, promise, r))

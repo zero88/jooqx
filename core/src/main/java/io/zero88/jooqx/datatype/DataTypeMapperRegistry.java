@@ -45,7 +45,7 @@ public final class DataTypeMapperRegistry {
 
     public Object toDatabaseType(String paramName, Param<?> param, BiFunction<String, Param<?>, ?> queryValue) {
         final Object val = queryValue.apply(paramName, param);
-        final DataTypeMapper<Object, ?, Object> mapper = getTypeMapper("Param", DSL.field(param), val);
+        final DataTypeMapper<Object, ?, Object> mapper = getTypeMapper("Param", DSL.field(paramName, param), val);
         if (Objects.nonNull(mapper)) {
             return mapper.toVFromU(val);
         }
