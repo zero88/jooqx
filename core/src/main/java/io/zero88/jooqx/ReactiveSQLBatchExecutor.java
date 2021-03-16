@@ -7,9 +7,8 @@ import org.jooq.TableLike;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
-import io.vertx.sqlclient.Row;
-import io.vertx.sqlclient.RowSet;
 import io.vertx.sqlclient.SqlClient;
+import io.zero88.jooqx.adapter.SQLResultAdapter.SQLResultListAdapter;
 import io.zero88.jooqx.adapter.SelectList;
 
 import lombok.NonNull;
@@ -22,11 +21,12 @@ import lombok.NonNull;
  */
 public interface ReactiveSQLBatchExecutor extends SQLBatchExecutor {
 
+
     /**
      * Batch execute
      *
      * @param <T>             type of jOOQ table
-     * @param <R>             type of record
+     * @param <R>             type of expectation output
      * @param query           jOOQ query
      * @param bindBatchValues bind batch values
      * @param adapter         result adapter
@@ -34,21 +34,21 @@ public interface ReactiveSQLBatchExecutor extends SQLBatchExecutor {
      * @see BindBatchValues
      * @see SelectList
      * @see BatchReturningResult
+     * @see TableLike
+     * @see Record
      */
-    default <T extends TableLike<?>, R extends Record, O> void batch(@NonNull Query query,
-                                                                     @NonNull BindBatchValues bindBatchValues,
-                                                                     @NonNull SelectList<RowSet<Row>,
-                                                                                                                                                                        ReactiveSQLBatchCollector, T, R, O> adapter,
-                                                                     @NonNull Handler<AsyncResult<BatchReturningResult<O>>> handler) {
+    default <T, R> void batch(@NonNull Query query, @NonNull BindBatchValues bindBatchValues,
+                              @NonNull SQLResultListAdapter<T, R> adapter,
+                              @NonNull Handler<AsyncResult<BatchReturningResult<R>>> handler) {
         batch(query, bindBatchValues, adapter).onComplete(handler);
     }
 
     /**
-     * Like {@link #batch(Query, BindBatchValues, SelectList, Handler)} but returns a {@code Future} of the
+     * Like {@link #batch(Query, BindBatchValues, SQLResultListAdapter, Handler)} but returns a {@code Future} of the
      * asynchronous result
      *
      * @param <T>             type of jOOQ table
-     * @param <R>             type of record
+     * @param <R>             type of expectation result
      * @param query           jOOQ query
      * @param bindBatchValues bind batch values
      * @param adapter         result adapter
@@ -57,8 +57,6 @@ public interface ReactiveSQLBatchExecutor extends SQLBatchExecutor {
      * @see SelectList
      * @see BatchReturningResult
      */
-    <T extends TableLike<?>, R extends Record, O> Future<BatchReturningResult<O>> batch(@NonNull Query query,
-                                                                                        @NonNull BindBatchValues bindBatchValues,
-                                                                                        @NonNull SelectList<RowSet<Row>, ReactiveSQLBatchCollector, T, R, O> adapter);
-
+    <T, R> Future<BatchReturningResult<R>> batch(@NonNull Query query, @NonNull BindBatchValues bindBatchValues,
+                                                 @NonNull SQLResultListAdapter<T, R> adapter);
 }

@@ -4,7 +4,6 @@ import java.util.function.Function;
 import java.util.stream.Collector;
 
 import org.jooq.Field;
-import org.jooq.Record;
 
 import lombok.NonNull;
 
@@ -14,7 +13,7 @@ import lombok.NonNull;
  * @param <R> Type of current record
  * @param <I> Type of output
  */
-public interface RowConverterStrategy<R extends Record, I> extends HasStrategy {
+public interface RowConverterStrategy<R, I> extends HasStrategy {
 
     /**
      * Lookup jOOQ field in current jOOQ Query context

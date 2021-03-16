@@ -8,9 +8,8 @@ import org.jooq.impl.DSL;
 import org.junit.jupiter.api.Test;
 
 import io.vertx.jdbcclient.JDBCPool;
-import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
-import io.zero88.jooqx.ReactiveDSL;
+import io.zero88.jooqx.DSLAdapter;
 import io.zero88.jooqx.ReactiveTestDefinition.ReactiveDBMemoryTest;
 import io.zero88.jooqx.UseJdbcErrorConverter;
 import io.zero88.jooqx.integtest.h2.tables.Author;
@@ -28,12 +27,11 @@ class H2ReAFailedTest extends ReactiveDBMemoryTest<JDBCPool>
                                                            .insertInto(table, table.ID, table.FIRST_NAME)
                                                            .values(Arrays.asList(DSL.defaultValue(table.ID), "abc"))
                                                            .returning(table.ID);
-        jooqx.execute(insert, ReactiveDSL.adapter().fetchJsonRecord(table),
-                      ar -> assertJooqException(testContext, ar,
-                                                SQLStateClass.C42_SYNTAX_ERROR_OR_ACCESS_RULE_VIOLATION,
-                                                "Table \"AUTHOR\" not found; SQL statement:\n" +
-                                                "insert into \"AUTHOR\" (\"ID\", \"FIRST_NAME\") values (default, " +
-                                                "?) " + "[42102-200]"));
+        jooqx.execute(insert, DSLAdapter.fetchJsonRecord(table), ar -> {
+            final String errorMsg = "Table \"AUTHOR\" not found; SQL statement:\n" + "insert into \"AUTHOR\" " +
+                                    "(\"ID\", \"FIRST_NAME\") values (default, ?) [42102-200]";
+            assertJooqException(testContext, ar, SQLStateClass.C42_SYNTAX_ERROR_OR_ACCESS_RULE_VIOLATION, errorMsg);
+        });
     }
 
 }

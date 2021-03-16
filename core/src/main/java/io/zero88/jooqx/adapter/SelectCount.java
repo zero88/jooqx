@@ -13,27 +13,22 @@ import lombok.NonNull;
 /**
  * Select count result adapter that defines output in {@code Integer} type
  *
- * @see SelectAdhocOneResultAdapter
- * @see SelectOneStrategy
+ * @see SelectAdhocOneResult
+ * @see SQLResultAdapter.SQLResultOneAdapter
  * @since 1.0.0
  */
-public final class SelectCount<RS, C extends SQLResultCollector<RS>>
-    extends SelectAdhocOneResultAdapter<RS, C, TableLike<Record1<Integer>>, Integer> {
+public final class SelectCount extends SelectAdhocOneResult<TableLike<Record1<Integer>>, Integer> {
 
-    private SelectCount(@NonNull TableLike<Record1<Integer>> table, @NonNull C converter) {
-        super(table, converter);
+    public SelectCount(@NonNull TableLike<Record1<Integer>> table) {
+        super(table);
     }
 
     @Override
-    public Integer collect(@NonNull RS resultSet, @NonNull DSLContext dsl, @NonNull DataTypeMapperRegistry registry) {
+    public <RS> Integer collect(RS resultSet, @NonNull SQLResultCollector<RS> collector, @NonNull DSLContext dsl,
+                                @NonNull DataTypeMapperRegistry registry) {
         final SQLCollectorPart<JsonRecord<?>, Integer> part = SQLResultAdapter.byJson()
                                                                               .andThen(r -> r.get(0, Integer.class));
-        return converter().collect(resultSet, initStrategy(dsl, registry, part)).stream().findFirst().orElse(0);
-    }
-
-    public static <RS, C extends SQLResultCollector<RS>> SelectCount<RS, C> count(
-        @NonNull TableLike<Record1<Integer>> table, @NonNull C converter) {
-        return new SelectCount<>(table, converter);
+        return collector.collect(resultSet, initStrategy(dsl, registry, part)).stream().findFirst().orElse(0);
     }
 
 }

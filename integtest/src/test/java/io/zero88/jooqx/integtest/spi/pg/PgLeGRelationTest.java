@@ -19,7 +19,7 @@ import io.vertx.junit5.VertxTestContext;
 import io.zero88.jooqx.BindBatchValues;
 import io.zero88.jooqx.JooqErrorConverter.JDBCErrorConverter;
 import io.zero88.jooqx.JsonRecord;
-import io.zero88.jooqx.LegacyDSL;
+import io.zero88.jooqx.DSLAdapter;
 import io.zero88.jooqx.SQLErrorConverter;
 import io.zero88.jooqx.UseJdbcErrorConverter;
 import io.zero88.jooqx.integtest.pgsql.tables.Authors;
@@ -40,7 +40,7 @@ class PgLeGRelationTest extends PgSQLLegacyTest implements PostgreSQLHelper, Use
     @Test
     void test_query(VertxTestContext ctx) {
         final Books table = catalog().PUBLIC.BOOKS;
-        jooqx.execute(jooqx.dsl().selectFrom(table), LegacyDSL.adapter().fetchMany(table),
+        jooqx.execute(jooqx.dsl().selectFrom(table), DSLAdapter.fetchMany(table),
                       ar -> assertResultSize(ctx, ar, 7));
     }
 
@@ -52,7 +52,7 @@ class PgLeGRelationTest extends PgSQLLegacyTest implements PostgreSQLHelper, Use
                                                           .insertInto(table, table.ID, table.TITLE)
                                                           .values(Arrays.asList(DSL.defaultValue(table.ID), "abc"))
                                                           .returning(table.ID);
-        jooqx.execute(insert, LegacyDSL.adapter().fetchJsonRecord(table), ar -> ctx.verify(() -> {
+        jooqx.execute(insert, DSLAdapter.fetchJsonRecord(table), ar -> ctx.verify(() -> {
             final JsonRecord<?> jsonRecord = assertSuccess(ctx, ar);
             Assertions.assertEquals(new JsonObject().put("id", 8).put("title", null), jsonRecord.toJson());
             flag.flag();
@@ -74,7 +74,7 @@ class PgLeGRelationTest extends PgSQLLegacyTest implements PostgreSQLHelper, Use
                                                           .returning();
         jooqx.batch(insert, bindValues, ar -> {
             ctx.verify(() -> Assertions.assertEquals(3, ar.result().getSuccesses()));
-            jooqx.execute(jooqx.dsl().selectFrom(table), LegacyDSL.adapter().fetchJsonRecords(table),
+            jooqx.execute(jooqx.dsl().selectFrom(table), DSLAdapter.fetchJsonRecords(table),
                           ar2 -> ctx.verify(() -> {
                               final List<JsonRecord<?>> records = assertResultSize(ctx, ar2, 10);
                               Assertions.assertEquals(new JsonObject().put("id", 8).put("title", "abc"),
@@ -94,7 +94,7 @@ class PgLeGRelationTest extends PgSQLLegacyTest implements PostgreSQLHelper, Use
         final Books table = catalog().PUBLIC.BOOKS;
         final Handler<AsyncResult<BooksRecord>> asserter = ar -> {
             assertJooqException(ctx, ar, SQLStateClass.C23_INTEGRITY_CONSTRAINT_VIOLATION);
-            jooqx.execute(jooqx.dsl().selectFrom(table).where(table.ID.eq(1)), LegacyDSL.adapter().fetchOne(table),
+            jooqx.execute(jooqx.dsl().selectFrom(table).where(table.ID.eq(1)), DSLAdapter.fetchOne(table),
                           ar2 -> ctx.verify(() -> {
                               final BooksRecord record = assertSuccess(ctx, ar2);
                               Assertions.assertEquals("The Catcher in the Rye", record.getTitle());
@@ -106,12 +106,12 @@ class PgLeGRelationTest extends PgSQLLegacyTest implements PostgreSQLHelper, Use
                                      .update(table)
                                      .set(DSL.row(table.TITLE), DSL.row("something"))
                                      .where(table.ID.eq(1))
-                                     .returning(), LegacyDSL.adapter().fetchOne(table))
+                                     .returning(), DSLAdapter.fetchOne(table))
                           .flatMap(r -> tx.execute(tx.dsl()
                                                      .update(table)
                                                      .set(DSL.row(table.TITLE), DSL.row((String) null))
                                                      .where(table.ID.eq(2))
-                                                     .returning(), LegacyDSL.adapter().fetchOne(table))), asserter);
+                                                     .returning(), DSLAdapter.fetchOne(table))), asserter);
     }
 
     @Test
@@ -129,7 +129,7 @@ class PgLeGRelationTest extends PgSQLLegacyTest implements PostgreSQLHelper, Use
                                      " in column \"country\" violates not-null constraint\n" +
                                      "  Detail: Failing row contains (10, n2, null).  Call " +
                                      "getNextException to see other errors in the batch.");
-                 jooqx.execute(jooqx.dsl().selectFrom(table), LegacyDSL.adapter().fetchMany(table), ar2 -> {
+                 jooqx.execute(jooqx.dsl().selectFrom(table), DSLAdapter.fetchMany(table), ar2 -> {
                      assertResultSize(ctx, ar2, 8);
                      flag.flag();
                  });

@@ -31,6 +31,8 @@ dependencies {
     testImplementation(DatabaseLibs.mysql)
     testImplementation(VertxLibs.mysql)
     testImplementation(TestContainers.mysql)
+
+    testImplementation(VertxLibs.rx2)
 }
 
 sourceSets.test {

@@ -16,10 +16,13 @@ import io.zero88.jooqx.LegacySQLImpl.LegacySQLPQ;
 import io.zero88.jooqx.SQLTestImpl.DBContainerSQLTest;
 import io.zero88.jooqx.SQLTestImpl.DBMemorySQLTest;
 
+import lombok.NonNull;
+
 public interface LegacyTestDefinition {
 
-    interface LegacyJooqxProvider
-        extends JooqxProvider<SQLClient, JsonArray, ResultSet, LegacySQLCollector, LegacyJooqx> {
+    interface LegacyJooqxProvider extends
+                                  JooqxProvider<SQLClient, JsonArray, LegacySQLPreparedQuery, ResultSet,
+                                                   LegacySQLCollector, LegacyJooqx> {
 
         @Override
         default LegacyJooqx createExecutor(Vertx vertx, JooqDSLProvider dslProvider, SQLClient sqlClient) {
@@ -69,7 +72,7 @@ public interface LegacyTestDefinition {
 
 
     interface LegacySQLTest<K, D extends DBProvider<K>, P extends DataSourceProvider>
-        extends SQLTest<SQLClient, JsonArray, ResultSet, LegacySQLCollector, LegacyJooqx, K, D>,
+        extends SQLTest<SQLClient, JsonArray, LegacySQLPreparedQuery, ResultSet, LegacySQLCollector, LegacyJooqx, K, D>,
                 LegacyJooqxProvider, LegacySQLClientProvider<P> {
 
         @Override
@@ -82,15 +85,33 @@ public interface LegacyTestDefinition {
 
 
     abstract class LegacyDBContainerTest<K extends JdbcDatabaseContainer<?>, P extends DataSourceProvider>
-        extends DBContainerSQLTest<SQLClient, JsonArray, ResultSet, LegacySQLCollector, LegacyJooqx, K>
+        extends DBContainerSQLTest<SQLClient, JsonArray, LegacySQLPreparedQuery, ResultSet, LegacySQLCollector, LegacyJooqx, K>
         implements LegacySQLTest<K, DBContainerProvider<K>, P> {
 
     }
 
 
     abstract class LegacyDBMemoryTest<P extends DataSourceProvider>
-        extends DBMemorySQLTest<SQLClient, JsonArray, ResultSet, LegacySQLCollector, LegacyJooqx>
+        extends DBMemorySQLTest<SQLClient, JsonArray, LegacySQLPreparedQuery, ResultSet, LegacySQLCollector, LegacyJooqx>
         implements LegacySQLTest<String, DBMemoryProvider, P> {
+
+    }
+
+
+    interface LegacyRxHelper {
+
+        default io.zero88.jooqx.reactivex.LegacyJooqx rxInstance(@NonNull LegacyJooqx jooqx) {
+            final LegacyJooqx jooqx1 = LegacyJooqx.builder()
+                                                  .vertx(jooqx.vertx())
+                                                  .dsl(jooqx.dsl())
+                                                  .sqlClient(jooqx.sqlClient())
+                                                  .preparedQuery(jooqx.preparedQuery())
+                                                  .resultCollector(jooqx.resultCollector())
+                                                  .errorConverter(jooqx.errorConverter())
+                                                  .typeMapperRegistry(jooqx.typeMapperRegistry())
+                                                  .build();
+            return io.zero88.jooqx.reactivex.LegacyJooqx.newInstance(jooqx1);
+        }
 
     }
 

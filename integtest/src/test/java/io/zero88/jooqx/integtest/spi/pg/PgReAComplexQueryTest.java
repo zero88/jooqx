@@ -14,8 +14,8 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 import io.vertx.pgclient.PgPool;
+import io.zero88.jooqx.DSLAdapter;
 import io.zero88.jooqx.JsonRecord;
-import io.zero88.jooqx.ReactiveDSL;
 import io.zero88.jooqx.integtest.pgsql.Public;
 import io.zero88.jooqx.integtest.pgsql.tables.pojos.Authors;
 import io.zero88.jooqx.integtest.pgsql.tables.pojos.Books;
@@ -44,7 +44,7 @@ class PgReAComplexQueryTest extends PgSQLReactiveTest<PgPool> implements PgPoolP
                                                      .join(schema.BOOKS_AUTHORS)
                                                      .onKey()
                                                      .where(schema.AUTHORS.ID.eq(2));
-        jooqx.execute(query, ReactiveDSL.adapter().fetchJsonRecords(query.asTable()), ar -> ctx.verify(() -> {
+        jooqx.execute(query, DSLAdapter.fetchJsonRecords(query.asTable()), ar -> ctx.verify(() -> {
             final List<JsonRecord<?>> records = assertResultSize(ctx, ar, 2);
             Assertions.assertEquals(
                 new JsonObject("{\"id\":2,\"name\":\"F. Scott. Fitzgerald\",\"country\":\"USA\",\"book_id\":4}"),
@@ -66,7 +66,7 @@ class PgReAComplexQueryTest extends PgSQLReactiveTest<PgPool> implements PgPoolP
                                                      .join(schema.BOOKS_AUTHORS)
                                                      .onKey()
                                                      .where(schema.AUTHORS.ID.eq(4));
-        jooqx.execute(query, ReactiveDSL.adapter().fetchMany(query.asTable(), schema.AUTHORS), ar -> ctx.verify(() -> {
+        jooqx.execute(query, DSLAdapter.fetchMany(query.asTable(), schema.AUTHORS), ar -> ctx.verify(() -> {
             final List<AuthorsRecord> records = assertResultSize(ctx, ar, 1);
             final AuthorsRecord authorsRecord = records.get(0);
             Assertions.assertEquals(4, authorsRecord.getId());
@@ -89,7 +89,7 @@ class PgReAComplexQueryTest extends PgSQLReactiveTest<PgPool> implements PgPoolP
                                                      .join(schema.BOOKS)
                                                      .on(schema.BOOKS.ID.eq(schema.BOOKS_AUTHORS.BOOK_ID))
                                                      .where(schema.AUTHORS.ID.eq(1));
-        jooqx.execute(query, ReactiveDSL.adapter().fetchJsonRecords(query.asTable()), ar -> ctx.verify(() -> {
+        jooqx.execute(query, DSLAdapter.fetchJsonRecords(query.asTable()), ar -> ctx.verify(() -> {
             final List<JsonRecord<?>> records = assertResultSize(ctx, ar, 3);
             final JsonRecord<?> record1 = records.get(0);
             Assertions.assertEquals(new JsonObject("{\"id\":1,\"name\":\"J.D. Salinger\",\"country\":\"USA\"," +
@@ -121,19 +121,18 @@ class PgReAComplexQueryTest extends PgSQLReactiveTest<PgPool> implements PgPoolP
         final Public schema = catalog().PUBLIC;
         AuthorsRecord a1 = new AuthorsRecord().setName("Lukas").setCountry("Ger");
         BooksRecord b1 = new BooksRecord().setTitle("jOOQ doc");
-        final ReactiveDSL adapter = ReactiveDSL.adapter();
         jooqx.transaction()
              .run(tx -> tx.execute(dsl.insertInto(schema.AUTHORS, schema.AUTHORS.NAME, schema.AUTHORS.COUNTRY)
                                       .values(a1.value2(), a1.value3())
-                                      .returning(), adapter.fetchOne(schema.AUTHORS))
+                                      .returning(), DSLAdapter.fetchOne(schema.AUTHORS))
                           .flatMap(r1 -> tx.execute(
                               dsl.insertInto(schema.BOOKS, schema.BOOKS.TITLE).values(b1.value2()).returning(),
-                              adapter.fetchOne(schema.BOOKS))
+                              DSLAdapter.fetchOne(schema.BOOKS))
                                            .flatMap(r2 -> tx.execute(
                                                dsl.insertInto(schema.BOOKS_AUTHORS, schema.BOOKS_AUTHORS.BOOK_ID,
                                                               schema.BOOKS_AUTHORS.AUTHOR_ID)
                                                   .values(r2.getId(), r1.getId())
-                                                  .returning(), adapter.fetchOne(schema.BOOKS_AUTHORS)))))
+                                                  .returning(), DSLAdapter.fetchOne(schema.BOOKS_AUTHORS)))))
              .onComplete(ar -> ctx.verify(() -> {
                  final BooksAuthorsRecord record = assertSuccess(ctx, ar);
                  Assertions.assertNotNull(record);
@@ -149,7 +148,7 @@ class PgReAComplexQueryTest extends PgSQLReactiveTest<PgPool> implements PgPoolP
                                                               .join(schema.BOOKS)
                                                               .on(schema.BOOKS.ID.eq(schema.BOOKS_AUTHORS.BOOK_ID))
                                                               .where(schema.BOOKS_AUTHORS.ID.eq(ar.result().getId()));
-                 jooqx.execute(query, adapter.fetchJsonRecord(query.asTable()), ar2 -> ctx.verify(() -> {
+                 jooqx.execute(query, DSLAdapter.fetchJsonRecord(query.asTable()), ar2 -> ctx.verify(() -> {
                      final JsonRecord<?> jsonRecord = assertSuccess(ctx, ar2);
                      Assertions.assertEquals(new JsonObject("{\"id\":9,\"name\":\"Lukas\",\"country\":\"Ger\"," +
                                                             "\"book_id\":8,\"book_title\":\"jOOQ doc\"}"),

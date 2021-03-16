@@ -11,7 +11,7 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 import io.vertx.sqlclient.Tuple;
-import io.zero88.jooqx.LegacyDSL;
+import io.zero88.jooqx.DSLAdapter;
 import io.zero88.jooqx.UseJdbcErrorConverter;
 import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 import io.zero88.jooqx.datatype.UserTypeAsJooqType;
@@ -48,7 +48,7 @@ class PgLeGJsonTest extends PgSQLLegacyTest implements PostgreSQLHelper, UseJdbc
     void queryJson(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
         final JsonDataType table = catalog().PUBLIC.JSON_DATA_TYPE;
-        jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), LegacyDSL.adapter().fetchOne(table),
+        jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table),
                       ar -> ctx.verify(() -> {
                           final JsonDataTypeRecord record = assertSuccess(ctx, ar);
                           System.out.println(record);
@@ -74,7 +74,7 @@ class PgLeGJsonTest extends PgSQLLegacyTest implements PostgreSQLHelper, UseJdbc
     void queryJsonb(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
         final JsonbDataType table = catalog().PUBLIC.JSONB_DATA_TYPE;
-        jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), LegacyDSL.adapter().fetchOne(table),
+        jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table),
                       ar -> ctx.verify(() -> {
                           final JsonbDataTypeRecord record = assertSuccess(ctx, ar);
                           System.out.println(record);

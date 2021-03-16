@@ -21,8 +21,8 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 import io.vertx.pgclient.PgConnection;
+import io.zero88.jooqx.DSLAdapter;
 import io.zero88.jooqx.JsonRecord;
-import io.zero88.jooqx.ReactiveDSL;
 import io.zero88.jooqx.integtest.pgsql.tables.pojos.Authors;
 import io.zero88.jooqx.integtest.pgsql.tables.records.AuthorsRecord;
 import io.zero88.jooqx.integtest.pgsql.tables.records.BooksRecord;
@@ -43,13 +43,6 @@ class PgReARelationTest extends PgSQLReactiveTest<PgConnection> implements PgCon
     }
 
     @Test
-    void test_query(VertxTestContext ctx) {
-        final io.zero88.jooqx.integtest.pgsql.tables.Books table = catalog().PUBLIC.BOOKS;
-        final SelectWhereStep<BooksRecord> query = jooqx.dsl().selectFrom(table);
-        jooqx.execute(query, ReactiveDSL.adapter().fetchJsonRecords(table), ar -> assertResultSize(ctx, ar, 7));
-    }
-
-    @Test
     void test_count(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
         final io.zero88.jooqx.integtest.pgsql.tables.Authors table = catalog().PUBLIC.AUTHORS;
@@ -57,7 +50,7 @@ class PgReARelationTest extends PgSQLReactiveTest<PgConnection> implements PgCon
                                                                  .selectCount()
                                                                  .from(table)
                                                                  .where(table.COUNTRY.eq("USA"));
-        jooqx.execute(query, ReactiveDSL.adapter().fetchCount(query.asTable()), ar -> ctx.verify(() -> {
+        jooqx.execute(query, DSLAdapter.fetchCount(query.asTable()), ar -> ctx.verify(() -> {
             Assertions.assertEquals(6, assertSuccess(ctx, ar));
             flag.flag();
         }));
@@ -71,74 +64,8 @@ class PgReARelationTest extends PgSQLReactiveTest<PgConnection> implements PgCon
         final SelectConditionStep<Record1<Integer>> q = dsl.selectOne()
                                                            .whereExists(dsl.selectFrom(table)
                                                                            .where(table.NAME.eq("Jane Austen")));
-        jooqx.execute(q, ReactiveDSL.adapter().fetchExists(q.asTable()), ar -> ctx.verify(() -> {
+        jooqx.execute(q, DSLAdapter.fetchExists(q.asTable()), ar -> ctx.verify(() -> {
             Assertions.assertTrue(assertSuccess(ctx, ar));
-            flag.flag();
-        }));
-    }
-
-    @Test
-    void test_select_one(VertxTestContext ctx) {
-        final Checkpoint flag = ctx.checkpoint();
-        final io.zero88.jooqx.integtest.pgsql.tables.Authors table = catalog().PUBLIC.AUTHORS;
-        final SelectForUpdateStep<AuthorsRecord> q = jooqx.dsl()
-                                                          .selectFrom(table)
-                                                          .where(table.COUNTRY.eq("USA"))
-                                                          .orderBy(table.NAME.desc())
-                                                          .limit(1)
-                                                          .offset(1);
-        jooqx.execute(q, ReactiveDSL.adapter().fetchJsonRecord(q.asTable()), ar -> ctx.verify(() -> {
-            final JsonRecord<?> result = assertSuccess(ctx, ar);
-            Assertions.assertNotNull(result);
-            Assertions.assertEquals(new JsonObject("{\"id\":4,\"name\":\"Scott Hanselman\",\"country\":\"USA\"}"),
-                                    result.toJson());
-            flag.flag();
-        }));
-    }
-
-    @Test
-    void test_select_one_but_give_query_that_returns_many(VertxTestContext ctx) {
-        final Checkpoint flag = ctx.checkpoint();
-        final io.zero88.jooqx.integtest.pgsql.tables.Authors table = catalog().PUBLIC.AUTHORS;
-        final SelectForUpdateStep<AuthorsRecord> q = jooqx.dsl()
-                                                          .selectFrom(table)
-                                                          .where(table.COUNTRY.eq("USA"))
-                                                          .orderBy(table.ID.desc());
-        jooqx.execute(q, ReactiveDSL.adapter().fetchJsonRecord(q.asTable()), ar -> ctx.verify(() -> {
-            final JsonRecord<?> result = ar.result();
-            Assertions.assertNotNull(result);
-            Assertions.assertEquals(new JsonObject("{\"id\":8,\"name\":\"Christian Wenz\",\"country\":\"USA\"}"),
-                                    result.toJson());
-            flag.flag();
-        }));
-    }
-
-    @Test
-    void test_query_convert_by_record_class(VertxTestContext ctx) {
-        final Checkpoint flag = ctx.checkpoint();
-        final io.zero88.jooqx.integtest.pgsql.tables.Authors table = catalog().PUBLIC.AUTHORS;
-        final SelectWhereStep<AuthorsRecord> query = jooqx.dsl().selectFrom(table);
-        jooqx.execute(query, ReactiveDSL.adapter()
-                                        .fetchMany(table, io.zero88.jooqx.integtest.pgsql.tables.pojos.Authors.class),
-                      ar -> {
-                          final List<Authors> books = assertResultSize(ctx, ar, 8);
-                          final Authors authors = books.get(0);
-                          ctx.verify(() -> Assertions.assertEquals(1, authors.getId()));
-                          flag.flag();
-                      });
-    }
-
-    @Test
-    void test_query_convert_by_table(VertxTestContext ctx) {
-        final Checkpoint flag = ctx.checkpoint();
-        final io.zero88.jooqx.integtest.pgsql.tables.Authors table = catalog().PUBLIC.AUTHORS;
-        final SelectConditionStep<AuthorsRecord> query = jooqx.dsl().selectFrom(table).where(table.COUNTRY.eq("UK"));
-        jooqx.execute(query, ReactiveDSL.adapter().fetchOne(table), ar -> ctx.verify(() -> {
-            Assertions.assertTrue(ar.succeeded());
-            final AuthorsRecord authors = ar.result();
-            Assertions.assertEquals(3, authors.getId());
-            Assertions.assertEquals("Jane Austen", authors.getName());
-            Assertions.assertEquals("UK", authors.getCountry());
             flag.flag();
         }));
     }
@@ -151,21 +78,91 @@ class PgReARelationTest extends PgSQLReactiveTest<PgConnection> implements PgCon
                                                           .insertInto(table, table.ID, table.TITLE)
                                                           .values(Arrays.asList(DSL.defaultValue(table.ID), "abc"))
                                                           .returning(table.ID);
-        jooqx.execute(insert, ReactiveDSL.adapter().fetchOne(table, Collections.singletonList(table.ID)),
-                      ar -> ctx.verify(() -> {
-                          final Record record = ar.result();
-                          final BooksRecord into1 = record.into(BooksRecord.class);
-                          Assertions.assertEquals(8, into1.getId());
-                          Assertions.assertNull(into1.getTitle());
-                          final io.zero88.jooqx.integtest.pgsql.tables.pojos.Books into2 = record.into(
-                              io.zero88.jooqx.integtest.pgsql.tables.pojos.Books.class);
-                          Assertions.assertEquals(8, into2.getId());
-                          Assertions.assertNull(into2.getTitle());
-                          final Authors into3 = record.into(Authors.class);
-                          Assertions.assertEquals(8, into3.getId());
-                          Assertions.assertNull(into3.getCountry());
+        jooqx.execute(insert, DSLAdapter.fetchOne(table, Collections.singletonList(table.ID)), ar -> ctx.verify(() -> {
+            final Record record = ar.result();
+            final BooksRecord into1 = record.into(BooksRecord.class);
+            Assertions.assertEquals(8, into1.getId());
+            Assertions.assertNull(into1.getTitle());
+            final io.zero88.jooqx.integtest.pgsql.tables.pojos.Books into2 = record.into(
+                io.zero88.jooqx.integtest.pgsql.tables.pojos.Books.class);
+            Assertions.assertEquals(8, into2.getId());
+            Assertions.assertNull(into2.getTitle());
+            final Authors into3 = record.into(Authors.class);
+            Assertions.assertEquals(8, into3.getId());
+            Assertions.assertNull(into3.getCountry());
+            flag.flag();
+        }));
+    }
+    @Test
+    void test_select_one_convert_by_json_record(VertxTestContext ctx) {
+        final Checkpoint flag = ctx.checkpoint();
+        final io.zero88.jooqx.integtest.pgsql.tables.Authors table = catalog().PUBLIC.AUTHORS;
+        final SelectForUpdateStep<AuthorsRecord> q = jooqx.dsl()
+                                                          .selectFrom(table)
+                                                          .where(table.COUNTRY.eq("USA"))
+                                                          .orderBy(table.NAME.desc())
+                                                          .limit(1)
+                                                          .offset(1);
+        jooqx.execute(q, DSLAdapter.fetchJsonRecord(q.asTable()), ar -> ctx.verify(() -> {
+            final JsonRecord<?> result = assertSuccess(ctx, ar);
+            Assertions.assertNotNull(result);
+            Assertions.assertEquals(new JsonObject("{\"id\":4,\"name\":\"Scott Hanselman\",\"country\":\"USA\"}"),
+                                    result.toJson());
+            flag.flag();
+        }));
+    }
+
+    @Test
+    void test_select_one_convert_by_table(VertxTestContext ctx) {
+        final Checkpoint flag = ctx.checkpoint();
+        final io.zero88.jooqx.integtest.pgsql.tables.Authors table = catalog().PUBLIC.AUTHORS;
+        final SelectConditionStep<AuthorsRecord> query = jooqx.dsl().selectFrom(table).where(table.COUNTRY.eq("UK"));
+        jooqx.execute(query, DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
+            Assertions.assertTrue(ar.succeeded());
+            final AuthorsRecord authors = ar.result();
+            Assertions.assertEquals(3, authors.getId());
+            Assertions.assertEquals("Jane Austen", authors.getName());
+            Assertions.assertEquals("UK", authors.getCountry());
+            flag.flag();
+        }));
+    }
+
+    @Test
+    void test_select_one_but_give_query_that_returns_many(VertxTestContext ctx) {
+        final Checkpoint flag = ctx.checkpoint();
+        final io.zero88.jooqx.integtest.pgsql.tables.Authors table = catalog().PUBLIC.AUTHORS;
+        final SelectForUpdateStep<AuthorsRecord> q = jooqx.dsl()
+                                                          .selectFrom(table)
+                                                          .where(table.COUNTRY.eq("USA"))
+                                                          .orderBy(table.ID.desc());
+        jooqx.execute(q, DSLAdapter.fetchJsonRecord(q.asTable()), ar -> ctx.verify(() -> {
+            final JsonRecord<?> result = ar.result();
+            Assertions.assertNotNull(result);
+            Assertions.assertEquals(new JsonObject("{\"id\":8,\"name\":\"Christian Wenz\",\"country\":\"USA\"}"),
+                                    result.toJson());
+            flag.flag();
+        }));
+    }
+
+    @Test
+    void test_select_many_convert_by_json_record(VertxTestContext ctx) {
+        final io.zero88.jooqx.integtest.pgsql.tables.Books table = catalog().PUBLIC.BOOKS;
+        final SelectWhereStep<BooksRecord> query = jooqx.dsl().selectFrom(table);
+        jooqx.execute(query, DSLAdapter.fetchJsonRecords(table), ar -> assertResultSize(ctx, ar, 7));
+    }
+
+    @Test
+    void test_select_many_convert_by_record_class(VertxTestContext ctx) {
+        final Checkpoint flag = ctx.checkpoint();
+        final io.zero88.jooqx.integtest.pgsql.tables.Authors table = catalog().PUBLIC.AUTHORS;
+        final SelectWhereStep<AuthorsRecord> query = jooqx.dsl().selectFrom(table);
+        jooqx.execute(query, DSLAdapter.fetchMany(table, io.zero88.jooqx.integtest.pgsql.tables.pojos.Authors.class),
+                      ar -> {
+                          final List<Authors> books = assertResultSize(ctx, ar, 8);
+                          final Authors authors = books.get(0);
+                          ctx.verify(() -> Assertions.assertEquals(1, authors.getId()));
                           flag.flag();
-                      }));
+                      });
     }
 
 }

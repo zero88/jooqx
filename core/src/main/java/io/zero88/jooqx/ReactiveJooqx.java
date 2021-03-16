@@ -1,46 +1,52 @@
 package io.zero88.jooqx;
 
-import org.jooq.Query;
-import org.jooq.TableLike;
-
-import io.vertx.core.Future;
+import io.vertx.codegen.annotations.GenIgnore;
 import io.vertx.sqlclient.Pool;
 import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.RowSet;
 import io.vertx.sqlclient.SqlClient;
 import io.vertx.sqlclient.SqlConnection;
 import io.vertx.sqlclient.Tuple;
-import io.zero88.jooqx.adapter.SQLResultAdapter;
-
-import lombok.NonNull;
+import io.zero88.jooqx.ReactiveSQLImpl.ConnectionJooqxImpl;
+import io.zero88.jooqx.ReactiveSQLImpl.PoolJooqxImpl;
 
 /**
- * Represents for an executor that executes {@code jOOQ query} on {@code Vertx reactive SQL client} connection
+ * Represents for an executor that executes {@code jOOQ query} on {@code Vertx reactive SQL connection}
  *
  * @param <S> Type of SqlClient, can be {@code SqlConnection} or {@code Pool}
- * @see SqlClient
  * @see SqlConnection
  * @see Pool
- * @see Tuple
- * @see Row
- * @see RowSet
  * @since 1.0.0
  */
 public interface ReactiveJooqx<S extends SqlClient>
-    extends SQLExecutor<S, Tuple, RowSet<Row>, ReactiveSQLResultCollector>,
-            SQLTxExecutor<S, Tuple, RowSet<Row>, ReactiveSQLResultCollector, ReactiveJooqxImpl<S>>,
+    extends SQLExecutor<S, Tuple, ReactiveSQLPreparedQuery, RowSet<Row>, ReactiveSQLResultCollector>,
             ReactiveSQLBatchExecutor {
 
-    static <S extends SqlClient> ReactiveJooqxImpl.ReactiveJooqxImplBuilder<S, ?, ?> builder() {
-        return ReactiveJooqxImpl.builder();
+    static <S extends SqlClient> ReactiveJooqxBuilder<S> builder() {
+        return new ReactiveJooqxBuilder<>();
     }
 
-    @Override
-    @NonNull ReactiveSQLPreparedQuery preparedQuery();
+    @GenIgnore
+    class ReactiveJooqxBuilder<S extends SqlClient> extends
+                                                    SQLExecutorBuilder<S, Tuple, ReactiveSQLPreparedQuery,
+                                                                          RowSet<Row>, ReactiveSQLResultCollector,
+                                                                          ReactiveJooqx<S>> {
 
-    @Override
-    <T extends TableLike<?>, R> Future<R> execute(@NonNull Query query,
-                                                  @NonNull SQLResultAdapter<RowSet<Row>, ReactiveSQLResultCollector,
-                                                                               T, R> resultAdapter);
+        @Override
+        @SuppressWarnings("unchecked")
+        public ReactiveJooqx<S> build() {
+            if (sqlClient() instanceof SqlConnection) {
+                return (ReactiveJooqx<S>) new ConnectionJooqxImpl(vertx(), dsl(), (SqlConnection) sqlClient(),
+                                                                  preparedQuery(), resultCollector(), errorConverter(),
+                                                                  typeMapperRegistry());
+            }
+            if (sqlClient() instanceof Pool) {
+                return (ReactiveJooqx<S>) new PoolJooqxImpl(vertx(), dsl(), (Pool) sqlClient(), preparedQuery(),
+                                                            resultCollector(), errorConverter(), typeMapperRegistry());
+            }
+            throw new UnsupportedOperationException("Unsupported to SQL client: [" + sqlClient().getClass() + "]");
+        }
+
+    }
 
 }

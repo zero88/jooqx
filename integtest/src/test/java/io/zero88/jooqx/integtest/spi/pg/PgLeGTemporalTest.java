@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 import io.vertx.core.Vertx;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
-import io.zero88.jooqx.LegacyDSL;
+import io.zero88.jooqx.DSLAdapter;
 import io.zero88.jooqx.integtest.pgsql.tables.TemporalDataType;
 import io.zero88.jooqx.integtest.pgsql.tables.records.TemporalDataTypeRecord;
 import io.zero88.jooqx.spi.pg.PgSQLLegacyTest;
@@ -29,7 +29,7 @@ class PgLeGTemporalTest extends PgSQLLegacyTest implements PostgreSQLHelper {
     void queryTemporal(VertxTestContext ctx) {
         Checkpoint flag = ctx.checkpoint();
         final TemporalDataType table = catalog().PUBLIC.TEMPORAL_DATA_TYPE;
-        jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), LegacyDSL.adapter().fetchOne(table),
+        jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table),
                       ar -> ctx.verify(() -> {
                           final TemporalDataTypeRecord record = assertSuccess(ctx, ar);
                           System.out.println(record);

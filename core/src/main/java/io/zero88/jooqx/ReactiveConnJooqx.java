@@ -1,7 +1,5 @@
 package io.zero88.jooqx;
 
-import java.util.function.Function;
-
 import org.jooq.DSLContext;
 import org.jooq.Query;
 
@@ -12,24 +10,25 @@ import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
-import io.vertx.core.json.JsonArray;
-import io.vertx.ext.sql.ResultSet;
-import io.vertx.ext.sql.SQLConnection;
-import io.zero88.jooqx.LegacySQLImpl.LegacyInternal;
+import io.vertx.sqlclient.SqlConnection;
 import io.zero88.jooqx.adapter.SQLResultAdapter;
 import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
 import lombok.NonNull;
 
 /**
- * Represents for a legacy SQL transaction executor
+ * Represents for an executor that executes {@code jOOQ query} on {@code Vertx reactive SQL client} connection
  *
+ * @see SqlConnection
  * @since 1.0.0
  */
 @VertxGen
-public interface LegacyJooqxTx extends LegacyInternal<SQLConnection>,
-                                       SQLTxExecutor<SQLConnection, JsonArray, LegacySQLPreparedQuery, ResultSet,
-                                                        LegacySQLCollector, LegacyJooqxTx> {
+public interface ReactiveConnJooqx extends ReactiveJooqx<SqlConnection> {
+
+    @GenIgnore
+    static ReactiveJooqxBuilder<SqlConnection> connBuilder() {
+        return ReactiveJooqx.builder();
+    }
 
     @Override
     @NonNull Vertx vertx();
@@ -39,14 +38,14 @@ public interface LegacyJooqxTx extends LegacyInternal<SQLConnection>,
     @NonNull DSLContext dsl();
 
     @Override
-    @NonNull SQLConnection sqlClient();
+    @NonNull SqlConnection sqlClient();
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    @NonNull LegacySQLPreparedQuery preparedQuery();
+    @NonNull ReactiveSQLPreparedQuery preparedQuery();
 
     @Override
-    @NonNull LegacySQLCollector resultCollector();
+    @NonNull ReactiveSQLResultCollector resultCollector();
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
@@ -58,26 +57,24 @@ public interface LegacyJooqxTx extends LegacyInternal<SQLConnection>,
 
     @Override
     @SuppressWarnings("unchecked")
-    default @NonNull LegacyJooqxTx transaction() {
-        return this;
-    }
+    @NonNull ReactiveJooqxTx transaction();
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    <T, R> Future<@Nullable R> execute(@NonNull Query query, @NonNull SQLResultAdapter<T, R> adapter);
+    <T, R> Future<R> execute(@NonNull Query query, @NonNull SQLResultAdapter<T, R> adapter);
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    default <T, R> void execute(@NonNull Query query, @NonNull SQLResultAdapter<T, R> resultAdapter,
+    default <T, R> void execute(@NonNull Query query, @NonNull SQLResultAdapter<T, R> adapter,
                                 @NonNull Handler<AsyncResult<@Nullable R>> handler) {
-        LegacyInternal.super.execute(query, resultAdapter, handler);
+        ReactiveJooqx.super.execute(query, adapter, handler);
     }
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
     default void batch(@NonNull Query query, @NonNull BindBatchValues bindBatchValues,
                        @NonNull Handler<AsyncResult<BatchResult>> handler) {
-        LegacyInternal.super.batch(query, bindBatchValues, handler);
+        ReactiveJooqx.super.batch(query, bindBatchValues, handler);
     }
 
     @Override
@@ -85,12 +82,16 @@ public interface LegacyJooqxTx extends LegacyInternal<SQLConnection>,
     Future<BatchResult> batch(@NonNull Query query, @NonNull BindBatchValues bindBatchValues);
 
     @Override
-    default <X> void run(@NonNull Function<LegacyJooqxTx, Future<X>> function,
-                         @NonNull Handler<AsyncResult<X>> handler) {
-        SQLTxExecutor.super.run(function, handler);
-    }
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    <T, R> Future<BatchReturningResult<R>> batch(@NonNull Query query, @NonNull BindBatchValues bindBatchValues,
+                                                 @NonNull SQLResultAdapter.SQLResultListAdapter<T, R> adapter);
 
     @Override
-    <X> Future<X> run(@NonNull Function<LegacyJooqxTx, Future<X>> function);
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    default <T, R> void batch(@NonNull Query query, @NonNull BindBatchValues bindBatchValues,
+                              @NonNull SQLResultAdapter.SQLResultListAdapter<T, R> adapter,
+                              @NonNull Handler<AsyncResult<BatchReturningResult<R>>> handler) {
+        ReactiveJooqx.super.batch(query, bindBatchValues, adapter, handler);
+    }
 
 }

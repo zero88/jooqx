@@ -1,6 +1,7 @@
 package io.zero88.jooqx.adapter;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.jooq.DSLContext;
 import org.jooq.Field;
@@ -20,17 +21,14 @@ import lombok.NonNull;
 /**
  * SQL Result adapter receives Result set then mapping to expected result
  *
- * @param <RS> Type of Vertx Result set
- * @param <C>  Type of SQL result set collector
- * @param <T>  Type of jOOQ Table in Query context
- * @param <O>  Type of an expectation output
+ * @param <T> Type of jOOQ Table in Query context
+ * @param <R> Type of an expectation output
  * @see TableLike
  * @see Record
  * @see SQLResultCollector
  * @since 1.0.0
  */
-public interface SQLResultAdapter<RS, C extends SQLResultCollector<RS>, T extends TableLike<? extends Record>, O>
-    extends HasStrategy {
+public interface SQLResultAdapter<T, R> extends HasStrategy {
 
     @SuppressWarnings( {"rawtypes", "unchecked"})
     static IdentityCollectorPart<JsonRecord<?>> byJson() {
@@ -65,49 +63,53 @@ public interface SQLResultAdapter<RS, C extends SQLResultCollector<RS>, T extend
     @NonNull T table();
 
     /**
-     * Declares Result set converter
-     *
-     * @return converter
-     */
-    @NonNull C converter();
-
-    /**
      * Collect result set to expected result
      *
      * @param resultSet result set
+     * @param collector result collector
      * @param dsl       jOOQ DSL context
      * @param registry  SQL data type mapper registry
      * @return an expected result
      * @see DataTypeMapperRegistry
      */
-    @NonNull O collect(@NonNull RS resultSet, @NonNull DSLContext dsl, @NonNull DataTypeMapperRegistry registry);
+    @NonNull <RS> R collect(@NonNull RS resultSet, @NonNull SQLResultCollector<RS> collector, @NonNull DSLContext dsl,
+                            @NonNull DataTypeMapperRegistry registry);
 
     /**
-     * Indicates select only one row
+     * Indicates select many row
      *
+     * @see SQLResultAdapter
      * @since 1.0.0
      */
-    interface SelectOneStrategy extends HasStrategy {
+    interface SQLResultListAdapter<T, R> extends SQLResultAdapter<T, List<R>> {
+
+        @Override
+        @NonNull <RS> List<R> collect(@NonNull RS resultSet, @NonNull SQLResultCollector<RS> collector,
+                                      @NonNull DSLContext dsl, @NonNull DataTypeMapperRegistry registry);
 
         @Override
         default @NonNull SelectStrategy strategy() {
-            return SelectStrategy.FIRST_ONE;
+            return SelectStrategy.MANY;
         }
 
     }
 
 
     /**
-     * Indicates select many row
+     * Indicates select only one row
      *
      * @since 1.0.0
      */
-    interface SelectManyStrategy extends HasStrategy {
+    interface SQLResultOneAdapter<T, R> extends SQLResultAdapter<T, R> {
 
         @Override
         default @NonNull SelectStrategy strategy() {
-            return SelectStrategy.MANY;
+            return SelectStrategy.FIRST_ONE;
         }
+
+        @Override
+        @NonNull <RS> R collect(@NonNull RS resultSet, @NonNull SQLResultCollector<RS> collector,
+                                @NonNull DSLContext dsl, @NonNull DataTypeMapperRegistry registry);
 
     }
 

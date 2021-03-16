@@ -14,29 +14,24 @@ import lombok.NonNull;
 /**
  * Select exists result adapter that defines output in {@code Boolean} type
  *
- * @see SelectAdhocOneResultAdapter
- * @see SelectOneStrategy
+ * @see SelectAdhocOneResult
+ * @see SQLResultAdapter.SQLResultOneAdapter
  * @since 1.0.0
  */
-public final class SelectExists<RS, C extends SQLResultCollector<RS>>
-    extends SelectAdhocOneResultAdapter<RS, C, TableLike<Record1<Integer>>, Boolean> {
+public final class SelectExists extends SelectAdhocOneResult<TableLike<Record1<Integer>>, Boolean> {
 
-    private SelectExists(@NonNull TableLike<Record1<Integer>> table, @NonNull C converter) {
-        super(table, converter);
+    public SelectExists(@NonNull TableLike<Record1<Integer>> table) {
+        super(table);
     }
 
     @Override
-    public Boolean collect(@NonNull RS resultSet, @NonNull DSLContext dsl, @NonNull DataTypeMapperRegistry registry) {
-        return converter().collect(resultSet, initStrategy(dsl, registry,
-                                                           SQLResultAdapter.byTable(table()).andThen(Objects::nonNull)))
-                          .stream()
-                          .findFirst()
-                          .isPresent();
-    }
-
-    public static <RS, C extends SQLResultCollector<RS>> SelectExists<RS, C> exist(
-        @NonNull TableLike<Record1<Integer>> table, @NonNull C converter) {
-        return new SelectExists<>(table, converter);
+    public <RS> Boolean collect(RS resultSet, @NonNull SQLResultCollector<RS> collector, @NonNull DSLContext dsl,
+                                @NonNull DataTypeMapperRegistry registry) {
+        return collector.collect(resultSet, initStrategy(dsl, registry,
+                                                         SQLResultAdapter.byTable(table()).andThen(Objects::nonNull)))
+                        .stream()
+                        .findFirst()
+                        .isPresent();
     }
 
 }
