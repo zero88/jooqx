@@ -131,3 +131,47 @@ And so more, you can convert to your existing application exception (must `exten
 // For example from JDBCErrorConverter
 new JDBCErrorConverter().to(dataAccessException -> new DatabaseError(ErrorCode.Duplicate, dataAccessException))
 ```
+
+## Rxify
+
+`jOOQ.x` supports out of the box [Vert.x RxJava](https://vertx.io/docs/vertx-rx/java2/)
+
+To use `jOOQ.x API` for RxJava2, add the following dependency to the dependencies section of your build descriptor:
+
+- Maven (in your `pom.xml`)
+
+```xml
+<dependency>
+   <groupId>io.vertx</groupId>
+   <artifactId>vertx-rx-java2</artifactId>
+   <version>4.0.3</version>
+</dependency>
+<dependency>
+  <groupId>io.github.zero88</groupId>
+  <artifactId>jooqx-core</artifactId>
+  <version>1.0.0</version>
+</dependency>
+<!-- Other database libs depends on your application -->
+```
+
+- Gradle (in your `build.gradle` or `build.gradle.kts`)
+
+```gradle
+dependencies {
+    api("io.github.zero88:jooqx-core:1.0.0")
+    api("io.vertx:vertx-rx-java2:4.0.3")
+    // Other database libs depends on your application
+}
+```
+
+Then you can use same as `Vertx rx-java2 Rxified API`
+
+```java
+ReactivePoolJooqx jooqx = ReactivePoolJooqx.newInstance(io.zero88.jooqx.ReactivePoolJooqx.poolBuilder()
+                                       .vertx(vertx)
+                                       .dsl(dsl)
+                                       .sqlClient(sqlClient)
+                                       .build());
+jooqx.rxExecute(jooqx.dsl().selectFrom(table), DSLAdapter.fetchJsonRecords(table))
+     .subscribe(records -> {}, err -> {});
+```

@@ -53,7 +53,6 @@ To use `jooqx` add the following dependency to the dependencies section of your 
 - `Maven` (in your `pom.xml`):
 
 ```xml
-
 <dependency>
     <groupId>io.github.zero88</groupId>
     <artifactId>jooqx-core</artifactId>
@@ -65,7 +64,7 @@ To use `jooqx` add the following dependency to the dependencies section of your 
 
 ```groovy
 dependencies {
-    compile("io.github.zero88:jooqx-core:1.0.0")
+    api("io.github.zero88:jooqx-core:1.0.0")
 }
 ```
 
@@ -86,13 +85,13 @@ For example:
 
 ```groovy
 dependencies {
-    compile("mysql:mysql-connector-java:8.0.23")
+    api("mysql:mysql-connector-java:8.0.23")
     // It is recommendation to use HikariCP instead of c3p0
-    compile("com.zaxxer:HikariCP:4.0.2")
-    compile("io.vertx:vertx-jdbc-client:4.0.2") {
+    api("com.zaxxer:HikariCP:4.0.2")
+    api("io.vertx:vertx-jdbc-client:4.0.2") {
         exclude("com.mchange")
     }
-    compile("io.github.zero88:jooqx-core:1.0.0")
+    api("io.github.zero88:jooqx-core:1.0.0")
 }
 ```
 
@@ -100,8 +99,8 @@ dependencies {
 
 ```groovy
 dependencies {
-    compile("io.vertx:vertx-pg-client:4.0.2")
-    compile("io.github.zero88:jooqx-core:1.0.0")
+    api("io.vertx:vertx-pg-client:4.0.2")
+    api("io.github.zero88:jooqx-core:1.0.0")
 }
 ```
 
@@ -109,11 +108,11 @@ dependencies {
 
 ```groovy
 dependencies {
-    compile("com.h2database:h2:1.4.200")
+    api("com.h2database:h2:1.4.200")
     // Agroal pool - Default in Vertx SQL client - Not yet has alternatives
-    compile("io.agroal:agroal-pool:1.9")
-    compile("io.vertx:vertx-sql-client:4.0.2")
-    compile("io.github.zero88:jooqx-core:1.0.0")
+    api("io.agroal:agroal-pool:1.9")
+    api("io.vertx:vertx-sql-client:4.0.2")
+    api("io.github.zero88:jooqx-core:1.0.0")
 }
 ```
 
