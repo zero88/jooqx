@@ -1,6 +1,7 @@
 package io.zero88.jooqx.spi.pg.datatype;
 
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 import org.jetbrains.annotations.NotNull;
 import org.jooq.types.DayToSecond;
@@ -17,9 +18,10 @@ public final class IntervalConverter implements JooqxConverter<Interval, YearToS
         if (Objects.isNull(vertxObject)) {
             return null;
         }
+        final long convert = TimeUnit.NANOSECONDS.convert(vertxObject.getMicroseconds(), TimeUnit.MICROSECONDS);
         return new YearToSecond(new YearToMonth(vertxObject.getYears(), vertxObject.getMonths()),
                                 new DayToSecond(vertxObject.getDays(), vertxObject.getHours(), vertxObject.getMinutes(),
-                                                vertxObject.getSeconds(), vertxObject.getMicroseconds()));
+                                                vertxObject.getSeconds(), (int) convert));
     }
 
     @Override
