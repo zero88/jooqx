@@ -27,7 +27,7 @@ import lombok.experimental.Accessors;
  * @param <RS> Type of Vertx SQL result set holder
  * @param <C>  Type of SQL result set collector
  * @see LegacyJooqx
- * @see ReactiveJooqx
+ * @see ReactiveJooqxBase
  * @see SQLBatchExecutor
  * @since 1.0.0
  */

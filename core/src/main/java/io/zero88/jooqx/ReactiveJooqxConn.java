@@ -11,6 +11,7 @@ import io.vertx.core.Future;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.sqlclient.SqlConnection;
+import io.zero88.jooqx.ReactiveSQLImpl.JooqxConnImpl;
 import io.zero88.jooqx.adapter.SQLResultAdapter;
 import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
@@ -23,11 +24,11 @@ import lombok.NonNull;
  * @since 1.0.0
  */
 @VertxGen
-public interface ReactiveConnJooqx extends ReactiveJooqx<SqlConnection> {
+public interface ReactiveJooqxConn extends ReactiveJooqxBase<SqlConnection> {
 
     @GenIgnore
-    static ReactiveJooqxBuilder<SqlConnection> connBuilder() {
-        return ReactiveJooqx.builder();
+    static ReactiveJooqxConnBuilder builder() {
+        return new ReactiveJooqxConnBuilder();
     }
 
     @Override
@@ -67,14 +68,14 @@ public interface ReactiveConnJooqx extends ReactiveJooqx<SqlConnection> {
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
     default <T, R> void execute(@NonNull Query query, @NonNull SQLResultAdapter<T, R> adapter,
                                 @NonNull Handler<AsyncResult<@Nullable R>> handler) {
-        ReactiveJooqx.super.execute(query, adapter, handler);
+        ReactiveJooqxBase.super.execute(query, adapter, handler);
     }
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
     default void batch(@NonNull Query query, @NonNull BindBatchValues bindBatchValues,
                        @NonNull Handler<AsyncResult<BatchResult>> handler) {
-        ReactiveJooqx.super.batch(query, bindBatchValues, handler);
+        ReactiveJooqxBase.super.batch(query, bindBatchValues, handler);
     }
 
     @Override
@@ -91,7 +92,18 @@ public interface ReactiveConnJooqx extends ReactiveJooqx<SqlConnection> {
     default <T, R> void batch(@NonNull Query query, @NonNull BindBatchValues bindBatchValues,
                               @NonNull SQLResultAdapter.SQLResultListAdapter<T, R> adapter,
                               @NonNull Handler<AsyncResult<BatchReturningResult<R>>> handler) {
-        ReactiveJooqx.super.batch(query, bindBatchValues, adapter, handler);
+        ReactiveJooqxBase.super.batch(query, bindBatchValues, adapter, handler);
+    }
+
+    @GenIgnore
+    class ReactiveJooqxConnBuilder extends ReAJooqxBBuilder<SqlConnection, ReactiveJooqxConn> {
+
+        @Override
+        public ReactiveJooqxConn build() {
+            return new JooqxConnImpl(vertx(), dsl(), sqlClient(), preparedQuery(), resultCollector(),
+                                     errorConverter(), typeMapperRegistry());
+        }
+
     }
 
 }

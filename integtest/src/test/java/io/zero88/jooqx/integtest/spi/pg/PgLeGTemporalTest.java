@@ -29,18 +29,17 @@ class PgLeGTemporalTest extends PgSQLLegacyTest implements PostgreSQLHelper {
     void queryTemporal(VertxTestContext ctx) {
         Checkpoint flag = ctx.checkpoint();
         final TemporalDataType table = catalog().PUBLIC.TEMPORAL_DATA_TYPE;
-        jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table),
-                      ar -> ctx.verify(() -> {
-                          final TemporalDataTypeRecord record = assertSuccess(ctx, ar);
-                          System.out.println(record);
-                          Assertions.assertNotNull(record.getDate());
-                          Assertions.assertNotNull(record.getTime());
-                          Assertions.assertNotNull(record.getTimetz());
-                          Assertions.assertNotNull(record.getTimestamptz());
-                          Assertions.assertNotNull(record.getInterval());
-                          Assertions.assertNotNull(record.getTimestamp());
-                          flag.flag();
-                      }));
+        jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
+            final TemporalDataTypeRecord record = assertSuccess(ctx, ar);
+            System.out.println(record);
+            Assertions.assertNotNull(record.getDate());
+            Assertions.assertNotNull(record.getTime());
+            Assertions.assertNotNull(record.getTimetz());
+            Assertions.assertNotNull(record.getTimestamptz());
+            Assertions.assertNotNull(record.getInterval());
+            Assertions.assertNotNull(record.getTimestamp());
+            flag.flag();
+        }));
     }
 
     @Test

@@ -119,18 +119,23 @@ final class ReactiveSQLImpl {
     }
 
 
-    static class ConnectionJooqxImpl extends ReactiveJooqxImpl<SqlConnection> implements ReactiveJooqxTx {
+    static class JooqxConnImpl extends ReactiveJooqxImpl<SqlConnection> implements ReactiveJooqxTx {
 
-        private final ReactivePoolJooqx delegate;
+        private final ReactiveJooqx delegate;
 
-        ConnectionJooqxImpl(Vertx vertx, DSLContext dsl, SqlConnection sqlClient,
-                            ReactiveSQLPreparedQuery preparedQuery, ReactiveSQLResultCollector resultCollector,
-                            SQLErrorConverter errorConverter, DataTypeMapperRegistry typeMapperRegistry) {
+        JooqxConnImpl(ReAJooqxBBuilder<SqlConnection, ReactiveJooqxBase<SqlConnection>> builder) {
+            super(builder);
+            this.delegate = null;
+        }
+
+        JooqxConnImpl(Vertx vertx, DSLContext dsl, SqlConnection sqlClient,
+                      ReactiveSQLPreparedQuery preparedQuery, ReactiveSQLResultCollector resultCollector,
+                      SQLErrorConverter errorConverter, DataTypeMapperRegistry typeMapperRegistry) {
             super(vertx, dsl, sqlClient, preparedQuery, resultCollector, errorConverter, typeMapperRegistry);
             this.delegate = null;
         }
 
-        public ConnectionJooqxImpl(@NonNull ReactivePoolJooqx delegate) {
+        JooqxConnImpl(@NonNull ReactiveJooqx delegate) {
             super(delegate.vertx(), delegate.dsl(), null, delegate.preparedQuery(), delegate.resultCollector(),
                   delegate.errorConverter(), delegate.typeMapperRegistry());
             this.delegate = delegate;
@@ -163,7 +168,7 @@ final class ReactiveSQLImpl {
             return tx.rollback().compose(v -> Future.failedFuture(t), failure -> Future.failedFuture(t));
         }
 
-        private ReactivePoolJooqx delegate() {
+        private ReactiveJooqx delegate() {
             if (Objects.isNull(delegate)) {
                 throw new UnsupportedOperationException(
                     "Unsupported using connection on SQL connection: [" + sqlClient().getClass() +
@@ -175,19 +180,23 @@ final class ReactiveSQLImpl {
     }
 
 
-    static class PoolJooqxImpl extends ReactiveJooqxImpl<Pool> implements ReactivePoolJooqx {
+    static class JooqxPoolImpl extends ReactiveJooqxImpl<Pool> implements ReactiveJooqx {
 
-        PoolJooqxImpl(Vertx vertx, DSLContext dsl, Pool sqlClient, ReactiveSQLPreparedQuery preparedQuery,
+        JooqxPoolImpl(Vertx vertx, DSLContext dsl, Pool sqlClient, ReactiveSQLPreparedQuery preparedQuery,
                       ReactiveSQLResultCollector resultCollector, SQLErrorConverter errorConverter,
                       DataTypeMapperRegistry typeMapperRegistry) {
             super(vertx, dsl, sqlClient, preparedQuery, resultCollector, errorConverter, typeMapperRegistry);
+        }
+
+        JooqxPoolImpl(ReAJooqxBBuilder<Pool, ReactiveJooqxBase<Pool>> builder) {
+            super(builder);
         }
 
         @Override
         @NonNull
         @SuppressWarnings("unchecked")
         public ReactiveJooqxTx transaction() {
-            return new ConnectionJooqxImpl(this);
+            return new JooqxConnImpl(this);
         }
 
     }
@@ -197,7 +206,12 @@ final class ReactiveSQLImpl {
     @Accessors(fluent = true)
     abstract static class ReactiveJooqxImpl<S extends SqlClient>
         extends SQLEI<S, Tuple, ReactiveSQLPreparedQuery, RowSet<Row>, ReactiveSQLResultCollector>
-        implements ReactiveJooqx<S> {
+        implements ReactiveJooqxBase<S> {
+
+        ReactiveJooqxImpl(ReAJooqxBBuilder<S, ReactiveJooqxBase<S>> builder) {
+            this(builder.vertx(), builder.dsl(), builder.sqlClient(), builder.preparedQuery(),
+                 builder.resultCollector(), builder.errorConverter(), builder.typeMapperRegistry());
+        }
 
         ReactiveJooqxImpl(Vertx vertx, DSLContext dsl, S sqlClient, ReactiveSQLPreparedQuery preparedQuery,
                           ReactiveSQLResultCollector resultCollector, SQLErrorConverter errorConverter,
@@ -253,14 +267,14 @@ final class ReactiveSQLImpl {
 
         @Override
         protected ReactiveJooqxImpl<S> withSqlClient(@NonNull S sqlClient) {
-            return (ReactiveJooqxImpl<S>) ReactiveJooqx.<S>builder().vertx(vertx())
-                                                                    .sqlClient(sqlClient)
-                                                                    .dsl(dsl())
-                                                                    .preparedQuery(preparedQuery())
-                                                                    .resultCollector(resultCollector())
-                                                                    .errorConverter(errorConverter())
-                                                                    .typeMapperRegistry(typeMapperRegistry())
-                                                                    .build();
+            return (ReactiveJooqxImpl<S>) ReactiveJooqxBase.<S>baseBuilder().vertx(vertx())
+                                                                            .sqlClient(sqlClient)
+                                                                            .dsl(dsl())
+                                                                            .preparedQuery(preparedQuery())
+                                                                            .resultCollector(resultCollector())
+                                                                            .errorConverter(errorConverter())
+                                                                            .typeMapperRegistry(typeMapperRegistry())
+                                                                            .build();
         }
 
         @Override
