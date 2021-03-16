@@ -3,6 +3,7 @@ package io.zero88.jooqx.integtest.spi.pg;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
+import org.jooq.Catalog;
 import org.jooq.SQLDialect;
 import org.jooq.impl.EnumConverter;
 
@@ -23,7 +24,7 @@ import io.zero88.jooqx.spi.pg.datatype.PgTypeMapperRegistry;
 
 import lombok.NonNull;
 
-public interface PostgreSQLHelper extends JooqSQL<DefaultCatalog>, SQLTestHelper {
+public interface PostgreSQLHelper<T extends Catalog> extends JooqSQL<T>, SQLTestHelper {
 
     default void prepareDatabase(VertxTestContext context, JooqSQL<?> jooqSql, SQLConnectionOption connOption,
                                  String... otherDataFiles) {
@@ -33,31 +34,52 @@ public interface PostgreSQLHelper extends JooqSQL<DefaultCatalog>, SQLTestHelper
     }
 
     @Override
-    default DefaultCatalog catalog() {
-        return DefaultCatalog.DEFAULT_CATALOG;
-    }
-
-    @Override
     default @NonNull SQLDialect dialect() {
         return SQLDialect.POSTGRES;
     }
 
-    interface PgUseJooqType extends TypeMapperRegistryCreator {
+    interface PgLegacyType extends PostgreSQLHelper<DefaultCatalog> {
+
+        @Override
+        default DefaultCatalog catalog() {
+            return DefaultCatalog.DEFAULT_CATALOG;
+        }
+
+    }
+
+
+    interface PgUseJooqType extends TypeMapperRegistryCreator, PostgreSQLHelper<DefaultCatalog> {
 
         @Override
         default DataTypeMapperRegistry typeMapperRegistry() {
             return PgTypeMapperRegistry.useUserTypeAsJooqType();
         }
 
+        @Override
+        default DefaultCatalog catalog() {
+            return DefaultCatalog.DEFAULT_CATALOG;
+        }
+
     }
 
 
-    interface PgUseVertxType extends TypeMapperRegistryCreator {
+    interface PgUseVertxType
+        extends TypeMapperRegistryCreator, PostgreSQLHelper<io.zero88.jooqx.integtest.pgsql2.DefaultCatalog> {
 
         @Override
         default DataTypeMapperRegistry typeMapperRegistry() {
+            if (alreadyGenerated()) {
+                return TypeMapperRegistryCreator.super.typeMapperRegistry();
+            }
             return PgTypeMapperRegistry.useUserTypeAsVertxType();
         }
+
+        @Override
+        default io.zero88.jooqx.integtest.pgsql2.DefaultCatalog catalog() {
+            return io.zero88.jooqx.integtest.pgsql2.DefaultCatalog.DEFAULT_CATALOG;
+        }
+
+        boolean alreadyGenerated();
 
     }
 

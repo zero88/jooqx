@@ -1,4 +1,4 @@
-package io.zero88.jooqx.integtest.spi.pg;
+package io.zero88.jooqx.integtest.spi.pg.jooq;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,8 +15,8 @@ import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgUseJooqType;
 import io.zero88.jooqx.spi.jdbc.JDBCReactiveProvider;
 import io.zero88.jooqx.spi.pg.PgSQLReactiveTest;
 
-public class PgReARxTest extends PgSQLReactiveTest<JDBCPool>
-    implements PostgreSQLHelper, PgUseJooqType, JDBCReactiveProvider, UseJdbcErrorConverter, ReactiveRxHelper {
+class PgReARxTest extends PgSQLReactiveTest<JDBCPool>
+    implements PgUseJooqType, JDBCReactiveProvider, UseJdbcErrorConverter, ReactiveRxHelper {
 
     @Override
     @BeforeEach

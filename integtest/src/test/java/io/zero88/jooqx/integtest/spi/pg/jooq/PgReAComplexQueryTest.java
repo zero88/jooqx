@@ -1,4 +1,4 @@
-package io.zero88.jooqx.integtest.spi.pg;
+package io.zero88.jooqx.integtest.spi.pg.jooq;
 
 import java.util.List;
 
@@ -22,10 +22,11 @@ import io.zero88.jooqx.integtest.pgsql.tables.pojos.Books;
 import io.zero88.jooqx.integtest.pgsql.tables.records.AuthorsRecord;
 import io.zero88.jooqx.integtest.pgsql.tables.records.BooksAuthorsRecord;
 import io.zero88.jooqx.integtest.pgsql.tables.records.BooksRecord;
+import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgUseJooqType;
 import io.zero88.jooqx.spi.pg.PgPoolProvider;
 import io.zero88.jooqx.spi.pg.PgSQLReactiveTest;
 
-class PgReAComplexQueryTest extends PgSQLReactiveTest<PgPool> implements PgPoolProvider, PostgreSQLHelper {
+class PgReAComplexQueryTest extends PgSQLReactiveTest<PgPool> implements PgPoolProvider, PgUseJooqType {
 
     @Override
     @BeforeEach

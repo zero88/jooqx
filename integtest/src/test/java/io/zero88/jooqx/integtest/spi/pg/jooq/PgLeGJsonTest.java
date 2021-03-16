@@ -1,4 +1,4 @@
-package io.zero88.jooqx.integtest.spi.pg;
+package io.zero88.jooqx.integtest.spi.pg.jooq;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,27 +21,19 @@ import io.zero88.jooqx.integtest.pgsql.tables.JsonDataType;
 import io.zero88.jooqx.integtest.pgsql.tables.JsonbDataType;
 import io.zero88.jooqx.integtest.pgsql.tables.records.JsonDataTypeRecord;
 import io.zero88.jooqx.integtest.pgsql.tables.records.JsonbDataTypeRecord;
+import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgLegacyType;
 import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgUseJooqType;
 import io.zero88.jooqx.spi.pg.PgSQLLegacyTest;
 
 //FIXME: Vert.x unreliable
 @Disabled
-class PgLeGJsonTest extends PgSQLLegacyTest implements PostgreSQLHelper, UseJdbcErrorConverter, PgUseJooqType {
+class PgLeGJsonTest extends PgSQLLegacyTest implements UseJdbcErrorConverter, PgLegacyType {
 
     @Override
     @BeforeEach
     public void tearUp(Vertx vertx, VertxTestContext ctx) {
         super.tearUp(vertx, ctx);
         this.prepareDatabase(ctx, this, connOpt, "pg_data/json.sql");
-    }
-
-    @Override
-    public DataTypeMapperRegistry typeMapperRegistry() {
-        return PgUseJooqType.super.typeMapperRegistry()
-                                  .addByColumn(catalog().PUBLIC.JSON_DATA_TYPE.JSONARRAY,
-                                               UserTypeAsJooqType.create(new JsonArrayJSONConverter()))
-                                  .addByColumn(catalog().PUBLIC.JSONB_DATA_TYPE.JSONARRAY,
-                                               UserTypeAsJooqType.create(new JsonArrayJSONBConverter()));
     }
 
     @Test

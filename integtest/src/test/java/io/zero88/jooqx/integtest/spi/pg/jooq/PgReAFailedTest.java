@@ -1,4 +1,4 @@
-package io.zero88.jooqx.integtest.spi.pg;
+package io.zero88.jooqx.integtest.spi.pg.jooq;
 
 import java.util.Collections;
 
@@ -17,12 +17,13 @@ import io.vertx.pgclient.PgException;
 import io.zero88.jooqx.DSLAdapter;
 import io.zero88.jooqx.integtest.pgsql.tables.Books;
 import io.zero88.jooqx.integtest.pgsql.tables.records.BooksRecord;
+import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgUseJooqType;
 import io.zero88.jooqx.spi.pg.PgConnProvider;
 import io.zero88.jooqx.spi.pg.PgSQLReactiveTest;
 import io.zero88.jooqx.spi.pg.UsePgSQLErrorConverter;
 
 class PgReAFailedTest extends PgSQLReactiveTest<PgConnection>
-    implements PgConnProvider, PostgreSQLHelper, UsePgSQLErrorConverter {
+    implements PgConnProvider, PgUseJooqType, UsePgSQLErrorConverter {
 
     @Override
     @BeforeEach

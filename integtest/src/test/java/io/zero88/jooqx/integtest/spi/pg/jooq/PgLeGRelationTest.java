@@ -1,4 +1,4 @@
-package io.zero88.jooqx.integtest.spi.pg;
+package io.zero88.jooqx.integtest.spi.pg.jooq;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,18 +17,17 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 import io.zero88.jooqx.BindBatchValues;
-import io.zero88.jooqx.JooqErrorConverter.JDBCErrorConverter;
 import io.zero88.jooqx.JsonRecord;
 import io.zero88.jooqx.DSLAdapter;
-import io.zero88.jooqx.SQLErrorConverter;
 import io.zero88.jooqx.UseJdbcErrorConverter;
 import io.zero88.jooqx.integtest.pgsql.tables.Authors;
 import io.zero88.jooqx.integtest.pgsql.tables.Books;
 import io.zero88.jooqx.integtest.pgsql.tables.records.AuthorsRecord;
 import io.zero88.jooqx.integtest.pgsql.tables.records.BooksRecord;
+import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgLegacyType;
 import io.zero88.jooqx.spi.pg.PgSQLLegacyTest;
 
-class PgLeGRelationTest extends PgSQLLegacyTest implements PostgreSQLHelper, UseJdbcErrorConverter {
+class PgLeGRelationTest extends PgSQLLegacyTest implements PgLegacyType, UseJdbcErrorConverter {
 
     @Override
     @BeforeEach

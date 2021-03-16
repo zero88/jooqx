@@ -1,4 +1,6 @@
-package io.zero88.jooqx.integtest.spi.pg;
+package io.zero88.jooqx.integtest.spi.pg.jooq;
+
+import java.nio.charset.StandardCharsets;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +19,7 @@ import io.zero88.jooqx.spi.pg.PgSQLReactiveTest;
 import io.zero88.jooqx.spi.pg.UsePgSQLErrorConverter;
 
 class PgReACharacterTest extends PgSQLReactiveTest<PgPool>
-    implements UsePgSQLErrorConverter, PgPoolProvider, PostgreSQLHelper, PgUseJooqType {
+    implements UsePgSQLErrorConverter, PgPoolProvider, PgUseJooqType {
 
     @Override
     @BeforeEach
@@ -30,22 +32,22 @@ class PgReACharacterTest extends PgSQLReactiveTest<PgPool>
     void queryCharacter(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
         final CharacterDataType table = catalog().PUBLIC.CHARACTER_DATA_TYPE;
-        jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table),
-                      ar -> ctx.verify(() -> {
-                          final CharacterDataTypeRecord record = assertSuccess(ctx, ar);
-                          System.out.println(record);
-                          Assertions.assertNotNull(record.getName());
+        jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
+            final CharacterDataTypeRecord record = assertSuccess(ctx, ar);
+            System.out.println(record);
+            Assertions.assertNotNull(record.getName());
 
-                          Assertions.assertNotNull(record.getFixedchar());
-                          Assertions.assertNotNull(record.getSinglechar());
+            Assertions.assertNotNull(record.getFixedchar());
+            Assertions.assertNotNull(record.getSinglechar());
 
-                          Assertions.assertNotNull(record.getText());
-                          Assertions.assertNotNull(record.getVarcharacter());
+            Assertions.assertNotNull(record.getText());
+            Assertions.assertNotNull(record.getVarcharacter());
 
-                          Assertions.assertNotNull(record.getUuid());
-                          Assertions.assertNotNull(record.getBytea());
-                          flag.flag();
-                      }));
+            Assertions.assertNotNull(record.getUuid());
+            Assertions.assertNotNull(record.getBytea());
+            Assertions.assertEquals("HELLO", new String(record.getBytea(), StandardCharsets.UTF_8));
+            flag.flag();
+        }));
     }
 
 }

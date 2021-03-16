@@ -1,4 +1,4 @@
-package io.zero88.jooqx.integtest.spi.pg;
+package io.zero88.jooqx.integtest.spi.pg.jooq;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -26,6 +26,7 @@ import io.zero88.jooqx.JsonRecord;
 import io.zero88.jooqx.integtest.pgsql.tables.pojos.Authors;
 import io.zero88.jooqx.integtest.pgsql.tables.records.AuthorsRecord;
 import io.zero88.jooqx.integtest.pgsql.tables.records.BooksRecord;
+import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgUseJooqType;
 import io.zero88.jooqx.spi.pg.PgConnProvider;
 import io.zero88.jooqx.spi.pg.PgSQLReactiveTest;
 
@@ -33,7 +34,7 @@ import io.zero88.jooqx.spi.pg.PgSQLReactiveTest;
  * If using v4.0.0, pretty sure thread leak, but v4.0.2 is already fixed
  * <a href="vertx-sql-client#909">https://github.com/eclipse-vertx/vertx-sql-client/issues/909</a>
  */
-class PgReARelationTest extends PgSQLReactiveTest<PgConnection> implements PgConnProvider, PostgreSQLHelper {
+class PgReARelationTest extends PgSQLReactiveTest<PgConnection> implements PgConnProvider, PgUseJooqType {
 
     @Override
     @BeforeEach
@@ -93,6 +94,7 @@ class PgReARelationTest extends PgSQLReactiveTest<PgConnection> implements PgCon
             flag.flag();
         }));
     }
+
     @Test
     void test_select_one_convert_by_json_record(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();

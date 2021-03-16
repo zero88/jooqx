@@ -1,4 +1,4 @@
-package io.zero88.jooqx.integtest.spi.pg;
+package io.zero88.jooqx.integtest.spi.pg.jooq;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +20,7 @@ import io.zero88.jooqx.integtest.pgsql.tables.records.UdtDataTypeRecord;
 import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgUseJooqType;
 import io.zero88.jooqx.spi.pg.PgSQLLegacyTest;
 
-class PgLeGCustomTest extends PgSQLLegacyTest implements PostgreSQLHelper, UseJdbcErrorConverter, PgUseJooqType {
+class PgLeGCustomTest extends PgSQLLegacyTest implements UseJdbcErrorConverter, PgUseJooqType {
 
     @Override
     @BeforeEach

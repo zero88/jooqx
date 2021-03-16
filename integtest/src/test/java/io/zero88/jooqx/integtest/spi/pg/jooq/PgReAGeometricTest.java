@@ -1,4 +1,4 @@
-package io.zero88.jooqx.integtest.spi.pg;
+package io.zero88.jooqx.integtest.spi.pg.jooq;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,7 +17,7 @@ import io.zero88.jooqx.spi.pg.PgSQLReactiveTest;
 import io.zero88.jooqx.spi.pg.UsePgSQLErrorConverter;
 
 class PgReAGeometricTest extends PgSQLReactiveTest<PgPool>
-    implements UsePgSQLErrorConverter, PgPoolProvider, PostgreSQLHelper, PgUseJooqType {
+    implements UsePgSQLErrorConverter, PgPoolProvider, PgUseJooqType {
 
     @Override
     @BeforeEach
@@ -30,23 +30,22 @@ class PgReAGeometricTest extends PgSQLReactiveTest<PgPool>
     void queryGeometric(VertxTestContext ctx) {
         final Checkpoint cp = ctx.checkpoint();
         final GeometricDataType table = catalog().PUBLIC.GEOMETRIC_DATA_TYPE;
-        jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table),
-                      ar -> ctx.verify(() -> {
-                          final GeometricDataTypeRecord record = assertSuccess(ctx, ar);
-                          System.out.println(record);
+        jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
+            final GeometricDataTypeRecord record = assertSuccess(ctx, ar);
+            System.out.println(record);
 
-                          Assertions.assertNotNull(record.getPoint());
+            Assertions.assertNotNull(record.getPoint());
 
-                          Assertions.assertNotNull(record.getPolygon());
-                          Assertions.assertNotNull(record.getBox());
+            Assertions.assertNotNull(record.getPolygon());
+            Assertions.assertNotNull(record.getBox());
 
-                          Assertions.assertNotNull(record.getCircle());
-                          Assertions.assertNotNull(record.getLine());
-                          Assertions.assertNotNull(record.getLseg());
-                          Assertions.assertNotNull(record.getClosedpath());
-                          Assertions.assertNotNull(record.getOpenpath());
-                          cp.flag();
-                      }));
+            Assertions.assertNotNull(record.getCircle());
+            Assertions.assertNotNull(record.getLine());
+            Assertions.assertNotNull(record.getLseg());
+            Assertions.assertNotNull(record.getClosedpath());
+            Assertions.assertNotNull(record.getOpenpath());
+            cp.flag();
+        }));
     }
 
 }
