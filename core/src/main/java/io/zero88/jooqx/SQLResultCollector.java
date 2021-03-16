@@ -26,6 +26,13 @@ public interface SQLResultCollector<RS> {
     @GenIgnore
     Logger LOGGER = LoggerFactory.getLogger(SQLResultCollector.class);
 
+    @GenIgnore
+    default void warnManyResult(boolean check, @NonNull SelectStrategy strategy) {
+        if (check) {
+            LOGGER.warn("Query strategy is [{}] but query result contains more than one row", strategy);
+        }
+    }
+
     /**
      * Collect result set to an expectation result
      *
@@ -35,11 +42,5 @@ public interface SQLResultCollector<RS> {
      * @return list output
      */
     @NonNull <R extends Record, O> List<O> collect(@NonNull RS resultSet, @NonNull RowConverterStrategy<R, O> strategy);
-
-    default void warnManyResult(boolean check, @NonNull SelectStrategy strategy) {
-        if (check) {
-            LOGGER.warn("Query strategy is [{}] but query result contains more than one row", strategy);
-        }
-    }
 
 }

@@ -6,6 +6,7 @@ import org.jooq.TableLike;
 
 import io.vertx.codegen.annotations.GenIgnore;
 import io.vertx.codegen.annotations.Nullable;
+import io.vertx.codegen.annotations.VertxGen;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
@@ -31,7 +32,7 @@ import lombok.NonNull;
  * @see ResultSet
  * @since 1.0.0
  */
-//@VertxGen
+@VertxGen
 public interface LegacyJooqx extends LegacySQLImpl.LegacyInternal<SQLClient> {
 
     @GenIgnore
