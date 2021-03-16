@@ -22,7 +22,7 @@ class H2ReAFailedTest extends ReactiveDBMemoryTest<JDBCPool>
 
     @Test
     void test(VertxTestContext testContext) {
-        final Author table = catalog().DEFAULT_SCHEMA.AUTHOR;
+        final Author table = schema().AUTHOR;
         final InsertResultStep<AuthorRecord> insert = jooqx.dsl()
                                                            .insertInto(table, table.ID, table.FIRST_NAME)
                                                            .values(Arrays.asList(DSL.defaultValue(table.ID), "abc"))

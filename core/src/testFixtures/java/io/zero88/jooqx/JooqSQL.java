@@ -10,8 +10,8 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import org.jooq.Catalog;
 import org.jooq.DSLContext;
+import org.jooq.Schema;
 
 import io.vertx.junit5.VertxTestContext;
 
@@ -20,9 +20,9 @@ import com.zaxxer.hikari.HikariDataSource;
 
 import lombok.NonNull;
 
-public interface JooqSQL<T extends Catalog> extends JooqDSLProvider, HasDSLProvider {
+public interface JooqSQL<S extends Schema> extends JooqDSLProvider, HasDSLProvider {
 
-    T catalog();
+    S schema();
 
     @Override
     default JooqDSLProvider dslProvider() {

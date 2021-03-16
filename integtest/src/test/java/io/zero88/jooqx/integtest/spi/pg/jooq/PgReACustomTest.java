@@ -1,4 +1,4 @@
-package io.zero88.jooqx.integtest.spi.pg;
+package io.zero88.jooqx.integtest.spi.pg.jooq;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,7 +23,7 @@ import io.zero88.jooqx.spi.pg.PgSQLReactiveTest;
 import io.zero88.jooqx.spi.pg.UsePgSQLErrorConverter;
 
 class PgReACustomTest extends PgSQLReactiveTest<PgPool>
-    implements UsePgSQLErrorConverter, PgPoolProvider, PostgreSQLHelper, PgUseJooqType {
+    implements UsePgSQLErrorConverter, PgPoolProvider, PgUseJooqType {
 
     @Override
     @BeforeEach
@@ -35,44 +35,42 @@ class PgReACustomTest extends PgSQLReactiveTest<PgPool>
     @Override
     public DataTypeMapperRegistry typeMapperRegistry() {
         return PgUseJooqType.super.typeMapperRegistry()
-                                  .addByColumn(catalog().PUBLIC.ENUM_DATA_TYPE.CURRENTMOOD,
+                                  .addByColumn(schema().ENUM_DATA_TYPE.CURRENTMOOD,
                                                UserTypeAsJooqType.create(new EnumMoodConverter()))
-                                  .addByColumn(catalog().PUBLIC.ENUM_DATA_TYPE.CURRENTWEATHER,
+                                  .addByColumn(schema().ENUM_DATA_TYPE.CURRENTWEATHER,
                                                UserTypeAsJooqType.create(new EnumWeatherConverter()))
-                                  .addByColumn(catalog().PUBLIC.UDT_DATA_TYPE.ADDRESS,
+                                  .addByColumn(schema().UDT_DATA_TYPE.ADDRESS,
                                                UserTypeAsJooqType.create(new FullAddressConverter()));
     }
 
     @Test
     void queryEnum(VertxTestContext ctx) {
         Checkpoint flag = ctx.checkpoint();
-        final EnumDataType table = catalog().PUBLIC.ENUM_DATA_TYPE;
-        jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table),
-                      ar -> ctx.verify(() -> {
-                          final EnumDataTypeRecord record = assertSuccess(ctx, ar);
-                          System.out.println(record);
+        final EnumDataType table = schema().ENUM_DATA_TYPE;
+        jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
+            final EnumDataTypeRecord record = assertSuccess(ctx, ar);
+            System.out.println(record);
 
-                          Assertions.assertEquals(Mood.ok, record.getCurrentmood());
-                          Assertions.assertEquals(Weather.sunny, record.getCurrentweather());
-                          flag.flag();
-                      }));
+            Assertions.assertEquals(Mood.ok, record.getCurrentmood());
+            Assertions.assertEquals(Weather.sunny, record.getCurrentweather());
+            flag.flag();
+        }));
     }
 
     @Test
     void queryCustom(VertxTestContext ctx) {
         Checkpoint flag = ctx.checkpoint();
-        final UdtDataType table = catalog().PUBLIC.UDT_DATA_TYPE;
-        jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table),
-                      ar -> ctx.verify(() -> {
-                          final UdtDataTypeRecord record = assertSuccess(ctx, ar);
-                          Assertions.assertNotNull(record.getAddress());
-                          Assertions.assertEquals("US Open", record.getAddress().getState());
-                          Assertions.assertEquals("Any,town", record.getAddress().getCity());
-                          Assertions.assertEquals("", record.getAddress().getStreet());
-                          Assertions.assertEquals(10, record.getAddress().getNoa());
-                          Assertions.assertEquals(true, record.getAddress().getHome());
-                          flag.flag();
-                      }));
+        final UdtDataType table = schema().UDT_DATA_TYPE;
+        jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
+            final UdtDataTypeRecord record = assertSuccess(ctx, ar);
+            Assertions.assertNotNull(record.getAddress());
+            Assertions.assertEquals("US Open", record.getAddress().getState());
+            Assertions.assertEquals("Any,town", record.getAddress().getCity());
+            Assertions.assertEquals("", record.getAddress().getStreet());
+            Assertions.assertEquals(10, record.getAddress().getNoa());
+            Assertions.assertEquals(true, record.getAddress().getHome());
+            flag.flag();
+        }));
     }
 
 }

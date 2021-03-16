@@ -7,4 +7,13 @@ dependencies {
     compileOnly(VertxLibs.mysql)
     compileOnly(VertxLibs.mssql)
     compileOnly(VertxLibs.db2)
+
+    testImplementation(testFixtures(project(":core")))
+    testImplementation(VertxLibs.sqlClient)
+    testImplementation(VertxLibs.jdbc)
+    testImplementation(VertxLibs.pgsql)
+    testImplementation(VertxLibs.mysql)
+    testImplementation(VertxLibs.mssql)
+    testImplementation(VertxLibs.db2)
+
 }

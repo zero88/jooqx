@@ -1,4 +1,4 @@
-package io.zero88.jooqx.integtest.spi.pg;
+package io.zero88.jooqx.integtest.spi.pg.jooq;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,7 +20,7 @@ import io.zero88.jooqx.integtest.pgsql.tables.records.UdtDataTypeRecord;
 import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgUseJooqType;
 import io.zero88.jooqx.spi.pg.PgSQLLegacyTest;
 
-class PgLeGCustomTest extends PgSQLLegacyTest implements PostgreSQLHelper, UseJdbcErrorConverter, PgUseJooqType {
+class PgLeGCustomTest extends PgSQLLegacyTest implements UseJdbcErrorConverter, PgUseJooqType {
 
     @Override
     @BeforeEach
@@ -32,18 +32,18 @@ class PgLeGCustomTest extends PgSQLLegacyTest implements PostgreSQLHelper, UseJd
     @Override
     public DataTypeMapperRegistry typeMapperRegistry() {
         return PgUseJooqType.super.typeMapperRegistry()
-                                  .addByColumn(catalog().PUBLIC.ENUM_DATA_TYPE.CURRENTMOOD,
+                                  .addByColumn(schema().ENUM_DATA_TYPE.CURRENTMOOD,
                                                UserTypeAsJooqType.create(new EnumMoodConverter()))
-                                  .addByColumn(catalog().PUBLIC.ENUM_DATA_TYPE.CURRENTWEATHER,
+                                  .addByColumn(schema().ENUM_DATA_TYPE.CURRENTWEATHER,
                                                UserTypeAsJooqType.create(new EnumWeatherConverter()))
-                                  .addByColumn(catalog().PUBLIC.UDT_DATA_TYPE.ADDRESS,
+                                  .addByColumn(schema().UDT_DATA_TYPE.ADDRESS,
                                                UserTypeAsJooqType.create(new FullAddressConverter()));
     }
 
     @Test
     void queryEnum(VertxTestContext ctx) {
         Checkpoint flag = ctx.checkpoint();
-        final EnumDataType table = catalog().PUBLIC.ENUM_DATA_TYPE;
+        final EnumDataType table = schema().ENUM_DATA_TYPE;
         jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
             final EnumDataTypeRecord record = assertSuccess(ctx, ar);
             System.out.println(record);
@@ -57,7 +57,7 @@ class PgLeGCustomTest extends PgSQLLegacyTest implements PostgreSQLHelper, UseJd
     @Test
     void queryCustom(VertxTestContext ctx) {
         Checkpoint flag = ctx.checkpoint();
-        final UdtDataType table = catalog().PUBLIC.UDT_DATA_TYPE;
+        final UdtDataType table = schema().UDT_DATA_TYPE;
         jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
             final UdtDataTypeRecord record = assertSuccess(ctx, ar);
             Assertions.assertNotNull(record.getAddress());

@@ -14,6 +14,8 @@ dependencies {
     compileOnly(VertxLibs.codegen)
     annotationProcessor(VertxLibs.codegen)
 
+    testImplementation(VertxLibs.sqlClient)
+
     testFixturesApi(project(":spi"))
     testFixturesApi(LogLibs.logback)
     testFixturesApi(TestLibs.junit5Api)

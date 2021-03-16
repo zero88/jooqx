@@ -1,4 +1,4 @@
-package io.zero88.jooqx.integtest.spi.pg;
+package io.zero88.jooqx.integtest.spi.pg.jooq;
 
 import org.jooq.DSLContext;
 import org.junit.jupiter.api.Assertions;
@@ -12,9 +12,10 @@ import io.vertx.junit5.VertxTestContext;
 import io.zero88.jooqx.DSLAdapter;
 import io.zero88.jooqx.integtest.pgsql.tables.TemporalDataType;
 import io.zero88.jooqx.integtest.pgsql.tables.records.TemporalDataTypeRecord;
+import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgLegacyType;
 import io.zero88.jooqx.spi.pg.PgSQLLegacyTest;
 
-class PgLeGTemporalTest extends PgSQLLegacyTest implements PostgreSQLHelper {
+class PgLeGTemporalTest extends PgSQLLegacyTest implements PgLegacyType {
 
     @BeforeEach
     @Override
@@ -28,7 +29,7 @@ class PgLeGTemporalTest extends PgSQLLegacyTest implements PostgreSQLHelper {
         //FIXME: Vert.x unreliable
     void queryTemporal(VertxTestContext ctx) {
         Checkpoint flag = ctx.checkpoint();
-        final TemporalDataType table = catalog().PUBLIC.TEMPORAL_DATA_TYPE;
+        final TemporalDataType table = schema().TEMPORAL_DATA_TYPE;
         jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
             final TemporalDataTypeRecord record = assertSuccess(ctx, ar);
             System.out.println(record);
@@ -46,7 +47,7 @@ class PgLeGTemporalTest extends PgSQLLegacyTest implements PostgreSQLHelper {
     void test_jooq_query(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
         final DSLContext dsl = dsl(createDataSource(connOpt));
-        final TemporalDataTypeRecord record = dsl.selectFrom(catalog().PUBLIC.TEMPORAL_DATA_TYPE).limit(1).fetchOne();
+        final TemporalDataTypeRecord record = dsl.selectFrom(schema().TEMPORAL_DATA_TYPE).limit(1).fetchOne();
         ctx.verify(() -> {
             System.out.println(record);
             Assertions.assertNotNull(record);

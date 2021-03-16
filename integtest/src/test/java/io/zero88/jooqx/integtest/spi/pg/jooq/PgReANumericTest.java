@@ -1,4 +1,4 @@
-package io.zero88.jooqx.integtest.spi.pg;
+package io.zero88.jooqx.integtest.spi.pg.jooq;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -7,15 +7,20 @@ import org.junit.jupiter.api.Test;
 import io.vertx.core.Vertx;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
+import io.vertx.pgclient.PgPool;
 import io.zero88.jooqx.DSLAdapter;
 import io.zero88.jooqx.integtest.pgsql.tables.NumericDataType;
 import io.zero88.jooqx.integtest.pgsql.tables.records.NumericDataTypeRecord;
-import io.zero88.jooqx.spi.pg.PgSQLLegacyTest;
+import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgUseJooqType;
+import io.zero88.jooqx.spi.pg.PgPoolProvider;
+import io.zero88.jooqx.spi.pg.PgSQLReactiveTest;
+import io.zero88.jooqx.spi.pg.UsePgSQLErrorConverter;
 
-class PgLeGNumericTest extends PgSQLLegacyTest implements PostgreSQLHelper {
+class PgReANumericTest extends PgSQLReactiveTest<PgPool>
+    implements UsePgSQLErrorConverter, PgPoolProvider, PgUseJooqType {
 
-    @BeforeEach
     @Override
+    @BeforeEach
     public void tearUp(Vertx vertx, VertxTestContext ctx) {
         super.tearUp(vertx, ctx);
         this.prepareDatabase(ctx, this, connOpt, "pg_data/numeric.sql");
@@ -24,7 +29,7 @@ class PgLeGNumericTest extends PgSQLLegacyTest implements PostgreSQLHelper {
     @Test
     void queryNumeric(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
-        final NumericDataType table = catalog().PUBLIC.NUMERIC_DATA_TYPE;
+        final NumericDataType table = schema().NUMERIC_DATA_TYPE;
         jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
             final NumericDataTypeRecord record = assertSuccess(ctx, ar);
             System.out.println(record);
@@ -34,16 +39,14 @@ class PgLeGNumericTest extends PgSQLLegacyTest implements PostgreSQLHelper {
             Assertions.assertNotNull(record.getInteger());
             Assertions.assertNotNull(record.getLong());
 
-            Assertions.assertNotNull(record.getFloat());
-            Assertions.assertNotNull(record.getDouble());
-
+            Assertions.assertNotNull(record.getShort());
             Assertions.assertNotNull(record.getSerial());
+            Assertions.assertNotNull(record.getSmallserial());
             Assertions.assertNotNull(record.getBigserial());
 
-            // FIXME: Vert.x unreliable
-            //                          Assertions.assertNotNull(record.getShort());
-            //                          Assertions.assertNotNull(record.getSmallserial());
-            //                          Assertions.assertNotNull(record.getBigdecimal());
+            Assertions.assertNotNull(record.getFloat());
+            Assertions.assertNotNull(record.getBigdecimal());
+            Assertions.assertNotNull(record.getDouble());
             cp.flag();
         }));
     }

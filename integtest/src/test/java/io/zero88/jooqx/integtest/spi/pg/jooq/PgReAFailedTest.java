@@ -1,4 +1,4 @@
-package io.zero88.jooqx.integtest.spi.pg;
+package io.zero88.jooqx.integtest.spi.pg.jooq;
 
 import java.util.Collections;
 
@@ -17,12 +17,13 @@ import io.vertx.pgclient.PgException;
 import io.zero88.jooqx.DSLAdapter;
 import io.zero88.jooqx.integtest.pgsql.tables.Books;
 import io.zero88.jooqx.integtest.pgsql.tables.records.BooksRecord;
+import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgUseJooqType;
 import io.zero88.jooqx.spi.pg.PgConnProvider;
 import io.zero88.jooqx.spi.pg.PgSQLReactiveTest;
 import io.zero88.jooqx.spi.pg.UsePgSQLErrorConverter;
 
 class PgReAFailedTest extends PgSQLReactiveTest<PgConnection>
-    implements PgConnProvider, PostgreSQLHelper, UsePgSQLErrorConverter {
+    implements PgConnProvider, PgUseJooqType, UsePgSQLErrorConverter {
 
     @Override
     @BeforeEach
@@ -33,7 +34,7 @@ class PgReAFailedTest extends PgSQLReactiveTest<PgConnection>
 
     @Test
     void test_insert_failed(VertxTestContext ctx) {
-        final Books table = catalog().PUBLIC.BOOKS;
+        final Books table = schema().BOOKS;
         final InsertResultStep<BooksRecord> insert = jooqx.dsl()
                                                           .insertInto(table, table.ID, table.TITLE)
                                                           .values(1, "abc")
@@ -47,7 +48,7 @@ class PgReAFailedTest extends PgSQLReactiveTest<PgConnection>
     @Test
     void test_select_none_exist(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
-        final Books table = catalog().PUBLIC.BOOKS;
+        final Books table = schema().BOOKS;
         final SelectConditionStep<BooksRecord> insert = jooqx.dsl().selectFrom(table).where(table.ID.eq(1000));
         jooqx.execute(insert, DSLAdapter.fetchOne(table, Collections.singletonList(table.ID)), ar -> ctx.verify(() -> {
             Assertions.assertNull(assertSuccess(ctx, ar));

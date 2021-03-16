@@ -1,4 +1,4 @@
-package io.zero88.jooqx.integtest.spi.pg;
+package io.zero88.jooqx.integtest.spi.pg.jooq;
 
 import java.util.Arrays;
 import java.util.List;
@@ -17,18 +17,17 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 import io.zero88.jooqx.BindBatchValues;
-import io.zero88.jooqx.JooqErrorConverter.JDBCErrorConverter;
 import io.zero88.jooqx.JsonRecord;
 import io.zero88.jooqx.DSLAdapter;
-import io.zero88.jooqx.SQLErrorConverter;
 import io.zero88.jooqx.UseJdbcErrorConverter;
 import io.zero88.jooqx.integtest.pgsql.tables.Authors;
 import io.zero88.jooqx.integtest.pgsql.tables.Books;
 import io.zero88.jooqx.integtest.pgsql.tables.records.AuthorsRecord;
 import io.zero88.jooqx.integtest.pgsql.tables.records.BooksRecord;
+import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgLegacyType;
 import io.zero88.jooqx.spi.pg.PgSQLLegacyTest;
 
-class PgLeGRelationTest extends PgSQLLegacyTest implements PostgreSQLHelper, UseJdbcErrorConverter {
+class PgLeGRelationTest extends PgSQLLegacyTest implements PgLegacyType, UseJdbcErrorConverter {
 
     @Override
     @BeforeEach
@@ -39,7 +38,7 @@ class PgLeGRelationTest extends PgSQLLegacyTest implements PostgreSQLHelper, Use
 
     @Test
     void test_query(VertxTestContext ctx) {
-        final Books table = catalog().PUBLIC.BOOKS;
+        final Books table = schema().BOOKS;
         jooqx.execute(jooqx.dsl().selectFrom(table), DSLAdapter.fetchMany(table),
                       ar -> assertResultSize(ctx, ar, 7));
     }
@@ -47,7 +46,7 @@ class PgLeGRelationTest extends PgSQLLegacyTest implements PostgreSQLHelper, Use
     @Test
     void test_insert(VertxTestContext ctx) {
         Checkpoint flag = ctx.checkpoint();
-        final Books table = catalog().PUBLIC.BOOKS;
+        final Books table = schema().BOOKS;
         final InsertResultStep<BooksRecord> insert = jooqx.dsl()
                                                           .insertInto(table, table.ID, table.TITLE)
                                                           .values(Arrays.asList(DSL.defaultValue(table.ID), "abc"))
@@ -62,7 +61,7 @@ class PgLeGRelationTest extends PgSQLLegacyTest implements PostgreSQLHelper, Use
     @Test
     void test_batch_insert(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
-        final Books table = catalog().PUBLIC.BOOKS;
+        final Books table = schema().BOOKS;
         BooksRecord rec1 = new BooksRecord().setTitle("abc");
         BooksRecord rec2 = new BooksRecord().setTitle("xyz");
         BooksRecord rec3 = new BooksRecord().setTitle("qwe");
@@ -91,7 +90,7 @@ class PgLeGRelationTest extends PgSQLLegacyTest implements PostgreSQLHelper, Use
     @Test
     void test_transaction_multiple_update_but_one_failed(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
-        final Books table = catalog().PUBLIC.BOOKS;
+        final Books table = schema().BOOKS;
         final Handler<AsyncResult<BooksRecord>> asserter = ar -> {
             assertJooqException(ctx, ar, SQLStateClass.C23_INTEGRITY_CONSTRAINT_VIOLATION);
             jooqx.execute(jooqx.dsl().selectFrom(table).where(table.ID.eq(1)), DSLAdapter.fetchOne(table),
@@ -117,7 +116,7 @@ class PgLeGRelationTest extends PgSQLLegacyTest implements PostgreSQLHelper, Use
     @Test
     void test_transaction_batch_insert_failed(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
-        final Authors table = catalog().PUBLIC.AUTHORS;
+        final Authors table = schema().AUTHORS;
         AuthorsRecord i1 = new AuthorsRecord().setName("n1").setCountry("AT");
         AuthorsRecord i2 = new AuthorsRecord().setName("n2");
         final BindBatchValues bindValues = new BindBatchValues().register(table.NAME, table.COUNTRY).add(i1, i2);
