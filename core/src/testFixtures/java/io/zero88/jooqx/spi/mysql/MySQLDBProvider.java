@@ -18,7 +18,8 @@ public interface MySQLDBProvider extends DBContainerProvider<MySQLContainer<?>>,
     default MySQLContainer<?> get(String imageName) {
         return new MySQLContainer<>(DockerImageName.parse(imageName)).withDatabaseName("foo")
                                                                      .withUsername("foo")
-                                                                     .withPassword("secret");
+                                                                     .withPassword("123")
+                                                                     .withCommand("--bind-address=0.0.0.0");
     }
 
     @Override
