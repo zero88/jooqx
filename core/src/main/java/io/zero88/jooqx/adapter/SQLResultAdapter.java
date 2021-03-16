@@ -20,17 +20,14 @@ import lombok.NonNull;
 /**
  * SQL Result adapter receives Result set then mapping to expected result
  *
- * @param <RS> Type of Vertx Result set
- * @param <C>  Type of SQL result set collector
- * @param <T>  Type of jOOQ Table in Query context
- * @param <O>  Type of an expectation output
+ * @param <T> Type of jOOQ Table in Query context
+ * @param <O> Type of an expectation output
  * @see TableLike
  * @see Record
  * @see SQLResultCollector
  * @since 1.0.0
  */
-public interface SQLResultAdapter<RS, C extends SQLResultCollector<RS>, T extends TableLike<? extends Record>, O>
-    extends HasStrategy {
+public interface SQLResultAdapter<T extends TableLike<? extends Record>, O> extends HasStrategy {
 
     @SuppressWarnings( {"rawtypes", "unchecked"})
     static IdentityCollectorPart<JsonRecord<?>> byJson() {
@@ -65,22 +62,17 @@ public interface SQLResultAdapter<RS, C extends SQLResultCollector<RS>, T extend
     @NonNull T table();
 
     /**
-     * Declares Result set converter
-     *
-     * @return converter
-     */
-    @NonNull C converter();
-
-    /**
      * Collect result set to expected result
      *
      * @param resultSet result set
+     * @param collector result collector
      * @param dsl       jOOQ DSL context
      * @param registry  SQL data type mapper registry
      * @return an expected result
      * @see DataTypeMapperRegistry
      */
-    @NonNull O collect(@NonNull RS resultSet, @NonNull DSLContext dsl, @NonNull DataTypeMapperRegistry registry);
+    @NonNull <RS> O collect(@NonNull RS resultSet, @NonNull SQLResultCollector<RS> collector, @NonNull DSLContext dsl,
+                            @NonNull DataTypeMapperRegistry registry);
 
     /**
      * Indicates select only one row

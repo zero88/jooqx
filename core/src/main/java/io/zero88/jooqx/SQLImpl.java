@@ -138,16 +138,4 @@ final class SQLImpl {
 
     }
 
-
-    @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    abstract static class SQLRC<RS> implements SQLResultCollector<RS> {
-
-        protected void warnManyResult(boolean check, @NonNull SelectStrategy strategy) {
-            if (check) {
-                LOGGER.warn("Query strategy is [{}] but query result contains more than one row", strategy);
-            }
-        }
-
-    }
-
 }

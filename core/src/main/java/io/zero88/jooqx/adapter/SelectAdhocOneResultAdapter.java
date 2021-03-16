@@ -3,7 +3,6 @@ package io.zero88.jooqx.adapter;
 import org.jooq.Record;
 import org.jooq.TableLike;
 
-import io.zero88.jooqx.SQLResultCollector;
 import io.zero88.jooqx.adapter.SQLResultAdapter.SelectOneStrategy;
 
 import lombok.Getter;
@@ -17,11 +16,11 @@ import lombok.experimental.Accessors;
  */
 @Getter
 @Accessors(fluent = true)
-public abstract class SelectAdhocOneResultAdapter<RS, C extends SQLResultCollector<RS>, T extends TableLike<? extends Record>, O>
-    extends SQLResultAdapterImpl<RS, C, T, O> implements SelectOneStrategy {
+public abstract class SelectAdhocOneResultAdapter<T extends TableLike<? extends Record>, O>
+    extends SQLResultAdapterImpl<T, O> implements SelectOneStrategy {
 
-    protected SelectAdhocOneResultAdapter(@NonNull T table, @NonNull C converter) {
-        super(table, converter);
+    protected SelectAdhocOneResultAdapter(@NonNull T table) {
+        super(table);
     }
 
 }

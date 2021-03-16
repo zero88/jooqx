@@ -8,7 +8,7 @@ import io.vertx.core.Vertx;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 import io.vertx.pgclient.PgPool;
-import io.zero88.jooqx.ReactiveDSL;
+import io.zero88.jooqx.DSLAdapter;
 import io.zero88.jooqx.integtest.pgsql.tables.TemporalDataType;
 import io.zero88.jooqx.integtest.pgsql.tables.records.TemporalDataTypeRecord;
 import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgUseJooqType;
@@ -30,7 +30,7 @@ class PgReATemporalTest extends PgSQLReactiveTest<PgPool>
     void queryTemporal(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
         final TemporalDataType table = catalog().PUBLIC.TEMPORAL_DATA_TYPE;
-        jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), ReactiveDSL.adapter().fetchOne(table), ar -> {
+        jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> {
             ctx.verify(() -> {
                 final TemporalDataTypeRecord record = assertSuccess(ctx, ar);
                 System.out.println(record);

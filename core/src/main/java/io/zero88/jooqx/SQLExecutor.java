@@ -4,6 +4,7 @@ import org.jooq.DSLContext;
 import org.jooq.Query;
 import org.jooq.TableLike;
 
+import io.vertx.codegen.annotations.Nullable;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
@@ -60,6 +61,14 @@ public interface SQLExecutor<S, P, RS, C extends SQLResultCollector<RS>> extends
     @NonNull SQLPreparedQuery<P> preparedQuery();
 
     /**
+     * Defines result collector depends on result set
+     *
+     * @return result collector
+     * @see SQLResultCollector
+     */
+    @NonNull SQLResultCollector<RS> resultCollector();
+
+    /**
      * Defines an error converter that rethrows an uniform exception by
      * {@link SQLErrorConverter#reThrowError(Throwable)}
      * if any error in execution time
@@ -70,6 +79,12 @@ public interface SQLExecutor<S, P, RS, C extends SQLResultCollector<RS>> extends
      */
     @NonNull SQLErrorConverter errorConverter();
 
+    /**
+     * Defines global data type mapper registry
+     *
+     * @return registry
+     * @see DataTypeMapperRegistry
+     */
     @NonNull DataTypeMapperRegistry typeMapperRegistry();
 
     /**
@@ -85,8 +100,8 @@ public interface SQLExecutor<S, P, RS, C extends SQLResultCollector<RS>> extends
      * @see SQLResultAdapter
      */
     default <T extends TableLike<?>, R> void execute(@NonNull Query query,
-                                                     @NonNull SQLResultAdapter<RS, C, T, R> resultAdapter,
-                                                     @NonNull Handler<AsyncResult<R>> handler) {
+                                                     @NonNull SQLResultAdapter<T, R> resultAdapter,
+                                                     @NonNull Handler<AsyncResult<@Nullable R>> handler) {
         execute(query, resultAdapter).onComplete(handler);
     }
 
@@ -99,8 +114,8 @@ public interface SQLExecutor<S, P, RS, C extends SQLResultCollector<RS>> extends
      * @param resultAdapter a result adapter
      * @return a {@code Future} of the asynchronous result
      */
-    <T extends TableLike<?>, R> Future<R> execute(@NonNull Query query,
-                                                  @NonNull SQLResultAdapter<RS, C, T, R> resultAdapter);
+    <T extends TableLike<?>, R> Future<@Nullable R> execute(@NonNull Query query,
+                                                            @NonNull SQLResultAdapter<T, R> resultAdapter);
 
     /**
      * Open transaction executor

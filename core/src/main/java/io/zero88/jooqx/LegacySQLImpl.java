@@ -29,10 +29,8 @@ import io.vertx.ext.sql.SQLClient;
 import io.vertx.ext.sql.SQLConnection;
 import io.vertx.ext.sql.SQLOperations;
 import io.zero88.jooqx.MiscImpl.BatchResultImpl;
-import io.zero88.jooqx.MiscImpl.DSLAI;
 import io.zero88.jooqx.SQLImpl.SQLEI;
 import io.zero88.jooqx.SQLImpl.SQLPQ;
-import io.zero88.jooqx.SQLImpl.SQLRC;
 import io.zero88.jooqx.adapter.RowConverterStrategy;
 import io.zero88.jooqx.adapter.SQLResultAdapter;
 import io.zero88.jooqx.adapter.SelectStrategy;
@@ -52,8 +50,10 @@ final class LegacySQLImpl {
         @NonNull LegacySQLPreparedQuery preparedQuery();
 
         @Override
-        <T extends TableLike<?>, R> Future<R> execute(@NonNull Query query,
-                                                      @NonNull SQLResultAdapter<ResultSet, LegacySQLCollector, T, R> adapter);
+        @NonNull LegacySQLCollector resultCollector();
+
+        @Override
+        <T extends TableLike<?>, R> Future<R> execute(@NonNull Query query, @NonNull SQLResultAdapter<T, R> adapter);
 
     }
 
@@ -78,11 +78,12 @@ final class LegacySQLImpl {
     }
 
 
-    static final class LegacySQLRC extends SQLRC<ResultSet> implements LegacySQLCollector {
+    static final class LegacySQLRC implements LegacySQLCollector {
 
+        @NonNull
         @Override
-        public @NonNull <R extends Record, O> List<O> collect(@NonNull ResultSet resultSet,
-                                                              @NonNull RowConverterStrategy<R, O> strategy) {
+        public <R extends Record, O> List<O> collect(@NonNull ResultSet resultSet,
+                                                     @NonNull RowConverterStrategy<R, O> strategy) {
             final Map<Field<?>, Integer> map = getColumnMap(resultSet, strategy::lookupField);
             final List<JsonArray> results = resultSet.getResults();
             if (strategy.strategy() == SelectStrategy.MANY) {
@@ -119,35 +120,27 @@ final class LegacySQLImpl {
     }
 
 
-    static final class LegacyDSLAdapter extends DSLAI<ResultSet, LegacySQLCollector> implements LegacyDSL {
-
-        LegacyDSLAdapter() {
-            super(new LegacySQLRC());
-        }
-
-    }
-
-
     @Getter
     @SuperBuilder
     @Accessors(fluent = true)
     abstract static class LegacySQLEI<S extends SQLOperations>
         extends SQLEI<S, JsonArray, ResultSet, LegacySQLCollector> implements LegacyInternal<S> {
 
-        @Default
         @NonNull
+        @Default
         private final LegacySQLPreparedQuery preparedQuery = new LegacySQLPQ();
+        @NonNull
+        @Default
+        private final LegacySQLCollector resultCollector = new LegacySQLRC();
 
         @Override
         public final <T extends TableLike<?>, R> Future<R> execute(@NonNull Query query,
-                                                                   @NonNull SQLResultAdapter<ResultSet,
-                                                                                                LegacySQLCollector, T
-                                                                                                , R> adapter) {
+                                                                   @NonNull SQLResultAdapter<T, R> adapter) {
             final Promise<ResultSet> promise = Promise.promise();
             sqlClient().queryWithParams(preparedQuery().sql(dsl().configuration(), query),
                                         preparedQuery().bindValues(query, typeMapperRegistry()), promise);
             return promise.future()
-                          .map(rs -> adapter.collect(rs, dsl(), typeMapperRegistry()))
+                          .map(rs -> adapter.collect(rs, resultCollector(), dsl(), typeMapperRegistry()))
                           .otherwise(errorConverter()::reThrowError);
         }
 
@@ -180,6 +173,8 @@ final class LegacySQLImpl {
                                                  .vertx(vertx())
                                                  .dsl(dsl())
                                                  .preparedQuery(preparedQuery())
+                                                 .resultCollector(resultCollector())
+                                                 .typeMapperRegistry(typeMapperRegistry())
                                                  .errorConverter(errorConverter())
                                                  .delegate(this)
                                                  .build();

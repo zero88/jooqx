@@ -16,7 +16,8 @@ import io.vertx.sqlclient.Transaction;
 import io.vertx.sqlclient.Tuple;
 import io.zero88.jooqx.MiscImpl.BatchResultImpl;
 import io.zero88.jooqx.ReactiveSQLImpl.ReactiveSQLPQ;
-import io.zero88.jooqx.ReactiveSQLImpl.ReactiveSQLRBC;
+import io.zero88.jooqx.ReactiveSQLImpl.ReactiveSQLBC;
+import io.zero88.jooqx.ReactiveSQLImpl.ReactiveSQLRC;
 import io.zero88.jooqx.SQLImpl.SQLEI;
 import io.zero88.jooqx.adapter.SQLResultAdapter;
 import io.zero88.jooqx.adapter.SelectList;
@@ -43,35 +44,35 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @Accessors(fluent = true)
 final class ReactiveJooqxImpl<S extends SqlClient> extends SQLEI<S, Tuple, RowSet<Row>, ReactiveSQLResultCollector>
-    implements ReactiveJooqx<S>, SQLTxExecutor<S, Tuple, RowSet<Row>, ReactiveSQLResultCollector, ReactiveJooqxImpl<S>>,
-               ReactiveSQLBatchExecutor {
+    implements ReactiveJooqx<S> {
 
-    @Default
     @NonNull
+    @Default
     private final ReactiveSQLPreparedQuery preparedQuery = new ReactiveSQLPQ();
-
-    @Override
-    public <T extends TableLike<?>, R> Future<R> execute(@NonNull Query query,
-                                                         @NonNull SQLResultAdapter<RowSet<Row>,
-                                                                                      ReactiveSQLResultCollector, T,
-                                                                                      R> adapter) {
-        return sqlClient().preparedQuery(preparedQuery().sql(dsl().configuration(), query))
-                          .execute(preparedQuery().bindValues(query, typeMapperRegistry()))
-                          .map(rs -> adapter.collect(rs, dsl(), typeMapperRegistry()))
-                          .otherwise(errorConverter()::reThrowError);
-    }
+    @NonNull
+    @Default
+    private final ReactiveSQLResultCollector resultCollector = new ReactiveSQLRC();
 
     @Override
     @SuppressWarnings("unchecked")
-    public @NonNull SQLTxExecutor<S, Tuple, RowSet<Row>, ReactiveSQLResultCollector, ReactiveJooqxImpl<S>> transaction() {
+    public @NonNull ReactiveJooqx<S> transaction() {
         return this;
+    }
+
+    @Override
+    public <T extends TableLike<?>, R> Future<R> execute(@NonNull Query query,
+                                                         @NonNull SQLResultAdapter<T, R> adapter) {
+        return sqlClient().preparedQuery(preparedQuery().sql(dsl().configuration(), query))
+                          .execute(preparedQuery().bindValues(query, typeMapperRegistry()))
+                          .map(rs -> adapter.collect(rs, resultCollector(), dsl(), typeMapperRegistry()))
+                          .otherwise(errorConverter()::reThrowError);
     }
 
     @Override
     public Future<BatchResult> batch(@NonNull Query query, @NonNull BindBatchValues bindBatchValues) {
         return sqlClient().preparedQuery(preparedQuery().sql(dsl().configuration(), query))
                           .executeBatch(preparedQuery().bindValues(query, bindBatchValues, typeMapperRegistry()))
-                          .map(r -> new ReactiveSQLRBC().batchResultSize(r))
+                          .map(r -> new ReactiveSQLBC().batchResultSize(r))
                           .map(s -> BatchResultImpl.create(bindBatchValues.size(), s))
                           .otherwise(errorConverter()::reThrowError);
     }
@@ -79,16 +80,17 @@ final class ReactiveJooqxImpl<S extends SqlClient> extends SQLEI<S, Tuple, RowSe
     @Override
     public <T extends TableLike<?>, R extends Record, O> Future<BatchReturningResult<O>> batch(@NonNull Query query,
                                                                                                @NonNull BindBatchValues bindBatchValues,
-                                                                                               @NonNull SelectList<RowSet<Row>, ReactiveSQLBatchCollector, T, R, O> adapter) {
+                                                                                               @NonNull SelectList<T, R, O> adapter) {
         return sqlClient().preparedQuery(preparedQuery().sql(dsl().configuration(), query))
                           .executeBatch(preparedQuery().bindValues(query, bindBatchValues, typeMapperRegistry()))
-                          .map(resultSet -> adapter.collect(resultSet, dsl(), typeMapperRegistry()))
+                          .map(resultSet -> adapter.collect(resultSet, new ReactiveSQLBC(), dsl(),
+                                                            typeMapperRegistry()))
                           .map(rs -> BatchResultImpl.create(bindBatchValues.size(), rs))
                           .otherwise(errorConverter()::reThrowError);
     }
 
     @Override
-    public <X> Future<X> run(@NonNull Function<ReactiveJooqxImpl<S>, Future<X>> function) {
+    public <X> Future<X> run(@NonNull Function<ReactiveJooqx<S>, Future<X>> function) {
         final S c = sqlClient();
         if (c instanceof Pool) {
             return ((Pool) c).getConnection()
@@ -113,7 +115,7 @@ final class ReactiveJooqxImpl<S extends SqlClient> extends SQLEI<S, Tuple, RowSe
 
     @SuppressWarnings("unchecked")
     private <X> Future<X> beginTx(@NonNull SqlConnection conn,
-                                  @NonNull Function<ReactiveJooqxImpl<S>, Future<X>> transaction) {
+                                  @NonNull Function<ReactiveJooqx<S>, Future<X>> transaction) {
         return conn.begin()
                    .flatMap(tx -> transaction.apply(withSqlClient((S) conn))
                                              .compose(res -> tx.commit().flatMap(v -> Future.succeededFuture(res)),

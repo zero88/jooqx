@@ -6,7 +6,9 @@ import org.jooq.Record;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import io.vertx.codegen.annotations.GenIgnore;
 import io.zero88.jooqx.adapter.RowConverterStrategy;
+import io.zero88.jooqx.adapter.SelectStrategy;
 
 import lombok.NonNull;
 
@@ -21,6 +23,7 @@ import lombok.NonNull;
  */
 public interface SQLResultCollector<RS> {
 
+    @GenIgnore
     Logger LOGGER = LoggerFactory.getLogger(SQLResultCollector.class);
 
     /**
@@ -32,5 +35,11 @@ public interface SQLResultCollector<RS> {
      * @return list output
      */
     @NonNull <R extends Record, O> List<O> collect(@NonNull RS resultSet, @NonNull RowConverterStrategy<R, O> strategy);
+
+    default void warnManyResult(boolean check, @NonNull SelectStrategy strategy) {
+        if (check) {
+            LOGGER.warn("Query strategy is [{}] but query result contains more than one row", strategy);
+        }
+    }
 
 }

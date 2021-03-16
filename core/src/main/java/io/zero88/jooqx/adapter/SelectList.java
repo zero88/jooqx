@@ -19,17 +19,17 @@ import lombok.NonNull;
  * @see SelectManyStrategy
  * @since 1.0.0
  */
-public final class SelectList<RS, C extends SQLResultCollector<RS>, T extends TableLike<? extends Record>,
-                                 R extends Record, O>
-    extends SQLResultAdapterImpl.SelectResultInternal<RS, C, T, R, O, List<O>> implements SelectManyStrategy {
+public final class SelectList<T extends TableLike<? extends Record>, R extends Record, O>
+    extends SQLResultAdapterImpl.SelectResultInternal<T, R, O, List<O>> implements SelectManyStrategy {
 
-    public SelectList(@NonNull T table, @NonNull C converter, @NonNull SQLCollectorPart<R, O> collectorPart) {
-        super(table, converter, collectorPart);
+    public SelectList(@NonNull T table, @NonNull SQLCollectorPart<R, O> collectorPart) {
+        super(table, collectorPart);
     }
 
     @Override
-    public List<O> collect(@NonNull RS resultSet, @NonNull DSLContext dsl, @NonNull DataTypeMapperRegistry registry) {
-        return converter().collect(resultSet, createStrategy(registry, dsl));
+    public <RS> List<O> collect(@NonNull RS resultSet, @NonNull SQLResultCollector<RS> collector,
+                                @NonNull DSLContext dsl, @NonNull DataTypeMapperRegistry registry) {
+        return collector.collect(resultSet, createStrategy(registry, dsl));
     }
 
 }

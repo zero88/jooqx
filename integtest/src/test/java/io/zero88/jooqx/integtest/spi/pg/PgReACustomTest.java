@@ -8,7 +8,7 @@ import io.vertx.core.Vertx;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 import io.vertx.pgclient.PgPool;
-import io.zero88.jooqx.ReactiveDSL;
+import io.zero88.jooqx.DSLAdapter;
 import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 import io.zero88.jooqx.datatype.UserTypeAsJooqType;
 import io.zero88.jooqx.integtest.pgsql.enums.Mood;
@@ -47,7 +47,7 @@ class PgReACustomTest extends PgSQLReactiveTest<PgPool>
     void queryEnum(VertxTestContext ctx) {
         Checkpoint flag = ctx.checkpoint();
         final EnumDataType table = catalog().PUBLIC.ENUM_DATA_TYPE;
-        jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), ReactiveDSL.adapter().fetchOne(table),
+        jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table),
                       ar -> ctx.verify(() -> {
                           final EnumDataTypeRecord record = assertSuccess(ctx, ar);
                           System.out.println(record);
@@ -62,7 +62,7 @@ class PgReACustomTest extends PgSQLReactiveTest<PgPool>
     void queryCustom(VertxTestContext ctx) {
         Checkpoint flag = ctx.checkpoint();
         final UdtDataType table = catalog().PUBLIC.UDT_DATA_TYPE;
-        jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), ReactiveDSL.adapter().fetchOne(table),
+        jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table),
                       ar -> ctx.verify(() -> {
                           final UdtDataTypeRecord record = assertSuccess(ctx, ar);
                           Assertions.assertNotNull(record.getAddress());

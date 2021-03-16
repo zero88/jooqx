@@ -65,6 +65,7 @@ object VertxLibs {
     const val mysql = "io.vertx:vertx-mysql-client:${Version.vertx}"
     const val db2 = "io.vertx:vertx-db2-client:${Version.vertx}"
     const val mssql = "io.vertx:vertx-mssql-client:${Version.vertx}"
+    const val rx2 = "io.vertx:vertx-rx-java2:${Version.vertx}"
 
 }
 

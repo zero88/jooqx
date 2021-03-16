@@ -9,6 +9,7 @@ import org.jooq.Table;
 import org.jooq.TableLike;
 import org.jooq.TableRecord;
 
+import io.zero88.jooqx.adapter.SQLResultAdapter;
 import io.zero88.jooqx.adapter.SelectCount;
 import io.zero88.jooqx.adapter.SelectExists;
 import io.zero88.jooqx.adapter.SelectList;
@@ -16,7 +17,12 @@ import io.zero88.jooqx.adapter.SelectOne;
 
 import lombok.NonNull;
 
-interface DSLAdapter<RS, C extends SQLResultCollector<RS>> {
+/**
+ * DSL adapter
+ *
+ * @since 1.0.0
+ */
+public interface DSLAdapter {
 
     /**
      * Fetch count
@@ -24,7 +30,9 @@ interface DSLAdapter<RS, C extends SQLResultCollector<RS>> {
      * @param table a query table context
      * @return select count
      */
-    SelectCount<RS, C> fetchCount(@NonNull TableLike<Record1<Integer>> table);
+    static SelectCount fetchCount(@NonNull TableLike<Record1<Integer>> table) {
+        return new SelectCount(table);
+    }
 
     /**
      * Fetch exists
@@ -32,7 +40,9 @@ interface DSLAdapter<RS, C extends SQLResultCollector<RS>> {
      * @param table a query table context
      * @return select exists
      */
-    SelectExists<RS, C> fetchExists(@NonNull TableLike<Record1<Integer>> table);
+    static SelectExists fetchExists(@NonNull TableLike<Record1<Integer>> table) {
+        return new SelectExists(table);
+    }
 
     /**
      * Fetch one JsonRecord
@@ -43,8 +53,10 @@ interface DSLAdapter<RS, C extends SQLResultCollector<RS>> {
      * @see TableLike
      * @see JsonRecord
      */
-    <T extends TableLike<? extends Record>> SelectOne<RS, C, T, JsonRecord<?>, JsonRecord<?>> fetchJsonRecord(
-        @NonNull T table);
+    static <T extends TableLike<? extends Record>> SelectOne<T, JsonRecord<?>, JsonRecord<?>> fetchJsonRecord(
+        @NonNull T table) {
+        return new SelectOne<>(table, SQLResultAdapter.byJson());
+    }
 
     /**
      * Fetch one
@@ -56,8 +68,10 @@ interface DSLAdapter<RS, C extends SQLResultCollector<RS>> {
      * @return select one adapter
      * @see TableLike
      */
-    <T extends TableLike<? extends Record>, R extends TableRecord<R>> SelectOne<RS, C, T, R, R> fetchOne(
-        @NonNull T table, @NonNull R record);
+    static <T extends TableLike<? extends Record>, R extends TableRecord<R>> SelectOne<T, R, R> fetchOne(
+        @NonNull T table, @NonNull R record) {
+        return new SelectOne<>(table, SQLResultAdapter.byRecord(record));
+    }
 
     /**
      * Fetch one
@@ -68,8 +82,10 @@ interface DSLAdapter<RS, C extends SQLResultCollector<RS>> {
      * @return select one adapter
      * @see TableLike
      */
-    <T extends TableLike<? extends Record>> SelectOne<RS, C, T, Record, Record> fetchOne(@NonNull T table,
-                                                                                         @NonNull Collection<Field<?>> fields);
+    static <T extends TableLike<? extends Record>> SelectOne<T, Record, Record> fetchOne(@NonNull T table,
+                                                                                         @NonNull Collection<Field<?>> fields) {
+        return new SelectOne<>(table, SQLResultAdapter.byFields(fields));
+    }
 
     /**
      * Fetch one
@@ -81,8 +97,10 @@ interface DSLAdapter<RS, C extends SQLResultCollector<RS>> {
      * @return select one adapter
      * @see TableLike
      */
-    <T extends TableLike<? extends Record>, R> SelectOne<RS, C, T, JsonRecord<?>, R> fetchOne(@NonNull T table,
-                                                                                              @NonNull Class<R> outputClass);
+    static <T extends TableLike<? extends Record>, R> SelectOne<T, JsonRecord<?>, R> fetchOne(@NonNull T table,
+                                                                                              @NonNull Class<R> outputClass) {
+        return new SelectOne<>(table, SQLResultAdapter.byClass(outputClass));
+    }
 
     /**
      * Fetch one
@@ -92,7 +110,9 @@ interface DSLAdapter<RS, C extends SQLResultCollector<RS>> {
      * @return select one adapter
      * @see TableLike
      */
-    <T extends Table<R>, R extends Record> SelectOne<RS, C, T, R, R> fetchOne(@NonNull T table);
+    static <T extends Table<R>, R extends Record> SelectOne<T, R, R> fetchOne(@NonNull T table) {
+        return new SelectOne<>(table, SQLResultAdapter.byTable(table));
+    }
 
     /**
      * Fetch one
@@ -104,8 +124,10 @@ interface DSLAdapter<RS, C extends SQLResultCollector<RS>> {
      * @return select one adapter
      * @see TableLike
      */
-    <T extends TableLike<? extends Record>, R extends Record, Z extends Table<R>> SelectOne<RS, C, T, R, R> fetchOne(
-        @NonNull T table, @NonNull Z toTable);
+    static <T extends TableLike<? extends Record>, R extends Record, Z extends Table<R>> SelectOne<T, R, R> fetchOne(
+        @NonNull T table, @NonNull Z toTable) {
+        return new SelectOne<>(table, SQLResultAdapter.byTable(toTable));
+    }
 
     /**
      * Fetch many Json record
@@ -116,8 +138,10 @@ interface DSLAdapter<RS, C extends SQLResultCollector<RS>> {
      * @see TableLike
      * @see JsonRecord
      */
-    <T extends TableLike<? extends Record>> SelectList<RS, C, T, JsonRecord<?>, JsonRecord<?>> fetchJsonRecords(
-        @NonNull T table);
+    static <T extends TableLike<? extends Record>> SelectList<T, JsonRecord<?>, JsonRecord<?>> fetchJsonRecords(
+        @NonNull T table) {
+        return new SelectList<>(table, SQLResultAdapter.byJson());
+    }
 
     /**
      * Fetch many
@@ -129,8 +153,10 @@ interface DSLAdapter<RS, C extends SQLResultCollector<RS>> {
      * @return select many adapter
      * @see TableLike
      */
-    <T extends TableLike<? extends Record>, R extends TableRecord<R>> SelectList<RS, C, T, R, R> fetchMany(
-        @NonNull T table, @NonNull R record);
+    static <T extends TableLike<? extends Record>, R extends Record> SelectList<T, R, R> fetchMany(@NonNull T table,
+                                                                                                   @NonNull R record) {
+        return new SelectList<>(table, SQLResultAdapter.byRecord(record));
+    }
 
     /**
      * Fetch many
@@ -141,8 +167,10 @@ interface DSLAdapter<RS, C extends SQLResultCollector<RS>> {
      * @return select many adapter
      * @see TableLike
      */
-    <T extends TableLike<? extends Record>> SelectList<RS, C, T, Record, Record> fetchMany(@NonNull T table,
-                                                                                           @NonNull Collection<Field<?>> fields);
+    static <T extends TableLike<? extends Record>> SelectList<T, Record, Record> fetchMany(@NonNull T table,
+                                                                                           @NonNull Collection<Field<?>> fields) {
+        return new SelectList<>(table, SQLResultAdapter.byFields(fields));
+    }
 
     /**
      * Fetch many
@@ -154,8 +182,10 @@ interface DSLAdapter<RS, C extends SQLResultCollector<RS>> {
      * @return select many adapter
      * @see TableLike
      */
-    <T extends TableLike<? extends Record>, R> SelectList<RS, C, T, JsonRecord<?>, R> fetchMany(@NonNull T table,
-                                                                                                @NonNull Class<R> outputClass);
+    static <T extends TableLike<? extends Record>, R> SelectList<T, JsonRecord<?>, R> fetchMany(@NonNull T table,
+                                                                                                @NonNull Class<R> outputClass) {
+        return new SelectList<>(table, SQLResultAdapter.byClass(outputClass));
+    }
 
     /**
      * Fetch many
@@ -165,7 +195,9 @@ interface DSLAdapter<RS, C extends SQLResultCollector<RS>> {
      * @return select many adapter
      * @see TableLike
      */
-    <T extends Table<R>, R extends Record> SelectList<RS, C, T, R, R> fetchMany(@NonNull T table);
+    static <T extends Table<R>, R extends Record> SelectList<T, R, R> fetchMany(@NonNull T table) {
+        return new SelectList<>(table, SQLResultAdapter.byTable(table));
+    }
 
     /**
      * Fetch many
@@ -177,8 +209,10 @@ interface DSLAdapter<RS, C extends SQLResultCollector<RS>> {
      * @return select many adapter
      * @see TableLike
      */
-    <T extends TableLike<? extends Record>, R extends Record, Z extends Table<R>> SelectList<RS, C, T, JsonRecord<?>,
-                                                                                                R> fetchMany(
-        @NonNull T table, @NonNull Z toTable);
+    static <T extends TableLike<? extends Record>, R extends Record, Z extends Table<R>> SelectList<T, JsonRecord<?>,
+                                                                                                       R> fetchMany(
+        @NonNull T table, @NonNull Z toTable) {
+        return new SelectList<>(table, SQLResultAdapter.byJson().andThen(r -> r.into(toTable)));
+    }
 
 }

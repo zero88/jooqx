@@ -16,7 +16,7 @@ import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 import io.vertx.pgclient.PgConnection;
 import io.vertx.pgclient.PgException;
-import io.zero88.jooqx.ReactiveDSL;
+import io.zero88.jooqx.DSLAdapter;
 import io.zero88.jooqx.integtest.pgsql.tables.Books;
 import io.zero88.jooqx.integtest.pgsql.tables.records.BooksRecord;
 import io.zero88.jooqx.spi.pg.PgConnProvider;
@@ -40,7 +40,7 @@ class PgReAFailedTest extends PgSQLReactiveTest<PgConnection>
                                                           .insertInto(table, table.ID, table.TITLE)
                                                           .values(1, "abc")
                                                           .returning(table.ID);
-        jooqx.execute(insert, ReactiveDSL.adapter().fetchOne(table, Collections.singletonList(table.ID)),
+        jooqx.execute(insert, DSLAdapter.fetchOne(table, Collections.singletonList(table.ID)),
                       ar -> assertJooqException(ctx, ar, SQLStateClass.C23_INTEGRITY_CONSTRAINT_VIOLATION,
                                                 "duplicate key value violates unique constraint \"books_pkey\"",
                                                 PgException.class));
@@ -51,7 +51,7 @@ class PgReAFailedTest extends PgSQLReactiveTest<PgConnection>
         final Checkpoint flag = ctx.checkpoint();
         final Books table = catalog().PUBLIC.BOOKS;
         final SelectConditionStep<BooksRecord> insert = jooqx.dsl().selectFrom(table).where(table.ID.eq(1000));
-        jooqx.execute(insert, ReactiveDSL.adapter().fetchOne(table, Collections.singletonList(table.ID)),
+        jooqx.execute(insert, DSLAdapter.fetchOne(table, Collections.singletonList(table.ID)),
                       ar -> ctx.verify(() -> {
                           Assertions.assertNull(assertSuccess(ctx, ar));
                           flag.flag();
@@ -66,11 +66,11 @@ class PgReAFailedTest extends PgSQLReactiveTest<PgConnection>
                                                      .insertInto(table, table.ID, table.TITLE)
                                                      .values(Arrays.asList(DSL.defaultValue(), "1"))
                                                      .returning();
-        jooqx.transaction().run(tx -> tx.execute(q, ReactiveDSL.adapter().fetchOne(table)), async -> {
+        jooqx.transaction().run(tx -> tx.execute(q, DSLAdapter.fetchOne(table)), async -> {
             assertJooqException(context, async, SQLStateClass.C08_CONNECTION_EXCEPTION,
                                 "Unsupported using connection on SQL connection: [class io.vertx.pgclient.impl" +
                                 ".PgConnectionImpl]. Switch using SQL pool");
-            jooqx.execute(jooqx.dsl().selectFrom(table), ReactiveDSL.adapter().fetchMany(table), ar2 -> {
+            jooqx.execute(jooqx.dsl().selectFrom(table), DSLAdapter.fetchMany(table), ar2 -> {
                 assertResultSize(context, ar2, 7);
                 flag.flag();
             });

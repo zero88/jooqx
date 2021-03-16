@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import io.vertx.core.Vertx;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
-import io.zero88.jooqx.LegacyDSL;
+import io.zero88.jooqx.DSLAdapter;
 import io.zero88.jooqx.UseJdbcErrorConverter;
 import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 import io.zero88.jooqx.datatype.UserTypeAsJooqType;
@@ -44,32 +44,30 @@ class PgLeGCustomTest extends PgSQLLegacyTest implements PostgreSQLHelper, UseJd
     void queryEnum(VertxTestContext ctx) {
         Checkpoint flag = ctx.checkpoint();
         final EnumDataType table = catalog().PUBLIC.ENUM_DATA_TYPE;
-        jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), LegacyDSL.adapter().fetchOne(table),
-                      ar -> ctx.verify(() -> {
-                          final EnumDataTypeRecord record = assertSuccess(ctx, ar);
-                          System.out.println(record);
+        jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
+            final EnumDataTypeRecord record = assertSuccess(ctx, ar);
+            System.out.println(record);
 
-                          Assertions.assertEquals(Mood.ok, record.getCurrentmood());
-                          Assertions.assertEquals(Weather.sunny, record.getCurrentweather());
-                          flag.flag();
-                      }));
+            Assertions.assertEquals(Mood.ok, record.getCurrentmood());
+            Assertions.assertEquals(Weather.sunny, record.getCurrentweather());
+            flag.flag();
+        }));
     }
 
     @Test
     void queryCustom(VertxTestContext ctx) {
         Checkpoint flag = ctx.checkpoint();
         final UdtDataType table = catalog().PUBLIC.UDT_DATA_TYPE;
-        jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), LegacyDSL.adapter().fetchOne(table),
-                      ar -> ctx.verify(() -> {
-                          final UdtDataTypeRecord record = assertSuccess(ctx, ar);
-                          Assertions.assertNotNull(record.getAddress());
-                          Assertions.assertEquals("US Open", record.getAddress().getState());
-                          Assertions.assertEquals("Any,town", record.getAddress().getCity());
-                          Assertions.assertEquals("", record.getAddress().getStreet());
-                          Assertions.assertEquals(10, record.getAddress().getNoa());
-                          Assertions.assertEquals(true, record.getAddress().getHome());
-                          flag.flag();
-                      }));
+        jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
+            final UdtDataTypeRecord record = assertSuccess(ctx, ar);
+            Assertions.assertNotNull(record.getAddress());
+            Assertions.assertEquals("US Open", record.getAddress().getState());
+            Assertions.assertEquals("Any,town", record.getAddress().getCity());
+            Assertions.assertEquals("", record.getAddress().getStreet());
+            Assertions.assertEquals(10, record.getAddress().getNoa());
+            Assertions.assertEquals(true, record.getAddress().getHome());
+            flag.flag();
+        }));
     }
 
 }

@@ -17,22 +17,22 @@ import lombok.NonNull;
  * @see SelectOneStrategy
  * @since 1.0.0
  */
-public final class SelectOne<RS, C extends SQLResultCollector<RS>, T extends TableLike<? extends Record>,
-                                R extends Record, O>
-    extends SQLResultAdapterImpl.SelectResultInternal<RS, C, T, R, O, O> implements SelectOneStrategy {
+public final class SelectOne<T extends TableLike<? extends Record>, R extends Record, O>
+    extends SQLResultAdapterImpl.SelectResultInternal<T, R, O, O> implements SelectOneStrategy {
 
-    public SelectOne(@NonNull T table, @NonNull C converter, @NonNull SQLCollectorPart<R, O> collectorPart) {
-        super(table, converter, collectorPart);
+    public SelectOne(@NonNull T table, @NonNull SQLCollectorPart<R, O> collectorPart) {
+        super(table, collectorPart);
     }
 
     @Override
-    public O collect(@NonNull RS resultSet, @NonNull DSLContext dsl, @NonNull DataTypeMapperRegistry registry) {
-        return converter().collect(resultSet, createStrategy(registry, dsl)).stream().findFirst().orElse(null);
+    public <RS> O collect(RS resultSet, @NonNull SQLResultCollector<RS> collector, @NonNull DSLContext dsl,
+                          @NonNull DataTypeMapperRegistry registry) {
+        return collector.collect(resultSet, createStrategy(registry, dsl)).stream().findFirst().orElse(null);
     }
 
-    public static <RS, C extends SQLResultCollector<RS>, T extends TableLike<? extends Record>, R extends Record, O> SelectOne<RS, C, T, R, O> create(
-        @NonNull T table, @NonNull C converter, @NonNull SQLCollectorPart<R, O> collectorPart) {
-        return new SelectOne<>(table, converter, collectorPart);
+    public static <T extends TableLike<? extends Record>, R extends Record, O> SelectOne<T, R, O> create(
+        @NonNull T table, @NonNull SQLCollectorPart<R, O> collectorPart) {
+        return new SelectOne<>(table, collectorPart);
     }
 
 }
