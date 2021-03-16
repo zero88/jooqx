@@ -22,7 +22,7 @@ import lombok.RequiredArgsConstructor;
  *
  * @see DataTypeMapper
  */
-@SuppressWarnings( {"unchecked", "rawtypes"})
+@SuppressWarnings({"unchecked", "rawtypes"})
 public final class DataTypeMapperRegistry {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DataTypeMapperRegistry.class);
@@ -45,11 +45,16 @@ public final class DataTypeMapperRegistry {
 
     public Object toDatabaseType(String paramName, Param<?> param, BiFunction<String, Param<?>, ?> queryValue) {
         final Object val = queryValue.apply(paramName, param);
-        final DataTypeMapper<Object, ?, Object> mapper = getTypeMapper("Param", DSL.field(paramName, param), val);
+        final Field<?> field = DSL.field(paramName, param.getDataType());
+        final DataTypeMapper<Object, ?, Object> mapper = getTypeMapper("Param", field, val);
         if (Objects.nonNull(mapper)) {
             return mapper.toVFromU(val);
         }
-        return ((Converter<Object, Object>) param.getConverter()).to(val);
+        final Converter<?, ?> converter = param.getConverter();
+        if (converter instanceof DataTypeMapper) {
+            return ((DataTypeMapper) converter).toVFromU(val);
+        }
+        return ((Converter<Object, Object>) converter).to(val);
     }
 
     public Object toUserType(@NonNull Field<?> f, Object value) {
@@ -61,9 +66,13 @@ public final class DataTypeMapperRegistry {
             LOGGER.debug("Value of [{}::{}] is not mapped with registered type [{}], coerce value by [{}]...",
                          unquoted(f), value.getClass().getName(), mapper.jooqxConverter().fromType(),
                          mapper.jooqxConverter().toType());
-            return ((Converter<Object, Object>) f.coerce(mapper.jooqxConverter().toType()).getConverter()).to(value);
+            return ((Converter<Object, Object>) f.coerce(mapper.jooqxConverter().toType()).getConverter()).from(value);
         }
-        return ((Converter<Object, Object>) f.getConverter()).to(value);
+        final Converter<?, ?> converter = f.getConverter();
+        if (converter instanceof DataTypeMapper) {
+            return ((DataTypeMapper) converter).fromVtoU(value);
+        }
+        return ((Converter<Object, Object>) converter).from(value);
     }
 
     <V, T, U> DataTypeMapper<V, T, U> lookup(Field<?> field, Class<?> type) {
