@@ -19,7 +19,7 @@
 
 - [x] Vertx [Legacy SQL client](https://vertx.io/docs/vertx-jdbc-client/java/#_legacy_jdbc_client_api)
 - [x] Vertx [Reactive SQL client](https://github.com/eclipse-vertx/vertx-sql-client)
-- [ ] Async jOOQ (jOOQ execution above Vertx asynchronous)
+- [ ] Async jOOQ [#33](https://github.com/zero88/jooqx/issues/33)
 
 `jooqx` supports:
 
