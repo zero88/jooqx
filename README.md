@@ -126,13 +126,11 @@ dependencies {
 
 ## Getting started
 
-Assume you know how to use [jOOQ code generation](https://www.jooq.org/doc/3.14/manual/code-generation/) and able to
-generate your database schema.
+Assume you know how to use [jOOQ code generation](https://www.jooq.org/doc/3.14/manual/code-generation/) and able to generate your database schema.
 
-You can use: [Maven jOOQ codegen](https://www.jooq.org/doc/3.14/manual/code-generation/codegen-maven/)
-or [Gradle jOOQ plugin](https://github.com/etiennestuder/gradle-jooq-plugin)
+You can use: [Maven jOOQ codegen](https://www.jooq.org/doc/3.14/manual/code-generation/codegen-maven/) or [Gradle jOOQ plugin](https://github.com/etiennestuder/gradle-jooq-plugin)
 
-Better experimental is checkout my [integtest](./integtest) project to see some examples
+Better experimental is my [integtest](https://github.com/zero88/jooqx/blob/main/integtest/build.gradle.kts#L46-L73) to see some `jOOQ generation` setup
 
 ### Simple query
 
