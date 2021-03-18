@@ -16,10 +16,8 @@ object PluginLibs {
 
         const val nexusStaging = "0.22.0"
         const val jooq = "5.2"
-        const val sonarQube = "3.1.1"
     }
 
-    const val sonarQube = "org.sonarqube"
     const val nexusStaging = "io.codearte.nexus-staging"
     const val jooq = "nu.studer.jooq"
 }
@@ -69,16 +67,6 @@ object VertxLibs {
 
 }
 
-object JacksonLibs {
-
-    object Version {
-
-        const val jackson = "2.12.0"
-    }
-
-    const val databind = "com.fasterxml.jackson.core:jackson-databind:${Version.jackson}"
-}
-
 object LogLibs {
 
     object Version {
@@ -110,8 +98,6 @@ object DatabaseLibs {
     const val pgsql = "org.postgresql:postgresql:${Version.pgsql}"
     const val mysql = "mysql:mysql-connector-java:${Version.mysql}"
     const val hikari = "com.zaxxer:HikariCP:${Version.hikari}"
-    const val jpa = "javax.persistence:javax.persistence-api:${Version.jpa}"
-    const val jta = "javax.transaction:javax.transaction-api:${Version.jta}"
     const val jooq = "org.jooq:jooq:${Version.jooq}"
     const val jooqMeta = "org.jooq:jooq-meta:${Version.jooq}"
     const val jooqMetaExt = "org.jooq:jooq-meta-extensions:${Version.jooq}"

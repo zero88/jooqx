@@ -81,7 +81,7 @@ jobs:
         uses: actions/cache@v2.1.4
         with:
           path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-build-${{ hashFiles('**/*.gradle') }}
+          key: ${{ runner.os }}-gradle-build-${{ hashFiles('**/*.gradle.kts') }}
           restore-keys: ${{ runner.os }}-gradle-build
 
       - name: Build
@@ -139,7 +139,7 @@ jobs:
         uses: actions/cache@v2.1.4
         with:
           path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-test-${{ hashFiles('**/*.gradle') }}
+          key: ${{ runner.os }}-gradle-test-${{ hashFiles('**/*.gradle.kts') }}
           restore-keys: ${{ runner.os }}-gradle-test
 
       - name: Generate jOOQ
@@ -147,10 +147,12 @@ jobs:
 
       - name: Test
         if: env.ENABLE_TEST == 'true'
-        run: ./gradlew test jacocoTestReport
+        run: ./gradlew jacocoRootReport
 
       - name: SonarQube
-        run: ./gradlew sonarqube -x compileTestJava -Dsonar.login=${{ secrets.OSS_SONARQUBE_TOKEN }} -Dsonar.branch.name=${{ needs.context.outputs.branch }}
+        run: ./gradlew sonarqube -x jacocoRootReport \
+                                 -Dsonar.login=${{ secrets.OSS_SONARQUBE_TOKEN }} \
+                                 -Dsonar.branch.name=${{ needs.context.outputs.branch }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
