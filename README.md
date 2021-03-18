@@ -4,12 +4,12 @@
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/zero88/jooqx?sort=semver)
 ![Sonatype Nexus (Releases)](https://img.shields.io/nexus/r/io.github.zero88/jooqx-core?server=https%3A%2F%2Foss.sonatype.org)
 ![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/io.github.zero88/jooqx-core?server=https%3A%2F%2Foss.sonatype.org)
-
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=zero88_jooqx&metric=ncloc)](https://sonarcloud.io/dashboard?id=zero88_jooqx)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=zero88_jooqx&metric=coverage)](https://sonarcloud.io/dashboard?id=zero88_jooqx)
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=zero88_jooqx&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=zero88_jooqx)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=zero88_jooqx&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=zero88_jooqx)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=zero88_jooqx&metric=security_rating)](https://sonarcloud.io/dashboard?id=zero88_jooqx)
-[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=zero88_jooqx&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=zero88_jooqx)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=zero88_jooqx&metric=coverage)](https://sonarcloud.io/dashboard?id=zero88_jooqx)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=zero88_jooqx&metric=alert_status)](https://sonarcloud.io/dashboard?id=zero88_jooqx)
 
 `jooqx` leverages the power of typesafe SQL from [jOOQ DSL](https://www.jooq.org) and running on SQL connection in a reactive and non-blocking of `SQL driver` from [Vert.x](https://vertx.io/docs/#databases)
 
@@ -40,7 +40,7 @@
     - [ ] Transaction annotation
 - [ ] Procedure
 - [ ] DAO
-- [?] Resource Query Language (RQL) from [rql-jooq](https://github.com/zero88/universal-rsql)
+- [?] Resource Query Language (RQL) from [rsql-jooq](https://github.com/zero88/rsql)
 - [x] Rxified API
 - [ ] Row streaming
 - [ ] Publish/subscribe
