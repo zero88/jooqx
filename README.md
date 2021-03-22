@@ -197,7 +197,7 @@ jooqx.execute(jooqx.dsl().selectFrom(table), DSLAdapter.fetchMany(table), ar -> 
 //output: zero88
 ```
 
-Interesting? Please checkout more features, [here](FEATURES.md) and [java-doc](https://zero88.github.io/jooqx/docs/javadoc/index.html)
+Interesting? Please checkout more features, [here](FEATURES.md), [usage](https://zero88.github.io/jooqx/usage/) and [java-doc](https://zero88.github.io/jooqx/apidocs/)
 
 ## Contributions
 
