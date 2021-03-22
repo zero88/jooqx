@@ -52,10 +52,10 @@ object VertxLibs {
     object Version {
 
         const val vertx = "4.0.2"
+        const val docgen = "0.9.3"
     }
 
     const val core = "io.vertx:vertx-core:${Version.vertx}"
-    const val codegen = "io.vertx:vertx-codegen:${Version.vertx}"
     const val junit5 = "io.vertx:vertx-junit5:${Version.vertx}"
     const val sqlClient = "io.vertx:vertx-sql-client:${Version.vertx}"
     const val jdbc = "io.vertx:vertx-jdbc-client:${Version.vertx}"
@@ -63,6 +63,9 @@ object VertxLibs {
     const val mysql = "io.vertx:vertx-mysql-client:${Version.vertx}"
     const val db2 = "io.vertx:vertx-db2-client:${Version.vertx}"
     const val mssql = "io.vertx:vertx-mssql-client:${Version.vertx}"
+
+    const val codegen = "io.vertx:vertx-codegen:${Version.vertx}"
+    const val docgen = "io.vertx:vertx-docgen:${Version.docgen}"
     const val rx2 = "io.vertx:vertx-rx-java2:${Version.vertx}"
 
 }

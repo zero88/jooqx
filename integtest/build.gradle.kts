@@ -10,6 +10,8 @@ plugins {
 dependencies {
     testImplementation(project(":spi"))
     testImplementation(testFixtures(project(":core")))
+    testImplementation(VertxLibs.docgen)
+    testAnnotationProcessor(VertxLibs.docgen)
 
     jooqGenerator(DatabaseLibs.h2)
     jooqGenerator(DatabaseLibs.pgsql)
@@ -33,6 +35,24 @@ dependencies {
     testImplementation(TestContainers.mysql)
 
     testImplementation(VertxLibs.rx2)
+}
+
+tasks.register<JavaCompile>("docProcessing") {
+    group = "documentation"
+    source = sourceSets.getByName(SourceSet.TEST_SOURCE_SET_NAME).java
+    destinationDir = project.file("${projectDir}/src/asciidoc")
+    classpath = configurations.testCompileClasspath.get()
+    options.annotationProcessorPath = configurations.testCompileClasspath.get()
+    options.compilerArgs = listOf(
+        "-proc:only",
+        "-processor", "io.vertx.docgen.JavaDocGenProcessor",
+        "-Adocgen.output=${project.buildDir}/asciidoc",
+        "-Adocgen.source=${project.projectDir}/src/asciidoc/jooqx.adoc"
+    )
+}
+
+tasks.compileTestJava {
+    dependsOn(tasks.named("docProcessing"))
 }
 
 sourceSets.test {
