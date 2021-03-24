@@ -54,14 +54,14 @@ subprojects {
         zero88.set(true)
         publishingInfo {
             enabled.set(true)
-            homepage.set("https://github.com/zero88/vertx-jooq-dsl")
+            homepage.set("https://github.com/zero88/jooqx")
             license {
                 name.set("The Apache License, Version 2.0")
                 url.set("https://github.com/zero88/jooqx/blob/master/LICENSE")
             }
             scm {
                 connection.set("scm:git:git://git@github.com:zero88/jooqx.git")
-                developerConnection.set("scm:git:ssh://git@github.com:zero88/vertx-jooq-dsl.git")
+                developerConnection.set("scm:git:ssh://git@github.com:zero88/jooqx.git")
                 url.set("https://github.com/zero88/jooqx")
             }
         }

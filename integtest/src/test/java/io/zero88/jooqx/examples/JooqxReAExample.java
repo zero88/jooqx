@@ -1,6 +1,9 @@
 package io.zero88.jooqx.examples;
 
+import java.util.stream.Collectors;
+
 import org.jooq.DSLContext;
+import org.jooq.InsertResultStep;
 import org.jooq.Record1;
 import org.jooq.SQLDialect;
 import org.jooq.SelectConditionStep;
@@ -16,7 +19,9 @@ import io.vertx.mysqlclient.MySQLPool;
 import io.vertx.pgclient.PgConnectOptions;
 import io.vertx.pgclient.PgPool;
 import io.vertx.sqlclient.PoolOptions;
+import io.zero88.jooqx.BindBatchValues;
 import io.zero88.jooqx.DSLAdapter;
+import io.zero88.jooqx.JsonRecord;
 import io.zero88.jooqx.ReactiveJooqx;
 import io.zero88.jooqx.integtest.pgsql.Tables;
 import io.zero88.jooqx.integtest.pgsql.tables.records.AuthorsRecord;
@@ -78,6 +83,9 @@ public class JooqxReAExample implements JooqxExample {
                                                }, err -> {});
     }
 
+    /**
+     * Vertx JsonObject vs jOOQ Record... Ya, merging: JsonRecord
+     */
     @Override
     public void jsonRecord(Vertx vertx) {
         MySQLConnectOptions connectOptions = new MySQLConnectOptions().setPort(3306)
@@ -126,7 +134,30 @@ public class JooqxReAExample implements JooqxExample {
 
     @Override
     public void batch(Vertx vertx) {
-
+        JDBCPool pool = JDBCPool.pool(vertx, new JDBCConnectOptions().setJdbcUrl("jdbc:h2:mem:jooqx-examples"),
+                                          new PoolOptions().setMaxSize(5));
+        // Build jOOQx
+        ReactiveJooqx jooqx = ReactiveJooqx.builder().vertx(vertx).dsl(DSL.using(SQLDialect.H2)).sqlClient(pool).build();
+        AuthorsRecord rec1 = new AuthorsRecord().setName("zero88").setCountry("VN");
+        AuthorsRecord rec2 = new AuthorsRecord().setName("jooq").setCountry("CH");
+        AuthorsRecord rec3 = new AuthorsRecord().setName("vertx");
+        BindBatchValues bindValues = new BindBatchValues().register(Tables.AUTHORS.NAME)
+                                                          .registerValue(Tables.AUTHORS.COUNTRY, "FR")
+                                                          .add(rec1, rec2, rec3);
+        InsertResultStep<AuthorsRecord> insert = jooqx.dsl()
+                                                      .insertInto(Tables.AUTHORS)
+                                                      .set(bindValues.getDummyValues())
+                                                      .returning();
+        // Wanna know success number
+        jooqx.batch(insert, bindValues, ar -> {
+            System.out.println(ar.result().getTotal());     // 3
+            System.out.println(ar.result().getSuccesses()); // 3
+        });
+        // Wanna get detail
+        jooqx.batch(insert, bindValues, DSLAdapter.fetchJsonRecords(Tables.AUTHORS), ar -> {
+            System.out.println(ar.result().getRecords().stream().map(JsonRecord::toJson).collect(Collectors.toList()));
+        //[{"id":1,"name":"zero88","country":"VN"},{"id":2,"name":"jooq","country":"CH"},{"id":3,"name":"vertx","country":"FR"}]
+        });
     }
 
     @Override
