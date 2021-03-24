@@ -11,7 +11,7 @@
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=zero88_jooqx&metric=security_rating)](https://sonarcloud.io/dashboard?id=zero88_jooqx)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=zero88_jooqx&metric=alert_status)](https://sonarcloud.io/dashboard?id=zero88_jooqx)
 
-`jooqx` leverages the power of typesafe SQL from [jOOQ DSL](https://www.jooq.org) and running on SQL connection in a reactive and non-blocking of `SQL driver` from [Vert.x](https://vertx.io/docs/#databases)
+`jooqx` leverages the power of typesafe SQL from [jOOQ DSL](https://www.jooq.org) and uses the reactive and non-blocking `SQL driver` from [Vert.x](https://vertx.io/docs/#databases)
 
 ## Features
 
