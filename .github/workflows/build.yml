@@ -45,7 +45,7 @@ jobs:
 
       - name: Project context
         id: context
-        uses: zero88/gh-project-context@v1
+        uses: zero88/gh-project-context@v1.0.4
         with:
           dry: false
           mustSign: true
