@@ -1,16 +1,17 @@
 package io.zero88.jooqx.spi.mysql;
 
+import java.nio.charset.StandardCharsets;
+
+import io.vertx.core.json.JsonObject;
 import io.vertx.mysqlclient.MySQLConnectOptions;
-import io.zero88.jooqx.SQLConnectionOption;
 
 interface MySQLClientProvider {
 
-    default MySQLConnectOptions connectionOptions(SQLConnectionOption server) {
-        return new MySQLConnectOptions().setHost(server.getHost())
-                                        .setPort(server.getPort())
-                                        .setDatabase(server.getDatabase())
-                                        .setUser(server.getUsername())
-                                        .setPassword(server.getPassword());
+    default MySQLConnectOptions connectionOptions(JsonObject server) {
+
+        return new MySQLConnectOptions(server).setCharset("utf8")
+                                              .setCharacterEncoding(StandardCharsets.UTF_8.name())
+                                              .setCollation("utf8_general_ci");
     }
 
 }

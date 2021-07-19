@@ -1,23 +1,19 @@
 package io.zero88.jooqx.spi.jdbc;
 
+import io.vertx.core.Future;
 import io.vertx.core.Vertx;
+import io.vertx.core.json.JsonObject;
 import io.vertx.jdbcclient.JDBCConnectOptions;
 import io.vertx.jdbcclient.JDBCPool;
-import io.vertx.junit5.VertxTestContext;
-import io.zero88.jooqx.ReactiveTestDefinition.ReactiveSQLClientProvider;
-import io.zero88.jooqx.SQLConnectionOption;
+import io.zero88.jooqx.provider.ReactiveSQLClientProvider;
+
+import lombok.NonNull;
 
 public interface JDBCReactiveProvider extends ReactiveSQLClientProvider<JDBCPool> {
 
     @Override
-    default JDBCPool createSqlClient(Vertx vertx, VertxTestContext ctx, SQLConnectionOption connOpt) {
-        final JDBCPool pool = JDBCPool.pool(vertx, new JDBCConnectOptions().setJdbcUrl(connOpt.getJdbcUrl())
-                                                                           .setDatabase(connOpt.getDatabase())
-                                                                           .setUser(connOpt.getUsername())
-                                                                           .setPassword(connOpt.getPassword()),
-                                            poolOptions());
-        ctx.completeNow();
-        return pool;
+    default @NonNull Future<JDBCPool> open(Vertx vertx, JsonObject connOption) {
+        return Future.succeededFuture(JDBCPool.pool(vertx, new JDBCConnectOptions(connOption), poolOptions()));
     }
 
 }

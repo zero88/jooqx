@@ -1,4 +1,4 @@
-package io.zero88.jooqx;
+package io.zero88.jooqx.provider;
 
 import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 

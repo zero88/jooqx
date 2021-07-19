@@ -14,7 +14,7 @@ public interface DBProvider<S> extends Supplier<S> {
 
         @Override
         default @NonNull SQLConnectionOption connOpt(String jdbcUrl) {
-            return SQLConnectionOption.builder().jdbcUrl(jdbcUrl).driverClassName(driverClassName()).build();
+            return new SQLConnectionOption().setJdbcUrl(jdbcUrl).setDriverClassName(driverClassName());
         }
 
         @NonNull String driverClassName();
@@ -26,15 +26,13 @@ public interface DBProvider<S> extends Supplier<S> {
 
         @Override
         default @NonNull SQLConnectionOption connOpt(K server) {
-            return SQLConnectionOption.builder()
-                                      .host(server.getHost())
-                                      .port(server.getMappedPort(defaultPort()))
-                                      .database(server.getDatabaseName())
-                                      .username(server.getUsername())
-                                      .password(server.getPassword())
-                                      .jdbcUrl(server.getJdbcUrl())
-                                      .driverClassName(server.getDriverClassName())
-                                      .build();
+            return new SQLConnectionOption().setHost(server.getHost())
+                                            .setPort(server.getMappedPort(defaultPort()))
+                                            .setDatabase(server.getDatabaseName())
+                                            .setUser(server.getUsername())
+                                            .setPassword(server.getPassword())
+                                            .setJdbcUrl(server.getJdbcUrl())
+                                            .setDriverClassName(server.getDriverClassName());
         }
 
         K get(String imageName);

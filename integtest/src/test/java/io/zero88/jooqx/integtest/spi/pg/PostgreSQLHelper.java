@@ -11,7 +11,6 @@ import io.vertx.junit5.VertxTestContext;
 import io.zero88.jooqx.JooqSQL;
 import io.zero88.jooqx.SQLConnectionOption;
 import io.zero88.jooqx.SQLTestHelper;
-import io.zero88.jooqx.TypeMapperRegistryCreator;
 import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 import io.zero88.jooqx.datatype.JooqxConverter;
 import io.zero88.jooqx.datatype.basic.UDTParser;
@@ -21,6 +20,7 @@ import io.zero88.jooqx.integtest.pgsql.enums.Mood;
 import io.zero88.jooqx.integtest.pgsql.enums.Weather;
 import io.zero88.jooqx.integtest.pgsql.udt.FullAddress;
 import io.zero88.jooqx.integtest.pgsql.udt.records.FullAddressRecord;
+import io.zero88.jooqx.provider.TypeMapperRegistryCreator;
 import io.zero88.jooqx.spi.pg.datatype.PgTypeMapperRegistry;
 
 import lombok.NonNull;

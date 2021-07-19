@@ -9,7 +9,7 @@ import io.zero88.jooqx.HasDBProvider;
 
 import lombok.NonNull;
 
-public interface H2DBProvider extends DBMemoryProvider, HasDBProvider<String, DBMemoryProvider> {
+public interface H2DBMemProvider extends DBMemoryProvider, HasDBProvider<String, DBMemoryProvider> {
 
     @Override
     default @NonNull String driverClassName() {
@@ -18,7 +18,7 @@ public interface H2DBProvider extends DBMemoryProvider, HasDBProvider<String, DB
 
     @Override
     default String get() {
-        return "jdbc:h2:mem:h2mem-" + UUID.randomUUID().toString();
+        return "jdbc:h2:mem:h2mem-" + UUID.randomUUID();
     }
 
     @Override

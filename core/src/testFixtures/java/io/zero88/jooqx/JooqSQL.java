@@ -14,6 +14,8 @@ import org.jooq.DSLContext;
 import org.jooq.Schema;
 
 import io.vertx.junit5.VertxTestContext;
+import io.zero88.jooqx.provider.HasDSLProvider;
+import io.zero88.jooqx.provider.JooqDSLProvider;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -32,7 +34,7 @@ public interface JooqSQL<S extends Schema> extends JooqDSLProvider, HasDSLProvid
     default HikariDataSource createDataSource(SQLConnectionOption option) {
         HikariConfig hikariConfig = new HikariConfig();
         hikariConfig.setJdbcUrl(option.getJdbcUrl());
-        hikariConfig.setUsername(option.getUsername());
+        hikariConfig.setUsername(option.getUser());
         hikariConfig.setPassword(option.getPassword());
         hikariConfig.setDriverClassName(option.getDriverClassName());
         return new HikariDataSource(hikariConfig);
