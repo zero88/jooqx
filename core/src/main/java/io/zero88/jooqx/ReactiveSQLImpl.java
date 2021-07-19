@@ -49,8 +49,7 @@ final class ReactiveSQLImpl {
             params.entrySet()
                   .stream()
                   .filter(entry -> !entry.getValue().isInline())
-                  .forEachOrdered(
-                      etr -> bindValues.addValue(registry.toDatabaseType(etr.getKey(), etr.getValue(), queryValue)));
+                  .forEachOrdered(etr -> bindValues.addValue(registry.toDatabaseType(etr.getKey(), etr.getValue(), queryValue)));
             return bindValues;
         }
 
@@ -128,9 +127,9 @@ final class ReactiveSQLImpl {
             this.delegate = null;
         }
 
-        JooqxConnImpl(Vertx vertx, DSLContext dsl, SqlConnection sqlClient,
-                      ReactiveSQLPreparedQuery preparedQuery, ReactiveSQLResultCollector resultCollector,
-                      SQLErrorConverter errorConverter, DataTypeMapperRegistry typeMapperRegistry) {
+        JooqxConnImpl(Vertx vertx, DSLContext dsl, SqlConnection sqlClient, ReactiveSQLPreparedQuery preparedQuery,
+                      ReactiveSQLResultCollector resultCollector, SQLErrorConverter errorConverter,
+                      DataTypeMapperRegistry typeMapperRegistry) {
             super(vertx, dsl, sqlClient, preparedQuery, resultCollector, errorConverter, typeMapperRegistry);
             this.delegate = null;
         }
@@ -267,21 +266,24 @@ final class ReactiveSQLImpl {
 
         @Override
         protected ReactiveJooqxImpl<S> withSqlClient(@NonNull S sqlClient) {
-            return (ReactiveJooqxImpl<S>) ReactiveJooqxBase.<S>baseBuilder().vertx(vertx())
-                                                                            .sqlClient(sqlClient)
-                                                                            .dsl(dsl())
-                                                                            .preparedQuery(preparedQuery())
-                                                                            .resultCollector(resultCollector())
-                                                                            .errorConverter(errorConverter())
-                                                                            .typeMapperRegistry(typeMapperRegistry())
-                                                                            .build();
+            return (ReactiveJooqxImpl<S>) ReactiveJooqxBase.<S>baseBuilder()
+                                                           .vertx(vertx())
+                                                           .sqlClient(sqlClient)
+                                                           .dsl(dsl())
+                                                           .preparedQuery(preparedQuery())
+                                                           .resultCollector(resultCollector())
+                                                           .errorConverter(errorConverter())
+                                                           .typeMapperRegistry(typeMapperRegistry())
+                                                           .build();
         }
 
         @Override
-        protected ReactiveSQLPreparedQuery defPrepareQuery() { return new ReactiveSQLPQ(); }
+        @NonNull
+        protected ReactiveSQLPreparedQuery defPrepareQuery() { return ReactiveSQLPreparedQuery.create(); }
 
         @Override
-        protected ReactiveSQLResultCollector defResultCollector() { return new ReactiveSQLRC(); }
+        @NonNull
+        protected ReactiveSQLResultCollector defResultCollector() { return ReactiveSQLResultCollector.create(); }
 
     }
 

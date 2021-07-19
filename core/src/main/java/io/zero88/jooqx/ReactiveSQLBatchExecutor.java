@@ -21,7 +21,6 @@ import lombok.NonNull;
  */
 public interface ReactiveSQLBatchExecutor extends SQLBatchExecutor {
 
-
     /**
      * Batch execute
      *
@@ -59,4 +58,5 @@ public interface ReactiveSQLBatchExecutor extends SQLBatchExecutor {
      */
     <T, R> Future<BatchReturningResult<R>> batch(@NonNull Query query, @NonNull BindBatchValues bindBatchValues,
                                                  @NonNull SQLResultListAdapter<T, R> adapter);
+
 }

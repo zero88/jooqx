@@ -5,6 +5,7 @@ import java.util.List;
 import io.vertx.codegen.annotations.GenIgnore;
 import io.vertx.codegen.annotations.VertxGen;
 import io.vertx.ext.sql.ResultSet;
+import io.zero88.jooqx.LegacySQLImpl.LegacySQLRC;
 import io.zero88.jooqx.adapter.RowConverterStrategy;
 
 import lombok.NonNull;
@@ -15,8 +16,11 @@ import lombok.NonNull;
  * @since 1.0.0
  */
 @VertxGen
-public interface LegacySQLCollector
-    extends SQLResultCollector<ResultSet>, SQLBatchCollector<ResultSet, List<Integer>> {
+public interface LegacySQLCollector extends SQLResultCollector<ResultSet>, SQLBatchCollector<ResultSet, List<Integer>> {
+
+    static LegacySQLCollector create() {
+        return new LegacySQLRC();
+    }
 
     @Override
     int batchResultSize(@NonNull List<Integer> batchResult);

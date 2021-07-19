@@ -25,13 +25,14 @@ import lombok.experimental.Accessors;
  * @param <S>  Type of Vertx SQL client. Might be {@link SqlClient} or {@link SQLClient}
  * @param <B>  Type of Vertx SQL bind value holder
  * @param <RS> Type of Vertx SQL result set holder
- * @param <C>  Type of SQL result set collector
+ * @param <PQ> Type of SQL prepare query
+ * @param <RC> Type of SQL result set collector
  * @see LegacyJooqx
  * @see ReactiveJooqxBase
  * @see SQLBatchExecutor
  * @since 1.0.0
  */
-public interface SQLExecutor<S, B, P extends SQLPreparedQuery<B>, RS, C extends SQLResultCollector<RS>>
+public interface SQLExecutor<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extends SQLResultCollector<RS>>
     extends SQLBatchExecutor {
 
     /**
@@ -62,7 +63,7 @@ public interface SQLExecutor<S, B, P extends SQLPreparedQuery<B>, RS, C extends 
      * @return prepared query
      * @see SQLPreparedQuery
      */
-    @NonNull P preparedQuery();
+    @NonNull PQ preparedQuery();
 
     /**
      * Defines result collector depends on result set
@@ -70,7 +71,7 @@ public interface SQLExecutor<S, B, P extends SQLPreparedQuery<B>, RS, C extends 
      * @return result collector
      * @see SQLResultCollector
      */
-    @NonNull C resultCollector();
+    @NonNull RC resultCollector();
 
     /**
      * Defines an error converter that rethrows an uniform exception by
@@ -126,7 +127,7 @@ public interface SQLExecutor<S, B, P extends SQLPreparedQuery<B>, RS, C extends 
      * @return transaction executor
      * @see SQLTxExecutor
      */
-    @NonNull <E extends SQLExecutor<S, B, P, RS, C>> SQLTxExecutor<S, B, P, RS, C, E> transaction();
+    @NonNull <E extends SQLExecutor<S, B, PQ, RS, RC>> SQLTxExecutor<S, B, PQ, RS, RC, E> transaction();
 
     @Getter
     @Setter
