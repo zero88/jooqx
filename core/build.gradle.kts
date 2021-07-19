@@ -17,7 +17,6 @@ dependencies {
     testImplementation(VertxLibs.sqlClient)
 
     testFixturesApi(project(":spi"))
-    testFixturesApi(project(":provider"))
     testFixturesApi(LogLibs.logback)
     testFixturesApi(TestLibs.junit5Api)
     testFixturesApi(TestLibs.junit5Engine)
