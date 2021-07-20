@@ -22,8 +22,19 @@ import com.zaxxer.hikari.HikariDataSource;
 
 import lombok.NonNull;
 
+/**
+ * SQL test helper for initializing the test database schema via {@code HikariCP} and plain {@code jOOQ}
+ *
+ * @param <S> Type of schema
+ * @see Schema
+ */
 public interface JooqSQL<S extends Schema> extends JooqDSLProvider, HasSQLDialect {
 
+    /**
+     * Get test database schema
+     *
+     * @return test schema
+     */
     S schema();
 
     @Override
@@ -31,6 +42,12 @@ public interface JooqSQL<S extends Schema> extends JooqDSLProvider, HasSQLDialec
         return JooqDSLProvider.create(this).dsl();
     }
 
+    /**
+     * Create Hikari data source
+     *
+     * @param option sql connection options
+     * @return Hikari data source
+     */
     default HikariDataSource createDataSource(SQLConnectionOption option) {
         HikariConfig hikariConfig = new HikariConfig();
         hikariConfig.setJdbcUrl(option.getJdbcUrl());
@@ -40,12 +57,24 @@ public interface JooqSQL<S extends Schema> extends JooqDSLProvider, HasSQLDialec
         return new HikariDataSource(hikariConfig);
     }
 
+    /**
+     * Close Hikari datasource
+     *
+     * @param dataSource datasource
+     */
     default void closeDataSource(HikariDataSource dataSource) {
         if (dataSource != null && !dataSource.isClosed()) {
             dataSource.close();
         }
     }
 
+    /**
+     * Prepare database when tear-up test case
+     *
+     * @param context Vertx test context
+     * @param dsl     dsl
+     * @param files   SQL files
+     */
     default void prepareDatabase(@NonNull VertxTestContext context, @NonNull DSLContext dsl, @NonNull String... files) {
         Arrays.stream(files).forEach(file -> {
             try {

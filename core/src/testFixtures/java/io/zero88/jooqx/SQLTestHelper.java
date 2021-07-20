@@ -18,7 +18,7 @@ import com.zaxxer.hikari.HikariDataSource;
 public interface SQLTestHelper {
 
     /**
-     * Prepare database schema and data by plain JDBC connection. That use HikariDataSource
+     * Prepare database schema and test data by plain JDBC connection. That use {@code HikariCP}
      *
      * @param context    test context
      * @param jooqSql    jooqSQL

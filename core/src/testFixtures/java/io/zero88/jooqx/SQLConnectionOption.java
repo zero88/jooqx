@@ -3,6 +3,9 @@ package io.zero88.jooqx;
 import io.vertx.codegen.annotations.DataObject;
 import io.vertx.core.json.JsonObject;
 
+/**
+ * Simple SQL connection option for test
+ */
 @DataObject(generateConverter = true)
 public class SQLConnectionOption {
 

@@ -1,7 +1,13 @@
 package io.zero88.jooqx;
 
-public interface HasDBProvider<K, D extends DBProvider<K>> {
+import io.zero88.jooqx.provider.DBProvider;
 
-    D dbProvider();
+/**
+ * @param <DB>  Type of database
+ * @param <DBP> Type of database provider
+ */
+public interface HasDBProvider<DB, DBP extends DBProvider<DB>> {
+
+    DBP dbProvider();
 
 }

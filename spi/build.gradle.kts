@@ -7,6 +7,8 @@ dependencies {
     compileOnly(VertxLibs.mysql)
     compileOnly(VertxLibs.mssql)
     compileOnly(VertxLibs.db2)
+    compileOnly(DatabaseLibs.h2)
+    compileOnly(DatabaseLibs.sqlite)
 
     testImplementation(testFixtures(project(":core")))
     testImplementation(VertxLibs.sqlClient)

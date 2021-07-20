@@ -17,7 +17,10 @@ public interface JDBCLegacyHikariProvider extends LegacySQLClientProvider<Hikari
     @Override
     @NotNull
     default JsonObject parseConn(@NotNull JsonObject connOptions) {
-        return LegacySQLClientProvider.super.parseConn(connOptions.put("username", connOptions.getString("user")));
+        if (connOptions.getString("username") == null) {
+            connOptions.put("username", connOptions.getString("user"));
+        }
+        return LegacySQLClientProvider.super.parseConn(connOptions);
     }
 
     @Override

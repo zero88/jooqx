@@ -19,17 +19,17 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.junit5.VertxExtension;
 import io.vertx.junit5.VertxTestContext;
 import io.vertx.sqlclient.PoolOptions;
-import io.zero88.jooqx.DBProvider.DBContainerProvider;
-import io.zero88.jooqx.DBProvider.DBMemoryProvider;
+import io.zero88.jooqx.provider.DBEmbeddedProvider.DBMemoryProvider;
+import io.zero88.jooqx.provider.DBProvider;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 import lombok.SneakyThrows;
 
 @ExtendWith(VertxExtension.class)
-abstract class SQLTestImpl<S, B, P extends SQLPreparedQuery<B>, R, C extends SQLResultCollector<R>,
-                              E extends SQLExecutor<S, B, P, R, C>, K, D extends DBProvider<K>>
-    implements SQLTest<S, B, P, R, C, E, K, D> {
+abstract class SQLTestImpl<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extends SQLResultCollector<RS>,
+                              E extends SQLExecutor<S, B, PQ, RS, RC>, DB, DBP extends DBProvider<DB>>
+    implements SQLTest<S, B, PQ, RS, RC, E, DB, DBP> {
 
     public static int TIMEOUT_IN_SECOND = 10;
     protected E jooqx;
@@ -47,8 +47,8 @@ abstract class SQLTestImpl<S, B, P extends SQLPreparedQuery<B>, R, C extends SQL
     @SneakyThrows
     @BeforeEach
     public void tearUp(Vertx vertx, VertxTestContext ctx) {
-        jooqx(vertx, initSQLOption(getDB()), initPoolOption()).onSuccess(jooqx -> this.jooqx = jooqx)
-                                                              .onComplete(ctx.succeedingThenComplete());
+        jooqx(vertx, initSQLOption(getDatabase()), initPoolOption()).onSuccess(jooqx -> this.jooqx = jooqx)
+                                                                    .onComplete(ctx.succeedingThenComplete());
         if (ctx.awaitCompletion(TIMEOUT_IN_SECOND, TimeUnit.SECONDS)) {
             ctx.failNow("Timeout when open SQL connection");
         }
@@ -60,7 +60,7 @@ abstract class SQLTestImpl<S, B, P extends SQLPreparedQuery<B>, R, C extends SQL
         clientProvider().close(jooqx.sqlClient()).onComplete(ctx.succeedingThenComplete());
     }
 
-    protected abstract K getDB();
+    protected abstract DB getDatabase();
 
     /**
      * Init SQL connection option from database
@@ -68,8 +68,8 @@ abstract class SQLTestImpl<S, B, P extends SQLPreparedQuery<B>, R, C extends SQL
      * @param database given test database
      * @return sql connection option
      */
-    protected JsonObject initSQLOption(@NonNull K database) {
-        connOpt = dbProvider().connOpt(database);
+    protected JsonObject initSQLOption(@NonNull DB database) {
+        connOpt = new SQLConnectionOption(dbProvider().createConnOptions(database));
         return connOpt.toJson();
     }
 
@@ -90,10 +90,10 @@ abstract class SQLTestImpl<S, B, P extends SQLPreparedQuery<B>, R, C extends SQL
         extends SQLTestImpl<S, B, P, R, C, E, K, DBContainerProvider<K>> {
 
         @Container
-        protected K db = dbProvider().get();
+        protected K db = dbProvider().init();
 
         @Override
-        protected K getDB() {
+        protected K getDatabase() {
             return db;
         }
 
@@ -102,11 +102,16 @@ abstract class SQLTestImpl<S, B, P extends SQLPreparedQuery<B>, R, C extends SQL
 
     abstract static class DBMemorySQLTest<S, B, P extends SQLPreparedQuery<B>, R, C extends SQLResultCollector<R>,
                                              E extends SQLExecutor<S, B, P, R, C>>
-        extends SQLTestImpl<S, B, P, R, C, E, String, DBMemoryProvider> {
+        extends SQLTestImpl<S, B, P, R, C, E, String, DBMemoryProvider> implements DBMemoryProvider {
 
         @Override
-        protected String getDB() {
-            return dbProvider().get();
+        protected String getDatabase() {
+            return dbProvider().init();
+        }
+
+        @Override
+        public DBMemoryProvider dbProvider() {
+            return this;
         }
 
     }

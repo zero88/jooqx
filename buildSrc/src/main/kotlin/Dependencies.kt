@@ -63,7 +63,6 @@ object VertxLibs {
     const val mysql = "io.vertx:vertx-mysql-client:${Version.vertx}"
     const val db2 = "io.vertx:vertx-db2-client:${Version.vertx}"
     const val mssql = "io.vertx:vertx-mssql-client:${Version.vertx}"
-
     const val codegen = "io.vertx:vertx-codegen:${Version.vertx}"
     const val docgen = "io.vertx:vertx-docgen:${Version.docgen}"
     const val rx2 = "io.vertx:vertx-rx-java2:${Version.vertx}"
@@ -86,7 +85,6 @@ object DatabaseLibs {
 
     object Version {
 
-        //                const val jooq = "3.13.6"
         const val jooq = "3.14.8"
         const val h2 = "1.4.200"
         const val pgsql = "42.2.19"
@@ -95,6 +93,7 @@ object DatabaseLibs {
         const val jpa = "2.2"
         const val jta = "1.3"
         const val agroal = "1.9"
+        const val sqlite = "3.36.0.1"
     }
 
     const val h2 = "com.h2database:h2:${Version.h2}"
@@ -107,6 +106,7 @@ object DatabaseLibs {
     const val jooqCodegen = "org.jooq:jooq-codegen:${Version.jooq}"
     const val agroalApi = "io.agroal:agroal-api:${Version.agroal}"
     const val agroalPool = "io.agroal:agroal-pool:${Version.agroal}"
+    const val sqlite = "org.xerial:sqlite-jdbc:${Version.sqlite}"
 }
 
 object ZeroLibs {
