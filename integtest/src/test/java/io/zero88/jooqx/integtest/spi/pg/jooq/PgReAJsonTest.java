@@ -23,9 +23,9 @@ import io.zero88.jooqx.integtest.pgsql.tables.records.JsonbDataTypeRecord;
 import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgUseJooqType;
 import io.zero88.jooqx.spi.pg.PgPoolProvider;
 import io.zero88.jooqx.spi.pg.PgSQLReactiveTest;
-import io.zero88.jooqx.spi.pg.UsePgSQLErrorConverter;
+import io.zero88.jooqx.spi.pg.PgSQLErrorConverterProvider;
 
-class PgReAJsonTest extends PgSQLReactiveTest<PgPool> implements UsePgSQLErrorConverter, PgPoolProvider, PgUseJooqType {
+class PgReAJsonTest extends PgSQLReactiveTest<PgPool> implements PgSQLErrorConverterProvider, PgPoolProvider, PgUseJooqType {
 
     @Override
     @BeforeEach

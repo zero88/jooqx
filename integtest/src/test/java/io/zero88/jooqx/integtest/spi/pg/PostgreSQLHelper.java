@@ -3,6 +3,7 @@ package io.zero88.jooqx.integtest.spi.pg;
 import java.util.Arrays;
 import java.util.stream.Stream;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.SQLDialect;
 import org.jooq.Schema;
 import org.jooq.impl.EnumConverter;
@@ -11,7 +12,6 @@ import io.vertx.junit5.VertxTestContext;
 import io.zero88.jooqx.JooqSQL;
 import io.zero88.jooqx.SQLConnectionOption;
 import io.zero88.jooqx.SQLTestHelper;
-import io.zero88.jooqx.TypeMapperRegistryCreator;
 import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 import io.zero88.jooqx.datatype.JooqxConverter;
 import io.zero88.jooqx.datatype.basic.UDTParser;
@@ -21,6 +21,7 @@ import io.zero88.jooqx.integtest.pgsql.enums.Mood;
 import io.zero88.jooqx.integtest.pgsql.enums.Weather;
 import io.zero88.jooqx.integtest.pgsql.udt.FullAddress;
 import io.zero88.jooqx.integtest.pgsql.udt.records.FullAddressRecord;
+import io.zero88.jooqx.provider.TypeMapperRegistryProvider;
 import io.zero88.jooqx.spi.pg.datatype.PgTypeMapperRegistry;
 
 import lombok.NonNull;
@@ -49,7 +50,7 @@ public interface PostgreSQLHelper<S extends Schema> extends JooqSQL<S>, SQLTestH
     }
 
 
-    interface PgUseJooqType extends TypeMapperRegistryCreator, PostgreSQLHelper<Public> {
+    interface PgUseJooqType extends TypeMapperRegistryProvider, PostgreSQLHelper<Public> {
 
         @Override
         default DataTypeMapperRegistry typeMapperRegistry() {
@@ -65,12 +66,12 @@ public interface PostgreSQLHelper<S extends Schema> extends JooqSQL<S>, SQLTestH
 
 
     interface PgUseVertxType
-        extends TypeMapperRegistryCreator, PostgreSQLHelper<io.zero88.jooqx.integtest.pgsql2.Public> {
+        extends TypeMapperRegistryProvider, PostgreSQLHelper<io.zero88.jooqx.integtest.pgsql2.Public> {
 
         @Override
         default DataTypeMapperRegistry typeMapperRegistry() {
             if (alreadyGenerated()) {
-                return TypeMapperRegistryCreator.super.typeMapperRegistry();
+                return TypeMapperRegistryProvider.super.typeMapperRegistry();
             }
             return PgTypeMapperRegistry.useUserTypeAsVertxType();
         }
@@ -125,12 +126,12 @@ public interface PostgreSQLHelper<S extends Schema> extends JooqSQL<S>, SQLTestH
         }
 
         @Override
-        public Class<String> fromType() {
+        public @NotNull Class<String> fromType() {
             return String.class;
         }
 
         @Override
-        public Class<FullAddressRecord> toType() {
+        public @NotNull Class<FullAddressRecord> toType() {
             return FullAddressRecord.class;
         }
 

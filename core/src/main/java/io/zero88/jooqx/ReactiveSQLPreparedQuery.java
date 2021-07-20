@@ -8,6 +8,7 @@ import org.jooq.Query;
 import io.vertx.codegen.annotations.GenIgnore;
 import io.vertx.codegen.annotations.VertxGen;
 import io.vertx.sqlclient.Tuple;
+import io.zero88.jooqx.ReactiveSQLImpl.ReactiveSQLPQ;
 import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
 import lombok.NonNull;
@@ -19,6 +20,15 @@ import lombok.NonNull;
  */
 @VertxGen
 public interface ReactiveSQLPreparedQuery extends SQLPreparedQuery<Tuple> {
+
+    /**
+     * Create default reactive SQL prepare query
+     *
+     * @return a new instance of ReactiveSQLPreparedQuery
+     */
+    static ReactiveSQLPreparedQuery create() {
+        return new ReactiveSQLPQ();
+    }
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)

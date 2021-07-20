@@ -13,6 +13,7 @@ import io.zero88.jooqx.DSLAdapter;
 import io.zero88.jooqx.integtest.pgsql.tables.TemporalDataType;
 import io.zero88.jooqx.integtest.pgsql.tables.records.TemporalDataTypeRecord;
 import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgLegacyType;
+import io.zero88.jooqx.provider.JooqDSLProvider;
 import io.zero88.jooqx.spi.pg.PgSQLLegacyTest;
 
 class PgLeGTemporalTest extends PgSQLLegacyTest implements PgLegacyType {
@@ -46,7 +47,7 @@ class PgLeGTemporalTest extends PgSQLLegacyTest implements PgLegacyType {
     @Test
     void test_jooq_query(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
-        final DSLContext dsl = dsl(createDataSource(connOpt));
+        final DSLContext dsl = JooqDSLProvider.create(dialect(), createDataSource(connOpt)).dsl();
         final TemporalDataTypeRecord record = dsl.selectFrom(schema().TEMPORAL_DATA_TYPE).limit(1).fetchOne();
         ctx.verify(() -> {
             System.out.println(record);

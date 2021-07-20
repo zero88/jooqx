@@ -48,6 +48,7 @@ subprojects {
         testImplementation(TestLibs.junit5Vintage)
         testCompileOnly(UtilLibs.lombok)
         testAnnotationProcessor(UtilLibs.lombok)
+        testCompileOnly(UtilLibs.jetbrainsAnnotations)
     }
 
     qwe {

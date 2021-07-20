@@ -18,7 +18,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
 /**
- * A registry for list of specific data type mapper
+ * A registry for list of specific data type mapper among {@code Vert.x}, {@code jOOQ} and {@code User data type}.
  *
  * @see DataTypeMapper
  */

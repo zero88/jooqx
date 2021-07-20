@@ -45,10 +45,10 @@ jobs:
 
       - name: Project context
         id: context
-        uses: zero88/gh-project-context@v1
+        uses: zero88/gh-project-context@v1.1
         with:
-          dry: false
           mustSign: true
+          nextVerMode: PATCH
 
       - name: Find semantic version
         id: semantic

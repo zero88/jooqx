@@ -8,7 +8,7 @@ import io.vertx.core.Vertx;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 import io.zero88.jooqx.DSLAdapter;
-import io.zero88.jooqx.UseJdbcErrorConverter;
+import io.zero88.jooqx.spi.jdbc.JDBCErrorConverterProvider;
 import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 import io.zero88.jooqx.datatype.UserTypeAsJooqType;
 import io.zero88.jooqx.integtest.pgsql.enums.Mood;
@@ -20,7 +20,7 @@ import io.zero88.jooqx.integtest.pgsql.tables.records.UdtDataTypeRecord;
 import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgUseJooqType;
 import io.zero88.jooqx.spi.pg.PgSQLLegacyTest;
 
-class PgLeGCustomTest extends PgSQLLegacyTest implements UseJdbcErrorConverter, PgUseJooqType {
+class PgLeGCustomTest extends PgSQLLegacyTest implements JDBCErrorConverterProvider, PgUseJooqType {
 
     @Override
     @BeforeEach

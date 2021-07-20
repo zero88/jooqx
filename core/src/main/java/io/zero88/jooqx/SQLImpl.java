@@ -9,6 +9,7 @@ import java.util.function.BiFunction;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.Configuration;
 import org.jooq.DSLContext;
 import org.jooq.Param;
@@ -32,20 +33,20 @@ final class SQLImpl {
 
     @Getter
     @Accessors(fluent = true)
-    abstract static class SQLEI<S, B, P extends SQLPreparedQuery<B>, RS, C extends SQLResultCollector<RS>>
-        implements SQLExecutor<S, B, P, RS, C> {
+    abstract static class SQLEI<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extends SQLResultCollector<RS>>
+        implements SQLExecutor<S, B, PQ, RS, RC> {
 
         private final Vertx vertx;
         private final DSLContext dsl;
         @With(AccessLevel.PROTECTED)
         private final S sqlClient;
-        private final P preparedQuery;
-        private final C resultCollector;
+        private final PQ preparedQuery;
+        private final RC resultCollector;
         private final SQLErrorConverter errorConverter;
         private final DataTypeMapperRegistry typeMapperRegistry;
 
-        public SQLEI(Vertx vertx, DSLContext dsl, S sqlClient, P preparedQuery, C resultCollector,
-                     SQLErrorConverter errorConverter, DataTypeMapperRegistry typeMapperRegistry) {
+        protected SQLEI(Vertx vertx, DSLContext dsl, S sqlClient, PQ preparedQuery, RC resultCollector,
+                        SQLErrorConverter errorConverter, DataTypeMapperRegistry typeMapperRegistry) {
             this.vertx = vertx;
             this.dsl = dsl;
             this.sqlClient = sqlClient;
@@ -65,9 +66,11 @@ final class SQLImpl {
             return this.errorConverter().handle(new SQLNonTransientConnectionException(errorMsg, sqlState));
         }
 
-        protected abstract P defPrepareQuery();
+        @NonNull
+        protected abstract PQ defPrepareQuery();
 
-        protected abstract C defResultCollector();
+        @NonNull
+        protected abstract RC defResultCollector();
 
         @NonNull
         protected SQLErrorConverter defErrorConverter() {
@@ -115,12 +118,12 @@ final class SQLImpl {
             return sql;
         }
 
-        public final T bindValues(@NonNull Query query, @NonNull DataTypeMapperRegistry mapperRegistry) {
+        public final @NotNull T bindValues(@NonNull Query query, @NonNull DataTypeMapperRegistry mapperRegistry) {
             return this.convert(query.getParams(), mapperRegistry);
         }
 
-        public final List<T> bindValues(@NonNull Query query, @NonNull BindBatchValues bindBatchValues,
-                                        @NonNull DataTypeMapperRegistry mapperRegistry) {
+        public final @NotNull List<T> bindValues(@NonNull Query query, @NonNull BindBatchValues bindBatchValues,
+                                                 @NonNull DataTypeMapperRegistry mapperRegistry) {
             return this.convert(query.getParams(), bindBatchValues, mapperRegistry);
         }
 

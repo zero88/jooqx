@@ -13,12 +13,12 @@ import lombok.NonNull;
 /**
  * Represents for SQL prepared query that transforms jOOQ Query to Vertx SQL prepared query
  *
- * @param <T> Type of Vertx bind value holder
+ * @param <B> Type of Vertx bind value holder
  * @see LegacySQLPreparedQuery
  * @see ReactiveSQLPreparedQuery
  * @since 1.0.0
  */
-interface SQLPreparedQuery<T> {
+public interface SQLPreparedQuery<B> {
 
     /**
      * Generate jOOQ query to sql query in String
@@ -40,7 +40,7 @@ interface SQLPreparedQuery<T> {
      * @see Query
      * @see DataTypeMapperRegistry
      */
-    @NonNull T bindValues(@NonNull Query query, @NonNull DataTypeMapperRegistry mapperRegistry);
+    @NonNull B bindValues(@NonNull Query query, @NonNull DataTypeMapperRegistry mapperRegistry);
 
     /**
      * Capture jOOQ param in jOOQ query and convert to Vertx bind value holder
@@ -54,7 +54,7 @@ interface SQLPreparedQuery<T> {
      * @see SQLBatchExecutor#batch(Query, BindBatchValues)
      * @see DataTypeMapperRegistry
      */
-    @NonNull List<T> bindValues(@NonNull Query query, @NonNull BindBatchValues bindBatchValues,
+    @NonNull List<B> bindValues(@NonNull Query query, @NonNull BindBatchValues bindBatchValues,
                                 @NonNull DataTypeMapperRegistry mapperRegistry);
 
 }

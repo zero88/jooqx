@@ -20,10 +20,10 @@ import io.zero88.jooqx.integtest.pgsql.tables.records.BooksRecord;
 import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgUseJooqType;
 import io.zero88.jooqx.spi.pg.PgConnProvider;
 import io.zero88.jooqx.spi.pg.PgSQLReactiveTest;
-import io.zero88.jooqx.spi.pg.UsePgSQLErrorConverter;
+import io.zero88.jooqx.spi.pg.PgSQLErrorConverterProvider;
 
 class PgReAFailedTest extends PgSQLReactiveTest<PgConnection>
-    implements PgConnProvider, PgUseJooqType, UsePgSQLErrorConverter {
+    implements PgConnProvider, PgUseJooqType, PgSQLErrorConverterProvider {
 
     @Override
     @BeforeEach

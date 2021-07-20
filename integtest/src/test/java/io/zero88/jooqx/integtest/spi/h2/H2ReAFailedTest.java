@@ -11,14 +11,14 @@ import io.vertx.jdbcclient.JDBCPool;
 import io.vertx.junit5.VertxTestContext;
 import io.zero88.jooqx.DSLAdapter;
 import io.zero88.jooqx.ReactiveTestDefinition.ReactiveDBMemoryTest;
-import io.zero88.jooqx.UseJdbcErrorConverter;
+import io.zero88.jooqx.spi.jdbc.JDBCErrorConverterProvider;
 import io.zero88.jooqx.integtest.h2.tables.Author;
 import io.zero88.jooqx.integtest.h2.tables.records.AuthorRecord;
-import io.zero88.jooqx.spi.h2.H2DBProvider;
-import io.zero88.jooqx.spi.jdbc.JDBCReactiveProvider;
+import io.zero88.jooqx.spi.h2.H2DBMemProvider;
+import io.zero88.jooqx.spi.jdbc.JDBCPoolReactiveProvider;
 
 class H2ReAFailedTest extends ReactiveDBMemoryTest<JDBCPool>
-    implements H2DBProvider, H2SQLHelper, JDBCReactiveProvider, UseJdbcErrorConverter {
+    implements H2DBMemProvider, H2SQLHelper, JDBCPoolReactiveProvider, JDBCErrorConverterProvider {
 
     @Test
     void test(VertxTestContext testContext) {

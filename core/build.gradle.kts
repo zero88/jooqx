@@ -27,6 +27,9 @@ dependencies {
 
     testFixturesCompileOnly(UtilLibs.lombok)
     testFixturesAnnotationProcessor(UtilLibs.lombok)
+    testFixturesCompileOnly(VertxLibs.codegen)
+    testFixturesAnnotationProcessor(VertxLibs.codegen)
+    testFixturesCompileOnly(UtilLibs.jetbrainsAnnotations)
 
     testFixturesImplementation(VertxLibs.rx2)
 
@@ -45,21 +48,22 @@ dependencies {
     testFixturesImplementation(DatabaseLibs.hikari)
 }
 
-tasks.register<JavaCompile>("annotationProcessing") {
-    group = "other"
-    source = sourceSets.getByName(SourceSet.MAIN_SOURCE_SET_NAME).java
-    destinationDir = project.file("${project.buildDir}/generated/main/java")
-    classpath = configurations.compileClasspath.get()
-    options.annotationProcessorPath = configurations.compileClasspath.get()
-    options.compilerArgs = listOf(
-        "-proc:only",
-        "-processor", "io.vertx.codegen.CodeGenProcessor",
-        "-Acodegen.output=${project.projectDir}/src/main"
-    )
-}
+tasks {
+    register<JavaCompile>("annotationProcessing") {
+        doAnnotationProcessing(this, sourceSets, SourceSet.MAIN_SOURCE_SET_NAME, configurations.compileClasspath)
+    }
 
-tasks.compileJava {
-    dependsOn(tasks.named("annotationProcessing"))
+    register<JavaCompile>("testFixturesAnnotationProcessing") {
+        doAnnotationProcessing(this, sourceSets, "testFixtures", configurations.testFixturesCompileClasspath)
+    }
+
+    compileJava {
+        dependsOn(named("annotationProcessing"))
+    }
+
+    compileTestFixturesJava {
+        dependsOn(named("testFixturesAnnotationProcessing"))
+    }
 }
 
 sourceSets {
@@ -68,4 +72,28 @@ sourceSets {
             srcDirs(project.file("${project.buildDir}/generated/main/java"))
         }
     }
+    testFixtures {
+        java {
+            srcDirs(project.file("${project.buildDir}/generated/testFixtures/java"))
+        }
+    }
+}
+
+
+fun doAnnotationProcessing(
+    javaCompile: JavaCompile,
+    sourceSets: SourceSetContainer,
+    sourceSet: String,
+    cp: NamedDomainObjectProvider<Configuration>
+) {
+    javaCompile.group = "other"
+    javaCompile.source = sourceSets.getByName(sourceSet).java
+    javaCompile.destinationDir = javaCompile.project.file("${javaCompile.project.buildDir}/generated/${sourceSet}/java")
+    javaCompile.classpath = cp.get()
+    javaCompile.options.annotationProcessorPath = cp.get()
+    javaCompile.options.compilerArgs = listOf(
+        "-proc:only",
+        "-processor", "io.vertx.codegen.CodeGenProcessor",
+        "-Acodegen.output=${javaCompile.project.projectDir}/src/${sourceSet}"
+    )
 }

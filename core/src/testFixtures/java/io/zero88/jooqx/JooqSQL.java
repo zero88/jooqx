@@ -14,36 +14,67 @@ import org.jooq.DSLContext;
 import org.jooq.Schema;
 
 import io.vertx.junit5.VertxTestContext;
+import io.zero88.jooqx.provider.HasSQLDialect;
+import io.zero88.jooqx.provider.JooqDSLProvider;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 import lombok.NonNull;
 
-public interface JooqSQL<S extends Schema> extends JooqDSLProvider, HasDSLProvider {
+/**
+ * SQL test helper for initializing the test database schema via {@code HikariCP} and plain {@code jOOQ}
+ *
+ * @param <S> Type of schema
+ * @see Schema
+ */
+public interface JooqSQL<S extends Schema> extends JooqDSLProvider, HasSQLDialect {
 
+    /**
+     * Get test database schema
+     *
+     * @return test schema
+     */
     S schema();
 
     @Override
-    default JooqDSLProvider dslProvider() {
-        return this;
+    default DSLContext dsl() {
+        return JooqDSLProvider.create(this).dsl();
     }
 
+    /**
+     * Create Hikari data source
+     *
+     * @param option sql connection options
+     * @return Hikari data source
+     */
     default HikariDataSource createDataSource(SQLConnectionOption option) {
         HikariConfig hikariConfig = new HikariConfig();
         hikariConfig.setJdbcUrl(option.getJdbcUrl());
-        hikariConfig.setUsername(option.getUsername());
+        hikariConfig.setUsername(option.getUser());
         hikariConfig.setPassword(option.getPassword());
         hikariConfig.setDriverClassName(option.getDriverClassName());
         return new HikariDataSource(hikariConfig);
     }
 
+    /**
+     * Close Hikari datasource
+     *
+     * @param dataSource datasource
+     */
     default void closeDataSource(HikariDataSource dataSource) {
         if (dataSource != null && !dataSource.isClosed()) {
             dataSource.close();
         }
     }
 
+    /**
+     * Prepare database when tear-up test case
+     *
+     * @param context Vertx test context
+     * @param dsl     dsl
+     * @param files   SQL files
+     */
     default void prepareDatabase(@NonNull VertxTestContext context, @NonNull DSLContext dsl, @NonNull String... files) {
         Arrays.stream(files).forEach(file -> {
             try {

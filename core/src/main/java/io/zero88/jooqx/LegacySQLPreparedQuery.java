@@ -8,6 +8,7 @@ import org.jooq.Query;
 import io.vertx.codegen.annotations.GenIgnore;
 import io.vertx.codegen.annotations.VertxGen;
 import io.vertx.core.json.JsonArray;
+import io.zero88.jooqx.LegacySQLImpl.LegacySQLPQ;
 import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
 import lombok.NonNull;
@@ -19,6 +20,15 @@ import lombok.NonNull;
  */
 @VertxGen
 public interface LegacySQLPreparedQuery extends SQLPreparedQuery<JsonArray> {
+
+    /**
+     * Create default legacy SQL prepare query
+     *
+     * @return a new instance of LegacySQLPreparedQuery
+     */
+    static LegacySQLPreparedQuery create() {
+        return new LegacySQLPQ();
+    }
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)

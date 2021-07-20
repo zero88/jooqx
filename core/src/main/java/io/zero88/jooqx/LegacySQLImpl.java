@@ -13,12 +13,10 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import org.jooq.Configuration;
 import org.jooq.DSLContext;
 import org.jooq.Field;
 import org.jooq.Param;
 import org.jooq.Query;
-import org.jooq.conf.ParamType;
 
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
@@ -103,7 +101,7 @@ final class LegacySQLImpl {
         }
 
         @Override
-        public int batchResultSize(List<Integer> batchResult) {
+        public int batchResultSize(@NonNull List<Integer> batchResult) {
             return batchResult.size();
         }
 
@@ -139,7 +137,7 @@ final class LegacySQLImpl {
                                                   preparedQuery().bindValues(query, bindBatchValues,
                                                                              typeMapperRegistry()), promise));
             return promise.future()
-                          .map(r -> new LegacySQLRC().batchResultSize(r))
+                          .map(r -> resultCollector().batchResultSize(r))
                           .map(s -> BatchResultImpl.create(bindBatchValues.size(), s))
                           .otherwise(errorConverter()::reThrowError);
         }
@@ -147,13 +145,15 @@ final class LegacySQLImpl {
         protected abstract Future<SQLConnection> openConn();
 
         @Override
+        @NonNull
         protected final LegacySQLPreparedQuery defPrepareQuery() {
-            return new LegacySQLPQ();
+            return LegacySQLPreparedQuery.create();
         }
 
         @Override
+        @NonNull
         protected final LegacySQLCollector defResultCollector() {
-            return new LegacySQLRC();
+            return LegacySQLCollector.create();
         }
 
     }

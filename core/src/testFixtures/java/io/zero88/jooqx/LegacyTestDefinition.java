@@ -1,89 +1,38 @@
 package io.zero88.jooqx;
 
+import org.jetbrains.annotations.NotNull;
 import org.testcontainers.containers.JdbcDatabaseContainer;
 
-import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonArray;
-import io.vertx.core.json.JsonObject;
-import io.vertx.ext.jdbc.JDBCClient;
 import io.vertx.ext.jdbc.spi.DataSourceProvider;
 import io.vertx.ext.sql.ResultSet;
 import io.vertx.ext.sql.SQLClient;
-import io.vertx.junit5.VertxTestContext;
-import io.zero88.jooqx.DBProvider.DBContainerProvider;
-import io.zero88.jooqx.DBProvider.DBMemoryProvider;
-import io.zero88.jooqx.LegacySQLImpl.LegacySQLPQ;
+import io.zero88.jooqx.provider.DBProvider;
+import io.zero88.jooqx.provider.DBEmbeddedProvider.DBMemoryProvider;
 import io.zero88.jooqx.SQLTestImpl.DBContainerSQLTest;
 import io.zero88.jooqx.SQLTestImpl.DBMemorySQLTest;
+import io.zero88.jooqx.provider.LegacyJooqxProvider;
+import io.zero88.jooqx.provider.LegacySQLClientProvider;
+import io.zero88.jooqx.provider.SQLClientProvider;
 
 import lombok.NonNull;
 
 public interface LegacyTestDefinition {
-
-    interface LegacyJooqxProvider extends
-                                  JooqxProvider<SQLClient, JsonArray, LegacySQLPreparedQuery, ResultSet,
-                                                   LegacySQLCollector, LegacyJooqx> {
-
-        @Override
-        default LegacyJooqx createExecutor(Vertx vertx, JooqDSLProvider dslProvider, SQLClient sqlClient) {
-            return LegacyJooqx.builder()
-                              .vertx(vertx)
-                              .dsl(dslProvider.dsl())
-                              .sqlClient(sqlClient)
-                              .preparedQuery(createPreparedQuery())
-                              .errorConverter(errorConverter())
-                              .typeMapperRegistry(typeMapperRegistry())
-                              .build();
-        }
-
-        @Override
-        default LegacySQLPreparedQuery createPreparedQuery() {
-            return new LegacySQLPQ();
-        }
-
-    }
-
-
-    interface LegacySQLClientProvider<P extends DataSourceProvider> extends SQLClientProvider<SQLClient> {
-
-        default JsonObject sqlConfig(SQLConnectionOption opt) {
-            return new JsonObject().put("provider_class", dataSourceProviderClass().getName())
-                                   .put("jdbcUrl", opt.getJdbcUrl())
-                                   .put("username", opt.getUsername())
-                                   .put("password", opt.getPassword())
-                                   .put("driverClassName", opt.getDriverClassName());
-        }
-
-        @Override
-        default SQLClient createSqlClient(Vertx vertx, VertxTestContext ctx, SQLConnectionOption connOpt) {
-            final JDBCClient client = JDBCClient.create(vertx, sqlConfig(connOpt));
-            ctx.completeNow();
-            return client;
-        }
-
-        @Override
-        default void closeClient(VertxTestContext context) {
-            sqlClient().close(context.succeedingThenComplete());
-        }
-
-        Class<P> dataSourceProviderClass();
-
-    }
-
 
     interface LegacySQLTest<K, D extends DBProvider<K>, P extends DataSourceProvider>
         extends SQLTest<SQLClient, JsonArray, LegacySQLPreparedQuery, ResultSet, LegacySQLCollector, LegacyJooqx, K, D>,
                 LegacyJooqxProvider, LegacySQLClientProvider<P> {
 
         @Override
-        default SQLClientProvider<SQLClient> clientProvider() { return this; }
+        default @NotNull SQLClientProvider<SQLClient> clientProvider() { return this; }
 
         @Override
-        default LegacyJooqxProvider jooqxProvider() { return this; }
+        default @NotNull LegacyJooqxProvider jooqxProvider() { return this; }
 
     }
 
 
+    //@formatter:off
     abstract class LegacyDBContainerTest<K extends JdbcDatabaseContainer<?>, P extends DataSourceProvider>
         extends DBContainerSQLTest<SQLClient, JsonArray, LegacySQLPreparedQuery, ResultSet, LegacySQLCollector, LegacyJooqx, K>
         implements LegacySQLTest<K, DBContainerProvider<K>, P> {
@@ -96,6 +45,7 @@ public interface LegacyTestDefinition {
         implements LegacySQLTest<String, DBMemoryProvider, P> {
 
     }
+    //@formatter:on
 
 
     interface LegacyRxHelper {

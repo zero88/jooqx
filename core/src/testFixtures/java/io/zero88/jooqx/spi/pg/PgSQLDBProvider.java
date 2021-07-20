@@ -1,9 +1,10 @@
 package io.zero88.jooqx.spi.pg;
 
+import org.jetbrains.annotations.NotNull;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
-import io.zero88.jooqx.DBProvider.DBContainerProvider;
+import io.zero88.jooqx.DBContainerProvider;
 import io.zero88.jooqx.HasDBProvider;
 
 public interface PgSQLDBProvider extends DBContainerProvider<PostgreSQLContainer<?>>,
@@ -11,12 +12,12 @@ public interface PgSQLDBProvider extends DBContainerProvider<PostgreSQLContainer
                                                           DBContainerProvider<PostgreSQLContainer<?>>> {
 
     @Override
-    default PostgreSQLContainer<?> get() {
-        return get("postgres:10-alpine");
+    default @NotNull PostgreSQLContainer<?> init() {
+        return initDBContainer("postgres:10-alpine");
     }
 
     @Override
-    default PostgreSQLContainer<?> get(String imageName) {
+    default @NotNull PostgreSQLContainer<?> initDBContainer(String imageName) {
         return new PostgreSQLContainer<>(DockerImageName.parse(imageName)).withDatabaseName("foo")
                                                                           .withUsername("foo")
                                                                           .withPassword("secret");

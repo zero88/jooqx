@@ -12,7 +12,7 @@ import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 import io.vertx.sqlclient.Tuple;
 import io.zero88.jooqx.DSLAdapter;
-import io.zero88.jooqx.UseJdbcErrorConverter;
+import io.zero88.jooqx.spi.jdbc.JDBCErrorConverterProvider;
 import io.zero88.jooqx.integtest.pgsql.tables.JsonDataType;
 import io.zero88.jooqx.integtest.pgsql.tables.JsonbDataType;
 import io.zero88.jooqx.integtest.pgsql.tables.records.JsonDataTypeRecord;
@@ -22,7 +22,7 @@ import io.zero88.jooqx.spi.pg.PgSQLLegacyTest;
 
 //FIXME: Vert.x unreliable
 @Disabled
-class PgLeGJsonTest extends PgSQLLegacyTest implements UseJdbcErrorConverter, PgLegacyType {
+class PgLeGJsonTest extends PgSQLLegacyTest implements JDBCErrorConverterProvider, PgLegacyType {
 
     @Override
     @BeforeEach
