@@ -9,6 +9,12 @@ import io.zero88.jooqx.JooqErrorConverter;
 
 import lombok.NonNull;
 
+/**
+ * PostgreSQL error converter
+ *
+ * @see PgException
+ * @since 1.0.0
+ */
 public final class PgErrorConverter implements JooqErrorConverter<PgException> {
 
     @Override

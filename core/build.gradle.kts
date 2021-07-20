@@ -29,6 +29,7 @@ dependencies {
     testFixturesAnnotationProcessor(UtilLibs.lombok)
     testFixturesCompileOnly(VertxLibs.codegen)
     testFixturesAnnotationProcessor(VertxLibs.codegen)
+    testFixturesCompileOnly(UtilLibs.jetbrainsAnnotations)
 
     testFixturesImplementation(VertxLibs.rx2)
 

@@ -4,7 +4,13 @@ import org.jetbrains.annotations.Nullable;
 
 import io.zero88.jooqx.SQLErrorConverter;
 
-public interface ErrorConverterCreator {
+/**
+ * Provides SQL error converter
+ *
+ * @see SQLErrorConverter
+ * @since 1.1.0
+ */
+public interface ErrorConverterProvider {
 
     @Nullable
     default SQLErrorConverter errorConverter() {

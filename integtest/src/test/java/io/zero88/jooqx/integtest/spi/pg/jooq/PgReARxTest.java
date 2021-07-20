@@ -10,13 +10,13 @@ import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 import io.zero88.jooqx.DSLAdapter;
 import io.zero88.jooqx.ReactiveTestDefinition.ReactiveRxHelper;
-import io.zero88.jooqx.UseJdbcErrorConverter;
+import io.zero88.jooqx.spi.jdbc.JDBCErrorConverterProvider;
 import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgUseJooqType;
-import io.zero88.jooqx.spi.jdbc.JDBCReactiveProvider;
+import io.zero88.jooqx.spi.jdbc.JDBCPoolReactiveProvider;
 import io.zero88.jooqx.spi.pg.PgSQLReactiveTest;
 
 class PgReARxTest extends PgSQLReactiveTest<JDBCPool>
-    implements PgUseJooqType, JDBCReactiveProvider, UseJdbcErrorConverter, ReactiveRxHelper {
+    implements PgUseJooqType, JDBCPoolReactiveProvider, JDBCErrorConverterProvider, ReactiveRxHelper {
 
     @Override
     @BeforeEach

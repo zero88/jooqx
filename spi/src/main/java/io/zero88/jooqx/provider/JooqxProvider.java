@@ -1,7 +1,8 @@
 package io.zero88.jooqx.provider;
 
-import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jooq.DSLContext;
 
 import io.vertx.core.Vertx;
 import io.zero88.jooqx.SQLExecutor;
@@ -20,12 +21,13 @@ import io.zero88.jooqx.SQLResultCollector;
  * @see SQLPreparedQuery
  * @see SQLResultCollector
  * @see SQLExecutor
+ * @since 1.1.0
  */
 public interface JooqxProvider<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extends SQLResultCollector<RS>,
                                   E extends SQLExecutor<S, B, PQ, RS, RC>>
-    extends ErrorConverterCreator, TypeMapperRegistryCreator {
+    extends ErrorConverterProvider, TypeMapperRegistryProvider {
 
-    @NonNls E createExecutor(Vertx vertx, JooqDSLProvider dslProvider, S sqlClient);
+    @NotNull E createExecutor(Vertx vertx, DSLContext dsl, S sqlClient);
 
     default @Nullable PQ createPreparedQuery() {
         return null;

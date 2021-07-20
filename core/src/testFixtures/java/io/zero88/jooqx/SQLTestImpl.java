@@ -2,6 +2,7 @@ package io.zero88.jooqx;
 
 import java.util.concurrent.TimeUnit;
 
+import org.jetbrains.annotations.Nullable;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,9 +13,12 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import io.github.zero88.utils.Strings;
+import io.reactivex.annotations.NonNull;
 import io.vertx.core.Vertx;
+import io.vertx.core.json.JsonObject;
 import io.vertx.junit5.VertxExtension;
 import io.vertx.junit5.VertxTestContext;
+import io.vertx.sqlclient.PoolOptions;
 import io.zero88.jooqx.DBProvider.DBContainerProvider;
 import io.zero88.jooqx.DBProvider.DBMemoryProvider;
 
@@ -43,11 +47,8 @@ abstract class SQLTestImpl<S, B, P extends SQLPreparedQuery<B>, R, C extends SQL
     @SneakyThrows
     @BeforeEach
     public void tearUp(Vertx vertx, VertxTestContext ctx) {
-        connOpt = dbProvider().connOpt(getDB());
-        clientProvider().open(vertx, connOpt.toJson())
-                        .map(s -> jooqxProvider().createExecutor(vertx, dslProvider(), s))
-                        .onSuccess(jooqx -> this.jooqx = jooqx)
-                        .onComplete(ctx.succeedingThenComplete());
+        jooqx(vertx, initSQLOption(getDB()), initPoolOption()).onSuccess(jooqx -> this.jooqx = jooqx)
+                                                              .onComplete(ctx.succeedingThenComplete());
         if (ctx.awaitCompletion(TIMEOUT_IN_SECOND, TimeUnit.SECONDS)) {
             ctx.failNow("Timeout when open SQL connection");
         }
@@ -56,15 +57,31 @@ abstract class SQLTestImpl<S, B, P extends SQLPreparedQuery<B>, R, C extends SQL
 
     @AfterEach
     public void tearDown(Vertx vertx, VertxTestContext ctx) {
-        clientProvider().close().onComplete(ctx.succeedingThenComplete());
-    }
-
-    @Override
-    public S sqlClient() {
-        return jooqx.sqlClient();
+        clientProvider().close(jooqx.sqlClient()).onComplete(ctx.succeedingThenComplete());
     }
 
     protected abstract K getDB();
+
+    /**
+     * Init SQL connection option from database
+     *
+     * @param database given test database
+     * @return sql connection option
+     */
+    protected JsonObject initSQLOption(@NonNull K database) {
+        connOpt = dbProvider().connOpt(database);
+        return connOpt.toJson();
+    }
+
+    /**
+     * Init SQL pool option
+     *
+     * @return pool options
+     * @see PoolOptions
+     */
+    protected @Nullable JsonObject initPoolOption() {
+        return null;
+    }
 
     @Testcontainers
     abstract static class DBContainerSQLTest<S, B, P extends SQLPreparedQuery<B>, R, C extends SQLResultCollector<R>,

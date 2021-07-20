@@ -1,5 +1,8 @@
 package io.zero88.jooqx.provider;
 
+import org.jetbrains.annotations.NotNull;
+import org.jooq.DSLContext;
+
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonArray;
 import io.vertx.ext.sql.ResultSet;
@@ -9,16 +12,17 @@ import io.zero88.jooqx.LegacySQLCollector;
 import io.zero88.jooqx.LegacySQLPreparedQuery;
 
 /**
- * Legacy jOOQx provider
+ * Legacy {@code jOOQx} provider
+ * @since 1.1.0
  */
 public interface LegacyJooqxProvider
     extends JooqxProvider<SQLClient, JsonArray, LegacySQLPreparedQuery, ResultSet, LegacySQLCollector, LegacyJooqx> {
 
     @Override
-    default LegacyJooqx createExecutor(Vertx vertx, JooqDSLProvider dslProvider, SQLClient sqlClient) {
+    default @NotNull LegacyJooqx createExecutor(Vertx vertx, DSLContext dsl, SQLClient sqlClient) {
         return LegacyJooqx.builder()
                           .vertx(vertx)
-                          .dsl(dslProvider.dsl())
+                          .dsl(dsl)
                           .sqlClient(sqlClient)
                           .preparedQuery(createPreparedQuery())
                           .resultCollector(createResultCollector())

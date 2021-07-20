@@ -1,5 +1,6 @@
 package io.zero88.jooqx;
 
+import org.jetbrains.annotations.NotNull;
 import org.testcontainers.containers.JdbcDatabaseContainer;
 
 import io.vertx.sqlclient.Pool;
@@ -40,9 +41,9 @@ public interface ReactiveTestDefinition {
                 ReactiveJooqxProvider<S>, ReactiveSQLClientProvider<S> {
 
         @Override
-        default SQLClientProvider<S> clientProvider() { return this; }
+        default @NotNull SQLClientProvider<S> clientProvider() { return this; }
 
-        default ReactiveJooqxProvider<S> jooqxProvider() { return this; }
+        default @NotNull ReactiveJooqxProvider<S> jooqxProvider() { return this; }
 
     }
 

@@ -11,6 +11,7 @@ import io.github.zero88.utils.Strings;
 import io.vertx.core.AsyncResult;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
+import io.zero88.jooqx.provider.JooqDSLProvider;
 
 import com.zaxxer.hikari.HikariDataSource;
 
@@ -27,7 +28,7 @@ public interface SQLTestHelper {
     default void prepareDatabase(VertxTestContext context, JooqSQL<?> jooqSql, SQLConnectionOption connOption,
                                  String... files) {
         HikariDataSource dataSource = jooqSql.createDataSource(connOption);
-        jooqSql.prepareDatabase(context, jooqSql.dsl(dataSource), files);
+        jooqSql.prepareDatabase(context, JooqDSLProvider.create(jooqSql.dialect(), dataSource).dsl(), files);
         jooqSql.closeDataSource(dataSource);
         System.out.println(Strings.duplicate("=", 150));
     }

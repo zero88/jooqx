@@ -2,6 +2,7 @@ package io.zero88.jooqx;
 
 import java.sql.SQLException;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.exception.DataAccessException;
 
 import lombok.NonNull;
@@ -30,10 +31,16 @@ public interface JooqErrorConverter<T extends Throwable> extends SQLErrorConvert
         return SQLErrorConverter.super.handle(throwable);
     }
 
+    /**
+     * JDBC error converter
+     *
+     * @see SQLException
+     * @since 1.0.0
+     */
     class JDBCErrorConverter implements JooqErrorConverter<SQLException> {
 
         @Override
-        public DataAccessException transform(SQLException t) {
+        public @NotNull DataAccessException transform(SQLException t) {
             return new DataAccessException(t.getMessage(), t);
         }
 

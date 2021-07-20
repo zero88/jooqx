@@ -1,38 +1,36 @@
 package io.zero88.jooqx.provider;
 
-import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
-import io.vertx.sqlclient.PoolOptions;
 
-public interface SQLClientProvider<S> extends HasSQLClient<S> {
-
-    /**
-     * Define SQL Pool options
-     *
-     * @return SQL pool options
-     */
-    @NonNls
-    default PoolOptions poolOptions() {
-        return new PoolOptions();
-    }
+/**
+ * SQL client provider
+ *
+ * @param <S> Type of SQL client
+ * @since 1.1.0
+ */
+public interface SQLClientProvider<S> {
 
     /**
-     * Create SQL client
+     * Create and open SQL client
      *
-     * @param vertx      vertx
-     * @param connOption SQL connection option
+     * @param vertx       vertx
+     * @param connOptions SQL connection options
+     * @param poolOptions SQL pool options
      * @return a SQL client future
      */
-    @NonNls Future<S> open(Vertx vertx, JsonObject connOption);
+    @NotNull Future<S> open(Vertx vertx, JsonObject connOptions, @Nullable JsonObject poolOptions);
 
     /**
      * Close SQL client
      *
+     * @param sqlClient SQL client
      * @return void future
      */
-    @NonNls Future<Void> close();
+    @NotNull Future<Void> close(S sqlClient);
 
 }

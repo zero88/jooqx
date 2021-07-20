@@ -1,5 +1,6 @@
 package io.zero88.jooqx;
 
+import org.jetbrains.annotations.NotNull;
 import org.testcontainers.containers.JdbcDatabaseContainer;
 
 import io.vertx.core.json.JsonArray;
@@ -23,10 +24,10 @@ public interface LegacyTestDefinition {
                 LegacyJooqxProvider, LegacySQLClientProvider<P> {
 
         @Override
-        default SQLClientProvider<SQLClient> clientProvider() { return this; }
+        default @NotNull SQLClientProvider<SQLClient> clientProvider() { return this; }
 
         @Override
-        default LegacyJooqxProvider jooqxProvider() { return this; }
+        default @NotNull LegacyJooqxProvider jooqxProvider() { return this; }
 
     }
 

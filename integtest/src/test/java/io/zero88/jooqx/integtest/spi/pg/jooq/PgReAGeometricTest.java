@@ -14,10 +14,10 @@ import io.zero88.jooqx.integtest.pgsql.tables.records.GeometricDataTypeRecord;
 import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgUseJooqType;
 import io.zero88.jooqx.spi.pg.PgPoolProvider;
 import io.zero88.jooqx.spi.pg.PgSQLReactiveTest;
-import io.zero88.jooqx.spi.pg.UsePgSQLErrorConverter;
+import io.zero88.jooqx.spi.pg.PgSQLErrorConverterProvider;
 
 class PgReAGeometricTest extends PgSQLReactiveTest<PgPool>
-    implements UsePgSQLErrorConverter, PgPoolProvider, PgUseJooqType {
+    implements PgSQLErrorConverterProvider, PgPoolProvider, PgUseJooqType {
 
     @Override
     @BeforeEach

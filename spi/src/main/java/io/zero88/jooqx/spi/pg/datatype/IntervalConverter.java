@@ -11,6 +11,12 @@ import org.jooq.types.YearToSecond;
 import io.vertx.pgclient.data.Interval;
 import io.zero88.jooqx.datatype.JooqxConverter;
 
+/**
+ * The {@code Interval} data type converter that converts between {@code Vert.x} treats as {@link Interval} and {@code
+ * jOOQ} treats as {@link YearToSecond}
+ *
+ * @since 1.0.0
+ */
 public final class IntervalConverter implements JooqxConverter<Interval, YearToSecond> {
 
     @Override

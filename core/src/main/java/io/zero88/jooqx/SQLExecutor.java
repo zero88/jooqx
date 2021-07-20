@@ -28,7 +28,8 @@ import lombok.experimental.Accessors;
  * @param <PQ> Type of SQL prepare query
  * @param <RC> Type of SQL result set collector
  * @see LegacyJooqx
- * @see ReactiveJooqxBase
+ * @see ReactiveJooqx
+ * @see ReactiveJooqxConn
  * @see SQLBatchExecutor
  * @since 1.0.0
  */

@@ -27,10 +27,10 @@ import io.zero88.jooqx.integtest.pgsql2.tables.records.TemporalDataTypeRecord;
 import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgUseVertxType;
 import io.zero88.jooqx.spi.pg.PgPoolProvider;
 import io.zero88.jooqx.spi.pg.PgSQLReactiveTest;
-import io.zero88.jooqx.spi.pg.UsePgSQLErrorConverter;
+import io.zero88.jooqx.spi.pg.PgSQLErrorConverterProvider;
 
 class PgReAVertxTypeTest extends PgSQLReactiveTest<PgPool>
-    implements UsePgSQLErrorConverter, PgPoolProvider, PgUseVertxType {
+    implements PgSQLErrorConverterProvider, PgPoolProvider, PgUseVertxType {
 
     @Override
     @BeforeEach
