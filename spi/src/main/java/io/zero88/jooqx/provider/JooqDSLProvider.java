@@ -17,6 +17,12 @@ import org.jooq.impl.DefaultConfiguration;
 @FunctionalInterface
 public interface JooqDSLProvider {
 
+    /**
+     * Get jOOQ {@code DSL context}.
+     *
+     * @return the DSL context
+     * @see DSLContext
+     */
     DSLContext dsl();
 
     @NotNull

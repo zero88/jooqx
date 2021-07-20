@@ -47,8 +47,8 @@ abstract class SQLTestImpl<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extends 
     @SneakyThrows
     @BeforeEach
     public void tearUp(Vertx vertx, VertxTestContext ctx) {
-        jooqx(vertx, initSQLOption(getDatabase()), initPoolOption()).onSuccess(jooqx -> this.jooqx = jooqx)
-                                                                    .onComplete(ctx.succeedingThenComplete());
+        jooqx(vertx, dsl(), initSQLOption(getDatabase()), initPoolOption()).onSuccess(jooqx -> this.jooqx = jooqx)
+                                                                           .onComplete(ctx.succeedingThenComplete());
         if (ctx.awaitCompletion(TIMEOUT_IN_SECOND, TimeUnit.SECONDS)) {
             ctx.failNow("Timeout when open SQL connection");
         }
