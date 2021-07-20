@@ -1,5 +1,7 @@
 package io.zero88.jooqx;
 
+import java.util.function.Function;
+
 import org.jooq.DSLContext;
 import org.jooq.Query;
 
@@ -60,6 +62,35 @@ public interface ReactiveJooqx extends ReactiveJooqxBase<Pool> {
     @NonNull
     @SuppressWarnings("unchecked")
     ReactiveJooqxTx transaction();
+
+    @Override
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    default void batch(@NonNull Function<DSLContext, Query> queryFunction, @NonNull BindBatchValues bindBatchValues,
+                       @NonNull Handler<AsyncResult<BatchResult>> handler) {
+        ReactiveJooqxBase.super.batch(queryFunction, bindBatchValues, handler);
+    }
+
+    @Override
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    default Future<BatchResult> batch(@NonNull Function<DSLContext, Query> queryFunction,
+                                      @NonNull BindBatchValues bindBatchValues) {
+        return ReactiveJooqxBase.super.batch(queryFunction, bindBatchValues);
+    }
+
+    @Override
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    default <T, R> void execute(@NonNull Function<DSLContext, Query> queryFunction,
+                                @NonNull SQLResultAdapter<T, R> resultAdapter,
+                                @NonNull Handler<AsyncResult<@Nullable R>> handler) {
+        ReactiveJooqxBase.super.execute(queryFunction, resultAdapter, handler);
+    }
+
+    @Override
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    default <T, R> Future<@Nullable R> execute(@NonNull Function<DSLContext, Query> queryFunction,
+                                               @NonNull SQLResultAdapter<T, R> resultAdapter) {
+        return ReactiveJooqxBase.super.execute(queryFunction, resultAdapter);
+    }
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)

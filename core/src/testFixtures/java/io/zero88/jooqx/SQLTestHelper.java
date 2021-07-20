@@ -11,7 +11,6 @@ import io.github.zero88.utils.Strings;
 import io.vertx.core.AsyncResult;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
-import io.zero88.jooqx.provider.JooqDSLProvider;
 
 import com.zaxxer.hikari.HikariDataSource;
 

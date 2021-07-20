@@ -1,7 +1,6 @@
 package io.zero88.jooqx;
 
 import io.zero88.jooqx.provider.DBProvider;
-import io.zero88.jooqx.provider.JooqDSLProvider;
 import io.zero88.jooqx.provider.JooqxFacade;
 
 /**

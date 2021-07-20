@@ -15,7 +15,6 @@ import org.jooq.Schema;
 
 import io.vertx.junit5.VertxTestContext;
 import io.zero88.jooqx.provider.HasSQLDialect;
-import io.zero88.jooqx.provider.JooqDSLProvider;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -39,7 +38,7 @@ public interface JooqSQL<S extends Schema> extends JooqDSLProvider, HasSQLDialec
 
     @Override
     default DSLContext dsl() {
-        return JooqDSLProvider.create(this).dsl();
+        return JooqDSLProvider.create(dialect()).dsl();
     }
 
     /**

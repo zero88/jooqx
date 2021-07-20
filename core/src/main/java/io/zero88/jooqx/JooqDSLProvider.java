@@ -1,4 +1,4 @@
-package io.zero88.jooqx.provider;
+package io.zero88.jooqx;
 
 import javax.sql.DataSource;
 
@@ -18,7 +18,7 @@ import org.jooq.impl.DefaultConfiguration;
 public interface JooqDSLProvider {
 
     /**
-     * Get jOOQ {@code DSL context}.
+     * Defines jOOQ {@code DSL context}.
      *
      * @return the DSL context
      * @see DSLContext
@@ -28,11 +28,6 @@ public interface JooqDSLProvider {
     @NotNull
     static JooqDSLProvider create(SQLDialect dialect) {
         return () -> DSL.using(new DefaultConfiguration().set(dialect));
-    }
-
-    @NotNull
-    static JooqDSLProvider create(HasSQLDialect dialectProvider) {
-        return create(dialectProvider.dialect());
     }
 
     @NotNull

@@ -13,7 +13,7 @@ import io.zero88.jooqx.DSLAdapter;
 import io.zero88.jooqx.integtest.pgsql.tables.TemporalDataType;
 import io.zero88.jooqx.integtest.pgsql.tables.records.TemporalDataTypeRecord;
 import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgLegacyType;
-import io.zero88.jooqx.provider.JooqDSLProvider;
+import io.zero88.jooqx.JooqDSLProvider;
 import io.zero88.jooqx.spi.pg.PgSQLLegacyTest;
 
 class PgLeGTemporalTest extends PgSQLLegacyTest implements PgLegacyType {

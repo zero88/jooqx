@@ -1,5 +1,7 @@
 package io.zero88.jooqx;
 
+import java.util.function.Function;
+
 import org.jooq.DSLContext;
 import org.jooq.Query;
 import org.jooq.TableLike;
@@ -34,7 +36,7 @@ import lombok.experimental.Accessors;
  * @since 1.0.0
  */
 public interface SQLExecutor<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extends SQLResultCollector<RS>>
-    extends SQLBatchExecutor {
+    extends SQLBatchExecutor, JooqDSLProvider {
 
     /**
      * Vertx
@@ -42,14 +44,6 @@ public interface SQLExecutor<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extend
      * @return vertx
      */
     @NonNull Vertx vertx();
-
-    /**
-     * Define jOOQ DSL context
-     *
-     * @return DSL context
-     * @see DSLContext
-     */
-    @NonNull DSLContext dsl();
 
     /**
      * Defines sql client
@@ -98,9 +92,44 @@ public interface SQLExecutor<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extend
      *
      * @param <T>           type of jOOQ TableLike
      * @param <R>           type of expectation result
-     * @param query         jOOQ query
-     * @param resultAdapter a result adapter
-     * @param handler       a async result handler
+     * @param queryFunction the jOOQ query function
+     * @param resultAdapter the result adapter
+     * @param handler       the async result handler
+     * @see Query
+     * @see TableLike
+     * @see SQLResultAdapter
+     * @since 1.1.0
+     */
+    default <T, R> void execute(@NonNull Function<DSLContext, Query> queryFunction,
+                                @NonNull SQLResultAdapter<T, R> resultAdapter,
+                                @NonNull Handler<AsyncResult<@Nullable R>> handler) {
+        execute(queryFunction, resultAdapter).onComplete(handler);
+    }
+
+    /**
+     * Like {@link #execute(Function, SQLResultAdapter, Handler)} but returns a {@code Future} of the asynchronous
+     * result
+     *
+     * @param <T>           type of jOOQ TableLike
+     * @param <R>           type of expectation result
+     * @param queryFunction the jOOQ query function
+     * @param resultAdapter the result adapter
+     * @return a {@code Future} of the asynchronous result
+     * @since 1.1.0
+     */
+    default <T, R> Future<@Nullable R> execute(@NonNull Function<DSLContext, Query> queryFunction,
+                                               @NonNull SQLResultAdapter<T, R> resultAdapter) {
+        return execute(queryFunction.apply(dsl()), resultAdapter);
+    }
+
+    /**
+     * Execute {@code jOOQ query} then return async result
+     *
+     * @param <T>           type of jOOQ TableLike
+     * @param <R>           type of expectation result
+     * @param query         the jOOQ query
+     * @param resultAdapter the result adapter
+     * @param handler       the async result handler
      * @see Query
      * @see TableLike
      * @see SQLResultAdapter
@@ -115,8 +144,8 @@ public interface SQLExecutor<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extend
      *
      * @param <T>           type of jOOQ TableLike
      * @param <R>           type of expectation result
-     * @param query         jOOQ query
-     * @param resultAdapter a result adapter
+     * @param query         the jOOQ query
+     * @param resultAdapter the result adapter
      * @return a {@code Future} of the asynchronous result
      */
     <T, R> Future<@Nullable R> execute(@NonNull Query query, @NonNull SQLResultAdapter<T, R> resultAdapter);

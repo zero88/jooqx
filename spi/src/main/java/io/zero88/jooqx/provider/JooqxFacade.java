@@ -7,6 +7,7 @@ import org.jooq.DSLContext;
 import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
+import io.zero88.jooqx.JooqDSLProvider;
 import io.zero88.jooqx.LegacyJooqx;
 import io.zero88.jooqx.ReactiveJooqx;
 import io.zero88.jooqx.ReactiveJooqxConn;

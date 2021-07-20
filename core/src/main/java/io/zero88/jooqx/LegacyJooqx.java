@@ -1,5 +1,7 @@
 package io.zero88.jooqx;
 
+import java.util.function.Function;
+
 import org.jooq.DSLContext;
 import org.jooq.Query;
 
@@ -91,6 +93,35 @@ public interface LegacyJooqx extends LegacySQLImpl.LegacyInternal<SQLClient> {
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
     Future<BatchResult> batch(@NonNull Query query, @NonNull BindBatchValues bindBatchValues);
+
+    @Override
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    default void batch(@NonNull Function<DSLContext, Query> queryFunction, @NonNull BindBatchValues bindBatchValues,
+                       @NonNull Handler<AsyncResult<BatchResult>> handler) {
+        LegacyInternal.super.batch(queryFunction, bindBatchValues, handler);
+    }
+
+    @Override
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    default Future<BatchResult> batch(@NonNull Function<DSLContext, Query> queryFunction,
+                                      @NonNull BindBatchValues bindBatchValues) {
+        return LegacyInternal.super.batch(queryFunction, bindBatchValues);
+    }
+
+    @Override
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    default <T, R> void execute(@NonNull Function<DSLContext, Query> queryFunction,
+                                @NonNull SQLResultAdapter<T, R> resultAdapter,
+                                @NonNull Handler<AsyncResult<@Nullable R>> handler) {
+        LegacyInternal.super.execute(queryFunction, resultAdapter, handler);
+    }
+
+    @Override
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    default <T, R> Future<@Nullable R> execute(@NonNull Function<DSLContext, Query> queryFunction,
+                                               @NonNull SQLResultAdapter<T, R> resultAdapter) {
+        return LegacyInternal.super.execute(queryFunction, resultAdapter);
+    }
 
     @GenIgnore
     class LegacyJooqxBuilder extends SQLExecutorBuilder<SQLClient, JsonArray, LegacySQLPreparedQuery, ResultSet,
