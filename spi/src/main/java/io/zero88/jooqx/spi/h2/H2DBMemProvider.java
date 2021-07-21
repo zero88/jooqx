@@ -1,7 +1,5 @@
 package io.zero88.jooqx.spi.h2;
 
-import java.util.UUID;
-
 import org.h2.Driver;
 import org.jetbrains.annotations.NotNull;
 
@@ -16,11 +14,6 @@ import lombok.NonNull;
  * @since 1.1.0
  */
 public interface H2DBMemProvider extends DBMemoryProvider {
-
-    @Override
-    default @NotNull String init() {
-        return UUID.randomUUID().toString();
-    }
 
     @Override
     default @NotNull String protocol() {

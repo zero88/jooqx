@@ -1,5 +1,7 @@
 package io.zero88.jooqx.provider;
 
+import java.util.UUID;
+
 import org.jetbrains.annotations.NotNull;
 
 import io.vertx.core.json.JsonObject;
@@ -48,6 +50,11 @@ public interface DBEmbeddedProvider extends DBProvider<String> {
      * @since 1.1.0
      */
     interface DBMemoryProvider extends DBEmbeddedProvider {
+
+        @Override
+        default @NotNull String init() {
+            return UUID.randomUUID().toString();
+        }
 
     }
 
