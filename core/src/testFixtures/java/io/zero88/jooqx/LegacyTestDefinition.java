@@ -1,36 +1,19 @@
 package io.zero88.jooqx;
 
-import org.jetbrains.annotations.NotNull;
 import org.testcontainers.containers.JdbcDatabaseContainer;
 
 import io.vertx.core.json.JsonArray;
 import io.vertx.ext.jdbc.spi.DataSourceProvider;
 import io.vertx.ext.sql.ResultSet;
 import io.vertx.ext.sql.SQLClient;
-import io.zero88.jooqx.provider.DBProvider;
-import io.zero88.jooqx.provider.DBEmbeddedProvider.DBMemoryProvider;
+import io.zero88.jooqx.SQLTest.LegacySQLTest;
 import io.zero88.jooqx.SQLTestImpl.DBContainerSQLTest;
 import io.zero88.jooqx.SQLTestImpl.DBMemorySQLTest;
-import io.zero88.jooqx.provider.LegacyJooqxProvider;
-import io.zero88.jooqx.provider.LegacySQLClientProvider;
-import io.zero88.jooqx.provider.SQLClientProvider;
+import io.zero88.jooqx.provider.DBEmbeddedProvider.DBMemoryProvider;
 
 import lombok.NonNull;
 
 public interface LegacyTestDefinition {
-
-    interface LegacySQLTest<K, D extends DBProvider<K>, P extends DataSourceProvider>
-        extends SQLTest<SQLClient, JsonArray, LegacySQLPreparedQuery, ResultSet, LegacySQLCollector, LegacyJooqx, K, D>,
-                LegacyJooqxProvider, LegacySQLClientProvider<P> {
-
-        @Override
-        default @NotNull SQLClientProvider<SQLClient> clientProvider() { return this; }
-
-        @Override
-        default @NotNull LegacyJooqxProvider jooqxProvider() { return this; }
-
-    }
-
 
     //@formatter:off
     abstract class LegacyDBContainerTest<K extends JdbcDatabaseContainer<?>, P extends DataSourceProvider>

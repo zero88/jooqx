@@ -1,6 +1,5 @@
 package io.zero88.jooqx;
 
-import org.jetbrains.annotations.NotNull;
 import org.testcontainers.containers.JdbcDatabaseContainer;
 
 import io.vertx.sqlclient.Pool;
@@ -9,13 +8,10 @@ import io.vertx.sqlclient.RowSet;
 import io.vertx.sqlclient.SqlClient;
 import io.vertx.sqlclient.SqlConnection;
 import io.vertx.sqlclient.Tuple;
-import io.zero88.jooqx.provider.DBProvider;
-import io.zero88.jooqx.provider.DBEmbeddedProvider.DBMemoryProvider;
+import io.zero88.jooqx.SQLTest.ReactiveSQLTest;
 import io.zero88.jooqx.SQLTestImpl.DBContainerSQLTest;
 import io.zero88.jooqx.SQLTestImpl.DBMemorySQLTest;
-import io.zero88.jooqx.provider.ReactiveJooqxProvider;
-import io.zero88.jooqx.provider.ReactiveSQLClientProvider;
-import io.zero88.jooqx.provider.SQLClientProvider;
+import io.zero88.jooqx.provider.DBEmbeddedProvider.DBMemoryProvider;
 
 import lombok.NonNull;
 
@@ -28,22 +24,9 @@ public interface ReactiveTestDefinition {
 
     }
 
-
     abstract class ReactiveDBMemoryTest<S extends SqlClient>
         extends DBMemorySQLTest<S, Tuple, ReactiveSQLPreparedQuery, RowSet<Row>, ReactiveSQLResultCollector, ReactiveJooqxBase<S>>
         implements ReactiveSQLTest<S, String, DBMemoryProvider> {
-
-    }
-
-
-    interface ReactiveSQLTest<S extends SqlClient, K, D extends DBProvider<K>>
-        extends SQLTest<S, Tuple, ReactiveSQLPreparedQuery, RowSet<Row>, ReactiveSQLResultCollector, ReactiveJooqxBase<S>, K, D>,
-                ReactiveJooqxProvider<S>, ReactiveSQLClientProvider<S> {
-
-        @Override
-        default @NotNull SQLClientProvider<S> clientProvider() { return this; }
-
-        default @NotNull ReactiveJooqxProvider<S> jooqxProvider() { return this; }
 
     }
 

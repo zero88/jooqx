@@ -6,11 +6,23 @@ import org.jooq.DSLContext;
 
 import io.vertx.core.Future;
 import io.vertx.core.Vertx;
+import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
+import io.vertx.ext.sql.ResultSet;
+import io.vertx.ext.sql.SQLClient;
+import io.vertx.sqlclient.Row;
+import io.vertx.sqlclient.RowSet;
+import io.vertx.sqlclient.SqlClient;
+import io.vertx.sqlclient.Tuple;
 import io.zero88.jooqx.JooqDSLProvider;
 import io.zero88.jooqx.LegacyJooqx;
+import io.zero88.jooqx.LegacySQLCollector;
+import io.zero88.jooqx.LegacySQLPreparedQuery;
 import io.zero88.jooqx.ReactiveJooqx;
+import io.zero88.jooqx.ReactiveJooqxBase;
 import io.zero88.jooqx.ReactiveJooqxConn;
+import io.zero88.jooqx.ReactiveSQLPreparedQuery;
+import io.zero88.jooqx.ReactiveSQLResultCollector;
 import io.zero88.jooqx.SQLExecutor;
 import io.zero88.jooqx.SQLPreparedQuery;
 import io.zero88.jooqx.SQLResultCollector;
@@ -24,9 +36,8 @@ import io.zero88.jooqx.SQLResultCollector;
  * @param <PQ> Type of SQL prepare query
  * @param <RC> Type of SQL result set collector
  * @param <E>  Type of jOOQ.x
- * @see LegacyJooqx
- * @see ReactiveJooqx
- * @see ReactiveJooqxConn
+ * @see JooqxLegacyFacade
+ * @see JooqxReactiveFacade
  * @since 1.1.0
  */
 public interface JooqxFacade<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extends SQLResultCollector<RS>,
@@ -62,6 +73,35 @@ public interface JooqxFacade<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extend
     default Future<E> jooqx(Vertx vertx, DSLContext dsl, JsonObject connOptions, @Nullable JsonObject poolOptions) {
         return clientProvider().open(vertx, connOptions, poolOptions)
                                .map(sqlClient -> jooqxProvider().createExecutor(vertx, dsl, sqlClient));
+    }
+
+    /**
+     * Represents for Jooqx Reactive facade
+     *
+     * @param <S> Type of reactive SQL client
+     * @see ReactiveJooqxBase
+     * @see ReactiveJooqx
+     * @see ReactiveJooqxConn
+     * @see SqlClient
+     * @since 1.1.0
+     */
+    interface JooqxReactiveFacade<S extends SqlClient> extends
+                                                       JooqxFacade<S, Tuple, ReactiveSQLPreparedQuery, RowSet<Row>,
+                                                                      ReactiveSQLResultCollector,
+                                                                      ReactiveJooqxBase<S>> {
+
+    }
+
+
+    /**
+     * Represents for Jooqx Legacy facade
+     *
+     * @see LegacyJooqx
+     * @since 1.1.0
+     */
+    interface JooqxLegacyFacade
+        extends JooqxFacade<SQLClient, JsonArray, LegacySQLPreparedQuery, ResultSet, LegacySQLCollector, LegacyJooqx> {
+
     }
 
 }

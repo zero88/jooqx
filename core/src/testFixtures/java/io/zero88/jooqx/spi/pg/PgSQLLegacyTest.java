@@ -5,7 +5,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import io.vertx.ext.jdbc.spi.impl.HikariCPDataSourceProvider;
 import io.zero88.jooqx.DBContainerProvider;
 import io.zero88.jooqx.LegacyTestDefinition.LegacyDBContainerTest;
-import io.zero88.jooqx.LegacyTestDefinition.LegacySQLTest;
+import io.zero88.jooqx.SQLTest.LegacySQLTest;
 import io.zero88.jooqx.spi.jdbc.JDBCLegacyHikariProvider;
 
 public abstract class PgSQLLegacyTest extends LegacyDBContainerTest<PostgreSQLContainer<?>, HikariCPDataSourceProvider>
