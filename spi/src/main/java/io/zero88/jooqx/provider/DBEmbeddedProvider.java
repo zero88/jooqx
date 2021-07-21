@@ -60,26 +60,20 @@ public interface DBEmbeddedProvider extends DBProvider<String> {
     interface DBFileProvider extends DBEmbeddedProvider {
 
         /**
-         * Database username
+         * Extracts database username
          *
+         * @param connOptions SQL connection options
          * @return username
          */
-        String user();
+        String user(JsonObject connOptions);
 
         /**
-         * Database password
+         * Extracts database password
          *
+         * @param connOptions SQL connection options
          * @return password
          */
-        String password();
-
-        @Override
-        @NonNull
-        default JsonObject createConnOptions(String databaseName) {
-            return DBEmbeddedProvider.super.createConnOptions(databaseName)
-                                           .put("username", user())
-                                           .put("password", password());
-        }
+        String password(JsonObject connOptions);
 
     }
 
