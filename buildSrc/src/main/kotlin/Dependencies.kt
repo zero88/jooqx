@@ -94,6 +94,8 @@ object DatabaseLibs {
         const val jta = "1.3"
         const val agroal = "1.9"
         const val sqlite = "3.36.0.1"
+        const val hsqldb = "2.5.2"
+        const val derby = "10.14.2.0"
     }
 
     const val h2 = "com.h2database:h2:${Version.h2}"
@@ -107,6 +109,8 @@ object DatabaseLibs {
     const val agroalApi = "io.agroal:agroal-api:${Version.agroal}"
     const val agroalPool = "io.agroal:agroal-pool:${Version.agroal}"
     const val sqlite = "org.xerial:sqlite-jdbc:${Version.sqlite}"
+    const val derby = "org.apache.derby:derby:${Version.derby}"
+    const val hsqldb = "org.hsqldb:hsqldb:${Version.hsqldb}"
 }
 
 object ZeroLibs {

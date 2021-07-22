@@ -13,12 +13,12 @@ import io.zero88.jooqx.DSLAdapter;
 import io.zero88.jooqx.ReactiveTestDefinition.ReactiveDBMemoryTest;
 import io.zero88.jooqx.integtest.h2.tables.Author;
 import io.zero88.jooqx.integtest.h2.tables.records.AuthorRecord;
-import io.zero88.jooqx.spi.h2.H2DBMemProvider;
+import io.zero88.jooqx.spi.h2.H2MemProvider;
 import io.zero88.jooqx.spi.jdbc.JDBCErrorConverterProvider;
 import io.zero88.jooqx.spi.jdbc.JDBCPoolHikariProvider;
 
 class H2ReAFailedTest extends ReactiveDBMemoryTest<JDBCPool>
-    implements H2DBMemProvider, H2SQLHelper, JDBCErrorConverterProvider, JDBCPoolHikariProvider {
+    implements H2MemProvider, H2SQLHelper, JDBCErrorConverterProvider, JDBCPoolHikariProvider {
 
     @Test
     void test(VertxTestContext testContext) {

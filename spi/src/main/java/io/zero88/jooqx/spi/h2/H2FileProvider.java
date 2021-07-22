@@ -3,21 +3,21 @@ package io.zero88.jooqx.spi.h2;
 import org.h2.Driver;
 import org.jetbrains.annotations.NotNull;
 
-import io.zero88.jooqx.provider.DBEmbeddedProvider.DBMemoryProvider;
+import io.zero88.jooqx.provider.DBEmbeddedProvider.DBFileProvider;
 
 import lombok.NonNull;
 
 /**
- * Provides H2 database in memory
+ * Provides H2 database in local file
  *
- * @see DBMemoryProvider
+ * @see DBFileProvider
  * @since 1.1.0
  */
-public interface H2DBMemProvider extends DBMemoryProvider {
+public interface H2FileProvider extends DBFileProvider {
 
     @Override
     default @NotNull String protocol() {
-        return "jdbc:h2:mem:";
+        return "jdbc:h2:file:";
     }
 
     @Override

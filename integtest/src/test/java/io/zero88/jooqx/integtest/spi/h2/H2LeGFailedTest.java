@@ -14,11 +14,11 @@ import io.zero88.jooqx.LegacyTestDefinition.LegacyDBMemoryTest;
 import io.zero88.jooqx.spi.jdbc.JDBCErrorConverterProvider;
 import io.zero88.jooqx.integtest.h2.tables.Author;
 import io.zero88.jooqx.integtest.h2.tables.records.AuthorRecord;
-import io.zero88.jooqx.spi.h2.H2DBMemProvider;
+import io.zero88.jooqx.spi.h2.H2MemProvider;
 import io.zero88.jooqx.spi.jdbc.JDBCLegacyHikariProvider;
 
 class H2LeGFailedTest extends LegacyDBMemoryTest<HikariCPDataSourceProvider>
-    implements H2DBMemProvider, H2SQLHelper, JDBCLegacyHikariProvider, JDBCErrorConverterProvider {
+    implements H2MemProvider, H2SQLHelper, JDBCLegacyHikariProvider, JDBCErrorConverterProvider {
 
     @Test
     void test(VertxTestContext testContext) {

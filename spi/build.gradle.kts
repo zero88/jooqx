@@ -8,6 +8,8 @@ dependencies {
     compileOnly(VertxLibs.mssql)
     compileOnly(VertxLibs.db2)
     compileOnly(DatabaseLibs.h2)
+    compileOnly(DatabaseLibs.derby)
+    compileOnly(DatabaseLibs.hsqldb)
     compileOnly(DatabaseLibs.sqlite)
 
     testImplementation(testFixtures(project(":core")))
