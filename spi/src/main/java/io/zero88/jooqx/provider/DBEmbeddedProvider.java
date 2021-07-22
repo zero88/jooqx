@@ -75,16 +75,22 @@ public interface DBEmbeddedProvider extends DBProvider<String> {
          *
          * @param connOptions SQL connection options
          * @return username
+         * @apiNote Default is admin
          */
-        String user(JsonObject connOptions);
+        default String user(JsonObject connOptions) {
+            return "admin";
+        }
 
         /**
          * Extracts database password
          *
          * @param connOptions SQL connection options
          * @return password
+         * @apiNote Default is no password
          */
-        String password(JsonObject connOptions);
+        default String password(JsonObject connOptions) {
+            return null;
+        }
 
         @Override
         default @NotNull JsonObject createConnOptions(@NotNull String databaseName, @NotNull JsonObject connOptions) {

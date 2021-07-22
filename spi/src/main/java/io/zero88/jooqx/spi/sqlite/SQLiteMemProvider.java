@@ -1,7 +1,6 @@
 package io.zero88.jooqx.spi.sqlite;
 
 import org.jetbrains.annotations.NotNull;
-import org.sqlite.JDBC;
 
 import io.zero88.jooqx.provider.DBEmbeddedProvider.DBMemoryProvider;
 
@@ -13,11 +12,11 @@ import lombok.NonNull;
  * @see DBMemoryProvider
  * @since 1.1.0
  */
-public interface SQLiteDBMemProvider extends DBMemoryProvider {
+public interface SQLiteMemProvider extends DBMemoryProvider {
 
     @Override
     default @NonNull String driverClassName() {
-        return JDBC.class.getName();
+        return "org.sqlite.JDBC";
     }
 
     @Override

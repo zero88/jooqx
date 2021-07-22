@@ -1,6 +1,5 @@
 package io.zero88.jooqx.spi.derby;
 
-import org.apache.derby.jdbc.EmbeddedDriver;
 import org.jetbrains.annotations.NotNull;
 
 import io.zero88.jooqx.provider.DBEmbeddedProvider.DBFileProvider;
@@ -22,7 +21,7 @@ public interface DerbyFileProvider extends DBFileProvider {
 
     @Override
     default @NonNull String driverClassName() {
-        return EmbeddedDriver.class.getName();
+        return "org.apache.derby.jdbc.EmbeddedDriver";
     }
 
 }

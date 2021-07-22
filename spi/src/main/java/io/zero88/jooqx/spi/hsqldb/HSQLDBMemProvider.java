@@ -1,6 +1,5 @@
 package io.zero88.jooqx.spi.hsqldb;
 
-import org.hsqldb.jdbc.JDBCDriver;
 import org.jetbrains.annotations.NotNull;
 
 import io.zero88.jooqx.provider.DBEmbeddedProvider.DBMemoryProvider;
@@ -22,7 +21,7 @@ public interface HSQLDBMemProvider extends DBMemoryProvider {
 
     @Override
     default @NonNull String driverClassName() {
-        return JDBCDriver.class.getName();
+        return "org.hsqldb.jdbc.JDBCDriver";
     }
 
 }

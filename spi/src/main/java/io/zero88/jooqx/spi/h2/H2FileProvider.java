@@ -1,6 +1,5 @@
 package io.zero88.jooqx.spi.h2;
 
-import org.h2.Driver;
 import org.jetbrains.annotations.NotNull;
 
 import io.zero88.jooqx.provider.DBEmbeddedProvider.DBFileProvider;
@@ -22,7 +21,7 @@ public interface H2FileProvider extends DBFileProvider {
 
     @Override
     default @NonNull String driverClassName() {
-        return Driver.class.getName();
+        return "org.h2.Driver";
     }
 
 }

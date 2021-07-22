@@ -29,4 +29,12 @@ public enum DBEmbeddedMode {
     public static boolean isSupportFileMode(SQLDialect dialect) {
         return isSupportEmbeddedMode(dialect) || FILE_SUPPORTED.contains(dialect);
     }
+
+    public static boolean isFile(DBEmbeddedMode mode) {
+        return FILE == mode;
+    }
+
+    public static boolean isMemory(DBEmbeddedMode mode) {
+        return MEMORY == mode;
+    }
 }
