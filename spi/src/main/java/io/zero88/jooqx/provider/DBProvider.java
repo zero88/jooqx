@@ -4,8 +4,6 @@ import org.jetbrains.annotations.NotNull;
 
 import io.vertx.core.json.JsonObject;
 
-import lombok.NonNull;
-
 /**
  * Provides database
  *
@@ -24,9 +22,10 @@ public interface DBProvider<DB> {
     /**
      * Create Database connection options
      *
-     * @param database database instance
+     * @param database    database instance
+     * @param connOptions extra connection options
      * @return SQL connection options
      */
-    @NonNull JsonObject createConnOptions(DB database);
+    @NotNull JsonObject createConnOptions(@NotNull DB database, @NotNull JsonObject connOptions);
 
 }

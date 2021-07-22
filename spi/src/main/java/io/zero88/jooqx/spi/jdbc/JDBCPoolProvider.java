@@ -21,7 +21,7 @@ import lombok.NonNull;
  * @see JDBCPool
  * @since 1.1.0
  */
-interface InternalJDBCPoolProvider<P extends DataSourceProvider>
+public interface JDBCPoolProvider<P extends DataSourceProvider>
     extends ReactiveSQLClientProvider<JDBCPool>, SQLClientOptionParser<JDBCConnectOptions>, JDBCExtension<P> {
 
     @Override

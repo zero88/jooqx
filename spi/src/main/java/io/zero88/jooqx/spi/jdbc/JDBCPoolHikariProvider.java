@@ -15,12 +15,11 @@ import io.zero88.jooqx.provider.JDBCExtension.HikariCPExtension;
  * @see HikariCPExtension
  * @since 1.1.0
  */
-public interface JDBCPoolHikariProvider extends InternalJDBCPoolProvider<HikariCPDataSourceProvider>,
-                                                HikariCPExtension {
+public interface JDBCPoolHikariProvider extends JDBCPoolProvider<HikariCPDataSourceProvider>, HikariCPExtension {
 
     @Override
     default @NotNull JDBCConnectOptions parseConn(@NotNull JsonObject connOptions) {
-        return InternalJDBCPoolProvider.super.parseConn(connOptions.put("dataSourceImplementation", "hikari"));
+        return JDBCPoolProvider.super.parseConn(connOptions.put("dataSourceImplementation", "hikari"));
     }
 
 }

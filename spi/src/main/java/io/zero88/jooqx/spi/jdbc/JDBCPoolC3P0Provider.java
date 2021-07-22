@@ -17,12 +17,12 @@ import io.zero88.jooqx.provider.JDBCExtension.C3P0Extension;
  * @see JDBCPool
  * @since 1.1.0
  */
-public interface JDBCPoolC3P0Provider extends InternalJDBCPoolProvider<C3P0DataSourceProvider>, C3P0Extension {
+public interface JDBCPoolC3P0Provider extends JDBCPoolProvider<C3P0DataSourceProvider>, C3P0Extension {
 
     @Override
     @NotNull
     default JDBCConnectOptions parseConn(@NotNull JsonObject connOptions) {
-        return InternalJDBCPoolProvider.super.parseConn(connOptions.put("dataSourceImplementation", "c3p0"));
+        return JDBCPoolProvider.super.parseConn(connOptions.put("dataSourceImplementation", "c3p0"));
     }
 
 }

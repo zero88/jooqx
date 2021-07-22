@@ -1,5 +1,6 @@
 package io.zero88.jooqx.provider;
 
+import java.sql.Driver;
 import java.util.UUID;
 
 import org.jetbrains.annotations.NotNull;
@@ -18,7 +19,7 @@ import lombok.NonNull;
 public interface DBEmbeddedProvider extends DBProvider<String> {
 
     /**
-     * Database name
+     * Provides Database name
      *
      * @return database name
      */
@@ -26,12 +27,14 @@ public interface DBEmbeddedProvider extends DBProvider<String> {
     @NotNull String init();
 
     @Override
-    default @NonNull JsonObject createConnOptions(String databaseName) {
-        return new JsonObject().put("jdbcUrl", protocol() + databaseName).put("driverClassName", driverClassName());
+    default @NotNull JsonObject createConnOptions(@NotNull String databaseName, @NotNull JsonObject connOptions) {
+        return new JsonObject().put("jdbcUrl", protocol() + databaseName)
+                               .put("driverClassName", driverClassName())
+                               .mergeIn(connOptions, true);
     }
 
     /**
-     * Local JDBC protocol
+     * JDBC protocol
      *
      * @return JDBC protocol
      */
@@ -41,6 +44,7 @@ public interface DBEmbeddedProvider extends DBProvider<String> {
      * SQL Driver class name
      *
      * @return SQL driver class name
+     * @see Driver
      */
     @NonNull String driverClassName();
 
@@ -81,6 +85,14 @@ public interface DBEmbeddedProvider extends DBProvider<String> {
          * @return password
          */
         String password(JsonObject connOptions);
+
+        @Override
+        default @NotNull JsonObject createConnOptions(@NotNull String databaseName, @NotNull JsonObject connOptions) {
+            return DBEmbeddedProvider.super.createConnOptions(databaseName, connOptions)
+                                           .put("user", user(connOptions))
+                                           .put("username", user(connOptions))
+                                           .put("password", password(connOptions));
+        }
 
     }
 

@@ -9,7 +9,7 @@ import io.vertx.jdbcclient.impl.AgroalCPDataSourceProvider;
  * @see JDBCPool
  * @since 1.1.0
  */
-public interface JDBCPoolReactiveProvider extends InternalJDBCPoolProvider<AgroalCPDataSourceProvider> {
+public interface JDBCPoolAgroalProvider extends JDBCPoolProvider<AgroalCPDataSourceProvider> {
 
     @Override
     default String jdbcDataSourceClass() {

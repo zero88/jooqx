@@ -13,7 +13,6 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 import io.github.zero88.utils.Strings;
-import io.reactivex.annotations.NonNull;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.junit5.VertxExtension;
@@ -47,8 +46,8 @@ abstract class SQLTestImpl<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extends 
     @SneakyThrows
     @BeforeEach
     public void tearUp(Vertx vertx, VertxTestContext ctx) {
-        jooqx(vertx, dsl(), initSQLOption(getDatabase()), initPoolOption()).onSuccess(jooqx -> this.jooqx = jooqx)
-                                                                           .onComplete(ctx.succeedingThenComplete());
+        jooqx(vertx, dsl(), initConnOptions(), initPoolOptions()).onSuccess(jooqx -> this.jooqx = jooqx)
+                                                                 .onComplete(ctx.succeedingThenComplete());
         if (ctx.awaitCompletion(TIMEOUT_IN_SECOND, TimeUnit.SECONDS)) {
             ctx.failNow("Timeout when open SQL connection");
         }
@@ -63,23 +62,23 @@ abstract class SQLTestImpl<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extends 
     protected abstract DB getDatabase();
 
     /**
-     * Init SQL connection option from database
+     * Init SQL connection options
      *
-     * @param database given test database
      * @return sql connection option
      */
-    protected JsonObject initSQLOption(@NonNull DB database) {
-        connOpt = new SQLConnectionOption(dbProvider().createConnOptions(database));
-        return connOpt.toJson();
+    protected JsonObject initConnOptions() {
+        final JsonObject connOptions = dbProvider().createConnOptions(getDatabase(), new JsonObject());
+        connOpt = new SQLConnectionOption(connOptions);
+        return connOptions;
     }
 
     /**
-     * Init SQL pool option
+     * Init SQL pool options
      *
      * @return pool options
      * @see PoolOptions
      */
-    protected @Nullable JsonObject initPoolOption() {
+    protected @Nullable JsonObject initPoolOptions() {
         return null;
     }
 

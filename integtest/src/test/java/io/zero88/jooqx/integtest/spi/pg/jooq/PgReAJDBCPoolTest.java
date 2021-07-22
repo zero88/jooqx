@@ -1,18 +1,14 @@
 package io.zero88.jooqx.integtest.spi.pg.jooq;
 
-import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.testcontainers.containers.PostgreSQLContainer;
 
 import io.vertx.core.Vertx;
-import io.vertx.core.json.JsonObject;
 import io.vertx.jdbcclient.JDBCPool;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 import io.zero88.jooqx.DSLAdapter;
-import io.zero88.jooqx.HikariHelper;
 import io.zero88.jooqx.integtest.pgsql.tables.TemporalDataType;
 import io.zero88.jooqx.integtest.pgsql.tables.records.TemporalDataTypeRecord;
 import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgUseJooqType;
@@ -28,12 +24,6 @@ class PgReAJDBCPoolTest extends PgSQLReactiveTest<JDBCPool>
     public void tearUp(Vertx vertx, VertxTestContext ctx) {
         super.tearUp(vertx, ctx);
         this.prepareDatabase(ctx, this, connOpt, "pg_data/temporal.sql");
-    }
-
-    @Override
-    protected JsonObject initSQLOption(@NotNull PostgreSQLContainer<?> database) {
-        super.initSQLOption(database);
-        return HikariHelper.parse(connOpt);
     }
 
     @Test

@@ -6,8 +6,6 @@ import org.testcontainers.containers.JdbcDatabaseContainer;
 import io.vertx.core.json.JsonObject;
 import io.zero88.jooqx.provider.DBProvider;
 
-import lombok.NonNull;
-
 /**
  * Provides database in Docker container
  *
@@ -24,7 +22,7 @@ public interface DBContainerProvider<DB extends JdbcDatabaseContainer<?>> extend
     @NotNull DB initDBContainer(String imageName);
 
     @Override
-    default @NonNull JsonObject createConnOptions(DB container) {
+    default @NotNull JsonObject createConnOptions(@NotNull DB container, @NotNull JsonObject connOptions) {
         return new SQLConnectionOption().setHost(container.getHost())
                                         .setPort(container.getMappedPort(defaultPort()))
                                         .setDatabase(container.getDatabaseName())
@@ -32,7 +30,8 @@ public interface DBContainerProvider<DB extends JdbcDatabaseContainer<?>> extend
                                         .setPassword(container.getPassword())
                                         .setJdbcUrl(container.getJdbcUrl())
                                         .setDriverClassName(container.getDriverClassName())
-                                        .toJson();
+                                        .toJson()
+                                        .mergeIn(connOptions, true);
     }
 
     /**

@@ -12,11 +12,11 @@ import io.zero88.jooqx.DSLAdapter;
 import io.zero88.jooqx.ReactiveTestDefinition.ReactiveRxHelper;
 import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgUseJooqType;
 import io.zero88.jooqx.spi.jdbc.JDBCErrorConverterProvider;
-import io.zero88.jooqx.spi.jdbc.JDBCPoolReactiveProvider;
+import io.zero88.jooqx.spi.jdbc.JDBCPoolAgroalProvider;
 import io.zero88.jooqx.spi.pg.PgSQLReactiveTest;
 
 class PgReARxTest extends PgSQLReactiveTest<JDBCPool>
-    implements PgUseJooqType, JDBCPoolReactiveProvider, JDBCErrorConverterProvider, ReactiveRxHelper {
+    implements PgUseJooqType, JDBCPoolAgroalProvider, JDBCErrorConverterProvider, ReactiveRxHelper {
 
     @Override
     @BeforeEach
