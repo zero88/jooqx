@@ -12,6 +12,11 @@ import io.vertx.jdbcclient.impl.AgroalCPDataSourceProvider;
 public interface JDBCPoolReactiveProvider extends InternalJDBCPoolProvider<AgroalCPDataSourceProvider> {
 
     @Override
+    default String jdbcDataSourceClass() {
+        return "io.agroal.api.AgroalDataSource";
+    }
+
+    @Override
     default Class<AgroalCPDataSourceProvider> dataSourceProviderClass() {
         return AgroalCPDataSourceProvider.class;
     }

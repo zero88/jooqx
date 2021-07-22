@@ -19,6 +19,11 @@ import lombok.NonNull;
 public interface MySQLPoolProvider extends ReactiveSQLClientProvider<MySQLPool>, MySQLClientParser {
 
     @Override
+    default String sqlClientClass() {
+        return "io.vertx.mysqlclient.MySQLPool";
+    }
+
+    @Override
     default @NonNull Future<MySQLPool> open(Vertx vertx, JsonObject connOptions, @Nullable JsonObject poolOptions) {
         return Future.succeededFuture(MySQLPool.pool(vertx, parseConn(connOptions), parsePool(poolOptions)));
     }

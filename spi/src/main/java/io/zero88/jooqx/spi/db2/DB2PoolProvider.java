@@ -18,6 +18,11 @@ import io.zero88.jooqx.provider.ReactiveSQLClientProvider;
 public interface DB2PoolProvider extends ReactiveSQLClientProvider<DB2Pool>, DB2ClientParser {
 
     @Override
+    default String sqlClientClass() {
+        return "io.vertx.db2client.DB2Pool";
+    }
+
+    @Override
     default @NotNull Future<DB2Pool> open(Vertx vertx, JsonObject connOptions, @Nullable JsonObject poolOptions) {
         return Future.succeededFuture(DB2Pool.pool(vertx, parseConn(connOptions), parsePool(poolOptions)));
     }

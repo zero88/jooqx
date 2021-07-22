@@ -25,6 +25,11 @@ interface InternalJDBCPoolProvider<P extends DataSourceProvider>
     extends ReactiveSQLClientProvider<JDBCPool>, SQLClientOptionParser<JDBCConnectOptions>, JDBCExtension<P> {
 
     @Override
+    default String sqlClientClass() {
+        return "io.vertx.jdbcclient.JDBCPool";
+    }
+
+    @Override
     default @NonNull Future<JDBCPool> open(Vertx vertx, JsonObject connOptions, @Nullable JsonObject poolOptions) {
         final JDBCConnectOptions jdbcConnectOptions = parseConn(connOptions);
         if ("AGROAL".equals(jdbcConnectOptions.getDataSourceImplementation())) {

@@ -18,6 +18,11 @@ import io.zero88.jooqx.provider.ReactiveSQLClientProvider;
 public interface MSSQLPoolProvider extends ReactiveSQLClientProvider<MSSQLPool>, MSSQLClientParser {
 
     @Override
+    default String sqlClientClass() {
+        return "io.vertx.mssqlclient.MSSQLPool";
+    }
+
+    @Override
     default @NotNull Future<MSSQLPool> open(Vertx vertx, JsonObject connOptions, @Nullable JsonObject poolOptions) {
         return Future.succeededFuture(MSSQLPool.pool(vertx, parseConn(connOptions), parsePool(poolOptions)));
     }

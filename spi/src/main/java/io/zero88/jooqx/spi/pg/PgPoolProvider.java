@@ -19,6 +19,11 @@ import lombok.NonNull;
 public interface PgPoolProvider extends ReactiveSQLClientProvider<PgPool>, PgSQLClientParser {
 
     @Override
+    default String sqlClientClass() {
+        return "io.vertx.pgclient.PgPool";
+    }
+
+    @Override
     default @NonNull Future<PgPool> open(Vertx vertx, JsonObject connOptions, @Nullable JsonObject poolOptions) {
         return Future.succeededFuture(PgPool.pool(vertx, parseConn(connOptions), parsePool(poolOptions)));
     }

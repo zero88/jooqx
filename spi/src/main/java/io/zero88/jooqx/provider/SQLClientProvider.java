@@ -16,6 +16,15 @@ import io.vertx.core.json.JsonObject;
 public interface SQLClientProvider<S> {
 
     /**
+     * Defines SQL client class.
+     * <p>
+     * It helps for detecting and scanning in runtime
+     *
+     * @return SQL client class
+     */
+    String sqlClientClass();
+
+    /**
      * Create and open SQL client
      *
      * @param vertx       vertx

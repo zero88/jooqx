@@ -22,6 +22,15 @@ public interface JDBCExtension<P extends DataSourceProvider> {
     Class<P> dataSourceProviderClass();
 
     /**
+     * Defines JDBC data source class
+     * <p>
+     * It helps for detecting and scanning in runtime
+     *
+     * @return JDBC data source class
+     */
+    String jdbcDataSourceClass();
+
+    /**
      * Optimize Data Source provider config
      *
      * @param config config
@@ -32,6 +41,11 @@ public interface JDBCExtension<P extends DataSourceProvider> {
     }
 
     interface HikariCPExtension extends JDBCExtension<HikariCPDataSourceProvider> {
+
+        @Override
+        default String jdbcDataSourceClass() {
+            return "com.zaxxer.hikari.HikariDataSource";
+        }
 
         @Override
         default Class<HikariCPDataSourceProvider> dataSourceProviderClass() {
@@ -52,6 +66,11 @@ public interface JDBCExtension<P extends DataSourceProvider> {
     interface C3P0Extension extends JDBCExtension<C3P0DataSourceProvider> {
 
         @Override
+        default String jdbcDataSourceClass() {
+            return "com.mchange.v2.c3p0.PooledDataSource";
+        }
+
+        @Override
         default Class<C3P0DataSourceProvider> dataSourceProviderClass() {
             return C3P0DataSourceProvider.class;
         }
@@ -60,6 +79,11 @@ public interface JDBCExtension<P extends DataSourceProvider> {
 
 
     interface AgroalExtension extends JDBCExtension<AgroalCPDataSourceProvider> {
+
+        @Override
+        default String jdbcDataSourceClass() {
+            return "io.agroal.api.AgroalDataSource";
+        }
 
         @Override
         default Class<AgroalCPDataSourceProvider> dataSourceProviderClass() {

@@ -32,6 +32,11 @@ public interface LegacySQLClientProvider<P extends DataSourceProvider>
     extends SQLClientProvider<SQLClient>, SQLClientOptionParser<JsonObject>, JDBCExtension<P> {
 
     @Override
+    default String sqlClientClass() {
+        return "io.vertx.ext.jdbc.JDBCClient";
+    }
+
+    @Override
     default @NonNull Future<SQLClient> open(Vertx vertx, JsonObject connOptions, @Nullable JsonObject poolOptions) {
         return Future.succeededFuture(JDBCClient.create(vertx, parseConn(connOptions)));
     }
