@@ -29,7 +29,7 @@ import lombok.NonNull;
  * @since 1.1.0
  */
 public interface LegacySQLClientProvider<P extends DataSourceProvider>
-    extends SQLClientProvider<SQLClient>, SQLClientOptionParser<JsonObject> {
+    extends SQLClientProvider<SQLClient>, SQLClientOptionParser<JsonObject>, JDBCExtension<P> {
 
     @Override
     default @NonNull Future<SQLClient> open(Vertx vertx, JsonObject connOptions, @Nullable JsonObject poolOptions) {
@@ -48,7 +48,7 @@ public interface LegacySQLClientProvider<P extends DataSourceProvider>
 
     @Override
     default @NotNull JsonObject parseConn(@NotNull JsonObject connOptions) {
-        return connOptions.put("provider_class", dataSourceProviderClass().getName());
+        return optimizeDataSourceProviderConfig(connOptions);
     }
 
     @Override
@@ -56,12 +56,5 @@ public interface LegacySQLClientProvider<P extends DataSourceProvider>
         throw new UnsupportedOperationException(
             "Legacy Vertx SQL uses an external JDBC connection pool lib, then only using Connection Options");
     }
-
-    /**
-     * DataSource provider class
-     *
-     * @return Data Source provider class
-     */
-    Class<P> dataSourceProviderClass();
 
 }

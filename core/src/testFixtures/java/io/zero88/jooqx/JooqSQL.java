@@ -16,7 +16,6 @@ import org.jooq.Schema;
 import io.vertx.junit5.VertxTestContext;
 import io.zero88.jooqx.provider.HasSQLDialect;
 
-import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 
 import lombok.NonNull;
@@ -48,12 +47,7 @@ public interface JooqSQL<S extends Schema> extends JooqDSLProvider, HasSQLDialec
      * @return Hikari data source
      */
     default HikariDataSource createDataSource(SQLConnectionOption option) {
-        HikariConfig hikariConfig = new HikariConfig();
-        hikariConfig.setJdbcUrl(option.getJdbcUrl());
-        hikariConfig.setUsername(option.getUser());
-        hikariConfig.setPassword(option.getPassword());
-        hikariConfig.setDriverClassName(option.getDriverClassName());
-        return new HikariDataSource(hikariConfig);
+        return new HikariDataSource(HikariHelper.convert(option));
     }
 
     /**

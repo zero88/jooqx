@@ -1,36 +1,19 @@
 package io.zero88.jooqx.spi.jdbc;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import io.vertx.core.Future;
-import io.vertx.core.Vertx;
-import io.vertx.core.json.JsonObject;
-import io.vertx.jdbcclient.JDBCConnectOptions;
 import io.vertx.jdbcclient.JDBCPool;
-import io.zero88.jooqx.provider.ReactiveSQLClientProvider;
-import io.zero88.jooqx.provider.SQLClientOptionParser;
-
-import lombok.NonNull;
+import io.vertx.jdbcclient.impl.AgroalCPDataSourceProvider;
 
 /**
- * Reactive JDBC pool provider
+ * Reactive JDBC pool from Vert.x official that using {@code AgroalCP}
  *
  * @see JDBCPool
  * @since 1.1.0
  */
-public interface JDBCPoolReactiveProvider
-    extends ReactiveSQLClientProvider<JDBCPool>, SQLClientOptionParser<JDBCConnectOptions> {
+public interface JDBCPoolReactiveProvider extends InternalJDBCPoolProvider<AgroalCPDataSourceProvider> {
 
     @Override
-    default @NonNull Future<JDBCPool> open(Vertx vertx, JsonObject connOptions, @Nullable JsonObject poolOptions) {
-        return Future.succeededFuture(JDBCPool.pool(vertx, parseConn(connOptions), parsePool(poolOptions)));
-    }
-
-    @Override
-    @NotNull
-    default JDBCConnectOptions parseConn(@NotNull JsonObject connOptions) {
-        return new JDBCConnectOptions(connOptions);
+    default Class<AgroalCPDataSourceProvider> dataSourceProviderClass() {
+        return AgroalCPDataSourceProvider.class;
     }
 
 }
