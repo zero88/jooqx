@@ -40,6 +40,12 @@ public interface JDBCExtension<P extends DataSourceProvider> {
         return config.put("provider_class", dataSourceProviderClass().getName());
     }
 
+    /**
+     * HikariCP extension
+     *
+     * @see HikariCPDataSourceProvider
+     * @since 1.1.0
+     */
     interface HikariCPExtension extends JDBCExtension<HikariCPDataSourceProvider> {
 
         @Override
@@ -54,15 +60,29 @@ public interface JDBCExtension<P extends DataSourceProvider> {
 
         @Override
         default JsonObject optimizeDataSourceProviderConfig(JsonObject config) {
+            if (config.getString("jdbcUrl") == null) {
+                config.put("jdbcUrl", config.getString("url"));
+                config.put("url", config.getString("jdbcUrl"));
+            }
             if (config.getString("username") == null) {
                 config.put("username", config.getString("user"));
+                config.put("user", config.getString("username"));
+            }
+            if (config.getString("driverClassName") == null) {
+                config.put("driverClassName", config.getString("driver_class"));
+                config.put("driver_class", config.getString("driverClassName"));
             }
             return JDBCExtension.super.optimizeDataSourceProviderConfig(config);
         }
 
     }
 
-
+    /**
+     * C3P0 extension
+     *
+     * @see C3P0DataSourceProvider
+     * @since 1.1.0
+     */
     interface C3P0Extension extends JDBCExtension<C3P0DataSourceProvider> {
 
         @Override
@@ -77,7 +97,12 @@ public interface JDBCExtension<P extends DataSourceProvider> {
 
     }
 
-
+    /**
+     * Agroal extension
+     *
+     * @see AgroalCPDataSourceProvider
+     * @since 1.1.0
+     */
     interface AgroalExtension extends JDBCExtension<AgroalCPDataSourceProvider> {
 
         @Override
