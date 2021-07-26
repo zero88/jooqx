@@ -2,6 +2,7 @@ package io.zero88.jooqx;
 
 import java.util.function.Function;
 
+import org.jooq.DDLQuery;
 import org.jooq.DSLContext;
 import org.jooq.Query;
 
@@ -122,6 +123,29 @@ public interface LegacyJooqx extends LegacySQLImpl.LegacyInternal<SQLClient> {
                                                @NonNull SQLResultAdapter<T, R> resultAdapter) {
         return LegacyInternal.super.execute(queryFunction, resultAdapter);
     }
+
+    @Override
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    default void ddl(@NonNull Function<DSLContext, DDLQuery> ddlFunction,
+                     @NonNull Handler<AsyncResult<Integer>> handler) {
+        LegacyInternal.super.ddl(ddlFunction, handler);
+    }
+
+    @Override
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    default Future<Integer> ddl(@NonNull Function<DSLContext, DDLQuery> ddlFunction) {
+        return LegacyInternal.super.ddl(ddlFunction);
+    }
+
+    @Override
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    default void ddl(@NonNull DDLQuery query, @NonNull Handler<AsyncResult<Integer>> handler) {
+        LegacyInternal.super.ddl(query, handler);
+    }
+
+    @Override
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    Future<Integer> ddl(@NonNull DDLQuery query);
 
     @GenIgnore
     class LegacyJooqxBuilder extends SQLExecutorBuilder<SQLClient, JsonArray, LegacySQLPreparedQuery, ResultSet,

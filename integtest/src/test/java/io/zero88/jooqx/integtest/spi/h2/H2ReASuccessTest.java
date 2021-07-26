@@ -14,11 +14,10 @@ import io.zero88.jooqx.DSLAdapter;
 import io.zero88.jooqx.ReactiveTestDefinition.ReactiveDBMemoryTest;
 import io.zero88.jooqx.integtest.h2.tables.Alldatatypes;
 import io.zero88.jooqx.spi.h2.H2MemProvider;
-import io.zero88.jooqx.spi.jdbc.JDBCErrorConverterProvider;
 import io.zero88.jooqx.spi.jdbc.JDBCPoolHikariProvider;
 
 public class H2ReASuccessTest extends ReactiveDBMemoryTest<JDBCPool>
-    implements H2MemProvider, H2SQLHelper, JDBCErrorConverterProvider, JDBCPoolHikariProvider {
+    implements H2MemProvider, H2SQLHelper, JDBCPoolHikariProvider {
 
     @Override
     @BeforeEach

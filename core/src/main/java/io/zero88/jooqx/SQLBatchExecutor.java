@@ -12,7 +12,7 @@ import io.vertx.core.Handler;
 import lombok.NonNull;
 
 /**
- * The {@code legacy jdbc executor} that executes batch SQL command and return only the number of succeed row
+ * Represents for a {@code batch executor} that executes batch SQL command
  *
  * @since 1.0.0
  */
