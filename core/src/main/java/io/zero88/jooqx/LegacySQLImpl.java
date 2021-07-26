@@ -13,6 +13,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import org.jooq.DDLQuery;
 import org.jooq.DSLContext;
 import org.jooq.Field;
 import org.jooq.Param;
@@ -26,6 +27,7 @@ import io.vertx.ext.sql.ResultSet;
 import io.vertx.ext.sql.SQLClient;
 import io.vertx.ext.sql.SQLConnection;
 import io.vertx.ext.sql.SQLOperations;
+import io.vertx.ext.sql.UpdateResult;
 import io.zero88.jooqx.MiscImpl.BatchResultImpl;
 import io.zero88.jooqx.SQLImpl.SQLEI;
 import io.zero88.jooqx.SQLImpl.SQLPQ;
@@ -140,6 +142,13 @@ final class LegacySQLImpl {
                           .map(r -> resultCollector().batchResultSize(r))
                           .map(s -> BatchResultImpl.create(bindBatchValues.size(), s))
                           .otherwise(errorConverter()::reThrowError);
+        }
+
+        @Override
+        public Future<Integer> ddl(@NonNull DDLQuery query) {
+            final Promise<UpdateResult> promise = Promise.promise();
+            sqlClient().update(preparedQuery().sql(dsl().configuration(), query), promise);
+            return promise.future().map(UpdateResult::getUpdated).otherwise(errorConverter()::reThrowError);
         }
 
         protected abstract Future<SQLConnection> openConn();

@@ -12,12 +12,13 @@ import io.zero88.jooqx.SQLConnectionOption;
 import io.zero88.jooqx.SQLTestHelper;
 import io.zero88.jooqx.integtest.h2.DefaultCatalog;
 import io.zero88.jooqx.integtest.h2.DefaultSchema;
+import io.zero88.jooqx.spi.jdbc.JDBCErrorConverterProvider;
 
 import com.zaxxer.hikari.HikariDataSource;
 
 import lombok.NonNull;
 
-public interface H2SQLHelper extends JooqSQL<DefaultSchema>, SQLTestHelper {
+public interface H2SQLHelper extends JooqSQL<DefaultSchema>, SQLTestHelper, JDBCErrorConverterProvider {
 
     default void prepareDatabase(VertxTestContext context, JooqSQL<?> jooqSql, SQLConnectionOption connOption,
                                  String... otherDataFiles) {

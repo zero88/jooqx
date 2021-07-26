@@ -2,6 +2,7 @@ package io.zero88.jooqx;
 
 import java.util.function.Function;
 
+import org.jooq.DDLQuery;
 import org.jooq.DSLContext;
 import org.jooq.Query;
 
@@ -125,6 +126,29 @@ public interface ReactiveJooqxConn extends ReactiveJooqxBase<SqlConnection> {
                               @NonNull Handler<AsyncResult<BatchReturningResult<R>>> handler) {
         ReactiveJooqxBase.super.batch(query, bindBatchValues, adapter, handler);
     }
+
+    @Override
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    default void ddl(@NonNull Function<DSLContext, DDLQuery> ddlFunction,
+                     @NonNull Handler<AsyncResult<Integer>> handler) {
+        ReactiveJooqxBase.super.ddl(ddlFunction, handler);
+    }
+
+    @Override
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    default Future<Integer> ddl(@NonNull Function<DSLContext, DDLQuery> ddlFunction) {
+        return ReactiveJooqxBase.super.ddl(ddlFunction);
+    }
+
+    @Override
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    default void ddl(@NonNull DDLQuery query, @NonNull Handler<AsyncResult<Integer>> handler) {
+        ReactiveJooqxBase.super.ddl(query, handler);
+    }
+
+    @Override
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    Future<Integer> ddl(@NonNull DDLQuery query);
 
     @GenIgnore
     class ReactiveJooqxConnBuilder extends ReAJooqxBBuilder<SqlConnection, ReactiveJooqxConn> {

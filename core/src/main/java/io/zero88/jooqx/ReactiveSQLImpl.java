@@ -9,6 +9,7 @@ import java.util.function.Function;
 import java.util.stream.IntStream;
 
 import org.jetbrains.annotations.NotNull;
+import org.jooq.DDLQuery;
 import org.jooq.DSLContext;
 import org.jooq.Param;
 import org.jooq.Query;
@@ -24,6 +25,7 @@ import io.vertx.sqlclient.RowIterator;
 import io.vertx.sqlclient.RowSet;
 import io.vertx.sqlclient.SqlClient;
 import io.vertx.sqlclient.SqlConnection;
+import io.vertx.sqlclient.SqlResult;
 import io.vertx.sqlclient.Transaction;
 import io.vertx.sqlclient.Tuple;
 import io.vertx.sqlclient.impl.ArrayTuple;
@@ -49,7 +51,8 @@ final class ReactiveSQLImpl {
             params.entrySet()
                   .stream()
                   .filter(entry -> !entry.getValue().isInline())
-                  .forEachOrdered(etr -> bindValues.addValue(registry.toDatabaseType(etr.getKey(), etr.getValue(), queryValue)));
+                  .forEachOrdered(
+                      etr -> bindValues.addValue(registry.toDatabaseType(etr.getKey(), etr.getValue(), queryValue)));
             return bindValues;
         }
 
@@ -262,6 +265,15 @@ final class ReactiveSQLImpl {
                               .map(rs -> adapter.collect(rs, new ReactiveSQLBC(), dsl(), typeMapperRegistry()))
                               .map(rs -> BatchResultImpl.create(bindBatchValues.size(), rs))
                               .otherwise(errorConverter()::reThrowError);
+        }
+
+        @Override
+        public Future<Integer> ddl(@NonNull DDLQuery query) {
+            return vertx().executeBlocking(p -> sqlClient().query(preparedQuery().sql(dsl().configuration(), query))
+                                                           .execute()
+                                                           .map(SqlResult::size)
+                                                           .otherwise(errorConverter()::reThrowError)
+                                                           .onComplete(p));
         }
 
         @Override
