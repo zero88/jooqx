@@ -15,9 +15,10 @@ allprojects {
 
     repositories {
         mavenLocal()
+        maven { url = uri("https://maven-central-asia.storage-download.googleapis.com/maven2/") }
+        jcenter()
         maven { url = uri("https://oss.sonatype.org/content/groups/public/") }
         mavenCentral()
-        jcenter()
     }
 }
 

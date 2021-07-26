@@ -39,6 +39,7 @@ abstract class SQLTestImpl<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extends 
         System.setProperty("vertx.logger-delegate-factory-class-name", "io.vertx.core.logging.SLF4JLogDelegateFactory");
         ((Logger) LoggerFactory.getLogger("ROOT")).setLevel(Level.INFO);
         ((Logger) LoggerFactory.getLogger("io.vertx.sqlclient")).setLevel(Level.DEBUG);
+        ((Logger) LoggerFactory.getLogger("io.vertx.ext.jdbc")).setLevel(Level.DEBUG);
         ((Logger) LoggerFactory.getLogger("org.jooq")).setLevel(Level.DEBUG);
         ((Logger) LoggerFactory.getLogger(SQLTest.class.getPackage().getName())).setLevel(Level.DEBUG);
     }

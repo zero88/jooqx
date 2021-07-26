@@ -50,7 +50,7 @@ CREATE TABLE IF NOT EXISTS AllDataTypes
     f_str        varchar(31),
     f_value_json text,
     f_timestamp  timestamp,
-    f_timestampz timestamp,
+    f_timestampz timestamp with time zone,
     f_date_1     date,
     f_time       time,
     f_duration   varchar(20),
