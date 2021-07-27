@@ -19,7 +19,7 @@ public interface DDLTest {
              .onSuccess(i -> System.out.println("=== Create schema [" + i + "]============"))
              .flatMap(i -> jooqx.ddl(dsl -> dsl.createTableIfNotExists(table).columns(table.fields())))
              .onSuccess(i -> System.out.println("=== Create table [" + table.getName() + "] [" + i + "]============"))
-             .flatMap(ignore -> jooqx.execute(query, DSLAdapter.fetchExists(query.asTable())))
+             .flatMap(ignore -> jooqx.execute(query, DSLAdapter.fetchCount(query.asTable())))
              .onSuccess(count -> testContext.verify(() -> {
                  Assertions.assertEquals(0, count);
                  flag.flag();

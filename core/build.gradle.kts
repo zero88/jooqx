@@ -7,7 +7,6 @@ dependencies {
     api(VertxLibs.core)
     api(DatabaseLibs.jooq)
 //    api(ZeroLibs.rql_jooq)
-    compileOnly(VertxLibs.sqlClient)
     compileOnly(VertxLibs.jdbc)
 
     compileOnly(VertxLibs.rx2)
