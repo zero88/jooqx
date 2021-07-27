@@ -115,6 +115,7 @@ jooq {
                     generate.apply {
                         isRecords = true
                         isFluentSetters = true
+                        isPojos = true
                         isDeprecated = false
                         isImmutablePojos = false
                         // UDT cannot generate with isInterfaces = true
