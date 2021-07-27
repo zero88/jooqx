@@ -9,7 +9,7 @@ plugins {
 
 dependencies {
     testImplementation(project(":spi"))
-    testImplementation(testFixtures(project(":core")))
+    testImplementation(testFixtures(project(":jooqx-core")))
     testImplementation(VertxLibs.docgen)
     testAnnotationProcessor(VertxLibs.docgen)
 
@@ -77,12 +77,12 @@ jooq {
                         )
                     }
                     generate.apply {
-                        isDeprecated = false
                         isRecords = true
-                        isImmutablePojos = false
-                        isInterfaces = true
                         isFluentSetters = true
-                        isDaos = true
+                        isDeprecated = false
+                        isImmutablePojos = false
+                        isInterfaces = false
+                        isDaos = false
                     }
                     target.apply {
                         packageName = "io.zero88.jooqx.integtest.h2"
@@ -113,13 +113,13 @@ jooq {
                         )
                     }
                     generate.apply {
-                        isDeprecated = false
                         isRecords = true
+                        isFluentSetters = true
+                        isDeprecated = false
                         isImmutablePojos = false
                         // UDT cannot generate with isInterfaces = true
                         isInterfaces = false
-                        isFluentSetters = true
-                        isDaos = true
+                        isDaos = false
                     }
                     target.apply {
                         packageName = "io.zero88.jooqx.integtest.pgsql"
@@ -185,13 +185,13 @@ jooq {
                         )
                     }
                     generate.apply {
-                        isDeprecated = false
                         isRecords = true
+                        isFluentSetters = true
+                        isDeprecated = false
                         isImmutablePojos = false
                         // UDT cannot generate with isInterfaces = true
                         isInterfaces = false
-                        isFluentSetters = true
-                        isDaos = true
+                        isDaos = false
                     }
                     target.apply {
                         packageName = "io.zero88.jooqx.integtest.pgsql2"

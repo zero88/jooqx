@@ -1,5 +1,5 @@
 dependencies {
-    api(project(":core"))
+    api(project(":jooqx-core"))
 //    api(ZeroLibs.rql_jooq)
     compileOnly(VertxLibs.jdbc)
     compileOnly(VertxLibs.pgsql)
@@ -11,7 +11,7 @@ dependencies {
     compileOnly(DatabaseLibs.hsqldb)
     compileOnly(DatabaseLibs.sqlite)
 
-    testImplementation(testFixtures(project(":core")))
+    testImplementation(testFixtures(project(":jooqx-core")))
     testImplementation(VertxLibs.jdbc)
     testImplementation(VertxLibs.pgsql)
     testImplementation(VertxLibs.mysql)
