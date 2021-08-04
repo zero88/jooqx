@@ -10,13 +10,13 @@ import org.junit.jupiter.api.Test;
 import io.vertx.jdbcclient.JDBCPool;
 import io.vertx.junit5.VertxTestContext;
 import io.zero88.jooqx.DSLAdapter;
-import io.zero88.jooqx.ReactiveTestDefinition.ReactiveDBMemoryTest;
+import io.zero88.jooqx.JooqxTestDefinition.JooqxDBMemoryTest;
 import io.zero88.jooqx.integtest.h2.tables.Author;
 import io.zero88.jooqx.integtest.h2.tables.records.AuthorRecord;
 import io.zero88.jooqx.spi.h2.H2MemProvider;
 import io.zero88.jooqx.spi.jdbc.JDBCPoolHikariProvider;
 
-class H2ReAFailedTest extends ReactiveDBMemoryTest<JDBCPool>
+class H2ReAFailedTest extends JooqxDBMemoryTest<JDBCPool>
     implements H2MemProvider, H2SQLHelper, JDBCPoolHikariProvider {
 
     @Test

@@ -7,7 +7,7 @@ import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.mssqlclient.MSSQLPool;
-import io.zero88.jooqx.provider.ReactiveSQLClientProvider;
+import io.zero88.jooqx.provider.JooqxSQLClientProvider;
 
 /**
  * MSSQL pool provider
@@ -15,7 +15,7 @@ import io.zero88.jooqx.provider.ReactiveSQLClientProvider;
  * @see MSSQLPool
  * @since 1.1.0
  */
-public interface MSSQLPoolProvider extends ReactiveSQLClientProvider<MSSQLPool>, MSSQLClientParser {
+public interface MSSQLPoolProvider extends JooqxSQLClientProvider<MSSQLPool>, MSSQLClientParser {
 
     @Override
     default String sqlClientClass() {

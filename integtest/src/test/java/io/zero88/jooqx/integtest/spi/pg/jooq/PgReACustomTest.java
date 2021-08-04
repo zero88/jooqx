@@ -19,10 +19,10 @@ import io.zero88.jooqx.integtest.pgsql.tables.records.EnumDataTypeRecord;
 import io.zero88.jooqx.integtest.pgsql.tables.records.UdtDataTypeRecord;
 import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgUseJooqType;
 import io.zero88.jooqx.spi.pg.PgPoolProvider;
-import io.zero88.jooqx.spi.pg.PgSQLReactiveTest;
+import io.zero88.jooqx.spi.pg.PgSQLJooqxTest;
 import io.zero88.jooqx.spi.pg.PgSQLErrorConverterProvider;
 
-class PgReACustomTest extends PgSQLReactiveTest<PgPool>
+class PgReACustomTest extends PgSQLJooqxTest<PgPool>
     implements PgSQLErrorConverterProvider, PgPoolProvider, PgUseJooqType {
 
     @Override

@@ -15,7 +15,7 @@ import lombok.NonNull;
  *
  * @param <B> Type of Vertx bind value holder
  * @see LegacySQLPreparedQuery
- * @see ReactiveSQLPreparedQuery
+ * @see JooqxPreparedQuery
  * @since 1.0.0
  */
 public interface SQLPreparedQuery<B> {

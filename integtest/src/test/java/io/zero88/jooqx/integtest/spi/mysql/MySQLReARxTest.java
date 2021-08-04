@@ -10,14 +10,13 @@ import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 import io.vertx.mysqlclient.MySQLPool;
 import io.zero88.jooqx.DSLAdapter;
-import io.zero88.jooqx.ReactiveTestDefinition.ReactiveRxHelper;
+import io.zero88.jooqx.JooqxTestDefinition.JooqxRxHelper;
+import io.zero88.jooqx.spi.mysql.MySQLJooqxTest;
 import io.zero88.jooqx.spi.mysql.MySQLPoolProvider;
-import io.zero88.jooqx.spi.mysql.MySQLReactiveTest;
 
 @Disabled
 //FIXME: Don't understand why it doesnt connect
-public class MySQLReARxTest extends MySQLReactiveTest<MySQLPool>
-    implements MySQLPoolProvider, MySQLHelper, ReactiveRxHelper {
+public class MySQLReARxTest extends MySQLJooqxTest<MySQLPool> implements MySQLPoolProvider, MySQLHelper, JooqxRxHelper {
 
     @Override
     @BeforeEach

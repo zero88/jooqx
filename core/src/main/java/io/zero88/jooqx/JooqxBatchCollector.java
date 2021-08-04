@@ -12,12 +12,12 @@ import lombok.NonNull;
 /**
  * Reactive result batch converter
  *
- * @see ReactiveSQLResultCollector
- * @since 1.0.0
+ * @see JooqxResultCollector
+ * @since 1.1.0
  */
 @VertxGen
-public interface ReactiveSQLBatchCollector
-    extends ReactiveSQLResultCollector, SQLBatchCollector<RowSet<Row>, RowSet<Row>> {
+public interface JooqxBatchCollector
+    extends JooqxResultCollector, SQLBatchCollector<RowSet<Row>, RowSet<Row>> {
 
     @Override
     @NonNull <T, R> List<R> collect(@NonNull RowSet<Row> resultSet, @NonNull RowConverterStrategy<T, R> strategy);

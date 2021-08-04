@@ -30,7 +30,7 @@ public interface SQLClientProvider<S> {
      * @param vertx       vertx
      * @param connOptions SQL connection options
      * @param poolOptions SQL pool options
-     * @return a SQL client future
+     * @return the SQL client future
      */
     @NotNull Future<S> open(Vertx vertx, JsonObject connOptions, @Nullable JsonObject poolOptions);
 

@@ -14,11 +14,11 @@ import io.zero88.jooqx.integtest.pgsql.tables.records.TemporalDataTypeRecord;
 import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgUseJooqType;
 import io.zero88.jooqx.spi.jdbc.JDBCErrorConverterProvider;
 import io.zero88.jooqx.spi.jdbc.JDBCPoolHikariProvider;
-import io.zero88.jooqx.spi.pg.PgSQLReactiveTest;
+import io.zero88.jooqx.spi.pg.PgSQLJooqxTest;
 
 //TODO Fix in https://github.com/vert-x3/vertx-jdbc-client/pull/235
 //TODO: Vertx bug #https://github.com/eclipse-vertx/vertx-sql-client/issues/918
-class PgReAJDBCPoolTest extends PgSQLReactiveTest<JDBCPool>
+class PgReAJDBCPoolTest extends PgSQLJooqxTest<JDBCPool>
     implements PgUseJooqType, JDBCPoolHikariProvider, JDBCErrorConverterProvider {
 
     @Override

@@ -7,7 +7,7 @@ import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.db2client.DB2Pool;
-import io.zero88.jooqx.provider.ReactiveSQLClientProvider;
+import io.zero88.jooqx.provider.JooqxSQLClientProvider;
 
 /**
  * DB2 pool provider
@@ -15,7 +15,7 @@ import io.zero88.jooqx.provider.ReactiveSQLClientProvider;
  * @see DB2Pool
  * @since 1.1.0
  */
-public interface DB2PoolProvider extends ReactiveSQLClientProvider<DB2Pool>, DB2ClientParser {
+public interface DB2PoolProvider extends JooqxSQLClientProvider<DB2Pool>, DB2ClientParser {
 
     @Override
     default String sqlClientClass() {

@@ -31,10 +31,10 @@ import io.zero88.jooqx.integtest.pgsql.tables.records.AuthorsRecord;
 import io.zero88.jooqx.integtest.pgsql.tables.records.BooksRecord;
 import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgUseJooqType;
 import io.zero88.jooqx.spi.pg.PgPoolProvider;
-import io.zero88.jooqx.spi.pg.PgSQLReactiveTest;
+import io.zero88.jooqx.spi.pg.PgSQLJooqxTest;
 import io.zero88.jooqx.spi.pg.PgSQLErrorConverterProvider;
 
-class PgReABatchTest extends PgSQLReactiveTest<PgPool>
+class PgReABatchTest extends PgSQLJooqxTest<PgPool>
     implements PgPoolProvider, PgUseJooqType, PgSQLErrorConverterProvider {
 
     @Override

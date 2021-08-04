@@ -4,7 +4,7 @@ import io.vertx.core.Vertx;
 import io.vertx.docgen.Source;
 
 @Source
-public class JooqxLeGExample implements JooqxExample {
+public class LegacyJooqxExample implements IExample {
 
     @Override
     public void future(Vertx vertx) {

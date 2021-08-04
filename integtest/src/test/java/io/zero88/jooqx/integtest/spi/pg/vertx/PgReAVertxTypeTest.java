@@ -26,10 +26,10 @@ import io.zero88.jooqx.integtest.pgsql2.tables.records.JsonbDataTypeRecord;
 import io.zero88.jooqx.integtest.pgsql2.tables.records.TemporalDataTypeRecord;
 import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgUseVertxType;
 import io.zero88.jooqx.spi.pg.PgPoolProvider;
-import io.zero88.jooqx.spi.pg.PgSQLReactiveTest;
 import io.zero88.jooqx.spi.pg.PgSQLErrorConverterProvider;
+import io.zero88.jooqx.spi.pg.PgSQLJooqxTest;
 
-class PgReAVertxTypeTest extends PgSQLReactiveTest<PgPool>
+class PgReAVertxTypeTest extends PgSQLJooqxTest<PgPool>
     implements PgSQLErrorConverterProvider, PgPoolProvider, PgUseVertxType {
 
     @Override
@@ -92,8 +92,9 @@ class PgReAVertxTypeTest extends PgSQLReactiveTest<PgPool>
             final JsonDataTypeRecord record = assertSuccess(ctx, ar);
             System.out.println(record);
             Assertions.assertNotNull(record.getJsonobject());
-            Assertions.assertEquals(new JsonObject("{\"str\":\"blah\",\"int\":1,\"float\":3.5,\"object\":{}," +
-                                                   "\"array\":[]}"), record.getJsonobject());
+            Assertions.assertEquals(
+                new JsonObject("{\"str\":\"blah\",\"int\":1,\"float\":3.5,\"object\":{}," + "\"array\":[]}"),
+                record.getJsonobject());
             Assertions.assertNotNull(record.getJsonarray());
             Assertions.assertEquals(new JsonArray("[1,true,null,9.5,\"Hi\"]"), record.getJsonarray());
             cp.flag();
@@ -108,8 +109,9 @@ class PgReAVertxTypeTest extends PgSQLReactiveTest<PgPool>
             final JsonbDataTypeRecord record = assertSuccess(ctx, ar);
             System.out.println(record);
             Assertions.assertNotNull(record.getJsonobject());
-            Assertions.assertEquals(new JsonObject("{\"str\":\"blah\",\"int\":1,\"float\":3.5,\"object\":{}," +
-                                                   "\"array\":[]}"), record.getJsonobject());
+            Assertions.assertEquals(
+                new JsonObject("{\"str\":\"blah\",\"int\":1,\"float\":3.5,\"object\":{}," + "\"array\":[]}"),
+                record.getJsonobject());
             Assertions.assertNotNull(record.getJsonarray());
             Assertions.assertEquals(new JsonArray("[1,true,null,9.5,\"Hi\"]"), record.getJsonarray());
             cp.flag();

@@ -7,8 +7,8 @@ import io.vertx.sqlclient.RowSet;
 import io.vertx.sqlclient.SqlClient;
 import io.vertx.sqlclient.SqlConnection;
 import io.vertx.sqlclient.Tuple;
-import io.zero88.jooqx.ReactiveSQLImpl.JooqxConnImpl;
-import io.zero88.jooqx.ReactiveSQLImpl.JooqxPoolImpl;
+import io.zero88.jooqx.JooqxSQLImpl.JooqxConnImpl;
+import io.zero88.jooqx.JooqxSQLImpl.JooqxPoolImpl;
 
 /**
  * Represents for an executor that executes {@code jOOQ query} on {@code Vertx reactive SQL connection}
@@ -16,28 +16,27 @@ import io.zero88.jooqx.ReactiveSQLImpl.JooqxPoolImpl;
  * @param <S> Type of SqlClient, can be {@code SqlConnection} or {@code Pool}
  * @see SqlConnection
  * @see Pool
- * @since 1.0.0
+ * @since 1.1.0
  */
-public interface ReactiveJooqxBase<S extends SqlClient>
-    extends SQLExecutor<S, Tuple, ReactiveSQLPreparedQuery, RowSet<Row>, ReactiveSQLResultCollector>,
-            ReactiveSQLBatchExecutor {
+public interface JooqxBase<S extends SqlClient>
+    extends SQLExecutor<S, Tuple, JooqxPreparedQuery, RowSet<Row>, JooqxResultCollector>, JooqxBatchExecutor {
 
-    static <S extends SqlClient> ReAJooqxBBuilder<S, ReactiveJooqxBase<S>> baseBuilder() {
-        return new ReAJooqxBBuilder<>();
+    static <S extends SqlClient> JooqxBaseBuilder<S, JooqxBase<S>> baseBuilder() {
+        return new JooqxBaseBuilder<>();
     }
 
     @GenIgnore
-    class ReAJooqxBBuilder<S extends SqlClient, X extends ReactiveJooqxBase<S>>
-        extends SQLExecutorBuilder<S, Tuple, ReactiveSQLPreparedQuery, RowSet<Row>, ReactiveSQLResultCollector, X> {
+    class JooqxBaseBuilder<S extends SqlClient, X extends JooqxBase<S>>
+        extends SQLExecutorBuilder<S, Tuple, JooqxPreparedQuery, RowSet<Row>, JooqxResultCollector, X> {
 
         @Override
         @SuppressWarnings("unchecked")
         public X build() {
             if (sqlClient() instanceof SqlConnection) {
-                return (X) new JooqxConnImpl((ReAJooqxBBuilder<SqlConnection, ReactiveJooqxBase<SqlConnection>>) this);
+                return (X) new JooqxConnImpl((JooqxBaseBuilder<SqlConnection, JooqxBase<SqlConnection>>) this);
             }
             if (sqlClient() instanceof Pool) {
-                return (X) new JooqxPoolImpl((ReAJooqxBBuilder<Pool, ReactiveJooqxBase<Pool>>) this);
+                return (X) new JooqxPoolImpl((JooqxBaseBuilder<Pool, JooqxBase<Pool>>) this);
             }
             throw new UnsupportedOperationException("Unsupported to SQL client: [" + sqlClient().getClass() + "]");
         }

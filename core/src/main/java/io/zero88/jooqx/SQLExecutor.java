@@ -20,7 +20,7 @@ import lombok.experimental.Accessors;
  * @param <RS> Type of Vertx SQL result set holder
  * @param <PQ> Type of SQL prepare query
  * @param <RC> Type of SQL result set collector
- * @see ReactiveJooqxConn
+ * @see JooqDSLProvider
  * @see SQLBatchExecutor
  * @see SQLQueryExecutor
  * @see SQLDDLExecutor

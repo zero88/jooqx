@@ -24,9 +24,9 @@ import io.zero88.jooqx.integtest.pgsql.tables.records.BooksAuthorsRecord;
 import io.zero88.jooqx.integtest.pgsql.tables.records.BooksRecord;
 import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgUseJooqType;
 import io.zero88.jooqx.spi.pg.PgPoolProvider;
-import io.zero88.jooqx.spi.pg.PgSQLReactiveTest;
+import io.zero88.jooqx.spi.pg.PgSQLJooqxTest;
 
-class PgReAComplexQueryTest extends PgSQLReactiveTest<PgPool> implements PgPoolProvider, PgUseJooqType {
+class PgReAComplexQueryTest extends PgSQLJooqxTest<PgPool> implements PgPoolProvider, PgUseJooqType {
 
     @Override
     @BeforeEach

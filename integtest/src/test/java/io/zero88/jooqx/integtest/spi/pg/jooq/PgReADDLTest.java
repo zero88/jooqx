@@ -8,9 +8,9 @@ import io.zero88.jooqx.integtest.spi.DDLTest;
 import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgUseJooqType;
 import io.zero88.jooqx.spi.pg.PgPoolProvider;
 import io.zero88.jooqx.spi.pg.PgSQLErrorConverterProvider;
-import io.zero88.jooqx.spi.pg.PgSQLReactiveTest;
+import io.zero88.jooqx.spi.pg.PgSQLJooqxTest;
 
-public class PgReADDLTest extends PgSQLReactiveTest<PgPool>
+public class PgReADDLTest extends PgSQLJooqxTest<PgPool>
     implements PgSQLErrorConverterProvider, PgPoolProvider, PgUseJooqType, DDLTest {
 
     @Test

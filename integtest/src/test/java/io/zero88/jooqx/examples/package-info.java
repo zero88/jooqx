@@ -1,34 +1,34 @@
 /**
  * == The jOOQ.x feature
  *
- * The {@link io.zero88.jooqx.ReactiveJooqx}
+ * The {@link io.zero88.jooqx.Jooqx}
  *
  * === Simple execution
  *
  * [source, java]
  * ----
- * {@link io.zero88.jooqx.examples.JooqxReAExample#future(io.vertx.core.Vertx)}
+ * {@link io.zero88.jooqx.examples.JooqxExample#future(io.vertx.core.Vertx)}
  * ----
  *
  * === Reactive X version
  *
  * [source, java]
  * ----
- * {@link io.zero88.jooqx.examples.JooqxReAExample#rx(io.vertx.core.Vertx)}
+ * {@link io.zero88.jooqx.examples.JooqxExample#rx(io.vertx.core.Vertx)}
  * ----
  *
  * === Json Record
  *
  * [source, java]
  * ----
- * {@link io.zero88.jooqx.examples.JooqxReAExample#jsonRecord(io.vertx.core.Vertx)}
+ * {@link io.zero88.jooqx.examples.JooqxExample#jsonRecord(io.vertx.core.Vertx)}
  * ----
  *
  * === Fetch Exists
  *
  * [source, java]
  * ----
- * {@link io.zero88.jooqx.examples.JooqxReAExample#fetchExists(io.vertx.core.Vertx)}
+ * {@link io.zero88.jooqx.examples.JooqxExample#fetchExists(io.vertx.core.Vertx)}
  * ----
  */
 @Document(fileName = "examples.adoc")

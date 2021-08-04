@@ -41,9 +41,9 @@ import lombok.Getter;
 import lombok.NonNull;
 import lombok.experimental.Accessors;
 
-final class ReactiveSQLImpl {
+final class JooqxSQLImpl {
 
-    static final class ReactiveSQLPQ extends SQLPQ<Tuple> implements ReactiveSQLPreparedQuery {
+    static final class ReactiveSQLPQ extends SQLPQ<Tuple> implements JooqxPreparedQuery {
 
         protected ArrayTuple doConvert(Map<String, Param<?>> params, DataTypeMapperRegistry registry,
                                        BiFunction<String, Param<?>, ?> queryValue) {
@@ -59,7 +59,7 @@ final class ReactiveSQLImpl {
     }
 
 
-    static class ReactiveSQLRC implements ReactiveSQLResultCollector {
+    static class ReactiveSQLRC implements JooqxResultCollector {
 
         @Override
         public @NonNull <T, R> List<R> collect(@NonNull RowSet<Row> resultSet,
@@ -92,7 +92,7 @@ final class ReactiveSQLImpl {
     }
 
 
-    static final class ReactiveSQLBC extends ReactiveSQLRC implements ReactiveSQLBatchCollector {
+    static final class ReactiveSQLBC extends ReactiveSQLRC implements JooqxBatchCollector {
 
         @Override
         public @NonNull <T, R> List<R> collect(@NonNull RowSet<Row> resultSet,
@@ -121,23 +121,23 @@ final class ReactiveSQLImpl {
     }
 
 
-    static class JooqxConnImpl extends ReactiveJooqxImpl<SqlConnection> implements ReactiveJooqxTx {
+    static class JooqxConnImpl extends JooqxImpl<SqlConnection> implements JooqxTx {
 
-        private final ReactiveJooqx delegate;
+        private final Jooqx delegate;
 
-        JooqxConnImpl(ReAJooqxBBuilder<SqlConnection, ReactiveJooqxBase<SqlConnection>> builder) {
+        JooqxConnImpl(JooqxBaseBuilder<SqlConnection, JooqxBase<SqlConnection>> builder) {
             super(builder);
             this.delegate = null;
         }
 
-        JooqxConnImpl(Vertx vertx, DSLContext dsl, SqlConnection sqlClient, ReactiveSQLPreparedQuery preparedQuery,
-                      ReactiveSQLResultCollector resultCollector, SQLErrorConverter errorConverter,
+        JooqxConnImpl(Vertx vertx, DSLContext dsl, SqlConnection sqlClient, JooqxPreparedQuery preparedQuery,
+                      JooqxResultCollector resultCollector, SQLErrorConverter errorConverter,
                       DataTypeMapperRegistry typeMapperRegistry) {
             super(vertx, dsl, sqlClient, preparedQuery, resultCollector, errorConverter, typeMapperRegistry);
             this.delegate = null;
         }
 
-        JooqxConnImpl(@NonNull ReactiveJooqx delegate) {
+        JooqxConnImpl(@NonNull Jooqx delegate) {
             super(delegate.vertx(), delegate.dsl(), null, delegate.preparedQuery(), delegate.resultCollector(),
                   delegate.errorConverter(), delegate.typeMapperRegistry());
             this.delegate = delegate;
@@ -145,22 +145,21 @@ final class ReactiveSQLImpl {
 
         @Override
         @SuppressWarnings("unchecked")
-        public @NonNull ReactiveJooqxTx transaction() {
+        public @NonNull JooqxTx transaction() {
             return delegate().transaction();
         }
 
         @Override
-        public <X> Future<@Nullable X> run(@NonNull Function<ReactiveJooqxTx, Future<X>> function) {
+        public <X> Future<@Nullable X> run(@NonNull Function<JooqxTx, Future<X>> function) {
             return delegate().sqlClient()
                              .getConnection()
                              .compose(conn -> beginTx(conn, function), t -> Future.failedFuture(
                                  transientConnFailed("Unable to open SQL connection", t)));
         }
 
-        private <X> Future<X> beginTx(@NonNull SqlConnection conn,
-                                      @NonNull Function<ReactiveJooqxTx, Future<X>> transaction) {
+        private <X> Future<X> beginTx(@NonNull SqlConnection conn, @NonNull Function<JooqxTx, Future<X>> transaction) {
             return conn.begin()
-                       .flatMap(tx -> transaction.apply((ReactiveJooqxTx) withSqlClient(conn))
+                       .flatMap(tx -> transaction.apply((JooqxTx) withSqlClient(conn))
                                                  .compose(res -> tx.commit().flatMap(v -> Future.succeededFuture(res)),
                                                           err -> rollbackHandler(tx, errorConverter().handle(err))))
                        .onComplete(ar -> conn.close());
@@ -170,7 +169,7 @@ final class ReactiveSQLImpl {
             return tx.rollback().compose(v -> Future.failedFuture(t), failure -> Future.failedFuture(t));
         }
 
-        private ReactiveJooqx delegate() {
+        private Jooqx delegate() {
             if (Objects.isNull(delegate)) {
                 throw new UnsupportedOperationException(
                     "Unsupported using connection on SQL connection: [" + sqlClient().getClass() +
@@ -182,22 +181,22 @@ final class ReactiveSQLImpl {
     }
 
 
-    static class JooqxPoolImpl extends ReactiveJooqxImpl<Pool> implements ReactiveJooqx {
+    static class JooqxPoolImpl extends JooqxImpl<Pool> implements Jooqx {
 
-        JooqxPoolImpl(Vertx vertx, DSLContext dsl, Pool sqlClient, ReactiveSQLPreparedQuery preparedQuery,
-                      ReactiveSQLResultCollector resultCollector, SQLErrorConverter errorConverter,
+        JooqxPoolImpl(Vertx vertx, DSLContext dsl, Pool sqlClient, JooqxPreparedQuery preparedQuery,
+                      JooqxResultCollector resultCollector, SQLErrorConverter errorConverter,
                       DataTypeMapperRegistry typeMapperRegistry) {
             super(vertx, dsl, sqlClient, preparedQuery, resultCollector, errorConverter, typeMapperRegistry);
         }
 
-        JooqxPoolImpl(ReAJooqxBBuilder<Pool, ReactiveJooqxBase<Pool>> builder) {
+        JooqxPoolImpl(JooqxBaseBuilder<Pool, JooqxBase<Pool>> builder) {
             super(builder);
         }
 
         @Override
         @NonNull
         @SuppressWarnings("unchecked")
-        public ReactiveJooqxTx transaction() {
+        public JooqxTx transaction() {
             return new JooqxConnImpl(this);
         }
 
@@ -206,18 +205,17 @@ final class ReactiveSQLImpl {
 
     @Getter
     @Accessors(fluent = true)
-    abstract static class ReactiveJooqxImpl<S extends SqlClient>
-        extends SQLEI<S, Tuple, ReactiveSQLPreparedQuery, RowSet<Row>, ReactiveSQLResultCollector>
-        implements ReactiveJooqxBase<S> {
+    abstract static class JooqxImpl<S extends SqlClient>
+        extends SQLEI<S, Tuple, JooqxPreparedQuery, RowSet<Row>, JooqxResultCollector> implements JooqxBase<S> {
 
-        ReactiveJooqxImpl(ReAJooqxBBuilder<S, ReactiveJooqxBase<S>> builder) {
+        JooqxImpl(JooqxBaseBuilder<S, JooqxBase<S>> builder) {
             this(builder.vertx(), builder.dsl(), builder.sqlClient(), builder.preparedQuery(),
                  builder.resultCollector(), builder.errorConverter(), builder.typeMapperRegistry());
         }
 
-        ReactiveJooqxImpl(Vertx vertx, DSLContext dsl, S sqlClient, ReactiveSQLPreparedQuery preparedQuery,
-                          ReactiveSQLResultCollector resultCollector, SQLErrorConverter errorConverter,
-                          DataTypeMapperRegistry typeMapperRegistry) {
+        JooqxImpl(Vertx vertx, DSLContext dsl, S sqlClient, JooqxPreparedQuery preparedQuery,
+                  JooqxResultCollector resultCollector, SQLErrorConverter errorConverter,
+                  DataTypeMapperRegistry typeMapperRegistry) {
             super(vertx, dsl, sqlClient, preparedQuery, resultCollector, errorConverter, typeMapperRegistry);
             tweakDSLSetting();
         }
@@ -225,9 +223,8 @@ final class ReactiveSQLImpl {
         private void tweakDSLSetting() {
             final Settings settings = dsl().configuration().settings();
             try {
-                final Class<?> pgConn = ReactiveJooqxImpl.class.getClassLoader()
-                                                               .loadClass("io.vertx.pgclient.PgConnection");
-                final Class<?> pgPool = ReactiveJooqxImpl.class.getClassLoader().loadClass("io.vertx.pgclient.PgPool");
+                final Class<?> pgConn = JooqxImpl.class.getClassLoader().loadClass("io.vertx.pgclient.PgConnection");
+                final Class<?> pgPool = JooqxImpl.class.getClassLoader().loadClass("io.vertx.pgclient.PgPool");
                 if (pgConn.isInstance(sqlClient()) || pgPool.isInstance(sqlClient())) {
                     if (settings.getParamType() != ParamType.INDEXED) {
                         return;
@@ -276,25 +273,25 @@ final class ReactiveSQLImpl {
         }
 
         @Override
-        protected ReactiveJooqxImpl<S> withSqlClient(@NonNull S sqlClient) {
-            return (ReactiveJooqxImpl<S>) ReactiveJooqxBase.<S>baseBuilder()
-                                                           .vertx(vertx())
-                                                           .sqlClient(sqlClient)
-                                                           .dsl(dsl())
-                                                           .preparedQuery(preparedQuery())
-                                                           .resultCollector(resultCollector())
-                                                           .errorConverter(errorConverter())
-                                                           .typeMapperRegistry(typeMapperRegistry())
-                                                           .build();
+        protected JooqxImpl<S> withSqlClient(@NonNull S sqlClient) {
+            return (JooqxImpl<S>) JooqxBase.<S>baseBuilder()
+                                           .vertx(vertx())
+                                           .sqlClient(sqlClient)
+                                           .dsl(dsl())
+                                           .preparedQuery(preparedQuery())
+                                           .resultCollector(resultCollector())
+                                           .errorConverter(errorConverter())
+                                           .typeMapperRegistry(typeMapperRegistry())
+                                           .build();
         }
 
         @Override
         @NonNull
-        protected ReactiveSQLPreparedQuery defPrepareQuery() { return ReactiveSQLPreparedQuery.create(); }
+        protected JooqxPreparedQuery defPrepareQuery() {return JooqxPreparedQuery.create();}
 
         @Override
         @NonNull
-        protected ReactiveSQLResultCollector defResultCollector() { return ReactiveSQLResultCollector.create(); }
+        protected JooqxResultCollector defResultCollector() {return JooqxResultCollector.create();}
 
     }
 

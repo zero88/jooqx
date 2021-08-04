@@ -6,7 +6,7 @@ import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.pgclient.PgPool;
-import io.zero88.jooqx.provider.ReactiveSQLClientProvider;
+import io.zero88.jooqx.provider.JooqxSQLClientProvider;
 
 import lombok.NonNull;
 
@@ -16,7 +16,7 @@ import lombok.NonNull;
  * @see PgPool
  * @since 1.1.0
  */
-public interface PgPoolProvider extends ReactiveSQLClientProvider<PgPool>, PgSQLClientParser {
+public interface PgPoolProvider extends JooqxSQLClientProvider<PgPool>, PgSQLClientParser {
 
     @Override
     default String sqlClientClass() {

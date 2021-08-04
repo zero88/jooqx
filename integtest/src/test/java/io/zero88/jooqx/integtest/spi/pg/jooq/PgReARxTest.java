@@ -9,14 +9,14 @@ import io.vertx.jdbcclient.JDBCPool;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 import io.zero88.jooqx.DSLAdapter;
-import io.zero88.jooqx.ReactiveTestDefinition.ReactiveRxHelper;
+import io.zero88.jooqx.JooqxTestDefinition.JooqxRxHelper;
 import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgUseJooqType;
 import io.zero88.jooqx.spi.jdbc.JDBCErrorConverterProvider;
 import io.zero88.jooqx.spi.jdbc.JDBCPoolAgroalProvider;
-import io.zero88.jooqx.spi.pg.PgSQLReactiveTest;
+import io.zero88.jooqx.spi.pg.PgSQLJooqxTest;
 
-class PgReARxTest extends PgSQLReactiveTest<JDBCPool>
-    implements PgUseJooqType, JDBCPoolAgroalProvider, JDBCErrorConverterProvider, ReactiveRxHelper {
+class PgReARxTest extends PgSQLJooqxTest<JDBCPool>
+    implements PgUseJooqType, JDBCPoolAgroalProvider, JDBCErrorConverterProvider, JooqxRxHelper {
 
     @Override
     @BeforeEach

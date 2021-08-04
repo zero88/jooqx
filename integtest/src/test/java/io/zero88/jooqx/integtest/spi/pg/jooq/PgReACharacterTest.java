@@ -15,10 +15,10 @@ import io.zero88.jooqx.integtest.pgsql.tables.CharacterDataType;
 import io.zero88.jooqx.integtest.pgsql.tables.records.CharacterDataTypeRecord;
 import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgUseJooqType;
 import io.zero88.jooqx.spi.pg.PgPoolProvider;
-import io.zero88.jooqx.spi.pg.PgSQLReactiveTest;
+import io.zero88.jooqx.spi.pg.PgSQLJooqxTest;
 import io.zero88.jooqx.spi.pg.PgSQLErrorConverterProvider;
 
-class PgReACharacterTest extends PgSQLReactiveTest<PgPool>
+class PgReACharacterTest extends PgSQLJooqxTest<PgPool>
     implements PgSQLErrorConverterProvider, PgPoolProvider, PgUseJooqType {
 
     @Override

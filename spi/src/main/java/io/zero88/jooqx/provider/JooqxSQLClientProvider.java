@@ -14,7 +14,7 @@ import io.vertx.sqlclient.SqlClient;
  * @see SqlClient
  * @since 1.1.0
  */
-public interface ReactiveSQLClientProvider<S extends SqlClient> extends SQLClientProvider<S> {
+public interface JooqxSQLClientProvider<S extends SqlClient> extends SQLClientProvider<S> {
 
     @Override
     default @NotNull Future<Void> close(S sqlClient) {

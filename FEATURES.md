@@ -103,20 +103,20 @@ It is easy to configure when building `executor`
 
 ```java
 // with Reactive PostgreSQL sql client exception
-ReactiveJooqx jooqx = ReactiveJooqx.builder().vertx(vertx)
-                                            .dsl(dsl)
-                                            .sqlClient(sqlClient)
-                                            .errorConverter(new PgErrorConverter())
-                                            .build();
+Jooqx jooqx = Jooqx.builder().vertx(vertx)
+                            .dsl(dsl)
+                            .sqlClient(sqlClient)
+                            .errorConverter(new PgErrorConverter())
+                            .build();
 
 // with JDBC sql client exception
 
 //reactive
-ReactiveJooqx jooqx = ReactiveJooqx.builder().vertx(vertx)
-                                            .dsl(dsl)
-                                            .sqlClient(sqlClient)
-                                            .errorConverter(new JDBCErrorConverter())
-                                            .build();
+Jooqx jooqx = Jooqx.builder().vertx(vertx)
+                            .dsl(dsl)
+                            .sqlClient(sqlClient)
+                            .errorConverter(new JDBCErrorConverter())
+                            .build();
 //legacy
 LegacyJooqx jooqx = LegacyJooqx.builder().vertx(vertx)
                                         .dsl(dsl)
@@ -167,7 +167,7 @@ dependencies {
 Then you can use same as `Vertx rx-java2 Rxified API`
 
 ```java
-ReactiveJooqx jooqx = ReactiveJooqx.newInstance(io.zero88.jooqx.ReactiveJooqx.poolBuilder()
+Jooqx jooqx = Jooqx.newInstance(io.zero88.jooqx.Jooqx.builder()
                                        .vertx(vertx)
                                        .dsl(dsl)
                                        .sqlClient(sqlClient)

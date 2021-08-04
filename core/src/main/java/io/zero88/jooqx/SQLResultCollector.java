@@ -16,8 +16,8 @@ import lombok.NonNull;
  *
  * @param <RS> Type of Vertx SQL result set
  * @see LegacySQLCollector
- * @see ReactiveSQLResultCollector
- * @see ReactiveSQLBatchCollector
+ * @see JooqxResultCollector
+ * @see JooqxBatchCollector
  * @since 1.0.0
  */
 public interface SQLResultCollector<RS> {

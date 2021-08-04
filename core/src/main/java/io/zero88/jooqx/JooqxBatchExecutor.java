@@ -17,9 +17,9 @@ import lombok.NonNull;
  * The {@code reactive sql executor} that is adapted for {@link SqlClient} to execute batch SQL command and able to
  * return the number of succeed row and row detail
  *
- * @since 1.0.0
+ * @since 1.1.0
  */
-public interface ReactiveSQLBatchExecutor extends SQLBatchExecutor {
+public interface JooqxBatchExecutor extends SQLBatchExecutor {
 
     /**
      * Batch execute

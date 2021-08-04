@@ -13,25 +13,25 @@ import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
-import io.vertx.sqlclient.SqlConnection;
-import io.zero88.jooqx.ReactiveSQLImpl.JooqxConnImpl;
+import io.vertx.sqlclient.Pool;
+import io.zero88.jooqx.JooqxSQLImpl.JooqxPoolImpl;
 import io.zero88.jooqx.adapter.SQLResultAdapter;
 import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
 import lombok.NonNull;
 
 /**
- * Represents for an executor that executes {@code jOOQ query} on {@code Vertx reactive SQL client} connection
+ * Represents for an executor that executes {@code jOOQ query} on {@code Vertx reactive SQL pool}
  *
- * @see SqlConnection
- * @since 1.0.0
+ * @see Pool
+ * @since 1.1.0
  */
 @VertxGen
-public interface ReactiveJooqxConn extends ReactiveJooqxBase<SqlConnection> {
+public interface Jooqx extends JooqxBase<Pool> {
 
     @GenIgnore
-    static ReactiveJooqxConnBuilder builder() {
-        return new ReactiveJooqxConnBuilder();
+    static JooqxBuilder builder() {
+        return new JooqxBuilder();
     }
 
     @Override
@@ -42,43 +42,14 @@ public interface ReactiveJooqxConn extends ReactiveJooqxBase<SqlConnection> {
     @NonNull DSLContext dsl();
 
     @Override
-    @NonNull SqlConnection sqlClient();
+    @NonNull Pool sqlClient();
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    @NonNull ReactiveSQLPreparedQuery preparedQuery();
+    @NonNull JooqxPreparedQuery preparedQuery();
 
     @Override
-    @NonNull ReactiveSQLResultCollector resultCollector();
-
-    @Override
-    @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    default void batch(@NonNull Function<DSLContext, Query> queryFunction, @NonNull BindBatchValues bindBatchValues,
-                       @NonNull Handler<AsyncResult<BatchResult>> handler) {
-        ReactiveJooqxBase.super.batch(queryFunction, bindBatchValues, handler);
-    }
-
-    @Override
-    @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    default Future<BatchResult> batch(@NonNull Function<DSLContext, Query> queryFunction,
-                                      @NonNull BindBatchValues bindBatchValues) {
-        return ReactiveJooqxBase.super.batch(queryFunction, bindBatchValues);
-    }
-
-    @Override
-    @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    default <T, R> void execute(@NonNull Function<DSLContext, Query> queryFunction,
-                                @NonNull SQLResultAdapter<T, R> resultAdapter,
-                                @NonNull Handler<AsyncResult<@Nullable R>> handler) {
-        ReactiveJooqxBase.super.execute(queryFunction, resultAdapter, handler);
-    }
-
-    @Override
-    @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    default <T, R> Future<@Nullable R> execute(@NonNull Function<DSLContext, Query> queryFunction,
-                                               @NonNull SQLResultAdapter<T, R> resultAdapter) {
-        return ReactiveJooqxBase.super.execute(queryFunction, resultAdapter);
-    }
+    @NonNull JooqxResultCollector resultCollector();
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
@@ -89,8 +60,38 @@ public interface ReactiveJooqxConn extends ReactiveJooqxBase<SqlConnection> {
     @NonNull DataTypeMapperRegistry typeMapperRegistry();
 
     @Override
+    @NonNull
     @SuppressWarnings("unchecked")
-    @NonNull ReactiveJooqxTx transaction();
+    JooqxTx transaction();
+
+    @Override
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    default void batch(@NonNull Function<DSLContext, Query> queryFunction, @NonNull BindBatchValues bindBatchValues,
+                       @NonNull Handler<AsyncResult<BatchResult>> handler) {
+        JooqxBase.super.batch(queryFunction, bindBatchValues, handler);
+    }
+
+    @Override
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    default Future<BatchResult> batch(@NonNull Function<DSLContext, Query> queryFunction,
+                                      @NonNull BindBatchValues bindBatchValues) {
+        return JooqxBase.super.batch(queryFunction, bindBatchValues);
+    }
+
+    @Override
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    default <T, R> void execute(@NonNull Function<DSLContext, Query> queryFunction,
+                                @NonNull SQLResultAdapter<T, R> resultAdapter,
+                                @NonNull Handler<AsyncResult<@Nullable R>> handler) {
+        JooqxBase.super.execute(queryFunction, resultAdapter, handler);
+    }
+
+    @Override
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    default <T, R> Future<@Nullable R> execute(@NonNull Function<DSLContext, Query> queryFunction,
+                                               @NonNull SQLResultAdapter<T, R> resultAdapter) {
+        return JooqxBase.super.execute(queryFunction, resultAdapter);
+    }
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
@@ -100,14 +101,14 @@ public interface ReactiveJooqxConn extends ReactiveJooqxBase<SqlConnection> {
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
     default <T, R> void execute(@NonNull Query query, @NonNull SQLResultAdapter<T, R> adapter,
                                 @NonNull Handler<AsyncResult<@Nullable R>> handler) {
-        ReactiveJooqxBase.super.execute(query, adapter, handler);
+        JooqxBase.super.execute(query, adapter, handler);
     }
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
     default void batch(@NonNull Query query, @NonNull BindBatchValues bindBatchValues,
                        @NonNull Handler<AsyncResult<BatchResult>> handler) {
-        ReactiveJooqxBase.super.batch(query, bindBatchValues, handler);
+        JooqxBase.super.batch(query, bindBatchValues, handler);
     }
 
     @Override
@@ -124,26 +125,26 @@ public interface ReactiveJooqxConn extends ReactiveJooqxBase<SqlConnection> {
     default <T, R> void batch(@NonNull Query query, @NonNull BindBatchValues bindBatchValues,
                               @NonNull SQLResultAdapter.SQLResultListAdapter<T, R> adapter,
                               @NonNull Handler<AsyncResult<BatchReturningResult<R>>> handler) {
-        ReactiveJooqxBase.super.batch(query, bindBatchValues, adapter, handler);
+        JooqxBase.super.batch(query, bindBatchValues, adapter, handler);
     }
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
     default void ddl(@NonNull Function<DSLContext, DDLQuery> ddlFunction,
                      @NonNull Handler<AsyncResult<Integer>> handler) {
-        ReactiveJooqxBase.super.ddl(ddlFunction, handler);
+        JooqxBase.super.ddl(ddlFunction, handler);
     }
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
     default Future<Integer> ddl(@NonNull Function<DSLContext, DDLQuery> ddlFunction) {
-        return ReactiveJooqxBase.super.ddl(ddlFunction);
+        return JooqxBase.super.ddl(ddlFunction);
     }
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
     default void ddl(@NonNull DDLQuery query, @NonNull Handler<AsyncResult<Integer>> handler) {
-        ReactiveJooqxBase.super.ddl(query, handler);
+        JooqxBase.super.ddl(query, handler);
     }
 
     @Override
@@ -151,12 +152,12 @@ public interface ReactiveJooqxConn extends ReactiveJooqxBase<SqlConnection> {
     Future<Integer> ddl(@NonNull DDLQuery query);
 
     @GenIgnore
-    class ReactiveJooqxConnBuilder extends ReAJooqxBBuilder<SqlConnection, ReactiveJooqxConn> {
+    class JooqxBuilder extends JooqxBaseBuilder<Pool, Jooqx> {
 
         @Override
-        public ReactiveJooqxConn build() {
-            return new JooqxConnImpl(vertx(), dsl(), sqlClient(), preparedQuery(), resultCollector(),
-                                     errorConverter(), typeMapperRegistry());
+        public Jooqx build() {
+            return new JooqxPoolImpl(vertx(), dsl(), sqlClient(), preparedQuery(), resultCollector(), errorConverter(),
+                                     typeMapperRegistry());
         }
 
     }

@@ -10,7 +10,7 @@ import io.vertx.ext.jdbc.spi.DataSourceProvider;
 import io.vertx.jdbcclient.JDBCConnectOptions;
 import io.vertx.jdbcclient.JDBCPool;
 import io.zero88.jooqx.provider.JDBCExtension;
-import io.zero88.jooqx.provider.ReactiveSQLClientProvider;
+import io.zero88.jooqx.provider.JooqxSQLClientProvider;
 import io.zero88.jooqx.provider.SQLClientOptionParser;
 
 import lombok.NonNull;
@@ -22,7 +22,7 @@ import lombok.NonNull;
  * @since 1.1.0
  */
 public interface JDBCPoolProvider<P extends DataSourceProvider>
-    extends ReactiveSQLClientProvider<JDBCPool>, SQLClientOptionParser<JDBCConnectOptions>, JDBCExtension<P> {
+    extends JooqxSQLClientProvider<JDBCPool>, SQLClientOptionParser<JDBCConnectOptions>, JDBCExtension<P> {
 
     @Override
     default String sqlClientClass() {

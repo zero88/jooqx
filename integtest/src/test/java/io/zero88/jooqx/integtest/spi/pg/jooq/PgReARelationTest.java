@@ -28,13 +28,13 @@ import io.zero88.jooqx.integtest.pgsql.tables.records.AuthorsRecord;
 import io.zero88.jooqx.integtest.pgsql.tables.records.BooksRecord;
 import io.zero88.jooqx.integtest.spi.pg.PostgreSQLHelper.PgUseJooqType;
 import io.zero88.jooqx.spi.pg.PgConnProvider;
-import io.zero88.jooqx.spi.pg.PgSQLReactiveTest;
+import io.zero88.jooqx.spi.pg.PgSQLJooqxTest;
 
 /**
  * If using v4.0.0, pretty sure thread leak, but v4.0.2 is already fixed
  * <a href="vertx-sql-client#909">https://github.com/eclipse-vertx/vertx-sql-client/issues/909</a>
  */
-class PgReARelationTest extends PgSQLReactiveTest<PgConnection> implements PgConnProvider, PgUseJooqType {
+class PgReARelationTest extends PgSQLJooqxTest<PgConnection> implements PgConnProvider, PgUseJooqType {
 
     @Override
     @BeforeEach

@@ -8,7 +8,7 @@ import org.jooq.Query;
 import io.vertx.codegen.annotations.GenIgnore;
 import io.vertx.codegen.annotations.VertxGen;
 import io.vertx.sqlclient.Tuple;
-import io.zero88.jooqx.ReactiveSQLImpl.ReactiveSQLPQ;
+import io.zero88.jooqx.JooqxSQLImpl.ReactiveSQLPQ;
 import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
 import lombok.NonNull;
@@ -16,17 +16,17 @@ import lombok.NonNull;
 /**
  * Represents for a converter that transforms {@code jOOQ param} to {@code Vertx Reactive SQL} bind value
  *
- * @since 1.0.0
+ * @since 1.1.0
  */
 @VertxGen
-public interface ReactiveSQLPreparedQuery extends SQLPreparedQuery<Tuple> {
+public interface JooqxPreparedQuery extends SQLPreparedQuery<Tuple> {
 
     /**
      * Create default reactive SQL prepare query
      *
      * @return a new instance of ReactiveSQLPreparedQuery
      */
-    static ReactiveSQLPreparedQuery create() {
+    static JooqxPreparedQuery create() {
         return new ReactiveSQLPQ();
     }
 

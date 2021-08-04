@@ -1,40 +1,37 @@
 package io.zero88.jooqx.provider;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.jooq.DSLContext;
 
 import io.vertx.core.Vertx;
-import io.zero88.jooqx.SQLExecutor;
-import io.zero88.jooqx.SQLPreparedQuery;
-import io.zero88.jooqx.SQLResultCollector;
+import io.vertx.sqlclient.Row;
+import io.vertx.sqlclient.RowSet;
+import io.vertx.sqlclient.SqlClient;
+import io.vertx.sqlclient.Tuple;
+import io.zero88.jooqx.JooqxBase;
+import io.zero88.jooqx.JooqxPreparedQuery;
+import io.zero88.jooqx.JooqxResultCollector;
 
 /**
- * Jooqx Provider
+ * Reactive jOOQx provider
  *
- * @param <S>  Type of SQL client
- * @param <B>  Type of Vertx bind value holder depends on SQL client
- * @param <PQ> Type of SQL prepare query
- * @param <RS> Type of Vertx SQL result set holder
- * @param <RC> Type of SQL result set collector
- * @param <E>  Type of SQL executor
- * @see SQLPreparedQuery
- * @see SQLResultCollector
- * @see SQLExecutor
+ * @param <S> Type of {@link SqlClient}
  * @since 1.1.0
  */
-public interface JooqxProvider<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extends SQLResultCollector<RS>,
-                                  E extends SQLExecutor<S, B, PQ, RS, RC>>
-    extends ErrorConverterProvider, TypeMapperRegistryProvider {
+public interface JooqxProvider<S extends SqlClient>
+    extends BaseJooqxProvider<S, Tuple, JooqxPreparedQuery, RowSet<Row>, JooqxResultCollector, JooqxBase<S>> {
 
-    @NotNull E createExecutor(Vertx vertx, DSLContext dsl, S sqlClient);
-
-    default @Nullable PQ createPreparedQuery() {
-        return null;
-    }
-
-    default @Nullable RC createResultCollector() {
-        return null;
+    @Override
+    default @NotNull JooqxBase<S> createExecutor(Vertx vertx, DSLContext dsl, S sqlClient) {
+        return JooqxBase.<S>baseBuilder()
+                        .vertx(vertx)
+                        .dsl(dsl)
+                        .sqlClient(sqlClient)
+                        .preparedQuery(createPreparedQuery())
+                        .resultCollector(createResultCollector())
+                        .errorConverter(errorConverter())
+                        .typeMapperRegistry(typeMapperRegistry())
+                        .build();
     }
 
 }

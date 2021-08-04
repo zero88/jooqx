@@ -13,10 +13,12 @@ import io.zero88.jooqx.LegacySQLPreparedQuery;
 
 /**
  * Legacy {@code jOOQx} provider
+ *
  * @since 1.1.0
  */
-public interface LegacyJooqxProvider
-    extends JooqxProvider<SQLClient, JsonArray, LegacySQLPreparedQuery, ResultSet, LegacySQLCollector, LegacyJooqx> {
+public interface LegacyJooqxProvider extends
+                                     BaseJooqxProvider<SQLClient, JsonArray, LegacySQLPreparedQuery, ResultSet,
+                                                          LegacySQLCollector, LegacyJooqx> {
 
     @Override
     default @NotNull LegacyJooqx createExecutor(Vertx vertx, DSLContext dsl, SQLClient sqlClient) {

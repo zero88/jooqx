@@ -6,7 +6,7 @@ import io.vertx.codegen.annotations.GenIgnore;
 import io.vertx.codegen.annotations.VertxGen;
 import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.RowSet;
-import io.zero88.jooqx.ReactiveSQLImpl.ReactiveSQLRC;
+import io.zero88.jooqx.JooqxSQLImpl.ReactiveSQLRC;
 import io.zero88.jooqx.adapter.RowConverterStrategy;
 
 import lombok.NonNull;
@@ -14,12 +14,12 @@ import lombok.NonNull;
 /**
  * Reactive result set converter
  *
- * @since 1.0.0
+ * @since 1.1.0
  */
 @VertxGen
-public interface ReactiveSQLResultCollector extends SQLResultCollector<RowSet<Row>> {
+public interface JooqxResultCollector extends SQLResultCollector<RowSet<Row>> {
 
-    static ReactiveSQLResultCollector create() {
+    static JooqxResultCollector create() {
         return new ReactiveSQLRC();
     }
 

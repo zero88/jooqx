@@ -6,7 +6,7 @@ import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.mysqlclient.MySQLPool;
-import io.zero88.jooqx.provider.ReactiveSQLClientProvider;
+import io.zero88.jooqx.provider.JooqxSQLClientProvider;
 
 import lombok.NonNull;
 
@@ -16,7 +16,7 @@ import lombok.NonNull;
  * @see MySQLPool
  * @since 1.1.0
  */
-public interface MySQLPoolProvider extends ReactiveSQLClientProvider<MySQLPool>, MySQLClientParser {
+public interface MySQLPoolProvider extends JooqxSQLClientProvider<MySQLPool>, MySQLClientParser {
 
     @Override
     default String sqlClientClass() {
