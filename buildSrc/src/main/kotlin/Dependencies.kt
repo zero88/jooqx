@@ -51,14 +51,16 @@ object VertxLibs {
 
     object Version {
 
-        const val vertx = "4.0.2"
+        const val vertx = "4.1.2"
         const val docgen = "0.9.3"
+//        const val vertxSQL = "4.2.0-SNAPSHOT"
+        const val vertxSQL = "4.1.2"
     }
 
     const val core = "io.vertx:vertx-core:${Version.vertx}"
     const val junit5 = "io.vertx:vertx-junit5:${Version.vertx}"
-    const val sqlClient = "io.vertx:vertx-sql-client:${Version.vertx}"
-    const val jdbc = "io.vertx:vertx-jdbc-client:${Version.vertx}"
+    const val sqlClient = "io.vertx:vertx-sql-client:${Version.vertxSQL}"
+    const val jdbc = "io.vertx:vertx-jdbc-client:${Version.vertxSQL}"
     const val pgsql = "io.vertx:vertx-pg-client:${Version.vertx}"
     const val mysql = "io.vertx:vertx-mysql-client:${Version.vertx}"
     const val db2 = "io.vertx:vertx-db2-client:${Version.vertx}"
@@ -87,7 +89,7 @@ object DatabaseLibs {
 
         const val jooq = "3.14.8"
         const val h2 = "1.4.200"
-        const val pgsql = "42.2.19"
+        const val pgsql = "42.2.23"
         const val mysql = "8.0.23"
         const val jpa = "2.2"
         const val jta = "1.3"

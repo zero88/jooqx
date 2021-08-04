@@ -269,11 +269,10 @@ final class ReactiveSQLImpl {
 
         @Override
         public Future<Integer> ddl(@NonNull DDLQuery query) {
-            return vertx().executeBlocking(p -> sqlClient().query(preparedQuery().sql(dsl().configuration(), query))
-                                                           .execute()
-                                                           .map(SqlResult::size)
-                                                           .otherwise(errorConverter()::reThrowError)
-                                                           .onComplete(p));
+            return sqlClient().query(preparedQuery().sql(dsl().configuration(), query))
+                              .execute()
+                              .map(SqlResult::size)
+                              .otherwise(errorConverter()::reThrowError);
         }
 
         @Override

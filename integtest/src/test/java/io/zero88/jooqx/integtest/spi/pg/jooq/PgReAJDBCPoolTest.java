@@ -2,7 +2,6 @@ package io.zero88.jooqx.integtest.spi.pg.jooq;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import io.vertx.core.Vertx;
@@ -18,7 +17,7 @@ import io.zero88.jooqx.spi.jdbc.JDBCPoolHikariProvider;
 import io.zero88.jooqx.spi.pg.PgSQLReactiveTest;
 
 //TODO Fix in https://github.com/vert-x3/vertx-jdbc-client/pull/235
-@Disabled
+//TODO: Vertx bug #https://github.com/eclipse-vertx/vertx-sql-client/issues/918
 class PgReAJDBCPoolTest extends PgSQLReactiveTest<JDBCPool>
     implements PgUseJooqType, JDBCPoolHikariProvider, JDBCErrorConverterProvider {
 
@@ -40,14 +39,10 @@ class PgReAJDBCPoolTest extends PgSQLReactiveTest<JDBCPool>
             Assertions.assertNotNull(record.getDate());
             Assertions.assertNotNull(record.getTime());
             Assertions.assertNotNull(record.getTimestamp());
-            //            Assertions.assertNotNull(record.getInterval());
             Assertions.assertNotNull(record.getTimetz());
             Assertions.assertNotNull(record.getTimestamptz());
-            //TODO: Vertx bug #https://github.com/eclipse-vertx/vertx-sql-client/issues/918
-            //                Assertions.assertNotNull(record.getTimestamp());
-            //                Assertions.assertNotNull(record.getTimetz());
             //TODO: Should use converter with String as interval
-            //                Assertions.assertNotNull(record.getInterval());
+            Assertions.assertNotNull(record.getInterval());
             cp.flag();
         }));
     }
