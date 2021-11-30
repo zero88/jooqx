@@ -73,7 +73,7 @@ jobs:
           passphrase: ${{ secrets.CI_GPG_PASSPHARSE }}
 
       - name: Set up JDK 1.8
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v2.4.0
         with:
           java-version: 1.8
 
@@ -124,7 +124,7 @@ jobs:
           fetch-depth: 0
 
       - name: Set up JDK 11
-        uses: actions/setup-java@v1
+        uses: actions/setup-java@v2.4.0
         with:
           java-version: 11
 
