@@ -1,0 +1,17 @@
+io.zero88.rsql.jooq.criteria.comparison.BetweenBuilder
+io.zero88.rsql.jooq.criteria.comparison.ContainsBuilder
+io.zero88.rsql.jooq.criteria.comparison.EqualBuilder
+io.zero88.rsql.jooq.criteria.comparison.EndsWithBuilder
+io.zero88.rsql.jooq.criteria.comparison.ExistsBuilder
+io.zero88.rsql.jooq.criteria.comparison.GreaterThanBuilder
+io.zero88.rsql.jooq.criteria.comparison.GreaterThanOrEqualBuilder
+io.zero88.rsql.jooq.criteria.comparison.InBuilder
+io.zero88.rsql.jooq.criteria.comparison.LessThanBuilder
+io.zero88.rsql.jooq.criteria.comparison.LessThanOrEqualBuilder
+io.zero88.rsql.jooq.criteria.comparison.LikeBuilder
+io.zero88.rsql.jooq.criteria.comparison.NonExistsBuilder
+io.zero88.rsql.jooq.criteria.comparison.NotEqualBuilder
+io.zero88.rsql.jooq.criteria.comparison.NotInBuilder
+io.zero88.rsql.jooq.criteria.comparison.NotLikeBuilder
+io.zero88.rsql.jooq.criteria.comparison.NullableBuilder
+io.zero88.rsql.jooq.criteria.comparison.StartsWithBuilder
