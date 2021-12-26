@@ -5,7 +5,7 @@ plugins {
     id(ZeroLibs.Plugins.oss) version ZeroLibs.Version.plugin
     id(ZeroLibs.Plugins.root) version ZeroLibs.Version.plugin apply false
     id(PluginLibs.jooq) version PluginLibs.Version.jooq apply false
-    id(PluginLibs.nexusStaging) version PluginLibs.Version.nexusStaging
+    id(PluginLibs.nexusPublish) version PluginLibs.Version.nexusPublish
 }
 
 apply(plugin = ZeroLibs.Plugins.root)
@@ -71,10 +71,14 @@ subprojects {
 }
 
 
-nexusStaging {
-    packageGroup = "io.github.zero88"
-    username = project.property("nexus.username") as String?
-    password = project.property("nexus.password") as String?
+nexusPublishing {
+    packageGroup.set("io.github.zero88")
+    repositories {
+        sonatype {
+            username.set(project.property("nexus.username") as String?)
+            password.set(project.property("nexus.password") as String?)
+        }
+    }
 }
 
 tasks.register("generateJooq") {

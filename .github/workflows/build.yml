@@ -176,7 +176,23 @@ jobs:
     if: needs.context.outputs.isRelease == 'true'
     steps:
       - uses: actions/checkout@v2
-      - run: |
-          ./gradlew closeAndReleaseRepository \
-                            -Pnexus.username=${{ secrets.OSS_SONATYPE_USER }} \
-                            -Pnexus.password=${{ secrets.OSS_SONATYPE_PASSWORD }} || echo 'Need to promote manually'
+
+      - name: Import GPG key
+        id: import_gpg
+        uses: crazy-max/ghaction-import-gpg@v3
+        with:
+          git-user-signingkey: true
+          gpg-private-key: ${{ secrets.CI_GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.CI_GPG_PASSPHARSE }}
+
+      - name: Publish Sonatype OSSRH
+        run: |
+          args=( -Pversion=${{ needs.context.outputs.version }} \
+                 -PsemanticVersion=${{ needs.context.outputs.semanticVersion }} \
+                 -PbuildBy="GitHub Action" -PbuildHash=${{ needs.context.outputs.commitId }} \
+                 -Psigning.gnupg.homeDir=/home/runner/.gnupg \
+                 -Psigning.gnupg.keyName=${{ steps.import_gpg.outputs.keyid }} \
+                 -Psigning.gnupg.passphrase=${{ secrets.CI_GPG_PASSPHARSE }} \
+                 -Pnexus.username=${{ secrets.OSS_SONATYPE_USER }} \
+                 -Pnexus.password=${{ secrets.OSS_SONATYPE_PASSWORD }} )
+          ./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository -Prelease "${args[@]}"
