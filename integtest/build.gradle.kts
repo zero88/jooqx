@@ -5,13 +5,15 @@ import org.jooq.meta.jaxb.Property
 
 plugins {
     id(PluginLibs.jooq)
+    `java-test-fixtures`
+}
+
+qwe {
+    application.set(false)
 }
 
 dependencies {
-    testImplementation(project(":spi"))
     testImplementation(testFixtures(project(":jooqx-core")))
-    testImplementation(VertxLibs.docgen)
-    testAnnotationProcessor(VertxLibs.docgen)
 
     jooqGenerator(DatabaseLibs.h2)
     jooqGenerator(DatabaseLibs.pgsql)
@@ -35,28 +37,10 @@ dependencies {
     testImplementation(TestContainers.mysql)
 
     testImplementation(VertxLibs.rx2)
-}
 
-tasks.register<JavaCompile>("docProcessing") {
-    group = "documentation"
-    source = sourceSets.getByName(SourceSet.TEST_SOURCE_SET_NAME).java
-    destinationDir = project.file("${projectDir}/src/asciidoc")
-    classpath = configurations.testCompileClasspath.get()
-    options.annotationProcessorPath = configurations.testCompileClasspath.get()
-    options.compilerArgs = listOf(
-        "-proc:only",
-        "-processor", "io.vertx.docgen.JavaDocGenProcessor",
-        "-Adocgen.output=${project.buildDir}/asciidoc",
-        "-Adocgen.source=${project.projectDir}/src/asciidoc/jooqx.adoc"
-    )
-}
-
-tasks.compileTestJava {
-    dependsOn(tasks.named("docProcessing"))
-}
-
-sourceSets.test {
-    java.srcDirs("src/test/java", "generated/test/java")
+    testFixturesImplementation(project(":spi"))
+    testFixturesImplementation(VertxLibs.pgsql)
+    testFixturesImplementation(DatabaseLibs.jooqMetaExt)
 }
 
 jooq {
@@ -240,17 +224,13 @@ jooq {
     }
 }
 
-qwe {
-    application.set(false)
-}
-
-project.tasks.register("generateJooq") {
+tasks.register("generateJooq") {
     group = "jooq"
     dependsOn(tasks.withType<JooqGenerate>())
 }
 
 sourceSets {
-    named(SourceSet.TEST_SOURCE_SET_NAME) {
+    named("testFixtures") {
         java.srcDirs(tasks.withType<JooqGenerate>().map { it.outputDir.get().asFile })
     }
 }
