@@ -8,6 +8,7 @@
  */
 
 rootProject.name = "jooqx"
+include(":jpa-ext")
 include(":jooqx-core")
 project(":jooqx-core").projectDir = file("core")
 include("spi")
