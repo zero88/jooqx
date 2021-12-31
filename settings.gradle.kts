@@ -8,13 +8,15 @@
  */
 
 rootProject.name = "jooqx"
+val profile: String by settings
+
 include(":jpa-ext")
 include(":jooqx-core")
 project(":jooqx-core").projectDir = file("core")
-include("spi")
-include("integtest")
-include("docs")
-// RSQL project
-include("rsql:core")
-include("rsql:jooq")
-include("rsql:docs")
+include(":spi")
+
+if (profile == "all") {
+    include(":integtest")
+    include(":docs")
+    include(":rsql:core", ":rsql:jooq", ":rsql:docs")
+}

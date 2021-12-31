@@ -13,6 +13,7 @@ qwe {
 }
 
 dependencies {
+    testImplementation(project(":rsql:jooq"))
     testImplementation(testFixtures(project(":jooqx-core")))
 
     jooqGenerator(DatabaseLibs.h2)
@@ -37,6 +38,8 @@ dependencies {
     testImplementation(TestContainers.mysql)
 
     testImplementation(VertxLibs.rx2)
+
+    testImplementation(LogLibs.logback)
 
     testFixturesImplementation(project(":spi"))
     testFixturesImplementation(VertxLibs.pgsql)
