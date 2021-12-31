@@ -48,51 +48,19 @@ dependencies {
 }
 
 tasks {
-    register<JavaCompile>("annotationProcessing") {
-        doAnnotationProcessing(this, sourceSets, SourceSet.MAIN_SOURCE_SET_NAME, configurations.compileClasspath)
-    }
-
-    register<JavaCompile>("testFixturesAnnotationProcessing") {
-        doAnnotationProcessing(this, sourceSets, "testFixtures", configurations.testFixturesCompileClasspath)
+    register<JavaCompile>("genSrcCode") {
+        genCodeByAnnotation(this, sourceSets)
     }
 
     compileJava {
-        dependsOn(named("annotationProcessing"))
+        dependsOn(named("genSrcCode"))
+    }
+
+    register<JavaCompile>("genTestFixturesCode") {
+        genCodeByAnnotation(this, sourceSets, "testFixtures")
     }
 
     compileTestFixturesJava {
-        dependsOn(named("testFixturesAnnotationProcessing"))
+        dependsOn(named("genTestFixturesCode"))
     }
-}
-
-sourceSets {
-    main {
-        java {
-            srcDirs(project.file("${project.buildDir}/generated/main/java"))
-        }
-    }
-    testFixtures {
-        java {
-            srcDirs(project.file("${project.buildDir}/generated/testFixtures/java"))
-        }
-    }
-}
-
-
-fun doAnnotationProcessing(
-    javaCompile: JavaCompile,
-    sourceSets: SourceSetContainer,
-    sourceSet: String,
-    cp: NamedDomainObjectProvider<Configuration>
-) {
-    javaCompile.group = "other"
-    javaCompile.source = sourceSets.getByName(sourceSet).java
-    javaCompile.destinationDir = javaCompile.project.file("${javaCompile.project.buildDir}/generated/${sourceSet}/java")
-    javaCompile.classpath = cp.get()
-    javaCompile.options.annotationProcessorPath = cp.get()
-    javaCompile.options.compilerArgs = listOf(
-        "-proc:only",
-        "-processor", "io.vertx.codegen.CodeGenProcessor",
-        "-Acodegen.output=${javaCompile.project.projectDir}/src/${sourceSet}"
-    )
 }
