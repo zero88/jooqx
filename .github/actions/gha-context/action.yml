@@ -1,0 +1,58 @@
+name: context
+description: 'Query project context'
+inputs:
+  gpg-key:
+    description: 'GPG private key'
+    required: true
+  gpg-passphrase:
+    description: 'GPG passphrase'
+    required: true
+
+outputs:
+  branch:
+    description: Branch or tag name
+    value: ${{ steps.context.outputs.branch }}
+  shouldBuild:
+    description: Should build
+    value: ${{ steps.context.outputs.decision_build }}
+  shouldPublish:
+    description: Should publish
+    value: ${{ steps.context.outputs.decision_publish }}
+  isRelease:
+    description: Is release
+    value: ${{ steps.context.outputs.isTag }}
+  version:
+    description: Project version
+    value: ${{ steps.context.outputs.version }}
+  semanticVersion:
+    description: Should build
+    value: ${{ steps.semantic.outputs.semanticVersion }}
+  commitId:
+    description: Project commit id
+    value: ${{ steps.context.outputs.shortCommitId }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Import GPG key
+      uses: crazy-max/ghaction-import-gpg@v3
+      with:
+        git-user-signingkey: true
+        git-commit-gpgsign: true
+        git-tag-gpgsign: true
+        git-push-gpgsign: false
+        gpg-private-key: ${{ inputs.gpg-key }}
+        passphrase: ${{ inputs.gpg-passphrase }}
+
+    - name: Project context
+      id: context
+      uses: zero88/gh-project-context@v1.1
+      with:
+        mustSign: true
+        nextVerMode: PATCH
+
+    - name: Find semantic version
+      id: semantic
+      shell: bash
+      run: |
+        [[ "${{ steps.context.outputs.isTag }}" == "true" ]] && sv="" || sv=$(grep semanticVersion gradle.properties | cut -d'=' -f2)
