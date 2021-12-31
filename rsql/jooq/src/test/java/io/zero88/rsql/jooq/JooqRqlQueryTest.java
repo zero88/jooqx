@@ -27,9 +27,10 @@ public class JooqRqlQueryTest {
 
     @Test
     public void test_h2_schema_info() {
-        final String query = Tables.TABLE_SCHEMA.getName() + "==public" + ";" + Tables.TABLE_NAME.getName() +
-                             "=exists=t" + " and " + "(" + Tables.TABLE_TYPE.getName() + "=in=(xyz,abc)" + "," +
-                             Tables.TABLE_CLASS.getName() + "=out=(123,456)" + ")";
+        final String query = Tables.TABLES.TABLE_SCHEMA.getName() + "==public" + ";" +
+                             Tables.TABLES.TABLE_NAME.getName() + "=exists=t" + " and " + "(" +
+                             Tables.TABLES.TABLE_TYPE.getName() + "=in=(xyz,abc)" + "," +
+                             Tables.TABLES.TABLE_CLASS.getName() + "=out=(123,456)" + ")";
         final Condition condition = jooqRqlParser.criteria(query, Tables.TABLES);
         System.out.println(query);
         System.out.println(Strings.optimizeMultipleSpace(condition.toString()));
@@ -49,9 +50,10 @@ public class JooqRqlQueryTest {
 
     @Test
     public void test_h2_exist() {
-        final String query = Tables.TABLE_SCHEMA.getName() + "==public" + ";" + Tables.TABLE_NAME.getName() +
-                             "=exists=1" + " and " + "(" + Tables.TABLE_TYPE.getName() + "=in=(xyz,abc)" + "," +
-                             Tables.TABLE_CLASS.getName() + "=out=(123,456)" + ")";
+        final String query = Tables.TABLES.TABLE_SCHEMA.getName() + "==public" + ";" +
+                             Tables.TABLES.TABLE_NAME.getName() + "=exists=1" + " and " + "(" +
+                             Tables.TABLES.TABLE_TYPE.getName() + "=in=(xyz,abc)" + "," +
+                             Tables.TABLES.TABLE_CLASS.getName() + "=out=(123,456)" + ")";
         final Condition condition = jooqRqlParser.criteria(query, Tables.TABLES);
         System.out.println(query);
         System.out.println(Strings.optimizeMultipleSpace(condition.toString()));
