@@ -31,7 +31,7 @@
  * {@link io.zero88.jooqx.examples.JooqxExample#fetchExists(io.vertx.core.Vertx)}
  * ----
  */
-@Document(fileName = "examples.adoc")
+@Document(fileName = "jooqx.adoc")
 package io.zero88.jooqx.examples;
 
 import io.vertx.docgen.Document;
