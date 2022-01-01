@@ -1,17 +1,17 @@
-name: jooqx
+name: jpa
 
 on:
   push:
     branches: [ main ]
     tags: [ 'v*' ]
-    paths-ignore:
-      - '.github/ISSUE_TEMPLATE/**'
-      - '.github/*.yml'
-      - '*.md'
-      - 'LICENSE'
+    paths:
+      - 'jpa-ext'
   pull_request:
     types: [ opened, synchronize, reopened, closed ]
     branches: [ main ]
+
+env:
+  PROFILE: jpa
 
 jobs:
   context:
@@ -47,7 +47,7 @@ jobs:
       - name: Build
         uses: ./.github/actions/gha-build
         with:
-          profile: 'build'
+          profile: ${{ env.PROFILE }}
           version: ${{ needs.context.outputs.version }}
           semanticVersion: ${{ needs.context.outputs.semanticVersion }}
           hashVersion: ${{ needs.context.outputs.commitId }}
@@ -56,25 +56,9 @@ jobs:
           ossrh-user: ${{ secrets.OSS_SONATYPE_USER }}
           ossrh-token: ${{ secrets.OSS_SONATYPE_PASSWORD }}
 
-  analysis:
-    runs-on: ubuntu-latest
-    needs: context
-    if: needs.context.outputs.shouldBuild == 'true'
-    steps:
-      - uses: actions/checkout@v2.3.4
-        with:
-          fetch-depth: 0
-
-      - name: Test and Quality report
-        uses: ./.github/actions/gha-test
-        with:
-          profile: 'analysis'
-          version: ${{ needs.context.outputs.version }}
-          semanticVersion: ${{ needs.context.outputs.semanticVersion }}
-          hashVersion: ${{ needs.context.outputs.commitId }}
-          branch: ${{ needs.context.outputs.branch }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          sonar-token: ${{ secrets.OSS_SONARQUBE_TOKEN }}
+      - name: Test
+        shell: bash
+        run: ./gradlew test -Pprofile=${{ env.PROFILE }}
 
   release:
     runs-on: ubuntu-latest
@@ -86,7 +70,7 @@ jobs:
       - name: Release and promote artifact
         uses: ./.github/actions/gha-release
         with:
-          profile: 'build'
+          profile: ${{ env.PROFILE }}
           version: ${{ needs.context.outputs.version }}
           semanticVersion: ${{ needs.context.outputs.semanticVersion }}
           hashVersion: ${{ needs.context.outputs.commitId }}

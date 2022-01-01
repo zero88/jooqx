@@ -53,23 +53,12 @@ runs:
                         -PsemanticVersion=${{ inputs.semanticVersion }} \
                         -PbuildBy="GitHub Action" -PbuildHash=${{ inputs.hashVersion }}
 
-    #    - name: Publish GitHub Package
-    #      if: inputs.isRelease == 'true' && env.ENABLE_GH_MAVEN == 'true'
-    #      run: |
-    #        args=( -Psigning.gnupg.homeDir=/home/runner/.gnupg \
-    #               -Psigning.gnupg.keyName=${{ steps.import_gpg.outputs.keyid }} \
-    #               -Psigning.gnupg.passphrase=${{ secrets.CI_GPG_PASSPHARSE }} \
-    #               -Pnexus.username=${{ github.repository_owner }} \
-    #               -Pnexus.password=${{ secrets.OSS_GITHUB_TOKEN }} )
-    #        args+=( -Pgithub )
-    #        [[ "${{ inputs.isRelease }}" == 'true' ]] && args+=( -Prelease )
-    #        ./gradlew publish "${args[@]}"
-
     - name: Publish Sonatype OSSRH
       shell: bash
       if: inputs.shouldPublish == 'true' && inputs.isRelease != 'true'
       run: |
-        args=( -Pversion=${{ inputs.version }} \
+        args=( -Pprofile=${{ inputs.profile }} \
+               -Pversion=${{ inputs.version }} \
                -PsemanticVersion=${{ inputs.semanticVersion }} \
                -Pnexus.username=${{ inputs.ossrh-user }} \
                -Pnexus.password=${{ inputs.ossrh-token }} )

@@ -1,4 +1,4 @@
-package io.zero88.rsql.jooq.ast;
+package io.zero88.integtest.rsql.ast;
 
 import java.util.Set;
 import java.util.stream.Collectors;

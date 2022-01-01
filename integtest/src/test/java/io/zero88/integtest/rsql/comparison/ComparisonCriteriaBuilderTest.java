@@ -1,4 +1,4 @@
-package io.zero88.rsql.jooq.comparison;
+package io.zero88.integtest.rsql.comparison;
 
 import java.util.Arrays;
 import java.util.Collections;

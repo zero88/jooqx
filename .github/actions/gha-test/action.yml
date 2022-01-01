@@ -19,6 +19,10 @@ inputs:
   github-token:
     description: 'GitHub Token'
     required: true
+  skip-sonar:
+    description: 'Skip sonar scanner'
+    required: true
+    default: 'false'
   sonar-token:
     description: 'Sonar Token'
     required: true
@@ -32,13 +36,6 @@ runs:
         distribution: microsoft
         java-version: 11
 
-    - name: Cache SonarCloud packages
-      uses: actions/cache@v2.1.4
-      with:
-        path: ~/.sonar/cache
-        key: ${{ runner.os }}-sonar
-        restore-keys: ${{ runner.os }}-sonar
-
     - name: Cache Gradle packages
       uses: actions/cache@v2.1.4
       with:
@@ -46,16 +43,28 @@ runs:
         key: ${{ runner.os }}-gradle-test-${{ hashFiles('**/*.gradle.kts') }}
         restore-keys: ${{ runner.os }}-gradle-test
 
+    - name: Cache SonarCloud packages
+      uses: actions/cache@v2.1.4
+      if: inputs.skip-sonar == 'false'
+      with:
+        path: ~/.sonar/cache
+        key: ${{ runner.os }}-sonar
+        restore-keys: ${{ runner.os }}-sonar
+
     - name: Generate jOOQ
       shell: bash
       run: ./generateJooq.sh
 
     - name: Test
       shell: bash
-      run: ./gradlew jacocoRootReport
+      run: ./gradlew jacocoRootReport -Pprofile=${{ inputs.profile }}
 
     - name: SonarQube
       shell: bash
-      run: ./gradlew sonarqube -x jacocoRootReport -Dsonar.login=${{ inputs.sonar-token }} -Dsonar.branch.name=${{ inputs.branch }}
+      if: inputs.skip-sonar == 'false'
+      run: |
+        ./gradlew sonarqube -x jacocoRootReport \
+            -Pprofile=${{ inputs.profile }} \
+            -Dsonar.login=${{ inputs.sonar-token }} -Dsonar.branch.name=${{ inputs.branch }}
       env:
         GITHUB_TOKEN: ${{ inputs.github-token }}

@@ -1,4 +1,4 @@
-package io.zero88.rsql.jooq;
+package io.zero88.integtest.rsql;
 
 import java.util.UUID;
 
@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import io.github.zero88.utils.Strings;
+import io.zero88.rsql.jooq.JooqRqlParser;
 import io.zero88.rsql.jooq.query.JooqFetchCountQuery;
 import io.zero88.rsql.jooq.query.JooqFetchExistQuery;
 

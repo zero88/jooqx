@@ -32,6 +32,11 @@ if (profile == "rsql") {
     pp = pools["jpa"]!! + pools["rsql"]!! + ":sample:model"
 }
 
+if (profile == "build") {
+    val excludes = pools["sample"]!! + pools["integtest"]!! + ":docs" + ":rsql:docs"
+    pp = pools.values.toTypedArray().flatten().filter { !excludes.contains(it) }.toTypedArray()
+}
+
 if (pp.isEmpty()) {
     pp = pools.values.toTypedArray().flatten().toTypedArray()
 }

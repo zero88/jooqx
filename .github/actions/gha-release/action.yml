@@ -56,7 +56,8 @@ runs:
     - name: Publish Sonatype OSSRH
       shell: bash
       run: |
-        args=( -Pversion=${{ inputs.version }} \
+        args=( -Pprofile=${{ inputs.profile }} \
+               -Pversion=${{ inputs.version }} \
                -PsemanticVersion=${{ inputs.semanticVersion }} \
                -PbuildHash=${{ inputs.hashVersion }} \
                -PbuildBy="GitHub Action" \ 
