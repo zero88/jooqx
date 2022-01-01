@@ -4,8 +4,8 @@ import org.jooq.Condition;
 import org.jooq.Table;
 import org.jooq.TableLike;
 
-import io.zero88.rsql.criteria.CriteriaBuilder;
 import io.zero88.rsql.jooq.JooqQueryContext;
+import io.zero88.rsql.criteria.CriteriaBuilder;
 
 import cz.jirutka.rsql.parser.ast.Node;
 import lombok.NonNull;

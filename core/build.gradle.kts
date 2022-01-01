@@ -20,8 +20,8 @@ dependencies {
     testFixturesApi(TestLibs.junit5Api)
     testFixturesApi(TestLibs.junit5Engine)
     testFixturesApi(TestLibs.junit5Params)
-    testFixturesApi(VertxLibs.junit5)
     testFixturesApi(TestContainers.junit5)
+    testFixturesApi(VertxLibs.junit5)
     testFixturesApi(ZeroLibs.utils)
 
     testFixturesCompileOnly(UtilLibs.lombok)

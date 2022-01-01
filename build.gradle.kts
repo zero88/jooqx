@@ -1,7 +1,6 @@
 plugins {
     eclipse
     idea
-    `java-test-fixtures`
     id(ZeroLibs.Plugins.oss) version ZeroLibs.Version.plugin
     id(ZeroLibs.Plugins.root) version ZeroLibs.Version.plugin apply false
     id(PluginLibs.jooq) version PluginLibs.Version.jooq apply false

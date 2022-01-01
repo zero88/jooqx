@@ -6,9 +6,9 @@ import org.jooq.Condition;
 import org.jooq.TableLike;
 
 import io.zero88.rsql.RqlParser;
-import io.zero88.rsql.jooq.criteria.JooqComparisonCriteriaBuilderLoader;
 import io.zero88.rsql.jooq.visitor.JooqConditionRqlVisitor;
 import io.zero88.rsql.jooq.visitor.JooqDSLRqlVisitor;
+import io.zero88.rsql.jooq.criteria.JooqComparisonCriteriaBuilderLoader;
 import io.zero88.rsql.parser.ast.ComparisonOperatorProxy;
 
 import cz.jirutka.rsql.parser.RSQLParserException;

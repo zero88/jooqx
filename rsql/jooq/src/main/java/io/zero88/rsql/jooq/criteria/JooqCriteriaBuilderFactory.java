@@ -1,9 +1,9 @@
 package io.zero88.rsql.jooq.criteria;
 
-import io.zero88.rsql.criteria.CriteriaBuilder;
-import io.zero88.rsql.criteria.CriteriaBuilderFactory;
 import io.zero88.rsql.jooq.criteria.logical.AndNodeCriteriaBuilder;
 import io.zero88.rsql.jooq.criteria.logical.OrNodeCriteriaBuilder;
+import io.zero88.rsql.criteria.CriteriaBuilder;
+import io.zero88.rsql.criteria.CriteriaBuilderFactory;
 
 import cz.jirutka.rsql.parser.ast.AndNode;
 import cz.jirutka.rsql.parser.ast.ComparisonNode;

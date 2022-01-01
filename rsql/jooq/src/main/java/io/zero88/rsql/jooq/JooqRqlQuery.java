@@ -4,8 +4,8 @@ import org.jooq.DSLContext;
 import org.jooq.Query;
 
 import io.zero88.rsql.HasLog;
-import io.zero88.rsql.jooq.criteria.JooqCriteriaBuilderFactory;
 import io.zero88.rsql.jooq.visitor.JooqDSLRqlVisitor;
+import io.zero88.rsql.jooq.criteria.JooqCriteriaBuilderFactory;
 
 import lombok.NonNull;
 
