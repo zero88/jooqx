@@ -9,14 +9,34 @@
 
 rootProject.name = "jooqx"
 val profile: String by settings
+val pools = mapOf(
+    "jpa" to arrayOf(":jpa-ext"),
+    "jooqx" to arrayOf(":jooqx-core", ":spi", ":docs"),
+    "sample" to arrayOf(":sample:model", ":sample:model2", ":sample:web"),
+    "rsql" to arrayOf(":rsql:core", ":rsql:jooq", ":rsql:docs"),
+    "integtest" to arrayOf(":integtest")
+)
 
-include(":jpa-ext")
-include(":jooqx-core")
-project(":jooqx-core").projectDir = file("core")
-include(":spi")
+var pp: Array<String> = arrayOf()
 
-if (profile == "all") {
-    include(":integtest")
-    include(":docs")
-    include(":rsql:core", ":rsql:jooq", ":rsql:docs")
+if (profile == "jpa") {
+    pp = pools["jpa"]!!
+}
+
+if (profile == "analysis") {
+    val excludes = arrayOf(":docs", ":docs:rsql-docs", ":sample:web")
+    pp = pools.values.toTypedArray().flatten().filter { !excludes.contains(it) }.toTypedArray()
+}
+
+if (profile == "rsql") {
+    pp = pools["jpa"]!! + pools["rsql"]!! + ":sample:model"
+}
+
+if (pp.isEmpty()) {
+    pp = pools.values.toTypedArray().flatten().toTypedArray()
+}
+
+include(*pp)
+if (pp.contains(":jooqx-core")) {
+    project(":jooqx-core").projectDir = file("core")
 }

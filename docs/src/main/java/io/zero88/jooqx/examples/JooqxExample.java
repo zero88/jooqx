@@ -23,9 +23,9 @@ import io.zero88.jooqx.BindBatchValues;
 import io.zero88.jooqx.DSLAdapter;
 import io.zero88.jooqx.Jooqx;
 import io.zero88.jooqx.JsonRecord;
-import io.zero88.jooqx.integtest.pgsql.Tables;
-import io.zero88.jooqx.integtest.pgsql.tables.records.AuthorsRecord;
-import io.zero88.jooqx.integtest.pgsql.tables.records.BooksRecord;
+import io.zero88.sample.data.pgsql.Tables;
+import io.zero88.sample.data.pgsql.tables.records.AuthorsRecord;
+import io.zero88.sample.data.pgsql.tables.records.BooksRecord;
 
 @Source
 public class JooqxExample implements IExample {

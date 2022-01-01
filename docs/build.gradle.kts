@@ -3,11 +3,12 @@ qwe {
 }
 
 dependencies {
+    api(project(":spi"))
+    api(project(":sample:model"))
+
     implementation(VertxLibs.docgen)
     annotationProcessor(VertxLibs.docgen)
 
-    implementation(project(":spi"))
-    implementation(testFixtures(project(":integtest")))
     implementation(VertxLibs.jdbc)
     implementation(VertxLibs.pgsql)
     implementation(VertxLibs.mysql)

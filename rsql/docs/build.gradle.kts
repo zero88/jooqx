@@ -3,11 +3,11 @@ qwe {
 }
 
 dependencies {
+    api(project(":rsql:jooq"))
+    api(project(":sample:model"))
+
     implementation(VertxLibs.docgen)
     annotationProcessor(VertxLibs.docgen)
-
-    implementation(project(":rsql:jooq"))
-    implementation(testFixtures(project(":integtest")))
 }
 
 tasks {
