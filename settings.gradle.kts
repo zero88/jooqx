@@ -41,7 +41,7 @@ if (pp.isEmpty()) {
     pp = pools.values.toTypedArray().flatten().toTypedArray()
 }
 
-include(*pp)
+pp.forEach { include(it) }
 if (pp.contains(":jooqx-core")) {
     project(":jooqx-core").projectDir = file("core")
 }
