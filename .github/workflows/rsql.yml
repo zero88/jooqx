@@ -5,11 +5,14 @@ on:
     branches: [ main ]
     tags: [ 'v*' ]
     paths:
-      - 'jpa-ext'
-      - 'rsql'
+      - 'jpa-ext/**'
+      - 'rsql/**'
   pull_request:
     types: [ opened, synchronize, reopened, closed ]
     branches: [ main ]
+    paths:
+      - 'jpa-ext/**'
+      - 'rsql/**'
 
 env:
   PROFILE: rsql

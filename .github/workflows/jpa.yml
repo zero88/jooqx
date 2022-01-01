@@ -5,10 +5,12 @@ on:
     branches: [ main ]
     tags: [ 'v*' ]
     paths:
-      - 'jpa-ext'
+      - 'jpa-ext/**'
   pull_request:
     types: [ opened, synchronize, reopened, closed ]
     branches: [ main ]
+    paths:
+      - 'jpa-ext/**'
 
 env:
   PROFILE: jpa
