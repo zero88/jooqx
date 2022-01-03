@@ -10,13 +10,13 @@ import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.RowSet;
 import io.vertx.sqlclient.SqlClient;
 import io.vertx.sqlclient.Tuple;
-import io.zero88.jooqx.provider.DBProvider;
 import io.zero88.jooqx.provider.BaseJooqxFacade;
+import io.zero88.jooqx.provider.DBProvider;
 import io.zero88.jooqx.provider.JooqxFacade;
-import io.zero88.jooqx.provider.LegacyJooqxProvider;
-import io.zero88.jooqx.provider.LegacySQLClientProvider;
 import io.zero88.jooqx.provider.JooqxProvider;
 import io.zero88.jooqx.provider.JooqxSQLClientProvider;
+import io.zero88.jooqx.provider.LegacyJooqxProvider;
+import io.zero88.jooqx.provider.LegacySQLClientProvider;
 import io.zero88.jooqx.provider.SQLClientProvider;
 
 /**

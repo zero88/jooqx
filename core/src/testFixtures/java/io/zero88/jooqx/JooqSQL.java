@@ -1,14 +1,12 @@
 package io.zero88.jooqx;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.jooq.DSLContext;
 import org.jooq.Schema;
@@ -77,12 +75,11 @@ public interface JooqSQL<S extends Schema> extends JooqDSLProvider, HasSQLDialec
     default void prepareDatabase(@NonNull VertxTestContext context, @NonNull DSLContext dsl, @NonNull String... files) {
         Arrays.stream(files).forEach(file -> {
             try {
-                final Path path = Paths.get(
-                    Objects.requireNonNull(getClass().getClassLoader().getResource(file)).toURI());
-                try (Stream<String> lines = Files.lines(path)) {
-                    dsl.execute(lines.collect(Collectors.joining("\n")));
+                InputStream is = Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(file));
+                try (BufferedReader reader = new BufferedReader(new InputStreamReader(is))) {
+                    dsl.execute(reader.lines().collect(Collectors.joining("\n")));
                 }
-            } catch (URISyntaxException | IOException | NullPointerException e) {
+            } catch (IOException | NullPointerException e) {
                 context.failNow(e);
             }
         });

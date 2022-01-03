@@ -1,0 +1,70 @@
+name: test
+description: 'Analysis project'
+inputs:
+  profile:
+    description: 'Build profile'
+    required: true
+  version:
+    description: 'Project version'
+    required: true
+  semanticVersion:
+    description: 'Project semantic version'
+    required: true
+  hashVersion:
+    description: 'Project hash commit'
+    required: true
+  branch:
+    description: 'Git branch'
+    required: true
+  github-token:
+    description: 'GitHub Token'
+    required: true
+  skip-sonar:
+    description: 'Skip sonar scanner'
+    required: true
+    default: 'false'
+  sonar-token:
+    description: 'Sonar Token'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up JDK 11
+      uses: actions/setup-java@v2
+      with:
+        distribution: microsoft
+        java-version: 11
+
+    - name: Cache Gradle packages
+      uses: actions/cache@v2.1.4
+      with:
+        path: ~/.gradle/caches
+        key: ${{ runner.os }}-gradle-test-${{ hashFiles('**/*.gradle.kts') }}
+        restore-keys: ${{ runner.os }}-gradle-test
+
+    - name: Cache SonarCloud packages
+      uses: actions/cache@v2.1.4
+      if: inputs.skip-sonar == 'false'
+      with:
+        path: ~/.sonar/cache
+        key: ${{ runner.os }}-sonar
+        restore-keys: ${{ runner.os }}-sonar
+
+    - name: Generate jOOQ
+      shell: bash
+      run: ./generateJooq.sh
+
+    - name: Test
+      shell: bash
+      run: ./gradlew test -Pprofile=${{ inputs.profile }}
+
+    - name: SonarQube
+      shell: bash
+      if: inputs.skip-sonar == 'false'
+      run: |
+        ./gradlew jacocoRootReport sonarqube -x test \
+            -Pprofile=${{ inputs.profile }} \
+            -Dsonar.login=${{ inputs.sonar-token }} -Dsonar.branch.name=${{ inputs.branch }}
+      env:
+        GITHUB_TOKEN: ${{ inputs.github-token }}

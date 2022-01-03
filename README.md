@@ -1,6 +1,6 @@
 # jOOQ.x - Vertx jOOQ DSL
 
-![build](https://github.com/zero88/jooqx/workflows/build-release/badge.svg?branch=main)
+[![jooqx](https://github.com/zero88/jooqx/actions/workflows/jooqx.yml/badge.svg)](https://github.com/zero88/jooqx/actions/workflows/jooqx.yml)
 ![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/zero88/jooqx?sort=semver)
 ![Sonatype Nexus (Releases)](https://img.shields.io/nexus/r/io.github.zero88/jooqx-core?server=https%3A%2F%2Foss.sonatype.org)
 ![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/io.github.zero88/jooqx-core?server=https%3A%2F%2Foss.sonatype.org)

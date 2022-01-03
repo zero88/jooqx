@@ -62,7 +62,6 @@ public interface SQLTestHelper {
     default <R> List<R> assertResultSize(VertxTestContext context, AsyncResult<List<R>> asyncResult, int expected) {
         Checkpoint flag = context.checkpoint();
         final List<R> records = assertSuccess(context, asyncResult);
-        System.out.println(records);
         context.verify(() -> Assertions.assertEquals(expected, records.size()));
         flag.flag();
         return records;

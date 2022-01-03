@@ -14,12 +14,23 @@ object PluginLibs {
 
     object Version {
 
-        const val nexusStaging = "0.22.0"
         const val jooq = "5.2"
+        const val nexusPublish = "1.1.0"
     }
 
-    const val nexusStaging = "io.codearte.nexus-staging"
+    const val nexusPublish = "io.github.gradle-nexus.publish-plugin"
     const val jooq = "nu.studer.jooq"
+}
+
+object JacksonLibs {
+
+    object Version {
+
+        const val jackson = "2.12.0"
+    }
+
+    const val annotations = "com.fasterxml.jackson.core:jackson-annotations:${Version.jackson}"
+    const val databind = "com.fasterxml.jackson.core:jackson-databind:${Version.jackson}"
 }
 
 object TestLibs {
@@ -39,7 +50,7 @@ object TestLibs {
 object TestContainers {
     object Version {
 
-        const val ver = "1.15.2"
+        const val ver = "1.16.2"
     }
 
     const val junit5 = "org.testcontainers:junit-jupiter:${Version.ver}"
@@ -51,10 +62,9 @@ object VertxLibs {
 
     object Version {
 
-        const val vertx = "4.1.2"
-        const val docgen = "0.9.3"
-//        const val vertxSQL = "4.2.0-SNAPSHOT"
-        const val vertxSQL = "4.1.2"
+        const val vertx = "4.2.3"
+        const val docgen = "0.9.4"
+        const val vertxSQL = "4.2.3"
     }
 
     const val core = "io.vertx:vertx-core:${Version.vertx}"
@@ -96,17 +106,16 @@ object DatabaseLibs {
         const val sqlite = "3.36.0.1"
         const val hsqldb = "2.5.2"
         const val derby = "10.14.2.0"
-
         const val agroal = "1.9"
         const val c3p0 = "0.9.5.4"
         const val hikari = "4.0.2"
+        const val rsql = "2.1.0"
     }
 
     const val agroalApi = "io.agroal:agroal-api:${Version.agroal}"
     const val agroalPool = "io.agroal:agroal-pool:${Version.agroal}"
     const val c3p0 = "com.mchange:c3p0:${Version.c3p0}"
     const val hikari = "com.zaxxer:HikariCP:${Version.hikari}"
-
     const val h2 = "com.h2database:h2:${Version.h2}"
     const val pgsql = "org.postgresql:postgresql:${Version.pgsql}"
     const val mysql = "mysql:mysql-connector-java:${Version.mysql}"
@@ -117,12 +126,13 @@ object DatabaseLibs {
     const val sqlite = "org.xerial:sqlite-jdbc:${Version.sqlite}"
     const val derby = "org.apache.derby:derby:${Version.derby}"
     const val hsqldb = "org.hsqldb:hsqldb:${Version.hsqldb}"
+    const val rsql = "cz.jirutka.rsql:rsql-parser:${Version.rsql}"
 }
 
 object ZeroLibs {
     object Version {
 
-        const val utils = "1.0.1"
+        const val utils = "2.0.0-SNAPSHOT"
         const val rSql = "0.9.0"
         const val plugin = "1.0.0"
     }

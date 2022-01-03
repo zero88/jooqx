@@ -1,0 +1,84 @@
+name: jpa
+
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*' ]
+    paths:
+      - 'jpa-ext/**'
+  pull_request:
+    types: [ opened, synchronize, reopened, closed ]
+    branches: [ main ]
+    paths:
+      - 'jpa-ext/**'
+
+env:
+  PROFILE: jpa
+
+jobs:
+  context:
+    runs-on: ubuntu-latest
+    outputs:
+      branch: ${{ steps.context.outputs.branch }}
+      shouldBuild: ${{ steps.context.outputs.shouldBuild }}
+      shouldPublish: ${{ steps.context.outputs.shouldPublish }}
+      isRelease: ${{ steps.context.outputs.isRelease }}
+      version: ${{ steps.context.outputs.version }}
+      semanticVersion: ${{ steps.context.outputs.semanticVersion }}
+      commitId: ${{ steps.context.outputs.commitId }}
+
+    steps:
+      - uses: actions/checkout@v2.3.4
+        with:
+          token: ${{ secrets.OSS_GITHUB_TOKEN }}
+
+      - name: Query project context
+        id: context
+        uses: ./.github/actions/gha-context
+        with:
+          gpg-key: ${{ secrets.CI_GPG_PRIVATE_KEY }}
+          gpg-passphrase: ${{ secrets.CI_GPG_PASSPHARSE }}
+
+  build:
+    runs-on: ubuntu-latest
+    needs: context
+    if: needs.context.outputs.shouldBuild == 'true'
+    steps:
+      - uses: actions/checkout@v2.3.4
+
+      - name: Build
+        uses: ./.github/actions/gha-build
+        with:
+          profile: ${{ env.PROFILE }}
+          version: ${{ needs.context.outputs.version }}
+          semanticVersion: ${{ needs.context.outputs.semanticVersion }}
+          hashVersion: ${{ needs.context.outputs.commitId }}
+          shouldPublish: ${{ needs.context.outputs.shouldPublish }}
+          isRelease: ${{ needs.context.outputs.isRelease }}
+          ossrh-user: ${{ secrets.OSS_SONATYPE_USER }}
+          ossrh-token: ${{ secrets.OSS_SONATYPE_PASSWORD }}
+
+      - name: Test
+        shell: bash
+        run: ./gradlew test -Pprofile=${{ env.PROFILE }}
+
+  release:
+    runs-on: ubuntu-latest
+    needs: [ build, context ]
+    if: needs.context.outputs.isRelease == 'true'
+    steps:
+      - uses: actions/checkout@v2.3.4
+
+      - name: Release and promote artifact
+        uses: ./.github/actions/gha-release
+        with:
+          profile: ${{ env.PROFILE }}
+          version: ${{ needs.context.outputs.version }}
+          semanticVersion: ${{ needs.context.outputs.semanticVersion }}
+          hashVersion: ${{ needs.context.outputs.commitId }}
+          tagName: ${{ needs.context.outputs.branch }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          ossrh-user: ${{ secrets.OSS_SONATYPE_USER }}
+          ossrh-token: ${{ secrets.OSS_SONATYPE_PASSWORD }}
+          gpg-key: ${{ secrets.CI_GPG_PRIVATE_KEY }}
+          gpg-passphrase: ${{ secrets.CI_GPG_PASSPHARSE }}

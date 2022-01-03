@@ -1,0 +1,69 @@
+name: release
+description: 'Release project'
+inputs:
+  profile:
+    description: 'Build profile'
+    required: true
+  version:
+    description: 'Project version'
+    required: true
+  semanticVersion:
+    description: 'Project semantic version'
+    required: true
+  hashVersion:
+    description: 'Project hash commit'
+    required: true
+  tagName:
+    description: 'Tag version'
+    required: true
+  github-token:
+    description: 'GitHub Token'
+    required: true
+  ossrh-user:
+    description: 'OSSRH User'
+    required: true
+  ossrh-token:
+    description: 'OSSRH Token'
+    required: true
+  gpg-key:
+    description: 'GPG private key'
+    required: true
+  gpg-passphrase:
+    description: 'GPG passphrase'
+    required: true
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Create GitHub Release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+      with:
+        tag_name: ${{ inputs.tagName }}
+        release_name: Release ${{ inputs.tagName }}
+        draft: false
+        prerelease: false
+
+    - name: Import GPG key
+      id: import_gpg
+      uses: crazy-max/ghaction-import-gpg@v3
+      with:
+        git-user-signingkey: true
+        gpg-private-key: ${{ inputs.gpg-key }}
+        passphrase: ${{ inputs.gpg-passphrase }}
+
+    - name: Publish Sonatype OSSRH
+      shell: bash
+      run: |
+        args=( -Pprofile=${{ inputs.profile }} \
+               -Pversion=${{ inputs.version }} \
+               -PsemanticVersion=${{ inputs.semanticVersion }} \
+               -PbuildHash=${{ inputs.hashVersion }} \
+               -PbuildBy="GitHub Action" \ 
+               -Psigning.gnupg.homeDir=/home/runner/.gnupg \
+               -Psigning.gnupg.keyName=${{ steps.import_gpg.outputs.keyid }} \
+               -Psigning.gnupg.passphrase=${{ inputs.gpg-passphrase }} \
+               -Pnexus.username=${{ inputs.ossrh-user }} \
+               -Pnexus.password=${{ inputs.ossrh-token }} )
+        ./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository -Prelease "${args[@]}"
