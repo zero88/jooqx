@@ -6,7 +6,6 @@ dependencies {
     api(LogLibs.slf4j)
     api(VertxLibs.core)
     api(DatabaseLibs.jooq)
-//    api(ZeroLibs.rql_jooq)
     compileOnly(VertxLibs.jdbc)
 
     compileOnly(VertxLibs.rx2)

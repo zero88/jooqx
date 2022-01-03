@@ -10,11 +10,13 @@ import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 import io.zero88.integtest.jooqx.pg.PostgreSQLHelper.PgUseJooqType;
 import io.zero88.jooqx.DSLAdapter;
-import io.zero88.sample.data.pgsql.tables.TemporalDataType;
-import io.zero88.sample.data.pgsql.tables.records.TemporalDataTypeRecord;
+import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
+import io.zero88.jooqx.datatype.UserTypeAsJooqType;
 import io.zero88.jooqx.spi.jdbc.JDBCErrorConverterProvider;
 import io.zero88.jooqx.spi.jdbc.JDBCPoolHikariProvider;
 import io.zero88.jooqx.spi.pg.PgSQLJooqxTest;
+import io.zero88.sample.data.pgsql.tables.TemporalDataType;
+import io.zero88.sample.data.pgsql.tables.records.TemporalDataTypeRecord;
 
 //TODO Fix in https://github.com/vert-x3/vertx-jdbc-client/pull/235
 //TODO: Vertx bug #https://github.com/eclipse-vertx/vertx-sql-client/issues/918
@@ -26,6 +28,13 @@ class PgReAJDBCPoolTest extends PgSQLJooqxTest<JDBCPool>
     public void tearUp(Vertx vertx, VertxTestContext ctx) {
         super.tearUp(vertx, ctx);
         this.prepareDatabase(ctx, this, connOpt, "pg_data/temporal.sql");
+    }
+
+    @Override
+    public DataTypeMapperRegistry typeMapperRegistry() {
+        return PgUseJooqType.super.typeMapperRegistry()
+                                  .addByColumn(schema().TEMPORAL_DATA_TYPE.INTERVAL,
+                                               UserTypeAsJooqType.create(new JDBCIntervalConverter()));
     }
 
     @Test

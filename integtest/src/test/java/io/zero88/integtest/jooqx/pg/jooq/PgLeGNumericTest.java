@@ -41,10 +41,9 @@ class PgLeGNumericTest extends PgSQLLegacyTest implements PgLegacyType {
             Assertions.assertNotNull(record.getSerial());
             Assertions.assertNotNull(record.getBigserial());
 
-            // FIXME: Vert.x unreliable
-            //                          Assertions.assertNotNull(record.getShort());
-            //                          Assertions.assertNotNull(record.getSmallserial());
-            //                          Assertions.assertNotNull(record.getBigdecimal());
+            Assertions.assertNotNull(record.getShort());
+            Assertions.assertNotNull(record.getSmallserial());
+            Assertions.assertNotNull(record.getBigdecimal());
             cp.flag();
         }));
     }

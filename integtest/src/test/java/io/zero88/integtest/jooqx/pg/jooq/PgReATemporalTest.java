@@ -13,11 +13,14 @@ import io.vertx.junit5.VertxTestContext;
 import io.vertx.pgclient.PgPool;
 import io.zero88.integtest.jooqx.pg.PostgreSQLHelper.PgUseJooqType;
 import io.zero88.jooqx.DSLAdapter;
+import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
+import io.zero88.jooqx.datatype.UserTypeAsJooqType;
+import io.zero88.jooqx.spi.pg.PgPoolProvider;
+import io.zero88.jooqx.spi.pg.PgSQLErrorConverterProvider;
+import io.zero88.jooqx.spi.pg.PgSQLJooqxTest;
+import io.zero88.jooqx.spi.pg.datatype.IntervalConverter;
 import io.zero88.sample.data.pgsql.tables.TemporalDataType;
 import io.zero88.sample.data.pgsql.tables.records.TemporalDataTypeRecord;
-import io.zero88.jooqx.spi.pg.PgPoolProvider;
-import io.zero88.jooqx.spi.pg.PgSQLJooqxTest;
-import io.zero88.jooqx.spi.pg.PgSQLErrorConverterProvider;
 
 class PgReATemporalTest extends PgSQLJooqxTest<PgPool>
     implements PgSQLErrorConverterProvider, PgPoolProvider, PgUseJooqType {
@@ -27,6 +30,13 @@ class PgReATemporalTest extends PgSQLJooqxTest<PgPool>
     public void tearUp(Vertx vertx, VertxTestContext ctx) {
         super.tearUp(vertx, ctx);
         this.prepareDatabase(ctx, this, connOpt, "pg_data/temporal.sql");
+    }
+
+    @Override
+    public DataTypeMapperRegistry typeMapperRegistry() {
+        return PgUseJooqType.super.typeMapperRegistry()
+                                  .addByColumn(schema().TEMPORAL_DATA_TYPE.INTERVAL,
+                                               UserTypeAsJooqType.create(new IntervalConverter()));
     }
 
     @Test
@@ -42,6 +52,9 @@ class PgReATemporalTest extends PgSQLJooqxTest<PgPool>
             Assertions.assertNotNull(record.getTimestamp());
             Assertions.assertNotNull(record.getTimestamptz());
             Assertions.assertNotNull(record.getInterval());
+            Assertions.assertEquals(10, record.getInterval().getYears());
+            Assertions.assertEquals(3, record.getInterval().getMonths());
+            Assertions.assertEquals(332, record.getInterval().getDays());
             cp.flag();
         }));
     }

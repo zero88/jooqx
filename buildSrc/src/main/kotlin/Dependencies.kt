@@ -50,7 +50,7 @@ object TestLibs {
 object TestContainers {
     object Version {
 
-        const val ver = "1.15.2"
+        const val ver = "1.16.2"
     }
 
     const val junit5 = "org.testcontainers:junit-jupiter:${Version.ver}"
@@ -62,10 +62,9 @@ object VertxLibs {
 
     object Version {
 
-        const val vertx = "4.1.2"
-        const val docgen = "0.9.3"
-        //        const val vertxSQL = "4.2.0-SNAPSHOT"
-        const val vertxSQL = "4.1.2"
+        const val vertx = "4.2.3"
+        const val docgen = "0.9.4"
+        const val vertxSQL = "4.2.3"
     }
 
     const val core = "io.vertx:vertx-core:${Version.vertx}"

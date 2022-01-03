@@ -57,13 +57,13 @@ runs:
 
     - name: Test
       shell: bash
-      run: ./gradlew jacocoRootReport -Pprofile=${{ inputs.profile }}
+      run: ./gradlew test -Pprofile=${{ inputs.profile }}
 
     - name: SonarQube
       shell: bash
       if: inputs.skip-sonar == 'false'
       run: |
-        ./gradlew sonarqube -x jacocoRootReport \
+        ./gradlew jacocoRootReport sonarqube -x test \
             -Pprofile=${{ inputs.profile }} \
             -Dsonar.login=${{ inputs.sonar-token }} -Dsonar.branch.name=${{ inputs.branch }}
       env:

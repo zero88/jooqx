@@ -11,9 +11,11 @@ import io.vertx.junit5.VertxTestContext;
 import io.zero88.integtest.jooqx.pg.PostgreSQLHelper.PgLegacyType;
 import io.zero88.jooqx.DSLAdapter;
 import io.zero88.jooqx.JooqDSLProvider;
+import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
+import io.zero88.jooqx.datatype.UserTypeAsJooqType;
+import io.zero88.jooqx.spi.pg.PgSQLLegacyTest;
 import io.zero88.sample.data.pgsql.tables.TemporalDataType;
 import io.zero88.sample.data.pgsql.tables.records.TemporalDataTypeRecord;
-import io.zero88.jooqx.spi.pg.PgSQLLegacyTest;
 
 class PgLeGTemporalTest extends PgSQLLegacyTest implements PgLegacyType {
 
@@ -22,6 +24,13 @@ class PgLeGTemporalTest extends PgSQLLegacyTest implements PgLegacyType {
     public void tearUp(Vertx vertx, VertxTestContext ctx) {
         super.tearUp(vertx, ctx);
         this.prepareDatabase(ctx, this, connOpt, "pg_data/temporal.sql");
+    }
+
+    @Override
+    public DataTypeMapperRegistry typeMapperRegistry() {
+        return super.typeMapperRegistry()
+                    .addByColumn(schema().TEMPORAL_DATA_TYPE.INTERVAL,
+                                 UserTypeAsJooqType.create(new JDBCIntervalConverter()));
     }
 
     @Test
@@ -36,8 +45,14 @@ class PgLeGTemporalTest extends PgSQLLegacyTest implements PgLegacyType {
             Assertions.assertNotNull(record.getTimetz());
             Assertions.assertNotNull(record.getTimestamptz());
             Assertions.assertNotNull(record.getTimestamp());
-            //TODO: Should use converter with String as interval
             Assertions.assertNotNull(record.getInterval());
+            Assertions.assertEquals(10, record.getInterval().getYears());
+            Assertions.assertEquals(3, record.getInterval().getMonths());
+            Assertions.assertEquals(332, record.getInterval().getDays());
+            Assertions.assertEquals(20, record.getInterval().getHours());
+            Assertions.assertEquals(20, record.getInterval().getMinutes());
+            Assertions.assertEquals(20, record.getInterval().getSeconds());
+            Assertions.assertEquals(999999, record.getInterval().getMicro());
             flag.flag();
         }));
     }
@@ -56,6 +71,9 @@ class PgLeGTemporalTest extends PgSQLLegacyTest implements PgLegacyType {
             Assertions.assertNotNull(record.getTimestamp());
             Assertions.assertNotNull(record.getTimestamptz());
             Assertions.assertNotNull(record.getInterval());
+            Assertions.assertEquals(10, record.getInterval().getYears());
+            Assertions.assertEquals(3, record.getInterval().getMonths());
+            Assertions.assertEquals(332, record.getInterval().getDays());
         });
         flag.flag();
     }
