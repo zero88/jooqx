@@ -53,6 +53,7 @@ public final class JooqPagingAndSortingQuery extends AbstractJooqConditionQuery<
         }
         return sql.orderBy(sort.orders()
                                .stream()
+                               .filter(Objects::nonNull)
                                .filter(order -> !order.property().contains("."))
                                .map(this::sortField)
                                .filter(Objects::nonNull)
