@@ -68,7 +68,7 @@ public final class JooqPagingAndSortingQuery extends AbstractJooqConditionQuery<
     }
 
     private SelectOptionStep<Record> paging(@NonNull SelectLimitStep<Record> sql, @NonNull Pageable pagination) {
-        return sql.limit(pagination.getPerPage()).offset((pagination.getPage() - 1) * pagination.getPerPage());
+        return sql.limit(pagination.getPageSize()).offset((pagination.getPage() - 1) * pagination.getPageSize());
     }
 
 }

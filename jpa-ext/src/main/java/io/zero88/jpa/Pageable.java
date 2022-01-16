@@ -21,6 +21,17 @@ public interface Pageable {
      * @return Returns the number of record per page.
      * @since 1.0.0
      */
-    int getPerPage();
+    int getPageSize();
+
+    /**
+     * Get page size.
+     *
+     * @return Returns the number of record per page.
+     * @deprecated use {@link #getPageSize()}
+     */
+    @Deprecated
+    default int getPerPage() {
+        return getPageSize();
+    }
 
 }
