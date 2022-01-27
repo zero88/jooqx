@@ -6,11 +6,15 @@ on:
     tags: [ 'v*' ]
     paths:
       - 'jpa-ext/**'
+      - '.github/workflows/jpa.yml'
+      - '.github/actions/*.yml'
   pull_request:
     types: [ opened, synchronize, reopened, closed ]
     branches: [ main ]
     paths:
       - 'jpa-ext/**'
+      - '.github/workflows/jpa.yml'
+      - '.github/actions/*.yml'
 
 env:
   PROFILE: jpa
@@ -28,7 +32,7 @@ jobs:
       commitId: ${{ steps.context.outputs.commitId }}
 
     steps:
-      - uses: actions/checkout@v2.3.4
+      - uses: actions/checkout@v2.4.0
         with:
           token: ${{ secrets.OSS_GITHUB_TOKEN }}
 
@@ -44,7 +48,7 @@ jobs:
     needs: context
     if: needs.context.outputs.shouldBuild == 'true'
     steps:
-      - uses: actions/checkout@v2.3.4
+      - uses: actions/checkout@v2.4.0
 
       - name: Build
         uses: ./.github/actions/gha-build
@@ -67,7 +71,7 @@ jobs:
     needs: [ build, context ]
     if: needs.context.outputs.isRelease == 'true'
     steps:
-      - uses: actions/checkout@v2.3.4
+      - uses: actions/checkout@v2.4.0
 
       - name: Release and promote artifact
         uses: ./.github/actions/gha-release

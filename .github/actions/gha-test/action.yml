@@ -63,8 +63,9 @@ runs:
       shell: bash
       if: inputs.skip-sonar == 'false'
       run: |
-        ./gradlew jacocoRootReport sonarqube -x test \
+        ./gradlew jacocoRootReport sonarqube -x test --stacktrace \
             -Pprofile=${{ inputs.profile }} \
-            -Dsonar.login=${{ inputs.sonar-token }} -Dsonar.branch.name=${{ inputs.branch }}
+            -Dsonar.login=${{ inputs.sonar-token }} -Dsonar.branch.name=${{ inputs.branch }} \
+            -Dorg.gradle.jvmargs="-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError"
       env:
         GITHUB_TOKEN: ${{ inputs.github-token }}
