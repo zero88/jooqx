@@ -14,7 +14,6 @@ allprojects {
     repositories {
         mavenLocal()
         maven { url = uri("https://maven-central-asia.storage-download.googleapis.com/maven2/") }
-        jcenter()
         maven { url = uri("https://oss.sonatype.org/content/groups/public/") }
         mavenCentral()
     }
@@ -24,6 +23,7 @@ subprojects {
     apply(plugin = ZeroLibs.Plugins.oss)
     java {
         sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     tasks {

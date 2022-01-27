@@ -5,7 +5,7 @@ fun genCodeByAnnotation(jc: JavaCompile, sourceSets: SourceSetContainer, sourceS
     jc.apply {
         group = "other"
         source = sourceSets.getByName(sourceSet).java
-        destinationDir = project.file("${project.buildDir}/generated/${sourceSet}/java")
+        destinationDirectory.set(project.file("${project.buildDir}/generated/${sourceSet}/java"))
         classpath = sourceSets.getByName(sourceSet).compileClasspath
         options.annotationProcessorPath = jc.classpath
         options.compilerArgs = listOf(
@@ -14,5 +14,5 @@ fun genCodeByAnnotation(jc: JavaCompile, sourceSets: SourceSetContainer, sourceS
             "-Acodegen.output=${project.projectDir}/src/${sourceSet}"
         )
     }
-    sourceSets.getByName(sourceSet).java.srcDirs(jc.destinationDir)
+    sourceSets.getByName(sourceSet).java.srcDirs(jc.destinationDirectory.get())
 }
