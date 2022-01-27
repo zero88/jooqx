@@ -6,10 +6,6 @@ plugins {
     id(PluginLibs.jooq)
 }
 
-qwe {
-    application.set(false)
-}
-
 dependencies {
     api(DatabaseLibs.jooqMetaExt)
 

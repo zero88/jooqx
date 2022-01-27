@@ -1,7 +1,3 @@
-qwe {
-    application.set(false)
-}
-
 dependencies {
     testImplementation(project(":sample:model"))
     testImplementation(project(":sample:model2"))

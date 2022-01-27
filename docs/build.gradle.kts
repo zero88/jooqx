@@ -1,7 +1,3 @@
-qwe {
-    application.set(false)
-}
-
 dependencies {
     api(project(":spi"))
     api(project(":sample:model"))

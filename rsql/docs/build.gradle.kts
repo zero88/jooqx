@@ -1,7 +1,3 @@
-qwe {
-    application.set(false)
-}
-
 dependencies {
     api(project(":rsql:jooq"))
     api(project(":sample:model"))

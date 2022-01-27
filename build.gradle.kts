@@ -2,12 +2,11 @@ plugins {
     eclipse
     idea
     id(ZeroLibs.Plugins.oss) version ZeroLibs.Version.plugin
-    id(ZeroLibs.Plugins.root) version ZeroLibs.Version.plugin apply false
+    id(ZeroLibs.Plugins.root) version ZeroLibs.Version.plugin
+
     id(PluginLibs.jooq) version PluginLibs.Version.jooq apply false
     id(PluginLibs.nexusPublish) version PluginLibs.Version.nexusPublish
 }
-
-apply(plugin = ZeroLibs.Plugins.root)
 
 allprojects {
     group = "io.github.zero88"
@@ -51,7 +50,7 @@ subprojects {
         testCompileOnly(UtilLibs.jetbrainsAnnotations)
     }
 
-    qwe {
+    oss {
         zero88.set(true)
         publishingInfo {
             enabled.set(true)

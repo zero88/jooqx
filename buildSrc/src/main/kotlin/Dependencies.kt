@@ -133,8 +133,8 @@ object ZeroLibs {
     object Version {
 
         const val utils = "2.0.0-SNAPSHOT"
+        const val plugin = "2.0.0"
         const val rSql = "0.9.0"
-        const val plugin = "1.0.0"
     }
 
     const val rql_jooq = "io.github.zero88:rql-jooq:${Version.rSql}"
@@ -142,7 +142,7 @@ object ZeroLibs {
 
     object Plugins {
 
-        const val oss = "io.github.zero88.qwe.gradle.oss"
-        const val root = "io.github.zero88.qwe.gradle.root"
+        const val oss = "io.github.zero88.gradle.oss"
+        const val root = "io.github.zero88.gradle.root"
     }
 }
