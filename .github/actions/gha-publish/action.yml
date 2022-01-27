@@ -13,47 +13,65 @@ inputs:
   hashVersion:
     description: 'Project hash commit'
     required: true
-  tagName:
-    description: 'Tag version'
+  isRelease:
+    description: 'Is release'
     required: true
-  github-token:
+  githubToken:
     description: 'GitHub Token'
     required: true
-  ossrh-user:
+  ossrhUser:
     description: 'OSSRH User'
     required: true
-  ossrh-token:
+  ossrhToken:
     description: 'OSSRH Token'
     required: true
-  gpg-key:
+  gpgKey:
     description: 'GPG private key'
     required: true
-  gpg-passphrase:
+  gpgPassphrase:
     description: 'GPG passphrase'
     required: true
+  javaDist:
+    description: 'Java distribution'
+    required: true
+    default: 'temurin'
+  javaVersion:
+    description: 'Java version'
+    required: true
+    default: '11'
 
 runs:
   using: 'composite'
   steps:
-    - name: Create GitHub Release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ inputs.github-token }}
+
+    - uses: actions/setup-java@v2
       with:
-        tag_name: ${{ inputs.tagName }}
-        release_name: Release ${{ inputs.tagName }}
-        draft: false
-        prerelease: false
+        distribution: ${{ inputs.javaDist }}
+        java-version: ${{ inputs.javaVersion }}
+        cache: 'gradle'
+
+    - name: Publish Sonatype OSSRH Snapshot
+      if: inputs.isRelease != 'true'
+      shell: bash
+      run: |
+        args=( -Pprofile=${{ inputs.profile }} \
+               -Pversion=${{ inputs.version }} \
+               -PsemanticVersion=${{ inputs.semanticVersion }} \
+               -Pnexus.username=${{ inputs.ossrhUser }} \
+               -Pnexus.password=${{ inputs.ossrhToken }} )
+        ./gradlew publish "${args[@]}"
 
     - name: Import GPG key
       id: import_gpg
+      if: inputs.isRelease == 'true'
       uses: crazy-max/ghaction-import-gpg@v3
       with:
         git-user-signingkey: true
-        gpg-private-key: ${{ inputs.gpg-key }}
-        passphrase: ${{ inputs.gpg-passphrase }}
+        gpg-private-key: ${{ inputs.gpgKey }}
+        passphrase: ${{ inputs.gpgPassphrase }}
 
     - name: Publish Sonatype OSSRH
+      if: inputs.isRelease == 'true'
       shell: bash
       run: |
         args=( -Pprofile=${{ inputs.profile }} \
@@ -63,7 +81,7 @@ runs:
                -PbuildBy="GitHub Action" \ 
                -Psigning.gnupg.homeDir=/home/runner/.gnupg \
                -Psigning.gnupg.keyName=${{ steps.import_gpg.outputs.keyid }} \
-               -Psigning.gnupg.passphrase=${{ inputs.gpg-passphrase }} \
-               -Pnexus.username=${{ inputs.ossrh-user }} \
-               -Pnexus.password=${{ inputs.ossrh-token }} )
+               -Psigning.gnupg.passphrase=${{ inputs.gpgPassphrase }} \
+               -Pnexus.username=${{ inputs.ossrhUser }} \
+               -Pnexus.password=${{ inputs.ossrhToken }} )
         ./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository -Prelease "${args[@]}"

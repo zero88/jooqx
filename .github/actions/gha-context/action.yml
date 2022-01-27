@@ -1,10 +1,10 @@
 name: context
 description: 'Query project context'
 inputs:
-  gpg-key:
+  gpgKey:
     description: 'GPG private key'
     required: true
-  gpg-passphrase:
+  gpgPassphrase:
     description: 'GPG passphrase'
     required: true
 
@@ -41,8 +41,8 @@ runs:
         git-commit-gpgsign: true
         git-tag-gpgsign: true
         git-push-gpgsign: false
-        gpg-private-key: ${{ inputs.gpg-key }}
-        passphrase: ${{ inputs.gpg-passphrase }}
+        gpg-private-key: ${{ inputs.gpgKey }}
+        passphrase: ${{ inputs.gpgPassphrase }}
 
     - name: Project context
       id: context
