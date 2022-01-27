@@ -15,7 +15,7 @@ import cz.jirutka.rsql.parser.ast.ComparisonOperator;
 @SuppressWarnings({"unchecked", "rawtypes"})
 public abstract class ComparisonCriteriaBuilderLoader {
 
-    public static final Pattern SYMBOL_PATTERN = Pattern.compile("=[a-zA-Z]*=|[><]=?|!=");
+    public static final Pattern SYMBOL_PATTERN = Pattern.compile("=[a-zA-Z]*=|[><~]=?|!=|[=!]?~");
     private final Map<ComparisonOperatorProxy, Class<? extends ComparisonCriteriaBuilder>> map;
 
     protected ComparisonCriteriaBuilderLoader() {
