@@ -132,7 +132,7 @@ object DatabaseLibs {
 object ZeroLibs {
     object Version {
 
-        const val utils = "2.0.0-SNAPSHOT"
+        const val utils = "2.0.0"
         const val plugin = "2.0.0"
         const val rSql = "0.9.0"
     }
