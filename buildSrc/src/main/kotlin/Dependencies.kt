@@ -130,8 +130,8 @@ object DatabaseLibs {
 object ZeroLibs {
     object Version {
 
+        const val gradlePlugin = "2.1.0"
         const val utils = "2.0.0"
-        const val plugin = "2.0.0"
         const val rsql = "2.2.1"
     }
 

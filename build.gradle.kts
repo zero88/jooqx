@@ -1,8 +1,8 @@
 plugins {
     eclipse
     idea
-    id(ZeroLibs.Plugins.oss) version ZeroLibs.Version.plugin
-    id(ZeroLibs.Plugins.root) version ZeroLibs.Version.plugin
+    id(ZeroLibs.Plugins.oss) version ZeroLibs.Version.gradlePlugin
+    id(ZeroLibs.Plugins.root) version ZeroLibs.Version.gradlePlugin
 
     id(PluginLibs.jooq) version PluginLibs.Version.jooq apply false
     id(PluginLibs.nexusPublish) version PluginLibs.Version.nexusPublish
@@ -24,17 +24,6 @@ subprojects {
     java {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
-    }
-
-    tasks {
-        javadoc {
-            options {
-                this as StandardJavadocDocletOptions
-                if (JavaVersion.current().isJava8Compatible) {
-                    addBooleanOption("Xdoclint:none", true)
-                }
-            }
-        }
     }
 
     dependencies {
@@ -65,6 +54,13 @@ subprojects {
                 url.set("https://github.com/zero88/jooqx")
             }
         }
+        testLogger {
+            slowThreshold = 5000
+        }
+    }
+
+    sonarqube {
+        isSkipProject = project.name.contains("sample")
     }
 }
 

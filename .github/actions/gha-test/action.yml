@@ -58,13 +58,13 @@ runs:
 
     - name: Test
       shell: bash
-      run: ./gradlew test -Pprofile=${{ inputs.profile }}
+      run: ./gradlew test -Pprofile=${{ inputs.profile }} --stacktrace
 
     - name: SonarQube
       shell: bash
       if: inputs.skipSonar == 'false'
       run: |
-        ./gradlew jacocoRootReport sonarqube -x test --stacktrace \
+        ./gradlew sonarqube -x test --stacktrace \
             -Pprofile=${{ inputs.profile }} \
             -Dsonar.login=${{ inputs.sonarToken }} -Dsonar.branch.name=${{ inputs.branch }} \
             -Dorg.gradle.jvmargs="-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError"
