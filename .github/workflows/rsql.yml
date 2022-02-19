@@ -66,16 +66,8 @@ jobs:
           javaVersion: ${{ matrix.Java }}
 
       - name: Test
-        uses: ./.github/actions/gha-test
-        with:
-          profile: 'analysis'
-          version: ${{ needs.context.outputs.version }}
-          semanticVersion: ${{ needs.context.outputs.semanticVersion }}
-          hashVersion: ${{ needs.context.outputs.commitId }}
-          branch: ${{ needs.context.outputs.branch }}
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
-          sonarToken: ${{ secrets.OSS_SONARQUBE_TOKEN }}
-          skipSonar: true
+        shell: bash
+        run: ./gradlew test -Pprofile=${{ env.PROFILE }}
 
   publish:
     runs-on: ubuntu-latest
