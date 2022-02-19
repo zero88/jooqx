@@ -19,7 +19,7 @@ val profile: String by settings
 val pools = mapOf(
     "jpa" to arrayOf(":jpa-ext"),
     "jooqx" to arrayOf(":jooqx-core", ":spi", ":docs"),
-    "sample" to arrayOf(":sample:model", ":sample:model2", ":sample:web"),
+    "sample" to arrayOf(":sample:model", ":sample:web"),
     "rsql" to arrayOf(":rsql:core", ":rsql:jooq", ":rsql:docs"),
     "integtest" to arrayOf(":integtest")
 )
