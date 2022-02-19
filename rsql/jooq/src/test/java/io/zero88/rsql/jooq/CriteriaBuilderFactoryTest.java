@@ -1,4 +1,4 @@
-package io.zero88.integtest.rsql;
+package io.zero88.rsql.jooq;
 
 import java.util.Arrays;
 import java.util.Collections;

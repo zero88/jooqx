@@ -58,7 +58,7 @@ String query=collectQueryPart(url);
 Currently, `rsql-jooq` supports these comparison nodes
 
 | Name                  | Symbols              |
-| --------------------- | -------------------- |
+|-----------------------|----------------------|
 | EQUAL                 | [==]                 |
 | NOT_EQUAL             | [!=]                 |
 | GREATER_THAN          | [=gt=, >]            |

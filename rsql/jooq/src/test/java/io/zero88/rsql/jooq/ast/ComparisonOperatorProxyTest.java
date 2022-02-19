@@ -1,4 +1,4 @@
-package io.zero88.integtest.rsql.ast;
+package io.zero88.rsql.jooq.ast;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -17,8 +17,8 @@ public class ComparisonOperatorProxyTest {
         final Set<ComparisonOperatorProxy> loaders = JooqComparisonCriteriaBuilderLoader.getInstance().operators();
         final Set<ComparisonOperatorProxy> constants = ReflectionField.streamConstants(ComparisonOperatorProxy.class)
                                                                       .collect(Collectors.toSet());
-        Assertions.assertEquals(constants, loaders);
         constants.forEach(c -> System.out.println(c.operator()));
+        Assertions.assertEquals(constants, loaders);
     }
 
 }
