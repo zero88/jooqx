@@ -1,3 +1,4 @@
 = jOOQ.x
 
-include::{@link io.zero88.jooqx.examples}[]
+include::{@link io.zero88.examples.jooqx}[]
+include::{@link io.zero88.examples.rsql}[]

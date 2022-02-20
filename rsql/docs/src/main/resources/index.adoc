@@ -1,3 +1,0 @@
-= RSQL
-
-include::{@link io.zero88.rsql.examples}[]

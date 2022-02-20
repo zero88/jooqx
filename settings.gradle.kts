@@ -20,7 +20,7 @@ val pools = mapOf(
     "jpa" to arrayOf(":jpa-ext"),
     "jooqx" to arrayOf(":jooqx-core", ":spi", ":docs"),
     "sample" to arrayOf(":sample:model", ":sample:web"),
-    "rsql" to arrayOf(":rsql:core", ":rsql:jooq", ":rsql:docs"),
+    "rsql" to arrayOf(":rsql:core", ":rsql:jooq"),
     "integtest" to arrayOf(":integtest")
 )
 
@@ -36,7 +36,7 @@ if (profile == "analysis") {
 }
 
 if (profile == "rsql") {
-    pp = pools["jpa"]!! + pools["rsql"]!! + ":sample:model"
+    pp = pools["jpa"]!! + pools["rsql"]!!
 }
 
 if (profile == "build") {
