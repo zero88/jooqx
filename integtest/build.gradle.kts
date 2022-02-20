@@ -1,10 +1,5 @@
-qwe {
-    application.set(false)
-}
-
 dependencies {
     testImplementation(project(":sample:model"))
-    testImplementation(project(":sample:model2"))
     testImplementation(testFixtures(project(":jooqx-core")))
     testImplementation(project(":rsql:jooq"))
 

@@ -7,13 +7,20 @@
  * in the user manual at https://docs.gradle.org/6.7/userguide/multi_project_builds.html
  */
 
+pluginManagement {
+    repositories {
+        mavenLocal()
+        gradlePluginPortal()
+    }
+}
+
 rootProject.name = "jooqx"
 val profile: String by settings
 val pools = mapOf(
     "jpa" to arrayOf(":jpa-ext"),
     "jooqx" to arrayOf(":jooqx-core", ":spi", ":docs"),
-    "sample" to arrayOf(":sample:model", ":sample:model2", ":sample:web"),
-    "rsql" to arrayOf(":rsql:core", ":rsql:jooq", ":rsql:docs"),
+    "sample" to arrayOf(":sample:model", ":sample:web"),
+    "rsql" to arrayOf(":rsql:core", ":rsql:jooq"),
     "integtest" to arrayOf(":integtest")
 )
 
@@ -29,7 +36,7 @@ if (profile == "analysis") {
 }
 
 if (profile == "rsql") {
-    pp = pools["jpa"]!! + pools["rsql"]!! + ":sample:model"
+    pp = pools["jpa"]!! + pools["rsql"]!!
 }
 
 if (profile == "build") {

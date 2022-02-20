@@ -1,12 +1,12 @@
-qwe {
+oss {
     baseName.set("rsql")
 }
 
 subprojects {
     version = project.parent!!.version
 
-    qwe {
-        baseName.set("${project.parent!!.qwe.baseName.get()}-${project.name}")
+    oss {
+        baseName.set("${project.parent!!.oss.baseName.get()}-${project.name}")
     }
 
 }

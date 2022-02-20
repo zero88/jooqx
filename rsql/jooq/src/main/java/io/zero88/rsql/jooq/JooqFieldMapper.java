@@ -26,7 +26,7 @@ public interface JooqFieldMapper extends FieldMapper {
     /**
      * Represents UPPERCASE_MAPPER that transforms {@code request field} to snake upper case {@code database field}
      */
-    JooqFieldMapper SNAKE_UPPERCASE_MAPPER = (t, f) -> Optional.ofNullable(t.field(Strings.toSnakeCaseUC(f)));
+    JooqFieldMapper SNAKE_UPPERCASE_MAPPER = (t, f) -> Optional.ofNullable(t.field(Strings.toSnakeUpperCase(f)));
 
     /**
      * Get {@code database field} from {@code request field}.

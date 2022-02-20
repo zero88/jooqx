@@ -1,13 +1,12 @@
 plugins {
     eclipse
     idea
-    id(ZeroLibs.Plugins.oss) version ZeroLibs.Version.plugin
-    id(ZeroLibs.Plugins.root) version ZeroLibs.Version.plugin apply false
+    id(ZeroLibs.Plugins.oss) version ZeroLibs.Version.gradlePlugin
+    id(ZeroLibs.Plugins.root) version ZeroLibs.Version.gradlePlugin
+
     id(PluginLibs.jooq) version PluginLibs.Version.jooq apply false
     id(PluginLibs.nexusPublish) version PluginLibs.Version.nexusPublish
 }
-
-apply(plugin = ZeroLibs.Plugins.root)
 
 allprojects {
     group = "io.github.zero88"
@@ -15,7 +14,6 @@ allprojects {
     repositories {
         mavenLocal()
         maven { url = uri("https://maven-central-asia.storage-download.googleapis.com/maven2/") }
-        jcenter()
         maven { url = uri("https://oss.sonatype.org/content/groups/public/") }
         mavenCentral()
     }
@@ -25,17 +23,7 @@ subprojects {
     apply(plugin = ZeroLibs.Plugins.oss)
     java {
         sourceCompatibility = JavaVersion.VERSION_1_8
-    }
-
-    tasks {
-        javadoc {
-            options {
-                this as StandardJavadocDocletOptions
-                if (JavaVersion.current().isJava8Compatible) {
-                    addBooleanOption("Xdoclint:none", true)
-                }
-            }
-        }
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     dependencies {
@@ -51,7 +39,7 @@ subprojects {
         testCompileOnly(UtilLibs.jetbrainsAnnotations)
     }
 
-    qwe {
+    oss {
         zero88.set(true)
         publishingInfo {
             enabled.set(true)
@@ -66,6 +54,13 @@ subprojects {
                 url.set("https://github.com/zero88/jooqx")
             }
         }
+        testLogger {
+            slowThreshold = 5000
+        }
+    }
+
+    sonarqube {
+        isSkipProject = project.name.contains("sample")
     }
 }
 

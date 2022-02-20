@@ -1,4 +1,4 @@
-qwe {
+oss {
     baseName.set("jpa-ext")
 }
 

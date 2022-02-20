@@ -5,6 +5,6 @@
  *
  */
 @Document(fileName = "rsql.adoc")
-package io.zero88.rsql.examples;
+package io.zero88.examples.rsql;
 
 import io.vertx.docgen.Document;

@@ -109,7 +109,6 @@ object DatabaseLibs {
         const val agroal = "1.9"
         const val c3p0 = "0.9.5.4"
         const val hikari = "4.0.2"
-        const val rsql = "2.1.0"
     }
 
     const val agroalApi = "io.agroal:agroal-api:${Version.agroal}"
@@ -126,23 +125,22 @@ object DatabaseLibs {
     const val sqlite = "org.xerial:sqlite-jdbc:${Version.sqlite}"
     const val derby = "org.apache.derby:derby:${Version.derby}"
     const val hsqldb = "org.hsqldb:hsqldb:${Version.hsqldb}"
-    const val rsql = "cz.jirutka.rsql:rsql-parser:${Version.rsql}"
 }
 
 object ZeroLibs {
     object Version {
 
-        const val utils = "2.0.0-SNAPSHOT"
-        const val rSql = "0.9.0"
-        const val plugin = "1.0.0"
+        const val gradlePlugin = "2.1.0"
+        const val utils = "2.0.0"
+        const val rsql = "2.2.1"
     }
 
-    const val rql_jooq = "io.github.zero88:rql-jooq:${Version.rSql}"
+    const val rsql = "io.github.zero88:rsql-parser:${Version.rsql}"
     const val utils = "io.github.zero88:java-utils:${Version.utils}"
 
     object Plugins {
 
-        const val oss = "io.github.zero88.qwe.gradle.oss"
-        const val root = "io.github.zero88.qwe.gradle.root"
+        const val oss = "io.github.zero88.gradle.oss"
+        const val root = "io.github.zero88.gradle.root"
     }
 }

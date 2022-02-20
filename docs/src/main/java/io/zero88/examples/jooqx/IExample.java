@@ -1,4 +1,4 @@
-package io.zero88.jooqx.examples;
+package io.zero88.examples.jooqx;
 
 import io.vertx.core.Vertx;
 

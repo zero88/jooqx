@@ -31,7 +31,7 @@ jobs:
       commitId: ${{ steps.context.outputs.commitId }}
 
     steps:
-      - uses: actions/checkout@v2.3.4
+      - uses: actions/checkout@v2.4.0
         with:
           token: ${{ secrets.OSS_GITHUB_TOKEN }}
 
@@ -39,15 +39,20 @@ jobs:
         id: context
         uses: ./.github/actions/gha-context
         with:
-          gpg-key: ${{ secrets.CI_GPG_PRIVATE_KEY }}
-          gpg-passphrase: ${{ secrets.CI_GPG_PASSPHARSE }}
+          gpgKey: ${{ secrets.CI_GPG_PRIVATE_KEY }}
+          gpgPassphrase: ${{ secrets.CI_GPG_PASSPHARSE }}
 
   build:
     runs-on: ubuntu-latest
     needs: context
     if: needs.context.outputs.shouldBuild == 'true'
+    strategy:
+      matrix:
+        java: [ '8', '11' ]
+        os: [ 'ubuntu-latest', 'windows-latest' ]
+    name: Java ${{ matrix.Java }} (${{ matrix.os }}) build
     steps:
-      - uses: actions/checkout@v2.3.4
+      - uses: actions/checkout@v2.4.0
 
       - name: Build
         uses: ./.github/actions/gha-build
@@ -56,17 +61,14 @@ jobs:
           version: ${{ needs.context.outputs.version }}
           semanticVersion: ${{ needs.context.outputs.semanticVersion }}
           hashVersion: ${{ needs.context.outputs.commitId }}
-          shouldPublish: ${{ needs.context.outputs.shouldPublish }}
-          isRelease: ${{ needs.context.outputs.isRelease }}
-          ossrh-user: ${{ secrets.OSS_SONATYPE_USER }}
-          ossrh-token: ${{ secrets.OSS_SONATYPE_PASSWORD }}
+          javaVersion: ${{ matrix.Java }}
 
   analysis:
     runs-on: ubuntu-latest
     needs: context
     if: needs.context.outputs.shouldBuild == 'true'
     steps:
-      - uses: actions/checkout@v2.3.4
+      - uses: actions/checkout@v2.4.0
         with:
           fetch-depth: 0
 
@@ -78,26 +80,39 @@ jobs:
           semanticVersion: ${{ needs.context.outputs.semanticVersion }}
           hashVersion: ${{ needs.context.outputs.commitId }}
           branch: ${{ needs.context.outputs.branch }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          sonar-token: ${{ secrets.OSS_SONARQUBE_TOKEN }}
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          sonarToken: ${{ secrets.OSS_SONARQUBE_TOKEN }}
 
-  release:
+  publish:
     runs-on: ubuntu-latest
-    needs: [ build, context ]
-    if: needs.context.outputs.isRelease == 'true'
+    needs: [ context, build, analysis ]
+    if: needs.context.outputs.shouldPublish == 'true' || needs.context.outputs.isRelease == 'true'
     steps:
-      - uses: actions/checkout@v2.3.4
+      - uses: actions/checkout@v2.4.0
 
       - name: Release and promote artifact
-        uses: ./.github/actions/gha-release
+        uses: ./.github/actions/gha-publish
         with:
           profile: 'build'
           version: ${{ needs.context.outputs.version }}
           semanticVersion: ${{ needs.context.outputs.semanticVersion }}
           hashVersion: ${{ needs.context.outputs.commitId }}
-          tagName: ${{ needs.context.outputs.branch }}
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          ossrh-user: ${{ secrets.OSS_SONATYPE_USER }}
-          ossrh-token: ${{ secrets.OSS_SONATYPE_PASSWORD }}
-          gpg-key: ${{ secrets.CI_GPG_PRIVATE_KEY }}
-          gpg-passphrase: ${{ secrets.CI_GPG_PASSPHARSE }}
+          isRelease: ${{ needs.context.outputs.isRelease }}
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
+          ossrhUser: ${{ secrets.OSS_SONATYPE_USER }}
+          ossrhToken: ${{ secrets.OSS_SONATYPE_PASSWORD }}
+          gpgKey: ${{ secrets.CI_GPG_PRIVATE_KEY }}
+          gpgPassphrase: ${{ secrets.CI_GPG_PASSPHARSE }}
+
+  release:
+    runs-on: ubuntu-latest
+    needs: [ context, build, analysis, publish ]
+    if: needs.context.outputs.isRelease == 'true'
+    steps:
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ inputs.githubToken }}
+        with:
+          tag_name: ${{ needs.context.outputs.branch }}
+          release_name: Release ${{ needs.context.outputs.branch }}

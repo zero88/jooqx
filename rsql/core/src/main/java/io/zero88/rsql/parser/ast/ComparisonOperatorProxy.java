@@ -56,6 +56,14 @@ public final class ComparisonOperatorProxy {
      */
     public static final ComparisonOperatorProxy NOT_IN = ComparisonOperatorProxy.wrap(RSQLOperators.NOT_IN);
     /**
+     * The operator LIKE
+     */
+    public static final ComparisonOperatorProxy LIKE = ComparisonOperatorProxy.wrap(RSQLOperators.LIKE);
+    /**
+     * The operator NOT_LIKE
+     */
+    public static final ComparisonOperatorProxy NOT_LIKE = ComparisonOperatorProxy.wrap(RSQLOperators.NOT_LIKE);
+    /**
      * The operator BETWEEN.
      */
     public static final ComparisonOperatorProxy BETWEEN = ComparisonOperatorProxy.multiValue("=between=");
@@ -71,14 +79,6 @@ public final class ComparisonOperatorProxy {
      * The operator NULLABLE.
      */
     public static final ComparisonOperatorProxy NULLABLE = ComparisonOperatorProxy.create("=nullable=");
-    /**
-     * The operator LIKE
-     */
-    public static final ComparisonOperatorProxy LIKE = ComparisonOperatorProxy.create("=like=");
-    /**
-     * The operator NOT_LIKE
-     */
-    public static final ComparisonOperatorProxy NOT_LIKE = ComparisonOperatorProxy.create("=unlike=", "=nk=");
     /**
      * The operator CONTAINS
      */
