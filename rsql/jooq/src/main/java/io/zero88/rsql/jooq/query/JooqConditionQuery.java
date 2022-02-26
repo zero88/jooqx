@@ -1,12 +1,11 @@
 package io.zero88.rsql.jooq.query;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.Condition;
 import org.jooq.Query;
 import org.jooq.TableLike;
 
 import io.zero88.rsql.jooq.JooqRqlQuery;
-
-import lombok.NonNull;
 
 /**
  * The interface Jooq condition query.
@@ -25,7 +24,7 @@ public interface JooqConditionQuery<R> extends JooqRqlQuery<R, Condition, Void> 
      * @see TableLike
      * @since 1.0.0
      */
-    @NonNull TableLike table();
+    @NotNull TableLike table();
 
     /**
      * Execute query by condition.
@@ -34,7 +33,7 @@ public interface JooqConditionQuery<R> extends JooqRqlQuery<R, Condition, Void> 
      * @return the result
      * @since 1.0.0
      */
-    @NonNull R execute(@NonNull Condition condition);
+    @NotNull R execute(@NotNull Condition condition);
 
-    @NonNull Query toQuery(@NonNull Condition condition);
+    @NotNull Query toQuery(@NotNull Condition condition);
 }

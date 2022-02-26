@@ -1,11 +1,11 @@
 package io.zero88.rsql.jooq.query;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.Condition;
 import org.jooq.Record1;
 import org.jooq.Select;
 import org.jooq.impl.DSL;
 
-import lombok.NonNull;
 import lombok.experimental.SuperBuilder;
 
 /**
@@ -18,12 +18,12 @@ import lombok.experimental.SuperBuilder;
 public final class JooqFetchExistQuery extends AbstractJooqConditionQuery<Boolean> {
 
     @Override
-    public Boolean execute(@NonNull Condition condition) {
+    public @NotNull Boolean execute(@NotNull Condition condition) {
         return toQuery(condition).fetchOne() != null;
     }
 
     @Override
-    public @NonNull Select<Record1<Integer>> toQuery(@NonNull Condition condition) {
+    public @NotNull Select<Record1<Integer>> toQuery(@NotNull Condition condition) {
         return dsl().selectOne().whereExists(dsl().select(DSL.asterisk()).from(table()).where(condition));
     }
 

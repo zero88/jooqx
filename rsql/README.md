@@ -92,14 +92,14 @@ package your.project.pkg
 public final class CustomOpBuilder extends JooqComparisonCriteriaBuilder {
 
     @Override
-    public @NonNull ComparisonOperatorProxy operator() {
+    public @NotNull ComparisonOperatorProxy operator() {
         return ComparisonOperatorProxy.create("=custom=");
     }
 
     @Override
-    protected @NonNull Condition compare(@NonNull Field field, @NonNull List<String> arguments,
-                                         @NonNull JooqArgumentParser argParser,
-                                         @NonNull LikeWildcardPattern wildcardPattern) {
+    protected @NotNull Condition compare(@NotNull Field field, @NotNull List<String> arguments,
+                                         @NotNull JooqArgumentParser argParser,
+                                         @NotNull LikeWildcardPattern wildcardPattern) {
         // do something here
         throw new UnsupportedOperationException("Not yet implemented")
     }

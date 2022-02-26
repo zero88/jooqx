@@ -13,7 +13,7 @@ import io.zero88.rsql.parser.ast.ComparisonOperatorProxy;
 public class ComparisonOperatorProxyTest {
 
     @Test
-    public void print() {
+    public void check() {
         final Set<ComparisonOperatorProxy> loaders = JooqComparisonCriteriaBuilderLoader.getInstance().operators();
         final Set<ComparisonOperatorProxy> constants = ReflectionField.streamConstants(ComparisonOperatorProxy.class)
                                                                       .collect(Collectors.toSet());

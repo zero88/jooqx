@@ -1,8 +1,8 @@
 package io.zero88.rsql.jooq;
 
-import io.zero88.rsql.QueryContext;
+import org.jetbrains.annotations.NotNull;
 
-import lombok.NonNull;
+import io.zero88.rsql.QueryContext;
 
 /**
  * The interface Query context.
@@ -23,7 +23,7 @@ public interface JooqQueryContext extends QueryContext {
      * @see JooqFieldSelector
      * @since 1.0.0
      */
-    default @NonNull JooqFieldSelector fieldSelector() {
+    default @NotNull JooqFieldSelector fieldSelector() {
         return JooqFieldSelector.DEFAULT;
     }
 
@@ -34,7 +34,7 @@ public interface JooqQueryContext extends QueryContext {
      * @see JooqFieldMapper
      * @since 1.0.0
      */
-    default @NonNull JooqFieldMapper fieldMapper() {
+    default @NotNull JooqFieldMapper fieldMapper() {
         return JooqFieldMapper.DEFAULT;
     }
 
@@ -45,7 +45,7 @@ public interface JooqQueryContext extends QueryContext {
      * @see JooqArgumentParser
      * @since 1.0.0
      */
-    default @NonNull JooqArgumentParser argumentParser() {
+    default @NotNull JooqArgumentParser argumentParser() {
         return JooqArgumentParser.DEFAULT;
     }
 

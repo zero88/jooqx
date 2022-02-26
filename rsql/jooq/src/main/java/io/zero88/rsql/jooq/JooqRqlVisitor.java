@@ -1,10 +1,11 @@
 package io.zero88.rsql.jooq;
 
+import org.jetbrains.annotations.NotNull;
+
 import io.zero88.rsql.RqlVisitor;
 import io.zero88.rsql.jooq.criteria.JooqCriteriaBuilderFactory;
 
 import cz.jirutka.rsql.parser.ast.RSQLVisitor;
-import lombok.NonNull;
 
 /**
  * The interface jOOQ RQL visitor.
@@ -16,7 +17,7 @@ import lombok.NonNull;
  */
 public interface JooqRqlVisitor<R, C> extends RqlVisitor<R, C>, JooqRqlFacade {
 
-    default @NonNull JooqCriteriaBuilderFactory criteriaBuilderFactory() {
+    default @NotNull JooqCriteriaBuilderFactory criteriaBuilderFactory() {
         return JooqRqlFacade.super.criteriaBuilderFactory();
     }
 

@@ -1,5 +1,7 @@
 package io.zero88.rsql.criteria;
 
+import org.jetbrains.annotations.NotNull;
+
 import cz.jirutka.rsql.parser.ast.AndNode;
 import cz.jirutka.rsql.parser.ast.ComparisonNode;
 import cz.jirutka.rsql.parser.ast.Node;
@@ -21,7 +23,7 @@ public interface CriteriaBuilderFactory<T extends Node, C extends CriteriaBuilde
      * @since 1.0.0
      */
     @SuppressWarnings("unchecked")
-    default C create(@NonNull T node) {
+    default C create(@NotNull T node) {
         if (node instanceof AndNode) {
             return (C) andNodeCriteriaBuilder((AndNode) node);
         }
@@ -34,10 +36,10 @@ public interface CriteriaBuilderFactory<T extends Node, C extends CriteriaBuilde
         throw new IllegalArgumentException("Unknown node type " + node.getClass().getSimpleName());
     }
 
-    @NonNull CriteriaBuilder<AndNode> andNodeCriteriaBuilder(@NonNull AndNode node);
+    @NotNull CriteriaBuilder<AndNode> andNodeCriteriaBuilder(@NotNull AndNode node);
 
-    @NonNull CriteriaBuilder<OrNode> orNodeCriteriaBuilder(@NonNull OrNode node);
+    @NotNull CriteriaBuilder<OrNode> orNodeCriteriaBuilder(@NotNull OrNode node);
 
-    @NonNull CriteriaBuilder<ComparisonNode> comparisonNodeCriteriaBuilder(@NonNull ComparisonNode node);
+    @NotNull CriteriaBuilder<ComparisonNode> comparisonNodeCriteriaBuilder(@NotNull ComparisonNode node);
 
 }

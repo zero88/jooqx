@@ -1,5 +1,6 @@
 package io.zero88.rsql.jooq.query;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.Condition;
 import org.jooq.Query;
 import org.jooq.TableLike;
@@ -7,22 +8,19 @@ import org.jooq.TableLike;
 import io.zero88.rsql.jooq.visitor.DefaultJooqConditionRqlVisitor;
 import io.zero88.rsql.jooq.visitor.JooqConditionRqlVisitor;
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
-@Getter
 @SuperBuilder
-@Accessors(fluent = true)
 public abstract class AbstractJooqConditionQuery<R> extends AbstractJooqQuery<R, Condition, Void>
     implements JooqConditionQuery<R> {
 
-    @NonNull
+    @NotNull
     private final TableLike table;
 
+    public @NotNull TableLike table() {return this.table;}
+
     @Override
-    public @NonNull JooqConditionRqlVisitor visitor() {
+    public @NotNull JooqConditionRqlVisitor visitor() {
         return DefaultJooqConditionRqlVisitor.builder()
                                              .table(table())
                                              .queryContext(queryContext())
@@ -30,12 +28,12 @@ public abstract class AbstractJooqConditionQuery<R> extends AbstractJooqQuery<R,
                                              .build();
     }
 
-    public @NonNull R execute(@NonNull String query) {
+    public @NotNull R execute(@NotNull String query) {
         return execute(parser().criteria(query, visitor()));
     }
 
     @Override
-    public @NonNull Query toQuery(@NonNull String query) {
+    public @NotNull Query toQuery(@NotNull String query) {
         return toQuery(parser().criteria(query, visitor()));
     }
 

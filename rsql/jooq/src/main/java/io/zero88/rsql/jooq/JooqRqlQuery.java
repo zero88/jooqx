@@ -1,13 +1,12 @@
 package io.zero88.rsql.jooq;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.DSLContext;
 import org.jooq.Query;
 
 import io.zero88.rsql.HasLog;
-import io.zero88.rsql.jooq.visitor.JooqDSLRqlVisitor;
 import io.zero88.rsql.jooq.criteria.JooqCriteriaBuilderFactory;
-
-import lombok.NonNull;
+import io.zero88.rsql.jooq.visitor.JooqDSLRqlVisitor;
 
 /**
  * The interface Jooq rql query.
@@ -25,7 +24,7 @@ public interface JooqRqlQuery<R, T, C> extends JooqRqlFacade, HasLog {
      * @return the dsl context
      * @since 1.0.0
      */
-    @NonNull DSLContext dsl();
+    @NotNull DSLContext dsl();
 
     /**
      * Defines Jooq RQL Parser.
@@ -34,7 +33,7 @@ public interface JooqRqlQuery<R, T, C> extends JooqRqlFacade, HasLog {
      * @see JooqRqlParser
      * @since 1.0.0
      */
-    @NonNull JooqRqlParser parser();
+    @NotNull JooqRqlParser parser();
 
     /**
      * Defines jOOQ RQL visitor.
@@ -43,7 +42,7 @@ public interface JooqRqlQuery<R, T, C> extends JooqRqlFacade, HasLog {
      * @see JooqDSLRqlVisitor
      * @since 1.0.0
      */
-    @NonNull JooqRqlVisitor<T, C> visitor();
+    @NotNull JooqRqlVisitor<T, C> visitor();
 
     /**
      * Execute.
@@ -52,7 +51,7 @@ public interface JooqRqlQuery<R, T, C> extends JooqRqlFacade, HasLog {
      * @return the result
      * @since 1.0.0
      */
-    @NonNull R execute(@NonNull String query);
+    @NotNull R execute(@NotNull String query);
 
     /**
      * To jOOQ query
@@ -60,9 +59,9 @@ public interface JooqRqlQuery<R, T, C> extends JooqRqlFacade, HasLog {
      * @param query the query in RQL
      * @return jOOQ query
      */
-    @NonNull Query toQuery(@NonNull String query);
+    @NotNull Query toQuery(@NotNull String query);
 
-    default @NonNull JooqCriteriaBuilderFactory criteriaBuilderFactory() {
+    default @NotNull JooqCriteriaBuilderFactory criteriaBuilderFactory() {
         return JooqRqlFacade.super.criteriaBuilderFactory();
     }
 

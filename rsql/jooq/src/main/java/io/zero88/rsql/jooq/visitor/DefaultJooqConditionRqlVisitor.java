@@ -1,5 +1,6 @@
 package io.zero88.rsql.jooq.visitor;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.Condition;
 import org.jooq.TableLike;
 
@@ -9,15 +10,12 @@ import cz.jirutka.rsql.parser.ast.AndNode;
 import cz.jirutka.rsql.parser.ast.ComparisonNode;
 import cz.jirutka.rsql.parser.ast.Node;
 import cz.jirutka.rsql.parser.ast.OrNode;
-import lombok.Getter;
-import lombok.NonNull;
 import lombok.experimental.SuperBuilder;
 
-@Getter
 @SuperBuilder
 public final class DefaultJooqConditionRqlVisitor extends AbstractJooqRqlFacade implements JooqConditionRqlVisitor {
 
-    @NonNull
+    @NotNull
     private final TableLike table;
 
     @Override

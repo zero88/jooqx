@@ -3,6 +3,7 @@ package io.zero88.rsql.jooq.comparison;
 import java.util.Arrays;
 import java.util.Collections;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.Condition;
 import org.jooq.meta.h2.information_schema.tables.Tables;
 import org.junit.jupiter.api.Assertions;
@@ -197,7 +198,7 @@ public class ComparisonCriteriaBuilderTest {
         Assertions.assertTrue(builder instanceof LikeBuilder);
         final Condition condition = builder.build(Tables.TABLES, new JooqQueryContext() {
             @Override
-            public @NonNull LikeWildcardPattern likeWildcard() {
+            public @NotNull LikeWildcardPattern likeWildcard() {
                 return LikeWildcardPattern.REGEX;
             }
         }, JooqCriteriaBuilderFactory.DEFAULT);

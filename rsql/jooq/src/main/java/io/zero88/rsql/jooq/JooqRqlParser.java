@@ -2,17 +2,17 @@ package io.zero88.rsql.jooq;
 
 import java.util.Set;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.Condition;
 import org.jooq.TableLike;
 
 import io.zero88.rsql.RqlParser;
+import io.zero88.rsql.jooq.criteria.JooqComparisonCriteriaBuilderLoader;
 import io.zero88.rsql.jooq.visitor.JooqConditionRqlVisitor;
 import io.zero88.rsql.jooq.visitor.JooqDSLRqlVisitor;
-import io.zero88.rsql.jooq.criteria.JooqComparisonCriteriaBuilderLoader;
 import io.zero88.rsql.parser.ast.ComparisonOperatorProxy;
 
 import cz.jirutka.rsql.parser.RSQLParserException;
-import lombok.NonNull;
 
 /**
  * Represents for {@code jOOQ RQL} parser.
@@ -43,7 +43,7 @@ public final class JooqRqlParser extends RqlParser {
      * @see ComparisonOperatorProxy
      * @since 1.0.0
      */
-    public JooqRqlParser(@NonNull Set<ComparisonOperatorProxy> comparisons) {
+    public JooqRqlParser(@NotNull Set<ComparisonOperatorProxy> comparisons) {
         super(comparisons);
     }
 
@@ -58,7 +58,7 @@ public final class JooqRqlParser extends RqlParser {
      * @see Condition
      * @since 1.0.0
      */
-    public Condition criteria(@NonNull String query, @NonNull TableLike table) throws RSQLParserException {
+    public Condition criteria(@NotNull String query, @NotNull TableLike table) throws RSQLParserException {
         return criteria(query, JooqConditionRqlVisitor.create(table));
     }
 
@@ -73,7 +73,7 @@ public final class JooqRqlParser extends RqlParser {
      * @see Condition
      * @since 1.0.0
      */
-    public Condition criteria(@NonNull String query, @NonNull JooqConditionRqlVisitor visitor)
+    public Condition criteria(@NotNull String query, @NotNull JooqConditionRqlVisitor visitor)
         throws RSQLParserException {
         return parse(query, visitor, null);
     }
@@ -93,7 +93,7 @@ public final class JooqRqlParser extends RqlParser {
      * @see JooqDSLRqlVisitor
      * @since 1.0.0
      */
-    public <R, C> R parse(@NonNull String query, @NonNull JooqRqlVisitor<R, C> visitor, C visitorContext)
+    public <R, C> R parse(@NotNull String query, @NotNull JooqRqlVisitor<R, C> visitor, C visitorContext)
         throws RSQLParserException {
         return parse(query).accept(visitor, visitorContext);
     }

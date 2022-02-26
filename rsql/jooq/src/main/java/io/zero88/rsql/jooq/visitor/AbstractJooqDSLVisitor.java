@@ -1,5 +1,6 @@
 package io.zero88.rsql.jooq.visitor;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.DSLContext;
 
 import io.zero88.rsql.jooq.AbstractJooqRqlFacade;
@@ -8,9 +9,6 @@ import cz.jirutka.rsql.parser.ast.AndNode;
 import cz.jirutka.rsql.parser.ast.ComparisonNode;
 import cz.jirutka.rsql.parser.ast.Node;
 import cz.jirutka.rsql.parser.ast.OrNode;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
 /**
@@ -20,9 +18,7 @@ import lombok.experimental.SuperBuilder;
  * @see JooqDSLRqlVisitor
  * @since 1.0.0
  */
-@Getter
 @SuperBuilder
-@Accessors(fluent = true)
 public abstract class AbstractJooqDSLVisitor<R> extends AbstractJooqRqlFacade implements JooqDSLRqlVisitor<R> {
 
     @Override
@@ -40,7 +36,7 @@ public abstract class AbstractJooqDSLVisitor<R> extends AbstractJooqRqlFacade im
         return build(node, dsl);
     }
 
-    @NonNull
-    protected abstract R build(@NonNull Node node, DSLContext dsl);
+    @NotNull
+    protected abstract R build(@NotNull Node node, DSLContext dsl);
 
 }

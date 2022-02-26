@@ -1,5 +1,7 @@
 package io.zero88.rsql.criteria;
 
+import org.jetbrains.annotations.NotNull;
+
 import io.zero88.rsql.parser.ast.ComparisonOperatorProxy;
 
 import cz.jirutka.rsql.parser.ast.ComparisonNode;
@@ -17,19 +19,19 @@ import lombok.NonNull;
 public interface ComparisonCriteriaBuilder<T extends ComparisonOperatorProxy> extends CriteriaBuilder<ComparisonNode> {
 
     /**
-     * Setup a builder
+     * Set up a builder
      *
      * @param node comparison node
-     * @return the comparison criteria builder
+     * @return a reference to this for fluent API
      */
-    ComparisonCriteriaBuilder<T> setup(@NonNull ComparisonNode node);
+    ComparisonCriteriaBuilder<T> setup(@NotNull ComparisonNode node);
 
     /**
-     * Comparison operator.
+     * Comparison operator proxy.
      *
      * @return the comparison operator
      * @since 1.0.0
      */
-    @NonNull T operator();
+    @NotNull T operator();
 
 }

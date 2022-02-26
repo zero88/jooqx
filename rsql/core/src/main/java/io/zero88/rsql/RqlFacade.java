@@ -1,5 +1,7 @@
 package io.zero88.rsql;
 
+import org.jetbrains.annotations.NotNull;
+
 import io.zero88.rsql.criteria.CriteriaBuilder;
 import io.zero88.rsql.criteria.CriteriaBuilderFactory;
 
@@ -19,7 +21,7 @@ public interface RqlFacade {
      * @return the query context
      * @see QueryContext
      */
-    @NonNull QueryContext queryContext();
+    @NotNull QueryContext queryContext();
 
     /**
      * Criteria builder factory criteria builder factory.
@@ -29,6 +31,6 @@ public interface RqlFacade {
      * @return the criteria builder factory
      * @see CriteriaBuilderFactory
      */
-    @NonNull <T extends Node, C extends CriteriaBuilder<T>> CriteriaBuilderFactory<T, C> criteriaBuilderFactory();
+    @NotNull <T extends Node, C extends CriteriaBuilder<T>> CriteriaBuilderFactory<T, C> criteriaBuilderFactory();
 
 }

@@ -1,9 +1,9 @@
 package io.zero88.rsql.jooq;
 
+import org.jetbrains.annotations.NotNull;
+
 import io.zero88.rsql.RqlFacade;
 import io.zero88.rsql.jooq.criteria.JooqCriteriaBuilderFactory;
-
-import lombok.NonNull;
 
 /**
  * The interface jOOQ RQL facade that wraps some condiments to enhance parsing SQL query in runtime
@@ -19,7 +19,7 @@ public interface JooqRqlFacade extends RqlFacade {
      * @see JooqQueryContext
      * @since 1.0.0
      */
-    default @NonNull JooqQueryContext queryContext() {
+    default @NotNull JooqQueryContext queryContext() {
         return JooqQueryContext.DEFAULT;
     }
 
@@ -30,7 +30,7 @@ public interface JooqRqlFacade extends RqlFacade {
      * @see JooqCriteriaBuilderFactory
      * @since 1.0.0
      */
-    default @NonNull JooqCriteriaBuilderFactory criteriaBuilderFactory() {
+    default @NotNull JooqCriteriaBuilderFactory criteriaBuilderFactory() {
         return JooqCriteriaBuilderFactory.DEFAULT;
     }
 

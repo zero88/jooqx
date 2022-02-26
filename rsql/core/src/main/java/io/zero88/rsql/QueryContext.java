@@ -1,5 +1,7 @@
 package io.zero88.rsql;
 
+import org.jetbrains.annotations.NotNull;
+
 import lombok.NonNull;
 
 /**
@@ -16,7 +18,7 @@ public interface QueryContext {
      * @see LikeWildcardPattern
      * @since 1.0.0
      */
-    default @NonNull LikeWildcardPattern likeWildcard() {
+    default @NotNull LikeWildcardPattern likeWildcard() {
         return LikeWildcardPattern.DEFAULT;
     }
 
@@ -27,7 +29,7 @@ public interface QueryContext {
      * @see FieldSelector
      * @since 1.0.0
      */
-    @NonNull FieldSelector fieldSelector();
+    @NotNull FieldSelector fieldSelector();
 
     /**
      * Field mapper.
@@ -36,7 +38,7 @@ public interface QueryContext {
      * @see FieldMapper
      * @since 1.0.0
      */
-    @NonNull FieldMapper fieldMapper();
+    @NotNull FieldMapper fieldMapper();
 
     /**
      * Argument parser.
@@ -45,6 +47,6 @@ public interface QueryContext {
      * @see ArgumentParser
      * @since 1.0.0
      */
-    @NonNull ArgumentParser argumentParser();
+    @NotNull ArgumentParser argumentParser();
 
 }

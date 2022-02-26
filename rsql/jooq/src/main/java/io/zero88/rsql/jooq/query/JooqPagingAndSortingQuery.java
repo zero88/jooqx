@@ -3,6 +3,7 @@ package io.zero88.rsql.jooq.query;
 import java.util.Collections;
 import java.util.Objects;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.Condition;
 import org.jooq.OrderField;
 import org.jooq.Record;
@@ -15,9 +16,6 @@ import io.zero88.jpa.Order;
 import io.zero88.jpa.Pageable;
 import io.zero88.jpa.Sortable;
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.experimental.Accessors;
 import lombok.experimental.SuperBuilder;
 
 /**
@@ -27,27 +25,25 @@ import lombok.experimental.SuperBuilder;
  * @see JooqConditionQuery
  * @since 1.0.0
  */
-@Getter
 @SuperBuilder
-@Accessors(fluent = true)
 public final class JooqPagingAndSortingQuery extends AbstractJooqConditionQuery<SelectOptionStep<Record>> {
 
     private final Pageable pageable;
     private final Sortable sortable;
 
     @Override
-    public SelectOptionStep<Record> execute(@NonNull Condition condition) {
+    public @NotNull SelectOptionStep<Record> execute(@NotNull Condition condition) {
         return paging(
             orderBy(dsl().select(queryContext().fieldSelector().get()).from(table()).where(condition), sortable),
             pageable);
     }
 
     @Override
-    public @NonNull SelectOptionStep<Record> toQuery(@NonNull Condition condition) {
+    public @NotNull SelectOptionStep<Record> toQuery(@NotNull Condition condition) {
         return execute(condition);
     }
 
-    private SelectSeekStepN<Record> orderBy(@NonNull SelectConditionStep<Record> sql, Sortable sort) {
+    private SelectSeekStepN<Record> orderBy(@NotNull SelectConditionStep<Record> sql, Sortable sort) {
         if (Objects.isNull(sort) || sort.isEmpty()) {
             return sql.orderBy(Collections.emptyList());
         }
@@ -60,14 +56,14 @@ public final class JooqPagingAndSortingQuery extends AbstractJooqConditionQuery<
                                .toArray(OrderField[]::new));
     }
 
-    private OrderField<?> sortField(@NonNull Order order) {
+    private OrderField<?> sortField(@NotNull Order order) {
         return queryContext().fieldMapper()
                              .get(table(), order.property())
                              .map(f -> order.direction().isASC() ? f.asc() : f.desc())
                              .orElse(null);
     }
 
-    private SelectOptionStep<Record> paging(@NonNull SelectLimitStep<Record> sql, @NonNull Pageable pagination) {
+    private SelectOptionStep<Record> paging(@NotNull SelectLimitStep<Record> sql, @NotNull Pageable pagination) {
         return sql.limit(pagination.getPageSize()).offset((pagination.getPage() - 1) * pagination.getPageSize());
     }
 
