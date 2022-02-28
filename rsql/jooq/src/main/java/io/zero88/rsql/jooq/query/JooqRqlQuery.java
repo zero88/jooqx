@@ -1,10 +1,13 @@
-package io.zero88.rsql.jooq;
+package io.zero88.rsql.jooq.query;
 
 import org.jetbrains.annotations.NotNull;
 import org.jooq.DSLContext;
 import org.jooq.Query;
 
 import io.zero88.rsql.HasLog;
+import io.zero88.rsql.jooq.JooqRqlFacade;
+import io.zero88.rsql.jooq.JooqRqlParser;
+import io.zero88.rsql.jooq.visitor.JooqRqlVisitor;
 import io.zero88.rsql.jooq.criteria.JooqCriteriaBuilderFactory;
 import io.zero88.rsql.jooq.visitor.JooqDSLRqlVisitor;
 

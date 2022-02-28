@@ -5,7 +5,6 @@ import org.jooq.DSLContext;
 
 import io.zero88.rsql.jooq.AbstractJooqRqlFacade;
 import io.zero88.rsql.jooq.JooqRqlParser;
-import io.zero88.rsql.jooq.JooqRqlQuery;
 
 import lombok.Builder.Default;
 import lombok.experimental.SuperBuilder;

@@ -1,4 +1,4 @@
-package io.zero88.rsql.jooq;
+package io.zero88.rsql.jooq.criteria;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -9,14 +9,13 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import io.github.zero88.utils.Strings;
-import io.zero88.rsql.jooq.criteria.JooqCriteriaBuilderFactory;
 
 import cz.jirutka.rsql.parser.ast.AndNode;
 import cz.jirutka.rsql.parser.ast.ComparisonNode;
 import cz.jirutka.rsql.parser.ast.OrNode;
 import cz.jirutka.rsql.parser.ast.RSQLOperators;
 
-public class CriteriaBuilderTest {
+public class JooqCriteriaBuilderTest {
 
     @Test
     public void test_and_node() {

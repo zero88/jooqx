@@ -24,7 +24,7 @@ public interface JooqConditionRqlVisitor extends JooqNoArgsRqlVisitor<Condition>
      * @since 1.0.0
      */
     static JooqConditionRqlVisitor create(@NotNull TableLike table) {
-        return DefaultJooqConditionRqlVisitor.builder().table(table).build();
+        return create(table, null, null);
     }
 
     /**
@@ -38,7 +38,7 @@ public interface JooqConditionRqlVisitor extends JooqNoArgsRqlVisitor<Condition>
      * @since 1.0.0
      */
     static JooqConditionRqlVisitor create(@NotNull TableLike table, JooqQueryContext queryContext) {
-        return DefaultJooqConditionRqlVisitor.builder().table(table).queryContext(queryContext).build();
+        return create(table, queryContext, null);
     }
 
     /**
@@ -54,7 +54,7 @@ public interface JooqConditionRqlVisitor extends JooqNoArgsRqlVisitor<Condition>
      * @since 1.0.0
      */
     static JooqConditionRqlVisitor create(@NotNull TableLike table, JooqQueryContext queryContext,
-                                          JooqCriteriaBuilderFactory factory) {
+        JooqCriteriaBuilderFactory factory) {
         return DefaultJooqConditionRqlVisitor.builder()
                                              .table(table)
                                              .queryContext(queryContext)

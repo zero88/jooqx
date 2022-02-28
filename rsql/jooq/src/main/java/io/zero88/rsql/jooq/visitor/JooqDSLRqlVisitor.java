@@ -2,8 +2,6 @@ package io.zero88.rsql.jooq.visitor;
 
 import org.jooq.DSLContext;
 
-import io.zero88.rsql.jooq.JooqRqlVisitor;
-
 /**
  * The interface jOOQ DSL RQL visitor.
  * <p>

@@ -1,8 +1,9 @@
-package io.zero88.rsql.jooq;
+package io.zero88.rsql.jooq.visitor;
 
 import org.jetbrains.annotations.NotNull;
 
 import io.zero88.rsql.RqlVisitor;
+import io.zero88.rsql.jooq.JooqRqlFacade;
 import io.zero88.rsql.jooq.criteria.JooqCriteriaBuilderFactory;
 
 import cz.jirutka.rsql.parser.ast.RSQLVisitor;

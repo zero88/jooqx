@@ -1,4 +1,4 @@
-package io.zero88.rsql.jooq;
+package io.zero88.rsql.jooq.query;
 
 import java.util.UUID;
 
@@ -12,8 +12,6 @@ import org.junit.jupiter.api.Test;
 
 import io.github.zero88.utils.Strings;
 import io.zero88.rsql.jooq.JooqRqlParser;
-import io.zero88.rsql.jooq.query.JooqFetchCountQuery;
-import io.zero88.rsql.jooq.query.JooqFetchExistQuery;
 
 public class JooqRqlQueryTest {
 
@@ -40,13 +38,13 @@ public class JooqRqlQueryTest {
                                 "\"INFORMATION_SCHEMA\".\"TABLES\".\"TABLE_TYPE\" in ( 'xyz', 'abc' ) or " +
                                 "\"INFORMATION_SCHEMA\".\"TABLES\".\"TABLE_CLASS\" not in ( '123', '456' ) ) )",
                                 Strings.optimizeMultipleSpace(condition.toString()));
-        Assertions.assertEquals(0, JooqFetchCountQuery.builder()
-                                                      .parser(jooqRqlParser)
-                                                      .dsl(dsl)
-                                                      .table(Tables.TABLES)
-                                                      .build()
-                                                      .execute(query)
-                                                      .intValue());
+        final JooqFetchCountQuery jooqQuery = JooqFetchCountQuery.builder()
+                                                                 .parser(jooqRqlParser)
+                                                                 .dsl(dsl)
+                                                                 .table(Tables.TABLES)
+                                                                 .build();
+        System.out.println(jooqQuery.toQuery(query));
+        Assertions.assertEquals(0, jooqQuery.execute(query).intValue());
     }
 
     @Test

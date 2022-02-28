@@ -1,7 +1,5 @@
 package io.zero88.rsql.jooq.visitor;
 
-import io.zero88.rsql.jooq.JooqRqlVisitor;
-
 import cz.jirutka.rsql.parser.ast.AndNode;
 import cz.jirutka.rsql.parser.ast.ComparisonNode;
 import cz.jirutka.rsql.parser.ast.OrNode;

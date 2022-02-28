@@ -1,4 +1,4 @@
-package io.zero88.rsql.jooq.comparison;
+package io.zero88.rsql.jooq.criteria;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -12,8 +12,6 @@ import org.junit.jupiter.api.Test;
 import io.github.zero88.utils.Strings;
 import io.zero88.rsql.LikeWildcardPattern;
 import io.zero88.rsql.jooq.JooqQueryContext;
-import io.zero88.rsql.jooq.criteria.JooqCriteriaBuilder;
-import io.zero88.rsql.jooq.criteria.JooqCriteriaBuilderFactory;
 import io.zero88.rsql.jooq.criteria.comparison.BetweenBuilder;
 import io.zero88.rsql.jooq.criteria.comparison.ContainsBuilder;
 import io.zero88.rsql.jooq.criteria.comparison.EndsWithBuilder;
@@ -35,9 +33,8 @@ import io.zero88.rsql.parser.ast.ComparisonOperatorProxy;
 
 import cz.jirutka.rsql.parser.ast.ComparisonNode;
 import cz.jirutka.rsql.parser.ast.RSQLOperators;
-import lombok.NonNull;
 
-public class ComparisonCriteriaBuilderTest {
+public class JooqComparisonCriteriaBuilderTest {
 
     @Test
     public void test_equal_node() {
@@ -252,9 +249,8 @@ public class ComparisonCriteriaBuilderTest {
         final JooqCriteriaBuilder builder = JooqCriteriaBuilderFactory.DEFAULT.create(node);
         Assertions.assertTrue(builder instanceof EndsWithBuilder);
         final Condition condition = builder.build(Tables.TABLES);
-        Assertions.assertEquals("\"INFORMATION_SCHEMA\".\"TABLES\".\"TABLE_CLASS\" like " +
-                                "('%' || replace( replace( replace( 'test', '!', '!!' ), '%', '!%' ), '_', '!_' )) " +
-                                "escape '!'",
+        Assertions.assertEquals("\"INFORMATION_SCHEMA\".\"TABLES\".\"TABLE_CLASS\" like ('%' || " +
+                                "replace( replace( replace( 'test', '!', '!!' ), '%', '!%' ), '_', '!_' )) escape '!'",
                                 Strings.optimizeMultipleSpace(condition.toString()));
     }
 

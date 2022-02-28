@@ -9,7 +9,7 @@ import org.jooq.TableLike;
 import io.zero88.rsql.RqlParser;
 import io.zero88.rsql.jooq.criteria.JooqComparisonCriteriaBuilderLoader;
 import io.zero88.rsql.jooq.visitor.JooqConditionRqlVisitor;
-import io.zero88.rsql.jooq.visitor.JooqDSLRqlVisitor;
+import io.zero88.rsql.jooq.visitor.JooqRqlVisitor;
 import io.zero88.rsql.parser.ast.ComparisonOperatorProxy;
 
 import cz.jirutka.rsql.parser.RSQLParserException;
@@ -89,8 +89,6 @@ public final class JooqRqlParser extends RqlParser {
      * @return the select condition step
      * @throws RSQLParserException the RSQL parser exception
      * @see JooqRqlVisitor
-     * @see JooqConditionRqlVisitor
-     * @see JooqDSLRqlVisitor
      * @since 1.0.0
      */
     public <R, C> R parse(@NotNull String query, @NotNull JooqRqlVisitor<R, C> visitor, C visitorContext)

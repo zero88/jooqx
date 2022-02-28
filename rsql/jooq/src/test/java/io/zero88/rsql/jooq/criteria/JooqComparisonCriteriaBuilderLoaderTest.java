@@ -1,4 +1,4 @@
-package io.zero88.rsql.jooq.ast;
+package io.zero88.rsql.jooq.criteria;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -7,10 +7,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import io.github.zero88.repl.ReflectionField;
-import io.zero88.rsql.jooq.criteria.JooqComparisonCriteriaBuilderLoader;
 import io.zero88.rsql.parser.ast.ComparisonOperatorProxy;
 
-public class ComparisonOperatorProxyTest {
+public class JooqComparisonCriteriaBuilderLoaderTest {
 
     @Test
     public void check() {

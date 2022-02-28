@@ -5,8 +5,6 @@ import org.jooq.Condition;
 import org.jooq.Query;
 import org.jooq.TableLike;
 
-import io.zero88.rsql.jooq.JooqRqlQuery;
-
 /**
  * The interface Jooq condition query.
  *
