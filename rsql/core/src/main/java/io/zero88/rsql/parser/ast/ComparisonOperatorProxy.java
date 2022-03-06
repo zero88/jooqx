@@ -10,7 +10,7 @@ import cz.jirutka.rsql.parser.ast.ComparisonOperator;
 import cz.jirutka.rsql.parser.ast.RSQLOperators;
 
 /**
- * The interface Comparison operator proxy.
+ * The proxy for the comparison operator.
  * <p>
  * That helps to make more extension comparator or customize existence comparator
  *

@@ -6,9 +6,10 @@ import cz.jirutka.rsql.parser.ast.AndNode;
 import cz.jirutka.rsql.parser.ast.ComparisonNode;
 import cz.jirutka.rsql.parser.ast.Node;
 import cz.jirutka.rsql.parser.ast.OrNode;
-import lombok.NonNull;
 
 /**
+ * A factory that creates the criteria builder based on given AST node
+ *
  * @param <T> Type of {@link Node}
  * @param <C> Type of {@link CriteriaBuilder}
  * @see Node

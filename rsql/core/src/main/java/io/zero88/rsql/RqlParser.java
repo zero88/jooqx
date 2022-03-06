@@ -15,6 +15,7 @@ import io.zero88.rsql.parser.ast.ComparisonOperatorProxy;
 
 import cz.jirutka.rsql.parser.RSQLParserException;
 import cz.jirutka.rsql.parser.ast.Node;
+import cz.jirutka.rsql.parser.ast.NodesFactory;
 
 /**
  * Parser of the RSQL (RESTful Service Query Language).
@@ -55,7 +56,7 @@ import cz.jirutka.rsql.parser.ast.Node;
  */
 public class RqlParser {
 
-    private final NodesFactory nodesFactory;
+    private final ProxyNodeFactory proxyNodeFactory;
 
     /**
      * Creates a new instance of {@code RSQLParser} that supports only the specified comparison operators.
@@ -66,7 +67,7 @@ public class RqlParser {
         if (operators == null || operators.isEmpty()) {
             throw new IllegalArgumentException("operators must not be null or empty");
         }
-        this.nodesFactory = new NodesFactory(operators);
+        this.proxyNodeFactory = new ProxyNodeFactory(operators);
     }
 
     /**
@@ -85,7 +86,7 @@ public class RqlParser {
         InputStream is = new ByteArrayInputStream(query.getBytes(StandardCharsets.UTF_8));
         Arguments arguments = new Arguments().put(InputStream.class, is)
                                              .put(String.class, StandardCharsets.UTF_8.name())
-                                             .put(cz.jirutka.rsql.parser.ast.NodesFactory.class, nodesFactory);
+                                             .put(NodesFactory.class, proxyNodeFactory);
         Object object = Objects.requireNonNull(ReflectionClass.createObject("cz.jirutka.rsql.parser.Parser", arguments),
                                                "Unable init parser");
         Method method = ReflectionMethod.find(m -> m.getName().equals("Input"), object.getClass())
