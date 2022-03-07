@@ -18,8 +18,8 @@ rootProject.name = "jooqx"
 val profile: String by settings
 val pools = mapOf(
     "jpa" to arrayOf(":jpa-ext"),
-    "jooqx" to arrayOf(":jooqx-core", ":spi", ":docs"),
-    "sample" to arrayOf(":sample:model", ":sample:web"),
+    "jooqx" to arrayOf(":jooqx-core", ":spi"),
+    "sample" to arrayOf(":sample:model"),
     "rsql" to arrayOf(":rsql:core", ":rsql:jooq"),
     "integtest" to arrayOf(":integtest")
 )
@@ -31,7 +31,7 @@ if (profile == "jpa") {
 }
 
 if (profile == "analysis") {
-    val excludes = arrayOf(":docs", ":docs:rsql-docs", ":sample:web")
+    val excludes = arrayOf<String>()
     pp = pools.values.toTypedArray().flatten().filter { !excludes.contains(it) }.toTypedArray()
 }
 
@@ -40,7 +40,7 @@ if (profile == "rsql") {
 }
 
 if (profile == "build") {
-    val excludes = pools["sample"]!! + pools["integtest"]!! + ":docs" + ":rsql:docs"
+    val excludes = pools["sample"]!! + pools["integtest"]!!
     pp = pools.values.toTypedArray().flatten().filter { !excludes.contains(it) }.toTypedArray()
 }
 
