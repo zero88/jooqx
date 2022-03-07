@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.Objects;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.jooq.Condition;
 import org.jooq.OrderField;
 import org.jooq.Record;
@@ -16,8 +17,6 @@ import io.zero88.jpa.Order;
 import io.zero88.jpa.Pageable;
 import io.zero88.jpa.Sortable;
 
-import lombok.experimental.SuperBuilder;
-
 /**
  * Represents for jOOQ paging and sorting query.
  *
@@ -25,11 +24,17 @@ import lombok.experimental.SuperBuilder;
  * @see JooqConditionQuery
  * @since 1.0.0
  */
-@SuperBuilder
-public final class JooqPagingAndSortingQuery extends AbstractJooqConditionQuery<SelectOptionStep<Record>> {
+public final class JooqPagingAndSortingQuery
+    extends AbstractJooqConditionQuery<SelectOptionStep<Record>, SelectOptionStep<Record>> {
 
     private final Pageable pageable;
     private final Sortable sortable;
+
+    private JooqPagingAndSortingQuery(JooqPagingAndSortingQueryBuilder b) {
+        super(b);
+        this.pageable = b.pageable;
+        this.sortable = b.sortable;
+    }
 
     @Override
     public @NotNull SelectOptionStep<Record> execute(@NotNull Condition condition) {
@@ -44,7 +49,7 @@ public final class JooqPagingAndSortingQuery extends AbstractJooqConditionQuery<
         return execute(condition);
     }
 
-    private SelectSeekStepN<Record> orderBy(@NotNull SelectConditionStep<Record> sql, Sortable sort) {
+    private SelectSeekStepN<Record> orderBy(@NotNull SelectConditionStep<Record> sql, @Nullable Sortable sort) {
         if (Objects.isNull(sort) || sort.isEmpty()) {
             return sql.orderBy(Collections.emptyList());
         }
@@ -57,7 +62,7 @@ public final class JooqPagingAndSortingQuery extends AbstractJooqConditionQuery<
                                .toArray(OrderField[]::new));
     }
 
-    private OrderField<?> sortField(@NotNull Order order) {
+    private @Nullable OrderField<?> sortField(@NotNull Order order) {
         return context().queryContext()
                         .fieldMapper()
                         .get(context().subject(), order.property())
@@ -67,6 +72,35 @@ public final class JooqPagingAndSortingQuery extends AbstractJooqConditionQuery<
 
     private SelectOptionStep<Record> paging(@NotNull SelectLimitStep<Record> sql, @NotNull Pageable pagination) {
         return sql.limit(pagination.getPageSize()).offset((pagination.getPage() - 1) * pagination.getPageSize());
+    }
+
+    public static JooqPagingAndSortingQueryBuilder builder() {return new JooqPagingAndSortingQueryBuilder();}
+
+    //@formatter:off
+    public static final class JooqPagingAndSortingQueryBuilder extends
+                                                               AbstractJooqConditionQueryBuilder<SelectOptionStep<Record>,
+                                                                                                    SelectOptionStep<Record>,
+                                                                                                    JooqPagingAndSortingQuery,
+                                                                                                    JooqPagingAndSortingQueryBuilder> {
+    //@formatter:on
+
+        private Pageable pageable;
+        private Sortable sortable;
+
+        public JooqPagingAndSortingQueryBuilder pageable(Pageable pageable) {
+            this.pageable = pageable;
+            return self();
+        }
+
+        public JooqPagingAndSortingQueryBuilder sortable(Sortable sortable) {
+            this.sortable = sortable;
+            return self();
+        }
+
+        protected JooqPagingAndSortingQueryBuilder self() {return this;}
+
+        public JooqPagingAndSortingQuery build()          {return new JooqPagingAndSortingQuery(this);}
+
     }
 
 }

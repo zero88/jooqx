@@ -8,12 +8,13 @@ import io.zero88.rsql.jooq.JooqRSQLParser;
 import io.zero88.rsql.jooq.JooqRSQLQueryContext;
 
 /**
- * The interface Jooq rql query.
+ * The interface jOOQ RSQL query.
  *
+ * @param <Q> Type of {@link Query}
  * @param <R> Type of {@code Query Result}
  * @since 1.0.0
  */
-public interface JooqRSQLQuery<R> extends HasLog {
+public interface JooqRSQLQuery<Q extends Query, R> extends HasLog {
 
     /**
      * Defines Jooq RQL Parser.
@@ -34,20 +35,21 @@ public interface JooqRSQLQuery<R> extends HasLog {
     @NotNull JooqRSQLQueryContext context();
 
     /**
-     * Execute.
+     * Converts to jOOQ query.
      *
-     * @param query the query in RQL
-     * @return the result
+     * @param query the RQL query
+     * @return the jOOQ query
+     * @see Query
+     */
+    @NotNull Q toQuery(@NotNull String query);
+
+    /**
+     * Execute query.
+     *
+     * @param query the RQL query
+     * @return the query result
      * @since 1.0.0
      */
     @NotNull R execute(@NotNull String query);
-
-    /**
-     * To jOOQ query
-     *
-     * @param query the query in RQL
-     * @return jOOQ query
-     */
-    @NotNull Query toQuery(@NotNull String query);
 
 }

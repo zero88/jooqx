@@ -28,7 +28,6 @@ public interface JooqRSQLContext extends RSQLContext {
      *
      * @return the query context
      * @see JooqQueryContext
-     * @since 1.0.0
      */
     @NotNull JooqQueryContext queryContext();
 
@@ -37,7 +36,6 @@ public interface JooqRSQLContext extends RSQLContext {
      *
      * @return the criteria builder factory
      * @see JooqCriteriaBuilderFactory
-     * @since 1.0.0
      */
     @NotNull JooqCriteriaBuilderFactory criteriaBuilderFactory();
 

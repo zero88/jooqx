@@ -27,45 +27,43 @@ public class JooqRSQLQueryTest {
 
     @Test
     public void test_h2_schema_info() {
-        final String query = Tables.TABLES.TABLE_SCHEMA.getName() + "==public" + ";" +
-                             Tables.TABLES.TABLE_NAME.getName() + "=exists=t" + " and " + "(" +
-                             Tables.TABLES.TABLE_TYPE.getName() + "=in=(xyz,abc)" + "," +
-                             Tables.TABLES.TABLE_CLASS.getName() + "=out=(123,456)" + ")";
-        final Condition condition = parser.criteria(query, Tables.TABLES);
-        System.out.println(query);
+        final String q = Tables.TABLES.TABLE_SCHEMA.getName() + "==public" + ";" + Tables.TABLES.TABLE_NAME.getName() +
+                         "=exists=t" + " and " + "(" + Tables.TABLES.TABLE_TYPE.getName() + "=in=(xyz,abc)" + "," +
+                         Tables.TABLES.TABLE_CLASS.getName() + "=out=(123,456)" + ")";
+        final Condition condition = parser.criteria(q, Tables.TABLES);
+        System.out.println(q);
         System.out.println(Strings.optimizeMultipleSpace(condition.toString()));
         Assertions.assertEquals("( \"INFORMATION_SCHEMA\".\"TABLES\".\"TABLE_SCHEMA\" = 'public' and " +
                                 "\"INFORMATION_SCHEMA\".\"TABLES\".\"TABLE_NAME\" is not null and ( " +
                                 "\"INFORMATION_SCHEMA\".\"TABLES\".\"TABLE_TYPE\" in ( 'xyz', 'abc' ) or " +
                                 "\"INFORMATION_SCHEMA\".\"TABLES\".\"TABLE_CLASS\" not in ( '123', '456' ) ) )",
                                 Strings.optimizeMultipleSpace(condition.toString()));
-        final JooqFetchCountQuery jooqQuery = JooqFetchCountQuery.builder()
-                                                                 .parser(parser)
-                                                                 .context(
-                                                                     JooqRSQLQueryContext.create(dsl, Tables.TABLES))
-                                                                 .build();
-        System.out.println(jooqQuery.toQuery(query));
-        Assertions.assertEquals(0, jooqQuery.execute(query).intValue());
+        final JooqFetchCountQuery query = JooqFetchCountQuery.builder()
+                                                             .parser(parser)
+                                                             .context(JooqRSQLQueryContext.create(dsl, Tables.TABLES))
+                                                             .build();
+        System.out.println(query.toQuery(q));
+        Assertions.assertEquals(0, query.execute(q).intValue());
     }
 
     @Test
     public void test_h2_exist() {
-        final String query = Tables.TABLES.TABLE_SCHEMA.getName() + "==public" + ";" +
-                             Tables.TABLES.TABLE_NAME.getName() + "=exists=1" + " and " + "(" +
-                             Tables.TABLES.TABLE_TYPE.getName() + "=in=(xyz,abc)" + "," +
-                             Tables.TABLES.TABLE_CLASS.getName() + "=out=(123,456)" + ")";
-        final Condition condition = parser.criteria(query, Tables.TABLES);
-        System.out.println(query);
+        final String q = Tables.TABLES.TABLE_SCHEMA.getName() + "==public" + ";" + Tables.TABLES.TABLE_NAME.getName() +
+                         "=exists=1" + " and " + "(" + Tables.TABLES.TABLE_TYPE.getName() + "=in=(xyz,abc)" + "," +
+                         Tables.TABLES.TABLE_CLASS.getName() + "=out=(123,456)" + ")";
+        final Condition condition = parser.criteria(q, Tables.TABLES);
+        System.out.println(q);
         System.out.println(Strings.optimizeMultipleSpace(condition.toString()));
         Assertions.assertEquals("( \"INFORMATION_SCHEMA\".\"TABLES\".\"TABLE_SCHEMA\" = 'public' and " +
                                 "\"INFORMATION_SCHEMA\".\"TABLES\".\"TABLE_NAME\" is not null and ( " +
                                 "\"INFORMATION_SCHEMA\".\"TABLES\".\"TABLE_TYPE\" in ( 'xyz', 'abc' ) or " +
                                 "\"INFORMATION_SCHEMA\".\"TABLES\".\"TABLE_CLASS\" not in ( '123', '456' ) ) )",
                                 Strings.optimizeMultipleSpace(condition.toString()));
-        Assertions.assertEquals(false, JooqFetchExistQuery.builder()
-                                                          .context(JooqRSQLQueryContext.create(dsl, Tables.TABLES))
-                                                          .build()
-                                                          .execute(query));
+        final JooqFetchExistQuery query = JooqFetchExistQuery.builder()
+                                                             .context(JooqRSQLQueryContext.create(dsl, Tables.TABLES))
+                                                             .build();
+        System.out.println(query.toQuery(q));
+        Assertions.assertEquals(false, query.execute(q));
     }
 
 }

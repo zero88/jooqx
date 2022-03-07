@@ -9,7 +9,7 @@ import org.jooq.TableLike;
 import io.zero88.rsql.jooq.criteria.JooqCriteriaBuilderFactory;
 
 @SuppressWarnings("rawtypes")
-public final class JooqRSQLContextImpl implements JooqRSQLContext {
+final class JooqRSQLContextImpl implements JooqRSQLContext {
 
     private final TableLike table;
     private final JooqQueryContext queryContext;
