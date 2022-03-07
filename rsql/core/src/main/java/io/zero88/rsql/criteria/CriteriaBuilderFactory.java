@@ -2,6 +2,8 @@ package io.zero88.rsql.criteria;
 
 import org.jetbrains.annotations.NotNull;
 
+import io.zero88.rsql.RSQLContext;
+
 import cz.jirutka.rsql.parser.ast.AndNode;
 import cz.jirutka.rsql.parser.ast.ComparisonNode;
 import cz.jirutka.rsql.parser.ast.Node;
@@ -12,9 +14,11 @@ import cz.jirutka.rsql.parser.ast.OrNode;
  *
  * @param <N> Type of {@link Node}
  * @param <B> Type of {@link CriteriaBuilder}
- * @see Node
+ * @param <C> Type of {@link RSQLContext}
+ * @param <P> Type of SQL predicate
+ * @since 1.0.0
  */
-public interface CriteriaBuilderFactory<N extends Node, B extends CriteriaBuilder<N>> {
+public interface CriteriaBuilderFactory<N extends Node, C extends RSQLContext, P, B extends CriteriaBuilder<N, C, P>> {
 
     /**
      * Create criteria builder.
@@ -37,10 +41,10 @@ public interface CriteriaBuilderFactory<N extends Node, B extends CriteriaBuilde
         throw new IllegalArgumentException("Unknown node type " + node.getClass().getSimpleName());
     }
 
-    @NotNull CriteriaBuilder<AndNode> andNodeCriteriaBuilder(@NotNull AndNode node);
+    @NotNull CriteriaBuilder<AndNode, C, P> andNodeCriteriaBuilder(@NotNull AndNode node);
 
-    @NotNull CriteriaBuilder<OrNode> orNodeCriteriaBuilder(@NotNull OrNode node);
+    @NotNull CriteriaBuilder<OrNode, C, P> orNodeCriteriaBuilder(@NotNull OrNode node);
 
-    @NotNull CriteriaBuilder<ComparisonNode> comparisonNodeCriteriaBuilder(@NotNull ComparisonNode node);
+    @NotNull CriteriaBuilder<ComparisonNode, C, P> comparisonNodeCriteriaBuilder(@NotNull ComparisonNode node);
 
 }

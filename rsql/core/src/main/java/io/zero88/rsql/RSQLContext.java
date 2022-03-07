@@ -23,7 +23,7 @@ public interface RSQLContext {
     @NotNull <S> S subject();
 
     /**
-     * Gets Query context.
+     * Gets the Query context.
      *
      * @return the query context
      * @see QueryContext
@@ -33,11 +33,11 @@ public interface RSQLContext {
     /**
      * Gets the Criteria builder factory
      *
-     * @param <T> Type of {@link Node}
+     * @param <N> Type of {@link Node}
      * @param <C> Type of {@link CriteriaBuilder}
      * @return the criteria builder factory
      * @see CriteriaBuilderFactory
      */
-    @NotNull <T extends Node, C extends CriteriaBuilder<T>> CriteriaBuilderFactory<T, C> criteriaBuilderFactory();
+    @NotNull <N extends Node, C extends RSQLContext, P, B extends CriteriaBuilder<N, C, P>> CriteriaBuilderFactory<N, C, P, B> criteriaBuilderFactory();
 
 }

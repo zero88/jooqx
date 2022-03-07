@@ -11,17 +11,19 @@ import io.zero88.rsql.LikeWildcardPattern;
 import io.zero88.rsql.criteria.AbstractCriteriaBuilder;
 import io.zero88.rsql.criteria.ComparisonCriteriaBuilder;
 import io.zero88.rsql.jooq.JooqArgumentParser;
-import io.zero88.rsql.jooq.JooqFieldMapper;
+import io.zero88.rsql.jooq.JooqQueryContext;
 import io.zero88.rsql.jooq.JooqRSQLContext;
 import io.zero88.rsql.parser.ast.ComparisonOperatorProxy;
 
 import cz.jirutka.rsql.parser.ast.ComparisonNode;
 
-public abstract class JooqComparisonCriteriaBuilder extends AbstractCriteriaBuilder<ComparisonNode>
-    implements JooqCriteriaBuilder<ComparisonNode>, ComparisonCriteriaBuilder<ComparisonOperatorProxy> {
+public abstract class JooqComparisonCriteriaBuilder
+    extends AbstractCriteriaBuilder<ComparisonNode, JooqRSQLContext, Condition>
+    implements JooqCriteriaBuilder<ComparisonNode>,
+               ComparisonCriteriaBuilder<ComparisonOperatorProxy, JooqRSQLContext, Condition> {
 
     @Override
-    public final ComparisonCriteriaBuilder<ComparisonOperatorProxy> setup(@NotNull ComparisonNode node) {
+    public final JooqComparisonCriteriaBuilder setup(@NotNull ComparisonNode node) {
         if (!operator().operator().equals(node.getOperator())) {
             throw new IllegalArgumentException(
                 "Not match comparison operation [" + operator().operator() + "][" + node.getOperator() + "]");
@@ -32,11 +34,11 @@ public abstract class JooqComparisonCriteriaBuilder extends AbstractCriteriaBuil
 
     @Override
     public @NotNull Condition build(@NotNull JooqRSQLContext context) {
-        final JooqFieldMapper fieldMapper = context.queryContext().fieldMapper();
-        return fieldMapper.get(context.subject(), node().getSelector())
-                          .map(f -> compare(f, node().getArguments(), context.queryContext().argumentParser(),
-                                            context.queryContext().likeWildcard()))
-                          .orElse(DSL.noCondition());
+        final JooqQueryContext queryCtx = context.queryContext();
+        return queryCtx.fieldMapper()
+                       .get(context.subject(), node().getSelector())
+                       .map(f -> compare(f, node().getArguments(), queryCtx.argumentParser(), queryCtx.likeWildcard()))
+                       .orElse(DSL.noCondition());
     }
 
     @SuppressWarnings("rawtypes")

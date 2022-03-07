@@ -2,7 +2,6 @@ package io.zero88.rsql.jooq.criteria;
 
 import org.jetbrains.annotations.NotNull;
 import org.jooq.Condition;
-import org.jooq.Table;
 import org.jooq.TableLike;
 
 import io.zero88.rsql.criteria.CriteriaBuilder;
@@ -17,7 +16,18 @@ import cz.jirutka.rsql.parser.ast.Node;
  * @see Node
  * @since 1.0.0
  */
-public interface JooqCriteriaBuilder<N extends Node> extends CriteriaBuilder<N> {
+public interface JooqCriteriaBuilder<N extends Node> extends CriteriaBuilder<N, JooqRSQLContext, Condition> {
+
+    /**
+     * Build a condition.
+     *
+     * @param context the jOOQ RSQL context
+     * @return the condition
+     * @see Condition
+     * @see JooqRSQLContext
+     * @since 1.0.0
+     */
+    @NotNull Condition build(@NotNull JooqRSQLContext context);
 
     /**
      * Build condition.
@@ -32,17 +42,5 @@ public interface JooqCriteriaBuilder<N extends Node> extends CriteriaBuilder<N> 
     default @NotNull Condition build(@NotNull TableLike table) {
         return build(JooqRSQLContext.create(table));
     }
-
-    /**
-     * Build condition.
-     *
-     * @param context the rsql context
-     * @return the condition
-     * @see Condition
-     * @see Table
-     * @see JooqRSQLContext
-     * @since 1.0.0
-     */
-    @NotNull Condition build(@NotNull JooqRSQLContext context);
 
 }

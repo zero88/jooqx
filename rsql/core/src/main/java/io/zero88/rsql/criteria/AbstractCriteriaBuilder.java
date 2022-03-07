@@ -2,9 +2,12 @@ package io.zero88.rsql.criteria;
 
 import org.jetbrains.annotations.NotNull;
 
+import io.zero88.rsql.RSQLContext;
+
 import cz.jirutka.rsql.parser.ast.Node;
 
-public abstract class AbstractCriteriaBuilder<N extends Node> implements CriteriaBuilder<N> {
+public abstract class AbstractCriteriaBuilder<N extends Node, C extends RSQLContext, P>
+    implements CriteriaBuilder<N, C, P> {
 
     protected N node;
 

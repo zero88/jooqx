@@ -6,11 +6,12 @@ import org.jetbrains.annotations.NotNull;
 import org.jooq.Condition;
 
 import io.zero88.rsql.criteria.AbstractCriteriaBuilder;
+import io.zero88.rsql.jooq.JooqRSQLContext;
 import io.zero88.rsql.jooq.criteria.JooqLogicalCriteriaBuilder;
 
 import cz.jirutka.rsql.parser.ast.AndNode;
 
-public final class AndNodeCriteriaBuilder extends AbstractCriteriaBuilder<AndNode>
+public final class AndNodeCriteriaBuilder extends AbstractCriteriaBuilder<AndNode, JooqRSQLContext, Condition>
     implements JooqLogicalCriteriaBuilder<AndNode> {
 
     public AndNodeCriteriaBuilder(@NotNull AndNode node) {

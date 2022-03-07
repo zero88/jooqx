@@ -1,9 +1,10 @@
 package io.zero88.rsql.jooq.criteria;
 
 import org.jetbrains.annotations.NotNull;
+import org.jooq.Condition;
 
-import io.zero88.rsql.criteria.CriteriaBuilder;
 import io.zero88.rsql.criteria.CriteriaBuilderFactory;
+import io.zero88.rsql.jooq.JooqRSQLContext;
 import io.zero88.rsql.jooq.criteria.logical.AndNodeCriteriaBuilder;
 import io.zero88.rsql.jooq.criteria.logical.OrNodeCriteriaBuilder;
 
@@ -17,7 +18,8 @@ import cz.jirutka.rsql.parser.ast.OrNode;
  *
  * @since 1.0.0
  */
-public interface JooqCriteriaBuilderFactory extends CriteriaBuilderFactory<Node, JooqCriteriaBuilder<Node>> {
+public interface JooqCriteriaBuilderFactory
+    extends CriteriaBuilderFactory<Node, JooqRSQLContext, Condition, JooqCriteriaBuilder<Node>> {
 
     /**
      * The default {@code jOOQ} criteria builder
@@ -25,18 +27,20 @@ public interface JooqCriteriaBuilderFactory extends CriteriaBuilderFactory<Node,
     JooqCriteriaBuilderFactory DEFAULT = new JooqCriteriaBuilderFactory() {};
 
     @Override
-    default @NotNull CriteriaBuilder<AndNode> andNodeCriteriaBuilder(@NotNull AndNode node) {
+    default @NotNull AndNodeCriteriaBuilder andNodeCriteriaBuilder(@NotNull AndNode node) {
         return new AndNodeCriteriaBuilder(node);
     }
 
     @Override
-    default @NotNull CriteriaBuilder<OrNode> orNodeCriteriaBuilder(@NotNull OrNode node) {
+    default @NotNull OrNodeCriteriaBuilder orNodeCriteriaBuilder(@NotNull OrNode node) {
         return new OrNodeCriteriaBuilder(node);
     }
 
     @Override
-    default @NotNull CriteriaBuilder<ComparisonNode> comparisonNodeCriteriaBuilder(@NotNull ComparisonNode node) {
-        return JooqComparisonCriteriaBuilderLoader.getInstance().get(node.getOperator()).setup(node);
+    default @NotNull JooqComparisonCriteriaBuilder comparisonNodeCriteriaBuilder(@NotNull ComparisonNode node) {
+        return (JooqComparisonCriteriaBuilder) JooqComparisonCriteriaBuilderLoader.getInstance()
+                                                                                  .get(node.getOperator())
+                                                                                  .setup(node);
     }
 
 }
