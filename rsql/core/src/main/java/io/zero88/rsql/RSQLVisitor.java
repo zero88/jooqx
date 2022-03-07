@@ -8,7 +8,7 @@ import cz.jirutka.rsql.parser.ast.OrNode;
  * The visitor interface for visiting AST nodes of the RSQL.
  *
  * @param <R> Type of {@code Visitor Result}
- * @param <C> Type of {@code Visitor Context}
+ * @param <C> Type of {@link RSQLContext}
  * @see cz.jirutka.rsql.parser.ast.RSQLVisitor
  * @since 1.0.0
  */
