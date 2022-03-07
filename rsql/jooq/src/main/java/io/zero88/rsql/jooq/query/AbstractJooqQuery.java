@@ -1,26 +1,31 @@
 package io.zero88.rsql.jooq.query;
 
-import org.jooq.DSLContext;
+import java.util.Objects;
+import java.util.Optional;
 
-import io.zero88.rsql.jooq.AbstractJooqRqlFacade;
-import io.zero88.rsql.jooq.JooqRqlParser;
-import io.zero88.rsql.jooq.JooqRqlQuery;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.jooq.Query;
 
-import lombok.Builder.Default;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.experimental.Accessors;
-import lombok.experimental.SuperBuilder;
+import io.zero88.rsql.jooq.JooqRSQLParser;
+import io.zero88.rsql.jooq.JooqRSQLQueryContext;
 
-@Getter
-@SuperBuilder
-@Accessors(fluent = true)
-public abstract class AbstractJooqQuery<R, T, C> extends AbstractJooqRqlFacade implements JooqRqlQuery<R, T, C> {
+public abstract class AbstractJooqQuery<Q extends Query, R> implements JooqRSQLQuery<Q, R> {
 
-    @NonNull
-    private final DSLContext dsl;
-    @NonNull
-    @Default
-    private final JooqRqlParser parser = JooqRqlParser.DEFAULT;
+    private final JooqRSQLParser parser;
+    private final JooqRSQLQueryContext context;
+
+    protected AbstractJooqQuery(@Nullable JooqRSQLParser parser, @NotNull JooqRSQLQueryContext context) {
+        this.parser  = Optional.ofNullable(parser).orElse(JooqRSQLParser.DEFAULT);
+        this.context = Objects.requireNonNull(context, "Required jOOQ RSQL query context");
+    }
+
+    public @NotNull JooqRSQLParser parser() {
+        return this.parser;
+    }
+
+    public @NotNull JooqRSQLQueryContext context() {
+        return this.context;
+    }
 
 }

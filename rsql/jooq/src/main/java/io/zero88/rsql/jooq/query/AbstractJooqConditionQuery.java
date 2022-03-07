@@ -1,42 +1,48 @@
 package io.zero88.rsql.jooq.query;
 
-import org.jooq.Condition;
+import org.jetbrains.annotations.NotNull;
 import org.jooq.Query;
-import org.jooq.TableLike;
 
-import io.zero88.rsql.jooq.visitor.DefaultJooqConditionRqlVisitor;
-import io.zero88.rsql.jooq.visitor.JooqConditionRqlVisitor;
+import io.zero88.rsql.jooq.JooqRSQLParser;
+import io.zero88.rsql.jooq.JooqRSQLQueryContext;
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.experimental.Accessors;
-import lombok.experimental.SuperBuilder;
+public abstract class AbstractJooqConditionQuery<Q extends Query, R> extends AbstractJooqQuery<Q, R>
+    implements JooqConditionQuery<Q, R> {
 
-@Getter
-@SuperBuilder
-@Accessors(fluent = true)
-public abstract class AbstractJooqConditionQuery<R> extends AbstractJooqQuery<R, Condition, Void>
-    implements JooqConditionQuery<R> {
-
-    @NonNull
-    private final TableLike table;
-
-    @Override
-    public @NonNull JooqConditionRqlVisitor visitor() {
-        return DefaultJooqConditionRqlVisitor.builder()
-                                             .table(table())
-                                             .queryContext(queryContext())
-                                             .criteriaBuilderFactory(criteriaBuilderFactory())
-                                             .build();
+    protected AbstractJooqConditionQuery(AbstractJooqConditionQueryBuilder<Q, R, ?, ?> b) {
+        super(b.parser, b.context);
     }
 
-    public @NonNull R execute(@NonNull String query) {
-        return execute(parser().criteria(query, visitor()));
+    public @NotNull R execute(@NotNull String query) {
+        return execute(parser().criteria(query, context()));
     }
 
     @Override
-    public @NonNull Query toQuery(@NonNull String query) {
-        return toQuery(parser().criteria(query, visitor()));
+    public @NotNull Q toQuery(@NotNull String query) {
+        return toQuery(parser().criteria(query, context()));
+    }
+
+    public static abstract class AbstractJooqConditionQueryBuilder<Q extends Query, R,
+                                                                      C extends AbstractJooqConditionQuery<Q, R>,
+                                                                      B extends AbstractJooqConditionQueryBuilder<Q, R, C, B>> {
+
+        private JooqRSQLParser parser;
+        private JooqRSQLQueryContext context;
+
+        public B parser(JooqRSQLParser parser) {
+            this.parser = parser;
+            return self();
+        }
+
+        public B context(JooqRSQLQueryContext context) {
+            this.context = context;
+            return self();
+        }
+
+        protected abstract B self();
+
+        public abstract C build();
+
     }
 
 }

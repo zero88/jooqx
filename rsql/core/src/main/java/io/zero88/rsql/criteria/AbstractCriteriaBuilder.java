@@ -1,18 +1,23 @@
 package io.zero88.rsql.criteria;
 
+import org.jetbrains.annotations.NotNull;
+
+import io.zero88.rsql.RSQLContext;
+
 import cz.jirutka.rsql.parser.ast.Node;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-public abstract class AbstractCriteriaBuilder<T extends Node> implements CriteriaBuilder<T> {
+public abstract class AbstractCriteriaBuilder<N extends Node, C extends RSQLContext, P>
+    implements CriteriaBuilder<N, C, P> {
 
-    protected T node;
+    protected N node;
 
-    public final @NonNull T node() {
+    protected AbstractCriteriaBuilder() {}
+
+    protected AbstractCriteriaBuilder(N node) {
+        this.node = node;
+    }
+
+    public final @NotNull N node() {
         return node;
     }
 

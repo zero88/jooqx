@@ -2,15 +2,15 @@ package io.zero88.rsql.parser.ast;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.regex.Pattern;
 
 import io.github.zero88.utils.Strings;
-import io.zero88.rsql.criteria.ComparisonCriteriaBuilderLoader;
 
 import cz.jirutka.rsql.parser.ast.ComparisonOperator;
 import cz.jirutka.rsql.parser.ast.RSQLOperators;
 
 /**
- * The interface Comparison operator proxy.
+ * The proxy for the comparison operator.
  * <p>
  * That helps to make more extension comparator or customize existence comparator
  *
@@ -18,6 +18,8 @@ import cz.jirutka.rsql.parser.ast.RSQLOperators;
  * @since 1.0.0
  */
 public final class ComparisonOperatorProxy {
+
+    public static final Pattern SYMBOL_PATTERN = Pattern.compile("=[a-zA-Z]*=|[><~]=?|!=|[=!]?~");
 
     /**
      * The operator EQUAL.
@@ -97,18 +99,17 @@ public final class ComparisonOperatorProxy {
 
     private ComparisonOperatorProxy(ComparisonOperator operator) {
         this.operator = operator;
-        this.symbols = null;
+        this.symbols  = null;
     }
 
     private ComparisonOperatorProxy(boolean multiValue, String... symbols) {
         this.symbols = Arrays.stream(symbols).filter(Strings::isNotBlank).toArray(String[]::new);
         String[] originSymbols = Arrays.stream(this.symbols)
-                                       .filter(s -> ComparisonCriteriaBuilderLoader.SYMBOL_PATTERN.matcher(s).matches())
+                                       .filter(s -> SYMBOL_PATTERN.matcher(s).matches())
                                        .toArray(String[]::new);
         if (this.symbols.length == 0 || originSymbols.length == 0) {
             throw new IllegalArgumentException(
-                "Missing Comparison operator or at least one of the symbols must match " +
-                ComparisonCriteriaBuilderLoader.SYMBOL_PATTERN);
+                "Missing Comparison operator or at least one of the symbols must match " + SYMBOL_PATTERN);
         }
         this.operator = new ComparisonOperator(originSymbols, multiValue);
     }

@@ -4,19 +4,15 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.function.Supplier;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.SelectFieldOrAsterisk;
-import org.jooq.TableLike;
 import org.jooq.impl.DSL;
 
 import io.zero88.rsql.FieldSelector;
 
-import lombok.NonNull;
-
 /**
  * The interface Field selector.
  *
- * @see SelectFieldOrAsterisk
- * @see TableLike
  * @since 1.0.0
  */
 public interface JooqFieldSelector extends Supplier<Collection<? extends SelectFieldOrAsterisk>>, FieldSelector {
@@ -30,7 +26,8 @@ public interface JooqFieldSelector extends Supplier<Collection<? extends SelectF
      * Get fields
      *
      * @return collection fields
+     * @see SelectFieldOrAsterisk
      */
-    @NonNull Collection<? extends SelectFieldOrAsterisk> get();
+    @NotNull Collection<? extends SelectFieldOrAsterisk> get();
 
 }

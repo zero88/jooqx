@@ -1,8 +1,9 @@
-package io.zero88.rsql.jooq.comparison;
+package io.zero88.rsql.jooq.criteria;
 
 import java.util.Arrays;
 import java.util.Collections;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.Condition;
 import org.jooq.meta.h2.information_schema.tables.Tables;
 import org.junit.jupiter.api.Assertions;
@@ -11,8 +12,7 @@ import org.junit.jupiter.api.Test;
 import io.github.zero88.utils.Strings;
 import io.zero88.rsql.LikeWildcardPattern;
 import io.zero88.rsql.jooq.JooqQueryContext;
-import io.zero88.rsql.jooq.criteria.JooqCriteriaBuilder;
-import io.zero88.rsql.jooq.criteria.JooqCriteriaBuilderFactory;
+import io.zero88.rsql.jooq.JooqRSQLContext;
 import io.zero88.rsql.jooq.criteria.comparison.BetweenBuilder;
 import io.zero88.rsql.jooq.criteria.comparison.ContainsBuilder;
 import io.zero88.rsql.jooq.criteria.comparison.EndsWithBuilder;
@@ -34,9 +34,8 @@ import io.zero88.rsql.parser.ast.ComparisonOperatorProxy;
 
 import cz.jirutka.rsql.parser.ast.ComparisonNode;
 import cz.jirutka.rsql.parser.ast.RSQLOperators;
-import lombok.NonNull;
 
-public class ComparisonCriteriaBuilderTest {
+public class JooqComparisonCriteriaBuilderTest {
 
     @Test
     public void test_equal_node() {
@@ -195,12 +194,12 @@ public class ComparisonCriteriaBuilderTest {
                                                        Collections.singletonList("t+"));
         final JooqCriteriaBuilder builder = JooqCriteriaBuilderFactory.DEFAULT.create(node);
         Assertions.assertTrue(builder instanceof LikeBuilder);
-        final Condition condition = builder.build(Tables.TABLES, new JooqQueryContext() {
+        final Condition condition = builder.build(JooqRSQLContext.create(Tables.TABLES, new JooqQueryContext() {
             @Override
-            public @NonNull LikeWildcardPattern likeWildcard() {
+            public @NotNull LikeWildcardPattern likeWildcard() {
                 return LikeWildcardPattern.REGEX;
             }
-        }, JooqCriteriaBuilderFactory.DEFAULT);
+        }));
         Assertions.assertEquals("(\"INFORMATION_SCHEMA\".\"TABLES\".\"TABLE_CLASS\" like_regex 't+')",
                                 Strings.optimizeMultipleSpace(condition.toString()));
     }
@@ -251,9 +250,8 @@ public class ComparisonCriteriaBuilderTest {
         final JooqCriteriaBuilder builder = JooqCriteriaBuilderFactory.DEFAULT.create(node);
         Assertions.assertTrue(builder instanceof EndsWithBuilder);
         final Condition condition = builder.build(Tables.TABLES);
-        Assertions.assertEquals("\"INFORMATION_SCHEMA\".\"TABLES\".\"TABLE_CLASS\" like " +
-                                "('%' || replace( replace( replace( 'test', '!', '!!' ), '%', '!%' ), '_', '!_' )) " +
-                                "escape '!'",
+        Assertions.assertEquals("\"INFORMATION_SCHEMA\".\"TABLES\".\"TABLE_CLASS\" like ('%' || " +
+                                "replace( replace( replace( 'test', '!', '!!' ), '%', '!%' ), '_', '!_' )) escape '!'",
                                 Strings.optimizeMultipleSpace(condition.toString()));
     }
 

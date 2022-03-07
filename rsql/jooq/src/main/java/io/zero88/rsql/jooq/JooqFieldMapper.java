@@ -2,13 +2,12 @@ package io.zero88.rsql.jooq;
 
 import java.util.Optional;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.Field;
 import org.jooq.TableLike;
 
 import io.github.zero88.utils.Strings;
 import io.zero88.rsql.FieldMapper;
-
-import lombok.NonNull;
 
 /**
  * The interface Field mapper.
@@ -36,6 +35,7 @@ public interface JooqFieldMapper extends FieldMapper {
      * @return the database field in optional
      * @since 1.0.0
      */
-    Optional<Field> get(@NonNull TableLike table, @NonNull String field);
+    @SuppressWarnings("rawtypes")
+    Optional<Field> get(@NotNull TableLike table, @NotNull String field);
 
 }

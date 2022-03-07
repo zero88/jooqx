@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.Field;
 
 import io.github.zero88.utils.DateTimes;
@@ -11,13 +12,12 @@ import io.github.zero88.utils.DateTimes.Iso8601Parser;
 import io.github.zero88.utils.Strings;
 import io.zero88.rsql.ArgumentParser;
 
-import lombok.NonNull;
-
 /**
  * The interface Argument parser.
  *
  * @since 1.0.0
  */
+@SuppressWarnings("rawtypes")
 public interface JooqArgumentParser extends ArgumentParser {
 
     /**
@@ -34,7 +34,7 @@ public interface JooqArgumentParser extends ArgumentParser {
      * @see Field
      * @since 1.0.0
      */
-    default Object parse(@NonNull Field field, String value) {
+    default Object parse(@NotNull Field field, String value) {
         if (Strings.isBlank(value)) {
             return null;
         }
@@ -54,7 +54,7 @@ public interface JooqArgumentParser extends ArgumentParser {
      * @see Field
      * @since 1.0.0
      */
-    default List<?> parse(@NonNull Field field, @NonNull List<String> values) {
+    default List<?> parse(@NotNull Field field, @NotNull List<String> values) {
         if (!DateTimes.isRelatedToDateTime(field.getDataType().getType())) {
             return values;
         }

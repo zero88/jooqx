@@ -14,13 +14,17 @@ import cz.jirutka.rsql.parser.ast.ComparisonNode;
 import cz.jirutka.rsql.parser.ast.LogicalNode;
 import cz.jirutka.rsql.parser.ast.LogicalOperator;
 import cz.jirutka.rsql.parser.ast.Node;
+import cz.jirutka.rsql.parser.ast.NodesFactory;
 import cz.jirutka.rsql.parser.ast.OrNode;
 
-public final class NodesFactory extends cz.jirutka.rsql.parser.ast.NodesFactory {
+/**
+ * A proxy factory that creates {@link Node} instances with {@link ComparisonOperatorProxy} for the parser.
+ */
+public final class ProxyNodeFactory extends NodesFactory {
 
     private final Map<String, ComparisonOperatorProxy> comparisonOperators;
 
-    public NodesFactory(Set<ComparisonOperatorProxy> operators) {
+    public ProxyNodeFactory(Set<ComparisonOperatorProxy> operators) {
         super(new HashSet<>());
         comparisonOperators = new HashMap<>(operators.size());
         for (ComparisonOperatorProxy op : operators) {

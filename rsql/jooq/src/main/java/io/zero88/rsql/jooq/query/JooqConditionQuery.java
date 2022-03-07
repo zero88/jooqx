@@ -1,40 +1,35 @@
 package io.zero88.rsql.jooq.query;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.Condition;
 import org.jooq.Query;
-import org.jooq.TableLike;
-
-import io.zero88.rsql.jooq.JooqRqlQuery;
-
-import lombok.NonNull;
 
 /**
  * The interface Jooq condition query.
  *
+ * @param <Q> Type of {@link Query}
  * @param <R> Type of {@code Result}
  * @see Condition
- * @see JooqRqlQuery
+ * @see JooqRSQLQuery
  * @since 1.0.0
  */
-public interface JooqConditionQuery<R> extends JooqRqlQuery<R, Condition, Void> {
+public interface JooqConditionQuery<Q extends Query, R> extends JooqRSQLQuery<Q, R> {
 
     /**
-     * Defines table.
+     * Converts to jOOQ query.
      *
-     * @return the table
-     * @see TableLike
-     * @since 1.0.0
+     * @param condition the condition
+     * @return the jOOQ query
+     * @see Query
      */
-    @NonNull TableLike table();
+    @NotNull Q toQuery(@NotNull Condition condition);
 
     /**
      * Execute query by condition.
      *
      * @param condition the condition
-     * @return the result
-     * @since 1.0.0
+     * @return the query result
      */
-    @NonNull R execute(@NonNull Condition condition);
+    @NotNull R execute(@NotNull Condition condition);
 
-    @NonNull Query toQuery(@NonNull Condition condition);
 }
