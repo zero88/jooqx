@@ -24,7 +24,9 @@ public final class JooqFetchExistQuery extends AbstractJooqConditionQuery<Boolea
 
     @Override
     public @NotNull Select<Record1<Integer>> toQuery(@NotNull Condition condition) {
-        return dsl().selectOne().whereExists(dsl().select(DSL.asterisk()).from(table()).where(condition));
+        return context().dsl()
+                        .selectOne()
+                        .whereExists(context().dsl().select(DSL.asterisk()).from(context().subject()).where(condition));
     }
 
 }

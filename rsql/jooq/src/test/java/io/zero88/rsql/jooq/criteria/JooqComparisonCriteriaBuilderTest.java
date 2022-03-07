@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import io.github.zero88.utils.Strings;
 import io.zero88.rsql.LikeWildcardPattern;
 import io.zero88.rsql.jooq.JooqQueryContext;
+import io.zero88.rsql.jooq.JooqRSQLContext;
 import io.zero88.rsql.jooq.criteria.comparison.BetweenBuilder;
 import io.zero88.rsql.jooq.criteria.comparison.ContainsBuilder;
 import io.zero88.rsql.jooq.criteria.comparison.EndsWithBuilder;
@@ -193,12 +194,12 @@ public class JooqComparisonCriteriaBuilderTest {
                                                        Collections.singletonList("t+"));
         final JooqCriteriaBuilder builder = JooqCriteriaBuilderFactory.DEFAULT.create(node);
         Assertions.assertTrue(builder instanceof LikeBuilder);
-        final Condition condition = builder.build(Tables.TABLES, new JooqQueryContext() {
+        final Condition condition = builder.build(JooqRSQLContext.create(Tables.TABLES, new JooqQueryContext() {
             @Override
             public @NotNull LikeWildcardPattern likeWildcard() {
                 return LikeWildcardPattern.REGEX;
             }
-        }, JooqCriteriaBuilderFactory.DEFAULT);
+        }));
         Assertions.assertEquals("(\"INFORMATION_SCHEMA\".\"TABLES\".\"TABLE_CLASS\" like_regex 't+')",
                                 Strings.optimizeMultipleSpace(condition.toString()));
     }

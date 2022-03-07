@@ -1,25 +1,22 @@
 package io.zero88.rsql.jooq.query;
 
 import org.jetbrains.annotations.NotNull;
-import org.jooq.DSLContext;
 
-import io.zero88.rsql.jooq.AbstractJooqRqlFacade;
-import io.zero88.rsql.jooq.JooqRqlParser;
+import io.zero88.rsql.jooq.JooqRSQLParser;
+import io.zero88.rsql.jooq.JooqRSQLQueryContext;
 
 import lombok.Builder.Default;
 import lombok.experimental.SuperBuilder;
 
 @SuperBuilder
-public abstract class AbstractJooqQuery<R, T, C> extends AbstractJooqRqlFacade implements JooqRqlQuery<R, T, C> {
+public abstract class AbstractJooqQuery<R> implements JooqRSQLQuery<R> {
 
-    @NotNull
-    private final DSLContext dsl;
-    @NotNull
     @Default
-    private final JooqRqlParser parser = JooqRqlParser.DEFAULT;
+    private final JooqRSQLParser parser = JooqRSQLParser.DEFAULT;
+    private final JooqRSQLQueryContext context;
 
-    public @NotNull DSLContext dsl()       {return this.dsl;}
+    public @NotNull JooqRSQLQueryContext context() {return this.context;}
 
-    public @NotNull JooqRqlParser parser() {return this.parser;}
+    public @NotNull JooqRSQLParser parser()        {return this.parser;}
 
 }

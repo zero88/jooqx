@@ -4,17 +4,17 @@ import org.jetbrains.annotations.NotNull;
 
 import cz.jirutka.rsql.parser.ast.Node;
 
-public abstract class AbstractCriteriaBuilder<T extends Node> implements CriteriaBuilder<T> {
+public abstract class AbstractCriteriaBuilder<N extends Node> implements CriteriaBuilder<N> {
 
-    protected T node;
+    protected N node;
 
     protected AbstractCriteriaBuilder() {}
 
-    protected AbstractCriteriaBuilder(T node) {
+    protected AbstractCriteriaBuilder(N node) {
         this.node = node;
     }
 
-    public final @NotNull T node() {
+    public final @NotNull N node() {
         return node;
     }
 

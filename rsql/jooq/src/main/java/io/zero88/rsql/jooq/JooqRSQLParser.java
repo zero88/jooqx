@@ -3,13 +3,14 @@ package io.zero88.rsql.jooq;
 import java.util.Set;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.jooq.Condition;
 import org.jooq.TableLike;
 
-import io.zero88.rsql.RqlParser;
+import io.zero88.rsql.RSQLParser;
 import io.zero88.rsql.jooq.criteria.JooqComparisonCriteriaBuilderLoader;
-import io.zero88.rsql.jooq.visitor.JooqConditionRqlVisitor;
-import io.zero88.rsql.jooq.visitor.JooqRqlVisitor;
+import io.zero88.rsql.jooq.visitor.JooqConditionVisitor;
+import io.zero88.rsql.jooq.visitor.JooqRSQLVisitor;
 import io.zero88.rsql.parser.ast.ComparisonOperatorProxy;
 
 import cz.jirutka.rsql.parser.RSQLParserException;
@@ -19,12 +20,13 @@ import cz.jirutka.rsql.parser.RSQLParserException;
  *
  * @since 1.0.0
  */
-public final class JooqRqlParser extends RqlParser {
+@SuppressWarnings("rawtypes")
+public final class JooqRSQLParser extends RSQLParser {
 
     /**
      * The constant DEFAULT.
      */
-    public static final JooqRqlParser DEFAULT = new JooqRqlParser();
+    public static final JooqRSQLParser DEFAULT = new JooqRSQLParser();
 
     /**
      * Instantiates a new {@code jOOQ RQL} parser with default Comparison Operator.
@@ -32,7 +34,7 @@ public final class JooqRqlParser extends RqlParser {
      * @see JooqComparisonCriteriaBuilderLoader
      * @since 1.0.0
      */
-    public JooqRqlParser() {
+    public JooqRSQLParser() {
         this(JooqComparisonCriteriaBuilderLoader.getInstance().operators());
     }
 
@@ -43,7 +45,7 @@ public final class JooqRqlParser extends RqlParser {
      * @see ComparisonOperatorProxy
      * @since 1.0.0
      */
-    public JooqRqlParser(@NotNull Set<ComparisonOperatorProxy> comparisons) {
+    public JooqRSQLParser(@NotNull Set<ComparisonOperatorProxy> comparisons) {
         super(comparisons);
     }
 
@@ -59,27 +61,26 @@ public final class JooqRqlParser extends RqlParser {
      * @since 1.0.0
      */
     public Condition criteria(@NotNull String query, @NotNull TableLike table) throws RSQLParserException {
-        return criteria(query, JooqConditionRqlVisitor.create(table));
+        return criteria(query, JooqRSQLContext.create(table));
     }
 
     /**
      * Parse query to Criteria condition.
      *
      * @param query   the query
-     * @param visitor the visitor
+     * @param context the visitor context
      * @return the condition
      * @throws RSQLParserException the RSQL parser exception
-     * @see JooqConditionRqlVisitor
+     * @see JooqConditionVisitor
      * @see Condition
      * @since 1.0.0
      */
-    public Condition criteria(@NotNull String query, @NotNull JooqConditionRqlVisitor visitor)
-        throws RSQLParserException {
-        return parse(query, visitor, null);
+    public Condition criteria(@NotNull String query, @NotNull JooqRSQLContext context) throws RSQLParserException {
+        return execute(query, new JooqConditionVisitor(), context);
     }
 
     /**
-     * Parse query to appropriate output.
+     * Parse query and execute to the appropriate output.
      *
      * @param <R>            Type of {@code Visitor Result}
      * @param <C>            Type of {@code Visitor Context}
@@ -88,11 +89,11 @@ public final class JooqRqlParser extends RqlParser {
      * @param visitorContext the visitor context
      * @return the select condition step
      * @throws RSQLParserException the RSQL parser exception
-     * @see JooqRqlVisitor
+     * @see JooqRSQLVisitor
      * @since 1.0.0
      */
-    public <R, C> R parse(@NotNull String query, @NotNull JooqRqlVisitor<R, C> visitor, C visitorContext)
-        throws RSQLParserException {
+    public <R, C extends JooqRSQLContext> R execute(@NotNull String query, @NotNull JooqRSQLVisitor<R, C> visitor,
+        @Nullable C visitorContext) throws RSQLParserException {
         return parse(query).accept(visitor, visitorContext);
     }
 

@@ -11,17 +11,18 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import io.github.zero88.utils.Strings;
-import io.zero88.rsql.jooq.JooqRqlParser;
+import io.zero88.rsql.jooq.JooqRSQLParser;
+import io.zero88.rsql.jooq.JooqRSQLQueryContext;
 
-public class JooqRqlQueryTest {
+public class JooqRSQLQueryTest {
 
-    private JooqRqlParser jooqRqlParser;
+    private JooqRSQLParser parser;
     private DSLContext dsl;
 
     @BeforeEach
     public void before() {
-        dsl           = DSL.using("jdbc:h2:mem:dbh2mem-" + UUID.randomUUID());
-        jooqRqlParser = JooqRqlParser.DEFAULT;
+        dsl    = DSL.using("jdbc:h2:mem:dbh2mem-" + UUID.randomUUID());
+        parser = JooqRSQLParser.DEFAULT;
     }
 
     @Test
@@ -30,7 +31,7 @@ public class JooqRqlQueryTest {
                              Tables.TABLES.TABLE_NAME.getName() + "=exists=t" + " and " + "(" +
                              Tables.TABLES.TABLE_TYPE.getName() + "=in=(xyz,abc)" + "," +
                              Tables.TABLES.TABLE_CLASS.getName() + "=out=(123,456)" + ")";
-        final Condition condition = jooqRqlParser.criteria(query, Tables.TABLES);
+        final Condition condition = parser.criteria(query, Tables.TABLES);
         System.out.println(query);
         System.out.println(Strings.optimizeMultipleSpace(condition.toString()));
         Assertions.assertEquals("( \"INFORMATION_SCHEMA\".\"TABLES\".\"TABLE_SCHEMA\" = 'public' and " +
@@ -39,9 +40,9 @@ public class JooqRqlQueryTest {
                                 "\"INFORMATION_SCHEMA\".\"TABLES\".\"TABLE_CLASS\" not in ( '123', '456' ) ) )",
                                 Strings.optimizeMultipleSpace(condition.toString()));
         final JooqFetchCountQuery jooqQuery = JooqFetchCountQuery.builder()
-                                                                 .parser(jooqRqlParser)
-                                                                 .dsl(dsl)
-                                                                 .table(Tables.TABLES)
+                                                                 .parser(parser)
+                                                                 .context(
+                                                                     JooqRSQLQueryContext.create(dsl, Tables.TABLES))
                                                                  .build();
         System.out.println(jooqQuery.toQuery(query));
         Assertions.assertEquals(0, jooqQuery.execute(query).intValue());
@@ -53,7 +54,7 @@ public class JooqRqlQueryTest {
                              Tables.TABLES.TABLE_NAME.getName() + "=exists=1" + " and " + "(" +
                              Tables.TABLES.TABLE_TYPE.getName() + "=in=(xyz,abc)" + "," +
                              Tables.TABLES.TABLE_CLASS.getName() + "=out=(123,456)" + ")";
-        final Condition condition = jooqRqlParser.criteria(query, Tables.TABLES);
+        final Condition condition = parser.criteria(query, Tables.TABLES);
         System.out.println(query);
         System.out.println(Strings.optimizeMultipleSpace(condition.toString()));
         Assertions.assertEquals("( \"INFORMATION_SCHEMA\".\"TABLES\".\"TABLE_SCHEMA\" = 'public' and " +
@@ -61,8 +62,10 @@ public class JooqRqlQueryTest {
                                 "\"INFORMATION_SCHEMA\".\"TABLES\".\"TABLE_TYPE\" in ( 'xyz', 'abc' ) or " +
                                 "\"INFORMATION_SCHEMA\".\"TABLES\".\"TABLE_CLASS\" not in ( '123', '456' ) ) )",
                                 Strings.optimizeMultipleSpace(condition.toString()));
-        Assertions.assertEquals(false,
-                                JooqFetchExistQuery.builder().dsl(dsl).table(Tables.TABLES).build().execute(query));
+        Assertions.assertEquals(false, JooqFetchExistQuery.builder()
+                                                          .context(JooqRSQLQueryContext.create(dsl, Tables.TABLES))
+                                                          .build()
+                                                          .execute(query));
     }
 
 }

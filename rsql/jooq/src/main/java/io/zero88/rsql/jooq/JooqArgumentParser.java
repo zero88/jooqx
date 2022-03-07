@@ -17,6 +17,7 @@ import io.zero88.rsql.ArgumentParser;
  *
  * @since 1.0.0
  */
+@SuppressWarnings("rawtypes")
 public interface JooqArgumentParser extends ArgumentParser {
 
     /**

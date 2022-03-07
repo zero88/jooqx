@@ -54,7 +54,7 @@ import cz.jirutka.rsql.parser.ast.NodesFactory;
  *
  * @since 1.0.0
  */
-public class RqlParser {
+public class RSQLParser {
 
     private final ProxyNodeFactory proxyNodeFactory;
 
@@ -63,7 +63,7 @@ public class RqlParser {
      *
      * @param operators A set of supported comparison operators. Must not be <tt>null</tt> or empty.
      */
-    protected RqlParser(Set<ComparisonOperatorProxy> operators) {
+    protected RSQLParser(Set<ComparisonOperatorProxy> operators) {
         if (operators == null || operators.isEmpty()) {
             throw new IllegalArgumentException("operators must not be null or empty");
         }

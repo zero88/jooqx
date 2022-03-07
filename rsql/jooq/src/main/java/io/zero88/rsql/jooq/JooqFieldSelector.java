@@ -6,7 +6,6 @@ import java.util.function.Supplier;
 
 import org.jetbrains.annotations.NotNull;
 import org.jooq.SelectFieldOrAsterisk;
-import org.jooq.TableLike;
 import org.jooq.impl.DSL;
 
 import io.zero88.rsql.FieldSelector;
@@ -14,8 +13,6 @@ import io.zero88.rsql.FieldSelector;
 /**
  * The interface Field selector.
  *
- * @see SelectFieldOrAsterisk
- * @see TableLike
  * @since 1.0.0
  */
 public interface JooqFieldSelector extends Supplier<Collection<? extends SelectFieldOrAsterisk>>, FieldSelector {
@@ -29,6 +26,7 @@ public interface JooqFieldSelector extends Supplier<Collection<? extends SelectF
      * Get fields
      *
      * @return collection fields
+     * @see SelectFieldOrAsterisk
      */
     @NotNull Collection<? extends SelectFieldOrAsterisk> get();
 

@@ -6,14 +6,21 @@ import io.zero88.rsql.criteria.CriteriaBuilder;
 import io.zero88.rsql.criteria.CriteriaBuilderFactory;
 
 import cz.jirutka.rsql.parser.ast.Node;
-import lombok.NonNull;
 
 /**
- * Represents for a facade that wraps some condiments to enhance parsing SQL query in runtime
+ * Represents for a RSQL runtime context to enhance parsing SQL query in runtime
  *
  * @since 1.0.0
  */
-public interface RqlFacade {
+public interface RSQLContext {
+
+    /**
+     * Defines the subject to build SQL query
+     *
+     * @param <S> Type of subject
+     * @return the subject
+     */
+    @NotNull <S> S subject();
 
     /**
      * Gets Query context.
@@ -24,7 +31,7 @@ public interface RqlFacade {
     @NotNull QueryContext queryContext();
 
     /**
-     * Criteria builder factory criteria builder factory.
+     * Gets the Criteria builder factory
      *
      * @param <T> Type of {@link Node}
      * @param <C> Type of {@link CriteriaBuilder}

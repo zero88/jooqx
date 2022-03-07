@@ -35,6 +35,7 @@ public interface JooqFieldMapper extends FieldMapper {
      * @return the database field in optional
      * @since 1.0.0
      */
+    @SuppressWarnings("rawtypes")
     Optional<Field> get(@NotNull TableLike table, @NotNull String field);
 
 }

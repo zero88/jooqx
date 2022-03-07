@@ -6,46 +6,43 @@ import org.jooq.Table;
 import org.jooq.TableLike;
 
 import io.zero88.rsql.criteria.CriteriaBuilder;
-import io.zero88.rsql.jooq.JooqQueryContext;
+import io.zero88.rsql.jooq.JooqRSQLContext;
 
 import cz.jirutka.rsql.parser.ast.Node;
 
 /**
  * The interface Criteria builder.
  *
- * @param <T> Type of {@code Node}
+ * @param <N> Type of {@code Node}
  * @see Node
  * @since 1.0.0
  */
-public interface JooqCriteriaBuilder<T extends Node> extends CriteriaBuilder<T> {
+public interface JooqCriteriaBuilder<N extends Node> extends CriteriaBuilder<N> {
 
     /**
      * Build condition.
      *
      * @param table the table
      * @return the condition
-     * @apiNote It is equivalent to call {@link #build(TableLike, JooqQueryContext, JooqCriteriaBuilderFactory)} with
-     *     {@link JooqQueryContext#DEFAULT} and {@link JooqCriteriaBuilderFactory#DEFAULT}
+     * @apiNote It is equivalent to call {@link #build(JooqRSQLContext)} with {@link
+     *     JooqRSQLContext#create(TableLike)}
      * @since 1.0.0
      */
+    @SuppressWarnings("rawtypes")
     default @NotNull Condition build(@NotNull TableLike table) {
-        return build(table, JooqQueryContext.DEFAULT, JooqCriteriaBuilderFactory.DEFAULT);
+        return build(JooqRSQLContext.create(table));
     }
 
     /**
      * Build condition.
      *
-     * @param table        the table
-     * @param queryContext the query context
-     * @param factory      the criteria builder factory
+     * @param context the rsql context
      * @return the condition
      * @see Condition
      * @see Table
-     * @see JooqQueryContext
-     * @see JooqCriteriaBuilderFactory
+     * @see JooqRSQLContext
      * @since 1.0.0
      */
-    @NotNull Condition build(@NotNull TableLike table, @NotNull JooqQueryContext queryContext,
-                             @NotNull JooqCriteriaBuilderFactory factory);
+    @NotNull Condition build(@NotNull JooqRSQLContext context);
 
 }

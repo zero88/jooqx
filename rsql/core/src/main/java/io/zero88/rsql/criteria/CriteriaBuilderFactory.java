@@ -10,11 +10,11 @@ import cz.jirutka.rsql.parser.ast.OrNode;
 /**
  * A factory that creates the criteria builder based on given AST node
  *
- * @param <T> Type of {@link Node}
- * @param <C> Type of {@link CriteriaBuilder}
+ * @param <N> Type of {@link Node}
+ * @param <B> Type of {@link CriteriaBuilder}
  * @see Node
  */
-public interface CriteriaBuilderFactory<T extends Node, C extends CriteriaBuilder<T>> {
+public interface CriteriaBuilderFactory<N extends Node, B extends CriteriaBuilder<N>> {
 
     /**
      * Create criteria builder.
@@ -24,15 +24,15 @@ public interface CriteriaBuilderFactory<T extends Node, C extends CriteriaBuilde
      * @since 1.0.0
      */
     @SuppressWarnings("unchecked")
-    default C create(@NotNull T node) {
+    default B create(@NotNull N node) {
         if (node instanceof AndNode) {
-            return (C) andNodeCriteriaBuilder((AndNode) node);
+            return (B) andNodeCriteriaBuilder((AndNode) node);
         }
         if (node instanceof OrNode) {
-            return (C) orNodeCriteriaBuilder((OrNode) node);
+            return (B) orNodeCriteriaBuilder((OrNode) node);
         }
         if (node instanceof ComparisonNode) {
-            return (C) comparisonNodeCriteriaBuilder((ComparisonNode) node);
+            return (B) comparisonNodeCriteriaBuilder((ComparisonNode) node);
         }
         throw new IllegalArgumentException("Unknown node type " + node.getClass().getSimpleName());
     }

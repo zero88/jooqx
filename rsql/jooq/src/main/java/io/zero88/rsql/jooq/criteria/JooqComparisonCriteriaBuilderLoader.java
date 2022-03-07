@@ -24,6 +24,7 @@ public final class JooqComparisonCriteriaBuilderLoader extends ComparisonCriteri
     }
 
     @Override
+    @SuppressWarnings("rawtypes")
     protected Class<? extends ComparisonCriteriaBuilder> serviceClass() {
         return JooqComparisonCriteriaBuilder.class;
     }

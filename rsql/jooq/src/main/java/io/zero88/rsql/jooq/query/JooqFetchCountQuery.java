@@ -23,7 +23,7 @@ public final class JooqFetchCountQuery extends AbstractJooqConditionQuery<Intege
 
     @Override
     public @NotNull Select<Record1<Integer>> toQuery(@NotNull Condition condition) {
-        return dsl().selectCount().from(table()).where(condition);
+        return context().dsl().selectCount().from(context().subject()).where(condition);
     }
 
 }

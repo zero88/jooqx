@@ -33,9 +33,10 @@ public final class JooqPagingAndSortingQuery extends AbstractJooqConditionQuery<
 
     @Override
     public @NotNull SelectOptionStep<Record> execute(@NotNull Condition condition) {
-        return paging(
-            orderBy(dsl().select(queryContext().fieldSelector().get()).from(table()).where(condition), sortable),
-            pageable);
+        return paging(orderBy(context().dsl()
+                                       .select(context().queryContext().fieldSelector().get())
+                                       .from(context().subject())
+                                       .where(condition), sortable), pageable);
     }
 
     @Override
@@ -57,10 +58,11 @@ public final class JooqPagingAndSortingQuery extends AbstractJooqConditionQuery<
     }
 
     private OrderField<?> sortField(@NotNull Order order) {
-        return queryContext().fieldMapper()
-                             .get(table(), order.property())
-                             .map(f -> order.direction().isASC() ? f.asc() : f.desc())
-                             .orElse(null);
+        return context().queryContext()
+                        .fieldMapper()
+                        .get(context().subject(), order.property())
+                        .map(f -> order.direction().isASC() ? f.asc() : f.desc())
+                        .orElse(null);
     }
 
     private SelectOptionStep<Record> paging(@NotNull SelectLimitStep<Record> sql, @NotNull Pageable pagination) {
