@@ -31,7 +31,7 @@ if (profile == "jpa") {
 }
 
 if (profile == "analysis") {
-    val excludes = pools["sample"]!!
+    val excludes = arrayOf<String>()
     pp = pools.values.toTypedArray().flatten().filter { !excludes.contains(it) }.toTypedArray()
 }
 
