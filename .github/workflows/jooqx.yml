@@ -93,7 +93,7 @@ jobs:
       - name: Release and promote artifact
         uses: ./.github/actions/gha-publish
         with:
-          profile: 'build'
+          profile: 'jooqx'
           version: ${{ needs.context.outputs.version }}
           semanticVersion: ${{ needs.context.outputs.semanticVersion }}
           hashVersion: ${{ needs.context.outputs.commitId }}
