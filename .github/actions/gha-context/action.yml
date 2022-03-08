@@ -11,6 +11,14 @@ inputs:
     description: 'Version pattern'
     required: true
     default: gradle.properties
+  gitTagPrefix:
+    description: 'Git Tag prefix'
+    required: true
+    default: 'v'
+  gitReleasePrefix:
+    description: 'Git Release branch prefix'
+    required: true
+    default: 'release/'
 
 outputs:
   branch:
@@ -55,6 +63,8 @@ runs:
         mustSign: true
         nextVerMode: PATCH
         patterns: ${{ inputs.versionFile }}
+        tagPrefix: ${{ inputs.gitTagPrefix }}
+        releaseBranchPrefix: ${{ inputs.gitReleasePrefix }}
 
     - name: Find semantic version
       id: semantic
