@@ -7,6 +7,10 @@ inputs:
   gpgPassphrase:
     description: 'GPG passphrase'
     required: true
+  versionFile:
+    description: 'Version pattern'
+    required: true
+    default: gradle.properties
 
 outputs:
   branch:
@@ -50,6 +54,7 @@ runs:
       with:
         mustSign: true
         nextVerMode: PATCH
+        patterns: ${{ inputs.versionFile }}
 
     - name: Find semantic version
       id: semantic
