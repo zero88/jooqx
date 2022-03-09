@@ -38,4 +38,4 @@ runs:
             -Pprofile=${{ inputs.profile }} \
             -Pversion=${{ inputs.version }} \
             -PsemanticVersion=${{ inputs.semanticVersion }} \
-            -PbuildBy="GitHub Action" -PbuildHash=${{ inputs.hashVersion }}
+            -PbuildBy="GitHub-Action" -PbuildHash=${{ inputs.hashVersion }}

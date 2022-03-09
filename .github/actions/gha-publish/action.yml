@@ -78,7 +78,7 @@ runs:
                -Pversion=${{ inputs.version }} \
                -PsemanticVersion=${{ inputs.semanticVersion }} \
                -PbuildHash=${{ inputs.hashVersion }} \
-               -PbuildBy="GitHub Action" \ 
+               -PbuildBy="GitHub-Action" \ 
                -Psigning.gnupg.homeDir=/home/runner/.gnupg \
                -Psigning.gnupg.keyName=${{ steps.import_gpg.outputs.keyid }} \
                -Psigning.gnupg.passphrase=${{ inputs.gpgPassphrase }} \
