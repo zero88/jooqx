@@ -90,7 +90,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2.4.0
 
-      - name: Release and promote artifact
+      - name: Publish artifact to remote registry
         uses: ./.github/actions/gha-publish
         with:
           profile: 'jooqx'
