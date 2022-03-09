@@ -47,6 +47,7 @@ jobs:
           versionFile: rsql/gradle.properties
           gitTagPrefix: 'rsql/v'
           gitReleasePrefix: 'rsql/release/'
+          gitMergedReleasePRMsgRegex: '^Merge pull request #[0-9]+ from .+/rsql/release/.+$'
 
   build:
     runs-on: ubuntu-latest

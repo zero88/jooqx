@@ -41,6 +41,7 @@ jobs:
         with:
           gpgKey: ${{ secrets.CI_GPG_PRIVATE_KEY }}
           gpgPassphrase: ${{ secrets.CI_GPG_PASSPHARSE }}
+          gitMergedReleasePRMsgRegex: '^Merge pull request #[0-9]+ from ((?!(jpa|rsql)).)+/release/.+$'
 
       - name: Verify rsql/jpa release branch
         id: verify

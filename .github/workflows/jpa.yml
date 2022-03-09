@@ -47,6 +47,7 @@ jobs:
           versionFile: jpa-ext/gradle.properties
           gitTagPrefix: 'jpa/v'
           gitReleasePrefix: 'jpa/release/'
+          gitMergedReleasePRMsgRegex: '^Merge pull request #[0-9]+ from .+/jpa/release/.+$'
 
   build:
     runs-on: ubuntu-latest
