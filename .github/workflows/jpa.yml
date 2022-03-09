@@ -105,4 +105,4 @@ jobs:
         with:
           name: Release ${{ env.PROFILE }} ${{ needs.context.outputs.version }}
           tag_name: ${{ needs.context.outputs.branch }}
-          generate_release_notes: true
+          generate_release_notes: false
