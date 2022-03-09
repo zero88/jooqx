@@ -19,6 +19,9 @@ inputs:
     description: 'Git Release branch prefix'
     required: true
     default: 'release/'
+  gitMergedReleasePRMsgRegex:
+    description: 'Git merge release PR msg regex'
+    required: true
 
 outputs:
   branch:
