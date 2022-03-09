@@ -42,11 +42,11 @@ jobs:
         id: context
         uses: ./.github/actions/gha-context
         with:
+          profile: ${{ env.PROFILE }}
           gpgKey: ${{ secrets.CI_GPG_PRIVATE_KEY }}
           gpgPassphrase: ${{ secrets.CI_GPG_PASSPHARSE }}
+          gitTagPrefix: '${{ env.PROFILE }}/v'
           versionFile: jpa-ext/gradle.properties
-          gitTagPrefix: 'jpa/v'
-          gitReleasePrefix: 'jpa/release/'
 
   build:
     runs-on: ubuntu-latest
@@ -104,4 +104,4 @@ jobs:
           GITHUB_TOKEN: ${{ inputs.githubToken }}
         with:
           tag_name: ${{ needs.context.outputs.branch }}
-          release_name: Release ${{ needs.context.outputs.branch }}
+          release_name: Release ${{ env.PROFILE }} ${{ needs.context.outputs.branch }}

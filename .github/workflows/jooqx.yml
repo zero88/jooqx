@@ -18,13 +18,16 @@ on:
       - '*.md'
       - 'LICENSE'
 
+env:
+  PROFILE: jooqx
+
 jobs:
   context:
     runs-on: ubuntu-latest
     outputs:
       branch: ${{ steps.context.outputs.branch }}
-      shouldBuild: ${{ steps.context.outputs.shouldBuild }}
-      shouldPublish: ${{ steps.context.outputs.shouldPublish }}
+      shouldBuild: ${{ steps.verify.outputs.shouldBuild }}
+      shouldPublish: ${{ steps.verify.outputs.shouldPublish }}
       isRelease: ${{ steps.context.outputs.isRelease }}
       version: ${{ steps.context.outputs.version }}
       semanticVersion: ${{ steps.context.outputs.semanticVersion }}
@@ -39,8 +42,21 @@ jobs:
         id: context
         uses: ./.github/actions/gha-context
         with:
+          profile: ${{ env.PROFILE }}
           gpgKey: ${{ secrets.CI_GPG_PRIVATE_KEY }}
           gpgPassphrase: ${{ secrets.CI_GPG_PASSPHARSE }}
+
+      - name: Verify rsql/jpa release branch
+        id: verify
+        shell: bash
+        run: |
+          if [[ "${{ steps.context.outputs.branch }}" =~ ^(jpa|rsql)/.* ]]; then
+            echo ::set-output name=shouldBuild::false
+            echo ::set-output name=shouldPublish::false
+          else
+            echo ::set-output name=shouldBuild::${{ steps.context.outputs.shouldBuild }}
+            echo ::set-output name=shouldPublish::${{ steps.context.outputs.shouldPublish }}
+          fi
 
   build:
     runs-on: ubuntu-latest
@@ -93,7 +109,7 @@ jobs:
       - name: Publish artifact to remote registry
         uses: ./.github/actions/gha-publish
         with:
-          profile: 'jooqx'
+          profile: ${{ env.PROFILE }}
           version: ${{ needs.context.outputs.version }}
           semanticVersion: ${{ needs.context.outputs.semanticVersion }}
           hashVersion: ${{ needs.context.outputs.commitId }}
@@ -115,4 +131,4 @@ jobs:
           GITHUB_TOKEN: ${{ inputs.githubToken }}
         with:
           tag_name: ${{ needs.context.outputs.branch }}
-          release_name: Release ${{ needs.context.outputs.branch }}
+          release_name: Release ${{ env.PROFILE }} ${{ needs.context.outputs.branch }}

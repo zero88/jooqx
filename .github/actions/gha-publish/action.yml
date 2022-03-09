@@ -76,12 +76,12 @@ runs:
       run: |
         args=( -Pprofile=${{ inputs.profile }} \
                -Pversion=${{ inputs.version }} \
-               -PsemanticVersion=${{ inputs.semanticVersion }} \
+               -PsemanticVersion='${{ inputs.semanticVersion }}' \
                -PbuildHash=${{ inputs.hashVersion }} \
-               -PbuildBy="GitHub Action" \ 
+               -PbuildBy="GitHub-Action" \
                -Psigning.gnupg.homeDir=/home/runner/.gnupg \
-               -Psigning.gnupg.keyName=${{ steps.import_gpg.outputs.keyid }} \
-               -Psigning.gnupg.passphrase=${{ inputs.gpgPassphrase }} \
-               -Pnexus.username=${{ inputs.ossrhUser }} \
-               -Pnexus.password=${{ inputs.ossrhToken }} )
+               -Psigning.gnupg.keyName='${{ steps.import_gpg.outputs.keyid }}' \
+               -Psigning.gnupg.passphrase='${{ inputs.gpgPassphrase }}' \
+               -Pnexus.username='${{ inputs.ossrhUser }}' \
+               -Pnexus.password='${{ inputs.ossrhToken }}' )
         ./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository -Prelease "${args[@]}"
