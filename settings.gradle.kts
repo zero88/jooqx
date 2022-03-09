@@ -30,13 +30,17 @@ if (profile == "jpa") {
     pp = pools["jpa"]!!
 }
 
+if (profile == "rsql") {
+    pp = pools["rsql"]!!
+}
+
+if (profile == "jooqx") {
+    pp = pools["jooqx"]!!
+}
+
 if (profile == "analysis") {
     val excludes = arrayOf<String>()
     pp = pools.values.toTypedArray().flatten().filter { !excludes.contains(it) }.toTypedArray()
-}
-
-if (profile == "rsql") {
-    pp = pools["jpa"]!! + pools["rsql"]!!
 }
 
 if (profile == "build") {

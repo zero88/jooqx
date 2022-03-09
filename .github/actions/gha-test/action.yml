@@ -52,13 +52,13 @@ runs:
         key: ${{ runner.os }}-sonar
         restore-keys: ${{ runner.os }}-sonar
 
-    - name: Generate jOOQ
+    - name: Generate jOOQ test schema
       shell: bash
       run: ./generateJooq.sh
 
-    - name: Test
+    - name: Full test
       shell: bash
-      run: ./gradlew test -Pprofile=${{ inputs.profile }} --stacktrace
+      run: ./gradlew test -Pprofile=${{ inputs.profile }} -PsemanticVersion=${{ inputs.semanticVersion }} --stacktrace
 
     - name: SonarQube
       shell: bash
@@ -66,6 +66,7 @@ runs:
       run: |
         ./gradlew sonarqube -x test --stacktrace \
             -Pprofile=${{ inputs.profile }} \
+            -PsemanticVersion=${{ inputs.semanticVersion }} \
             -Dsonar.login=${{ inputs.sonarToken }} -Dsonar.branch.name=${{ inputs.branch }} \
             -Dorg.gradle.jvmargs="-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError"
       env:

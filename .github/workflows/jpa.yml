@@ -3,8 +3,9 @@ name: jpa
 on:
   push:
     branches: [ main ]
-    tags: [ 'v*' ]
+    tags: [ 'jpa/v*' ]
     paths:
+      - 'buildSrc'
       - 'jpa-ext/**'
       - '.github/workflows/jpa.yml'
       - '.github/actions/*.yml'
@@ -12,6 +13,7 @@ on:
     types: [ opened, synchronize, reopened, closed ]
     branches: [ main ]
     paths:
+      - 'buildSrc'
       - 'jpa-ext/**'
       - '.github/workflows/jpa.yml'
       - '.github/actions/*.yml'
@@ -42,6 +44,9 @@ jobs:
         with:
           gpgKey: ${{ secrets.CI_GPG_PRIVATE_KEY }}
           gpgPassphrase: ${{ secrets.CI_GPG_PASSPHARSE }}
+          versionFile: jpa-ext/gradle.properties
+          gitTagPrefix: 'jpa/v'
+          gitReleasePrefix: 'release/jpa/'
 
   build:
     runs-on: ubuntu-latest
