@@ -99,9 +99,10 @@ jobs:
     if: needs.context.outputs.isRelease == 'true'
     steps:
       - name: Create GitHub Release
-        uses: actions/create-release@v1
+        uses: softprops/action-gh-release@v1
         env:
-          GITHUB_TOKEN: ${{ inputs.githubToken }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          name: Release ${{ env.PROFILE }} ${{ needs.context.outputs.version }}
           tag_name: ${{ needs.context.outputs.branch }}
-          release_name: Release ${{ env.PROFILE }} ${{ needs.context.outputs.branch }}
+          generate_release_notes: true
