@@ -1,27 +1,23 @@
 name: context
 description: 'Query project context'
 inputs:
+  profile:
+    description: 'Project profile'
+    required: true
   gpgKey:
     description: 'GPG private key'
     required: true
   gpgPassphrase:
     description: 'GPG passphrase'
     required: true
-  versionFile:
-    description: 'Version pattern'
-    required: true
-    default: gradle.properties
   gitTagPrefix:
     description: 'Git Tag prefix'
     required: true
     default: 'v'
-  gitReleasePrefix:
-    description: 'Git Release branch prefix'
+  versionFile:
+    description: 'Version pattern'
     required: true
-    default: 'release/'
-  gitMergedReleasePRMsgRegex:
-    description: 'Git merge release PR msg regex'
-    required: true
+    default: gradle.properties
 
 outputs:
   branch:
@@ -67,8 +63,11 @@ runs:
         nextVerMode: PATCH
         patterns: ${{ inputs.versionFile }}
         tagPrefix: ${{ inputs.gitTagPrefix }}
-        releaseBranchPrefix: ${{ inputs.gitReleasePrefix }}
-        mergedReleaseMsgRegex: ${{ inputs.gitMergedReleasePRMsgRegex }}
+        releaseBranchPrefix: '${{ inputs.profile }}/release/'
+        mergedReleaseMsgRegex: '^Merge pull request #[0-9]+ from .+/${{ inputs.profile }}/release/.+$'
+        correctVerMsg: 'Correct ${{ inputs.profile }} version'
+        releaseVerMsg: 'Release ${{ inputs.profile }} version'
+        nextVerMsg: 'Next ${{ inputs.profile }} version'
 
     - name: Find semantic version
       id: semantic
