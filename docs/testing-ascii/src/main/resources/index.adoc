@@ -1,53 +1,56 @@
-# Development
+== Development
 
-## Prerequisite
+=== Prerequisite
 
-- Docker
-- Java
+* Docker
+* Java
 
-## Testing
+=== Testing
 
 Out of the box, the integration test suite runs a `Docker database container`
-using [TestContainers](https://www.testcontainers.org/) or memory database (`H2`, `SQLite`)
-on [Junit5](https://junit.org/junit5/) and [Vert.x Junit 5 integration](https://vertx.io/docs/vertx-junit5/java/) by
+using https://www.testcontainers.org/[TestContainers] or memory database (`H2`, `SQLite`)
+on https://junit.org/junit5/[Junit5] and https://vertx.io/docs/vertx-junit5/java/[Vert.x Junit 5 integration] by
 default.
 
-Before test, it is required to generate [database schema](integtest/src/test/resources) to `Java class` by `jOOQ`
+Before test, it is required to generate link:integtest/src/test/resources[database schema] to `Java class` by `jOOQ`
 codegen.
 
 Let's begin
 
-```bash
+[source,bash]
+----
 ./generateJooq.sh
 
 ./gradlew build test
-```
 
-## Naming rule
+----
+
+=== Naming rule
 
 `[DB][Type::3 char][Topic]Test`
 
 In which:
 
-- `DB`  Database name: H2, Pg(PostgreSQL), MySQL, etc...
-- `Type` is Legacy(`LeG`) or Reactive(`ReA`) JDBC client
-- `Topic` is which topic for testing
+* `DB` Database name: H2, Pg(PostgreSQL), MySQL, etc…
+* `Type` is Legacy(`LeG`) or Reactive(`ReA`) JDBC client
+* `Topic` is which topic for testing
 
 Examples:
 
-- `H2LeGRelTest`: `H2` Database `Legacy` JDBC `Relationship` Topic `Test`
-- `H2ReANumericTest`: `H2` Database `Reactive` JDBC `Numeric` Topic `Test`
-- `PgReATemporalTest`: `PostgreSQL` Database `Reactive` JDBC `temporal-data-type` topic `Test`
+* `H2LeGRelTest`: `H2` Database `Legacy` JDBC `Relationship` Topic `Test`
+* `H2ReANumericTest`: `H2` Database `Reactive` JDBC `Numeric` Topic `Test`
+* `PgReATemporalTest`: `PostgreSQL` Database `Reactive` JDBC `temporal-data-type` topic `Test`
 
-## How to write new test
+=== How to write new test
 
 To write new test or `MCVE` (Minimal Complete Verifiable Example) for a specific Database and on which JDBC
 client (`legacy` or `reactive`) type, please use `jooqx-core` test fixtures. Also provide a suitable `database driver`
 as a dependency.
 
-- Maven
+* Maven
 
-```xml
+[source,xml,subs="attributes,verbatim"]
+----
 
 <dependency>
   <groupId>io.github.zero88</groupId>
@@ -65,29 +68,31 @@ as a dependency.
   <version>3.34.0</version>
 </dependency>
 </dependencies>
-```
+----
 
-- Gradle
+* Gradle
 
-```groovy
-api(testFixtures("io.github.zero88:jooqx-core"))
+[source,groovy,subs="attributes,verbatim"]
+----
+api(testFixtures("io.github.zero88:jooqx-core:{jooqx-core}"))
 // sqlite
 api("org.xerial:sqlite-jdbc:3.34.0") )
-```
+----
 
 Then you can extend some based classes:
 
-- [LegacyTestDefinition](core/src/testFixtures/java/io/zero88/jooqx/LegacyTestDefinition.java)
-- [ReactiveTestDefinition](core/src/testFixtures/java/io/zero88/jooqx/ReactiveTestDefinition.java)
-- [PgSQLReactiveTest](core/src/testFixtures/java/io/zero88/jooqx/spi/pg/PgSQLReactiveTest.java)
-- [PgSQLReactiveTest](core/src/testFixtures/java/io/zero88/jooqx/spi/pg/PgSQLReactiveTest.java)
-- [MySQLReactiveTest](core/src/testFixtures/java/io/zero88/jooqx/spi/mysql/MySQLReactiveTest.java)
-- [JDBCReactiveProvider](core/src/testFixtures/java/io/zero88/jooqx/spi/jdbc/JDBCReactiveProvider.java)
-- [H2DBProvider](core/src/testFixtures/java/io/zero88/jooqx/spi/h2/H2DBProvider.java)
+* link:core/src/testFixtures/java/io/zero88/jooqx/LegacyTestDefinition.java[LegacyTestDefinition]
+* link:core/src/testFixtures/java/io/zero88/jooqx/ReactiveTestDefinition.java[ReactiveTestDefinition]
+* link:core/src/testFixtures/java/io/zero88/jooqx/spi/pg/PgSQLReactiveTest.java[PgSQLReactiveTest]
+* link:core/src/testFixtures/java/io/zero88/jooqx/spi/pg/PgSQLReactiveTest.java[PgSQLReactiveTest]
+* link:core/src/testFixtures/java/io/zero88/jooqx/spi/mysql/MySQLReactiveTest.java[MySQLReactiveTest]
+* link:core/src/testFixtures/java/io/zero88/jooqx/spi/jdbc/JDBCReactiveProvider.java[JDBCReactiveProvider]
+* link:core/src/testFixtures/java/io/zero88/jooqx/spi/h2/H2DBProvider.java[H2DBProvider]
 
 For `legacy JDBC`, you can extend base class `LegacyDBMemoryTest` or `LegacyDBContainerTest`. For example:
 
-```java
+[source,java]
+----
 class H2LeGSomethingTest extends LegacyDBMemoryTest<HikariCPDataSourceProvider>
   implements H2DBProvider, H2SQLHelper, JDBCLegacyHikariProvider, UseJdbcErrorConverter {
 
@@ -97,11 +102,12 @@ class H2LeGSomethingTest extends LegacyDBMemoryTest<HikariCPDataSourceProvider>
   }
 
 }
-```
+----
 
 For `reactive JDBC`, you can extend base class `ReactiveDBMemoryTest` or `ReactiveDBContainerTest`
 
-```java
+[source,java]
+----
 class PgReASomethingTest extends ReactiveDBContainerTest<PgPool, PostgreSQLContainer<?>>
   implements PgPoolProvider, PostgreSQLHelper, UsePgSQLErrorConverter {
 
@@ -111,11 +117,12 @@ class PgReASomethingTest extends ReactiveDBContainerTest<PgPool, PostgreSQLConta
   }
 
 }
-```
+----
 
 This is typical test that you should to try
 
-```java
+[source,java]
+----
 class PgReARxTest extends PgSQLReactiveTest<JDBCPool>
     implements PgUseJooqType, JDBCReactiveProvider, UseJdbcErrorConverter, ReactiveRxHelper {
 
@@ -137,6 +144,6 @@ class PgReARxTest extends PgSQLReactiveTest<JDBCPool>
     }
 
 }
-```
+----
 
-Please checkout more in [integtest project](integtest) to see in detail.
+Please checkout more in link:integtest[integtest project] to see in detail.

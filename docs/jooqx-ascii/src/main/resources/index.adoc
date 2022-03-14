@@ -1,0 +1,126 @@
+= jOOQ.x
+zero88
+:toc: left
+:toc-title: Table of Adventures
+:jooqx-version: 1.1.0-SNAPSHOT
+
+`jooqx` leverages the power of typesafe SQL from https://www.jooq.org[jOOQ DSL] and uses the reactive and non-blocking `SQL driver` from https://vertx.io/docs/#databases[Vert.x]
+
+== Installation
+
+To use `jooqx` add the following https://search.maven.org/artifact/io.github.zero88/jooqx-core/{jooqx-version}/jar[dependency]
+to the `dependencies` section of your build descriptor:
+
+* `Maven` (in your `pom.xml`):
+
+[source,xml,subs="attributes,verbatim"]
+----
+<dependencies>
+    <dependency>
+        <groupId>io.github.zero88</groupId>
+        <artifactId>jooqx-core</artifactId>
+        <version>{jooqx-version}</version>
+    </dependency>
+    <!-- For some SPI includes specific converter based on Vert.x database client -->
+    <dependency>
+        <groupId>io.github.zero88</groupId>
+        <artifactId>jooqx-spi</artifactId>
+        <version>{jooqx-version}</version>
+    </dependency>
+</dependencies>
+----
+
+* `Gradle` (in your `build.gradle`):
+
+[source,groovy,subs="attributes,verbatim"]
+----
+dependencies {
+    api("io.github.zero88:jooqx-core:{jooqx-version}")
+    // For some SPI includes specific converter based on Vert.x database client
+    api("io.github.zero88:jooqx-spi:{jooqx-version}")
+}
+----
+
+:icons: font
+[TIP]
+.`jooqx` is only depended on 3 main libraries
+====
+- `io.vertx:vertx-core`
+- `org.jooq:jooq`
+- `org.slf4j:slf4j-api`
+====
+
+Adding this `jooqx` library JAR will not automatically add a `database driver` JAR to your project. You should ensure that your project also has a suitable `database driver` as a dependency.
+
+For example:
+
+* With `legacy JDBC` and connecting to `MySQL` driver
+
+[source,groovy,subs="attributes,verbatim"]
+----
+dependencies {
+    api("mysql:mysql-connector-java:8.0.23")
+    // It is recommendation to use HikariCP instead of c3p0
+    api("com.zaxxer:HikariCP:4.0.2")
+    api("io.vertx:vertx-jdbc-client:4.0.2") {
+     exclude("com.mchange")
+    }
+    api("io.github.zero88:jooqx-core:{jooqx-version}")
+}
+----
+
+* With `reactive PostgreSQL` client
+
+[source,groovy,subs="attributes,verbatim"]
+----
+dependencies {
+    api("io.vertx:vertx-pg-client:4.0.2")
+    api("io.github.zero88:jooqx-core:{jooqx-version}")
+}
+----
+
+* With `reactive JDBC` client and `H2`
+
+[source,groovy,subs="attributes,verbatim"]
+----
+dependencies {
+    api("com.h2database:h2:1.4.200")
+    // Agroal pool - Default in Vertx SQL client - Not yet has alternatives
+    api("io.agroal:agroal-pool:1.9")
+    api("io.vertx:vertx-sql-client:4.0.2")
+    api("io.github.zero88:jooqx-core:{jooqx-version}")
+}
+----
+
+== Get started
+TBD
+
+== Features
+
+=== Simple execution
+
+[source,$lang]
+----
+{@link io.github.zero88.jooqx.JooqxFeature#future(io.vertx.core.Vertx)}
+----
+
+=== Reactive X version
+
+[source,$lang]
+----
+{@link io.github.zero88.jooqx.JooqxFeature#rx(io.vertx.core.Vertx)}
+----
+
+=== Json Record
+
+[source,$lang]
+----
+{@link io.github.zero88.jooqx.JooqxFeature#jsonRecord(io.vertx.core.Vertx)}
+----
+
+=== Fetch Exists
+
+[source,$lang]
+----
+{@link io.github.zero88.jooqx.JooqxFeature#fetchExists(io.vertx.core.Vertx)}
+----

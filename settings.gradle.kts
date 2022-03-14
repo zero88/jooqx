@@ -18,9 +18,9 @@ rootProject.name = "jooqx"
 val profile: String by settings
 val pools = mapOf(
     "jpa" to arrayOf(":jpa-ext"),
-    "jooqx" to arrayOf(":jooqx-core", ":spi"),
-    "sample" to arrayOf(":sample:model"),
-    "rsql" to arrayOf(":rsql:core", ":rsql:jooq"),
+    "jooqx" to arrayOf(":jooqx-core", ":spi", ":docs:jooqx-ascii", ":docs:testing-ascii"),
+    "sample" to arrayOf(":sample:model", ":sample:web"),
+    "rsql" to arrayOf(":rsql:core", ":rsql:jooq", ":docs:rsql-ascii"),
     "integtest" to arrayOf(":integtest")
 )
 
