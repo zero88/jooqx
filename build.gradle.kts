@@ -18,9 +18,16 @@ allprojects {
         mavenCentral()
     }
 
+    sonarqube {
+        isSkipProject = project.name.contains("sample")
+    }
+
     tasks {
         withType<AbstractPublishToMaven> {
-            enabled = project != rootProject && project.name !in arrayOf("rsql", "integtest", "sample")
+            enabled = project != rootProject && project.name !in arrayOf("rsql", "integtest", "sample", "docs")
+        }
+        withType<Javadoc> {
+            setDestinationDir(File("${project.buildDir}/docs/apidocs"))
         }
     }
 }
@@ -40,9 +47,9 @@ subprojects {
         testImplementation(TestLibs.junit5Api)
         testImplementation(TestLibs.junit5Engine)
         testImplementation(TestLibs.junit5Vintage)
+        testCompileOnly(UtilLibs.jetbrainsAnnotations)
         testCompileOnly(UtilLibs.lombok)
         testAnnotationProcessor(UtilLibs.lombok)
-        testCompileOnly(UtilLibs.jetbrainsAnnotations)
     }
 
     oss {
@@ -65,9 +72,6 @@ subprojects {
         }
     }
 
-    sonarqube {
-        isSkipProject = project.name.contains("sample")
-    }
 }
 
 
