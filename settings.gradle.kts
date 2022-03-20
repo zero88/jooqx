@@ -24,8 +24,8 @@ val pools = mutableMapOf(
     "rsql" to arrayOf(":rsql:core", ":rsql:jooq"),
     "integtest" to arrayOf(":integtest")
 )
-val jooqxDocs = arrayOf(":docs:jooqx-ascii", ":docs:testing-ascii")
-val rsqlDocs = arrayOf(":docs:rsql-ascii")
+val jooqxDocs = arrayOf(":docs:asciidoc", ":docs:testing-asciidoc")
+val rsqlDocs = arrayOf(":rsql:asciidoc")
 val excludeCISonar = jooqxDocs + rsqlDocs
 val excludeCIBuild = pools["sample"]!! + pools["integtest"]!! + excludeCISonar
 pools.putAll(
