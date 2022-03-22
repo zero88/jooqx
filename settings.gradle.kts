@@ -48,3 +48,7 @@ pp.forEach { include(it) }
 if (pp.contains(":jooqx-core")) {
     project(":jooqx-core").projectDir = file("core")
 }
+
+if (gradle is ExtensionAware) {
+    (gradle as ExtensionAware).extensions.add("PROJECT_POOL", pools.toMap())
+}

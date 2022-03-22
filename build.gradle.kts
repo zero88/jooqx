@@ -26,9 +26,6 @@ allprojects {
         withType<AbstractPublishToMaven> {
             enabled = project != rootProject && project.name !in arrayOf("rsql", "integtest", "sample", "docs")
         }
-        withType<Javadoc> {
-            setDestinationDir(File("${project.buildDir}/docs/apidocs"))
-        }
     }
 }
 
