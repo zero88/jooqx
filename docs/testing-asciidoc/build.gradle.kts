@@ -18,7 +18,7 @@ dependencies {
 }
 
 apply<antora.AntoraPlugin>()
-configure<antora.AntoraPluginExtension> {
-    antoraModulePage.set("modules/testing/pages")
+configure<antora.AntoraExtension> {
+    antoraModule.set("testing")
+    javadocInDir.set(project(":jooqx-core").tasks.named<Javadoc>("testFixturesJavadoc").map { it.destinationDir!! }.get())
 }
-

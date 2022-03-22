@@ -22,7 +22,7 @@ val projects = if (gradle is ExtensionAware) {
 }
 
 apply<antora.AntoraPlugin>()
-configure<antora.AntoraPluginExtension> {
+configure<antora.AntoraExtension> {
     javadocTitle.set("jOOQ RSQL ${project.version} API")
     javadocProjects.set(projects.map { project.project(it) }.toList())
 }

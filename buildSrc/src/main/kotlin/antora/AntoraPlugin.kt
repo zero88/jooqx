@@ -12,7 +12,12 @@ import org.gradle.kotlin.dsl.*
 class AntoraPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
-        val ext = project.extensions.create<AntoraPluginExtension>("antora")
+        val ext = project.extensions.create<AntoraExtension>("antora")
+        project.afterEvaluate {
+            if (ext.javadocInDir.orNull != null && !ext.javadocProjects.orNull.isNullOrEmpty()) {
+                throw IllegalArgumentException("Provide only one of javadocInDir or javadocProjects")
+            }
+        }
         project.tasks {
             register("antoraSetup") {
                 group = "documentation"
@@ -27,17 +32,15 @@ class AntoraPlugin : Plugin<Project> {
                 group = "documentation"
                 dependsOn("antoraSetup")
                 val ss = project.the<JavaPluginExtension>().sourceSets.getByName(SourceSet.MAIN_SOURCE_SET_NAME)
-                val docSrc = ext.antoraSrcDir.dir(ext.antoraModulePage).get()
-                val docOut = ext.antoraOutDir.dir(ext.antoraModulePage).get()
                 source = ss.java
                 classpath = ss.compileClasspath
-                destinationDirectory.set(docSrc)
+                destinationDirectory.set(ext.antoraLayout.map { it.getPages(ext.antoraSrcDir) })
                 options.annotationProcessorPath = ss.compileClasspath
                 options.compilerArgs = listOf(
                     "-proc:only", "-processor",
                     "io.vertx.docgen.JavaDocGenProcessor",
-                    "-Adocgen.output=$docOut",
-                    "-Adocgen.source=${docSrc}/*.adoc"
+                    "-Adocgen.output=${ext.antoraLayout.map { it.getPages(ext.antoraOutDir) }.get()}",
+                    "-Adocgen.source=${ext.antoraLayout.map { it.getPages(ext.antoraSrcDir) }.get()}/*.adoc"
                 )
             }
             named<Javadoc>("javadoc") {
@@ -62,7 +65,19 @@ class AntoraPlugin : Plugin<Project> {
                 doLast {
                     project.copy {
                         from("${project.buildDir}/docs/javadoc")
-                        into("${project.buildDir}/antora/modules/ROOT/attachments/javadoc")
+                        into(ext.antoraLayout.map { it.getAttachments(ext.antoraOutDir) }.get().dir("javadoc"))
+                    }
+                }
+            }
+            register("antora") {
+                group = "documentation"
+                dependsOn("javadoc")
+                doFirst {
+                    if (ext.javadocInDir.isPresent) {
+                        project.copy {
+                            from(ext.javadocInDir.get())
+                            into(ext.antoraLayout.map { it.getAttachments(ext.antoraOutDir) }.get().dir("javadoc"))
+                        }
                     }
                 }
             }
