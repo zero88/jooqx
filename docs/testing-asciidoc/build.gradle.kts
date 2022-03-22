@@ -1,5 +1,6 @@
 dependencies {
     compileOnly(project(":spi"))
+    compileOnly(testFixtures(project(":jooqx-core")))
 //    compileOnly(project(":rsql:jooq"))
     compileOnly(project(":sample:model"))
     compileOnly(VertxLibs.jdbc)
@@ -16,9 +17,8 @@ dependencies {
     implementation(VertxLibs.rx2)
 }
 
-tasks {
-    register<AsciiDocGenTask>("asciidoc")
-    javadoc {
-        dependsOn(withType<AsciiDocGenTask>())
-    }
+apply<antora.AntoraPlugin>()
+configure<antora.AntoraPluginExtension> {
+    antoraModulePage.set("modules/testing/pages")
 }
+

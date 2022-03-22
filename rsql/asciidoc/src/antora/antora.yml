@@ -1,0 +1,8 @@
+name: rsql
+title: RSQL
+version: true
+asciidoc:
+  attributes:
+    rsql-version: '1.0.0-SNAPSHOT'
+nav:
+  - modules/ROOT/nav.adoc

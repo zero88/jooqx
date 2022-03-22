@@ -1,17 +1,11 @@
-= jOOQ.x
-zero88
-:toc: left
-:toc-title: Table of Adventures
-:jooqx-version: 1.1.0-SNAPSHOT
-
-`jooqx` leverages the power of typesafe SQL from https://www.jooq.org[jOOQ DSL] and uses the reactive and non-blocking `SQL driver` from https://vertx.io/docs/#databases[Vert.x]
-
 == Installation
 
 To use `jooqx` add the following https://search.maven.org/artifact/io.github.zero88/jooqx-core/{jooqx-version}/jar[dependency]
 to the `dependencies` section of your build descriptor:
 
-* `Maven` (in your `pom.xml`):
+=== Maven
+
+In your `pom.xml`,
 
 [source,xml,subs="attributes,verbatim"]
 ----
@@ -30,7 +24,9 @@ to the `dependencies` section of your build descriptor:
 </dependencies>
 ----
 
-* `Gradle` (in your `build.gradle`):
+=== Gradle
+
+In your `build.gradle`,
 
 [source,groovy,subs="attributes,verbatim"]
 ----
@@ -90,37 +86,4 @@ dependencies {
     api("io.vertx:vertx-sql-client:4.0.2")
     api("io.github.zero88:jooqx-core:{jooqx-version}")
 }
-----
-
-== Get started
-TBD
-
-== Features
-
-=== Simple execution
-
-[source,$lang]
-----
-{@link io.github.zero88.jooqx.JooqxFeature#future(io.vertx.core.Vertx)}
-----
-
-=== Reactive X version
-
-[source,$lang]
-----
-{@link io.github.zero88.jooqx.JooqxFeature#rx(io.vertx.core.Vertx)}
-----
-
-=== Json Record
-
-[source,$lang]
-----
-{@link io.github.zero88.jooqx.JooqxFeature#jsonRecord(io.vertx.core.Vertx)}
-----
-
-=== Fetch Exists
-
-[source,$lang]
-----
-{@link io.github.zero88.jooqx.JooqxFeature#fetchExists(io.vertx.core.Vertx)}
 ----

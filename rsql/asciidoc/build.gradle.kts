@@ -15,9 +15,14 @@ dependencies {
     implementation(VertxLibs.rx2)
 }
 
-tasks {
-    register<AsciiDocGenTask>("asciidoc")
-    javadoc {
-        dependsOn(withType<AsciiDocGenTask>())
-    }
+val projects = if (gradle is ExtensionAware) {
+    ((gradle as ExtensionAware).extensions["PROJECT_POOL"] as Map<String, Array<String>>)["rsql"]!!
+} else {
+    emptyArray()
+}
+
+apply<antora.AntoraPlugin>()
+configure<antora.AntoraPluginExtension> {
+    javadocTitle.set("jOOQ RSQL ${project.version} API")
+    javadocProjects.set(projects.map { project.project(it) }.toList())
 }

@@ -22,7 +22,6 @@ Let's begin
 ./generateJooq.sh
 
 ./gradlew build test
-
 ----
 
 === Naming rule

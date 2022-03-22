@@ -9,10 +9,14 @@ dependencies {
     implementation(VertxLibs.docgen)
     annotationProcessor(VertxLibs.docgen)
 }
+val projects = if (gradle is ExtensionAware) {
+    ((gradle as ExtensionAware).extensions["PROJECT_POOL"] as Map<String, Array<String>>)["jooqx"]!!
+} else {
+    emptyArray()
+}
 
-tasks {
-    register<AsciiDocGenTask>("asciidoc")
-    javadoc {
-        dependsOn(withType<AsciiDocGenTask>())
-    }
+apply<antora.AntoraPlugin>()
+configure<antora.AntoraPluginExtension> {
+    javadocTitle.set("jOOQ.x ${project.version} API")
+    javadocProjects.set(projects.map { project.project(it) }.toList())
 }

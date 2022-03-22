@@ -1,7 +1,5 @@
 = jOOQ RSQL
 zero88
-:toc: left
-:toc-title: Table of Adventures
 :rsql-version: 1.0.0-SNAPSHOT
 
 RESTful Service Query Language (RSQL) is a language, and a library designed for searching entries in RESTful services.
