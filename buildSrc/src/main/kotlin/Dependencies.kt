@@ -64,13 +64,12 @@ object VertxLibs {
 
         const val vertx = "4.2.3"
         const val docgen = "0.9.4"
-        const val vertxSQL = "4.2.3"
     }
 
     const val core = "io.vertx:vertx-core:${Version.vertx}"
     const val junit5 = "io.vertx:vertx-junit5:${Version.vertx}"
-    const val sqlClient = "io.vertx:vertx-sql-client:${Version.vertxSQL}"
-    const val jdbc = "io.vertx:vertx-jdbc-client:${Version.vertxSQL}"
+    const val sqlClient = "io.vertx:vertx-sql-client:${Version.vertx}"
+    const val jdbc = "io.vertx:vertx-jdbc-client:${Version.vertx}"
     const val pgsql = "io.vertx:vertx-pg-client:${Version.vertx}"
     const val mysql = "io.vertx:vertx-mysql-client:${Version.vertx}"
     const val db2 = "io.vertx:vertx-db2-client:${Version.vertx}"

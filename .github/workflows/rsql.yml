@@ -49,13 +49,14 @@ jobs:
           versionFile: rsql/gradle.properties
 
   build:
-    runs-on: ubuntu-latest
     needs: context
     if: needs.context.outputs.shouldBuild == 'true'
     strategy:
       matrix:
         java: [ '8', '11' ]
         os: [ 'ubuntu-latest', 'windows-latest' ]
+    name: Java ${{ matrix.Java }} (${{ matrix.os }}) build
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2.4.0
 

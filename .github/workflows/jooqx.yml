@@ -20,6 +20,7 @@ on:
 
 env:
   PROFILE: jooqx
+  JAVA_DIST: 'temurin'
 
 jobs:
   context:
@@ -59,7 +60,6 @@ jobs:
           fi
 
   build:
-    runs-on: ubuntu-latest
     needs: context
     if: needs.context.outputs.shouldBuild == 'true'
     strategy:
@@ -67,37 +67,73 @@ jobs:
         java: [ '8', '11' ]
         os: [ 'ubuntu-latest', 'windows-latest' ]
     name: Java ${{ matrix.Java }} (${{ matrix.os }}) build
+    runs-on: ${{ matrix.os }}
+    env:
+      PROFILE: 'ciBuild'
     steps:
       - uses: actions/checkout@v2.4.0
 
       - name: Build
         uses: ./.github/actions/gha-build
         with:
-          profile: 'build'
+          profile: ${{ env.PROFILE }}
           version: ${{ needs.context.outputs.version }}
           semanticVersion: ${{ needs.context.outputs.semanticVersion }}
           hashVersion: ${{ needs.context.outputs.commitId }}
+          javaDist: ${{ env.JAVA_DIST }}
           javaVersion: ${{ matrix.Java }}
 
   analysis:
-    runs-on: ubuntu-latest
     needs: context
     if: needs.context.outputs.shouldBuild == 'true'
+    strategy:
+      matrix:
+        java: [ '11' ]
+        os: [ 'ubuntu-latest' ]
+    name: Java ${{ matrix.Java }} (${{ matrix.os }}) test
+    runs-on: ${{ matrix.os }}
+    env:
+      PROFILE: 'ciSonar'
     steps:
       - uses: actions/checkout@v2.4.0
         with:
           fetch-depth: 0
 
-      - name: Test and Quality report
-        uses: ./.github/actions/gha-test
+      - uses: actions/setup-java@v2
         with:
-          profile: 'analysis'
-          version: ${{ needs.context.outputs.version }}
-          semanticVersion: ${{ needs.context.outputs.semanticVersion }}
-          hashVersion: ${{ needs.context.outputs.commitId }}
-          branch: ${{ needs.context.outputs.branch }}
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
-          sonarToken: ${{ secrets.OSS_SONARQUBE_TOKEN }}
+          distribution: ${{ env.JAVA_DIST }}
+          java-version: ${{ matrix.Java }}
+          cache: 'gradle'
+
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v2.1.4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Generate jOOQ test schema
+        shell: bash
+        run: ./generateJooq.sh
+
+      - name: Full test
+        shell: bash
+        run: |
+          ./gradlew test --stacktrace \
+              -Pprofile=${{ env.PROFILE }} \
+              -PsemanticVersion=${{ needs.context.outputs.semanticVersion }}
+
+      - name: SonarQube
+        shell: bash
+        run: |
+          ./gradlew sonarqube -x test --stacktrace \
+              -Pprofile=${{ env.PROFILE }} \
+              -PsemanticVersion=${{ needs.context.outputs.semanticVersion }} \
+              -Dsonar.branch.name=${{ needs.context.outputs.branch }} \
+              -Dsonar.login=${{ secrets.OSS_SONARQUBE_TOKEN }} \
+              -Dorg.gradle.jvmargs="-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   publish:
     runs-on: ubuntu-latest

@@ -1,0 +1,3 @@
+[submodule "webdocs"]
+	path = webdocs
+	url = git@github.com:zero88/jooqx-webdocs.git

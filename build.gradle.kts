@@ -17,10 +17,14 @@ allprojects {
         maven { url = uri("https://oss.sonatype.org/content/groups/public/") }
         mavenCentral()
     }
+    val skipPublish = (gradle as ExtensionAware).extensions["SKIP_PUBLISH"] as Array<*>
+    sonarqube {
+        isSkipProject = project.path in skipPublish
+    }
 
     tasks {
         withType<AbstractPublishToMaven> {
-            enabled = project != rootProject && project.name !in arrayOf("rsql", "integtest", "sample")
+            enabled = project != rootProject && project.path !in skipPublish
         }
     }
 }
@@ -40,9 +44,9 @@ subprojects {
         testImplementation(TestLibs.junit5Api)
         testImplementation(TestLibs.junit5Engine)
         testImplementation(TestLibs.junit5Vintage)
+        testCompileOnly(UtilLibs.jetbrainsAnnotations)
         testCompileOnly(UtilLibs.lombok)
         testAnnotationProcessor(UtilLibs.lombok)
-        testCompileOnly(UtilLibs.jetbrainsAnnotations)
     }
 
     oss {
@@ -63,10 +67,6 @@ subprojects {
         testLogger {
             slowThreshold = 5000
         }
-    }
-
-    sonarqube {
-        isSkipProject = project.name.contains("sample")
     }
 }
 
