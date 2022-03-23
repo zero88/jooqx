@@ -5,17 +5,11 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-
 /**
  * Represents for {@code Sort Direction}.
  *
  * @since 1.0.0
  */
-@Getter
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum Direction implements Serializable {
     /**
      * {@code ASC} direction.
@@ -27,6 +21,8 @@ public enum Direction implements Serializable {
     DESC('-');
 
     private final char symbol;
+
+    Direction(char symbol) {this.symbol = symbol;}
 
     /**
      * Parse direction.
@@ -57,4 +53,6 @@ public enum Direction implements Serializable {
     public boolean isDESC() {
         return DESC == this;
     }
+
+    public char getSymbol() {return this.symbol;}
 }
