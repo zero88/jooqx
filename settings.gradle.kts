@@ -51,4 +51,5 @@ if (pp.contains(":jooqx-core")) {
 
 if (gradle is ExtensionAware) {
     (gradle as ExtensionAware).extensions.add("PROJECT_POOL", pools.toMap())
+    (gradle as ExtensionAware).extensions.add("SKIP_PUBLISH", excludeCIBuild + arrayOf(":docs", ":rsql", ":sample"))
 }

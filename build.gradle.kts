@@ -17,14 +17,14 @@ allprojects {
         maven { url = uri("https://oss.sonatype.org/content/groups/public/") }
         mavenCentral()
     }
-
+    val skipPublish = (gradle as ExtensionAware).extensions["SKIP_PUBLISH"] as Array<*>
     sonarqube {
-        isSkipProject = project.name.contains("sample")
+        isSkipProject = project.path in skipPublish
     }
 
     tasks {
         withType<AbstractPublishToMaven> {
-            enabled = project != rootProject && project.name !in arrayOf("rsql", "integtest", "sample", "docs")
+            enabled = project != rootProject && project.path !in skipPublish
         }
     }
 }
@@ -68,7 +68,6 @@ subprojects {
             slowThreshold = 5000
         }
     }
-
 }
 
 
