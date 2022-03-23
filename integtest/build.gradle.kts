@@ -22,4 +22,7 @@ dependencies {
     testImplementation(VertxLibs.rx2)
 
     testImplementation(LogLibs.logback)
+
+    testCompileOnly(UtilLibs.lombok)
+    testAnnotationProcessor(UtilLibs.lombok)
 }
