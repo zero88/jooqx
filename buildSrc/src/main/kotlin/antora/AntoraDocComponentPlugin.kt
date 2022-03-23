@@ -11,10 +11,10 @@ import org.gradle.kotlin.dsl.*
 import org.yaml.snakeyaml.Yaml
 import java.io.FileWriter
 
-class AntoraPlugin : Plugin<Project> {
+class AntoraDocComponentPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
-        val ext = project.extensions.create<AntoraExtension>("antora")
+        val ext = project.extensions.create<AntoraDocComponentExtension>("antora")
         project.afterEvaluate {
             if (ext.javadocInDir.isPresent && !ext.javadocProjects.orNull.isNullOrEmpty()) {
                 throw IllegalArgumentException("Provide only one of javadocInDir or javadocProjects")
@@ -29,7 +29,7 @@ class AntoraPlugin : Plugin<Project> {
                         into(ext.antoraOutDir.get())
                     }
                     val yaml = Yaml()
-                    val descriptorFile = AntoraLayout.getDescriptor(ext.antoraOutDir).asFile
+                    val descriptorFile = AntoraDocComponentLayout.getDescriptor(ext.antoraOutDir).asFile
                     val map = yaml.load<Map<String, Any>>(descriptorFile.inputStream()).toMutableMap()
                     val docVersion = project.findProperty("docVersion")?.toString()
                     if (!docVersion.isNullOrBlank() || map["version"].toString().ifEmpty { "null" } == "null") {

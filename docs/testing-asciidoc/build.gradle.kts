@@ -17,8 +17,8 @@ dependencies {
     implementation(VertxLibs.rx2)
 }
 
-apply<antora.AntoraPlugin>()
-configure<antora.AntoraExtension> {
+apply<antora.AntoraDocComponentPlugin>()
+configure<antora.AntoraDocComponentExtension> {
     antoraModule.set("testing")
     asciiAttributes.set(
         mapOf(

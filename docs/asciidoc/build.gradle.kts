@@ -15,8 +15,8 @@ val projects = if (gradle is ExtensionAware) {
     emptyArray()
 }.map { project.project(it) }
 
-apply<antora.AntoraPlugin>()
-configure<antora.AntoraExtension> {
+apply<antora.AntoraDocComponentPlugin>()
+configure<antora.AntoraDocComponentExtension> {
     asciiAttributes.set(
         mapOf(
             "jooqx-version" to project.version,

@@ -10,7 +10,7 @@ import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.*
 import org.gradle.work.Incremental
 
-abstract class AntoraExtension(layout: ProjectLayout) {
+abstract class AntoraDocComponentExtension(layout: ProjectLayout) {
 
     @get:Incremental
     @get:PathSensitive(PathSensitivity.NAME_ONLY)
@@ -39,7 +39,7 @@ abstract class AntoraExtension(layout: ProjectLayout) {
     abstract val javadocInDir: DirectoryProperty
 
     @Internal
-    val antoraLayout: Provider<AntoraLayout> = antoraModule.map { AntoraLayout(it) }
+    val antoraLayout: Provider<AntoraDocComponentLayout> = antoraModule.map { AntoraDocComponentLayout(it) }
 
     init {
         antoraSrcDir.convention(layout.projectDirectory.dir("src/antora"))

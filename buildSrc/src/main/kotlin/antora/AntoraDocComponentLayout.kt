@@ -4,7 +4,7 @@ import org.gradle.api.file.Directory
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.RegularFile
 
-class AntoraLayout(private val module: String) {
+class AntoraDocComponentLayout(private val module: String) {
 
     companion object {
 
