@@ -53,7 +53,7 @@ jobs:
     if: needs.context.outputs.shouldBuild == 'true'
     strategy:
       matrix:
-        java: [ '8', '11' ]
+        java: [ '8', '11', '17' ]
         os: [ 'ubuntu-latest', 'windows-latest' ]
     name: Java ${{ matrix.Java }} (${{ matrix.os }}) build
     runs-on: ${{ matrix.os }}
