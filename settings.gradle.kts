@@ -41,7 +41,7 @@ pp = when {
     profile == "all" || profile.isBlank() -> flatten().toTypedArray()
     profile == "ciBuild"                  -> flatten().filter { !excludeCIBuild.contains(it) }.toTypedArray()
     profile == "ciSonar"                  -> flatten().filter { !excludeCISonar.contains(it) }.toTypedArray()
-    else                                  -> pools.getOrElse(profile) { throw RuntimeException("Not found profile[$profile]") }
+    else                                  -> pools.getOrElse(profile) { throw IllegalArgumentException("Not found profile[$profile]") }
 }
 
 pp.forEach { include(it) }
