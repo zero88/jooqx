@@ -8,13 +8,15 @@ import org.gradle.api.tasks.compile.JavaCompile
 import org.gradle.api.tasks.javadoc.Javadoc
 import org.gradle.external.javadoc.StandardJavadocDocletOptions
 import org.gradle.kotlin.dsl.*
+import org.yaml.snakeyaml.Yaml
+import java.io.FileWriter
 
 class AntoraPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
         val ext = project.extensions.create<AntoraExtension>("antora")
         project.afterEvaluate {
-            if (ext.javadocInDir.orNull != null && !ext.javadocProjects.orNull.isNullOrEmpty()) {
+            if (ext.javadocInDir.isPresent && !ext.javadocProjects.orNull.isNullOrEmpty()) {
                 throw IllegalArgumentException("Provide only one of javadocInDir or javadocProjects")
             }
         }
@@ -26,6 +28,20 @@ class AntoraPlugin : Plugin<Project> {
                         from(ext.antoraSrcDir.get())
                         into(ext.antoraOutDir.get())
                     }
+                    val yaml = Yaml()
+                    val descriptorFile = AntoraLayout.getDescriptor(ext.antoraOutDir).asFile
+                    val map = yaml.load<Map<String, Any>>(descriptorFile.inputStream()).toMutableMap()
+                    val docVersion = project.findProperty("docVersion")?.toString()
+                    if (!docVersion.isNullOrBlank() || map["version"].toString().ifEmpty { "null" } == "null") {
+                        map["version"] = docVersion ?: ext.docVersion.getOrElse(project.version.toString())
+                    }
+                    if (ext.asciiAttributes.orNull.isNullOrEmpty().not()) {
+                        val asciidoc = map["asciidoc"] as? Map<*, *>
+                        val attrs = (asciidoc?.get("attributes") as? Map<*, *>).orEmpty()
+                        map["asciidoc"] =
+                            asciidoc.orEmpty().plus(Pair("attributes", attrs.plus(ext.asciiAttributes.get())))
+                    }
+                    yaml.dump(map, FileWriter(descriptorFile))
                 }
             }
             register<JavaCompile>("asciidoc") {
@@ -37,7 +53,8 @@ class AntoraPlugin : Plugin<Project> {
                 destinationDirectory.set(ext.antoraLayout.map { it.getPages(ext.antoraSrcDir) })
                 options.annotationProcessorPath = ss.compileClasspath
                 options.compilerArgs = listOf(
-                    "-proc:only", "-processor",
+                    "-proc:only",
+                    "-processor",
                     "io.vertx.docgen.JavaDocGenProcessor",
                     "-Adocgen.output=${ext.antoraLayout.map { it.getPages(ext.antoraOutDir) }.get()}",
                     "-Adocgen.source=${ext.antoraLayout.map { it.getPages(ext.antoraSrcDir) }.get()}/*.adoc"
@@ -45,7 +62,7 @@ class AntoraPlugin : Plugin<Project> {
             }
             named<Javadoc>("javadoc") {
                 onlyIf {
-                    ext.javadocProjects.isPresent && ext.javadocProjects.get().isNotEmpty()
+                    !ext.javadocProjects.orNull.isNullOrEmpty()
                 }
                 dependsOn("asciidoc")
                 options {

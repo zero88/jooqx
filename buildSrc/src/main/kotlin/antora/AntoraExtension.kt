@@ -4,15 +4,16 @@ import org.gradle.api.Project
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.file.ProjectLayout
 import org.gradle.api.provider.ListProperty
+import org.gradle.api.provider.MapProperty
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.Provider
-import org.gradle.api.tasks.Input
-import org.gradle.api.tasks.InputDirectory
-import org.gradle.api.tasks.Internal
-import org.gradle.api.tasks.OutputDirectory
+import org.gradle.api.tasks.*
+import org.gradle.work.Incremental
 
 abstract class AntoraExtension(layout: ProjectLayout) {
 
+    @get:Incremental
+    @get:PathSensitive(PathSensitivity.NAME_ONLY)
     @get:InputDirectory
     abstract val antoraSrcDir: DirectoryProperty
 
@@ -21,6 +22,12 @@ abstract class AntoraExtension(layout: ProjectLayout) {
 
     @get:Input
     abstract val antoraModule: Property<String>
+
+    @get:Input
+    abstract val asciiAttributes: MapProperty<String, Any>
+
+    @get:Input
+    abstract val docVersion: Property<String>
 
     @get:Input
     abstract val javadocTitle: Property<String>
