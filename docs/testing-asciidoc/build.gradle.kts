@@ -20,5 +20,12 @@ dependencies {
 apply<antora.AntoraPlugin>()
 configure<antora.AntoraExtension> {
     antoraModule.set("testing")
+    asciiAttributes.set(
+        mapOf(
+            "jooqx-version" to project.version,
+            "vertx-version" to VertxLibs.Version.vertx,
+            "jooq-version" to DatabaseLibs.Version.jooq
+        )
+    )
     javadocInDir.set(project(":jooqx-core").tasks.named<Javadoc>("testFixturesJavadoc").map { it.destinationDir!! }.get())
 }

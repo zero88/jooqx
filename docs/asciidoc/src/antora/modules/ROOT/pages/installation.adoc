@@ -58,7 +58,7 @@ dependencies {
     api("mysql:mysql-connector-java:8.0.23")
     // It is recommendation to use HikariCP instead of c3p0
     api("com.zaxxer:HikariCP:4.0.2")
-    api("io.vertx:vertx-jdbc-client:4.0.2") {
+    api("io.vertx:vertx-jdbc-client:{vertx-version}") {
      exclude("com.mchange")
     }
     api("io.github.zero88:jooqx-core:{jooqx-version}")
@@ -70,7 +70,7 @@ dependencies {
 [source,groovy,subs="attributes,verbatim"]
 ----
 dependencies {
-    api("io.vertx:vertx-pg-client:4.0.2")
+    api("io.vertx:vertx-pg-client:{vertx-version}")
     api("io.github.zero88:jooqx-core:{jooqx-version}")
 }
 ----
@@ -83,7 +83,7 @@ dependencies {
     api("com.h2database:h2:1.4.200")
     // Agroal pool - Default in Vertx SQL client - Not yet has alternatives
     api("io.agroal:agroal-pool:1.9")
-    api("io.vertx:vertx-sql-client:4.0.2")
+    api("io.vertx:vertx-sql-client:{vertx-version}")
     api("io.github.zero88:jooqx-core:{jooqx-version}")
 }
 ----
