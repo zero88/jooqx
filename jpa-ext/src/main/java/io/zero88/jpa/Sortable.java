@@ -3,7 +3,7 @@ package io.zero88.jpa;
 import java.io.Serializable;
 import java.util.Collection;
 
-import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Sort option for queries.
@@ -18,7 +18,7 @@ public interface Sortable extends Serializable {
      * @return the order collection
      * @since 1.0.0
      */
-    @NonNull Collection<Order> orders();
+    @NotNull Collection<Order> orders();
 
     /**
      * Get order.

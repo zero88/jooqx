@@ -38,15 +38,11 @@ subprojects {
 
     dependencies {
         compileOnly(UtilLibs.jetbrainsAnnotations)
-        compileOnly(UtilLibs.lombok)
-        annotationProcessor(UtilLibs.lombok)
 
         testImplementation(TestLibs.junit5Api)
         testImplementation(TestLibs.junit5Engine)
         testImplementation(TestLibs.junit5Vintage)
         testCompileOnly(UtilLibs.jetbrainsAnnotations)
-        testCompileOnly(UtilLibs.lombok)
-        testAnnotationProcessor(UtilLibs.lombok)
     }
 
     oss {

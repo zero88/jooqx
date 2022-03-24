@@ -2,8 +2,6 @@ package io.zero88.rsql;
 
 import org.jetbrains.annotations.NotNull;
 
-import lombok.NonNull;
-
 /**
  * Represents for context when executing query in runtime
  *

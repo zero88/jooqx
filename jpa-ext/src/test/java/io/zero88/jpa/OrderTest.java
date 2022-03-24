@@ -26,7 +26,7 @@ public class OrderTest {
         Assertions.assertTrue(order.direction().isASC());
         Assertions.assertFalse(order.direction().isDESC());
         Assertions.assertEquals("xyz", order.property());
-        Assertions.assertEquals("Order(property=xyz, direction=ASC)", order.toString());
+        Assertions.assertEquals("+xyz", order.toString());
 
         Assertions.assertEquals(orderJson, objectMapper.writeValueAsString(order));
         Assertions.assertEquals(Order.by("xyz", ""), order);
@@ -41,7 +41,7 @@ public class OrderTest {
         Assertions.assertFalse(order.direction().isASC());
         Assertions.assertTrue(order.direction().isDESC());
         Assertions.assertEquals("abc", order.property());
-        Assertions.assertEquals("Order(property=abc, direction=DESC)", order.toString());
+        Assertions.assertEquals("-abc", order.toString());
 
         Assertions.assertEquals(orderJson, objectMapper.writeValueAsString(order));
         Assertions.assertEquals(Order.byDESC("abc"), order);
