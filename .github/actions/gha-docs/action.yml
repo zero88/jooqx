@@ -1,0 +1,97 @@
+name: docs
+description: 'Query project context'
+inputs:
+  profile:
+    description: 'Project profile'
+    required: true
+  version:
+    description: 'Project version'
+    required: true
+  hashVersion:
+    description: 'Project hash commit'
+    required: true
+  isRelease:
+    description: 'Is release'
+    required: true
+  githubToken:
+    description: 'GitHub Token'
+    required: true
+  gpgKey:
+    description: 'GPG private key'
+    required: true
+  gpgPassphrase:
+    description: 'GPG passphrase'
+    required: true
+  javaDist:
+    description: 'Java distribution'
+    required: true
+    default: 'temurin'
+  javaVersion:
+    description: 'Java version'
+    required: true
+    default: '11'
+
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/checkout@v2.4.0
+      with:
+        token: ${{ inputs.githubToken }}
+
+    - name: Import GPG key
+      uses: crazy-max/ghaction-import-gpg@v3
+      with:
+        git-user-signingkey: true
+        git-commit-gpgsign: true
+        git-tag-gpgsign: true
+        git-push-gpgsign: false
+        gpg-private-key: ${{ inputs.gpgKey }}
+        passphrase: ${{ inputs.gpgPassphrase }}
+
+    - uses: actions/setup-java@v2
+      with:
+        distribution: ${{ inputs.javaDist }}
+        java-version: ${{ inputs.javaVersion }}
+        cache: 'gradle'
+
+    - name: Evaluate context
+      id: context
+      shell: bash
+      run: |
+        if [[ ${{ inputs.is_release == 'true' }} ]]; then
+          branch="docs/${{ inputs.profile }}/${{ inputs.version }}"
+          version="${{ inputs.version }}"
+          msg="${{ inputs.version }}-${{ inputs.hashVersion }}"
+        else
+          branch="docs/main"
+          version="main"
+          msg="main-${{ inputs.hashVersion }}"
+        echo ::set-output name=outdir::./antora/${{ inputs.profile }}
+        echo ::set-output name=branch::$branch
+        echo ::set-output name=version::$version
+        echo ::set-output name=msg::$msg
+
+    - name: Generate jOOQ test schema
+      shell: bash
+      run: ./generateJooq.sh
+
+    - name: Build docs
+      shell: bash
+      run: |
+        rm -rf ${{ steps.context.outputs.outdir }}
+        ./gradlew clean antora \
+            -Pprofile=${{ inputs.profile }}:docs \
+            -PantoraOutDir=${{ steps.context.outputs.outdir }} \
+            -Pversion=${{ steps.context.outputs.version }} \
+            -PsemanticVersion= \
+            -PbuildHash=${{ inputs.hashVersion }} \
+            -PbuildBy="GitHub-Action"
+
+    - name: Commit and push to github
+      shell: bash
+      run: |
+        git fetch
+        git switch -c ${{ steps.context.outputs.branch }}
+        git add .
+        git commit -am "Update ${{ inputs.profile }} documentation [${{ steps.context.outputs.msg }}]"
+        git push -u origin ${{ steps.context.outputs.branch }}

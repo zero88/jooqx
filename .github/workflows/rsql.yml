@@ -73,6 +73,22 @@ jobs:
         shell: bash
         run: ./gradlew test -Pprofile=${{ env.PROFILE }}
 
+  docs:
+    runs-on: ubuntu-latest
+    needs: [ context, build ]
+    if: needs.context.outputs.shouldPublish == 'true' || needs.context.outputs.isRelease == 'true'
+    steps:
+      - name: Build documentation
+        uses: ./.github/actions/gha-docs
+        with:
+          profile: ${{ env.PROFILE }}
+          version: ${{ needs.context.outputs.version }}
+          hashVersion: ${{ needs.context.outputs.commitId }}
+          isRelease: ${{ needs.context.outputs.isRelease }}
+          githubToken: ${{ secrets.OSS_GITHUB_TOKEN }}
+          gpgKey: ${{ secrets.CI_GPG_PRIVATE_KEY }}
+          gpgPassphrase: ${{ secrets.CI_GPG_PASSPHARSE }}
+
   publish:
     runs-on: ubuntu-latest
     needs: [ context, build ]

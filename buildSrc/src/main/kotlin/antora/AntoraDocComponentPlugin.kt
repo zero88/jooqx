@@ -10,6 +10,7 @@ import org.gradle.external.javadoc.StandardJavadocDocletOptions
 import org.gradle.kotlin.dsl.*
 import org.yaml.snakeyaml.Yaml
 import java.io.FileWriter
+import java.nio.file.Paths
 
 class AntoraDocComponentPlugin : Plugin<Project> {
 
@@ -18,6 +19,10 @@ class AntoraDocComponentPlugin : Plugin<Project> {
         project.afterEvaluate {
             if (ext.javadocInDir.isPresent && !ext.javadocProjects.orNull.isNullOrEmpty()) {
                 throw IllegalArgumentException("Provide only one of javadocInDir or javadocProjects")
+            }
+            if (!project.findProperty("antoraOutDir")?.toString().isNullOrBlank()) {
+                val p = Paths.get(project.findProperty("antoraOutDir").toString())
+                ext.antoraOutDir.set(if (p.isAbsolute) p.toFile() else project.rootDir.toPath().resolve(p).toFile())
             }
         }
         project.tasks {
