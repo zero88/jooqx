@@ -78,6 +78,10 @@ jobs:
     needs: [ context, build ]
     if: needs.context.outputs.shouldPublish == 'true' || needs.context.outputs.isRelease == 'true'
     steps:
+      - uses: actions/checkout@v2.4.0
+        with:
+          token: ${{ secrets.OSS_GITHUB_TOKEN }}
+
       - name: Build documentation
         uses: ./.github/actions/gha-docs
         with:

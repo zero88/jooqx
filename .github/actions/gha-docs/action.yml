@@ -13,9 +13,6 @@ inputs:
   isRelease:
     description: 'Is release'
     required: true
-  githubToken:
-    description: 'GitHub Token'
-    required: true
   gpgKey:
     description: 'GPG private key'
     required: true
@@ -34,10 +31,6 @@ inputs:
 runs:
   using: 'composite'
   steps:
-    - uses: actions/checkout@v2.4.0
-      with:
-        token: ${{ inputs.githubToken }}
-
     - name: Import GPG key
       uses: crazy-max/ghaction-import-gpg@v3
       with:
