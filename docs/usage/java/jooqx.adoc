@@ -1,3 +1,0 @@
-= jOOQ.x
-
-include::examples.adoc[]
