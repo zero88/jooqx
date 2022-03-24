@@ -31,7 +31,7 @@ val excludeCIBuild = pools["sample"]!! + pools["integtest"]!! + excludeCISonar
 pools.putAll(
     mapOf(
         "jooqx:docs" to pools["jooqx"]!!.plus(pools["sample"]!!).plus(jooqxDocs),
-        "rsql:docs" to pools["rsql"]!!.plus(pools["sample"]!!).plus(rsqlDocs)
+        "rsql:docs" to pools["rsql"]!!.plus(pools["jooqx"]!!).plus(pools["sample"]!!).plus(rsqlDocs)
     )
 )
 
