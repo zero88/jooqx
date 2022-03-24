@@ -51,7 +51,7 @@ runs:
       id: context
       shell: bash
       run: |
-        if [[ ${{ inputs.is_release == 'true' }} ]]; then
+        if [[ ${{ inputs.is_release }} == 'true' ]]; then
           branch="docs/${{ inputs.profile }}/${{ inputs.version }}"
           version="${{ inputs.version }}"
           msg="${{ inputs.version }}-${{ inputs.hashVersion }}"
