@@ -78,25 +78,20 @@ jobs:
           gpgPassphrase: ${{ secrets.CI_GPG_PASSPHARSE }}
 
   publish:
-    runs-on: ubuntu-latest
     needs: [ context, build ]
     if: needs.context.outputs.shouldPublish == 'true' || needs.context.outputs.isRelease == 'true'
-    steps:
-      - uses: actions/checkout@v2.4.0
-
-      - name: Publish artifact to remote registry
-        uses: ./.github/actions/gha-publish
-        with:
-          profile: ${{ env.PROFILE }}
-          version: ${{ needs.context.outputs.version }}
-          semanticVersion: ${{ needs.context.outputs.semanticVersion }}
-          hashVersion: ${{ needs.context.outputs.commitId }}
-          isRelease: ${{ needs.context.outputs.isRelease }}
-          githubToken: ${{ secrets.GITHUB_TOKEN }}
-          ossrhUser: ${{ secrets.OSS_SONATYPE_USER }}
-          ossrhToken: ${{ secrets.OSS_SONATYPE_PASSWORD }}
-          gpgKey: ${{ secrets.CI_GPG_PRIVATE_KEY }}
-          gpgPassphrase: ${{ secrets.CI_GPG_PASSPHARSE }}
+    uses: ./.github/workflows/subwf-publish.yml
+    with:
+      profile: 'rsql'
+      version: ${{ needs.context.outputs.version }}
+      semanticVersion: ${{ needs.context.outputs.semanticVersion }}
+      hashVersion: ${{ needs.context.outputs.commitId }}
+      isRelease: ${{ needs.context.outputs.isRelease }}
+    secrets:
+      ossrhUser: ${{ secrets.OSS_SONATYPE_USER }}
+      ossrhToken: ${{ secrets.OSS_SONATYPE_PASSWORD }}
+      gpgKey: ${{ secrets.CI_GPG_PRIVATE_KEY }}
+      gpgPassphrase: ${{ secrets.CI_GPG_PASSPHARSE }}
 
   release:
     runs-on: ubuntu-latest
