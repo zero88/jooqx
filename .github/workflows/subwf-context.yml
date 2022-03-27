@@ -1,0 +1,117 @@
+on:
+  workflow_call:
+    inputs:
+      profile:
+        description: 'Project profile'
+        type: string
+        required: true
+      versionFile:
+        description: 'Version pattern'
+        required: false
+        type: string
+        default: 'gradle.properties'
+      gitTagPrefix:
+        description: 'Git Tag prefix'
+        required: false
+        type: string
+        default: 'v'
+      skipBranchPattern:
+        description: 'Skip CI process if the given branch pattern matches the current branch'
+        required: false
+        type: string
+    secrets:
+      githubToken:
+        description: 'GitHub Token'
+        required: true
+      gpgKey:
+        description: 'GPG private key'
+        required: true
+      gpgPassphrase:
+        description: 'GPG passphrase'
+        required: true
+    outputs:
+      branch:
+        description: Branch or tag name
+        value: ${{ jobs.context.outputs.branch }}
+      shouldBuild:
+        description: Should build
+        value: ${{ jobs.context.outputs.shouldBuild }}
+      shouldPublish:
+        description: Should publish
+        value: ${{ jobs.context.outputs.shouldPublish }}
+      isRelease:
+        description: Is release
+        value: ${{ jobs.context.outputs.isRelease }}
+      commitId:
+        description: Git short commit id
+        value: ${{ jobs.context.outputs.commitId }}
+      sha:
+        description: Git SHA commit id
+        value: ${{ jobs.context.outputs.sha }}
+      version:
+        description: Project version
+        value: ${{ jobs.context.outputs.version }}
+      semanticVersion:
+        description: Should build
+        value: ${{ jobs.context.outputs.semanticVersion }}
+
+jobs:
+  context:
+    name: Project Context
+    runs-on: ubuntu-latest
+    outputs:
+      branch: ${{ steps.context.outputs.branch }}
+      isRelease: ${{ steps.context.outputs.isTag }}
+      commitId: ${{ steps.context.outputs.shortCommitId }}
+      sha: ${{ steps.context.outputs.commitId }}
+      version: ${{ steps.context.outputs.version }}
+      semanticVersion: ${{ steps.semantic.outputs.semanticVersion }}
+      shouldBuild: ${{ steps.verify.outputs.shouldBuild }}
+      shouldPublish: ${{ steps.verify.outputs.shouldPublish }}
+    steps:
+      - uses: actions/checkout@v2.4.0
+        with:
+          token: ${{ secrets.githubToken }}
+
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v3
+        with:
+          git-user-signingkey: true
+          git-commit-gpgsign: true
+          git-tag-gpgsign: true
+          git-push-gpgsign: false
+          gpg-private-key: ${{ secrets.gpgKey }}
+          passphrase: ${{ secrets.gpgPassphrase }}
+
+      - name: Project context
+        id: context
+        uses: zero88/gh-project-context@v1.1
+        with:
+          mustSign: true
+          nextVerMode: PATCH
+          patterns: ${{ inputs.versionFile }}
+          tagPrefix: ${{ inputs.gitTagPrefix }}
+          releaseBranchPrefix: '${{ inputs.profile }}/release/'
+          mergedReleaseMsgRegex: '^Merge pull request #[0-9]+ from .+/${{ inputs.profile }}/release/.+$'
+          correctVerMsg: 'Correct ${{ inputs.profile }} version'
+          releaseVerMsg: 'Release ${{ inputs.profile }} version'
+          nextVerMsg: 'Next ${{ inputs.profile }} version'
+
+      - name: Find semantic version
+        id: semantic
+        shell: bash
+        run: |
+          [[ "${{ steps.context.outputs.isTag }}" == "true" ]] && sv="" || sv=$(grep semanticVersion gradle.properties | cut -d'=' -f2)
+          echo ::set-output name=semanticVersion::$sv
+
+      - name: Verify if branch is in ignore list
+        id: verify
+        shell: bash
+        run: |
+          if [[ ! -z "${{ inputs.skipBranchPattern }}" && "${{ steps.context.outputs.branch }}" =~ '${{ inputs.skipBranchPattern }}' ]]; then
+            echo ::set-output name=shouldBuild::false
+            echo ::set-output name=shouldPublish::false
+          else
+            echo ::set-output name=shouldBuild::${{ steps.context.outputs.decision_build }}
+            echo ::set-output name=shouldPublish::${{ steps.context.outputs.decision_publish }}
+          fi
