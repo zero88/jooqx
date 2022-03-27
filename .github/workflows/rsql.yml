@@ -60,22 +60,25 @@ jobs:
 
   docs:
     runs-on: ubuntu-latest
-    needs: [ context, build ]
-    if: needs.context.outputs.shouldPublish == 'true' || needs.context.outputs.isRelease == 'true'
+    needs: [ context ]
+#    if: needs.context.outputs.shouldPublish == 'true' || needs.context.outputs.isRelease == 'true'
     steps:
       - uses: actions/checkout@v2.4.0
-        with:
-          token: ${{ secrets.OSS_GITHUB_TOKEN }}
-
-      - name: Build documentation
-        uses: ./.github/actions/gha-docs
-        with:
-          profile: ${{ env.PROFILE }}
-          version: ${{ needs.context.outputs.version }}
-          hashVersion: ${{ needs.context.outputs.commitId }}
-          isRelease: ${{ needs.context.outputs.isRelease }}
-          gpgKey: ${{ secrets.CI_GPG_PRIVATE_KEY }}
-          gpgPassphrase: ${{ secrets.CI_GPG_PASSPHARSE }}
+      - name: Trigger build ${{ env.PROFILE }} documentation
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh workflow run docs.yml \
+            -f profile=${{ env.PROFILE }} \
+            -f version=${{ needs.context.outputs.version }} \
+            -f semanticVersion=${{ needs.context.outputs.semanticVersion }} \
+            -f hashVersion=${{ needs.context.outputs.commitId }} \
+            -f sha=${{ needs.context.outputs.sha }} \
+            -f isRelease=${{ needs.context.outputs.isRelease }} \
+            -f antoraBuildDir=rsql/asciidoc/build/antora \
+            --ref ${{ needs.context.outputs.branch }} \
+            --repo zero88/jooqx
 
   publish:
     needs: [ context, build ]
