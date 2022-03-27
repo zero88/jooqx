@@ -67,4 +67,8 @@ tasks {
     compileTestFixturesJava {
         dependsOn(named("genTestFixturesCode"))
     }
+
+    named<Javadoc>("testFixturesJavadoc") {
+        title = "jOOQx Testing ${project.version} API"
+    }
 }
