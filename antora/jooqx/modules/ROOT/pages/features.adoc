@@ -1,0 +1,100 @@
+= Features
+
+== Simple execution
+
+[source,java]
+----
+PgConnectOptions connectOptions = new PgConnectOptions().setPort(5432)
+                                                        .setHost("the-host")
+                                                        .setDatabase("the-db")
+                                                        .setUser("user")
+                                                        .setPassword("secret");
+// Pool Options
+PoolOptions poolOptions = new PoolOptions().setMaxSize(5);
+// Create the pool from the data object
+PgPool pgPool = PgPool.pool(vertx, connectOptions, poolOptions);
+// jOOQ DSL
+DSLContext dsl = DSL.using(SQLDialect.POSTGRES);
+// Build jOOQ query
+Jooqx jooqx = Jooqx.builder().vertx(vertx).dsl(dsl).sqlClient(pgPool).build();
+// Build jOOQx
+SelectConditionStep<AuthorsRecord> q = dsl.selectFrom(Tables.AUTHORS).where(Tables.AUTHORS.NAME.eq("zero88"));
+// Execute
+jooqx.execute(q, DSLAdapter.fetchOne(q.asTable()), ar -> {
+    if (ar.succeeded()) {
+        AuthorsRecord rec = ar.result();
+        System.out.println(rec.getName());
+        System.out.println(rec.getCountry());
+    }
+});
+----
+
+== Rxified API
+
+[source,java]
+----
+JDBCPool jdbcPool = JDBCPool.pool(vertx, new JDBCConnectOptions().setJdbcUrl("jdbc:h2:mem:jooqx-examples"),
+                                  new PoolOptions().setMaxSize(5));
+// jOOQ DSL
+DSLContext dsl = DSL.using(SQLDialect.H2);
+// Build jOOQ query
+SelectForUpdateStep<BooksRecord> q = dsl.selectFrom(Tables.BOOKS)
+                                        .orderBy(Tables.BOOKS.TITLE)
+                                        .limit(10)
+                                        .offset(5);
+// Build jOOQx
+Jooqx jooqx = Jooqx.builder().vertx(vertx).dsl(dsl).sqlClient(jdbcPool).build();
+// To rx-ify version
+io.zero88.jooqx.reactivex.Jooqx.newInstance(jooqx)
+                               .rxExecute(q, DSLAdapter.fetchMany(q.asTable()))
+                               .subscribe(records -> {
+                                   BooksRecord record = records.get(0);
+                                   System.out.println(record.getId()); // output: 1
+                                   System.out.println(record.getTitle()); // output: jooqx
+                               }, err -> {});
+----
+
+== Json Record
+
+[source,java]
+----
+MySQLConnectOptions connectOptions = new MySQLConnectOptions().setPort(3306)
+                                                              .setHost("the-host")
+                                                              .setDatabase("the-db")
+                                                              .setUser("user")
+                                                              .setPassword("secret");
+MySQLPool mySQLPool = MySQLPool.pool(vertx, connectOptions, new PoolOptions().setMaxSize(5));
+// jOOQ DSL
+DSLContext dsl = DSL.using(SQLDialect.MYSQL);
+// Build jOOQ query
+SelectForUpdateStep<AuthorsRecord> q = dsl.selectFrom(Tables.AUTHORS)
+                                          .where(Tables.AUTHORS.NAME.eq("zero88"))
+                                          .limit(1)
+                                          .offset(1);
+// Build jOOQx
+Jooqx jooqx = Jooqx.builder().vertx(vertx).dsl(dsl).sqlClient(mySQLPool).build();
+jooqx.execute(q, DSLAdapter.fetchJsonRecord(q.asTable()), ar -> {
+    System.out.println(ar.result().toJson());
+    // output: {"id":88,"name":"zero88","country":"VN"}
+});
+----
+
+== Fetch Exists
+
+[source,java]
+----
+JDBCPool jdbcPool = JDBCPool.pool(vertx, new JDBCConnectOptions().setJdbcUrl("jdbc:h2:mem:jooqx-examples"),
+                                  new PoolOptions().setMaxSize(5));
+// jOOQ DSL
+DSLContext dsl = DSL.using(SQLDialect.H2);
+// Build jOOQ query
+SelectConditionStep<Record1<Integer>> q = dsl.selectOne()
+                                             .whereExists(dsl.selectFrom(Tables.AUTHORS)
+                                                             .where(Tables.AUTHORS.NAME.eq("zero88")));
+Jooqx jooqx = Jooqx.builder().vertx(vertx).dsl(dsl).sqlClient(jdbcPool).build();
+jooqx.execute(q, DSLAdapter.fetchExists(q.asTable()), ar -> {
+    final Boolean isExists = ar.result();
+    System.out.println(isExists);
+    // output: true
+});
+----

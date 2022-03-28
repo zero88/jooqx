@@ -1,0 +1,6 @@
+.Core
+* xref:index.adoc[Welcome]
+* xref:get-started.adoc[Get Started]
+* xref:installation.adoc[Installation]
+* xref:features.adoc[Features]
+* xref:apidocs.adoc[API docs]
