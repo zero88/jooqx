@@ -1,0 +1,23 @@
+== Features
+
+=== Fetch exists
+
+[source,java]
+----
+boolean exists = JooqFetchExistQuery.builder()
+                                    .parser(JooqRSQLParser.DEFAULT)
+                                    .context(JooqRSQLQueryContext.create(dsl, authorTable))
+                                    .build()
+                                    .execute(query);
+----
+
+=== Fetch count
+
+[source,java]
+----
+int count = JooqFetchCountQuery.builder()
+                               .parser(JooqRSQLParser.DEFAULT)
+                               .context(JooqRSQLQueryContext.create(dsl, authorTable))
+                               .build()
+                               .execute(query);
+----

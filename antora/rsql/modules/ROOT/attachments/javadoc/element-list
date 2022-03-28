@@ -1,0 +1,9 @@
+io.zero88.rsql
+io.zero88.rsql.criteria
+io.zero88.rsql.jooq
+io.zero88.rsql.jooq.criteria
+io.zero88.rsql.jooq.criteria.comparison
+io.zero88.rsql.jooq.criteria.logical
+io.zero88.rsql.jooq.query
+io.zero88.rsql.jooq.visitor
+io.zero88.rsql.parser.ast
