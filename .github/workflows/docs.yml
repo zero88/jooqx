@@ -161,7 +161,7 @@ jobs:
         run: |
           rm -rf jooqx/docs \
             && mkdir jooqx/docs \
-            && touch jooqx/docs/.gitkeep \
+            && touch jooqx/docs/.nojekyll \
             && cp -rf webdocs/build/site/* jooqx/docs
           cd jooqx
           git add .
