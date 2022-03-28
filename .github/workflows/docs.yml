@@ -130,7 +130,7 @@ jobs:
           repository: zero88/jooqx-webdocs
           path: webdocs
 
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: '16'
 
