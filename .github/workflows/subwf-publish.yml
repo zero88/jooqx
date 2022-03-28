@@ -1,3 +1,5 @@
+name: subwf-publish
+
 on:
   workflow_call:
     inputs:

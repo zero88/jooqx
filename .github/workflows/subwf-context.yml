@@ -1,3 +1,5 @@
+name: subwf-context
+
 on:
   workflow_call:
     inputs:
