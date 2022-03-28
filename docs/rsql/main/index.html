@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>jOOQ RSQL :: Reative SQL with Vert.x and jOOQ</title>
+    <meta name="generator" content="Antora 3.0.1">
+    <link rel="stylesheet" href="../../_/css/site.css">
+    <script>var uiRootPath = '../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="../..">Reative SQL with Vert.x and jOOQ</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Products</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Product A</a>
+            <a class="navbar-item" href="#">Product B</a>
+            <a class="navbar-item" href="#">Product C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Services</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Service A</a>
+            <a class="navbar-item" href="#">Service B</a>
+            <a class="navbar-item" href="#">Service C</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="rsql" data-version="main">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">RSQL</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="index.html">Welcome</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="features.html">Features</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="apidocs.html">API docs</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">RSQL</span>
+    <span class="version">main</span>
+  </div>
+  <ul class="components">
+    <li class="component">
+      <a class="title" href="../../jooqx/main/index.html">jOOQ.x</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../jooqx/main/index.html">main</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component is-current">
+      <a class="title" href="index.html">RSQL</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">main</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../jooqx/main/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">RSQL</a></li>
+    <li><a href="index.html">Welcome</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/zero88/jooqx/edit/docs/main/antora/rsql/modules/ROOT/pages/index.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">jOOQ RSQL</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>RESTful Service Query Language (RSQL) is a language, and a library designed for searching entries in RESTful services.</p>
+</div>
+<div class="paragraph">
+<p>This library provides core functionality based on <a href="https://github.com/zero88/rsql-parser">rsql-parser</a>
+and make extension for <a href="https://www.jooq.org/">jOOQ</a>, which is translated to <code>jOOQ DSL</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_installation"><a class="anchor" href="#_installation"></a>Installation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To use <code>rsql</code> with <code>jooq</code> add the following <a href="https://search.maven.org/artifact/io.github.zero88/rsql-jooq/1.0.0/jar">dependency</a>
+to the dependencies section of your build descriptor:</p>
+</div>
+<div class="paragraph">
+<p><code>Maven</code> (in your <code>pom.xml</code>):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependencies&gt;
+   &lt;dependency&gt;
+       &lt;groupId&gt;io.github.zero88&lt;/groupId&gt;
+       &lt;artifactId&gt;rsql-jooq&lt;/artifactId&gt;
+       &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
+   &lt;/dependency&gt;
+&lt;/dependencies&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>Gradle</code> (in your <code>build.gradle</code>):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">dependencies {
+   api 'io.github.zero88:rsql-jooq:1.0.0-SNAPSHOT'
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>Gradle</code> (in your <code>build.gradle.kts</code>):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">dependencies {
+ api("io.github.zero88:rsql-jooq:1.0.0-SNAPSHOT")
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="title"><code>rsql-jooq</code> is only depended on 2 main libraries</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>org.jooq:jooq</code></p>
+</li>
+<li>
+<p><code>org.slf4j:slf4j-api</code></p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Then you need to add <code>jdbc driver</code> jar to your project.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_get_started"><a class="anchor" href="#_get_started"></a>Get started</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_init"><a class="anchor" href="#_init"></a>Init</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">String url = "http://localhost:8080/api/author?q=(FIRST_NAME==zero88)";
+String query = splitQuery(url).get("q"); // simple utils function to get URL query
+System.out.println(query); // =&gt; (FIRST_NAME==zero88)
+
+JooqRSQLParser parser = JooqRSQLParser.DEFAULT;
+Condition condition = parser.criteria(query, Tables.AUTHOR);
+System.out.println(condition.toString()); // =&gt; "AUTHOR"."FIRST_NAME" = 'zero88'</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_features"><a class="anchor" href="#_features"></a>Features</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_how_it_works"><a class="anchor" href="#_how_it_works"></a>How it works</h3>
+<div class="paragraph">
+<p>The core functionality in <code>rsql-jooq</code> is creating <code>jOOQ condition</code> from RESTful query.
+For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">&gt; url
+http://localhost:8080/api/data?q=(F_DATE=between=('2020-04-05T08:00:00','2020-04-08T08:00:00'))
+&gt; jooq
+"ALL_DATA_TYPE"."F_DATE" between timestamp '2020-04-05 08:00:00.0' and timestamp '2020-04-08 08:00:00.0'
+
+# With AND condition. Use [;] or [and]
+&gt; url
+http://localhost:8080/api/data?q=(F_STR=='abc';F_BOOL=='true')
+
+&gt; jooq
+( "ALL_DATA_TYPE"."F_STR" = 'abc' and "ALL_DATA_TYPE"."F_BOOL" = true )
+
+# With OR condition. Use [,] or [or]
+&gt; url
+http://localhost:8080/api/data?q=(F_DURATION=='abc',F_PERIOD=='xyz')
+&gt; jooq
+( "ALL_DATA_TYPE"."F_DURATION" = 'abc' or "ALL_DATA_TYPE"."F_PERIOD" = 'xyz' )
+
+# With combination AND and OR condition
+&gt; url
+http://localhost:8080/api/data?q=(F_STR=='abc';F_BOOL=='true';(F_DURATION=='def',F_PERIOD=='xyz'))
+&gt; jooq
+(
+ "ALL_DATA_TYPE"."F_STR" = 'abc'
+ and "ALL_DATA_TYPE"."F_BOOL" = true
+ and (
+   "ALL_DATA_TYPE"."F_DURATION" = 'def'
+   or "ALL_DATA_TYPE"."F_PERIOD" = 'xyz'
+ )
+)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_comparison_operators"><a class="anchor" href="#_comparison_operators"></a>Comparison Operators</h3>
+<div class="paragraph">
+<p>Currently, <code>rsql-jooq</code> supports these comparison nodes</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Name</th>
+<th class="tableblock halign-left valign-top">Symbols</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EQUAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[==]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NOT_EQUAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[!=]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GREATER_THAN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[=gt=, &gt;]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GREATER_THAN_OR_EQUAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[=ge=, &gt;=]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LESS_THAN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[=lt=, &lt;]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LESS_THAN_OR_EQUAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[=le=, &lt;=]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">IN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[=in=]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NOT_IN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[=out=]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BETWEEN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[=between=]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EXISTS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[=exists=, =nn=]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NON_EXISTS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[=null=, =isn=]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">NULLABLE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[=nullable=]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LIKE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[=like=]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UNLIKE</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[=nk=, =unlike=]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CONTAINS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[=contains=]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">STARTS_WITH</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[=sw=, =startswith=]</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ENDS_WITH</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">[=ew=, =endswith=]</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect3">
+<h4 id="_customize_comparison"><a class="anchor" href="#_customize_comparison"></a>Customize comparison</h4>
+<div class="paragraph">
+<p>Thanks to <a href="https://docs.oracle.com/javase/8/docs/api/java/util/ServiceLoader.html">ServiceLoader</a>, you can add more <code>comparison builder</code> by extends <a href="/jooq/src/main/java/io/zero88/rsql/jooq/criteria/JooqComparisonCriteriaBuilder.java">JooqComparisonCriteriaBuilder</a>, then register in <a href="jooq/src/main/resources/META-INF/services/io.zero88.rsql.jooq.criteria.JooqComparisonCriteriaBuilder">META-INF/services/io.zero88.rsql.jooq.criteria.JooqComparisonCriteriaBuilder</a></p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public static final class CustomOpBuilder extends JooqComparisonCriteriaBuilder {
+
+    @Override
+    public ComparisonOperatorProxy operator() {
+        return ComparisonOperatorProxy.create("=custom=");
+    }
+
+    @Override
+    protected Condition compare(Field field, List&lt;String&gt; arguments, JooqArgumentParser argParser,
+        LikeWildcardPattern wildcardPattern) {
+        // do something here
+        throw new UnsupportedOperationException("Not yet implemented");
+    }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Create new resource file <code>META-INF/services/io.zero88.rsql.jooq.criteria.JooqComparisonCriteriaBuilder</code> in your resource folder, with all content in <a href="jooq/src/main/resources/META-INF/services/io.zero88.rsql.jooq.criteria.JooqComparisonCriteriaBuilder">default registry</a> and appends your FQN class (e.g: <code>your.project.pkg.CustomOpBuilder</code>)</p>
+</div>
+<div class="paragraph">
+<p><em>Note</em>: in case that you don&#8217;t support or overwrite any default comparison operator, it is safe to remove any line in service file.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_jooq_query"><a class="anchor" href="#_jooq_query"></a>jOOQ Query</h3>
+<div class="paragraph">
+<p>To make a life is easier, <code>rsql-jooq</code> provide some basic queries that can execute directly to achieve records.
+For example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Fetch exists</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">boolean exists = JooqFetchExistQuery.builder()
+                                    .parser(JooqRSQLParser.DEFAULT)
+                                    .context(JooqRSQLQueryContext.create(dsl, authorTable))
+                                    .build()
+                                    .execute(query);</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Fetch count</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">int count = JooqFetchCountQuery.builder()
+                               .parser(JooqRSQLParser.DEFAULT)
+                               .context(JooqRSQLQueryContext.create(dsl, authorTable))
+                               .build()
+                               .execute(query);</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_advanced"><a class="anchor" href="#_advanced"></a>Advanced</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To develop more portable lib to another database abstraction in Java such as <code>Hibernate</code>, <code>JPA</code>, <code>MyBatis</code>, you can use only core module</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Maven</code></p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
+   &lt;groupId&gt;io.github.zero88&lt;/groupId&gt;
+   &lt;artifactId&gt;rsql-core&lt;/artifactId&gt;
+   &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Gradle</code></p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">dependencies {
+   api("io.github.zero88:rsql-core:1.0.0-SNAPSHOT")
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then make extend in API core interface.</p>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script src="../../_/js/site.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
