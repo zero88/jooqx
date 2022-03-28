@@ -127,10 +127,9 @@ jobs:
 
   docs:
     runs-on: ubuntu-latest
-    needs: [ context ]
-#    if: needs.context.outputs.shouldPublish == 'true' || needs.context.outputs.isRelease == 'true'
+    needs: [ context, build ]
+    if: needs.context.outputs.shouldPublish == 'true' || needs.context.outputs.isRelease == 'true'
     steps:
-      - uses: actions/checkout@v2.4.0
       - name: Trigger build ${{ env.PROFILE }} documentation
         shell: bash
         env:
@@ -144,7 +143,6 @@ jobs:
             -f sha=${{ needs.context.outputs.sha }} \
             -f isRelease=${{ needs.context.outputs.isRelease }} \
             -f antoraBuildDir=docs/build/antora \
-            --ref ${{ needs.context.outputs.branch }} \
             --repo zero88/jooqx
 
   release:
