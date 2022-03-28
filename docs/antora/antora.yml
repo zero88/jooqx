@@ -3,3 +3,4 @@ title: jOOQ.x
 version: null
 nav:
   - modules/ROOT/nav.adoc
+  - modules/testing/nav.adoc

@@ -1,6 +1,0 @@
-name: jooqx-testing
-title: jOOQ.x Testing
-version: null
-nav:
-  - modules/testing/nav.adoc
-start_page: testing:index.adoc

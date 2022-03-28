@@ -1,0 +1,95 @@
+on:
+  workflow_call:
+    inputs:
+      profile:
+        description: 'Build profile'
+        type: string
+        required: true
+      version:
+        description: 'Project version'
+        type: string
+        required: true
+      semanticVersion:
+        description: 'Project semantic version'
+        type: string
+        required: true
+      hashVersion:
+        description: 'Project hash commit'
+        type: string
+        required: true
+      isRelease:
+        description: 'Is release'
+        type: string
+        required: true
+      javaDist:
+        description: 'Java distribution'
+        required: false
+        type: string
+        default: 'temurin'
+      javaVersion:
+        description: 'Java version'
+        required: false
+        type: string
+        default: '11'
+    secrets:
+      ossrhUser:
+        description: 'OSSRH User'
+        required: true
+      ossrhToken:
+        description: 'OSSRH Token'
+        required: true
+      gpgKey:
+        description: 'GPG private key'
+        required: true
+      gpgPassphrase:
+        description: 'GPG passphrase'
+        required: true
+
+jobs:
+  publish:
+    name: Publish to registry
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.4.0
+
+      - uses: actions/setup-java@v2
+        with:
+          distribution: ${{ inputs.javaDist }}
+          java-version: ${{ inputs.javaVersion }}
+          cache: 'gradle'
+
+      - name: Publish Sonatype OSSRH Snapshot
+        if: inputs.isRelease != 'true'
+        shell: bash
+        run: |
+          args=( -Pprofile=${{ inputs.profile }} \
+                 -Pversion=${{ inputs.version }} \
+                 -PsemanticVersion=${{ inputs.semanticVersion }} \
+                 -Pnexus.username=${{ secrets.ossrhUser }} \
+                 -Pnexus.password=${{ secrets.ossrhToken }} )
+          ./gradlew publish "${args[@]}"
+
+      - name: Import GPG key
+        id: import_gpg
+        if: inputs.isRelease == 'true'
+        uses: crazy-max/ghaction-import-gpg@v3
+        with:
+          git-user-signingkey: true
+          gpg-private-key: ${{ secrets.gpgKey }}
+          passphrase: ${{ secrets.gpgPassphrase }}
+
+      - name: Publish Sonatype OSSRH
+        if: inputs.isRelease == 'true'
+        shell: bash
+        run: |
+          args=( -Pprofile=${{ inputs.profile }} \
+                 -Pversion=${{ inputs.version }} \
+                 -PsemanticVersion='${{ inputs.semanticVersion }}' \
+                 -PbuildHash=${{ inputs.hashVersion }} \
+                 -PbuildBy="GitHub-Action" \
+                 -Psigning.gnupg.homeDir=/home/runner/.gnupg \
+                 -Psigning.gnupg.keyName='${{ steps.import_gpg.outputs.keyid }}' \
+                 -Psigning.gnupg.passphrase='${{ secrets.gpgPassphrase }}' \
+                 -Pnexus.username='${{ secrets.ossrhUser }}' \
+                 -Pnexus.password='${{ secrets.ossrhToken }}' )
+          ./gradlew publishToSonatype closeAndReleaseSonatypeStagingRepository -Prelease "${args[@]}"

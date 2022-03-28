@@ -1,0 +1,169 @@
+on:
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: 'Project profile'
+        required: true
+      version:
+        description: 'Project version'
+        required: true
+      semanticVersion:
+        description: 'Project semantic version'
+        required: true
+      hashVersion:
+        description: 'Project hash commit'
+        required: true
+      sha:
+        description: 'SHA commit id'
+        required: true
+      isRelease:
+        description: 'Is release'
+        required: false
+        default: fasle
+      antoraBuildDir:
+        description: 'Specifics Antora output dir per profile'
+        required: true
+      javaDist:
+        description: 'Java distribution'
+        required: false
+        default: 'temurin'
+      javaVersion:
+        description: 'Java version'
+        required: false
+        default: '11'
+
+jobs:
+  build:
+    name: Build ${{ github.event.inputs.profile }} documentation
+    runs-on: ubuntu-latest
+    outputs:
+      docBranch: ${{ steps.context.outputs.docBranch }}
+      ciMsg: ${{ steps.context.outputs.ciMsg }}
+    steps:
+      - uses: actions/checkout@v2.4.0
+        with:
+          ref: ${{ github.event.inputs.sha }}
+          token: ${{ secrets.OSS_GITHUB_TOKEN }}
+
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v3
+        with:
+          git-user-signingkey: true
+          git-commit-gpgsign: true
+          git-tag-gpgsign: false
+          git-push-gpgsign: false
+          gpg-private-key: ${{ secrets.CI_GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.CI_GPG_PASSPHARSE }}
+
+      - uses: actions/setup-java@v2
+        with:
+          distribution: ${{ github.event.inputs.javaDist }}
+          java-version: ${{ github.event.inputs.javaVersion }}
+          cache: 'gradle'
+
+      - name: Evaluate context
+        id: context
+        shell: bash
+        run: |
+          if [[ '${{ github.event.inputs.isRelease }}' == 'true' ]]; then
+            docBranch="docs/${{ github.event.inputs.profile }}/${{ github.event.inputs.version }}"
+            docVersion="${{ github.event.inputs.version }}"
+            commitVersion="${{ github.event.inputs.version }}-${{ github.event.inputs.hashVersion }}"
+          else
+            docBranch="docs/main"
+            docVersion="main"
+            commitVersion="main-${{ github.event.inputs.hashVersion }}"
+          fi
+          docProfile="${{ github.event.inputs.profile }}:docs"
+          docOutDir="./antora/${{ github.event.inputs.profile }}"
+          
+          echo ::set-output name=docProfile::$docProfile
+          echo ::set-output name=docBranch::$docBranch
+          echo ::set-output name=docVersion::$docVersion
+          echo ::set-output name=docOutDir::$docOutDir
+          echo ::set-output name=docBuildDir::${{ github.event.inputs.antoraBuildDir }}
+          echo ::set-output name=ciMsg::"${{ github.event.inputs.profile }} documentation [$commitVersion]"
+
+      - name: Generate jOOQ test schema
+        shell: bash
+        run: ./generateJooq.sh
+
+      - name: Build docs
+        shell: bash
+        run: |
+          ./gradlew antora \
+              -Pprofile=${{ steps.context.outputs.docProfile }} \
+              -PdocVersion=${{ steps.context.outputs.docVersion }} \
+              -Pversion=${{ github.event.inputs.version }} \
+              -PsemanticVersion=${{ github.event.inputs.semanticVersion }} \
+              -PbuildHash=${{ github.event.inputs.hashVersion }} \
+              -PbuildBy="GitHub-Action"
+
+      - name: Sync changes to Git branch [${{ steps.context.outputs.docBranch }}]
+        shell: bash
+        run: |
+          git fetch
+          git branch -r | grep ${{ steps.context.outputs.docBranch }} 1> /dev/null
+          if [ $? -eq 0 ]; then
+            git checkout ${{ steps.context.outputs.docBranch }}
+          else
+            git checkout -b ${{ steps.context.outputs.docBranch }} docs/main
+          fi
+          rm -rf ${{ steps.context.outputs.docOutDir }} \
+            && mkdir ${{ steps.context.outputs.docOutDir }} \
+            && touch ${{ steps.context.outputs.docOutDir }}/.gitkeep \
+            && cp -rf ./${{ steps.context.outputs.docBuildDir }}/* ${{ steps.context.outputs.docOutDir }}
+          git add .
+          git diff-index --quiet HEAD || git commit -am "Update ${{ steps.context.outputs.ciMsg }}"
+          git push -u origin ${{ steps.context.outputs.docBranch }}
+
+  site:
+    name: Deploy ${{ github.event.inputs.profile }} documentation
+    runs-on: ubuntu-latest
+    needs: [ build ]
+    steps:
+      - name: Checkout webdocs
+        uses: actions/checkout@v3
+        with:
+          repository: zero88/jooqx-webdocs
+          path: webdocs
+
+      - uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Deploy site
+        shell: bash
+        run: |
+          cd webdocs
+          yarn install
+          yarn antora --fetch antora-playbook.yml --stacktrace
+
+      - name: Checkout jooqx
+        uses: actions/checkout@v3
+        with:
+          ref: gh-pages
+          path: jooqx
+
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v3
+        with:
+          git-user-signingkey: true
+          git-commit-gpgsign: true
+          git-tag-gpgsign: false
+          git-push-gpgsign: false
+          gpg-private-key: ${{ secrets.CI_GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.CI_GPG_PASSPHARSE }}
+          workdir: jooqx
+
+      - name: Sync changes to Git branch [gh-pages]
+        shell: bash
+        run: |
+          rm -rf jooqx/docs \
+            && mkdir jooqx/docs \
+            && touch jooqx/docs/.nojekyll \
+            && cp -rf webdocs/build/site/* jooqx/docs
+          cd jooqx
+          git add .
+          git diff-index --quiet HEAD || git commit -am "Deploy ${{ needs.build.outputs.ciMsg }}"
+          git push -u origin gh-pages

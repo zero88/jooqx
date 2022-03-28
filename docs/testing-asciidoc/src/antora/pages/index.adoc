@@ -54,7 +54,7 @@ as a dependency.
 <dependency>
   <groupId>io.github.zero88</groupId>
   <artifactId>jooqx-core</artifactId>
-  <version>1.0.0</version>
+  <version>{jooqx-version}</version>
   <classifier>testFixtures</classifier>
   <type>jar</type>
 </dependency>
@@ -73,7 +73,7 @@ as a dependency.
 
 [source,groovy,subs="attributes,verbatim"]
 ----
-api(testFixtures("io.github.zero88:jooqx-core:{jooqx-core}"))
+api(testFixtures("io.github.zero88:jooqx-core:{jooqx-version}"))
 // sqlite
 api("org.xerial:sqlite-jdbc:3.34.0") )
 ----
