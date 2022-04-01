@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"io.zero88.jooqx"},{"l":"io.zero88.jooqx.spi.mysql"},{"l":"io.zero88.jooqx.spi.pg"}]
