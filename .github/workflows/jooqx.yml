@@ -9,7 +9,7 @@ on:
       - '.github/*.yml'
       - '*.md'
       - 'LICENSE'
-      - 'webdocs/'
+      - 'webdocs/**'
   pull_request:
     types: [ opened, synchronize, reopened, closed ]
     branches: [ main ]
@@ -18,7 +18,7 @@ on:
       - '.github/*.yml'
       - '*.md'
       - 'LICENSE'
-      - 'webdocs/'
+      - 'webdocs/**'
 
 env:
   PROFILE: 'jooqx'

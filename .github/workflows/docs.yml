@@ -38,9 +38,6 @@ jobs:
   build:
     name: Build ${{ github.event.inputs.profile }} documentation
     runs-on: ubuntu-latest
-    outputs:
-      docBranch: ${{ steps.context.outputs.docBranch }}
-      ciMsg: ${{ steps.context.outputs.ciMsg }}
     steps:
       - uses: actions/checkout@v2.4.0
         with:
@@ -119,53 +116,11 @@ jobs:
           git diff-index --quiet HEAD || git commit -am "Update ${{ steps.context.outputs.ciMsg }}"
           git push -u origin ${{ steps.context.outputs.docBranch }}
 
-  site:
-    name: Deploy ${{ github.event.inputs.profile }} documentation
-    runs-on: ubuntu-latest
-    needs: [ build ]
-    steps:
-      - name: Checkout webdocs
-        uses: actions/checkout@v3
-        with:
-          repository: zero88/jooqx-webdocs
-          path: webdocs
-
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '16'
-
-      - name: Deploy site
+      - name: Trigger to deploy website
         shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          cd webdocs
-          yarn install
-          yarn antora --fetch antora-playbook.yml --stacktrace
-
-      - name: Checkout jooqx
-        uses: actions/checkout@v3
-        with:
-          ref: gh-pages
-          path: jooqx
-
-      - name: Import GPG key
-        uses: crazy-max/ghaction-import-gpg@v3
-        with:
-          git-user-signingkey: true
-          git-commit-gpgsign: true
-          git-tag-gpgsign: false
-          git-push-gpgsign: false
-          gpg-private-key: ${{ secrets.CI_GPG_PRIVATE_KEY }}
-          passphrase: ${{ secrets.CI_GPG_PASSPHARSE }}
-          workdir: jooqx
-
-      - name: Sync changes to Git branch [gh-pages]
-        shell: bash
-        run: |
-          rm -rf jooqx/docs \
-            && mkdir jooqx/docs \
-            && touch jooqx/docs/.nojekyll \
-            && cp -rf webdocs/build/site/* jooqx/docs
-          cd jooqx
-          git add .
-          git diff-index --quiet HEAD || git commit -am "Deploy ${{ needs.build.outputs.ciMsg }}"
-          git push -u origin gh-pages
+          gh workflow run docs.yml \
+            -f ciMsg="Deploy ${{ steps.context.outputs.ciMsg }}" \
+            --repo zero88/jooqx-webdocs
