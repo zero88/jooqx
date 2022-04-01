@@ -68,15 +68,19 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh workflow run docs.yml \
+          fields=workflowDatabaseId,databaseId,status,event,headBranch,headSha,name,conclusion,url,createdAt,updatedAt
+          repo=zero88/jooqx
+          workflow=docs.yml
+          gh run list --workflow $workflow --repo $repo -L 1 --json $fields | jq
+          gh workflow run $workflow --repo $repo --ref main \
             -f profile=${{ env.PROFILE }} \
             -f version=${{ needs.context.outputs.version }} \
             -f semanticVersion=${{ needs.context.outputs.semanticVersion }} \
             -f hashVersion=${{ needs.context.outputs.commitId }} \
             -f sha=${{ needs.context.outputs.sha }} \
             -f isRelease=${{ needs.context.outputs.isRelease }} \
-            -f antoraBuildDir=rsql/asciidoc/build/antora \
-            --repo zero88/jooqx
+            -f antoraBuildDir=rsql/asciidoc/build/antora
+          gh run list --workflow $workflow --repo $repo -L 1 --json $fields | jq
 
   publish:
     needs: [ context, build ]

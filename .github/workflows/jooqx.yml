@@ -141,7 +141,7 @@ jobs:
           repo=zero88/jooqx
           workflow=docs.yml
           gh run list --workflow $workflow --repo $repo -L 1 --json $fields | jq
-          gh workflow run $workflow --repo $repo \
+          gh workflow run $workflow --repo $repo --ref main \
             -f profile=${{ env.PROFILE }} \
             -f version=${{ needs.context.outputs.version }} \
             -f semanticVersion=${{ needs.context.outputs.semanticVersion }} \
