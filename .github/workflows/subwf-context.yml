@@ -1,4 +1,4 @@
-name: subwf-context
+name: SubWF::Project Context
 
 on:
   workflow_call:
