@@ -181,15 +181,15 @@ extends <a href="SQLResultAdapter.html" title="interface in io.zero88.jooqx.adap
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>&lt;RS&gt;&nbsp;<a href="SQLResultAdapter.SQLResultOneAdapter.html" title="type parameter in SQLResultAdapter.SQLResultOneAdapter">R</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#collect(RS,io.zero88.jooqx.SQLResultCollector,org.jooq.DSLContext,io.zero88.jooqx.datatype.DataTypeMapperRegistry)">collect</a></span>&#8203;(RS&nbsp;resultSet,
-       @NonNull <a href="../SQLResultCollector.html" title="interface in io.zero88.jooqx">SQLResultCollector</a>&lt;RS&gt;&nbsp;collector,
-       @NonNull org.jooq.DSLContext&nbsp;dsl,
-       @NonNull <a href="../datatype/DataTypeMapperRegistry.html" title="class in io.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;registry)</code></th>
+       @NotNull <a href="../SQLResultCollector.html" title="interface in io.zero88.jooqx">SQLResultCollector</a>&lt;RS&gt;&nbsp;collector,
+       @NotNull org.jooq.DSLContext&nbsp;dsl,
+       @NotNull <a href="../datatype/DataTypeMapperRegistry.html" title="class in io.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;registry)</code></th>
 <td class="colLast">
 <div class="block">Collect result set to expected result</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>default @NonNull <a href="SelectStrategy.html" title="enum in io.zero88.jooqx.adapter">SelectStrategy</a></code></td>
+<td class="colFirst"><code>default @NotNull <a href="SelectStrategy.html" title="enum in io.zero88.jooqx.adapter">SelectStrategy</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#strategy()">strategy</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
@@ -223,8 +223,8 @@ extends <a href="SQLResultAdapter.html" title="interface in io.zero88.jooqx.adap
 <ul class="blockList">
 <li class="blockList">
 <h4>strategy</h4>
-<pre class="methodSignature">@NonNull
-default&nbsp;@NonNull <a href="SelectStrategy.html" title="enum in io.zero88.jooqx.adapter">SelectStrategy</a>&nbsp;strategy()</pre>
+<pre class="methodSignature">@NotNull
+default&nbsp;@NotNull <a href="SelectStrategy.html" title="enum in io.zero88.jooqx.adapter">SelectStrategy</a>&nbsp;strategy()</pre>
 </li>
 </ul>
 <a id="collect(java.lang.Object,io.zero88.jooqx.SQLResultCollector,org.jooq.DSLContext,io.zero88.jooqx.datatype.DataTypeMapperRegistry)">
@@ -235,15 +235,15 @@ default&nbsp;@NonNull <a href="SelectStrategy.html" title="enum in io.zero88.joo
 <ul class="blockListLast">
 <li class="blockList">
 <h4>collect</h4>
-<pre class="methodSignature">@NonNull
-&lt;RS&gt;&nbsp;<a href="SQLResultAdapter.SQLResultOneAdapter.html" title="type parameter in SQLResultAdapter.SQLResultOneAdapter">R</a>&nbsp;collect&#8203;(@NonNull
+<pre class="methodSignature">@NotNull
+&lt;RS&gt;&nbsp;<a href="SQLResultAdapter.SQLResultOneAdapter.html" title="type parameter in SQLResultAdapter.SQLResultOneAdapter">R</a>&nbsp;collect&#8203;(@NotNull
                RS&nbsp;resultSet,
-               @NonNull
-               @NonNull <a href="../SQLResultCollector.html" title="interface in io.zero88.jooqx">SQLResultCollector</a>&lt;RS&gt;&nbsp;collector,
-               @NonNull
-               @NonNull org.jooq.DSLContext&nbsp;dsl,
-               @NonNull
-               @NonNull <a href="../datatype/DataTypeMapperRegistry.html" title="class in io.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;registry)</pre>
+               @NotNull
+               @NotNull <a href="../SQLResultCollector.html" title="interface in io.zero88.jooqx">SQLResultCollector</a>&lt;RS&gt;&nbsp;collector,
+               @NotNull
+               @NotNull org.jooq.DSLContext&nbsp;dsl,
+               @NotNull
+               @NotNull <a href="../datatype/DataTypeMapperRegistry.html" title="class in io.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;registry)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLResultAdapter.html#collect(RS,io.zero88.jooqx.SQLResultCollector,org.jooq.DSLContext,io.zero88.jooqx.datatype.DataTypeMapperRegistry)">SQLResultAdapter</a></code></span></div>
 <div class="block">Collect result set to expected result</div>
 <dl>

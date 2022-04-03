@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10};
+var data = {"i0":10,"i1":10,"i2":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -192,7 +192,8 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr class="altColor">
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E()">SQLCollectorPart</a></span>()</code></th>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(java.util.function.BiFunction,java.util.function.Function)">SQLCollectorPart</a></span>&#8203;(java.util.function.BiFunction&lt;org.jooq.DSLContext,&#8203;org.jooq.TableLike&lt;? extends org.jooq.Record&gt;,&#8203;<a href="SQLCollectorPart.html" title="type parameter in SQLCollectorPart">R</a>&gt;&nbsp;provider,
+                java.util.function.Function&lt;<a href="SQLCollectorPart.html" title="type parameter in SQLCollectorPart">R</a>,&#8203;<a href="SQLCollectorPart.html" title="type parameter in SQLCollectorPart">I</a>&gt;&nbsp;converter)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -214,9 +215,19 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>java.util.function.Function&lt;<a href="SQLCollectorPart.html" title="type parameter in SQLCollectorPart">R</a>,&#8203;<a href="SQLCollectorPart.html" title="type parameter in SQLCollectorPart">I</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#converter()">converter</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>protected java.util.function.BiFunction&lt;org.jooq.DSLContext,&#8203;org.jooq.TableLike&lt;? extends org.jooq.Record&gt;,&#8203;<a href="SQLCollectorPart.html" title="type parameter in SQLCollectorPart">R</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#provider()">provider</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
 <td class="colFirst"><code><a href="SQLCollectorPart.html" title="type parameter in SQLCollectorPart">R</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toRecord(org.jooq.DSLContext,org.jooq.TableLike)">toRecord</a></span>&#8203;(@NonNull org.jooq.DSLContext&nbsp;dsl,
-        @NonNull org.jooq.TableLike&lt;? extends org.jooq.Record&gt;&nbsp;queryTable)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toRecord(org.jooq.DSLContext,org.jooq.TableLike)">toRecord</a></span>&#8203;(@NotNull org.jooq.DSLContext&nbsp;dsl,
+        @NotNull org.jooq.TableLike&lt;? extends org.jooq.Record&gt;&nbsp;queryTable)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -243,13 +254,14 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;()">
+<a id="&lt;init&gt;(java.util.function.BiFunction,java.util.function.Function)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>SQLCollectorPart</h4>
-<pre>public&nbsp;SQLCollectorPart()</pre>
+<pre>public&nbsp;SQLCollectorPart&#8203;(java.util.function.BiFunction&lt;org.jooq.DSLContext,&#8203;org.jooq.TableLike&lt;? extends org.jooq.Record&gt;,&#8203;<a href="SQLCollectorPart.html" title="type parameter in SQLCollectorPart">R</a>&gt;&nbsp;provider,
+                        java.util.function.Function&lt;<a href="SQLCollectorPart.html" title="type parameter in SQLCollectorPart">R</a>,&#8203;<a href="SQLCollectorPart.html" title="type parameter in SQLCollectorPart">I</a>&gt;&nbsp;converter)</pre>
 </li>
 </ul>
 </li>
@@ -262,16 +274,34 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
+<a id="provider()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>provider</h4>
+<pre class="methodSignature">protected&nbsp;java.util.function.BiFunction&lt;org.jooq.DSLContext,&#8203;org.jooq.TableLike&lt;? extends org.jooq.Record&gt;,&#8203;<a href="SQLCollectorPart.html" title="type parameter in SQLCollectorPart">R</a>&gt;&nbsp;provider()</pre>
+</li>
+</ul>
+<a id="converter()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>converter</h4>
+<pre class="methodSignature">public&nbsp;java.util.function.Function&lt;<a href="SQLCollectorPart.html" title="type parameter in SQLCollectorPart">R</a>,&#8203;<a href="SQLCollectorPart.html" title="type parameter in SQLCollectorPart">I</a>&gt;&nbsp;converter()</pre>
+</li>
+</ul>
 <a id="toRecord(org.jooq.DSLContext,org.jooq.TableLike)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>toRecord</h4>
-<pre class="methodSignature">public&nbsp;<a href="SQLCollectorPart.html" title="type parameter in SQLCollectorPart">R</a>&nbsp;toRecord&#8203;(@NonNull
-                  @NonNull org.jooq.DSLContext&nbsp;dsl,
-                  @NonNull
-                  @NonNull org.jooq.TableLike&lt;? extends org.jooq.Record&gt;&nbsp;queryTable)</pre>
+<pre class="methodSignature">public&nbsp;<a href="SQLCollectorPart.html" title="type parameter in SQLCollectorPart">R</a>&nbsp;toRecord&#8203;(@NotNull
+                  @NotNull org.jooq.DSLContext&nbsp;dsl,
+                  @NotNull
+                  @NotNull org.jooq.TableLike&lt;? extends org.jooq.Record&gt;&nbsp;queryTable)</pre>
 </li>
 </ul>
 </li>

@@ -180,13 +180,13 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>&lt;V,&#8203;T,&#8203;U&gt;<br><a href="DataTypeMapperRegistry.html" title="class in io.zero88.jooqx.datatype">DataTypeMapperRegistry</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#add(io.zero88.jooqx.datatype.DataTypeMapper)">add</a></span>&#8203;(@NonNull <a href="DataTypeMapper.html" title="interface in io.zero88.jooqx.datatype">DataTypeMapper</a>&lt;V,&#8203;T,&#8203;U&gt;&nbsp;mapper)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#add(io.zero88.jooqx.datatype.DataTypeMapper)">add</a></span>&#8203;(@NotNull <a href="DataTypeMapper.html" title="interface in io.zero88.jooqx.datatype">DataTypeMapper</a>&lt;V,&#8203;T,&#8203;U&gt;&nbsp;mapper)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>&lt;V,&#8203;T,&#8203;U&gt;<br><a href="DataTypeMapperRegistry.html" title="class in io.zero88.jooqx.datatype">DataTypeMapperRegistry</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addByColumn(org.jooq.Field,io.zero88.jooqx.datatype.DataTypeMapper)">addByColumn</a></span>&#8203;(@NonNull org.jooq.Field&nbsp;column,
-           @NonNull <a href="DataTypeMapper.html" title="interface in io.zero88.jooqx.datatype">DataTypeMapper</a>&lt;V,&#8203;T,&#8203;U&gt;&nbsp;mapper)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#addByColumn(org.jooq.Field,io.zero88.jooqx.datatype.DataTypeMapper)">addByColumn</a></span>&#8203;(@NotNull org.jooq.Field&nbsp;column,
+           @NotNull <a href="DataTypeMapper.html" title="interface in io.zero88.jooqx.datatype">DataTypeMapper</a>&lt;V,&#8203;T,&#8203;U&gt;&nbsp;mapper)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
@@ -198,7 +198,7 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>java.lang.Object</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toUserType(org.jooq.Field,java.lang.Object)">toUserType</a></span>&#8203;(@NonNull org.jooq.Field&lt;?&gt;&nbsp;f,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toUserType(org.jooq.Field,java.lang.Object)">toUserType</a></span>&#8203;(@NotNull org.jooq.Field&lt;?&gt;&nbsp;f,
           java.lang.Object&nbsp;value)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
@@ -251,8 +251,8 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>add</h4>
-<pre class="methodSignature">public&nbsp;&lt;V,&#8203;T,&#8203;U&gt;&nbsp;<a href="DataTypeMapperRegistry.html" title="class in io.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;add&#8203;(@NonNull
-                                                      @NonNull <a href="DataTypeMapper.html" title="interface in io.zero88.jooqx.datatype">DataTypeMapper</a>&lt;V,&#8203;T,&#8203;U&gt;&nbsp;mapper)</pre>
+<pre class="methodSignature">public&nbsp;&lt;V,&#8203;T,&#8203;U&gt;&nbsp;<a href="DataTypeMapperRegistry.html" title="class in io.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;add&#8203;(@NotNull
+                                                      @NotNull <a href="DataTypeMapper.html" title="interface in io.zero88.jooqx.datatype">DataTypeMapper</a>&lt;V,&#8203;T,&#8203;U&gt;&nbsp;mapper)</pre>
 </li>
 </ul>
 <a id="addByColumn(org.jooq.Field,io.zero88.jooqx.datatype.DataTypeMapper)">
@@ -261,10 +261,10 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>addByColumn</h4>
-<pre class="methodSignature">public&nbsp;&lt;V,&#8203;T,&#8203;U&gt;&nbsp;<a href="DataTypeMapperRegistry.html" title="class in io.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;addByColumn&#8203;(@NonNull
-                                                              @NonNull org.jooq.Field&nbsp;column,
-                                                              @NonNull
-                                                              @NonNull <a href="DataTypeMapper.html" title="interface in io.zero88.jooqx.datatype">DataTypeMapper</a>&lt;V,&#8203;T,&#8203;U&gt;&nbsp;mapper)</pre>
+<pre class="methodSignature">public&nbsp;&lt;V,&#8203;T,&#8203;U&gt;&nbsp;<a href="DataTypeMapperRegistry.html" title="class in io.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;addByColumn&#8203;(@NotNull
+                                                              @NotNull org.jooq.Field&nbsp;column,
+                                                              @NotNull
+                                                              @NotNull <a href="DataTypeMapper.html" title="interface in io.zero88.jooqx.datatype">DataTypeMapper</a>&lt;V,&#8203;T,&#8203;U&gt;&nbsp;mapper)</pre>
 </li>
 </ul>
 <a id="toDatabaseType(java.lang.String,org.jooq.Param,java.util.function.BiFunction)">
@@ -284,8 +284,8 @@ extends java.lang.Object</pre>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>toUserType</h4>
-<pre class="methodSignature">public&nbsp;java.lang.Object&nbsp;toUserType&#8203;(@NonNull
-                                   @NonNull org.jooq.Field&lt;?&gt;&nbsp;f,
+<pre class="methodSignature">public&nbsp;java.lang.Object&nbsp;toUserType&#8203;(@NotNull
+                                   @NotNull org.jooq.Field&lt;?&gt;&nbsp;f,
                                    java.lang.Object&nbsp;value)</pre>
 </li>
 </ul>

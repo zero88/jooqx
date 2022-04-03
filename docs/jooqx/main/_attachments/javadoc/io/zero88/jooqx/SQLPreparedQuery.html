@@ -160,26 +160,26 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>@NonNull java.util.List&lt;<a href="SQLPreparedQuery.html" title="type parameter in SQLPreparedQuery">B</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#bindValues(org.jooq.Query,io.zero88.jooqx.BindBatchValues,io.zero88.jooqx.datatype.DataTypeMapperRegistry)">bindValues</a></span>&#8203;(@NonNull org.jooq.Query&nbsp;query,
-          @NonNull <a href="BindBatchValues.html" title="class in io.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
-          @NonNull <a href="datatype/DataTypeMapperRegistry.html" title="class in io.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;mapperRegistry)</code></th>
+<td class="colFirst"><code>@NotNull java.util.List&lt;<a href="SQLPreparedQuery.html" title="type parameter in SQLPreparedQuery">B</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#bindValues(org.jooq.Query,io.zero88.jooqx.BindBatchValues,io.zero88.jooqx.datatype.DataTypeMapperRegistry)">bindValues</a></span>&#8203;(@NotNull org.jooq.Query&nbsp;query,
+          @NotNull <a href="BindBatchValues.html" title="class in io.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
+          @NotNull <a href="datatype/DataTypeMapperRegistry.html" title="class in io.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;mapperRegistry)</code></th>
 <td class="colLast">
 <div class="block">Capture jOOQ param in jOOQ query and convert to Vertx bind value holder</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code><a href="SQLPreparedQuery.html" title="type parameter in SQLPreparedQuery">B</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#bindValues(org.jooq.Query,io.zero88.jooqx.datatype.DataTypeMapperRegistry)">bindValues</a></span>&#8203;(@NonNull org.jooq.Query&nbsp;query,
-          @NonNull <a href="datatype/DataTypeMapperRegistry.html" title="class in io.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;mapperRegistry)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#bindValues(org.jooq.Query,io.zero88.jooqx.datatype.DataTypeMapperRegistry)">bindValues</a></span>&#8203;(@NotNull org.jooq.Query&nbsp;query,
+          @NotNull <a href="datatype/DataTypeMapperRegistry.html" title="class in io.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;mapperRegistry)</code></th>
 <td class="colLast">
 <div class="block">Capture jOOQ param in jOOQ query and convert to Vertx bind value holder</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>@NonNull java.lang.String</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sql(org.jooq.Configuration,org.jooq.Query)">sql</a></span>&#8203;(@NonNull org.jooq.Configuration&nbsp;configuration,
-   @NonNull org.jooq.Query&nbsp;query)</code></th>
+<td class="colFirst"><code>@NotNull java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sql(org.jooq.Configuration,org.jooq.Query)">sql</a></span>&#8203;(@NotNull org.jooq.Configuration&nbsp;configuration,
+   @NotNull org.jooq.Query&nbsp;query)</code></th>
 <td class="colLast">
 <div class="block">Generate jOOQ query to sql query in String</div>
 </td>
@@ -207,11 +207,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul class="blockList">
 <li class="blockList">
 <h4>sql</h4>
-<pre class="methodSignature">@NonNull
-@NonNull java.lang.String&nbsp;sql&#8203;(@NonNull
-                              @NonNull org.jooq.Configuration&nbsp;configuration,
-                              @NonNull
-                              @NonNull org.jooq.Query&nbsp;query)</pre>
+<pre class="methodSignature">@NotNull
+@NotNull java.lang.String&nbsp;sql&#8203;(@NotNull
+                              @NotNull org.jooq.Configuration&nbsp;configuration,
+                              @NotNull
+                              @NotNull org.jooq.Query&nbsp;query)</pre>
 <div class="block">Generate jOOQ query to sql query in String</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -230,11 +230,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul class="blockList">
 <li class="blockList">
 <h4>bindValues</h4>
-<pre class="methodSignature">@NonNull
-<a href="SQLPreparedQuery.html" title="type parameter in SQLPreparedQuery">B</a>&nbsp;bindValues&#8203;(@NonNull
-             @NonNull org.jooq.Query&nbsp;query,
-             @NonNull
-             @NonNull <a href="datatype/DataTypeMapperRegistry.html" title="class in io.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;mapperRegistry)</pre>
+<pre class="methodSignature">@NotNull
+<a href="SQLPreparedQuery.html" title="type parameter in SQLPreparedQuery">B</a>&nbsp;bindValues&#8203;(@NotNull
+             @NotNull org.jooq.Query&nbsp;query,
+             @NotNull
+             @NotNull <a href="datatype/DataTypeMapperRegistry.html" title="class in io.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;mapperRegistry)</pre>
 <div class="block">Capture jOOQ param in jOOQ query and convert to Vertx bind value holder</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -255,13 +255,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul class="blockListLast">
 <li class="blockList">
 <h4>bindValues</h4>
-<pre class="methodSignature">@NonNull
-@NonNull java.util.List&lt;<a href="SQLPreparedQuery.html" title="type parameter in SQLPreparedQuery">B</a>&gt;&nbsp;bindValues&#8203;(@NonNull
-                                      @NonNull org.jooq.Query&nbsp;query,
-                                      @NonNull
-                                      @NonNull <a href="BindBatchValues.html" title="class in io.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
-                                      @NonNull
-                                      @NonNull <a href="datatype/DataTypeMapperRegistry.html" title="class in io.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;mapperRegistry)</pre>
+<pre class="methodSignature">@NotNull
+@NotNull java.util.List&lt;<a href="SQLPreparedQuery.html" title="type parameter in SQLPreparedQuery">B</a>&gt;&nbsp;bindValues&#8203;(@NotNull
+                                      @NotNull org.jooq.Query&nbsp;query,
+                                      @NotNull
+                                      @NotNull <a href="BindBatchValues.html" title="class in io.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
+                                      @NotNull
+                                      @NotNull <a href="datatype/DataTypeMapperRegistry.html" title="class in io.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;mapperRegistry)</pre>
 <div class="block">Capture jOOQ param in jOOQ query and convert to Vertx bind value holder</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>

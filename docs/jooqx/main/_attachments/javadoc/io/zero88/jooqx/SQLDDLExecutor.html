@@ -159,30 +159,30 @@ extends <a href="JooqDSLProvider.html" title="interface in io.zero88.jooqx">Jooq
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>default io.vertx.core.Future&lt;java.lang.Integer&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#ddl(java.util.function.Function)">ddl</a></span>&#8203;(@NonNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.DDLQuery&gt;&nbsp;ddlFunction)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#ddl(java.util.function.Function)">ddl</a></span>&#8203;(@NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.DDLQuery&gt;&nbsp;ddlFunction)</code></th>
 <td class="colLast">
 <div class="block">Like <a href="#ddl(java.util.function.Function,io.vertx.core.Handler)"><code>ddl(Function, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>default void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#ddl(java.util.function.Function,io.vertx.core.Handler)">ddl</a></span>&#8203;(@NonNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.DDLQuery&gt;&nbsp;ddlFunction,
-   @NonNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;java.lang.Integer&gt;&gt;&nbsp;handler)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#ddl(java.util.function.Function,io.vertx.core.Handler)">ddl</a></span>&#8203;(@NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.DDLQuery&gt;&nbsp;ddlFunction,
+   @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;java.lang.Integer&gt;&gt;&nbsp;handler)</code></th>
 <td class="colLast">
 <div class="block">DDL execute</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>io.vertx.core.Future&lt;java.lang.Integer&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#ddl(org.jooq.DDLQuery)">ddl</a></span>&#8203;(@NonNull org.jooq.DDLQuery&nbsp;query)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#ddl(org.jooq.DDLQuery)">ddl</a></span>&#8203;(@NotNull org.jooq.DDLQuery&nbsp;query)</code></th>
 <td class="colLast">
 <div class="block">Like <a href="#ddl(org.jooq.DDLQuery,io.vertx.core.Handler)"><code>ddl(DDLQuery, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>default void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#ddl(org.jooq.DDLQuery,io.vertx.core.Handler)">ddl</a></span>&#8203;(@NonNull org.jooq.DDLQuery&nbsp;query,
-   @NonNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;java.lang.Integer&gt;&gt;&nbsp;handler)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#ddl(org.jooq.DDLQuery,io.vertx.core.Handler)">ddl</a></span>&#8203;(@NotNull org.jooq.DDLQuery&nbsp;query,
+   @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;java.lang.Integer&gt;&gt;&nbsp;handler)</code></th>
 <td class="colLast">
 <div class="block">DDL execute</div>
 </td>
@@ -217,10 +217,10 @@ extends <a href="JooqDSLProvider.html" title="interface in io.zero88.jooqx">Jooq
 <ul class="blockList">
 <li class="blockList">
 <h4>ddl</h4>
-<pre class="methodSignature">default&nbsp;void&nbsp;ddl&#8203;(@NonNull
-                 @NonNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.DDLQuery&gt;&nbsp;ddlFunction,
-                 @NonNull
-                 @NonNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;java.lang.Integer&gt;&gt;&nbsp;handler)</pre>
+<pre class="methodSignature">default&nbsp;void&nbsp;ddl&#8203;(@NotNull
+                 @NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.DDLQuery&gt;&nbsp;ddlFunction,
+                 @NotNull
+                 @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;java.lang.Integer&gt;&gt;&nbsp;handler)</pre>
 <div class="block">DDL execute</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -237,8 +237,8 @@ extends <a href="JooqDSLProvider.html" title="interface in io.zero88.jooqx">Jooq
 <ul class="blockList">
 <li class="blockList">
 <h4>ddl</h4>
-<pre class="methodSignature">default&nbsp;io.vertx.core.Future&lt;java.lang.Integer&gt;&nbsp;ddl&#8203;(@NonNull
-                                                    @NonNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.DDLQuery&gt;&nbsp;ddlFunction)</pre>
+<pre class="methodSignature">default&nbsp;io.vertx.core.Future&lt;java.lang.Integer&gt;&nbsp;ddl&#8203;(@NotNull
+                                                    @NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.DDLQuery&gt;&nbsp;ddlFunction)</pre>
 <div class="block">Like <a href="#ddl(java.util.function.Function,io.vertx.core.Handler)"><code>ddl(Function, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -256,10 +256,10 @@ extends <a href="JooqDSLProvider.html" title="interface in io.zero88.jooqx">Jooq
 <ul class="blockList">
 <li class="blockList">
 <h4>ddl</h4>
-<pre class="methodSignature">default&nbsp;void&nbsp;ddl&#8203;(@NonNull
-                 @NonNull org.jooq.DDLQuery&nbsp;query,
-                 @NonNull
-                 @NonNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;java.lang.Integer&gt;&gt;&nbsp;handler)</pre>
+<pre class="methodSignature">default&nbsp;void&nbsp;ddl&#8203;(@NotNull
+                 @NotNull org.jooq.DDLQuery&nbsp;query,
+                 @NotNull
+                 @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;java.lang.Integer&gt;&gt;&nbsp;handler)</pre>
 <div class="block">DDL execute</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -276,8 +276,8 @@ extends <a href="JooqDSLProvider.html" title="interface in io.zero88.jooqx">Jooq
 <ul class="blockListLast">
 <li class="blockList">
 <h4>ddl</h4>
-<pre class="methodSignature">io.vertx.core.Future&lt;java.lang.Integer&gt;&nbsp;ddl&#8203;(@NonNull
-                                            @NonNull org.jooq.DDLQuery&nbsp;query)</pre>
+<pre class="methodSignature">io.vertx.core.Future&lt;java.lang.Integer&gt;&nbsp;ddl&#8203;(@NotNull
+                                            @NotNull org.jooq.DDLQuery&nbsp;query)</pre>
 <div class="block">Like <a href="#ddl(org.jooq.DDLQuery,io.vertx.core.Handler)"><code>ddl(DDLQuery, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>

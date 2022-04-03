@@ -143,7 +143,7 @@ extends java.lang.Object</pre>
 <code>MergeMatchedSetStep.set(Map)</code></dd>
 <dt><span class="simpleTagLabel">API Note:</span></dt>
 <dd>With <code>dummy value records</code>, you can predefine a field value, then if a bind record is missing this
-     field value then system will auto detect and fallback to the predefined value. See: <a href="#registerValue(org.jooq.Field,java.lang.Object)"><code>registerValue(Field,
+     field value then system will auto-detect and fallback to the predefined value. See: <a href="#registerValue(org.jooq.Field,java.lang.Object)"><code>registerValue(Field,
      Object)</code></a></dd>
 </dl>
 </li>
@@ -198,43 +198,43 @@ extends java.lang.Object</pre>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>@NonNull java.util.Map&lt;?,&#8203;?&gt;</code></td>
+<td class="colFirst"><code>@NotNull java.util.Map&lt;?,&#8203;?&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDummyValues()">getDummyValues</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code>@NonNull java.util.List&lt;java.lang.String&gt;</code></td>
+<td class="colFirst"><code>@NotNull java.util.List&lt;java.lang.String&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMappingFields()">getMappingFields</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i4" class="altColor">
-<td class="colFirst"><code>@NonNull java.util.List&lt;java.lang.Object&gt;</code></td>
+<td class="colFirst"><code>@NotNull java.util.List&lt;java.lang.Object&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getMappingValues()">getMappingValues</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i5" class="rowColor">
-<td class="colFirst"><code>@NonNull java.util.List&lt;org.jooq.Record&gt;</code></td>
+<td class="colFirst"><code>@NotNull java.util.List&lt;org.jooq.Record&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getRecords()">getRecords</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code><a href="BindBatchValues.html" title="class in io.zero88.jooqx">BindBatchValues</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#register(java.lang.String...)">register</a></span>&#8203;(@NonNull java.lang.String...&nbsp;fields)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#register(java.lang.String...)">register</a></span>&#8203;(java.lang.String...&nbsp;fields)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code><a href="BindBatchValues.html" title="class in io.zero88.jooqx">BindBatchValues</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#register(org.jooq.Field...)">register</a></span>&#8203;(@NonNull org.jooq.Field&lt;?&gt;...&nbsp;fields)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#register(org.jooq.Field...)">register</a></span>&#8203;(org.jooq.Field&lt;?&gt;...&nbsp;fields)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i8" class="altColor">
 <td class="colFirst"><code><a href="BindBatchValues.html" title="class in io.zero88.jooqx">BindBatchValues</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#register(org.jooq.Name...)">register</a></span>&#8203;(@NonNull org.jooq.Name...&nbsp;fields)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#register(org.jooq.Name...)">register</a></span>&#8203;(org.jooq.Name...&nbsp;fields)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i9" class="rowColor">
 <td class="colFirst"><code>&lt;T&gt;&nbsp;<a href="BindBatchValues.html" title="class in io.zero88.jooqx">BindBatchValues</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#registerValue(org.jooq.Field,java.lang.Object)">registerValue</a></span>&#8203;(@NonNull org.jooq.Field&lt;T&gt;&nbsp;field,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#registerValue(org.jooq.Field,java.lang.Object)">registerValue</a></span>&#8203;(@NotNull org.jooq.Field&lt;T&gt;&nbsp;field,
              java.lang.Object&nbsp;value)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
@@ -294,8 +294,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>register</h4>
-<pre class="methodSignature">public&nbsp;<a href="BindBatchValues.html" title="class in io.zero88.jooqx">BindBatchValues</a>&nbsp;register&#8203;(@NonNull
-                                @NonNull java.lang.String...&nbsp;fields)</pre>
+<pre class="methodSignature">public&nbsp;<a href="BindBatchValues.html" title="class in io.zero88.jooqx">BindBatchValues</a>&nbsp;register&#8203;(java.lang.String...&nbsp;fields)</pre>
 </li>
 </ul>
 <a id="register(org.jooq.Field...)">
@@ -304,8 +303,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>register</h4>
-<pre class="methodSignature">public&nbsp;<a href="BindBatchValues.html" title="class in io.zero88.jooqx">BindBatchValues</a>&nbsp;register&#8203;(@NonNull
-                                @NonNull org.jooq.Field&lt;?&gt;...&nbsp;fields)</pre>
+<pre class="methodSignature">public&nbsp;<a href="BindBatchValues.html" title="class in io.zero88.jooqx">BindBatchValues</a>&nbsp;register&#8203;(org.jooq.Field&lt;?&gt;...&nbsp;fields)</pre>
 </li>
 </ul>
 <a id="register(org.jooq.Name...)">
@@ -314,8 +312,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>register</h4>
-<pre class="methodSignature">public&nbsp;<a href="BindBatchValues.html" title="class in io.zero88.jooqx">BindBatchValues</a>&nbsp;register&#8203;(@NonNull
-                                @NonNull org.jooq.Name...&nbsp;fields)</pre>
+<pre class="methodSignature">public&nbsp;<a href="BindBatchValues.html" title="class in io.zero88.jooqx">BindBatchValues</a>&nbsp;register&#8203;(org.jooq.Name...&nbsp;fields)</pre>
 </li>
 </ul>
 <a id="registerValue(org.jooq.Field,java.lang.Object)">
@@ -324,8 +321,8 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>registerValue</h4>
-<pre class="methodSignature">public&nbsp;&lt;T&gt;&nbsp;<a href="BindBatchValues.html" title="class in io.zero88.jooqx">BindBatchValues</a>&nbsp;registerValue&#8203;(@NonNull
-                                         @NonNull org.jooq.Field&lt;T&gt;&nbsp;field,
+<pre class="methodSignature">public&nbsp;&lt;T&gt;&nbsp;<a href="BindBatchValues.html" title="class in io.zero88.jooqx">BindBatchValues</a>&nbsp;registerValue&#8203;(@NotNull
+                                         @NotNull org.jooq.Field&lt;T&gt;&nbsp;field,
                                          java.lang.Object&nbsp;value)</pre>
 </li>
 </ul>
@@ -353,8 +350,8 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getMappingFields</h4>
-<pre class="methodSignature">@NonNull
-public&nbsp;@NonNull java.util.List&lt;java.lang.String&gt;&nbsp;getMappingFields()</pre>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.util.List&lt;java.lang.String&gt;&nbsp;getMappingFields()</pre>
 </li>
 </ul>
 <a id="getMappingValues()">
@@ -363,8 +360,8 @@ public&nbsp;@NonNull java.util.List&lt;java.lang.String&gt;&nbsp;getMappingField
 <ul class="blockList">
 <li class="blockList">
 <h4>getMappingValues</h4>
-<pre class="methodSignature">@NonNull
-public&nbsp;@NonNull java.util.List&lt;java.lang.Object&gt;&nbsp;getMappingValues()</pre>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.util.List&lt;java.lang.Object&gt;&nbsp;getMappingValues()</pre>
 </li>
 </ul>
 <a id="getDummyValues()">
@@ -373,8 +370,8 @@ public&nbsp;@NonNull java.util.List&lt;java.lang.Object&gt;&nbsp;getMappingValue
 <ul class="blockList">
 <li class="blockList">
 <h4>getDummyValues</h4>
-<pre class="methodSignature">@NonNull
-public&nbsp;@NonNull java.util.Map&lt;?,&#8203;?&gt;&nbsp;getDummyValues()</pre>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.util.Map&lt;?,&#8203;?&gt;&nbsp;getDummyValues()</pre>
 </li>
 </ul>
 <a id="getRecords()">
@@ -383,8 +380,8 @@ public&nbsp;@NonNull java.util.Map&lt;?,&#8203;?&gt;&nbsp;getDummyValues()</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getRecords</h4>
-<pre class="methodSignature">@NonNull
-public&nbsp;@NonNull java.util.List&lt;org.jooq.Record&gt;&nbsp;getRecords()</pre>
+<pre class="methodSignature">@NotNull
+public&nbsp;@NotNull java.util.List&lt;org.jooq.Record&gt;&nbsp;getRecords()</pre>
 </li>
 </ul>
 <a id="size()">

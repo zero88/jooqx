@@ -159,8 +159,8 @@ extends <a href="JooqDSLProvider.html" title="interface in io.zero88.jooqx">Jooq
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>default &lt;T,&#8203;R&gt;<br>io.vertx.core.Future&lt;R&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#execute(java.util.function.Function,io.zero88.jooqx.adapter.SQLResultAdapter)">execute</a></span>&#8203;(@NonNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
-       @NonNull <a href="adapter/SQLResultAdapter.html" title="interface in io.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#execute(java.util.function.Function,io.zero88.jooqx.adapter.SQLResultAdapter)">execute</a></span>&#8203;(@NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
+       @NotNull <a href="adapter/SQLResultAdapter.html" title="interface in io.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</code></th>
 <td class="colLast">
 <div class="block">Like <a href="#execute(java.util.function.Function,io.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>execute(Function, SQLResultAdapter, Handler)</code></a> but returns a <code>Future</code> of the asynchronous
  result</div>
@@ -168,26 +168,26 @@ extends <a href="JooqDSLProvider.html" title="interface in io.zero88.jooqx">Jooq
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>default &lt;T,&#8203;R&gt;<br>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#execute(java.util.function.Function,io.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">execute</a></span>&#8203;(@NonNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
-       @NonNull <a href="adapter/SQLResultAdapter.html" title="interface in io.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter,
-       @NonNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;R&gt;&gt;&nbsp;handler)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#execute(java.util.function.Function,io.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">execute</a></span>&#8203;(@NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
+       @NotNull <a href="adapter/SQLResultAdapter.html" title="interface in io.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter,
+       @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;R&gt;&gt;&nbsp;handler)</code></th>
 <td class="colLast">
 <div class="block">Execute <code>jOOQ query</code> then return async result</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>io.vertx.core.Future&lt;R&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#execute(org.jooq.Query,io.zero88.jooqx.adapter.SQLResultAdapter)">execute</a></span>&#8203;(@NonNull org.jooq.Query&nbsp;query,
-       @NonNull <a href="adapter/SQLResultAdapter.html" title="interface in io.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#execute(org.jooq.Query,io.zero88.jooqx.adapter.SQLResultAdapter)">execute</a></span>&#8203;(@NotNull org.jooq.Query&nbsp;query,
+       @NotNull <a href="adapter/SQLResultAdapter.html" title="interface in io.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</code></th>
 <td class="colLast">
 <div class="block">Like <a href="#execute(org.jooq.Query,io.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>execute(Query, SQLResultAdapter, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>default &lt;T,&#8203;R&gt;<br>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#execute(org.jooq.Query,io.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">execute</a></span>&#8203;(@NonNull org.jooq.Query&nbsp;query,
-       @NonNull <a href="adapter/SQLResultAdapter.html" title="interface in io.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter,
-       @NonNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;R&gt;&gt;&nbsp;handler)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#execute(org.jooq.Query,io.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">execute</a></span>&#8203;(@NotNull org.jooq.Query&nbsp;query,
+       @NotNull <a href="adapter/SQLResultAdapter.html" title="interface in io.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter,
+       @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;R&gt;&gt;&nbsp;handler)</code></th>
 <td class="colLast">
 <div class="block">Execute <code>jOOQ query</code> then return async result</div>
 </td>
@@ -222,12 +222,12 @@ extends <a href="JooqDSLProvider.html" title="interface in io.zero88.jooqx">Jooq
 <ul class="blockList">
 <li class="blockList">
 <h4>execute</h4>
-<pre class="methodSignature">default&nbsp;&lt;T,&#8203;R&gt;&nbsp;void&nbsp;execute&#8203;(@NonNull
-                                 @NonNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
-                                 @NonNull
-                                 @NonNull <a href="adapter/SQLResultAdapter.html" title="interface in io.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter,
-                                 @NonNull
-                                 @NonNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;R&gt;&gt;&nbsp;handler)</pre>
+<pre class="methodSignature">default&nbsp;&lt;T,&#8203;R&gt;&nbsp;void&nbsp;execute&#8203;(@NotNull
+                                 @NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
+                                 @NotNull
+                                 @NotNull <a href="adapter/SQLResultAdapter.html" title="interface in io.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter,
+                                 @NotNull
+                                 @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;R&gt;&gt;&nbsp;handler)</pre>
 <div class="block">Execute <code>jOOQ query</code> then return async result</div>
 <dl>
 <dt><span class="paramLabel">Type Parameters:</span></dt>
@@ -252,10 +252,10 @@ extends <a href="JooqDSLProvider.html" title="interface in io.zero88.jooqx">Jooq
 <ul class="blockList">
 <li class="blockList">
 <h4>execute</h4>
-<pre class="methodSignature">default&nbsp;&lt;T,&#8203;R&gt;&nbsp;io.vertx.core.Future&lt;R&gt;&nbsp;execute&#8203;(@NonNull
-                                                    @NonNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
-                                                    @NonNull
-                                                    @NonNull <a href="adapter/SQLResultAdapter.html" title="interface in io.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</pre>
+<pre class="methodSignature">default&nbsp;&lt;T,&#8203;R&gt;&nbsp;io.vertx.core.Future&lt;R&gt;&nbsp;execute&#8203;(@NotNull
+                                                    @NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
+                                                    @NotNull
+                                                    @NotNull <a href="adapter/SQLResultAdapter.html" title="interface in io.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</pre>
 <div class="block">Like <a href="#execute(java.util.function.Function,io.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>execute(Function, SQLResultAdapter, Handler)</code></a> but returns a <code>Future</code> of the asynchronous
  result</div>
 <dl>
@@ -278,12 +278,12 @@ extends <a href="JooqDSLProvider.html" title="interface in io.zero88.jooqx">Jooq
 <ul class="blockList">
 <li class="blockList">
 <h4>execute</h4>
-<pre class="methodSignature">default&nbsp;&lt;T,&#8203;R&gt;&nbsp;void&nbsp;execute&#8203;(@NonNull
-                                 @NonNull org.jooq.Query&nbsp;query,
-                                 @NonNull
-                                 @NonNull <a href="adapter/SQLResultAdapter.html" title="interface in io.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter,
-                                 @NonNull
-                                 @NonNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;R&gt;&gt;&nbsp;handler)</pre>
+<pre class="methodSignature">default&nbsp;&lt;T,&#8203;R&gt;&nbsp;void&nbsp;execute&#8203;(@NotNull
+                                 @NotNull org.jooq.Query&nbsp;query,
+                                 @NotNull
+                                 @NotNull <a href="adapter/SQLResultAdapter.html" title="interface in io.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter,
+                                 @NotNull
+                                 @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;R&gt;&gt;&nbsp;handler)</pre>
 <div class="block">Execute <code>jOOQ query</code> then return async result</div>
 <dl>
 <dt><span class="paramLabel">Type Parameters:</span></dt>
@@ -306,10 +306,10 @@ extends <a href="JooqDSLProvider.html" title="interface in io.zero88.jooqx">Jooq
 <ul class="blockListLast">
 <li class="blockList">
 <h4>execute</h4>
-<pre class="methodSignature">&lt;T,&#8203;R&gt;&nbsp;io.vertx.core.Future&lt;R&gt;&nbsp;execute&#8203;(@NonNull
-                                            @NonNull org.jooq.Query&nbsp;query,
-                                            @NonNull
-                                            @NonNull <a href="adapter/SQLResultAdapter.html" title="interface in io.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</pre>
+<pre class="methodSignature">&lt;T,&#8203;R&gt;&nbsp;io.vertx.core.Future&lt;R&gt;&nbsp;execute&#8203;(@NotNull
+                                            @NotNull org.jooq.Query&nbsp;query,
+                                            @NotNull
+                                            @NotNull <a href="adapter/SQLResultAdapter.html" title="interface in io.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</pre>
 <div class="block">Like <a href="#execute(org.jooq.Query,io.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>execute(Query, SQLResultAdapter, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
 <dl>
 <dt><span class="paramLabel">Type Parameters:</span></dt>
