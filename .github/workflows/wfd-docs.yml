@@ -117,6 +117,7 @@ jobs:
           git push -u origin ${{ steps.context.outputs.docBranch }}
 
   deploy:
+    needs: build
     name: Trigger to deploy website
     runs-on: ubuntu-latest
     env:
