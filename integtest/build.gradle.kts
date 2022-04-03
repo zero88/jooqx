@@ -23,6 +23,4 @@ dependencies {
 
     testImplementation(LogLibs.logback)
 
-    testCompileOnly(UtilLibs.lombok)
-    testAnnotationProcessor(UtilLibs.lombok)
 }
