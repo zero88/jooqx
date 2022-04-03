@@ -45,7 +45,7 @@ jobs:
           token: ${{ secrets.OSS_GITHUB_TOKEN }}
 
       - name: Import GPG key
-        uses: crazy-max/ghaction-import-gpg@v3
+        uses: crazy-max/ghaction-import-gpg@v4.3.0
         with:
           git-user-signingkey: true
           git-commit-gpgsign: true
