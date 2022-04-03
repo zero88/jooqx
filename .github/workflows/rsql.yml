@@ -62,17 +62,16 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ context, build ]
     if: needs.context.outputs.shouldPublish == 'true' || needs.context.outputs.isRelease == 'true'
+    env:
+      REPO: zero88/jooqx
+      REF: main
+      WORKFLOW: wfd-docs.yml
+      GITHUB_TOKEN: ${{ secrets.OSS_GITHUB_TOKEN }}
     steps:
       - name: Trigger build ${{ env.PROFILE }} documentation
         shell: bash
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          fields=workflowDatabaseId,databaseId,status,event,headBranch,headSha,name,conclusion,url,createdAt,updatedAt
-          repo=zero88/jooqx
-          workflow=docs.yml
-          gh run list --workflow $workflow --repo $repo -L 1 --json $fields | jq
-          gh workflow run $workflow --repo $repo --ref main \
+          gh workflow run ${{ env.WORKFLOW }} --repo ${{ env.REPO }} --ref ${{ env.REF }} \
             -f profile=${{ env.PROFILE }} \
             -f version=${{ needs.context.outputs.version }} \
             -f semanticVersion=${{ needs.context.outputs.semanticVersion }} \
@@ -80,7 +79,13 @@ jobs:
             -f sha=${{ needs.context.outputs.sha }} \
             -f isRelease=${{ needs.context.outputs.isRelease }} \
             -f antoraBuildDir=rsql/asciidoc/build/antora
-          gh run list --workflow $workflow --repo $repo -L 1 --json $fields | jq
+
+      - name: Verify GitHub workflow run
+        shell: bash
+        run: |
+          sleep 5
+          fields=workflowDatabaseId,databaseId,status,event,headBranch,headSha,name,conclusion,url,createdAt,updatedAt
+          gh run list -R ${{ env.REPO }} -b ${{ env.REF }} -w ${{ env.WORKFLOW }} -L 1 --json $fields | jq
 
   publish:
     needs: [ context, build ]

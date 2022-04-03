@@ -116,14 +116,24 @@ jobs:
           git diff-index --quiet HEAD || git commit -am "Update ${{ steps.context.outputs.ciMsg }}"
           git push -u origin ${{ steps.context.outputs.docBranch }}
 
-      - name: Trigger to deploy website
+  deploy:
+    name: Trigger to deploy website
+    runs-on: ubuntu-latest
+    env:
+      REPO: zero88/jooqx-webdocs
+      REF: main
+      WORKFLOW: docs.yml
+      GITHUB_TOKEN: ${{ secrets.OSS_GITHUB_TOKEN }}
+    steps:
+      - name: Trigger to deploy workflow
         shell: bash
-        env:
-          GITHUB_TOKEN: ${{ secrets.OSS_GITHUB_TOKEN }}
         run: |
+          gh workflow run ${{ env.WORKFLOW }} \
+            --repo ${{ env.REPO }} --ref ${{ env.REF }} -f ciMsg="Deploy ${{ steps.context.outputs.ciMsg }}"
+
+      - name: Verify GitHub workflow run
+        shell: bash
+        run: |
+          sleep 5
           fields=workflowDatabaseId,databaseId,status,event,headBranch,headSha,name,conclusion,url,createdAt,updatedAt
-          repo=zero88/jooqx-webdocs
-          workflow=docs.yml
-          gh run list --workflow $workflow --repo $repo -L 1 --json $fields | jq
-          gh workflow run $workflow --repo $repo -f ciMsg="Deploy ${{ steps.context.outputs.ciMsg }}"
-          gh run list --workflow $workflow --repo $repo -L 1 --json $fields | jq
+          gh run list -R ${{ env.REPO }} -b ${{ env.REF }} -w ${{ env.WORKFLOW }} -L 1 --json $fields | jq

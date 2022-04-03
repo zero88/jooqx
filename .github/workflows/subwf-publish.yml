@@ -1,4 +1,4 @@
-name: subwf-publish
+name: SubWF::Project Publisher
 
 on:
   workflow_call:
