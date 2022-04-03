@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.DSLContext;
 import org.jooq.Schema;
 
@@ -16,8 +17,6 @@ import io.zero88.jooqx.provider.HasSQLDialect;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-
-import lombok.NonNull;
 
 /**
  * SQL test helper for initializing the test database schema via {@code HikariCP} and plain {@code jOOQ}
@@ -72,7 +71,7 @@ public interface JooqSQL<S extends Schema> extends JooqDSLProvider, HasSQLDialec
      * @param dsl     dsl
      * @param files   SQL files
      */
-    default void prepareDatabase(@NonNull VertxTestContext context, @NonNull DSLContext dsl, @NonNull String... files) {
+    default void prepareDatabase(@NotNull VertxTestContext context, @NotNull DSLContext dsl, @NotNull String... files) {
         Arrays.stream(files).forEach(file -> {
             try {
                 InputStream is = Objects.requireNonNull(getClass().getClassLoader().getResourceAsStream(file));

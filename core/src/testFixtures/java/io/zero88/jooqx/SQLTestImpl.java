@@ -23,7 +23,6 @@ import io.zero88.jooqx.provider.DBProvider;
 
 import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
-import lombok.SneakyThrows;
 
 @ExtendWith(VertxExtension.class)
 abstract class SQLTestImpl<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extends SQLResultCollector<RS>,
@@ -46,12 +45,15 @@ abstract class SQLTestImpl<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extends 
     }
 
     @BeforeEach
-    @SneakyThrows
     public void tearUp(Vertx vertx, VertxTestContext ctx) {
         jooqx(vertx, dsl(), initConnOptions(), initPoolOptions()).onSuccess(jooqx -> this.jooqx = jooqx)
                                                                  .onComplete(ctx.succeedingThenComplete());
-        if (ctx.awaitCompletion(TIMEOUT_IN_SECOND, TimeUnit.SECONDS)) {
-            ctx.failNow("Timeout when open SQL connection");
+        try {
+            if (ctx.awaitCompletion(TIMEOUT_IN_SECOND, TimeUnit.SECONDS)) {
+                ctx.failNow("Timeout when open SQL connection");
+            }
+        } catch (InterruptedException e) {
+            ctx.failNow(e);
         }
         System.out.println(Strings.duplicate("=", 150));
     }

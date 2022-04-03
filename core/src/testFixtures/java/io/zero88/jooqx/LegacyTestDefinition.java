@@ -1,5 +1,6 @@
 package io.zero88.jooqx;
 
+import org.jetbrains.annotations.NotNull;
 import org.testcontainers.containers.JdbcDatabaseContainer;
 
 import io.vertx.core.json.JsonArray;
@@ -10,8 +11,6 @@ import io.zero88.jooqx.SQLTest.LegacySQLTest;
 import io.zero88.jooqx.SQLTestImpl.DBContainerSQLTest;
 import io.zero88.jooqx.SQLTestImpl.DBMemorySQLTest;
 import io.zero88.jooqx.provider.DBEmbeddedProvider.DBMemoryProvider;
-
-import lombok.NonNull;
 
 public interface LegacyTestDefinition {
 
@@ -33,7 +32,7 @@ public interface LegacyTestDefinition {
 
     interface LegacyRxHelper {
 
-        default io.zero88.jooqx.reactivex.LegacyJooqx rxInstance(@NonNull LegacyJooqx jooqx) {
+        default io.zero88.jooqx.reactivex.LegacyJooqx rxInstance(@NotNull LegacyJooqx jooqx) {
             final LegacyJooqx jooqx1 = LegacyJooqx.builder()
                                                   .vertx(jooqx.vertx())
                                                   .dsl(jooqx.dsl())
