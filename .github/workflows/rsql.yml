@@ -59,9 +59,9 @@ jobs:
         run: ./gradlew test -Pprofile=${{ env.PROFILE }}
 
   docs:
-    runs-on: ubuntu-latest
     needs: [ context, build ]
     if: needs.context.outputs.shouldPublish == 'true' || needs.context.outputs.isRelease == 'true'
+    runs-on: ubuntu-latest
     env:
       REPO: zero88/jooqx
       REF: main
@@ -104,9 +104,9 @@ jobs:
       gpgPassphrase: ${{ secrets.CI_GPG_PASSPHARSE }}
 
   release:
-    runs-on: ubuntu-latest
-    needs: [ context, build, publish ]
+    needs: [ context, publish, docs ]
     if: needs.context.outputs.isRelease == 'true'
+    runs-on: ubuntu-latest
     steps:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
