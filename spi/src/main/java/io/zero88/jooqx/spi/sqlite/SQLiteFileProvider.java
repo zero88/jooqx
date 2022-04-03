@@ -4,8 +4,6 @@ import org.jetbrains.annotations.NotNull;
 
 import io.zero88.jooqx.provider.DBEmbeddedProvider.DBFileProvider;
 
-import lombok.NonNull;
-
 /**
  * Provides SQLite database in file
  *
@@ -15,7 +13,7 @@ import lombok.NonNull;
 public interface SQLiteFileProvider extends DBFileProvider {
 
     @Override
-    default @NonNull String driverClassName() {
+    default @NotNull String driverClassName() {
         return "org.sqlite.JDBC";
     }
 

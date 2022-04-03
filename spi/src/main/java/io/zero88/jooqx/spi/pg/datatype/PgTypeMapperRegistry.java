@@ -8,11 +8,9 @@ import io.zero88.jooqx.datatype.basic.BytesConverter;
 import io.zero88.jooqx.datatype.basic.JsonObjectJSONBConverter;
 import io.zero88.jooqx.datatype.basic.JsonObjectJSONConverter;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class PgTypeMapperRegistry {
+
+    private PgTypeMapperRegistry() {}
 
     public static DataTypeMapperRegistry useUserTypeAsVertxType() {
         return new DataTypeMapperRegistry().add(UserTypeAsVertxType.create(new BytesConverter()))

@@ -1,5 +1,6 @@
 package io.zero88.jooqx.spi.mysql;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import io.vertx.core.Future;
@@ -7,8 +8,6 @@ import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.mysqlclient.MySQLPool;
 import io.zero88.jooqx.provider.JooqxSQLClientProvider;
-
-import lombok.NonNull;
 
 /**
  * MySQL pool provider
@@ -24,7 +23,7 @@ public interface MySQLPoolProvider extends JooqxSQLClientProvider<MySQLPool>, My
     }
 
     @Override
-    default @NonNull Future<MySQLPool> open(Vertx vertx, JsonObject connOptions, @Nullable JsonObject poolOptions) {
+    default @NotNull Future<MySQLPool> open(Vertx vertx, JsonObject connOptions, @Nullable JsonObject poolOptions) {
         return Future.succeededFuture(MySQLPool.pool(vertx, parseConn(connOptions), parsePool(poolOptions)));
     }
 

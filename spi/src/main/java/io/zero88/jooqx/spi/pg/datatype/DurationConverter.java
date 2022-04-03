@@ -2,6 +2,7 @@ package io.zero88.jooqx.spi.pg.datatype;
 
 import java.time.Duration;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.types.YearToSecond;
 
 import io.vertx.pgclient.data.Interval;
@@ -26,12 +27,12 @@ public final class DurationConverter implements DataTypeMapper<Interval, YearToS
     }
 
     @Override
-    public Class<YearToSecond> fromType() {
+    public @NotNull Class<YearToSecond> fromType() {
         return YearToSecond.class;
     }
 
     @Override
-    public Class<Duration> toType() {
+    public @NotNull Class<Duration> toType() {
         return Duration.class;
     }
 

@@ -4,8 +4,6 @@ import org.jetbrains.annotations.NotNull;
 
 import io.zero88.jooqx.provider.DBEmbeddedProvider.DBMemoryProvider;
 
-import lombok.NonNull;
-
 /**
  * Provides HSQLDB in memory
  *
@@ -20,7 +18,7 @@ public interface HSQLDBMemProvider extends DBMemoryProvider {
     }
 
     @Override
-    default @NonNull String driverClassName() {
+    default @NotNull String driverClassName() {
         return "org.hsqldb.jdbc.JDBCDriver";
     }
 

@@ -4,8 +4,6 @@ import org.jetbrains.annotations.NotNull;
 
 import io.zero88.jooqx.provider.DBEmbeddedProvider.DBMemoryProvider;
 
-import lombok.NonNull;
-
 /**
  * Provides H2 database in memory
  *
@@ -20,7 +18,7 @@ public interface H2MemProvider extends DBMemoryProvider {
     }
 
     @Override
-    default @NonNull String driverClassName() {
+    default @NotNull String driverClassName() {
         return "org.h2.Driver";
     }
 

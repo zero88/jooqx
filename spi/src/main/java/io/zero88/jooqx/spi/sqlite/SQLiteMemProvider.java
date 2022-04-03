@@ -4,8 +4,6 @@ import org.jetbrains.annotations.NotNull;
 
 import io.zero88.jooqx.provider.DBEmbeddedProvider.DBMemoryProvider;
 
-import lombok.NonNull;
-
 /**
  * Provides SQLite database in memory
  *
@@ -15,7 +13,7 @@ import lombok.NonNull;
 public interface SQLiteMemProvider extends DBMemoryProvider {
 
     @Override
-    default @NonNull String driverClassName() {
+    default @NotNull String driverClassName() {
         return "org.sqlite.JDBC";
     }
 
