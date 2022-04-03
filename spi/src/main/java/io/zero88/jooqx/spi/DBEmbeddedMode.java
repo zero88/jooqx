@@ -13,10 +13,10 @@ public enum DBEmbeddedMode {
 
     MEMORY, FILE;
 
-    static List<SQLDialect> EMBEDDED_SUPPORTED = Arrays.asList(SQLDialect.H2, SQLDialect.DERBY, SQLDialect.HSQLDB,
-                                                               SQLDialect.SQLITE);
-    static List<SQLDialect> MEMORY_SUPPORTED = Collections.emptyList();
-    static List<SQLDialect> FILE_SUPPORTED = Collections.emptyList();
+    static final List<SQLDialect> EMBEDDED_SUPPORTED = Arrays.asList(SQLDialect.H2, SQLDialect.DERBY, SQLDialect.HSQLDB,
+                                                                     SQLDialect.SQLITE);
+    static final List<SQLDialect> MEMORY_SUPPORTED = Collections.emptyList();
+    static final List<SQLDialect> FILE_SUPPORTED = Collections.emptyList();
 
     public static boolean isSupportEmbeddedMode(SQLDialect dialect) {
         return EMBEDDED_SUPPORTED.contains(dialect);

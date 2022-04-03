@@ -5,25 +5,24 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.Table;
 import org.jooq.TableRecord;
 import org.jooq.impl.CustomRecord;
 
 import io.vertx.core.json.JsonObject;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
-
 final class MiscImpl {
 
-    @Getter
-    @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
     static class BatchResultImpl implements BatchResult {
 
         private final int total;
         private final int successes;
+
+        private BatchResultImpl(int total, int successes) {
+            this.total     = total;
+            this.successes = successes;
+        }
 
         static BatchResult create(int total, int successes) {
             return new BatchResultImpl(total, successes);
@@ -33,19 +32,28 @@ final class MiscImpl {
             return new BatchRRI<>(total, Optional.ofNullable(results).orElseGet(ArrayList::new));
         }
 
+        @Override
+        public int getTotal() {return total;}
+
+        @Override
+        public int getSuccesses() {return successes;}
+
     }
 
 
     static final class BatchRRI<R> extends BatchResultImpl implements BatchReturningResult<R> {
 
-        @Getter
-        @NonNull
+        @NotNull
         private final List<R> records;
 
-        private BatchRRI(int total, @NonNull List<R> rs) {
+        private BatchRRI(int total, @NotNull List<R> rs) {
             super(total, rs.size());
             this.records = rs;
         }
+
+        @NotNull
+        @Override
+        public List<R> getRecords() {return records;}
 
     }
 

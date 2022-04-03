@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.Field;
 import org.jooq.InsertSetStep;
 import org.jooq.MergeMatchedSetStep;
@@ -17,13 +18,11 @@ import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.UpdateSetStep;
 
-import lombok.NonNull;
-
 /**
  * Represents a holder keep dummy value and list of binding records
  *
  * @apiNote With {@code dummy value records}, you can predefine a field value, then if a bind record is missing this
- *     field value then system will auto detect and fallback to the predefined value. See: {@link #registerValue(Field,
+ *     field value then system will auto-detect and fallback to the predefined value. See: {@link #registerValue(Field,
  *     Object)}
  * @see <a href="https://www.jooq.org/doc/latest/manual/sql-execution/batch-execution/">JDBC batch operations</a>
  * @see InsertSetStep#set(Map)
@@ -36,22 +35,22 @@ public final class BindBatchValues {
     private final Map<Object, Object> dummyValues = new LinkedHashMap<>();
     private final List<Record> records = new ArrayList<>();
 
-    public BindBatchValues register(@NonNull String... fields) {
+    public BindBatchValues register(String... fields) {
         Arrays.stream(fields).filter(Objects::nonNull).forEach(f -> this.dummyValues.put(f, null));
         return this;
     }
 
-    public BindBatchValues register(@NonNull Field<?>... fields) {
+    public BindBatchValues register(Field<?>... fields) {
         Arrays.stream(fields).filter(Objects::nonNull).forEach(f -> this.dummyValues.put(f, null));
         return this;
     }
 
-    public BindBatchValues register(@NonNull Name... fields) {
+    public BindBatchValues register(Name... fields) {
         Arrays.stream(fields).filter(Objects::nonNull).forEach(f -> this.dummyValues.put(f, null));
         return this;
     }
 
-    public <T> BindBatchValues registerValue(@NonNull Field<T> field, Object value) {
+    public <T> BindBatchValues registerValue(@NotNull Field<T> field, Object value) {
         this.dummyValues.put(field, value);
         return this;
     }
@@ -65,24 +64,24 @@ public final class BindBatchValues {
         return this;
     }
 
-    @NonNull
+    @NotNull
     public List<String> getMappingFields() {
         return dummyValues.keySet().stream().map(this::checkAndReturnField).collect(Collectors.toList());
     }
 
-    @NonNull
+    @NotNull
     public List<Object> getMappingValues() {
         return new ArrayList<>(dummyValues.values());
     }
 
-    @NonNull
+    @NotNull
     public Map<?, ?> getDummyValues() {
         final LinkedHashMap<Object, Object> map = new LinkedHashMap<>();
         this.dummyValues.forEach((k, v) -> map.put(k, null));
         return map;
     }
 
-    @NonNull
+    @NotNull
     public List<Record> getRecords() {
         return Collections.unmodifiableList(this.records);
     }

@@ -1,5 +1,6 @@
 package io.zero88.jooqx.spi.pg;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import io.vertx.core.Future;
@@ -7,8 +8,6 @@ import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.pgclient.PgConnection;
 import io.zero88.jooqx.provider.JooqxSQLClientProvider;
-
-import lombok.NonNull;
 
 /**
  * PostgreSQL connection provider
@@ -24,7 +23,7 @@ public interface PgConnProvider extends JooqxSQLClientProvider<PgConnection>, Pg
     }
 
     @Override
-    default @NonNull Future<PgConnection> open(Vertx vertx, JsonObject connOptions, @Nullable JsonObject poolOptions) {
+    default @NotNull Future<PgConnection> open(Vertx vertx, JsonObject connOptions, @Nullable JsonObject poolOptions) {
         return PgConnection.connect(vertx, parseConn(connOptions));
     }
 

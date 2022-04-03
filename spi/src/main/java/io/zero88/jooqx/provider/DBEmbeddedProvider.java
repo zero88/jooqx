@@ -7,8 +7,6 @@ import org.jetbrains.annotations.NotNull;
 
 import io.vertx.core.json.JsonObject;
 
-import lombok.NonNull;
-
 /**
  * Provides an embedded database
  * <p>
@@ -46,7 +44,7 @@ public interface DBEmbeddedProvider extends DBProvider<String> {
      * @return SQL driver class name
      * @see Driver
      */
-    @NonNull String driverClassName();
+    @NotNull String driverClassName();
 
     /**
      * Memory Database provider

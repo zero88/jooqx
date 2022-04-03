@@ -4,8 +4,6 @@ import org.jetbrains.annotations.NotNull;
 
 import io.zero88.jooqx.provider.DBEmbeddedProvider.DBFileProvider;
 
-import lombok.NonNull;
-
 /**
  * Provides H2 database in local file
  *
@@ -20,7 +18,7 @@ public interface DerbyFileProvider extends DBFileProvider {
     }
 
     @Override
-    default @NonNull String driverClassName() {
+    default @NotNull String driverClassName() {
         return "org.apache.derby.jdbc.EmbeddedDriver";
     }
 

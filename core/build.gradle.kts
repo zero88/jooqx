@@ -12,12 +12,7 @@ dependencies {
     compileOnly(VertxLibs.codegen)
     annotationProcessor(VertxLibs.codegen)
 
-    compileOnly(UtilLibs.lombok)
-    annotationProcessor(UtilLibs.lombok)
-
     testImplementation(VertxLibs.sqlClient)
-    testCompileOnly(UtilLibs.lombok)
-    testAnnotationProcessor(UtilLibs.lombok)
 
     testFixturesApi(project(":spi"))
     testFixturesApi(LogLibs.logback)
@@ -28,11 +23,9 @@ dependencies {
     testFixturesApi(VertxLibs.junit5)
     testFixturesApi(ZeroLibs.utils)
 
-    testFixturesCompileOnly(UtilLibs.lombok)
-    testFixturesAnnotationProcessor(UtilLibs.lombok)
+    testFixturesCompileOnly(UtilLibs.jetbrainsAnnotations)
     testFixturesCompileOnly(VertxLibs.codegen)
     testFixturesAnnotationProcessor(VertxLibs.codegen)
-    testFixturesCompileOnly(UtilLibs.jetbrainsAnnotations)
 
     testFixturesImplementation(VertxLibs.rx2)
 

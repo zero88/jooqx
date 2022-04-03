@@ -1,12 +1,11 @@
 package io.zero88.jooqx;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.Table;
 import org.jooq.TableLike;
 import org.jooq.TableRecord;
 
 import io.vertx.core.json.JsonObject;
-
-import lombok.NonNull;
 
 /**
  * Represents for an intermediate record between Vertx ResultSet and actual jOOQ Record and does support serialize to
@@ -20,7 +19,7 @@ public interface JsonRecord<R extends TableRecord<R>> extends TableRecord<R> {
 
     JsonObject toJson();
 
-    static <R extends TableRecord<R>> JsonRecord<R> create(@NonNull TableLike<R> table) {
+    static <R extends TableRecord<R>> JsonRecord<R> create(@NotNull TableLike<R> table) {
         return new MiscImpl.JsonRecordImpl<>((Table<R>) table);
     }
 

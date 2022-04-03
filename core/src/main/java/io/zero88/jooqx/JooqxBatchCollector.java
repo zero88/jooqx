@@ -2,12 +2,12 @@ package io.zero88.jooqx;
 
 import java.util.List;
 
+import org.jetbrains.annotations.NotNull;
+
 import io.vertx.codegen.annotations.VertxGen;
 import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.RowSet;
 import io.zero88.jooqx.adapter.RowConverterStrategy;
-
-import lombok.NonNull;
 
 /**
  * Reactive result batch converter
@@ -20,9 +20,9 @@ public interface JooqxBatchCollector
     extends JooqxResultCollector, SQLBatchCollector<RowSet<Row>, RowSet<Row>> {
 
     @Override
-    @NonNull <T, R> List<R> collect(@NonNull RowSet<Row> resultSet, @NonNull RowConverterStrategy<T, R> strategy);
+    @NotNull <T, R> List<R> collect(@NotNull RowSet<Row> resultSet, @NotNull RowConverterStrategy<T, R> strategy);
 
     @Override
-    int batchResultSize(@NonNull RowSet<Row> batchResult);
+    int batchResultSize(@NotNull RowSet<Row> batchResult);
 
 }

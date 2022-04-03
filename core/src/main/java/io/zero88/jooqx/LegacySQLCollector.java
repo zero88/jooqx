@@ -2,13 +2,13 @@ package io.zero88.jooqx;
 
 import java.util.List;
 
+import org.jetbrains.annotations.NotNull;
+
 import io.vertx.codegen.annotations.GenIgnore;
 import io.vertx.codegen.annotations.VertxGen;
 import io.vertx.ext.sql.ResultSet;
 import io.zero88.jooqx.LegacySQLImpl.LegacySQLRC;
 import io.zero88.jooqx.adapter.RowConverterStrategy;
-
-import lombok.NonNull;
 
 /**
  * Represents for Legacy SQL result set collector
@@ -23,10 +23,10 @@ public interface LegacySQLCollector extends SQLResultCollector<ResultSet>, SQLBa
     }
 
     @Override
-    int batchResultSize(@NonNull List<Integer> batchResult);
+    int batchResultSize(@NotNull List<Integer> batchResult);
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    @NonNull <T, R> List<R> collect(@NonNull ResultSet resultSet, @NonNull RowConverterStrategy<T, R> strategy);
+    @NotNull <T, R> List<R> collect(@NotNull ResultSet resultSet, @NotNull RowConverterStrategy<T, R> strategy);
 
 }

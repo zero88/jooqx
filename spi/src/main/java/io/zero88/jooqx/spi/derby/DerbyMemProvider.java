@@ -4,8 +4,6 @@ import org.jetbrains.annotations.NotNull;
 
 import io.zero88.jooqx.provider.DBEmbeddedProvider.DBMemoryProvider;
 
-import lombok.NonNull;
-
 /**
  * Provides Derby database in memory
  *
@@ -20,7 +18,7 @@ public interface DerbyMemProvider extends DBMemoryProvider {
     }
 
     @Override
-    default @NonNull String driverClassName() {
+    default @NotNull String driverClassName() {
         return "org.apache.derby.jdbc.EmbeddedDriver";
     }
 

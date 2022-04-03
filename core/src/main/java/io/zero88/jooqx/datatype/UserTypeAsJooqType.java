@@ -9,7 +9,7 @@ import org.jooq.impl.SQLDataType;
  * type
  *
  * @param <V> Vert.x SQL data type
- * @param <J> The jOOQ data type and an user type - i.e. any type available from {@link SQLDataType}
+ * @param <J> The jOOQ data type and a user type - i.e. any type available from {@link SQLDataType}
  * @apiNote In nutshell, it is equals with default {@link JooqxConverter}
  * @see DataTypeMapper
  * @see Converter
@@ -40,7 +40,7 @@ public interface UserTypeAsJooqType<V, J> extends DataTypeMapper<V, J, J> {
      * Create new instance UserTypeAsJooqType by {@link JooqxConverter}
      *
      * @param jooqxConverter jooqx converter
-     * @param <V>            The Vert.x SQL data type and an user type
+     * @param <V>            The Vert.x SQL data type and a user type
      * @param <J>            The jOOQ type
      * @return new instance
      */

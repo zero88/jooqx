@@ -1,16 +1,12 @@
 package io.zero88.jooqx;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.DSLContext;
 
 import io.vertx.core.Vertx;
 import io.vertx.ext.sql.SQLClient;
 import io.vertx.sqlclient.SqlClient;
 import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
-
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 
 /**
  * Represents for an executor that executes {@code jOOQ query} on {@code Vertx SQL client} connection
@@ -34,14 +30,14 @@ public interface SQLExecutor<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extend
      *
      * @return vertx
      */
-    @NonNull Vertx vertx();
+    @NotNull Vertx vertx();
 
     /**
      * Defines sql client
      *
      * @return sql client
      */
-    @NonNull S sqlClient();
+    @NotNull S sqlClient();
 
     /**
      * Defines prepared query
@@ -49,7 +45,7 @@ public interface SQLExecutor<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extend
      * @return prepared query
      * @see SQLPreparedQuery
      */
-    @NonNull PQ preparedQuery();
+    @NotNull PQ preparedQuery();
 
     /**
      * Defines result collector depends on result set
@@ -57,7 +53,7 @@ public interface SQLExecutor<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extend
      * @return result collector
      * @see SQLResultCollector
      */
-    @NonNull RC resultCollector();
+    @NotNull RC resultCollector();
 
     /**
      * Defines an error converter that rethrows an uniform exception by
@@ -68,7 +64,7 @@ public interface SQLExecutor<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extend
      * @apiNote Default is {@link SQLErrorConverter#DEFAULT} that keeps error as it is
      * @see SQLErrorConverter
      */
-    @NonNull SQLErrorConverter errorConverter();
+    @NotNull SQLErrorConverter errorConverter();
 
     /**
      * Defines global data type mapper registry
@@ -76,7 +72,7 @@ public interface SQLExecutor<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extend
      * @return registry
      * @see DataTypeMapperRegistry
      */
-    @NonNull DataTypeMapperRegistry typeMapperRegistry();
+    @NotNull DataTypeMapperRegistry typeMapperRegistry();
 
     /**
      * Open transaction executor
@@ -85,19 +81,13 @@ public interface SQLExecutor<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extend
      * @return transaction executor
      * @see SQLTxExecutor
      */
-    @NonNull <E extends SQLExecutor<S, B, PQ, RS, RC>> SQLTxExecutor<S, B, PQ, RS, RC, E> transaction();
+    @NotNull <E extends SQLExecutor<S, B, PQ, RS, RC>> SQLTxExecutor<S, B, PQ, RS, RC, E> transaction();
 
-    @Getter
-    @Setter
-    @Accessors(fluent = true)
     abstract class SQLExecutorBuilder<S, B, P extends SQLPreparedQuery<B>, RS, C extends SQLResultCollector<RS>,
-                                             E extends SQLExecutor<S, B, P, RS, C>> {
+                                         E extends SQLExecutor<S, B, P, RS, C>> {
 
-        @NonNull
         private Vertx vertx;
-        @NonNull
         private DSLContext dsl;
-        @NonNull
         private S sqlClient;
         private P preparedQuery;
         private C resultCollector;
@@ -105,6 +95,55 @@ public interface SQLExecutor<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extend
         private DataTypeMapperRegistry typeMapperRegistry;
 
         public abstract E build();
+
+        public Vertx vertx() {return vertx;}
+
+        public SQLExecutorBuilder<S, B, P, RS, C, E> vertx(Vertx vertx) {
+            this.vertx = vertx;
+            return this;
+        }
+
+        public DSLContext dsl() {return dsl;}
+
+        public SQLExecutorBuilder<S, B, P, RS, C, E> dsl(DSLContext dsl) {
+            this.dsl = dsl;
+            return this;
+        }
+
+        public S sqlClient() {return sqlClient;}
+
+        public SQLExecutorBuilder<S, B, P, RS, C, E> sqlClient(S sqlClient) {
+            this.sqlClient = sqlClient;
+            return this;
+        }
+
+        public P preparedQuery() {return preparedQuery;}
+
+        public SQLExecutorBuilder<S, B, P, RS, C, E> preparedQuery(P preparedQuery) {
+            this.preparedQuery = preparedQuery;
+            return this;
+        }
+
+        public C resultCollector() {return resultCollector;}
+
+        public SQLExecutorBuilder<S, B, P, RS, C, E> resultCollector(C resultCollector) {
+            this.resultCollector = resultCollector;
+            return this;
+        }
+
+        public SQLErrorConverter errorConverter() {return errorConverter;}
+
+        public SQLExecutorBuilder<S, B, P, RS, C, E> errorConverter(SQLErrorConverter errorConverter) {
+            this.errorConverter = errorConverter;
+            return this;
+        }
+
+        public DataTypeMapperRegistry typeMapperRegistry() {return typeMapperRegistry;}
+
+        public SQLExecutorBuilder<S, B, P, RS, C, E> typeMapperRegistry(DataTypeMapperRegistry typeMapperRegistry) {
+            this.typeMapperRegistry = typeMapperRegistry;
+            return this;
+        }
 
     }
 

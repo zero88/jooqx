@@ -2,6 +2,7 @@ package io.zero88.integtest.jooqx.h2;
 
 import java.util.stream.Stream;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.SQLDialect;
 
 import io.github.zero88.utils.Strings;
@@ -10,13 +11,11 @@ import io.zero88.jooqx.JooqDSLProvider;
 import io.zero88.jooqx.JooqSQL;
 import io.zero88.jooqx.SQLConnectionOption;
 import io.zero88.jooqx.SQLTestHelper;
+import io.zero88.jooqx.spi.jdbc.JDBCErrorConverterProvider;
 import io.zero88.sample.data.h2.DefaultCatalog;
 import io.zero88.sample.data.h2.DefaultSchema;
-import io.zero88.jooqx.spi.jdbc.JDBCErrorConverterProvider;
 
 import com.zaxxer.hikari.HikariDataSource;
-
-import lombok.NonNull;
 
 public interface H2SQLHelper extends JooqSQL<DefaultSchema>, SQLTestHelper, JDBCErrorConverterProvider {
 
@@ -30,7 +29,7 @@ public interface H2SQLHelper extends JooqSQL<DefaultSchema>, SQLTestHelper, JDBC
     }
 
     @Override
-    default @NonNull SQLDialect dialect() {
+    default @NotNull SQLDialect dialect() {
         return SQLDialect.H2;
     }
 

@@ -3,6 +3,7 @@ package io.zero88.jooqx.adapter;
 import java.util.Collection;
 import java.util.List;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.DSLContext;
 import org.jooq.Field;
 import org.jooq.Record;
@@ -16,8 +17,6 @@ import io.zero88.jooqx.SQLResultCollector;
 import io.zero88.jooqx.adapter.SQLCollectorPart.IdentityCollectorPart;
 import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
-import lombok.NonNull;
-
 /**
  * SQL Result adapter receives Result set then mapping to expected result
  *
@@ -30,7 +29,7 @@ import lombok.NonNull;
  */
 public interface SQLResultAdapter<T, R> extends HasStrategy {
 
-    @SuppressWarnings( {"rawtypes", "unchecked"})
+    @SuppressWarnings({"rawtypes", "unchecked"})
     static IdentityCollectorPart<JsonRecord<?>> byJson() {
         return new IdentityCollectorPart<>((dsl, queryTbl) -> JsonRecord.create((TableLike<TableRecord>) queryTbl));
     }
@@ -60,7 +59,7 @@ public interface SQLResultAdapter<T, R> extends HasStrategy {
      * @return jOOQ table
      * @see TableLike
      */
-    @NonNull T table();
+    @NotNull T table();
 
     /**
      * Collect result set to expected result
@@ -72,8 +71,8 @@ public interface SQLResultAdapter<T, R> extends HasStrategy {
      * @return an expected result
      * @see DataTypeMapperRegistry
      */
-    @NonNull <RS> R collect(@NonNull RS resultSet, @NonNull SQLResultCollector<RS> collector, @NonNull DSLContext dsl,
-                            @NonNull DataTypeMapperRegistry registry);
+    @NotNull <RS> R collect(@NotNull RS resultSet, @NotNull SQLResultCollector<RS> collector, @NotNull DSLContext dsl,
+        @NotNull DataTypeMapperRegistry registry);
 
     /**
      * Indicates select many row
@@ -84,11 +83,11 @@ public interface SQLResultAdapter<T, R> extends HasStrategy {
     interface SQLResultListAdapter<T, R> extends SQLResultAdapter<T, List<R>> {
 
         @Override
-        @NonNull <RS> List<R> collect(@NonNull RS resultSet, @NonNull SQLResultCollector<RS> collector,
-                                      @NonNull DSLContext dsl, @NonNull DataTypeMapperRegistry registry);
+        @NotNull <RS> List<R> collect(@NotNull RS resultSet, @NotNull SQLResultCollector<RS> collector,
+            @NotNull DSLContext dsl, @NotNull DataTypeMapperRegistry registry);
 
         @Override
-        default @NonNull SelectStrategy strategy() {
+        default @NotNull SelectStrategy strategy() {
             return SelectStrategy.MANY;
         }
 
@@ -103,13 +102,13 @@ public interface SQLResultAdapter<T, R> extends HasStrategy {
     interface SQLResultOneAdapter<T, R> extends SQLResultAdapter<T, R> {
 
         @Override
-        default @NonNull SelectStrategy strategy() {
+        default @NotNull SelectStrategy strategy() {
             return SelectStrategy.FIRST_ONE;
         }
 
         @Override
-        @NonNull <RS> R collect(@NonNull RS resultSet, @NonNull SQLResultCollector<RS> collector,
-                                @NonNull DSLContext dsl, @NonNull DataTypeMapperRegistry registry);
+        @NotNull <RS> R collect(@NotNull RS resultSet, @NotNull SQLResultCollector<RS> collector,
+            @NotNull DSLContext dsl, @NotNull DataTypeMapperRegistry registry);
 
     }
 

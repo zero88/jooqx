@@ -1,5 +1,6 @@
 package io.zero88.jooqx;
 
+import org.jetbrains.annotations.NotNull;
 import org.testcontainers.containers.JdbcDatabaseContainer;
 
 import io.vertx.sqlclient.Pool;
@@ -12,8 +13,6 @@ import io.zero88.jooqx.SQLTest.JooqxTest;
 import io.zero88.jooqx.SQLTestImpl.DBContainerSQLTest;
 import io.zero88.jooqx.SQLTestImpl.DBMemorySQLTest;
 import io.zero88.jooqx.provider.DBEmbeddedProvider.DBMemoryProvider;
-
-import lombok.NonNull;
 
 public interface JooqxTestDefinition {
 
@@ -32,7 +31,7 @@ public interface JooqxTestDefinition {
 
     interface JooqxRxHelper {
 
-        default <S extends Pool> io.zero88.jooqx.reactivex.Jooqx rxPool(@NonNull JooqxBase<S> jooqx) {
+        default <S extends Pool> io.zero88.jooqx.reactivex.Jooqx rxPool(@NotNull JooqxBase<S> jooqx) {
             return io.zero88.jooqx.reactivex.Jooqx.newInstance(Jooqx.builder()
                                                                  .vertx(jooqx.vertx())
                                                                  .dsl(jooqx.dsl())
@@ -44,7 +43,7 @@ public interface JooqxTestDefinition {
                                                                  .build());
         }
 
-        default <S extends SqlConnection> io.zero88.jooqx.reactivex.JooqxConn rxConn(@NonNull JooqxBase<S> jooqx) {
+        default <S extends SqlConnection> io.zero88.jooqx.reactivex.JooqxConn rxConn(@NotNull JooqxBase<S> jooqx) {
             return io.zero88.jooqx.reactivex.JooqxConn.newInstance(JooqxConn.builder()
                                                                          .vertx(jooqx.vertx())
                                                                          .dsl(jooqx.dsl())

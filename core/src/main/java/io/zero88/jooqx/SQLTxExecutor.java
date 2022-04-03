@@ -2,11 +2,11 @@ package io.zero88.jooqx;
 
 import java.util.function.Function;
 
+import org.jetbrains.annotations.NotNull;
+
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
-
-import lombok.NonNull;
 
 /**
  * Represents for transaction executor
@@ -29,7 +29,7 @@ public interface SQLTxExecutor<S, B, P extends SQLPreparedQuery<B>, RS, C extend
      * @param handler  handler
      * @param <X>      Type of result
      */
-    default <X> void run(@NonNull Function<E, Future<X>> function, @NonNull Handler<AsyncResult<X>> handler) {
+    default <X> void run(@NotNull Function<E, Future<X>> function, @NotNull Handler<AsyncResult<X>> handler) {
         run(function).onComplete(handler);
     }
 
@@ -40,6 +40,6 @@ public interface SQLTxExecutor<S, B, P extends SQLPreparedQuery<B>, RS, C extend
      * @param <X>      Type of result
      * @return a {@code Future} of the asynchronous result
      */
-    <X> Future<X> run(@NonNull Function<E, Future<X>> function);
+    <X> Future<X> run(@NotNull Function<E, Future<X>> function);
 
 }

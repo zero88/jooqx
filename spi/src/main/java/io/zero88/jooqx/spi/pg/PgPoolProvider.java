@@ -1,5 +1,6 @@
 package io.zero88.jooqx.spi.pg;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import io.vertx.core.Future;
@@ -7,8 +8,6 @@ import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
 import io.vertx.pgclient.PgPool;
 import io.zero88.jooqx.provider.JooqxSQLClientProvider;
-
-import lombok.NonNull;
 
 /**
  * PostgreSQL pool provider
@@ -24,7 +23,7 @@ public interface PgPoolProvider extends JooqxSQLClientProvider<PgPool>, PgSQLCli
     }
 
     @Override
-    default @NonNull Future<PgPool> open(Vertx vertx, JsonObject connOptions, @Nullable JsonObject poolOptions) {
+    default @NotNull Future<PgPool> open(Vertx vertx, JsonObject connOptions, @Nullable JsonObject poolOptions) {
         return Future.succeededFuture(PgPool.pool(vertx, parseConn(connOptions), parsePool(poolOptions)));
     }
 

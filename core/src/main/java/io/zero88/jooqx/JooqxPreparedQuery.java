@@ -2,6 +2,7 @@ package io.zero88.jooqx;
 
 import java.util.List;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.Configuration;
 import org.jooq.Query;
 
@@ -10,8 +11,6 @@ import io.vertx.codegen.annotations.VertxGen;
 import io.vertx.sqlclient.Tuple;
 import io.zero88.jooqx.JooqxSQLImpl.ReactiveSQLPQ;
 import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
-
-import lombok.NonNull;
 
 /**
  * Represents for a converter that transforms {@code jOOQ param} to {@code Vertx Reactive SQL} bind value
@@ -32,15 +31,15 @@ public interface JooqxPreparedQuery extends SQLPreparedQuery<Tuple> {
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    @NonNull String sql(@NonNull Configuration configuration, @NonNull Query query);
+    @NotNull String sql(@NotNull Configuration configuration, @NotNull Query query);
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    @NonNull Tuple bindValues(@NonNull Query query, @NonNull DataTypeMapperRegistry mapperRegistry);
+    @NotNull Tuple bindValues(@NotNull Query query, @NotNull DataTypeMapperRegistry mapperRegistry);
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    @NonNull List<Tuple> bindValues(@NonNull Query query, @NonNull BindBatchValues bindBatchValues,
-                                    @NonNull DataTypeMapperRegistry mapperRegistry);
+    @NotNull List<Tuple> bindValues(@NotNull Query query, @NotNull BindBatchValues bindBatchValues,
+                                    @NotNull DataTypeMapperRegistry mapperRegistry);
 
 }

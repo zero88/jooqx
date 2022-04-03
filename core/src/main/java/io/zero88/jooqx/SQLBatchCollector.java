@@ -1,6 +1,6 @@
 package io.zero88.jooqx;
 
-import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Result batch converter
@@ -18,6 +18,6 @@ interface SQLBatchCollector<RS, BR> extends SQLResultCollector<RS> {
      * @param batchResult batch result
      * @return result size
      */
-    int batchResultSize(@NonNull BR batchResult);
+    int batchResultSize(@NotNull BR batchResult);
 
 }

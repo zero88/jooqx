@@ -5,10 +5,10 @@ import org.jooq.Converter;
 import org.jooq.impl.SQLDataType;
 
 /**
- * It is short form of {@link DataTypeMapper} that means  a {@code record field} is used an user type that is same with
+ * It is short form of {@link DataTypeMapper} that means  a {@code record field} is used a user type that is same with
  * {@code Vert.x SQL data type}
  *
- * @param <V> The Vert.x SQL data type and an user type
+ * @param <V> The Vert.x SQL data type and a user type
  * @param <J> The jOOQ type - i.e. any type available from {@link SQLDataType}
  * @apiNote It is inverse of default {@link JooqxConverter} and required your application generate custom data types
  *     as Vert.x type. See <a href="https://www.jooq.org/doc/3.2/manual/code-generation/custom-data-types/">jOOQ
@@ -27,7 +27,7 @@ public interface UserTypeAsVertxType<V, J> extends DataTypeMapper<V, J, V>, Jooq
      * Create new instance UserTypeAsVertxType by {@link JooqxConverter}
      *
      * @param jooqxConverter jooqx converter
-     * @param <V>            The Vert.x SQL data type and an user type
+     * @param <V>            The Vert.x SQL data type and a user type
      * @param <J>            The jOOQ type
      * @return new instance
      */

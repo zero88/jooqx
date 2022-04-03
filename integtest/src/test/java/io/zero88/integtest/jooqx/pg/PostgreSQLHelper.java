@@ -15,28 +15,26 @@ import io.zero88.jooqx.SQLTestHelper;
 import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 import io.zero88.jooqx.datatype.JooqxConverter;
 import io.zero88.jooqx.datatype.basic.UDTParser;
+import io.zero88.jooqx.provider.TypeMapperRegistryProvider;
+import io.zero88.jooqx.spi.pg.datatype.PgTypeMapperRegistry;
 import io.zero88.sample.data.pgsql.DefaultCatalog;
 import io.zero88.sample.data.pgsql.Public;
 import io.zero88.sample.data.pgsql.enums.Mood;
 import io.zero88.sample.data.pgsql.enums.Weather;
 import io.zero88.sample.data.pgsql.udt.FullAddress;
 import io.zero88.sample.data.pgsql.udt.records.FullAddressRecord;
-import io.zero88.jooqx.provider.TypeMapperRegistryProvider;
-import io.zero88.jooqx.spi.pg.datatype.PgTypeMapperRegistry;
-
-import lombok.NonNull;
 
 public interface PostgreSQLHelper<S extends Schema> extends JooqSQL<S>, SQLTestHelper {
 
     default void prepareDatabase(VertxTestContext context, JooqSQL<?> jooqSql, SQLConnectionOption connOption,
-                                 String... otherDataFiles) {
+        String... otherDataFiles) {
         SQLTestHelper.super.prepareDatabase(context, jooqSql, connOption,
                                             Stream.concat(Stream.of("pg_schema.sql"), Stream.of(otherDataFiles))
                                                   .toArray(String[]::new));
     }
 
     @Override
-    default @NonNull SQLDialect dialect() {
+    default @NotNull SQLDialect dialect() {
         return SQLDialect.POSTGRES;
     }
 
@@ -65,8 +63,7 @@ public interface PostgreSQLHelper<S extends Schema> extends JooqSQL<S>, SQLTestH
     }
 
 
-    interface PgUseVertxType
-        extends TypeMapperRegistryProvider, PostgreSQLHelper<io.zero88.sample.data.pgsql2.Public> {
+    interface PgUseVertxType extends TypeMapperRegistryProvider, PostgreSQLHelper<io.zero88.sample.data.pgsql2.Public> {
 
         @Override
         default DataTypeMapperRegistry typeMapperRegistry() {

@@ -2,14 +2,13 @@ package io.zero88.jooqx;
 
 import java.util.List;
 
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import io.vertx.codegen.annotations.GenIgnore;
 import io.zero88.jooqx.adapter.RowConverterStrategy;
 import io.zero88.jooqx.adapter.SelectStrategy;
-
-import lombok.NonNull;
 
 /**
  * Represents for a collector that collects {@code Vert.x SQL result} to an expectation output
@@ -26,7 +25,7 @@ public interface SQLResultCollector<RS> {
     Logger LOGGER = LoggerFactory.getLogger(SQLResultCollector.class);
 
     @GenIgnore
-    default void warnManyResult(boolean check, @NonNull SelectStrategy strategy) {
+    default void warnManyResult(boolean check, @NotNull SelectStrategy strategy) {
         if (check) {
             LOGGER.warn("Query strategy is [{}] but query result contains more than one row", strategy);
         }
@@ -41,6 +40,6 @@ public interface SQLResultCollector<RS> {
      * @param strategy  row converter strategy
      * @return list output
      */
-    @NonNull <T, R> List<R> collect(@NonNull RS resultSet, @NonNull RowConverterStrategy<T, R> strategy);
+    @NotNull <T, R> List<R> collect(@NotNull RS resultSet, @NotNull RowConverterStrategy<T, R> strategy);
 
 }

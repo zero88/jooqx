@@ -3,9 +3,8 @@ package io.zero88.jooqx.adapter;
 import java.util.function.Function;
 import java.util.stream.Collector;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.Field;
-
-import lombok.NonNull;
 
 /**
  * A row converter strategy collects each row in result set to an expectation result
@@ -21,7 +20,7 @@ public interface RowConverterStrategy<R, I> extends HasStrategy {
      * @param fieldName field name
      * @return jOOQ field, it is nullable
      */
-    Field<?> lookupField(@NonNull String fieldName);
+    Field<?> lookupField(@NotNull String fieldName);
 
     /**
      * Create collector to accumulate each SQL Vert.x row to an expectation output
@@ -29,6 +28,6 @@ public interface RowConverterStrategy<R, I> extends HasStrategy {
      * @param getValue a function to collect field value by field
      * @return a collector
      */
-    @NonNull Collector<Field<?>, R, I> createCollector(@NonNull Function<Field<?>, Object> getValue);
+    @NotNull Collector<Field<?>, R, I> createCollector(@NotNull Function<Field<?>, Object> getValue);
 
 }

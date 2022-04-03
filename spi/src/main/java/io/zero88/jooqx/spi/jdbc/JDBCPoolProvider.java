@@ -13,8 +13,6 @@ import io.zero88.jooqx.provider.JDBCExtension;
 import io.zero88.jooqx.provider.JooqxSQLClientProvider;
 import io.zero88.jooqx.provider.SQLClientOptionParser;
 
-import lombok.NonNull;
-
 /**
  * Reactive JDBC pool provider
  *
@@ -30,7 +28,7 @@ public interface JDBCPoolProvider<P extends DataSourceProvider>
     }
 
     @Override
-    default @NonNull Future<JDBCPool> open(Vertx vertx, JsonObject connOptions, @Nullable JsonObject poolOptions) {
+    default @NotNull Future<JDBCPool> open(Vertx vertx, JsonObject connOptions, @Nullable JsonObject poolOptions) {
         final JDBCConnectOptions jdbcConnectOptions = parseConn(connOptions);
         if ("AGROAL".equals(jdbcConnectOptions.getDataSourceImplementation())) {
             return Future.succeededFuture(JDBCPool.pool(vertx, jdbcConnectOptions, parsePool(poolOptions)));

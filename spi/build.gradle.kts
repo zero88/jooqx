@@ -11,9 +11,6 @@ dependencies {
     compileOnly(DatabaseLibs.hsqldb)
     compileOnly(DatabaseLibs.sqlite)
 
-    compileOnly(UtilLibs.lombok)
-    annotationProcessor(UtilLibs.lombok)
-
     testImplementation(testFixtures(project(":jooqx-core")))
     testImplementation(VertxLibs.jdbc)
     testImplementation(VertxLibs.pgsql)
@@ -21,6 +18,4 @@ dependencies {
     testImplementation(VertxLibs.mssql)
     testImplementation(VertxLibs.db2)
 
-    testCompileOnly(UtilLibs.lombok)
-    testAnnotationProcessor(UtilLibs.lombok)
 }

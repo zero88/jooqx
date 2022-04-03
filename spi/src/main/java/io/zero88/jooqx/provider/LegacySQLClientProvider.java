@@ -14,8 +14,6 @@ import io.vertx.ext.jdbc.spi.DataSourceProvider;
 import io.vertx.ext.sql.SQLClient;
 import io.vertx.sqlclient.PoolOptions;
 
-import lombok.NonNull;
-
 /**
  * A provider provides legacy SQL client that relies on an external JDBC connection pool.
  * <p>
@@ -37,7 +35,7 @@ public interface LegacySQLClientProvider<P extends DataSourceProvider>
     }
 
     @Override
-    default @NonNull Future<SQLClient> open(Vertx vertx, JsonObject connOptions, @Nullable JsonObject poolOptions) {
+    default @NotNull Future<SQLClient> open(Vertx vertx, JsonObject connOptions, @Nullable JsonObject poolOptions) {
         return Future.succeededFuture(JDBCClient.create(vertx, parseConn(connOptions)));
     }
 

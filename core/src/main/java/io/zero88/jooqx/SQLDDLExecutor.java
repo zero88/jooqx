@@ -2,14 +2,13 @@ package io.zero88.jooqx;
 
 import java.util.function.Function;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.DDLQuery;
 import org.jooq.DSLContext;
 
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
-
-import lombok.NonNull;
 
 /**
  * Represents for a {@code DDL executor} that executes batch SQL command
@@ -25,8 +24,8 @@ public interface SQLDDLExecutor extends JooqDSLProvider {
      * @param handler     async result handler
      * @since 1.1.0
      */
-    default void ddl(@NonNull Function<DSLContext, DDLQuery> ddlFunction,
-                     @NonNull Handler<AsyncResult<Integer>> handler) {
+    default void ddl(@NotNull Function<DSLContext, DDLQuery> ddlFunction,
+                     @NotNull Handler<AsyncResult<Integer>> handler) {
         ddl(ddlFunction).onComplete(handler);
     }
 
@@ -37,7 +36,7 @@ public interface SQLDDLExecutor extends JooqDSLProvider {
      * @return a {@code Future} of the asynchronous result
      * @since 1.1.0
      */
-    default Future<Integer> ddl(@NonNull Function<DSLContext, DDLQuery> ddlFunction) {
+    default Future<Integer> ddl(@NotNull Function<DSLContext, DDLQuery> ddlFunction) {
         return ddl(ddlFunction.apply(dsl()));
     }
 
@@ -48,7 +47,7 @@ public interface SQLDDLExecutor extends JooqDSLProvider {
      * @param handler async result handler
      * @since 1.1.0
      */
-    default void ddl(@NonNull DDLQuery query, @NonNull Handler<AsyncResult<Integer>> handler) {
+    default void ddl(@NotNull DDLQuery query, @NotNull Handler<AsyncResult<Integer>> handler) {
         ddl(query).onComplete(handler);
     }
 
@@ -59,6 +58,6 @@ public interface SQLDDLExecutor extends JooqDSLProvider {
      * @return a {@code Future} of the asynchronous result
      * @since 1.1.0
      */
-    Future<Integer> ddl(@NonNull DDLQuery query);
+    Future<Integer> ddl(@NotNull DDLQuery query);
 
 }
