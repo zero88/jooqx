@@ -26,8 +26,8 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
+var data = {"i0":6,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -175,7 +175,7 @@ extends java.lang.Object</pre>
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Method</th>
@@ -184,6 +184,76 @@ extends java.lang.Object</pre>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>abstract <a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">E</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#build()">build</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>org.jooq.DSLContext</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#dsl()">dsl</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code><a href="SQLExecutor.SQLExecutorBuilder.html" title="class in io.zero88.jooqx">SQLExecutor.SQLExecutorBuilder</a>&lt;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">S</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">B</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">P</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">RS</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">C</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">E</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#dsl(org.jooq.DSLContext)">dsl</a></span>&#8203;(org.jooq.DSLContext&nbsp;dsl)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code><a href="SQLErrorConverter.html" title="interface in io.zero88.jooqx">SQLErrorConverter</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#errorConverter()">errorConverter</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code><a href="SQLExecutor.SQLExecutorBuilder.html" title="class in io.zero88.jooqx">SQLExecutor.SQLExecutorBuilder</a>&lt;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">S</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">B</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">P</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">RS</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">C</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">E</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#errorConverter(io.zero88.jooqx.SQLErrorConverter)">errorConverter</a></span>&#8203;(<a href="SQLErrorConverter.html" title="interface in io.zero88.jooqx">SQLErrorConverter</a>&nbsp;errorConverter)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code><a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">P</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#preparedQuery()">preparedQuery</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code><a href="SQLExecutor.SQLExecutorBuilder.html" title="class in io.zero88.jooqx">SQLExecutor.SQLExecutorBuilder</a>&lt;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">S</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">B</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">P</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">RS</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">C</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">E</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#preparedQuery(P)">preparedQuery</a></span>&#8203;(<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">P</a>&nbsp;preparedQuery)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code><a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">C</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resultCollector()">resultCollector</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code><a href="SQLExecutor.SQLExecutorBuilder.html" title="class in io.zero88.jooqx">SQLExecutor.SQLExecutorBuilder</a>&lt;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">S</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">B</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">P</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">RS</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">C</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">E</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resultCollector(C)">resultCollector</a></span>&#8203;(<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">C</a>&nbsp;resultCollector)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i9" class="rowColor">
+<td class="colFirst"><code><a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">S</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sqlClient()">sqlClient</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i10" class="altColor">
+<td class="colFirst"><code><a href="SQLExecutor.SQLExecutorBuilder.html" title="class in io.zero88.jooqx">SQLExecutor.SQLExecutorBuilder</a>&lt;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">S</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">B</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">P</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">RS</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">C</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">E</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sqlClient(S)">sqlClient</a></span>&#8203;(<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">S</a>&nbsp;sqlClient)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i11" class="rowColor">
+<td class="colFirst"><code><a href="datatype/DataTypeMapperRegistry.html" title="class in io.zero88.jooqx.datatype">DataTypeMapperRegistry</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#typeMapperRegistry()">typeMapperRegistry</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i12" class="altColor">
+<td class="colFirst"><code><a href="SQLExecutor.SQLExecutorBuilder.html" title="class in io.zero88.jooqx">SQLExecutor.SQLExecutorBuilder</a>&lt;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">S</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">B</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">P</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">RS</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">C</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">E</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#typeMapperRegistry(io.zero88.jooqx.datatype.DataTypeMapperRegistry)">typeMapperRegistry</a></span>&#8203;(<a href="datatype/DataTypeMapperRegistry.html" title="class in io.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;typeMapperRegistry)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i13" class="rowColor">
+<td class="colFirst"><code>io.vertx.core.Vertx</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#vertx()">vertx</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i14" class="altColor">
+<td class="colFirst"><code><a href="SQLExecutor.SQLExecutorBuilder.html" title="class in io.zero88.jooqx">SQLExecutor.SQLExecutorBuilder</a>&lt;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">S</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">B</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">P</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">RS</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">C</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">E</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#vertx(io.vertx.core.Vertx)">vertx</a></span>&#8203;(io.vertx.core.Vertx&nbsp;vertx)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -232,10 +302,142 @@ extends java.lang.Object</pre>
 <a id="build()">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>build</h4>
 <pre class="methodSignature">public abstract&nbsp;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">E</a>&nbsp;build()</pre>
+</li>
+</ul>
+<a id="vertx()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>vertx</h4>
+<pre class="methodSignature">public&nbsp;io.vertx.core.Vertx&nbsp;vertx()</pre>
+</li>
+</ul>
+<a id="vertx(io.vertx.core.Vertx)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>vertx</h4>
+<pre class="methodSignature">public&nbsp;<a href="SQLExecutor.SQLExecutorBuilder.html" title="class in io.zero88.jooqx">SQLExecutor.SQLExecutorBuilder</a>&lt;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">S</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">B</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">P</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">RS</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">C</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">E</a>&gt;&nbsp;vertx&#8203;(io.vertx.core.Vertx&nbsp;vertx)</pre>
+</li>
+</ul>
+<a id="dsl()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>dsl</h4>
+<pre class="methodSignature">public&nbsp;org.jooq.DSLContext&nbsp;dsl()</pre>
+</li>
+</ul>
+<a id="dsl(org.jooq.DSLContext)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>dsl</h4>
+<pre class="methodSignature">public&nbsp;<a href="SQLExecutor.SQLExecutorBuilder.html" title="class in io.zero88.jooqx">SQLExecutor.SQLExecutorBuilder</a>&lt;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">S</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">B</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">P</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">RS</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">C</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">E</a>&gt;&nbsp;dsl&#8203;(org.jooq.DSLContext&nbsp;dsl)</pre>
+</li>
+</ul>
+<a id="sqlClient()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>sqlClient</h4>
+<pre class="methodSignature">public&nbsp;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">S</a>&nbsp;sqlClient()</pre>
+</li>
+</ul>
+<a id="sqlClient(java.lang.Object)">
+<!--   -->
+</a><a id="sqlClient(S)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>sqlClient</h4>
+<pre class="methodSignature">public&nbsp;<a href="SQLExecutor.SQLExecutorBuilder.html" title="class in io.zero88.jooqx">SQLExecutor.SQLExecutorBuilder</a>&lt;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">S</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">B</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">P</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">RS</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">C</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">E</a>&gt;&nbsp;sqlClient&#8203;(<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">S</a>&nbsp;sqlClient)</pre>
+</li>
+</ul>
+<a id="preparedQuery()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>preparedQuery</h4>
+<pre class="methodSignature">public&nbsp;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">P</a>&nbsp;preparedQuery()</pre>
+</li>
+</ul>
+<a id="preparedQuery(io.zero88.jooqx.SQLPreparedQuery)">
+<!--   -->
+</a><a id="preparedQuery(P)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>preparedQuery</h4>
+<pre class="methodSignature">public&nbsp;<a href="SQLExecutor.SQLExecutorBuilder.html" title="class in io.zero88.jooqx">SQLExecutor.SQLExecutorBuilder</a>&lt;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">S</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">B</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">P</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">RS</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">C</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">E</a>&gt;&nbsp;preparedQuery&#8203;(<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">P</a>&nbsp;preparedQuery)</pre>
+</li>
+</ul>
+<a id="resultCollector()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>resultCollector</h4>
+<pre class="methodSignature">public&nbsp;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">C</a>&nbsp;resultCollector()</pre>
+</li>
+</ul>
+<a id="resultCollector(io.zero88.jooqx.SQLResultCollector)">
+<!--   -->
+</a><a id="resultCollector(C)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>resultCollector</h4>
+<pre class="methodSignature">public&nbsp;<a href="SQLExecutor.SQLExecutorBuilder.html" title="class in io.zero88.jooqx">SQLExecutor.SQLExecutorBuilder</a>&lt;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">S</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">B</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">P</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">RS</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">C</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">E</a>&gt;&nbsp;resultCollector&#8203;(<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">C</a>&nbsp;resultCollector)</pre>
+</li>
+</ul>
+<a id="errorConverter()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>errorConverter</h4>
+<pre class="methodSignature">public&nbsp;<a href="SQLErrorConverter.html" title="interface in io.zero88.jooqx">SQLErrorConverter</a>&nbsp;errorConverter()</pre>
+</li>
+</ul>
+<a id="errorConverter(io.zero88.jooqx.SQLErrorConverter)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>errorConverter</h4>
+<pre class="methodSignature">public&nbsp;<a href="SQLExecutor.SQLExecutorBuilder.html" title="class in io.zero88.jooqx">SQLExecutor.SQLExecutorBuilder</a>&lt;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">S</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">B</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">P</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">RS</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">C</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">E</a>&gt;&nbsp;errorConverter&#8203;(<a href="SQLErrorConverter.html" title="interface in io.zero88.jooqx">SQLErrorConverter</a>&nbsp;errorConverter)</pre>
+</li>
+</ul>
+<a id="typeMapperRegistry()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>typeMapperRegistry</h4>
+<pre class="methodSignature">public&nbsp;<a href="datatype/DataTypeMapperRegistry.html" title="class in io.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;typeMapperRegistry()</pre>
+</li>
+</ul>
+<a id="typeMapperRegistry(io.zero88.jooqx.datatype.DataTypeMapperRegistry)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>typeMapperRegistry</h4>
+<pre class="methodSignature">public&nbsp;<a href="SQLExecutor.SQLExecutorBuilder.html" title="class in io.zero88.jooqx">SQLExecutor.SQLExecutorBuilder</a>&lt;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">S</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">B</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">P</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">RS</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">C</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">E</a>&gt;&nbsp;typeMapperRegistry&#8203;(<a href="datatype/DataTypeMapperRegistry.html" title="class in io.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;typeMapperRegistry)</pre>
 </li>
 </ul>
 </li>

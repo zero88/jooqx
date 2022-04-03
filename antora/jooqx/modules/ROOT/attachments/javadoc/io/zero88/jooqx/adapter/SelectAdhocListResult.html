@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10};
+var data = {"i0":10,"i1":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -206,10 +206,17 @@ implements <a href="SQLResultAdapter.SQLResultListAdapter.html" title="interface
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>protected &lt;R extends org.jooq.Record,&#8203;I&gt;<br><a href="RowConverterStrategy.html" title="interface in io.zero88.jooqx.adapter">RowConverterStrategy</a>&lt;R,&#8203;I&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#initStrategy(org.jooq.DSLContext,io.zero88.jooqx.datatype.DataTypeMapperRegistry,io.zero88.jooqx.adapter.SQLCollectorPart)">initStrategy</a></span>&#8203;(@NonNull org.jooq.DSLContext&nbsp;dsl,
-            @NonNull <a href="../datatype/DataTypeMapperRegistry.html" title="class in io.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;registry,
-            @NonNull <a href="SQLCollectorPart.html" title="class in io.zero88.jooqx.adapter">SQLCollectorPart</a>&lt;R,&#8203;I&gt;&nbsp;collectorPart)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#initStrategy(org.jooq.DSLContext,io.zero88.jooqx.datatype.DataTypeMapperRegistry,io.zero88.jooqx.adapter.SQLCollectorPart)">initStrategy</a></span>&#8203;(@NotNull org.jooq.DSLContext&nbsp;dsl,
+            @NotNull <a href="../datatype/DataTypeMapperRegistry.html" title="class in io.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;registry,
+            @NotNull <a href="SQLCollectorPart.html" title="class in io.zero88.jooqx.adapter">SQLCollectorPart</a>&lt;R,&#8203;I&gt;&nbsp;collectorPart)</code></th>
 <td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>T</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#table()">table</a></span>()</code></th>
+<td class="colLast">
+<div class="block">A current context holder</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -257,7 +264,7 @@ implements <a href="SQLResultAdapter.SQLResultListAdapter.html" title="interface
 <ul class="blockListLast">
 <li class="blockList">
 <h4>SelectAdhocListResult</h4>
-<pre>protected&nbsp;SelectAdhocListResult&#8203;(@NonNull
+<pre>protected&nbsp;SelectAdhocListResult&#8203;(@NotNull
                                 <a href="SelectAdhocListResult.html" title="type parameter in SelectAdhocListResult">T</a>&nbsp;table)</pre>
 </li>
 </ul>
@@ -274,15 +281,35 @@ implements <a href="SQLResultAdapter.SQLResultListAdapter.html" title="interface
 <a id="initStrategy(org.jooq.DSLContext,io.zero88.jooqx.datatype.DataTypeMapperRegistry,io.zero88.jooqx.adapter.SQLCollectorPart)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>initStrategy</h4>
-<pre class="methodSignature">protected final&nbsp;&lt;R extends org.jooq.Record,&#8203;I&gt;&nbsp;<a href="RowConverterStrategy.html" title="interface in io.zero88.jooqx.adapter">RowConverterStrategy</a>&lt;R,&#8203;I&gt;&nbsp;initStrategy&#8203;(@NonNull
-                                                                                                 @NonNull org.jooq.DSLContext&nbsp;dsl,
-                                                                                                 @NonNull
-                                                                                                 @NonNull <a href="../datatype/DataTypeMapperRegistry.html" title="class in io.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;registry,
-                                                                                                 @NonNull
-                                                                                                 @NonNull <a href="SQLCollectorPart.html" title="class in io.zero88.jooqx.adapter">SQLCollectorPart</a>&lt;R,&#8203;I&gt;&nbsp;collectorPart)</pre>
+<pre class="methodSignature">protected final&nbsp;&lt;R extends org.jooq.Record,&#8203;I&gt;&nbsp;<a href="RowConverterStrategy.html" title="interface in io.zero88.jooqx.adapter">RowConverterStrategy</a>&lt;R,&#8203;I&gt;&nbsp;initStrategy&#8203;(@NotNull
+                                                                                                 @NotNull org.jooq.DSLContext&nbsp;dsl,
+                                                                                                 @NotNull
+                                                                                                 @NotNull <a href="../datatype/DataTypeMapperRegistry.html" title="class in io.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;registry,
+                                                                                                 @NotNull
+                                                                                                 @NotNull <a href="SQLCollectorPart.html" title="class in io.zero88.jooqx.adapter">SQLCollectorPart</a>&lt;R,&#8203;I&gt;&nbsp;collectorPart)</pre>
+</li>
+</ul>
+<a id="table()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>table</h4>
+<pre class="methodSignature">@NotNull
+public&nbsp;T&nbsp;table()</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLResultAdapter.html#table()">SQLResultAdapter</a></code></span></div>
+<div class="block">A current context holder</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="SQLResultAdapter.html#table()">table</a></code>&nbsp;in interface&nbsp;<code><a href="SQLResultAdapter.html" title="interface in io.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T extends org.jooq.TableLike&lt;? extends org.jooq.Record&gt;,&#8203;O&gt;</code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>jOOQ table</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>TableLike</code></dd>
+</dl>
 </li>
 </ul>
 </li>

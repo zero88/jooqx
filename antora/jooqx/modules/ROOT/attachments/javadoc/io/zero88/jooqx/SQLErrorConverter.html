@@ -182,7 +182,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>default &lt;R extends java.lang.RuntimeException&gt;<br><a href="SQLErrorConverter.html" title="interface in io.zero88.jooqx">SQLErrorConverter</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#andThen(java.util.function.Function)">andThen</a></span>&#8203;(@NonNull java.util.function.Function&lt;java.lang.RuntimeException,&#8203;R&gt;&nbsp;andThen)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#andThen(java.util.function.Function)">andThen</a></span>&#8203;(@NotNull java.util.function.Function&lt;java.lang.RuntimeException,&#8203;R&gt;&nbsp;andThen)</code></th>
 <td class="colLast">
 <div class="block">Create new SQL error converter to easy integrate with current application exception</div>
 </td>
@@ -196,7 +196,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>default &lt;X&gt;&nbsp;X</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#reThrowError(java.lang.Throwable)">reThrowError</a></span>&#8203;(@NonNull java.lang.Throwable&nbsp;throwable)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#reThrowError(java.lang.Throwable)">reThrowError</a></span>&#8203;(@NotNull java.lang.Throwable&nbsp;throwable)</code></th>
 <td class="colLast">
 <div class="block">Handle and throw error</div>
 </td>
@@ -259,8 +259,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul class="blockList">
 <li class="blockList">
 <h4>reThrowError</h4>
-<pre class="methodSignature">default&nbsp;&lt;X&gt;&nbsp;X&nbsp;reThrowError&#8203;(@NonNull
-                           @NonNull java.lang.Throwable&nbsp;throwable)</pre>
+<pre class="methodSignature">default&nbsp;&lt;X&gt;&nbsp;X&nbsp;reThrowError&#8203;(@NotNull
+                           @NotNull java.lang.Throwable&nbsp;throwable)</pre>
 <div class="block">Handle and throw error</div>
 <dl>
 <dt><span class="paramLabel">Type Parameters:</span></dt>
@@ -280,8 +280,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul class="blockListLast">
 <li class="blockList">
 <h4>andThen</h4>
-<pre class="methodSignature">default&nbsp;&lt;R extends java.lang.RuntimeException&gt;&nbsp;<a href="SQLErrorConverter.html" title="interface in io.zero88.jooqx">SQLErrorConverter</a>&nbsp;andThen&#8203;(@NonNull
-                                                                         @NonNull java.util.function.Function&lt;java.lang.RuntimeException,&#8203;R&gt;&nbsp;andThen)</pre>
+<pre class="methodSignature">default&nbsp;&lt;R extends java.lang.RuntimeException&gt;&nbsp;<a href="SQLErrorConverter.html" title="interface in io.zero88.jooqx">SQLErrorConverter</a>&nbsp;andThen&#8203;(@NotNull
+                                                                         @NotNull java.util.function.Function&lt;java.lang.RuntimeException,&#8203;R&gt;&nbsp;andThen)</pre>
 <div class="block">Create new SQL error converter to easy integrate with current application exception</div>
 <dl>
 <dt><span class="paramLabel">Type Parameters:</span></dt>

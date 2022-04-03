@@ -150,21 +150,21 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>@NonNull java.util.stream.Collector&lt;org.jooq.Field&lt;?&gt;,&#8203;<a href="RowConverterStrategy.html" title="type parameter in RowConverterStrategy">R</a>,&#8203;<a href="RowConverterStrategy.html" title="type parameter in RowConverterStrategy">I</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createCollector(java.util.function.Function)">createCollector</a></span>&#8203;(@NonNull java.util.function.Function&lt;org.jooq.Field&lt;?&gt;,&#8203;java.lang.Object&gt;&nbsp;getValue)</code></th>
+<td class="colFirst"><code>@NotNull java.util.stream.Collector&lt;org.jooq.Field&lt;?&gt;,&#8203;<a href="RowConverterStrategy.html" title="type parameter in RowConverterStrategy">R</a>,&#8203;<a href="RowConverterStrategy.html" title="type parameter in RowConverterStrategy">I</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#createCollector(java.util.function.Function)">createCollector</a></span>&#8203;(@NotNull java.util.function.Function&lt;org.jooq.Field&lt;?&gt;,&#8203;java.lang.Object&gt;&nbsp;getValue)</code></th>
 <td class="colLast">
 <div class="block">Create collector to accumulate each SQL Vert.x row to an expectation output</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>org.jooq.Field&lt;?&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#lookupField(java.lang.String)">lookupField</a></span>&#8203;(@NonNull java.lang.String&nbsp;fieldName)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#lookupField(java.lang.String)">lookupField</a></span>&#8203;(@NotNull java.lang.String&nbsp;fieldName)</code></th>
 <td class="colLast">
 <div class="block">Lookup jOOQ field in current jOOQ Query context</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>@NonNull <a href="SelectStrategy.html" title="enum in io.zero88.jooqx.adapter">SelectStrategy</a></code></td>
+<td class="colFirst"><code>@NotNull <a href="SelectStrategy.html" title="enum in io.zero88.jooqx.adapter">SelectStrategy</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#strategy()">strategy</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Select strategy for handling a result set</div>
@@ -193,8 +193,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul class="blockList">
 <li class="blockList">
 <h4>lookupField</h4>
-<pre class="methodSignature">org.jooq.Field&lt;?&gt;&nbsp;lookupField&#8203;(@NonNull
-                              @NonNull java.lang.String&nbsp;fieldName)</pre>
+<pre class="methodSignature">org.jooq.Field&lt;?&gt;&nbsp;lookupField&#8203;(@NotNull
+                              @NotNull java.lang.String&nbsp;fieldName)</pre>
 <div class="block">Lookup jOOQ field in current jOOQ Query context</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -210,9 +210,9 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul class="blockList">
 <li class="blockList">
 <h4>createCollector</h4>
-<pre class="methodSignature">@NonNull
-@NonNull java.util.stream.Collector&lt;org.jooq.Field&lt;?&gt;,&#8203;<a href="RowConverterStrategy.html" title="type parameter in RowConverterStrategy">R</a>,&#8203;<a href="RowConverterStrategy.html" title="type parameter in RowConverterStrategy">I</a>&gt;&nbsp;createCollector&#8203;(@NonNull
-                                                                                       @NonNull java.util.function.Function&lt;org.jooq.Field&lt;?&gt;,&#8203;java.lang.Object&gt;&nbsp;getValue)</pre>
+<pre class="methodSignature">@NotNull
+@NotNull java.util.stream.Collector&lt;org.jooq.Field&lt;?&gt;,&#8203;<a href="RowConverterStrategy.html" title="type parameter in RowConverterStrategy">R</a>,&#8203;<a href="RowConverterStrategy.html" title="type parameter in RowConverterStrategy">I</a>&gt;&nbsp;createCollector&#8203;(@NotNull
+                                                                                       @NotNull java.util.function.Function&lt;org.jooq.Field&lt;?&gt;,&#8203;java.lang.Object&gt;&nbsp;getValue)</pre>
 <div class="block">Create collector to accumulate each SQL Vert.x row to an expectation output</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -228,8 +228,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul class="blockListLast">
 <li class="blockList">
 <h4>strategy</h4>
-<pre class="methodSignature">@NonNull
-@NonNull <a href="SelectStrategy.html" title="enum in io.zero88.jooqx.adapter">SelectStrategy</a>&nbsp;strategy()</pre>
+<pre class="methodSignature">@NotNull
+@NotNull <a href="SelectStrategy.html" title="enum in io.zero88.jooqx.adapter">SelectStrategy</a>&nbsp;strategy()</pre>
 <div class="block">Select strategy for handling a result set</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>

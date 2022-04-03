@@ -186,21 +186,21 @@ extends <a href="JooqxConn.html" title="interface in io.zero88.jooqx">JooqxConn<
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>&lt;X&gt;&nbsp;io.vertx.core.Future&lt;X&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#run(java.util.function.Function)">run</a></span>&#8203;(@NonNull java.util.function.Function&lt;<a href="JooqxTx.html" title="interface in io.zero88.jooqx">JooqxTx</a>,&#8203;io.vertx.core.Future&lt;X&gt;&gt;&nbsp;function)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#run(java.util.function.Function)">run</a></span>&#8203;(@NotNull java.util.function.Function&lt;<a href="JooqxTx.html" title="interface in io.zero88.jooqx">JooqxTx</a>,&#8203;io.vertx.core.Future&lt;X&gt;&gt;&nbsp;function)</code></th>
 <td class="colLast">
 <div class="block">Like <a href="SQLTxExecutor.html#run(java.util.function.Function,io.vertx.core.Handler)"><code>SQLTxExecutor.run(Function, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>default &lt;X&gt;&nbsp;void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#run(java.util.function.Function,io.vertx.core.Handler)">run</a></span>&#8203;(@NonNull java.util.function.Function&lt;<a href="JooqxTx.html" title="interface in io.zero88.jooqx">JooqxTx</a>,&#8203;io.vertx.core.Future&lt;X&gt;&gt;&nbsp;function,
-   @NonNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;X&gt;&gt;&nbsp;handler)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#run(java.util.function.Function,io.vertx.core.Handler)">run</a></span>&#8203;(@NotNull java.util.function.Function&lt;<a href="JooqxTx.html" title="interface in io.zero88.jooqx">JooqxTx</a>,&#8203;io.vertx.core.Future&lt;X&gt;&gt;&nbsp;function,
+   @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;X&gt;&gt;&nbsp;handler)</code></th>
 <td class="colLast">
 <div class="block">Run the transactional code</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>default @NonNull <a href="JooqxTx.html" title="interface in io.zero88.jooqx">JooqxTx</a></code></td>
+<td class="colFirst"><code>default @NotNull <a href="JooqxTx.html" title="interface in io.zero88.jooqx">JooqxTx</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#transaction()">transaction</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Open transaction executor</div>
@@ -236,8 +236,8 @@ extends <a href="JooqxConn.html" title="interface in io.zero88.jooqx">JooqxConn<
 <ul class="blockList">
 <li class="blockList">
 <h4>transaction</h4>
-<pre class="methodSignature">@NonNull
-default&nbsp;@NonNull <a href="JooqxTx.html" title="interface in io.zero88.jooqx">JooqxTx</a>&nbsp;transaction()</pre>
+<pre class="methodSignature">@NotNull
+default&nbsp;@NotNull <a href="JooqxTx.html" title="interface in io.zero88.jooqx">JooqxTx</a>&nbsp;transaction()</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLExecutor.html#transaction()">SQLExecutor</a></code></span></div>
 <div class="block">Open transaction executor</div>
 <dl>
@@ -258,10 +258,10 @@ default&nbsp;@NonNull <a href="JooqxTx.html" title="interface in io.zero88.jooqx
 <ul class="blockList">
 <li class="blockList">
 <h4>run</h4>
-<pre class="methodSignature">default&nbsp;&lt;X&gt;&nbsp;void&nbsp;run&#8203;(@NonNull
-                     @NonNull java.util.function.Function&lt;<a href="JooqxTx.html" title="interface in io.zero88.jooqx">JooqxTx</a>,&#8203;io.vertx.core.Future&lt;X&gt;&gt;&nbsp;function,
-                     @NonNull
-                     @NonNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;X&gt;&gt;&nbsp;handler)</pre>
+<pre class="methodSignature">default&nbsp;&lt;X&gt;&nbsp;void&nbsp;run&#8203;(@NotNull
+                     @NotNull java.util.function.Function&lt;<a href="JooqxTx.html" title="interface in io.zero88.jooqx">JooqxTx</a>,&#8203;io.vertx.core.Future&lt;X&gt;&gt;&nbsp;function,
+                     @NotNull
+                     @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;X&gt;&gt;&nbsp;handler)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLTxExecutor.html#run(java.util.function.Function,io.vertx.core.Handler)">SQLTxExecutor</a></code></span></div>
 <div class="block">Run the transactional code</div>
 <dl>
@@ -281,8 +281,8 @@ default&nbsp;@NonNull <a href="JooqxTx.html" title="interface in io.zero88.jooqx
 <ul class="blockListLast">
 <li class="blockList">
 <h4>run</h4>
-<pre class="methodSignature">&lt;X&gt;&nbsp;io.vertx.core.Future&lt;X&gt;&nbsp;run&#8203;(@NonNull
-                                @NonNull java.util.function.Function&lt;<a href="JooqxTx.html" title="interface in io.zero88.jooqx">JooqxTx</a>,&#8203;io.vertx.core.Future&lt;X&gt;&gt;&nbsp;function)</pre>
+<pre class="methodSignature">&lt;X&gt;&nbsp;io.vertx.core.Future&lt;X&gt;&nbsp;run&#8203;(@NotNull
+                                @NotNull java.util.function.Function&lt;<a href="JooqxTx.html" title="interface in io.zero88.jooqx">JooqxTx</a>,&#8203;io.vertx.core.Future&lt;X&gt;&gt;&nbsp;function)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLTxExecutor.html#run(java.util.function.Function)">SQLTxExecutor</a></code></span></div>
 <div class="block">Like <a href="SQLTxExecutor.html#run(java.util.function.Function,io.vertx.core.Handler)"><code>SQLTxExecutor.run(Function, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
 <dl>

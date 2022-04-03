@@ -174,13 +174,13 @@ extends <a href="JooqxResultCollector.html" title="interface in io.zero88.jooqx"
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#batchResultSize(io.vertx.sqlclient.RowSet)">batchResultSize</a></span>&#8203;(@NonNull io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;&nbsp;batchResult)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#batchResultSize(io.vertx.sqlclient.RowSet)">batchResultSize</a></span>&#8203;(@NotNull io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;&nbsp;batchResult)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>@NonNull java.util.List&lt;R&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#collect(io.vertx.sqlclient.RowSet,io.zero88.jooqx.adapter.RowConverterStrategy)">collect</a></span>&#8203;(@NonNull io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;&nbsp;resultSet,
-       @NonNull <a href="adapter/RowConverterStrategy.html" title="interface in io.zero88.jooqx.adapter">RowConverterStrategy</a>&lt;T,&#8203;R&gt;&nbsp;strategy)</code></th>
+<td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>@NotNull java.util.List&lt;R&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#collect(io.vertx.sqlclient.RowSet,io.zero88.jooqx.adapter.RowConverterStrategy)">collect</a></span>&#8203;(@NotNull io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;&nbsp;resultSet,
+       @NotNull <a href="adapter/RowConverterStrategy.html" title="interface in io.zero88.jooqx.adapter">RowConverterStrategy</a>&lt;T,&#8203;R&gt;&nbsp;strategy)</code></th>
 <td class="colLast">
 <div class="block">Collect result set to an expectation result</div>
 </td>
@@ -215,11 +215,11 @@ extends <a href="JooqxResultCollector.html" title="interface in io.zero88.jooqx"
 <ul class="blockList">
 <li class="blockList">
 <h4>collect</h4>
-<pre class="methodSignature">@NonNull
-&lt;T,&#8203;R&gt;&nbsp;@NonNull java.util.List&lt;R&gt;&nbsp;collect&#8203;(@NonNull
-                                               @NonNull io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;&nbsp;resultSet,
-                                               @NonNull
-                                               @NonNull <a href="adapter/RowConverterStrategy.html" title="interface in io.zero88.jooqx.adapter">RowConverterStrategy</a>&lt;T,&#8203;R&gt;&nbsp;strategy)</pre>
+<pre class="methodSignature">@NotNull
+&lt;T,&#8203;R&gt;&nbsp;@NotNull java.util.List&lt;R&gt;&nbsp;collect&#8203;(@NotNull
+                                               @NotNull io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;&nbsp;resultSet,
+                                               @NotNull
+                                               @NotNull <a href="adapter/RowConverterStrategy.html" title="interface in io.zero88.jooqx.adapter">RowConverterStrategy</a>&lt;T,&#8203;R&gt;&nbsp;strategy)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLResultCollector.html#collect(RS,io.zero88.jooqx.adapter.RowConverterStrategy)">SQLResultCollector</a></code></span></div>
 <div class="block">Collect result set to an expectation result</div>
 <dl>
@@ -244,8 +244,8 @@ extends <a href="JooqxResultCollector.html" title="interface in io.zero88.jooqx"
 <ul class="blockListLast">
 <li class="blockList">
 <h4>batchResultSize</h4>
-<pre class="methodSignature">int&nbsp;batchResultSize&#8203;(@NonNull
-                    @NonNull io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;&nbsp;batchResult)</pre>
+<pre class="methodSignature">int&nbsp;batchResultSize&#8203;(@NotNull
+                    @NotNull io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;&nbsp;batchResult)</pre>
 </li>
 </ul>
 </li>

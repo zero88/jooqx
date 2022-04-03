@@ -159,34 +159,34 @@ extends <a href="JooqDSLProvider.html" title="interface in io.zero88.jooqx">Jooq
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>default io.vertx.core.Future&lt;<a href="BatchResult.html" title="interface in io.zero88.jooqx">BatchResult</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#batch(java.util.function.Function,io.zero88.jooqx.BindBatchValues)">batch</a></span>&#8203;(@NonNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
-     @NonNull <a href="BindBatchValues.html" title="class in io.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#batch(java.util.function.Function,io.zero88.jooqx.BindBatchValues)">batch</a></span>&#8203;(@NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
+     @NotNull <a href="BindBatchValues.html" title="class in io.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</code></th>
 <td class="colLast">
 <div class="block">Like <a href="#batch(org.jooq.Query,io.zero88.jooqx.BindBatchValues,io.vertx.core.Handler)"><code>batch(Query, BindBatchValues, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>default void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#batch(java.util.function.Function,io.zero88.jooqx.BindBatchValues,io.vertx.core.Handler)">batch</a></span>&#8203;(@NonNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
-     @NonNull <a href="BindBatchValues.html" title="class in io.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
-     @NonNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;<a href="BatchResult.html" title="interface in io.zero88.jooqx">BatchResult</a>&gt;&gt;&nbsp;handler)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#batch(java.util.function.Function,io.zero88.jooqx.BindBatchValues,io.vertx.core.Handler)">batch</a></span>&#8203;(@NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
+     @NotNull <a href="BindBatchValues.html" title="class in io.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
+     @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;<a href="BatchResult.html" title="interface in io.zero88.jooqx">BatchResult</a>&gt;&gt;&nbsp;handler)</code></th>
 <td class="colLast">
 <div class="block">Batch execute</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>io.vertx.core.Future&lt;<a href="BatchResult.html" title="interface in io.zero88.jooqx">BatchResult</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#batch(org.jooq.Query,io.zero88.jooqx.BindBatchValues)">batch</a></span>&#8203;(@NonNull org.jooq.Query&nbsp;query,
-     @NonNull <a href="BindBatchValues.html" title="class in io.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#batch(org.jooq.Query,io.zero88.jooqx.BindBatchValues)">batch</a></span>&#8203;(@NotNull org.jooq.Query&nbsp;query,
+     @NotNull <a href="BindBatchValues.html" title="class in io.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</code></th>
 <td class="colLast">
 <div class="block">Like <a href="#batch(org.jooq.Query,io.zero88.jooqx.BindBatchValues,io.vertx.core.Handler)"><code>batch(Query, BindBatchValues, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>default void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#batch(org.jooq.Query,io.zero88.jooqx.BindBatchValues,io.vertx.core.Handler)">batch</a></span>&#8203;(@NonNull org.jooq.Query&nbsp;query,
-     @NonNull <a href="BindBatchValues.html" title="class in io.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
-     @NonNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;<a href="BatchResult.html" title="interface in io.zero88.jooqx">BatchResult</a>&gt;&gt;&nbsp;handler)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#batch(org.jooq.Query,io.zero88.jooqx.BindBatchValues,io.vertx.core.Handler)">batch</a></span>&#8203;(@NotNull org.jooq.Query&nbsp;query,
+     @NotNull <a href="BindBatchValues.html" title="class in io.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
+     @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;<a href="BatchResult.html" title="interface in io.zero88.jooqx">BatchResult</a>&gt;&gt;&nbsp;handler)</code></th>
 <td class="colLast">
 <div class="block">Batch execute</div>
 </td>
@@ -221,12 +221,12 @@ extends <a href="JooqDSLProvider.html" title="interface in io.zero88.jooqx">Jooq
 <ul class="blockList">
 <li class="blockList">
 <h4>batch</h4>
-<pre class="methodSignature">default&nbsp;void&nbsp;batch&#8203;(@NonNull
-                   @NonNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
-                   @NonNull
-                   @NonNull <a href="BindBatchValues.html" title="class in io.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
-                   @NonNull
-                   @NonNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;<a href="BatchResult.html" title="interface in io.zero88.jooqx">BatchResult</a>&gt;&gt;&nbsp;handler)</pre>
+<pre class="methodSignature">default&nbsp;void&nbsp;batch&#8203;(@NotNull
+                   @NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
+                   @NotNull
+                   @NotNull <a href="BindBatchValues.html" title="class in io.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
+                   @NotNull
+                   @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;<a href="BatchResult.html" title="interface in io.zero88.jooqx">BatchResult</a>&gt;&gt;&nbsp;handler)</pre>
 <div class="block">Batch execute</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -247,10 +247,10 @@ extends <a href="JooqDSLProvider.html" title="interface in io.zero88.jooqx">Jooq
 <ul class="blockList">
 <li class="blockList">
 <h4>batch</h4>
-<pre class="methodSignature">default&nbsp;io.vertx.core.Future&lt;<a href="BatchResult.html" title="interface in io.zero88.jooqx">BatchResult</a>&gt;&nbsp;batch&#8203;(@NonNull
-                                                @NonNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
-                                                @NonNull
-                                                @NonNull <a href="BindBatchValues.html" title="class in io.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</pre>
+<pre class="methodSignature">default&nbsp;io.vertx.core.Future&lt;<a href="BatchResult.html" title="interface in io.zero88.jooqx">BatchResult</a>&gt;&nbsp;batch&#8203;(@NotNull
+                                                @NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
+                                                @NotNull
+                                                @NotNull <a href="BindBatchValues.html" title="class in io.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</pre>
 <div class="block">Like <a href="#batch(org.jooq.Query,io.zero88.jooqx.BindBatchValues,io.vertx.core.Handler)"><code>batch(Query, BindBatchValues, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -269,12 +269,12 @@ extends <a href="JooqDSLProvider.html" title="interface in io.zero88.jooqx">Jooq
 <ul class="blockList">
 <li class="blockList">
 <h4>batch</h4>
-<pre class="methodSignature">default&nbsp;void&nbsp;batch&#8203;(@NonNull
-                   @NonNull org.jooq.Query&nbsp;query,
-                   @NonNull
-                   @NonNull <a href="BindBatchValues.html" title="class in io.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
-                   @NonNull
-                   @NonNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;<a href="BatchResult.html" title="interface in io.zero88.jooqx">BatchResult</a>&gt;&gt;&nbsp;handler)</pre>
+<pre class="methodSignature">default&nbsp;void&nbsp;batch&#8203;(@NotNull
+                   @NotNull org.jooq.Query&nbsp;query,
+                   @NotNull
+                   @NotNull <a href="BindBatchValues.html" title="class in io.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
+                   @NotNull
+                   @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;<a href="BatchResult.html" title="interface in io.zero88.jooqx">BatchResult</a>&gt;&gt;&nbsp;handler)</pre>
 <div class="block">Batch execute</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -293,10 +293,10 @@ extends <a href="JooqDSLProvider.html" title="interface in io.zero88.jooqx">Jooq
 <ul class="blockListLast">
 <li class="blockList">
 <h4>batch</h4>
-<pre class="methodSignature">io.vertx.core.Future&lt;<a href="BatchResult.html" title="interface in io.zero88.jooqx">BatchResult</a>&gt;&nbsp;batch&#8203;(@NonNull
-                                        @NonNull org.jooq.Query&nbsp;query,
-                                        @NonNull
-                                        @NonNull <a href="BindBatchValues.html" title="class in io.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</pre>
+<pre class="methodSignature">io.vertx.core.Future&lt;<a href="BatchResult.html" title="interface in io.zero88.jooqx">BatchResult</a>&gt;&nbsp;batch&#8203;(@NotNull
+                                        @NotNull org.jooq.Query&nbsp;query,
+                                        @NotNull
+                                        @NotNull <a href="BindBatchValues.html" title="class in io.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</pre>
 <div class="block">Like <a href="#batch(org.jooq.Query,io.zero88.jooqx.BindBatchValues,io.vertx.core.Handler)"><code>batch(Query, BindBatchValues, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
