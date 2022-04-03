@@ -12,9 +12,6 @@ dependencies {
     compileOnly(VertxLibs.codegen)
     annotationProcessor(VertxLibs.codegen)
 
-    compileOnly(UtilLibs.lombok)
-    annotationProcessor(UtilLibs.lombok)
-
     testImplementation(VertxLibs.sqlClient)
 
     testFixturesApi(project(":spi"))

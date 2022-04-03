@@ -2,6 +2,7 @@ package io.zero88.jooqx;
 
 import java.util.function.Function;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.DSLContext;
 import org.jooq.Query;
 
@@ -19,8 +20,6 @@ import io.zero88.jooqx.LegacySQLImpl.LegacyInternal;
 import io.zero88.jooqx.adapter.SQLResultAdapter;
 import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
-import lombok.NonNull;
-
 /**
  * Represents for a legacy SQL transaction executor
  *
@@ -32,65 +31,65 @@ public interface LegacyJooqxTx extends LegacyInternal<SQLConnection>,
                                                         LegacySQLCollector, LegacyJooqxTx> {
 
     @Override
-    @NonNull Vertx vertx();
+    @NotNull Vertx vertx();
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    @NonNull DSLContext dsl();
+    @NotNull DSLContext dsl();
 
     @Override
-    @NonNull SQLConnection sqlClient();
-
-    @Override
-    @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    @NonNull LegacySQLPreparedQuery preparedQuery();
-
-    @Override
-    @NonNull LegacySQLCollector resultCollector();
+    @NotNull SQLConnection sqlClient();
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    @NonNull SQLErrorConverter errorConverter();
+    @NotNull LegacySQLPreparedQuery preparedQuery();
+
+    @Override
+    @NotNull LegacySQLCollector resultCollector();
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    @NonNull DataTypeMapperRegistry typeMapperRegistry();
+    @NotNull SQLErrorConverter errorConverter();
+
+    @Override
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    @NotNull DataTypeMapperRegistry typeMapperRegistry();
 
     @Override
     @SuppressWarnings("unchecked")
-    default @NonNull LegacyJooqxTx transaction() {
+    default @NotNull LegacyJooqxTx transaction() {
         return this;
     }
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    <T, R> Future<@Nullable R> execute(@NonNull Query query, @NonNull SQLResultAdapter<T, R> adapter);
+    <T, R> Future<@Nullable R> execute(@NotNull Query query, @NotNull SQLResultAdapter<T, R> adapter);
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    default <T, R> void execute(@NonNull Query query, @NonNull SQLResultAdapter<T, R> resultAdapter,
-                                @NonNull Handler<AsyncResult<@Nullable R>> handler) {
+    default <T, R> void execute(@NotNull Query query, @NotNull SQLResultAdapter<T, R> resultAdapter,
+                                @NotNull Handler<AsyncResult<@Nullable R>> handler) {
         LegacyInternal.super.execute(query, resultAdapter, handler);
     }
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    default void batch(@NonNull Query query, @NonNull BindBatchValues bindBatchValues,
-                       @NonNull Handler<AsyncResult<BatchResult>> handler) {
+    default void batch(@NotNull Query query, @NotNull BindBatchValues bindBatchValues,
+                       @NotNull Handler<AsyncResult<BatchResult>> handler) {
         LegacyInternal.super.batch(query, bindBatchValues, handler);
     }
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    Future<BatchResult> batch(@NonNull Query query, @NonNull BindBatchValues bindBatchValues);
+    Future<BatchResult> batch(@NotNull Query query, @NotNull BindBatchValues bindBatchValues);
 
     @Override
-    default <X> void run(@NonNull Function<LegacyJooqxTx, Future<X>> function,
-                         @NonNull Handler<AsyncResult<X>> handler) {
+    default <X> void run(@NotNull Function<LegacyJooqxTx, Future<X>> function,
+                         @NotNull Handler<AsyncResult<X>> handler) {
         SQLTxExecutor.super.run(function, handler);
     }
 
     @Override
-    <X> Future<X> run(@NonNull Function<LegacyJooqxTx, Future<X>> function);
+    <X> Future<X> run(@NotNull Function<LegacyJooqxTx, Future<X>> function);
 
 }

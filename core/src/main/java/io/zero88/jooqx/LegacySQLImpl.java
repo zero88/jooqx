@@ -13,6 +13,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.DDLQuery;
 import org.jooq.DSLContext;
 import org.jooq.Field;
@@ -36,20 +37,16 @@ import io.zero88.jooqx.adapter.SQLResultAdapter;
 import io.zero88.jooqx.adapter.SelectStrategy;
 import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.experimental.Accessors;
-
 final class LegacySQLImpl {
 
     interface LegacyInternal<S extends SQLOperations>
         extends SQLExecutor<S, JsonArray, LegacySQLPreparedQuery, ResultSet, LegacySQLCollector> {
 
         @Override
-        @NonNull LegacySQLPreparedQuery preparedQuery();
+        @NotNull LegacySQLPreparedQuery preparedQuery();
 
         @Override
-        @NonNull LegacySQLCollector resultCollector();
+        @NotNull LegacySQLCollector resultCollector();
 
     }
 
@@ -72,9 +69,9 @@ final class LegacySQLImpl {
 
     static final class LegacySQLRC implements LegacySQLCollector {
 
-        @NonNull
+        @NotNull
         @Override
-        public <T, R> List<R> collect(@NonNull ResultSet resultSet, @NonNull RowConverterStrategy<T, R> strategy) {
+        public <T, R> List<R> collect(@NotNull ResultSet resultSet, @NotNull RowConverterStrategy<T, R> strategy) {
             final Map<Field<?>, Integer> map = getColumnMap(resultSet, strategy::lookupField);
             final List<JsonArray> results = resultSet.getResults();
             if (strategy.strategy() == SelectStrategy.MANY) {
@@ -103,15 +100,13 @@ final class LegacySQLImpl {
         }
 
         @Override
-        public int batchResultSize(@NonNull List<Integer> batchResult) {
+        public int batchResultSize(@NotNull List<Integer> batchResult) {
             return batchResult.size();
         }
 
     }
 
 
-    @Getter
-    @Accessors(fluent = true)
     abstract static class LegacySQLEI<S extends SQLOperations>
         extends SQLEI<S, JsonArray, LegacySQLPreparedQuery, ResultSet, LegacySQLCollector>
         implements LegacyInternal<S> {
@@ -123,7 +118,7 @@ final class LegacySQLImpl {
         }
 
         @Override
-        public final <T, R> Future<R> execute(@NonNull Query query, @NonNull SQLResultAdapter<T, R> adapter) {
+        public final <T, R> Future<R> execute(@NotNull Query query, @NotNull SQLResultAdapter<T, R> adapter) {
             final Promise<ResultSet> promise = Promise.promise();
             sqlClient().queryWithParams(preparedQuery().sql(dsl().configuration(), query),
                                         preparedQuery().bindValues(query, typeMapperRegistry()), promise);
@@ -133,7 +128,7 @@ final class LegacySQLImpl {
         }
 
         @Override
-        public final Future<BatchResult> batch(@NonNull Query query, @NonNull BindBatchValues bindBatchValues) {
+        public final Future<BatchResult> batch(@NotNull Query query, @NotNull BindBatchValues bindBatchValues) {
             final Promise<List<Integer>> promise = Promise.promise();
             openConn().map(c -> c.batchWithParams(preparedQuery().sql(dsl().configuration(), query),
                                                   preparedQuery().bindValues(query, bindBatchValues,
@@ -145,7 +140,7 @@ final class LegacySQLImpl {
         }
 
         @Override
-        public Future<Integer> ddl(@NonNull DDLQuery query) {
+        public Future<Integer> ddl(@NotNull DDLQuery query) {
             final Promise<UpdateResult> promise = Promise.promise();
             sqlClient().update(preparedQuery().sql(dsl().configuration(), query), promise);
             return promise.future().map(UpdateResult::getUpdated).otherwise(errorConverter()::reThrowError);
@@ -154,13 +149,13 @@ final class LegacySQLImpl {
         protected abstract Future<SQLConnection> openConn();
 
         @Override
-        @NonNull
+        @NotNull
         protected final LegacySQLPreparedQuery defPrepareQuery() {
             return LegacySQLPreparedQuery.create();
         }
 
         @Override
-        @NonNull
+        @NotNull
         protected final LegacySQLCollector defResultCollector() {
             return LegacySQLCollector.create();
         }
@@ -168,8 +163,6 @@ final class LegacySQLImpl {
     }
 
 
-    @Getter
-    @Accessors(fluent = true)
     static final class LegacyJooqxImpl extends LegacySQLEI<SQLClient> implements LegacyJooqx {
 
         LegacyJooqxImpl(Vertx vertx, DSLContext dsl, SQLClient sqlClient, LegacySQLPreparedQuery preparedQuery,
@@ -180,12 +173,12 @@ final class LegacySQLImpl {
 
         @Override
         @SuppressWarnings("unchecked")
-        public @NonNull LegacyJooqxTx transaction() {
+        public @NotNull LegacyJooqxTx transaction() {
             return new LegacyJooqTxImpl(this);
         }
 
         @Override
-        protected LegacyJooqxImpl withSqlClient(@NonNull SQLClient sqlClient) {
+        protected LegacyJooqxImpl withSqlClient(@NotNull SQLClient sqlClient) {
             throw new UnsupportedOperationException("No need");
         }
 
@@ -204,8 +197,6 @@ final class LegacySQLImpl {
     }
 
 
-    @Getter
-    @Accessors(fluent = true)
     static final class LegacyJooqTxImpl extends LegacySQLEI<SQLConnection> implements LegacyJooqxTx {
 
         private final LegacySQLEI<SQLClient> delegate;
@@ -217,14 +208,14 @@ final class LegacySQLImpl {
             this.delegate = null;
         }
 
-        LegacyJooqTxImpl(@NonNull LegacySQLEI<SQLClient> delegate) {
+        LegacyJooqTxImpl(@NotNull LegacySQLEI<SQLClient> delegate) {
             super(delegate.vertx(), delegate.dsl(), null, delegate.preparedQuery(), delegate.resultCollector(),
                   delegate.errorConverter(), delegate.typeMapperRegistry());
             this.delegate = delegate;
         }
 
         @Override
-        public <X> Future<X> run(@NonNull Function<LegacyJooqxTx, Future<X>> block) {
+        public <X> Future<X> run(@NotNull Function<LegacyJooqxTx, Future<X>> block) {
             final Promise<X> promise = Promise.promise();
             delegate.openConn().map(conn -> conn.setAutoCommit(false, committable -> {
                 if (committable.failed()) {
@@ -244,12 +235,12 @@ final class LegacySQLImpl {
         }
 
         @Override
-        protected LegacyJooqTxImpl withSqlClient(@NonNull SQLConnection sqlConn) {
+        protected LegacyJooqTxImpl withSqlClient(@NotNull SQLConnection sqlConn) {
             return new LegacyJooqTxImpl(vertx(), dsl(), sqlConn, preparedQuery(), resultCollector(), errorConverter(),
                                         typeMapperRegistry());
         }
 
-        private <X> void commit(@NonNull SQLConnection conn, @NonNull Promise<X> promise, X output) {
+        private <X> void commit(@NotNull SQLConnection conn, @NotNull Promise<X> promise, X output) {
             conn.commit(v -> {
                 if (v.succeeded()) {
                     promise.complete(output);
@@ -260,7 +251,7 @@ final class LegacySQLImpl {
             });
         }
 
-        private <X> void rollback(@NonNull SQLConnection conn, @NonNull Promise<X> promise, @NonNull Throwable t) {
+        private <X> void rollback(@NotNull SQLConnection conn, @NotNull Promise<X> promise, @NotNull Throwable t) {
             conn.rollback(rb -> {
                 if (!rb.succeeded()) {
                     t.addSuppressed(rb.cause());
@@ -269,7 +260,7 @@ final class LegacySQLImpl {
             });
         }
 
-        private <X> void failed(@NonNull SQLConnection conn, @NonNull Promise<X> promise, @NonNull Throwable t) {
+        private <X> void failed(@NotNull SQLConnection conn, @NotNull Promise<X> promise, @NotNull Throwable t) {
             promise.fail(t);
             conn.close();
         }

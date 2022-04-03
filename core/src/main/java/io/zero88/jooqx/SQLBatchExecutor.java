@@ -2,14 +2,13 @@ package io.zero88.jooqx;
 
 import java.util.function.Function;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.DSLContext;
 import org.jooq.Query;
 
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
-
-import lombok.NonNull;
 
 /**
  * Represents for a {@code batch executor} that executes batch SQL command
@@ -28,8 +27,8 @@ public interface SQLBatchExecutor extends JooqDSLProvider {
      * @see BatchResult
      * @since 1.1.0
      */
-    default void batch(@NonNull Function<DSLContext, Query> queryFunction, @NonNull BindBatchValues bindBatchValues,
-                       @NonNull Handler<AsyncResult<BatchResult>> handler) {
+    default void batch(@NotNull Function<DSLContext, Query> queryFunction, @NotNull BindBatchValues bindBatchValues,
+                       @NotNull Handler<AsyncResult<BatchResult>> handler) {
         batch(queryFunction, bindBatchValues).onComplete(handler);
     }
 
@@ -41,8 +40,8 @@ public interface SQLBatchExecutor extends JooqDSLProvider {
      * @return a {@code Future} of the asynchronous result
      * @since 1.1.0
      */
-    default Future<BatchResult> batch(@NonNull Function<DSLContext, Query> queryFunction,
-                                      @NonNull BindBatchValues bindBatchValues) {
+    default Future<BatchResult> batch(@NotNull Function<DSLContext, Query> queryFunction,
+                                      @NotNull BindBatchValues bindBatchValues) {
         return batch(queryFunction.apply(dsl()), bindBatchValues);
     }
 
@@ -55,8 +54,8 @@ public interface SQLBatchExecutor extends JooqDSLProvider {
      * @see BindBatchValues
      * @see BatchResult
      */
-    default void batch(@NonNull Query query, @NonNull BindBatchValues bindBatchValues,
-                       @NonNull Handler<AsyncResult<BatchResult>> handler) {
+    default void batch(@NotNull Query query, @NotNull BindBatchValues bindBatchValues,
+                       @NotNull Handler<AsyncResult<BatchResult>> handler) {
         batch(query, bindBatchValues).onComplete(handler);
     }
 
@@ -67,6 +66,6 @@ public interface SQLBatchExecutor extends JooqDSLProvider {
      * @param bindBatchValues bind batch values
      * @return a {@code Future} of the asynchronous result
      */
-    Future<BatchResult> batch(@NonNull Query query, @NonNull BindBatchValues bindBatchValues);
+    Future<BatchResult> batch(@NotNull Query query, @NotNull BindBatchValues bindBatchValues);
 
 }

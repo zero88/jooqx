@@ -2,13 +2,12 @@ package io.zero88.jooqx;
 
 import java.util.List;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.Configuration;
 import org.jooq.Param;
 import org.jooq.Query;
 
 import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
-
-import lombok.NonNull;
 
 /**
  * Represents for SQL prepared query that transforms jOOQ Query to Vertx SQL prepared query
@@ -28,7 +27,7 @@ public interface SQLPreparedQuery<B> {
      * @return sql
      * @see Query
      */
-    @NonNull String sql(@NonNull Configuration configuration, @NonNull Query query);
+    @NotNull String sql(@NotNull Configuration configuration, @NotNull Query query);
 
     /**
      * Capture jOOQ param in jOOQ query and convert to Vertx bind value holder
@@ -40,7 +39,7 @@ public interface SQLPreparedQuery<B> {
      * @see Query
      * @see DataTypeMapperRegistry
      */
-    @NonNull B bindValues(@NonNull Query query, @NonNull DataTypeMapperRegistry mapperRegistry);
+    @NotNull B bindValues(@NotNull Query query, @NotNull DataTypeMapperRegistry mapperRegistry);
 
     /**
      * Capture jOOQ param in jOOQ query and convert to Vertx bind value holder
@@ -54,7 +53,7 @@ public interface SQLPreparedQuery<B> {
      * @see SQLBatchExecutor#batch(Query, BindBatchValues)
      * @see DataTypeMapperRegistry
      */
-    @NonNull List<B> bindValues(@NonNull Query query, @NonNull BindBatchValues bindBatchValues,
-                                @NonNull DataTypeMapperRegistry mapperRegistry);
+    @NotNull List<B> bindValues(@NotNull Query query, @NotNull BindBatchValues bindBatchValues,
+                                @NotNull DataTypeMapperRegistry mapperRegistry);
 
 }

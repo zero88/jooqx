@@ -1,6 +1,6 @@
 package io.zero88.jooqx.adapter;
 
-import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 interface HasStrategy {
 
@@ -9,6 +9,6 @@ interface HasStrategy {
      *
      * @return select strategy
      */
-    @NonNull SelectStrategy strategy();
+    @NotNull SelectStrategy strategy();
 
 }

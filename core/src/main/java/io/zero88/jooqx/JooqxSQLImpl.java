@@ -37,10 +37,6 @@ import io.zero88.jooqx.adapter.SQLResultAdapter;
 import io.zero88.jooqx.adapter.SelectStrategy;
 import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.experimental.Accessors;
-
 final class JooqxSQLImpl {
 
     static final class ReactiveSQLPQ extends SQLPQ<Tuple> implements JooqxPreparedQuery {
@@ -62,8 +58,8 @@ final class JooqxSQLImpl {
     static class ReactiveSQLRC implements JooqxResultCollector {
 
         @Override
-        public @NonNull <T, R> List<R> collect(@NonNull RowSet<Row> resultSet,
-                                               @NonNull RowConverterStrategy<T, R> strategy) {
+        public @NotNull <T, R> List<R> collect(@NotNull RowSet<Row> resultSet,
+                                               @NotNull RowConverterStrategy<T, R> strategy) {
             return doCollect(resultSet, strategy, strategy.strategy());
         }
 
@@ -81,7 +77,7 @@ final class JooqxSQLImpl {
             return records;
         }
 
-        private <T, R> R toRecord(@NonNull RowConverterStrategy<T, R> strategy, @NonNull Row row) {
+        private <T, R> R toRecord(@NotNull RowConverterStrategy<T, R> strategy, @NotNull Row row) {
             return IntStream.range(0, row.size())
                             .mapToObj(row::getColumnName)
                             .map(strategy::lookupField)
@@ -95,8 +91,8 @@ final class JooqxSQLImpl {
     static final class ReactiveSQLBC extends ReactiveSQLRC implements JooqxBatchCollector {
 
         @Override
-        public @NonNull <T, R> List<R> collect(@NonNull RowSet<Row> resultSet,
-                                               @NonNull RowConverterStrategy<T, R> strategy) {
+        public @NotNull <T, R> List<R> collect(@NotNull RowSet<Row> resultSet,
+                                               @NotNull RowConverterStrategy<T, R> strategy) {
             final List<R> records = new ArrayList<>();
             while (resultSet != null) {
                 final List<R> rows = doCollect(resultSet, strategy, SelectStrategy.FIRST_ONE);
@@ -109,7 +105,7 @@ final class JooqxSQLImpl {
         }
 
         @Override
-        public int batchResultSize(@NonNull RowSet<Row> batchResult) {
+        public int batchResultSize(@NotNull RowSet<Row> batchResult) {
             final int[] count = new int[] {0};
             while (batchResult != null) {
                 count[0]++;
@@ -137,7 +133,7 @@ final class JooqxSQLImpl {
             this.delegate = null;
         }
 
-        JooqxConnImpl(@NonNull Jooqx delegate) {
+        JooqxConnImpl(@NotNull Jooqx delegate) {
             super(delegate.vertx(), delegate.dsl(), null, delegate.preparedQuery(), delegate.resultCollector(),
                   delegate.errorConverter(), delegate.typeMapperRegistry());
             this.delegate = delegate;
@@ -145,19 +141,19 @@ final class JooqxSQLImpl {
 
         @Override
         @SuppressWarnings("unchecked")
-        public @NonNull JooqxTx transaction() {
+        public @NotNull JooqxTx transaction() {
             return delegate().transaction();
         }
 
         @Override
-        public <X> Future<@Nullable X> run(@NonNull Function<JooqxTx, Future<X>> function) {
+        public <X> Future<@Nullable X> run(@NotNull Function<JooqxTx, Future<X>> function) {
             return delegate().sqlClient()
                              .getConnection()
                              .compose(conn -> beginTx(conn, function), t -> Future.failedFuture(
                                  transientConnFailed("Unable to open SQL connection", t)));
         }
 
-        private <X> Future<X> beginTx(@NonNull SqlConnection conn, @NonNull Function<JooqxTx, Future<X>> transaction) {
+        private <X> Future<X> beginTx(@NotNull SqlConnection conn, @NotNull Function<JooqxTx, Future<X>> transaction) {
             return conn.begin()
                        .flatMap(tx -> transaction.apply((JooqxTx) withSqlClient(conn))
                                                  .compose(res -> tx.commit().flatMap(v -> Future.succeededFuture(res)),
@@ -165,7 +161,7 @@ final class JooqxSQLImpl {
                        .onComplete(ar -> conn.close());
         }
 
-        private <X> Future<X> rollbackHandler(@NonNull Transaction tx, @NonNull RuntimeException t) {
+        private <X> Future<X> rollbackHandler(@NotNull Transaction tx, @NotNull RuntimeException t) {
             return tx.rollback().compose(v -> Future.failedFuture(t), failure -> Future.failedFuture(t));
         }
 
@@ -194,7 +190,7 @@ final class JooqxSQLImpl {
         }
 
         @Override
-        @NonNull
+        @NotNull
         @SuppressWarnings("unchecked")
         public JooqxTx transaction() {
             return new JooqxConnImpl(this);
@@ -203,8 +199,6 @@ final class JooqxSQLImpl {
     }
 
 
-    @Getter
-    @Accessors(fluent = true)
     abstract static class JooqxImpl<S extends SqlClient>
         extends SQLEI<S, Tuple, JooqxPreparedQuery, RowSet<Row>, JooqxResultCollector> implements JooqxBase<S> {
 
@@ -237,7 +231,7 @@ final class JooqxSQLImpl {
         }
 
         @Override
-        public <T, R> Future<R> execute(@NonNull Query query, @NonNull SQLResultAdapter<T, R> adapter) {
+        public <T, R> Future<R> execute(@NotNull Query query, @NotNull SQLResultAdapter<T, R> adapter) {
             return sqlClient().preparedQuery(preparedQuery().sql(dsl().configuration(), query))
                               .execute(preparedQuery().bindValues(query, typeMapperRegistry()))
                               .map(rs -> adapter.collect(rs, resultCollector(), dsl(), typeMapperRegistry()))
@@ -245,7 +239,7 @@ final class JooqxSQLImpl {
         }
 
         @Override
-        public Future<BatchResult> batch(@NonNull Query query, @NonNull BindBatchValues bindBatchValues) {
+        public Future<BatchResult> batch(@NotNull Query query, @NotNull BindBatchValues bindBatchValues) {
             return sqlClient().preparedQuery(preparedQuery().sql(dsl().configuration(), query))
                               .executeBatch(preparedQuery().bindValues(query, bindBatchValues, typeMapperRegistry()))
                               .map(r -> new ReactiveSQLBC().batchResultSize(r))
@@ -254,9 +248,9 @@ final class JooqxSQLImpl {
         }
 
         @Override
-        public <T, R> Future<BatchReturningResult<R>> batch(@NonNull Query query,
-                                                            @NonNull BindBatchValues bindBatchValues,
-                                                            @NonNull SQLResultAdapter.SQLResultListAdapter<T, R> adapter) {
+        public <T, R> Future<BatchReturningResult<R>> batch(@NotNull Query query,
+                                                            @NotNull BindBatchValues bindBatchValues,
+                                                            @NotNull SQLResultAdapter.SQLResultListAdapter<T, R> adapter) {
             return sqlClient().preparedQuery(preparedQuery().sql(dsl().configuration(), query))
                               .executeBatch(preparedQuery().bindValues(query, bindBatchValues, typeMapperRegistry()))
                               .map(rs -> adapter.collect(rs, new ReactiveSQLBC(), dsl(), typeMapperRegistry()))
@@ -265,7 +259,7 @@ final class JooqxSQLImpl {
         }
 
         @Override
-        public Future<Integer> ddl(@NonNull DDLQuery query) {
+        public Future<Integer> ddl(@NotNull DDLQuery query) {
             return sqlClient().query(preparedQuery().sql(dsl().configuration(), query))
                               .execute()
                               .map(SqlResult::size)
@@ -273,7 +267,7 @@ final class JooqxSQLImpl {
         }
 
         @Override
-        protected JooqxImpl<S> withSqlClient(@NonNull S sqlClient) {
+        protected JooqxImpl<S> withSqlClient(@NotNull S sqlClient) {
             return (JooqxImpl<S>) JooqxBase.<S>baseBuilder()
                                            .vertx(vertx())
                                            .sqlClient(sqlClient)
@@ -286,11 +280,11 @@ final class JooqxSQLImpl {
         }
 
         @Override
-        @NonNull
+        @NotNull
         protected JooqxPreparedQuery defPrepareQuery() {return JooqxPreparedQuery.create();}
 
         @Override
-        @NonNull
+        @NotNull
         protected JooqxResultCollector defResultCollector() {return JooqxResultCollector.create();}
 
     }

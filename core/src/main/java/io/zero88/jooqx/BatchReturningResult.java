@@ -2,12 +2,7 @@ package io.zero88.jooqx;
 
 import java.util.List;
 
-import org.jooq.Query;
-
-import io.vertx.core.Handler;
-import io.zero88.jooqx.adapter.SQLResultAdapter.SQLResultListAdapter;
-
-import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Batch result includes returning record
@@ -17,7 +12,7 @@ import lombok.NonNull;
  */
 public interface BatchReturningResult<R> extends BatchResult {
 
-    @NonNull
+    @NotNull
     List<R> getRecords();
 
 }

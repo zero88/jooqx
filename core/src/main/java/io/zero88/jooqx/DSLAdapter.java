@@ -2,6 +2,7 @@ package io.zero88.jooqx;
 
 import java.util.Collection;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.Field;
 import org.jooq.Record;
 import org.jooq.Record1;
@@ -14,8 +15,6 @@ import io.zero88.jooqx.adapter.SelectCount;
 import io.zero88.jooqx.adapter.SelectExists;
 import io.zero88.jooqx.adapter.SelectList;
 import io.zero88.jooqx.adapter.SelectOne;
-
-import lombok.NonNull;
 
 /**
  * DSL adapter
@@ -30,7 +29,7 @@ public interface DSLAdapter {
      * @param table a query table context
      * @return select count
      */
-    static SelectCount fetchCount(@NonNull TableLike<Record1<Integer>> table) {
+    static SelectCount fetchCount(@NotNull TableLike<Record1<Integer>> table) {
         return new SelectCount(table);
     }
 
@@ -40,7 +39,7 @@ public interface DSLAdapter {
      * @param table a query table context
      * @return select exists
      */
-    static SelectExists fetchExists(@NonNull TableLike<Record1<Integer>> table) {
+    static SelectExists fetchExists(@NotNull TableLike<Record1<Integer>> table) {
         return new SelectExists(table);
     }
 
@@ -54,7 +53,7 @@ public interface DSLAdapter {
      * @see JsonRecord
      */
     static <T extends TableLike<? extends Record>> SelectOne<T, JsonRecord<?>, JsonRecord<?>> fetchJsonRecord(
-        @NonNull T table) {
+        @NotNull T table) {
         return new SelectOne<>(table, SQLResultAdapter.byJson());
     }
 
@@ -69,7 +68,7 @@ public interface DSLAdapter {
      * @see TableLike
      */
     static <T extends TableLike<? extends Record>, R extends TableRecord<R>> SelectOne<T, R, R> fetchOne(
-        @NonNull T table, @NonNull R record) {
+        @NotNull T table, @NotNull R record) {
         return new SelectOne<>(table, SQLResultAdapter.byRecord(record));
     }
 
@@ -82,8 +81,8 @@ public interface DSLAdapter {
      * @return select one adapter
      * @see TableLike
      */
-    static <T extends TableLike<? extends Record>> SelectOne<T, Record, Record> fetchOne(@NonNull T table,
-                                                                                         @NonNull Collection<Field<?>> fields) {
+    static <T extends TableLike<? extends Record>> SelectOne<T, Record, Record> fetchOne(@NotNull T table,
+                                                                                         @NotNull Collection<Field<?>> fields) {
         return new SelectOne<>(table, SQLResultAdapter.byFields(fields));
     }
 
@@ -97,8 +96,8 @@ public interface DSLAdapter {
      * @return select one adapter
      * @see TableLike
      */
-    static <T extends TableLike<? extends Record>, R> SelectOne<T, JsonRecord<?>, R> fetchOne(@NonNull T table,
-                                                                                              @NonNull Class<R> outputClass) {
+    static <T extends TableLike<? extends Record>, R> SelectOne<T, JsonRecord<?>, R> fetchOne(@NotNull T table,
+                                                                                              @NotNull Class<R> outputClass) {
         return new SelectOne<>(table, SQLResultAdapter.byClass(outputClass));
     }
 
@@ -110,7 +109,7 @@ public interface DSLAdapter {
      * @return select one adapter
      * @see TableLike
      */
-    static <T extends Table<R>, R extends Record> SelectOne<T, R, R> fetchOne(@NonNull T table) {
+    static <T extends Table<R>, R extends Record> SelectOne<T, R, R> fetchOne(@NotNull T table) {
         return new SelectOne<>(table, SQLResultAdapter.byTable(table));
     }
 
@@ -125,7 +124,7 @@ public interface DSLAdapter {
      * @see TableLike
      */
     static <T extends TableLike<? extends Record>, R extends Record, Z extends Table<R>> SelectOne<T, R, R> fetchOne(
-        @NonNull T table, @NonNull Z toTable) {
+        @NotNull T table, @NotNull Z toTable) {
         return new SelectOne<>(table, SQLResultAdapter.byTable(toTable));
     }
 
@@ -139,7 +138,7 @@ public interface DSLAdapter {
      * @see JsonRecord
      */
     static <T extends TableLike<? extends Record>> SelectList<T, JsonRecord<?>, JsonRecord<?>> fetchJsonRecords(
-        @NonNull T table) {
+        @NotNull T table) {
         return new SelectList<>(table, SQLResultAdapter.byJson());
     }
 
@@ -153,8 +152,8 @@ public interface DSLAdapter {
      * @return select many adapter
      * @see TableLike
      */
-    static <T extends TableLike<? extends Record>, R extends Record> SelectList<T, R, R> fetchMany(@NonNull T table,
-                                                                                                   @NonNull R record) {
+    static <T extends TableLike<? extends Record>, R extends Record> SelectList<T, R, R> fetchMany(@NotNull T table,
+                                                                                                   @NotNull R record) {
         return new SelectList<>(table, SQLResultAdapter.byRecord(record));
     }
 
@@ -167,8 +166,8 @@ public interface DSLAdapter {
      * @return select many adapter
      * @see TableLike
      */
-    static <T extends TableLike<? extends Record>> SelectList<T, Record, Record> fetchMany(@NonNull T table,
-                                                                                           @NonNull Collection<Field<?>> fields) {
+    static <T extends TableLike<? extends Record>> SelectList<T, Record, Record> fetchMany(@NotNull T table,
+                                                                                           @NotNull Collection<Field<?>> fields) {
         return new SelectList<>(table, SQLResultAdapter.byFields(fields));
     }
 
@@ -182,8 +181,8 @@ public interface DSLAdapter {
      * @return select many adapter
      * @see TableLike
      */
-    static <T extends TableLike<? extends Record>, R> SelectList<T, JsonRecord<?>, R> fetchMany(@NonNull T table,
-                                                                                                @NonNull Class<R> outputClass) {
+    static <T extends TableLike<? extends Record>, R> SelectList<T, JsonRecord<?>, R> fetchMany(@NotNull T table,
+                                                                                                @NotNull Class<R> outputClass) {
         return new SelectList<>(table, SQLResultAdapter.byClass(outputClass));
     }
 
@@ -195,7 +194,7 @@ public interface DSLAdapter {
      * @return select many adapter
      * @see TableLike
      */
-    static <T extends Table<R>, R extends Record> SelectList<T, R, R> fetchMany(@NonNull T table) {
+    static <T extends Table<R>, R extends Record> SelectList<T, R, R> fetchMany(@NotNull T table) {
         return new SelectList<>(table, SQLResultAdapter.byTable(table));
     }
 
@@ -211,7 +210,7 @@ public interface DSLAdapter {
      */
     static <T extends TableLike<? extends Record>, R extends Record, Z extends Table<R>> SelectList<T, JsonRecord<?>,
                                                                                                        R> fetchMany(
-        @NonNull T table, @NonNull Z toTable) {
+        @NotNull T table, @NotNull Z toTable) {
         return new SelectList<>(table, SQLResultAdapter.byJson().andThen(r -> r.into(toTable)));
     }
 

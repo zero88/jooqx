@@ -2,6 +2,7 @@ package io.zero88.jooqx;
 
 import java.util.function.Function;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.DDLQuery;
 import org.jooq.DSLContext;
 import org.jooq.Query;
@@ -24,8 +25,6 @@ import io.zero88.jooqx.LegacySQLImpl.LegacyJooqxImpl;
 import io.zero88.jooqx.adapter.SQLResultAdapter;
 import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
-import lombok.NonNull;
-
 /**
  * Represents for an executor that executes {@code jOOQ query} on {@code Vertx legacy JDBC client} connection
  *
@@ -45,107 +44,107 @@ public interface LegacyJooqx extends LegacySQLImpl.LegacyInternal<SQLClient> {
     }
 
     @Override
-    @NonNull Vertx vertx();
+    @NotNull Vertx vertx();
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    @NonNull DSLContext dsl();
+    @NotNull DSLContext dsl();
 
     @Override
-    @NonNull SQLClient sqlClient();
-
-    @Override
-    @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    @NonNull LegacySQLPreparedQuery preparedQuery();
-
-    @Override
-    @NonNull LegacySQLCollector resultCollector();
+    @NotNull SQLClient sqlClient();
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    @NonNull SQLErrorConverter errorConverter();
+    @NotNull LegacySQLPreparedQuery preparedQuery();
+
+    @Override
+    @NotNull LegacySQLCollector resultCollector();
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    @NonNull DataTypeMapperRegistry typeMapperRegistry();
+    @NotNull SQLErrorConverter errorConverter();
+
+    @Override
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    @NotNull DataTypeMapperRegistry typeMapperRegistry();
 
     @Override
     @SuppressWarnings("unchecked")
-    @NonNull LegacyJooqxTx transaction();
+    @NotNull LegacyJooqxTx transaction();
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    <T, R> Future<@Nullable R> execute(@NonNull Query query, @NonNull SQLResultAdapter<T, R> adapter);
+    <T, R> Future<@Nullable R> execute(@NotNull Query query, @NotNull SQLResultAdapter<T, R> adapter);
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    default <T, R> void execute(@NonNull Query query, @NonNull SQLResultAdapter<T, R> resultAdapter,
-                                @NonNull Handler<AsyncResult<@Nullable R>> handler) {
+    default <T, R> void execute(@NotNull Query query, @NotNull SQLResultAdapter<T, R> resultAdapter,
+                                @NotNull Handler<AsyncResult<@Nullable R>> handler) {
         LegacyInternal.super.execute(query, resultAdapter, handler);
     }
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    default void batch(@NonNull Query query, @NonNull BindBatchValues bindBatchValues,
-                       @NonNull Handler<AsyncResult<BatchResult>> handler) {
+    default void batch(@NotNull Query query, @NotNull BindBatchValues bindBatchValues,
+                       @NotNull Handler<AsyncResult<BatchResult>> handler) {
         LegacyInternal.super.batch(query, bindBatchValues, handler);
     }
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    Future<BatchResult> batch(@NonNull Query query, @NonNull BindBatchValues bindBatchValues);
+    Future<BatchResult> batch(@NotNull Query query, @NotNull BindBatchValues bindBatchValues);
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    default void batch(@NonNull Function<DSLContext, Query> queryFunction, @NonNull BindBatchValues bindBatchValues,
-                       @NonNull Handler<AsyncResult<BatchResult>> handler) {
+    default void batch(@NotNull Function<DSLContext, Query> queryFunction, @NotNull BindBatchValues bindBatchValues,
+                       @NotNull Handler<AsyncResult<BatchResult>> handler) {
         LegacyInternal.super.batch(queryFunction, bindBatchValues, handler);
     }
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    default Future<BatchResult> batch(@NonNull Function<DSLContext, Query> queryFunction,
-                                      @NonNull BindBatchValues bindBatchValues) {
+    default Future<BatchResult> batch(@NotNull Function<DSLContext, Query> queryFunction,
+                                      @NotNull BindBatchValues bindBatchValues) {
         return LegacyInternal.super.batch(queryFunction, bindBatchValues);
     }
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    default <T, R> void execute(@NonNull Function<DSLContext, Query> queryFunction,
-                                @NonNull SQLResultAdapter<T, R> resultAdapter,
-                                @NonNull Handler<AsyncResult<@Nullable R>> handler) {
+    default <T, R> void execute(@NotNull Function<DSLContext, Query> queryFunction,
+                                @NotNull SQLResultAdapter<T, R> resultAdapter,
+                                @NotNull Handler<AsyncResult<@Nullable R>> handler) {
         LegacyInternal.super.execute(queryFunction, resultAdapter, handler);
     }
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    default <T, R> Future<@Nullable R> execute(@NonNull Function<DSLContext, Query> queryFunction,
-                                               @NonNull SQLResultAdapter<T, R> resultAdapter) {
+    default <T, R> Future<@Nullable R> execute(@NotNull Function<DSLContext, Query> queryFunction,
+                                               @NotNull SQLResultAdapter<T, R> resultAdapter) {
         return LegacyInternal.super.execute(queryFunction, resultAdapter);
     }
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    default void ddl(@NonNull Function<DSLContext, DDLQuery> ddlFunction,
-                     @NonNull Handler<AsyncResult<Integer>> handler) {
+    default void ddl(@NotNull Function<DSLContext, DDLQuery> ddlFunction,
+                     @NotNull Handler<AsyncResult<Integer>> handler) {
         LegacyInternal.super.ddl(ddlFunction, handler);
     }
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    default Future<Integer> ddl(@NonNull Function<DSLContext, DDLQuery> ddlFunction) {
+    default Future<Integer> ddl(@NotNull Function<DSLContext, DDLQuery> ddlFunction) {
         return LegacyInternal.super.ddl(ddlFunction);
     }
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    default void ddl(@NonNull DDLQuery query, @NonNull Handler<AsyncResult<Integer>> handler) {
+    default void ddl(@NotNull DDLQuery query, @NotNull Handler<AsyncResult<Integer>> handler) {
         LegacyInternal.super.ddl(query, handler);
     }
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    Future<Integer> ddl(@NonNull DDLQuery query);
+    Future<Integer> ddl(@NotNull DDLQuery query);
 
     @GenIgnore
     class LegacyJooqxBuilder extends SQLExecutorBuilder<SQLClient, JsonArray, LegacySQLPreparedQuery, ResultSet,

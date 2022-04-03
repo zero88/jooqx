@@ -6,17 +6,15 @@ import java.util.List;
 import org.jetbrains.annotations.ApiStatus.Experimental;
 import org.jetbrains.annotations.Nullable;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
-
 /**
  * Vert.x SQL client treats UDT type in string then it is a parser in common case
  *
- * @implNote Not sure it is standard, should use jOOQ Query
+ * @implNote it might be not standard, should use jOOQ Query
  */
 @Experimental
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class UDTParser {
+
+    private UDTParser() {}
 
     public static @Nullable String[] parse(String udtObject) {
         return parse(udtObject, true);
@@ -50,10 +48,10 @@ public final class UDTParser {
                         current.deleteCharAt(0).deleteCharAt(current.length() - 1);
                     }
                     output.add(current.toString());
-                    current = new StringBuilder();
-                    next = true;
+                    current    = new StringBuilder();
+                    next       = true;
                     beginQuote = false;
-                    endQuote = false;
+                    endQuote   = false;
                     continue;
                 }
             }

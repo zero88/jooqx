@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiFunction;
 
+import org.jetbrains.annotations.NotNull;
 import org.jooq.Converter;
 import org.jooq.Field;
 import org.jooq.Name;
@@ -13,9 +14,6 @@ import org.jooq.Param;
 import org.jooq.impl.DSL;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
 
 /**
  * A registry for list of specific data type mapper among {@code Vert.x}, {@code jOOQ} and {@code User data type}.
@@ -29,14 +27,14 @@ public final class DataTypeMapperRegistry {
     private final Map<Class, DataTypeMapper> typeMappers = new HashMap<>();
     private final Map<Field, FieldMapper> fieldMappers = new HashMap<>();
 
-    public <V, T, U> DataTypeMapperRegistry add(@NonNull DataTypeMapper<V, T, U> mapper) {
+    public <V, T, U> DataTypeMapperRegistry add(@NotNull DataTypeMapper<V, T, U> mapper) {
         LOGGER.debug("Adding global mapper by [{}]...", mapper.jooqxConverter().toType().getName());
         this.typeMappers.put(mapper.jooqxConverter().toType(), mapper);
         return this;
     }
 
-    public <V, T, U> DataTypeMapperRegistry addByColumn(@NonNull Field column,
-                                                        @NonNull DataTypeMapper<V, T, U> mapper) {
+    public <V, T, U> DataTypeMapperRegistry addByColumn(@NotNull Field column,
+        @NotNull DataTypeMapper<V, T, U> mapper) {
         LOGGER.debug("Adding field mapper by [{}::{}]...", unquoted(column),
                      mapper.jooqxConverter().toType().getName());
         this.fieldMappers.put(column, new FieldMapper(column, mapper));
@@ -57,7 +55,7 @@ public final class DataTypeMapperRegistry {
         return ((Converter<Object, Object>) converter).to(val);
     }
 
-    public Object toUserType(@NonNull Field<?> f, Object value) {
+    public Object toUserType(@NotNull Field<?> f, Object value) {
         final DataTypeMapper<Object, ?, Object> mapper = getTypeMapper("Field", f, value);
         if (Objects.nonNull(mapper)) {
             if (value == null || mapper.jooqxConverter().fromType().isInstance(value)) {
@@ -107,19 +105,23 @@ public final class DataTypeMapperRegistry {
         return DSL.unquotedName(column.getQualifiedName().getName());
     }
 
-    @RequiredArgsConstructor
     private static class FieldMapper {
 
-        @NonNull
+        @NotNull
         private final Field field;
-        @NonNull
+        @NotNull
         private final DataTypeMapper mapper;
 
-        private boolean matchesByType(@NonNull Class jooqDataTypeClazz) {
+        public FieldMapper(@NotNull Field field, @NotNull DataTypeMapper mapper) {
+            this.field  = field;
+            this.mapper = mapper;
+        }
+
+        private boolean matchesByType(@NotNull Class jooqDataTypeClazz) {
             return mapper.jooqxConverter().toType().equals(jooqDataTypeClazz);
         }
 
-        private boolean matches(@NonNull Field column, @NonNull Class jooqDataTypeClazz) {
+        private boolean matches(@NotNull Field column, @NotNull Class jooqDataTypeClazz) {
             return field.equals(column) && matchesByType(jooqDataTypeClazz);
         }
 

@@ -23,22 +23,13 @@ import org.slf4j.LoggerFactory;
 import io.vertx.core.Vertx;
 import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.With;
-import lombok.experimental.Accessors;
-
 final class SQLImpl {
 
-    @Getter
-    @Accessors(fluent = true)
     abstract static class SQLEI<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extends SQLResultCollector<RS>>
         implements SQLExecutor<S, B, PQ, RS, RC> {
 
         private final Vertx vertx;
         private final DSLContext dsl;
-        @With(AccessLevel.PROTECTED)
         private final S sqlClient;
         private final PQ preparedQuery;
         private final RC resultCollector;
@@ -46,13 +37,13 @@ final class SQLImpl {
         private final DataTypeMapperRegistry typeMapperRegistry;
 
         protected SQLEI(Vertx vertx, DSLContext dsl, S sqlClient, PQ preparedQuery, RC resultCollector,
-                        SQLErrorConverter errorConverter, DataTypeMapperRegistry typeMapperRegistry) {
-            this.vertx = vertx;
-            this.dsl = dsl;
-            this.sqlClient = sqlClient;
-            this.preparedQuery = Optional.ofNullable(preparedQuery).orElseGet(this::defPrepareQuery);
-            this.resultCollector = Optional.ofNullable(resultCollector).orElseGet(this::defResultCollector);
-            this.errorConverter = Optional.ofNullable(errorConverter).orElseGet(this::defErrorConverter);
+            SQLErrorConverter errorConverter, DataTypeMapperRegistry typeMapperRegistry) {
+            this.vertx              = vertx;
+            this.dsl                = dsl;
+            this.sqlClient          = sqlClient;
+            this.preparedQuery      = Optional.ofNullable(preparedQuery).orElseGet(this::defPrepareQuery);
+            this.resultCollector    = Optional.ofNullable(resultCollector).orElseGet(this::defResultCollector);
+            this.errorConverter     = Optional.ofNullable(errorConverter).orElseGet(this::defErrorConverter);
             this.typeMapperRegistry = Optional.ofNullable(typeMapperRegistry).orElseGet(this::defMapperRegistry);
         }
 
@@ -66,21 +57,50 @@ final class SQLImpl {
             return this.errorConverter().handle(new SQLNonTransientConnectionException(errorMsg, sqlState));
         }
 
-        @NonNull
+        @NotNull
         protected abstract PQ defPrepareQuery();
 
-        @NonNull
+        @NotNull
         protected abstract RC defResultCollector();
 
-        @NonNull
+        @NotNull
         protected SQLErrorConverter defErrorConverter() {
             return SQLErrorConverter.DEFAULT;
         }
 
-        @NonNull
+        @NotNull
         protected DataTypeMapperRegistry defMapperRegistry() {
             return new DataTypeMapperRegistry();
         }
+
+        @NotNull
+        @Override
+        public Vertx vertx() {return vertx;}
+
+        @Override
+        public @NotNull DSLContext dsl() {return dsl;}
+
+        @NotNull
+        @Override
+        public S sqlClient() {return sqlClient;}
+
+        @NotNull
+        @Override
+        public PQ preparedQuery() {return preparedQuery;}
+
+        @NotNull
+        @Override
+        public RC resultCollector() {return resultCollector;}
+
+        @NotNull
+        @Override
+        public SQLErrorConverter errorConverter() {return errorConverter;}
+
+        @NotNull
+        @Override
+        public DataTypeMapperRegistry typeMapperRegistry() {return typeMapperRegistry;}
+
+        protected abstract SQLEI<S, B, PQ, RS, RC> withSqlClient(S sqlClient);
 
     }
 
@@ -91,7 +111,7 @@ final class SQLImpl {
         private static final Logger LOGGER = LoggerFactory.getLogger(SQLPreparedQuery.class);
 
         @Override
-        public final @NonNull String sql(@NonNull Configuration configuration, @NonNull Query query) {
+        public final @NotNull String sql(@NotNull Configuration configuration, @NotNull Query query) {
             if (!query.isExecutable()) {
                 throw new IllegalArgumentException("Query is not executable: " + query.getSQL());
             }
@@ -118,24 +138,24 @@ final class SQLImpl {
             return sql;
         }
 
-        public final @NotNull T bindValues(@NonNull Query query, @NonNull DataTypeMapperRegistry mapperRegistry) {
+        public final @NotNull T bindValues(@NotNull Query query, @NotNull DataTypeMapperRegistry mapperRegistry) {
             return this.convert(query.getParams(), mapperRegistry);
         }
 
-        public final @NotNull List<T> bindValues(@NonNull Query query, @NonNull BindBatchValues bindBatchValues,
-                                                 @NonNull DataTypeMapperRegistry mapperRegistry) {
+        public final @NotNull List<T> bindValues(@NotNull Query query, @NotNull BindBatchValues bindBatchValues,
+            @NotNull DataTypeMapperRegistry mapperRegistry) {
             return this.convert(query.getParams(), bindBatchValues, mapperRegistry);
         }
 
         protected abstract T doConvert(Map<String, Param<?>> params, DataTypeMapperRegistry registry,
-                                       BiFunction<String, Param<?>, ?> queryValue);
+            BiFunction<String, Param<?>, ?> queryValue);
 
-        private T convert(@NonNull Map<String, Param<?>> params, @NonNull DataTypeMapperRegistry registry) {
+        private T convert(@NotNull Map<String, Param<?>> params, @NotNull DataTypeMapperRegistry registry) {
             return doConvert(params, registry, (k, v) -> v.getValue());
         }
 
-        private List<T> convert(@NonNull Map<String, Param<?>> params, @NonNull BindBatchValues bindBatchValues,
-                                @NonNull DataTypeMapperRegistry registry) {
+        private List<T> convert(@NotNull Map<String, Param<?>> params, @NotNull BindBatchValues bindBatchValues,
+            @NotNull DataTypeMapperRegistry registry) {
             final List<String> fields = bindBatchValues.getMappingFields();
             final List<Object> values = bindBatchValues.getMappingValues();
             return bindBatchValues.getRecords()
@@ -147,7 +167,7 @@ final class SQLImpl {
                                       try {
                                           final int index = Integer.parseInt(paramNameOrIndex) - 1;
                                           return Optional.ofNullable(
-                                              (Object) record.get(record.field(fields.get(index))))
+                                                             (Object) record.get(record.field(fields.get(index))))
                                                          .orElseGet(() -> values.get(index));
                                       } catch (NumberFormatException e) {
                                           return record.get(paramNameOrIndex);

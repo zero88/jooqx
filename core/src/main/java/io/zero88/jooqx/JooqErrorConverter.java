@@ -5,8 +5,6 @@ import java.sql.SQLException;
 import org.jetbrains.annotations.NotNull;
 import org.jooq.exception.DataAccessException;
 
-import lombok.NonNull;
-
 /**
  * Represents for SQL error maker that transforms SQL exception to {@code jOOQ} {@link DataAccessException}
  *
@@ -16,9 +14,9 @@ import lombok.NonNull;
  */
 public interface JooqErrorConverter<T extends Throwable> extends SQLErrorConverter {
 
-    @NonNull DataAccessException transform(T t);
+    @NotNull DataAccessException transform(T t);
 
-    @NonNull Class<T> throwableType();
+    @NotNull Class<T> throwableType();
 
     @Override
     default RuntimeException handle(Throwable throwable) {
@@ -45,7 +43,7 @@ public interface JooqErrorConverter<T extends Throwable> extends SQLErrorConvert
         }
 
         @Override
-        public @NonNull Class<SQLException> throwableType() {
+        public @NotNull Class<SQLException> throwableType() {
             return SQLException.class;
         }
 

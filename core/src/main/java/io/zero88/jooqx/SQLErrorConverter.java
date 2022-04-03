@@ -2,7 +2,7 @@ package io.zero88.jooqx;
 
 import java.util.function.Function;
 
-import lombok.NonNull;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Represents for a maker that unifies SQL error to a general SQL error when executing SQL command on across among
@@ -32,7 +32,7 @@ public interface SQLErrorConverter {
      * @return nothing because it will throw error
      * @see #handle(Throwable)
      */
-    default <X> X reThrowError(@NonNull Throwable throwable) {
+    default <X> X reThrowError(@NotNull Throwable throwable) {
         throw this.handle(throwable);
     }
 
@@ -43,7 +43,7 @@ public interface SQLErrorConverter {
      * @param <R>     Type of runtime exception
      * @return new SQL error converter
      */
-    default <R extends RuntimeException> SQLErrorConverter andThen(@NonNull Function<RuntimeException, R> andThen) {
+    default <R extends RuntimeException> SQLErrorConverter andThen(@NotNull Function<RuntimeException, R> andThen) {
         return new SQLErrorConverter() {
             @Override
             public RuntimeException handle(Throwable throwable) {

@@ -2,11 +2,9 @@ object UtilLibs {
 
     object Version {
 
-        const val lombok = "1.18.16"
         const val jetbrainsAnnotations = "20.1.0"
     }
 
-    const val lombok = "org.projectlombok:lombok:${Version.lombok}"
     const val jetbrainsAnnotations = "org.jetbrains:annotations:${Version.jetbrainsAnnotations}"
 }
 
