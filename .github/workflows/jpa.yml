@@ -44,7 +44,7 @@ jobs:
     name: Java ${{ matrix.Java }} (${{ matrix.os }}) build
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v2.4.0
+      - uses: actions/checkout@v3
 
       - name: Build
         uses: ./.github/actions/gha-build
