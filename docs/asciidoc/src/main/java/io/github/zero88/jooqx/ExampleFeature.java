@@ -2,11 +2,9 @@ package io.github.zero88.jooqx;
 
 import io.vertx.core.Vertx;
 
-interface IJooqxFeature {
+public interface ExampleFeature {
 
     void future(Vertx vertx);
-
-    void rx(Vertx vertx);
 
     void jsonRecord(Vertx vertx);
 

@@ -4,15 +4,10 @@ import io.vertx.core.Vertx;
 import io.vertx.docgen.Source;
 
 @Source
-public class LegacyJooqxFeature implements IJooqxFeature {
+public class LegacyJooqxFeature implements ExampleFeature {
 
     @Override
     public void future(Vertx vertx) {
-
-    }
-
-    @Override
-    public void rx(Vertx vertx) {
 
     }
 

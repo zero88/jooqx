@@ -12,7 +12,12 @@
  *
  * [source,$lang]
  * ----
- * {@link io.github.zero88.jooqx.JooqxFeature#rx(io.vertx.core.Vertx)}
+ * {@link io.github.zero88.jooqx.JooqxReactive#rx(io.vertx.core.Vertx)}
+ * ----
+ *
+ * [source,$lang]
+ * ----
+ * {@link io.github.zero88.jooqx.JooqxReactive#rxBuilder(io.vertx.reactivex.core.Vertx)}
  * ----
  *
  * == Json Record

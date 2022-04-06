@@ -25,10 +25,9 @@ import io.zero88.jooqx.Jooqx;
 import io.zero88.jooqx.JsonRecord;
 import io.zero88.sample.data.pgsql.Tables;
 import io.zero88.sample.data.pgsql.tables.records.AuthorsRecord;
-import io.zero88.sample.data.pgsql.tables.records.BooksRecord;
 
 @Source
-public class JooqxFeature implements IJooqxFeature {
+public class JooqxFeature implements ExampleFeature {
 
     public void future(Vertx vertx) {
         // Pg connection
@@ -55,32 +54,6 @@ public class JooqxFeature implements IJooqxFeature {
                 System.out.println(rec.getCountry());
             }
         });
-    }
-
-    /**
-     * Wanna use #jooq with #reactivex on #vertx... Stay tuned, one more step
-     */
-    @Override
-    public void rx(Vertx vertx) {
-        JDBCPool jdbcPool = JDBCPool.pool(vertx, new JDBCConnectOptions().setJdbcUrl("jdbc:h2:mem:jooqx-examples"),
-                                          new PoolOptions().setMaxSize(5));
-        // jOOQ DSL
-        DSLContext dsl = DSL.using(SQLDialect.H2);
-        // Build jOOQ query
-        SelectForUpdateStep<BooksRecord> q = dsl.selectFrom(Tables.BOOKS)
-                                                .orderBy(Tables.BOOKS.TITLE)
-                                                .limit(10)
-                                                .offset(5);
-        // Build jOOQx
-        Jooqx jooqx = Jooqx.builder().setVertx(vertx).setDSL(dsl).setSqlClient(jdbcPool).build();
-        // To rx-ify version
-        io.zero88.jooqx.reactivex.Jooqx.newInstance(jooqx)
-                                       .rxExecute(q, DSLAdapter.fetchMany(q.asTable()))
-                                       .subscribe(records -> {
-                                           BooksRecord record = records.get(0);
-                                           System.out.println(record.getId()); // output: 1
-                                           System.out.println(record.getTitle()); // output: jooqx
-                                       }, err -> {});
     }
 
     /**
