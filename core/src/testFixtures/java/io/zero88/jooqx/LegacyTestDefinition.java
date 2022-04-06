@@ -34,13 +34,13 @@ public interface LegacyTestDefinition {
 
         default io.zero88.jooqx.reactivex.LegacyJooqx rxInstance(@NotNull LegacyJooqx jooqx) {
             final LegacyJooqx jooqx1 = LegacyJooqx.builder()
-                                                  .vertx(jooqx.vertx())
-                                                  .dsl(jooqx.dsl())
-                                                  .sqlClient(jooqx.sqlClient())
-                                                  .preparedQuery(jooqx.preparedQuery())
-                                                  .resultCollector(jooqx.resultCollector())
-                                                  .errorConverter(jooqx.errorConverter())
-                                                  .typeMapperRegistry(jooqx.typeMapperRegistry())
+                                                  .setVertx(jooqx.vertx())
+                                                  .setDSL(jooqx.dsl())
+                                                  .setSqlClient(jooqx.sqlClient())
+                                                  .setPreparedQuery(jooqx.preparedQuery())
+                                                  .setResultCollector(jooqx.resultCollector())
+                                                  .setErrorConverter(jooqx.errorConverter())
+                                                  .setTypeMapperRegistry(jooqx.typeMapperRegistry())
                                                   .build();
             return io.zero88.jooqx.reactivex.LegacyJooqx.newInstance(jooqx1);
         }

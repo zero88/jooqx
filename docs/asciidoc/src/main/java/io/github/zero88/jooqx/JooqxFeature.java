@@ -44,7 +44,7 @@ public class JooqxFeature implements IJooqxFeature {
         // jOOQ DSL
         DSLContext dsl = DSL.using(SQLDialect.POSTGRES);
         // Build jOOQ query
-        Jooqx jooqx = Jooqx.builder().vertx(vertx).dsl(dsl).sqlClient(pgPool).build();
+        Jooqx jooqx = Jooqx.builder().setVertx(vertx).setDSL(dsl).setSqlClient(pgPool).build();
         // Build jOOQx
         SelectConditionStep<AuthorsRecord> q = dsl.selectFrom(Tables.AUTHORS).where(Tables.AUTHORS.NAME.eq("zero88"));
         // Execute
@@ -72,7 +72,7 @@ public class JooqxFeature implements IJooqxFeature {
                                                 .limit(10)
                                                 .offset(5);
         // Build jOOQx
-        Jooqx jooqx = Jooqx.builder().vertx(vertx).dsl(dsl).sqlClient(jdbcPool).build();
+        Jooqx jooqx = Jooqx.builder().setVertx(vertx).setDSL(dsl).setSqlClient(jdbcPool).build();
         // To rx-ify version
         io.zero88.jooqx.reactivex.Jooqx.newInstance(jooqx)
                                        .rxExecute(q, DSLAdapter.fetchMany(q.asTable()))
@@ -102,7 +102,7 @@ public class JooqxFeature implements IJooqxFeature {
                                                   .limit(1)
                                                   .offset(1);
         // Build jOOQx
-        Jooqx jooqx = Jooqx.builder().vertx(vertx).dsl(dsl).sqlClient(mySQLPool).build();
+        Jooqx jooqx = Jooqx.builder().setVertx(vertx).setDSL(dsl).setSqlClient(mySQLPool).build();
         jooqx.execute(q, DSLAdapter.fetchJsonRecord(q.asTable()), ar -> {
             System.out.println(ar.result().toJson());
             // output: {"id":88,"name":"zero88","country":"VN"}
@@ -119,7 +119,7 @@ public class JooqxFeature implements IJooqxFeature {
         SelectConditionStep<Record1<Integer>> q = dsl.selectOne()
                                                      .whereExists(dsl.selectFrom(Tables.AUTHORS)
                                                                      .where(Tables.AUTHORS.NAME.eq("zero88")));
-        Jooqx jooqx = Jooqx.builder().vertx(vertx).dsl(dsl).sqlClient(jdbcPool).build();
+        Jooqx jooqx = Jooqx.builder().setVertx(vertx).setDSL(dsl).setSqlClient(jdbcPool).build();
         jooqx.execute(q, DSLAdapter.fetchExists(q.asTable()), ar -> {
             final Boolean isExists = ar.result();
             System.out.println(isExists);
@@ -137,7 +137,7 @@ public class JooqxFeature implements IJooqxFeature {
         JDBCPool pool = JDBCPool.pool(vertx, new JDBCConnectOptions().setJdbcUrl("jdbc:h2:mem:jooqx-examples"),
                                       new PoolOptions().setMaxSize(5));
         // Build jOOQx
-        Jooqx jooqx = Jooqx.builder().vertx(vertx).dsl(DSL.using(SQLDialect.H2)).sqlClient(pool).build();
+        Jooqx jooqx = Jooqx.builder().setVertx(vertx).setDSL(DSL.using(SQLDialect.H2)).setSqlClient(pool).build();
         AuthorsRecord rec1 = new AuthorsRecord().setName("zero88").setCountry("VN");
         AuthorsRecord rec2 = new AuthorsRecord().setName("jooq").setCountry("CH");
         AuthorsRecord rec3 = new AuthorsRecord().setName("vertx");

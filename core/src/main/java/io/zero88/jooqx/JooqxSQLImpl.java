@@ -31,6 +31,7 @@ import io.vertx.sqlclient.Tuple;
 import io.vertx.sqlclient.impl.ArrayTuple;
 import io.zero88.jooqx.MiscImpl.BatchResultImpl;
 import io.zero88.jooqx.SQLImpl.SQLEI;
+import io.zero88.jooqx.SQLImpl.SQLExecutorBuilderImpl;
 import io.zero88.jooqx.SQLImpl.SQLPQ;
 import io.zero88.jooqx.adapter.RowConverterStrategy;
 import io.zero88.jooqx.adapter.SQLResultAdapter;
@@ -106,7 +107,7 @@ final class JooqxSQLImpl {
 
         @Override
         public int batchResultSize(@NotNull RowSet<Row> batchResult) {
-            final int[] count = new int[] {0};
+            final int[] count = new int[] { 0 };
             while (batchResult != null) {
                 count[0]++;
                 batchResult = batchResult.next();
@@ -120,11 +121,6 @@ final class JooqxSQLImpl {
     static class JooqxConnImpl extends JooqxImpl<SqlConnection> implements JooqxTx {
 
         private final Jooqx delegate;
-
-        JooqxConnImpl(JooqxBaseBuilder<SqlConnection, JooqxBase<SqlConnection>> builder) {
-            super(builder);
-            this.delegate = null;
-        }
 
         JooqxConnImpl(Vertx vertx, DSLContext dsl, SqlConnection sqlClient, JooqxPreparedQuery preparedQuery,
                       JooqxResultCollector resultCollector, SQLErrorConverter errorConverter,
@@ -153,9 +149,15 @@ final class JooqxSQLImpl {
                                  transientConnFailed("Unable to open SQL connection", t)));
         }
 
+        @Override
+        protected JooqxTx withSqlClient(SqlConnection sqlClient) {
+            return new JooqxConnImpl(vertx(), dsl(), sqlClient, preparedQuery(), resultCollector(), errorConverter(),
+                                     typeMapperRegistry());
+        }
+
         private <X> Future<X> beginTx(@NotNull SqlConnection conn, @NotNull Function<JooqxTx, Future<X>> transaction) {
             return conn.begin()
-                       .flatMap(tx -> transaction.apply((JooqxTx) withSqlClient(conn))
+                       .flatMap(tx -> transaction.apply(withSqlClient(conn))
                                                  .compose(res -> tx.commit().flatMap(v -> Future.succeededFuture(res)),
                                                           err -> rollbackHandler(tx, errorConverter().handle(err))))
                        .onComplete(ar -> conn.close());
@@ -185,10 +187,6 @@ final class JooqxSQLImpl {
             super(vertx, dsl, sqlClient, preparedQuery, resultCollector, errorConverter, typeMapperRegistry);
         }
 
-        JooqxPoolImpl(JooqxBaseBuilder<Pool, JooqxBase<Pool>> builder) {
-            super(builder);
-        }
-
         @Override
         @NotNull
         @SuppressWarnings("unchecked")
@@ -196,16 +194,17 @@ final class JooqxSQLImpl {
             return new JooqxConnImpl(this);
         }
 
+        @Override
+        protected Jooqx withSqlClient(Pool sqlClient) {
+            return new JooqxPoolImpl(vertx(), dsl(), sqlClient, preparedQuery(), resultCollector(), errorConverter(),
+                                     typeMapperRegistry());
+        }
+
     }
 
 
     abstract static class JooqxImpl<S extends SqlClient>
         extends SQLEI<S, Tuple, JooqxPreparedQuery, RowSet<Row>, JooqxResultCollector> implements JooqxBase<S> {
-
-        JooqxImpl(JooqxBaseBuilder<S, JooqxBase<S>> builder) {
-            this(builder.vertx(), builder.dsl(), builder.sqlClient(), builder.preparedQuery(),
-                 builder.resultCollector(), builder.errorConverter(), builder.typeMapperRegistry());
-        }
 
         JooqxImpl(Vertx vertx, DSLContext dsl, S sqlClient, JooqxPreparedQuery preparedQuery,
                   JooqxResultCollector resultCollector, SQLErrorConverter errorConverter,
@@ -267,25 +266,37 @@ final class JooqxSQLImpl {
         }
 
         @Override
-        protected JooqxImpl<S> withSqlClient(@NotNull S sqlClient) {
-            return (JooqxImpl<S>) JooqxBase.<S>baseBuilder()
-                                           .vertx(vertx())
-                                           .sqlClient(sqlClient)
-                                           .dsl(dsl())
-                                           .preparedQuery(preparedQuery())
-                                           .resultCollector(resultCollector())
-                                           .errorConverter(errorConverter())
-                                           .typeMapperRegistry(typeMapperRegistry())
-                                           .build();
+        protected @NotNull JooqxPreparedQuery defPrepareQuery() { return JooqxPreparedQuery.create(); }
+
+        @Override
+        protected @NotNull JooqxResultCollector defResultCollector() { return JooqxResultCollector.create(); }
+
+    }
+
+
+    static class JooqxBuilderImpl
+        extends SQLExecutorBuilderImpl<Pool, Tuple, JooqxPreparedQuery, RowSet<Row>, JooqxResultCollector, JooqxBuilder>
+        implements JooqxBuilder {
+
+        @Override
+        public @NotNull Jooqx build() {
+            return new JooqxPoolImpl(vertx(), dsl(), sqlClient(), preparedQuery(), resultCollector(), errorConverter(),
+                                     typeMapperRegistry());
         }
 
-        @Override
-        @NotNull
-        protected JooqxPreparedQuery defPrepareQuery() {return JooqxPreparedQuery.create();}
+    }
+
+
+    static class JooqxConnBuilderImpl extends
+                                      SQLExecutorBuilderImpl<SqlConnection, Tuple, JooqxPreparedQuery, RowSet<Row>,
+                                                                JooqxResultCollector, JooqxConnBuilder>
+        implements JooqxConnBuilder {
 
         @Override
-        @NotNull
-        protected JooqxResultCollector defResultCollector() {return JooqxResultCollector.create();}
+        public @NotNull JooqxConn build() {
+            return new JooqxConnImpl(vertx(), dsl(), sqlClient(), preparedQuery(), resultCollector(), errorConverter(),
+                                     typeMapperRegistry());
+        }
 
     }
 

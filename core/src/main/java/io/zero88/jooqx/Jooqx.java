@@ -15,7 +15,7 @@ import io.vertx.core.Future;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.sqlclient.Pool;
-import io.zero88.jooqx.JooqxSQLImpl.JooqxPoolImpl;
+import io.zero88.jooqx.JooqxSQLImpl.JooqxBuilderImpl;
 import io.zero88.jooqx.adapter.SQLResultAdapter;
 import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
@@ -28,10 +28,13 @@ import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 @VertxGen
 public interface Jooqx extends JooqxBase<Pool> {
 
-    @GenIgnore
-    static JooqxBuilder builder() {
-        return new JooqxBuilder();
-    }
+    /**
+     * Create a builder
+     *
+     * @return jooqx builder
+     * @see JooqxBuilder
+     */
+    static JooqxBuilder builder() { return new JooqxBuilderImpl(); }
 
     @Override
     @NotNull Vertx vertx();
@@ -58,10 +61,9 @@ public interface Jooqx extends JooqxBase<Pool> {
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
     @NotNull DataTypeMapperRegistry typeMapperRegistry();
 
-    @Override
-    @NotNull
     @SuppressWarnings("unchecked")
-    JooqxTx transaction();
+    @Override
+    @NotNull JooqxTx transaction();
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
@@ -149,16 +151,5 @@ public interface Jooqx extends JooqxBase<Pool> {
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
     Future<Integer> ddl(@NotNull DDLQuery query);
-
-    @GenIgnore
-    class JooqxBuilder extends JooqxBaseBuilder<Pool, Jooqx> {
-
-        @Override
-        public Jooqx build() {
-            return new JooqxPoolImpl(vertx(), dsl(), sqlClient(), preparedQuery(), resultCollector(), errorConverter(),
-                                     typeMapperRegistry());
-        }
-
-    }
 
 }

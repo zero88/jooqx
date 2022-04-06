@@ -33,25 +33,25 @@ public interface JooqxTestDefinition {
 
         default <S extends Pool> io.zero88.jooqx.reactivex.Jooqx rxPool(@NotNull JooqxBase<S> jooqx) {
             return io.zero88.jooqx.reactivex.Jooqx.newInstance(Jooqx.builder()
-                                                                 .vertx(jooqx.vertx())
-                                                                 .dsl(jooqx.dsl())
-                                                                 .sqlClient(jooqx.sqlClient())
-                                                                 .preparedQuery(jooqx.preparedQuery())
-                                                                 .resultCollector(jooqx.resultCollector())
-                                                                 .errorConverter(jooqx.errorConverter())
-                                                                 .typeMapperRegistry(jooqx.typeMapperRegistry())
+                                                                 .setVertx(jooqx.vertx())
+                                                                 .setDSL(jooqx.dsl())
+                                                                 .setSqlClient(jooqx.sqlClient())
+                                                                 .setPreparedQuery(jooqx.preparedQuery())
+                                                                 .setResultCollector(jooqx.resultCollector())
+                                                                 .setErrorConverter(jooqx.errorConverter())
+                                                                 .setTypeMapperRegistry(jooqx.typeMapperRegistry())
                                                                  .build());
         }
 
         default <S extends SqlConnection> io.zero88.jooqx.reactivex.JooqxConn rxConn(@NotNull JooqxBase<S> jooqx) {
             return io.zero88.jooqx.reactivex.JooqxConn.newInstance(JooqxConn.builder()
-                                                                         .vertx(jooqx.vertx())
-                                                                         .dsl(jooqx.dsl())
-                                                                         .sqlClient(jooqx.sqlClient())
-                                                                         .preparedQuery(jooqx.preparedQuery())
-                                                                         .resultCollector(jooqx.resultCollector())
-                                                                         .errorConverter(jooqx.errorConverter())
-                                                                         .typeMapperRegistry(jooqx.typeMapperRegistry())
+                                                                         .setVertx(jooqx.vertx())
+                                                                         .setDSL(jooqx.dsl())
+                                                                         .setSqlClient(jooqx.sqlClient())
+                                                                         .setPreparedQuery(jooqx.preparedQuery())
+                                                                         .setResultCollector(jooqx.resultCollector())
+                                                                         .setErrorConverter(jooqx.errorConverter())
+                                                                         .setTypeMapperRegistry(jooqx.typeMapperRegistry())
                                                                          .build());
         }
 

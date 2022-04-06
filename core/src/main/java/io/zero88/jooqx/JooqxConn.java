@@ -15,7 +15,7 @@ import io.vertx.core.Future;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.sqlclient.SqlConnection;
-import io.zero88.jooqx.JooqxSQLImpl.JooqxConnImpl;
+import io.zero88.jooqx.JooqxSQLImpl.JooqxConnBuilderImpl;
 import io.zero88.jooqx.adapter.SQLResultAdapter;
 import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
@@ -28,10 +28,13 @@ import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 @VertxGen
 public interface JooqxConn extends JooqxBase<SqlConnection> {
 
-    @GenIgnore
-    static JooqxConnBuilder builder() {
-        return new JooqxConnBuilder();
-    }
+    /**
+     * Create a builder
+     *
+     * @return jooqx conn builder
+     * @see JooqxConnBuilder
+     */
+    static JooqxConnBuilder builder() { return new JooqxConnBuilderImpl(); }
 
     @Override
     @NotNull Vertx vertx();
@@ -44,7 +47,6 @@ public interface JooqxConn extends JooqxBase<SqlConnection> {
     @NotNull SqlConnection sqlClient();
 
     @Override
-    @GenIgnore(GenIgnore.PERMITTED_TYPE)
     @NotNull JooqxPreparedQuery preparedQuery();
 
     @Override
@@ -87,8 +89,8 @@ public interface JooqxConn extends JooqxBase<SqlConnection> {
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
     @NotNull DataTypeMapperRegistry typeMapperRegistry();
 
-    @Override
     @SuppressWarnings("unchecked")
+    @Override
     @NotNull JooqxTx transaction();
 
     @Override
@@ -148,16 +150,5 @@ public interface JooqxConn extends JooqxBase<SqlConnection> {
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
     Future<Integer> ddl(@NotNull DDLQuery query);
-
-    @GenIgnore
-    class JooqxConnBuilder extends JooqxBaseBuilder<SqlConnection, JooqxConn> {
-
-        @Override
-        public JooqxConn build() {
-            return new JooqxConnImpl(vertx(), dsl(), sqlClient(), preparedQuery(), resultCollector(),
-                                     errorConverter(), typeMapperRegistry());
-        }
-
-    }
 
 }
