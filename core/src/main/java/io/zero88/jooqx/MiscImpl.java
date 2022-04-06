@@ -29,31 +29,31 @@ final class MiscImpl {
         }
 
         static <R> BatchReturningResult<R> create(int total, List<R> results) {
-            return new BatchRRI<>(total, Optional.ofNullable(results).orElseGet(ArrayList::new));
+            return new BatchReturningResultImpl<>(total, Optional.ofNullable(results).orElseGet(ArrayList::new));
         }
 
         @Override
-        public int getTotal() {return total;}
+        public int getTotal() { return total; }
 
         @Override
-        public int getSuccesses() {return successes;}
+        public int getSuccesses() { return successes; }
 
     }
 
 
-    static final class BatchRRI<R> extends BatchResultImpl implements BatchReturningResult<R> {
+    static final class BatchReturningResultImpl<R> extends BatchResultImpl implements BatchReturningResult<R> {
 
         @NotNull
         private final List<R> records;
 
-        private BatchRRI(int total, @NotNull List<R> rs) {
+        private BatchReturningResultImpl(int total, @NotNull List<R> rs) {
             super(total, rs.size());
             this.records = rs;
         }
 
         @NotNull
         @Override
-        public List<R> getRecords() {return records;}
+        public List<R> getRecords() { return records; }
 
     }
 
