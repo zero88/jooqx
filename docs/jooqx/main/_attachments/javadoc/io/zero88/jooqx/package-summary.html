@@ -165,9 +165,21 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="rowColor">
+<th class="colFirst" scope="row"><a href="JooqxBuilder.html" title="interface in io.zero88.jooqx">JooqxBuilder</a></th>
+<td class="colLast">
+<div class="block">Represents a builder that construct <a href="Jooqx.html" title="interface in io.zero88.jooqx"><code>Jooqx</code></a></div>
+</td>
+</tr>
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="JooqxConn.html" title="interface in io.zero88.jooqx">JooqxConn</a></th>
 <td class="colLast">
 <div class="block">Represents for an executor that executes <code>jOOQ query</code> on <code>Vertx reactive SQL client</code> connection</div>
+</td>
+</tr>
+<tr class="rowColor">
+<th class="colFirst" scope="row"><a href="JooqxConnBuilder.html" title="interface in io.zero88.jooqx">JooqxConnBuilder</a></th>
+<td class="colLast">
+<div class="block">Represents a builder that construct <a href="JooqxConn.html" title="interface in io.zero88.jooqx"><code>JooqxConn</code></a></div>
 </td>
 </tr>
 <tr class="altColor">
@@ -202,67 +214,73 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="rowColor">
+<th class="colFirst" scope="row"><a href="LegacyJooqxBuilder.html" title="interface in io.zero88.jooqx">LegacyJooqxBuilder</a></th>
+<td class="colLast">
+<div class="block">Represents a builder that construct <a href="LegacyJooqx.html" title="interface in io.zero88.jooqx"><code>LegacyJooqx</code></a></div>
+</td>
+</tr>
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="LegacyJooqxTx.html" title="interface in io.zero88.jooqx">LegacyJooqxTx</a></th>
 <td class="colLast">
 <div class="block">Represents for a legacy SQL transaction executor</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="LegacySQLCollector.html" title="interface in io.zero88.jooqx">LegacySQLCollector</a></th>
 <td class="colLast">
 <div class="block">Represents for Legacy SQL result set collector</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="LegacySQLPreparedQuery.html" title="interface in io.zero88.jooqx">LegacySQLPreparedQuery</a></th>
 <td class="colLast">
 <div class="block">Represents for a converter that transforms <code>jOOQ param</code> to <code>Vertx legacy SQL</code> bind value</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="SQLBatchExecutor.html" title="interface in io.zero88.jooqx">SQLBatchExecutor</a></th>
 <td class="colLast">
 <div class="block">Represents for a <code>batch executor</code> that executes batch SQL command</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="SQLDDLExecutor.html" title="interface in io.zero88.jooqx">SQLDDLExecutor</a></th>
 <td class="colLast">
 <div class="block">Represents for a <code>DDL executor</code> that executes batch SQL command</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="SQLErrorConverter.html" title="interface in io.zero88.jooqx">SQLErrorConverter</a></th>
 <td class="colLast">
 <div class="block">Represents for a maker that unifies SQL error to a general SQL error when executing SQL command on across among
  Database SPI</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="SQLExecutor.html" title="interface in io.zero88.jooqx">SQLExecutor</a>&lt;S,&#8203;B,&#8203;PQ extends <a href="SQLPreparedQuery.html" title="interface in io.zero88.jooqx">SQLPreparedQuery</a>&lt;B&gt;,&#8203;RS,&#8203;RC extends <a href="SQLResultCollector.html" title="interface in io.zero88.jooqx">SQLResultCollector</a>&lt;RS&gt;&gt;</th>
 <td class="colLast">
 <div class="block">Represents for an executor that executes <code>jOOQ query</code> on <code>Vertx SQL client</code> connection</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="SQLPreparedQuery.html" title="interface in io.zero88.jooqx">SQLPreparedQuery</a>&lt;B&gt;</th>
 <td class="colLast">
 <div class="block">Represents for SQL prepared query that transforms jOOQ Query to Vertx SQL prepared query</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="SQLQueryExecutor.html" title="interface in io.zero88.jooqx">SQLQueryExecutor</a></th>
 <td class="colLast">
 <div class="block">Represents for a <code>query executor</code> that executes SQL command</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="SQLResultCollector.html" title="interface in io.zero88.jooqx">SQLResultCollector</a>&lt;RS&gt;</th>
 <td class="colLast">
 <div class="block">Represents for a collector that collects <code>Vert.x SQL result</code> to an expectation output</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="SQLTxExecutor.html" title="interface in io.zero88.jooqx">SQLTxExecutor</a>&lt;S,&#8203;B,&#8203;P extends <a href="SQLPreparedQuery.html" title="interface in io.zero88.jooqx">SQLPreparedQuery</a>&lt;B&gt;,&#8203;RS,&#8203;C extends <a href="SQLResultCollector.html" title="interface in io.zero88.jooqx">SQLResultCollector</a>&lt;RS&gt;,&#8203;E extends <a href="SQLExecutor.html" title="interface in io.zero88.jooqx">SQLExecutor</a>&lt;S,&#8203;B,&#8203;P,&#8203;RS,&#8203;C&gt;&gt;</th>
 <td class="colLast">
 <div class="block">Represents for transaction executor</div>
@@ -290,26 +308,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <td class="colLast">
 <div class="block">JDBC error converter</div>
 </td>
-</tr>
-<tr class="altColor">
-<th class="colFirst" scope="row"><a href="Jooqx.JooqxBuilder.html" title="class in io.zero88.jooqx">Jooqx.JooqxBuilder</a></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<th class="colFirst" scope="row"><a href="JooqxBase.JooqxBaseBuilder.html" title="class in io.zero88.jooqx">JooqxBase.JooqxBaseBuilder</a>&lt;S extends io.vertx.sqlclient.SqlClient,&#8203;X extends <a href="JooqxBase.html" title="interface in io.zero88.jooqx">JooqxBase</a>&lt;S&gt;&gt;</th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor">
-<th class="colFirst" scope="row"><a href="JooqxConn.JooqxConnBuilder.html" title="class in io.zero88.jooqx">JooqxConn.JooqxConnBuilder</a></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<th class="colFirst" scope="row"><a href="LegacyJooqx.LegacyJooqxBuilder.html" title="class in io.zero88.jooqx">LegacyJooqx.LegacyJooqxBuilder</a></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor">
-<th class="colFirst" scope="row"><a href="SQLExecutor.SQLExecutorBuilder.html" title="class in io.zero88.jooqx">SQLExecutor.SQLExecutorBuilder</a>&lt;S,&#8203;B,&#8203;P extends <a href="SQLPreparedQuery.html" title="interface in io.zero88.jooqx">SQLPreparedQuery</a>&lt;B&gt;,&#8203;RS,&#8203;C extends <a href="SQLResultCollector.html" title="interface in io.zero88.jooqx">SQLResultCollector</a>&lt;RS&gt;,&#8203;E extends <a href="SQLExecutor.html" title="interface in io.zero88.jooqx">SQLExecutor</a>&lt;S,&#8203;B,&#8203;P,&#8203;RS,&#8203;C&gt;&gt;</th>
-<td class="colLast">&nbsp;</td>
 </tr>
 </tbody>
 </table>

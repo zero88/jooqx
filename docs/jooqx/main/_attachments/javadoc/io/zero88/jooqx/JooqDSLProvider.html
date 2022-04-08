@@ -123,7 +123,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <dl>
 <dt>All Known Subinterfaces:</dt>
-<dd><code><a href="Jooqx.html" title="interface in io.zero88.jooqx">Jooqx</a></code>, <code><a href="JooqxBase.html" title="interface in io.zero88.jooqx">JooqxBase</a>&lt;S&gt;</code>, <code><a href="JooqxBatchExecutor.html" title="interface in io.zero88.jooqx">JooqxBatchExecutor</a></code>, <code><a href="JooqxConn.html" title="interface in io.zero88.jooqx">JooqxConn</a></code>, <code><a href="JooqxTx.html" title="interface in io.zero88.jooqx">JooqxTx</a></code>, <code><a href="LegacyJooqx.html" title="interface in io.zero88.jooqx">LegacyJooqx</a></code>, <code><a href="LegacyJooqxTx.html" title="interface in io.zero88.jooqx">LegacyJooqxTx</a></code>, <code>io.zero88.jooqx.LegacySQLImpl.LegacyInternal&lt;S&gt;</code>, <code><a href="SQLBatchExecutor.html" title="interface in io.zero88.jooqx">SQLBatchExecutor</a></code>, <code><a href="SQLDDLExecutor.html" title="interface in io.zero88.jooqx">SQLDDLExecutor</a></code>, <code><a href="SQLExecutor.html" title="interface in io.zero88.jooqx">SQLExecutor</a>&lt;S,&#8203;B,&#8203;PQ,&#8203;RS,&#8203;RC&gt;</code>, <code><a href="SQLQueryExecutor.html" title="interface in io.zero88.jooqx">SQLQueryExecutor</a></code></dd>
+<dd><code><a href="Jooqx.html" title="interface in io.zero88.jooqx">Jooqx</a></code>, <code><a href="JooqxBase.html" title="interface in io.zero88.jooqx">JooqxBase</a>&lt;S&gt;</code>, <code><a href="JooqxBatchExecutor.html" title="interface in io.zero88.jooqx">JooqxBatchExecutor</a></code>, <code><a href="JooqxBuilder.html" title="interface in io.zero88.jooqx">JooqxBuilder</a></code>, <code><a href="JooqxConn.html" title="interface in io.zero88.jooqx">JooqxConn</a></code>, <code><a href="JooqxConnBuilder.html" title="interface in io.zero88.jooqx">JooqxConnBuilder</a></code>, <code><a href="JooqxTx.html" title="interface in io.zero88.jooqx">JooqxTx</a></code>, <code><a href="LegacyJooqx.html" title="interface in io.zero88.jooqx">LegacyJooqx</a></code>, <code><a href="LegacyJooqxBuilder.html" title="interface in io.zero88.jooqx">LegacyJooqxBuilder</a></code>, <code><a href="LegacyJooqxTx.html" title="interface in io.zero88.jooqx">LegacyJooqxTx</a></code>, <code>io.zero88.jooqx.LegacySQLImpl.LegacyInternal&lt;S&gt;</code>, <code><a href="SQLBatchExecutor.html" title="interface in io.zero88.jooqx">SQLBatchExecutor</a></code>, <code><a href="SQLDDLExecutor.html" title="interface in io.zero88.jooqx">SQLDDLExecutor</a></code>, <code><a href="SQLExecutor.html" title="interface in io.zero88.jooqx">SQLExecutor</a>&lt;S,&#8203;B,&#8203;PQ,&#8203;RS,&#8203;RC&gt;</code>, <code>io.zero88.jooqx.SQLExecutorBuilder&lt;S,&#8203;B,&#8203;PQ,&#8203;RS,&#8203;RC,&#8203;E&gt;</code>, <code>io.zero88.jooqx.SQLExecutorSetting&lt;S,&#8203;B,&#8203;PQ,&#8203;RS,&#8203;RC&gt;</code>, <code><a href="SQLQueryExecutor.html" title="interface in io.zero88.jooqx">SQLQueryExecutor</a></code></dd>
 </dl>
 <dl>
 <dt>Functional Interface:</dt>
@@ -171,10 +171,10 @@ public interface <span class="typeNameLabel">JooqDSLProvider</span></pre>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>org.jooq.DSLContext</code></td>
+<td class="colFirst"><code>@NotNull org.jooq.DSLContext</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#dsl()">dsl</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Defines jOOQ <code>DSL context</code>.</div>
+<div class="block">Defines jOOQ <code>DSL Context</code></div>
 </td>
 </tr>
 </table>
@@ -200,8 +200,9 @@ public interface <span class="typeNameLabel">JooqDSLProvider</span></pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>dsl</h4>
-<pre class="methodSignature">org.jooq.DSLContext&nbsp;dsl()</pre>
-<div class="block">Defines jOOQ <code>DSL context</code>.</div>
+<pre class="methodSignature">@NotNull
+@NotNull org.jooq.DSLContext&nbsp;dsl()</pre>
+<div class="block">Defines jOOQ <code>DSL Context</code></div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>the DSL context</dd>

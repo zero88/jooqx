@@ -87,7 +87,7 @@ loadScripts(document, 'script');</script>
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
-<li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
@@ -139,7 +139,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dl>
 <hr>
 <pre>public interface <span class="typeNameLabel">SQLExecutor&lt;S,&#8203;B,&#8203;PQ extends <a href="SQLPreparedQuery.html" title="interface in io.zero88.jooqx">SQLPreparedQuery</a>&lt;B&gt;,&#8203;RS,&#8203;RC extends <a href="SQLResultCollector.html" title="interface in io.zero88.jooqx">SQLResultCollector</a>&lt;RS&gt;&gt;</span>
-extends <a href="SQLQueryExecutor.html" title="interface in io.zero88.jooqx">SQLQueryExecutor</a>, <a href="SQLBatchExecutor.html" title="interface in io.zero88.jooqx">SQLBatchExecutor</a>, <a href="SQLDDLExecutor.html" title="interface in io.zero88.jooqx">SQLDDLExecutor</a>, <a href="JooqDSLProvider.html" title="interface in io.zero88.jooqx">JooqDSLProvider</a></pre>
+extends <a href="SQLQueryExecutor.html" title="interface in io.zero88.jooqx">SQLQueryExecutor</a>, <a href="SQLBatchExecutor.html" title="interface in io.zero88.jooqx">SQLBatchExecutor</a>, <a href="SQLDDLExecutor.html" title="interface in io.zero88.jooqx">SQLDDLExecutor</a></pre>
 <div class="block">Represents for an executor that executes <code>jOOQ query</code> on <code>Vertx SQL client</code> connection</div>
 <dl>
 <dt><span class="simpleTagLabel">Since:</span></dt>
@@ -156,29 +156,6 @@ extends <a href="SQLQueryExecutor.html" title="interface in io.zero88.jooqx">SQL
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
-<!-- ======== NESTED CLASS SUMMARY ======== -->
-<section role="region">
-<ul class="blockList">
-<li class="blockList"><a id="nested.class.summary">
-<!--   -->
-</a>
-<h3>Nested Class Summary</h3>
-<table class="memberSummary">
-<caption><span>Nested Classes</span><span class="tabEnd">&nbsp;</span></caption>
-<tr>
-<th class="colFirst" scope="col">Modifier and Type</th>
-<th class="colSecond" scope="col">Interface</th>
-<th class="colLast" scope="col">Description</th>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>static class&nbsp;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="SQLExecutor.SQLExecutorBuilder.html" title="class in io.zero88.jooqx">SQLExecutor.SQLExecutorBuilder</a>&lt;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">S</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">B</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">P</a> extends <a href="SQLPreparedQuery.html" title="interface in io.zero88.jooqx">SQLPreparedQuery</a>&lt;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">B</a>&gt;,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">RS</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">C</a> extends <a href="SQLResultCollector.html" title="interface in io.zero88.jooqx">SQLResultCollector</a>&lt;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">RS</a>&gt;,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">E</a> extends <a href="SQLExecutor.html" title="interface in io.zero88.jooqx">SQLExecutor</a>&lt;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">S</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">B</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">P</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">RS</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">C</a>&gt;&gt;</span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-</table>
-</li>
-</ul>
-</section>
 <!-- ========== METHOD SUMMARY =========== -->
 <section role="region">
 <ul class="blockList">
@@ -194,33 +171,32 @@ extends <a href="SQLQueryExecutor.html" title="interface in io.zero88.jooqx">SQL
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>@NotNull <a href="SQLErrorConverter.html" title="interface in io.zero88.jooqx">SQLErrorConverter</a></code></td>
+<td class="colFirst"><code><a href="SQLErrorConverter.html" title="interface in io.zero88.jooqx">SQLErrorConverter</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#errorConverter()">errorConverter</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Defines an error converter that rethrows an uniform exception by
- <a href="SQLErrorConverter.html#reThrowError(java.lang.Throwable)"><code>SQLErrorConverter.reThrowError(Throwable)</code></a>
+<div class="block">Defines an error converter that rethrows a uniform exception by <a href="SQLErrorConverter.html#reThrowError(java.lang.Throwable)"><code>SQLErrorConverter.reThrowError(Throwable)</code></a>
  if any error in execution time</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code><a href="SQLExecutor.html" title="type parameter in SQLExecutor">PQ</a></code></td>
+<td class="colFirst"><code>PQ</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#preparedQuery()">preparedQuery</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Defines prepared query</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code><a href="SQLExecutor.html" title="type parameter in SQLExecutor">RC</a></code></td>
+<td class="colFirst"><code>RC</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resultCollector()">resultCollector</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Defines result collector depends on result set</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code><a href="SQLExecutor.html" title="type parameter in SQLExecutor">S</a></code></td>
+<td class="colFirst"><code>S</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sqlClient()">sqlClient</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Defines sql client</div>
+<div class="block">Defines SQL client</div>
 </td>
 </tr>
 <tr id="i4" class="altColor">
@@ -231,7 +207,7 @@ extends <a href="SQLQueryExecutor.html" title="interface in io.zero88.jooqx">SQL
 </td>
 </tr>
 <tr id="i5" class="rowColor">
-<td class="colFirst"><code>@NotNull <a href="datatype/DataTypeMapperRegistry.html" title="class in io.zero88.jooqx.datatype">DataTypeMapperRegistry</a></code></td>
+<td class="colFirst"><code><a href="datatype/DataTypeMapperRegistry.html" title="class in io.zero88.jooqx.datatype">DataTypeMapperRegistry</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#typeMapperRegistry()">typeMapperRegistry</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Defines global data type mapper registry</div>
@@ -241,7 +217,7 @@ extends <a href="SQLQueryExecutor.html" title="interface in io.zero88.jooqx">SQL
 <td class="colFirst"><code>@NotNull io.vertx.core.Vertx</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#vertx()">vertx</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Vertx</div>
+<div class="block">Defines Vertx</div>
 </td>
 </tr>
 </table>
@@ -289,6 +265,25 @@ extends <a href="SQLQueryExecutor.html" title="interface in io.zero88.jooqx">SQL
 <!--   -->
 </a>
 <h3>Method Detail</h3>
+<a id="transaction()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>transaction</h4>
+<pre class="methodSignature">@NotNull
+&lt;E extends <a href="SQLExecutor.html" title="interface in io.zero88.jooqx">SQLExecutor</a>&lt;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">S</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">B</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">PQ</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">RS</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">RC</a>&gt;&gt;&nbsp;@NotNull <a href="SQLTxExecutor.html" title="interface in io.zero88.jooqx">SQLTxExecutor</a>&lt;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">S</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">B</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">PQ</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">RS</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">RC</a>,&#8203;E&gt;&nbsp;transaction()</pre>
+<div class="block">Open transaction executor</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>E</code> - Type of VertxJooqExecutor</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>transaction executor</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="SQLTxExecutor.html" title="interface in io.zero88.jooqx"><code>SQLTxExecutor</code></a></dd>
+</dl>
+</li>
+</ul>
 <a id="vertx()">
 <!--   -->
 </a>
@@ -297,7 +292,7 @@ extends <a href="SQLQueryExecutor.html" title="interface in io.zero88.jooqx">SQL
 <h4>vertx</h4>
 <pre class="methodSignature">@NotNull
 @NotNull io.vertx.core.Vertx&nbsp;vertx()</pre>
-<div class="block">Vertx</div>
+<div class="block">Defines Vertx</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>vertx</dd>
@@ -311,8 +306,8 @@ extends <a href="SQLQueryExecutor.html" title="interface in io.zero88.jooqx">SQL
 <li class="blockList">
 <h4>sqlClient</h4>
 <pre class="methodSignature">@NotNull
-<a href="SQLExecutor.html" title="type parameter in SQLExecutor">S</a>&nbsp;sqlClient()</pre>
-<div class="block">Defines sql client</div>
+S&nbsp;sqlClient()</pre>
+<div class="block">Defines SQL client</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>sql client</dd>
@@ -325,8 +320,7 @@ extends <a href="SQLQueryExecutor.html" title="interface in io.zero88.jooqx">SQL
 <ul class="blockList">
 <li class="blockList">
 <h4>preparedQuery</h4>
-<pre class="methodSignature">@NotNull
-<a href="SQLExecutor.html" title="type parameter in SQLExecutor">PQ</a>&nbsp;preparedQuery()</pre>
+<pre class="methodSignature">PQ&nbsp;preparedQuery()</pre>
 <div class="block">Defines prepared query</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -342,8 +336,7 @@ extends <a href="SQLQueryExecutor.html" title="interface in io.zero88.jooqx">SQL
 <ul class="blockList">
 <li class="blockList">
 <h4>resultCollector</h4>
-<pre class="methodSignature">@NotNull
-<a href="SQLExecutor.html" title="type parameter in SQLExecutor">RC</a>&nbsp;resultCollector()</pre>
+<pre class="methodSignature">RC&nbsp;resultCollector()</pre>
 <div class="block">Defines result collector depends on result set</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -359,10 +352,8 @@ extends <a href="SQLQueryExecutor.html" title="interface in io.zero88.jooqx">SQL
 <ul class="blockList">
 <li class="blockList">
 <h4>errorConverter</h4>
-<pre class="methodSignature">@NotNull
-@NotNull <a href="SQLErrorConverter.html" title="interface in io.zero88.jooqx">SQLErrorConverter</a>&nbsp;errorConverter()</pre>
-<div class="block">Defines an error converter that rethrows an uniform exception by
- <a href="SQLErrorConverter.html#reThrowError(java.lang.Throwable)"><code>SQLErrorConverter.reThrowError(Throwable)</code></a>
+<pre class="methodSignature"><a href="SQLErrorConverter.html" title="interface in io.zero88.jooqx">SQLErrorConverter</a>&nbsp;errorConverter()</pre>
+<div class="block">Defines an error converter that rethrows a uniform exception by <a href="SQLErrorConverter.html#reThrowError(java.lang.Throwable)"><code>SQLErrorConverter.reThrowError(Throwable)</code></a>
  if any error in execution time</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -377,36 +368,16 @@ extends <a href="SQLQueryExecutor.html" title="interface in io.zero88.jooqx">SQL
 <a id="typeMapperRegistry()">
 <!--   -->
 </a>
-<ul class="blockList">
+<ul class="blockListLast">
 <li class="blockList">
 <h4>typeMapperRegistry</h4>
-<pre class="methodSignature">@NotNull
-@NotNull <a href="datatype/DataTypeMapperRegistry.html" title="class in io.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;typeMapperRegistry()</pre>
+<pre class="methodSignature"><a href="datatype/DataTypeMapperRegistry.html" title="class in io.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;typeMapperRegistry()</pre>
 <div class="block">Defines global data type mapper registry</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>registry</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="datatype/DataTypeMapperRegistry.html" title="class in io.zero88.jooqx.datatype"><code>DataTypeMapperRegistry</code></a></dd>
-</dl>
-</li>
-</ul>
-<a id="transaction()">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>transaction</h4>
-<pre class="methodSignature">@NotNull
-&lt;E extends <a href="SQLExecutor.html" title="interface in io.zero88.jooqx">SQLExecutor</a>&lt;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">S</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">B</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">PQ</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">RS</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">RC</a>&gt;&gt;&nbsp;@NotNull <a href="SQLTxExecutor.html" title="interface in io.zero88.jooqx">SQLTxExecutor</a>&lt;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">S</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">B</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">PQ</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">RS</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">RC</a>,&#8203;E&gt;&nbsp;transaction()</pre>
-<div class="block">Open transaction executor</div>
-<dl>
-<dt><span class="paramLabel">Type Parameters:</span></dt>
-<dd><code>E</code> - Type of VertxJooqExecutor</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>transaction executor</dd>
-<dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="SQLTxExecutor.html" title="interface in io.zero88.jooqx"><code>SQLTxExecutor</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -461,7 +432,7 @@ extends <a href="SQLQueryExecutor.html" title="interface in io.zero88.jooqx">SQL
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
-<li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
