@@ -61,7 +61,7 @@ tasks {
         dependsOn(named("genTestFixturesCode"))
     }
 
-    named<Javadoc>("testFixturesJavadoc") {
+    testFixturesJavadoc {
         title = "jOOQx Testing ${project.version} API"
     }
 }

@@ -34,7 +34,7 @@ public interface JooqSQL<S extends Schema> extends JooqDSLProvider, HasSQLDialec
     S schema();
 
     @Override
-    default DSLContext dsl() {
+    default @NotNull DSLContext dsl() {
         return JooqDSLProvider.create(dialect()).dsl();
     }
 

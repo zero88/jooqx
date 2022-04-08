@@ -14,14 +14,13 @@ import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
-import io.vertx.core.json.JsonArray;
 import io.vertx.ext.jdbc.JDBCClient;
 import io.vertx.ext.sql.ResultSet;
 import io.vertx.ext.sql.SQLClient;
 import io.vertx.ext.sql.SQLConnection;
 import io.vertx.ext.sql.SQLOperations;
 import io.zero88.jooqx.LegacySQLImpl.LegacyInternal;
-import io.zero88.jooqx.LegacySQLImpl.LegacyJooqxImpl;
+import io.zero88.jooqx.LegacySQLImpl.LegacyJooqxBuilderImpl;
 import io.zero88.jooqx.adapter.SQLResultAdapter;
 import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
@@ -38,9 +37,14 @@ import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 @VertxGen
 public interface LegacyJooqx extends LegacySQLImpl.LegacyInternal<SQLClient> {
 
-    @GenIgnore
+    /**
+     * Create a builder
+     *
+     * @return legacy jooqx builder
+     * @see LegacyJooqxBuilder
+     */
     static LegacyJooqxBuilder builder() {
-        return new LegacyJooqxBuilder();
+        return new LegacyJooqxBuilderImpl();
     }
 
     @Override
@@ -145,17 +149,5 @@ public interface LegacyJooqx extends LegacySQLImpl.LegacyInternal<SQLClient> {
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
     Future<Integer> ddl(@NotNull DDLQuery query);
-
-    @GenIgnore
-    class LegacyJooqxBuilder extends SQLExecutorBuilder<SQLClient, JsonArray, LegacySQLPreparedQuery, ResultSet,
-                                                       LegacySQLCollector, LegacyJooqx> {
-
-        @Override
-        public LegacyJooqx build() {
-            return new LegacyJooqxImpl(vertx(), dsl(), sqlClient(), preparedQuery(), resultCollector(),
-                                       errorConverter(), typeMapperRegistry());
-        }
-
-    }
 
 }

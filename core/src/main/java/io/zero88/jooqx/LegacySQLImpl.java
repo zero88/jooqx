@@ -31,6 +31,7 @@ import io.vertx.ext.sql.SQLOperations;
 import io.vertx.ext.sql.UpdateResult;
 import io.zero88.jooqx.MiscImpl.BatchResultImpl;
 import io.zero88.jooqx.SQLImpl.SQLEI;
+import io.zero88.jooqx.SQLImpl.SQLExecutorBuilderImpl;
 import io.zero88.jooqx.SQLImpl.SQLPQ;
 import io.zero88.jooqx.adapter.RowConverterStrategy;
 import io.zero88.jooqx.adapter.SQLResultAdapter;
@@ -100,9 +101,7 @@ final class LegacySQLImpl {
         }
 
         @Override
-        public int batchResultSize(@NotNull List<Integer> batchResult) {
-            return batchResult.size();
-        }
+        public int batchResultSize(@NotNull List<Integer> batchResult) { return batchResult.size(); }
 
     }
 
@@ -150,15 +149,11 @@ final class LegacySQLImpl {
 
         @Override
         @NotNull
-        protected final LegacySQLPreparedQuery defPrepareQuery() {
-            return LegacySQLPreparedQuery.create();
-        }
+        protected final LegacySQLPreparedQuery defPrepareQuery() { return LegacySQLPreparedQuery.create(); }
 
         @Override
         @NotNull
-        protected final LegacySQLCollector defResultCollector() {
-            return LegacySQLCollector.create();
-        }
+        protected final LegacySQLCollector defResultCollector() { return LegacySQLCollector.create(); }
 
     }
 
@@ -173,13 +168,11 @@ final class LegacySQLImpl {
 
         @Override
         @SuppressWarnings("unchecked")
-        public @NotNull LegacyJooqxTx transaction() {
-            return new LegacyJooqTxImpl(this);
-        }
+        public @NotNull LegacyJooqxTx transaction() { return new LegacyJooqTxImpl(this); }
 
         @Override
-        protected LegacyJooqxImpl withSqlClient(@NotNull SQLClient sqlClient) {
-            throw new UnsupportedOperationException("No need");
+        protected LegacyJooqx withSqlClient(@NotNull SQLClient sqlClient) {
+            throw new UnsupportedOperationException("Invalid transaction state");
         }
 
         protected Future<SQLConnection> openConn() {
@@ -230,12 +223,10 @@ final class LegacySQLImpl {
         }
 
         @Override
-        protected Future<SQLConnection> openConn() {
-            return Future.succeededFuture(sqlClient());
-        }
+        protected Future<SQLConnection> openConn() { return Future.succeededFuture(sqlClient()); }
 
         @Override
-        protected LegacyJooqTxImpl withSqlClient(@NotNull SQLConnection sqlConn) {
+        protected LegacyJooqxTx withSqlClient(@NotNull SQLConnection sqlConn) {
             return new LegacyJooqTxImpl(vertx(), dsl(), sqlConn, preparedQuery(), resultCollector(), errorConverter(),
                                         typeMapperRegistry());
         }
@@ -263,6 +254,20 @@ final class LegacySQLImpl {
         private <X> void failed(@NotNull SQLConnection conn, @NotNull Promise<X> promise, @NotNull Throwable t) {
             promise.fail(t);
             conn.close();
+        }
+
+    }
+
+
+    static class LegacyJooqxBuilderImpl extends
+                                        SQLExecutorBuilderImpl<SQLClient, JsonArray, LegacySQLPreparedQuery,
+                                                                  ResultSet, LegacySQLCollector, LegacyJooqxBuilder>
+        implements LegacyJooqxBuilder {
+
+        @Override
+        public @NotNull LegacyJooqx build() {
+            return new LegacyJooqxImpl(vertx(), dsl(), sqlClient(), preparedQuery(), resultCollector(),
+                                       errorConverter(), typeMapperRegistry());
         }
 
     }

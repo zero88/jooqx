@@ -23,13 +23,13 @@ public interface LegacyJooqxProvider extends
     @Override
     default @NotNull LegacyJooqx createExecutor(Vertx vertx, DSLContext dsl, SQLClient sqlClient) {
         return LegacyJooqx.builder()
-                          .vertx(vertx)
-                          .dsl(dsl)
-                          .sqlClient(sqlClient)
-                          .preparedQuery(createPreparedQuery())
-                          .resultCollector(createResultCollector())
-                          .errorConverter(errorConverter())
-                          .typeMapperRegistry(typeMapperRegistry())
+                          .setVertx(vertx)
+                          .setDSL(dsl)
+                          .setSqlClient(sqlClient)
+                          .setPreparedQuery(createPreparedQuery())
+                          .setResultCollector(createResultCollector())
+                          .setErrorConverter(errorConverter())
+                          .setTypeMapperRegistry(typeMapperRegistry())
                           .build();
     }
 

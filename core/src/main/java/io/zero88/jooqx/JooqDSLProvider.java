@@ -18,12 +18,12 @@ import org.jooq.impl.DefaultConfiguration;
 public interface JooqDSLProvider {
 
     /**
-     * Defines jOOQ {@code DSL context}.
+     * Defines jOOQ {@code DSL Context}
      *
      * @return the DSL context
      * @see DSLContext
      */
-    DSLContext dsl();
+    @NotNull DSLContext dsl();
 
     @NotNull
     static JooqDSLProvider create(SQLDialect dialect) {

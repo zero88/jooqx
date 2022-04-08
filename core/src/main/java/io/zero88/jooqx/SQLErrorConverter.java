@@ -37,7 +37,7 @@ public interface SQLErrorConverter {
     }
 
     /**
-     * Create new SQL error converter to easy integrate with current application exception
+     * Create new SQL error converter to easily integrate with current application exception
      *
      * @param andThen function that transform output of current {@link #handle(Throwable)} to an expectation
      * @param <R>     Type of runtime exception

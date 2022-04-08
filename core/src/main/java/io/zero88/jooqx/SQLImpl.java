@@ -4,6 +4,7 @@ import java.sql.SQLNonTransientConnectionException;
 import java.sql.SQLTransientConnectionException;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.regex.Pattern;
@@ -37,7 +38,7 @@ final class SQLImpl {
         private final DataTypeMapperRegistry typeMapperRegistry;
 
         protected SQLEI(Vertx vertx, DSLContext dsl, S sqlClient, PQ preparedQuery, RC resultCollector,
-            SQLErrorConverter errorConverter, DataTypeMapperRegistry typeMapperRegistry) {
+                        SQLErrorConverter errorConverter, DataTypeMapperRegistry typeMapperRegistry) {
             this.vertx              = vertx;
             this.dsl                = dsl;
             this.sqlClient          = sqlClient;
@@ -63,44 +64,42 @@ final class SQLImpl {
         @NotNull
         protected abstract RC defResultCollector();
 
-        @NotNull
-        protected SQLErrorConverter defErrorConverter() {
+        protected @NotNull SQLErrorConverter defErrorConverter() {
             return SQLErrorConverter.DEFAULT;
         }
 
-        @NotNull
-        protected DataTypeMapperRegistry defMapperRegistry() {
+        protected @NotNull DataTypeMapperRegistry defMapperRegistry() {
             return new DataTypeMapperRegistry();
         }
 
-        @NotNull
         @Override
-        public Vertx vertx() {return vertx;}
+        public @NotNull Vertx vertx() { return vertx; }
 
         @Override
-        public @NotNull DSLContext dsl() {return dsl;}
+        public @NotNull DSLContext dsl() { return dsl; }
 
-        @NotNull
         @Override
-        public S sqlClient() {return sqlClient;}
+        public @NotNull S sqlClient() { return sqlClient; }
 
-        @NotNull
         @Override
-        public PQ preparedQuery() {return preparedQuery;}
+        public @NotNull PQ preparedQuery() { return preparedQuery; }
 
-        @NotNull
         @Override
-        public RC resultCollector() {return resultCollector;}
+        public @NotNull RC resultCollector() { return resultCollector; }
 
-        @NotNull
         @Override
-        public SQLErrorConverter errorConverter() {return errorConverter;}
+        public @NotNull SQLErrorConverter errorConverter() { return errorConverter; }
 
-        @NotNull
         @Override
-        public DataTypeMapperRegistry typeMapperRegistry() {return typeMapperRegistry;}
+        public @NotNull DataTypeMapperRegistry typeMapperRegistry() { return typeMapperRegistry; }
 
-        protected abstract SQLEI<S, B, PQ, RS, RC> withSqlClient(S sqlClient);
+        /**
+         * To spawn executor in Database transaction
+         *
+         * @param sqlClient SQL client
+         * @return new instance of executor
+         */
+        protected abstract SQLExecutor<S, B, PQ, RS, RC> withSqlClient(S sqlClient);
 
     }
 
@@ -143,19 +142,19 @@ final class SQLImpl {
         }
 
         public final @NotNull List<T> bindValues(@NotNull Query query, @NotNull BindBatchValues bindBatchValues,
-            @NotNull DataTypeMapperRegistry mapperRegistry) {
+                                                 @NotNull DataTypeMapperRegistry mapperRegistry) {
             return this.convert(query.getParams(), bindBatchValues, mapperRegistry);
         }
 
         protected abstract T doConvert(Map<String, Param<?>> params, DataTypeMapperRegistry registry,
-            BiFunction<String, Param<?>, ?> queryValue);
+                                       BiFunction<String, Param<?>, ?> queryValue);
 
         private T convert(@NotNull Map<String, Param<?>> params, @NotNull DataTypeMapperRegistry registry) {
             return doConvert(params, registry, (k, v) -> v.getValue());
         }
 
         private List<T> convert(@NotNull Map<String, Param<?>> params, @NotNull BindBatchValues bindBatchValues,
-            @NotNull DataTypeMapperRegistry registry) {
+                                @NotNull DataTypeMapperRegistry registry) {
             final List<String> fields = bindBatchValues.getMappingFields();
             final List<Object> values = bindBatchValues.getMappingValues();
             return bindBatchValues.getRecords()
@@ -174,6 +173,72 @@ final class SQLImpl {
                                       }
                                   }))
                                   .collect(Collectors.toList());
+        }
+
+    }
+
+
+    @SuppressWarnings("unchecked")
+    abstract static class SQLExecutorBuilderImpl<S, B, PQ extends SQLPreparedQuery<B>, RS,
+                                                        RC extends SQLResultCollector<RS>,
+                                                        E extends SQLExecutorBuilder<S, B, PQ, RS, RC, E>>
+        implements SQLExecutorBuilder<S, B, PQ, RS, RC, E> {
+
+        private Vertx vertx;
+        private DSLContext dsl;
+        private S sqlClient;
+        private PQ preparedQuery;
+        private RC resultCollector;
+        private SQLErrorConverter errorConverter;
+        private DataTypeMapperRegistry typeMapperRegistry;
+
+        public @NotNull Vertx vertx() { return Objects.requireNonNull(vertx, "Required Vert.x instance"); }
+
+        public @NotNull E setVertx(Vertx vertx) {
+            this.vertx = vertx;
+            return (E) this;
+        }
+
+        public @NotNull DSLContext dsl() { return Objects.requireNonNull(dsl, "Required DSLContext instance"); }
+
+        public @NotNull E setDSL(DSLContext dsl) {
+            this.dsl = dsl;
+            return (E) this;
+        }
+
+        public @NotNull S sqlClient() { return Objects.requireNonNull(sqlClient, "Required SQL client instance"); }
+
+        public @NotNull E setSqlClient(S sqlClient) {
+            this.sqlClient = sqlClient;
+            return (E) this;
+        }
+
+        public PQ preparedQuery() { return preparedQuery; }
+
+        public @NotNull E setPreparedQuery(PQ preparedQuery) {
+            this.preparedQuery = preparedQuery;
+            return (E) this;
+        }
+
+        public RC resultCollector() { return resultCollector; }
+
+        public @NotNull E setResultCollector(RC resultCollector) {
+            this.resultCollector = resultCollector;
+            return (E) this;
+        }
+
+        public SQLErrorConverter errorConverter() { return errorConverter; }
+
+        public @NotNull E setErrorConverter(SQLErrorConverter errorConverter) {
+            this.errorConverter = errorConverter;
+            return (E) this;
+        }
+
+        public DataTypeMapperRegistry typeMapperRegistry() { return typeMapperRegistry; }
+
+        public @NotNull E setTypeMapperRegistry(DataTypeMapperRegistry typeMapperRegistry) {
+            this.typeMapperRegistry = typeMapperRegistry;
+            return (E) this;
         }
 
     }
