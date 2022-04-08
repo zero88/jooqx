@@ -26,6 +26,12 @@
     catch(err) {
     }
 //-->
+var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
+var altColor = "altColor";
+var rowColor = "rowColor";
+var tableTab = "tableTab";
+var activeTableTab = "activeTableTab";
 var pathtoroot = "../../../";
 var useModuleDirectories = false;
 loadScripts(document, 'script');</script>
@@ -81,7 +87,7 @@ loadScripts(document, 'script');</script>
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
-<li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
@@ -144,36 +150,6 @@ extends <a href="SQLExecutor.html" title="interface in io.zero88.jooqx">SQLExecu
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
-<!-- ======== NESTED CLASS SUMMARY ======== -->
-<section role="region">
-<ul class="blockList">
-<li class="blockList"><a id="nested.class.summary">
-<!--   -->
-</a>
-<h3>Nested Class Summary</h3>
-<table class="memberSummary">
-<caption><span>Nested Classes</span><span class="tabEnd">&nbsp;</span></caption>
-<tr>
-<th class="colFirst" scope="col">Modifier and Type</th>
-<th class="colSecond" scope="col">Interface</th>
-<th class="colLast" scope="col">Description</th>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>static class&nbsp;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="JooqxBase.JooqxBaseBuilder.html" title="class in io.zero88.jooqx">JooqxBase.JooqxBaseBuilder</a>&lt;<a href="JooqxBase.JooqxBaseBuilder.html" title="type parameter in JooqxBase.JooqxBaseBuilder">S</a> extends io.vertx.sqlclient.SqlClient,&#8203;<a href="JooqxBase.JooqxBaseBuilder.html" title="type parameter in JooqxBase.JooqxBaseBuilder">X</a> extends <a href="JooqxBase.html" title="interface in io.zero88.jooqx">JooqxBase</a>&lt;<a href="JooqxBase.JooqxBaseBuilder.html" title="type parameter in JooqxBase.JooqxBaseBuilder">S</a>&gt;&gt;</span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-</table>
-<ul class="blockList">
-<li class="blockList"><a id="nested.classes.inherited.from.class.io.zero88.jooqx.SQLExecutor">
-<!--   -->
-</a>
-<h3>Nested classes/interfaces inherited from interface&nbsp;io.zero88.jooqx.<a href="SQLExecutor.html" title="interface in io.zero88.jooqx">SQLExecutor</a></h3>
-<code><a href="SQLExecutor.SQLExecutorBuilder.html" title="class in io.zero88.jooqx">SQLExecutor.SQLExecutorBuilder</a>&lt;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">S</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">B</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">P</a> extends <a href="SQLPreparedQuery.html" title="interface in io.zero88.jooqx">SQLPreparedQuery</a>&lt;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">B</a>&gt;,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">RS</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">C</a> extends <a href="SQLResultCollector.html" title="interface in io.zero88.jooqx">SQLResultCollector</a>&lt;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">RS</a>&gt;,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">E</a> extends <a href="SQLExecutor.html" title="interface in io.zero88.jooqx">SQLExecutor</a>&lt;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">S</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">B</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">P</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">RS</a>,&#8203;<a href="SQLExecutor.SQLExecutorBuilder.html" title="type parameter in SQLExecutor.SQLExecutorBuilder">C</a>&gt;&gt;</code></li>
-</ul>
-</li>
-</ul>
-</section>
 <!-- ========== METHOD SUMMARY =========== -->
 <section role="region">
 <ul class="blockList">
@@ -182,16 +158,54 @@ extends <a href="SQLExecutor.html" title="interface in io.zero88.jooqx">SQLExecu
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary">
-<caption><span>Static Methods</span><span class="tabEnd">&nbsp;</span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Method</th>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>static &lt;S extends io.vertx.sqlclient.SqlClient&gt;<br><a href="JooqxBase.JooqxBaseBuilder.html" title="class in io.zero88.jooqx">JooqxBase.JooqxBaseBuilder</a>&lt;S,&#8203;<a href="JooqxBase.html" title="interface in io.zero88.jooqx">JooqxBase</a>&lt;S&gt;&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#baseBuilder()">baseBuilder</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colFirst"><code><a href="SQLErrorConverter.html" title="interface in io.zero88.jooqx">SQLErrorConverter</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#errorConverter()">errorConverter</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Defines an error converter that rethrows a uniform exception by <a href="SQLErrorConverter.html#reThrowError(java.lang.Throwable)"><code>SQLErrorConverter.reThrowError(Throwable)</code></a>
+ if any error in execution time</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>PQ</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#preparedQuery()">preparedQuery</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Defines prepared query</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>RC</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resultCollector()">resultCollector</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Defines result collector depends on result set</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>S</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sqlClient()">sqlClient</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Defines SQL client</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code><a href="datatype/DataTypeMapperRegistry.html" title="class in io.zero88.jooqx.datatype">DataTypeMapperRegistry</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#typeMapperRegistry()">typeMapperRegistry</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Defines global data type mapper registry</div>
+</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>@NotNull io.vertx.core.Vertx</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#vertx()">vertx</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Defines Vertx</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -227,7 +241,7 @@ extends <a href="SQLExecutor.html" title="interface in io.zero88.jooqx">SQLExecu
 <!--   -->
 </a>
 <h3>Methods inherited from interface&nbsp;io.zero88.jooqx.<a href="SQLExecutor.html" title="interface in io.zero88.jooqx">SQLExecutor</a></h3>
-<code><a href="SQLExecutor.html#errorConverter()">errorConverter</a>, <a href="SQLExecutor.html#preparedQuery()">preparedQuery</a>, <a href="SQLExecutor.html#resultCollector()">resultCollector</a>, <a href="SQLExecutor.html#sqlClient()">sqlClient</a>, <a href="SQLExecutor.html#transaction()">transaction</a>, <a href="SQLExecutor.html#typeMapperRegistry()">typeMapperRegistry</a>, <a href="SQLExecutor.html#vertx()">vertx</a></code></li>
+<code><a href="SQLExecutor.html#transaction()">transaction</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.io.zero88.jooqx.SQLQueryExecutor">
@@ -252,13 +266,101 @@ extends <a href="SQLExecutor.html" title="interface in io.zero88.jooqx">SQLExecu
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="baseBuilder()">
+<a id="vertx()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>vertx</h4>
+<pre class="methodSignature">@NotNull
+@NotNull io.vertx.core.Vertx&nbsp;vertx()</pre>
+<div class="block">Defines Vertx</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>vertx</dd>
+</dl>
+</li>
+</ul>
+<a id="sqlClient()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>sqlClient</h4>
+<pre class="methodSignature">@NotNull
+S&nbsp;sqlClient()</pre>
+<div class="block">Defines SQL client</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>sql client</dd>
+</dl>
+</li>
+</ul>
+<a id="preparedQuery()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>preparedQuery</h4>
+<pre class="methodSignature">PQ&nbsp;preparedQuery()</pre>
+<div class="block">Defines prepared query</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>prepared query</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="SQLPreparedQuery.html" title="interface in io.zero88.jooqx"><code>SQLPreparedQuery</code></a></dd>
+</dl>
+</li>
+</ul>
+<a id="resultCollector()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>resultCollector</h4>
+<pre class="methodSignature">RC&nbsp;resultCollector()</pre>
+<div class="block">Defines result collector depends on result set</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>result collector</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="SQLResultCollector.html" title="interface in io.zero88.jooqx"><code>SQLResultCollector</code></a></dd>
+</dl>
+</li>
+</ul>
+<a id="errorConverter()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>errorConverter</h4>
+<pre class="methodSignature"><a href="SQLErrorConverter.html" title="interface in io.zero88.jooqx">SQLErrorConverter</a>&nbsp;errorConverter()</pre>
+<div class="block">Defines an error converter that rethrows a uniform exception by <a href="SQLErrorConverter.html#reThrowError(java.lang.Throwable)"><code>SQLErrorConverter.reThrowError(Throwable)</code></a>
+ if any error in execution time</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>error handler</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="SQLErrorConverter.html" title="interface in io.zero88.jooqx"><code>SQLErrorConverter</code></a></dd>
+<dt><span class="simpleTagLabel">API Note:</span></dt>
+<dd>Default is <a href="SQLErrorConverter.html#DEFAULT"><code>SQLErrorConverter.DEFAULT</code></a> that keeps error as it is</dd>
+</dl>
+</li>
+</ul>
+<a id="typeMapperRegistry()">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>baseBuilder</h4>
-<pre class="methodSignature">static&nbsp;&lt;S extends io.vertx.sqlclient.SqlClient&gt;&nbsp;<a href="JooqxBase.JooqxBaseBuilder.html" title="class in io.zero88.jooqx">JooqxBase.JooqxBaseBuilder</a>&lt;S,&#8203;<a href="JooqxBase.html" title="interface in io.zero88.jooqx">JooqxBase</a>&lt;S&gt;&gt;&nbsp;baseBuilder()</pre>
+<h4>typeMapperRegistry</h4>
+<pre class="methodSignature"><a href="datatype/DataTypeMapperRegistry.html" title="class in io.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;typeMapperRegistry()</pre>
+<div class="block">Defines global data type mapper registry</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>registry</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="datatype/DataTypeMapperRegistry.html" title="class in io.zero88.jooqx.datatype"><code>DataTypeMapperRegistry</code></a></dd>
+</dl>
 </li>
 </ul>
 </li>
@@ -312,7 +414,7 @@ extends <a href="SQLExecutor.html" title="interface in io.zero88.jooqx">SQLExecu
 <div>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
-<li><a href="#nested.class.summary">Nested</a>&nbsp;|&nbsp;</li>
+<li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
