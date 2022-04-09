@@ -12,7 +12,7 @@ import io.zero88.jooqx.JooqxSQLImpl.ReactiveSQLRC;
 import io.zero88.jooqx.adapter.RowConverterStrategy;
 
 /**
- * Reactive result set converter
+ * Represents for a collector that collects {@code Vert.x SQL result} to an expectation output
  *
  * @since 1.1.0
  */

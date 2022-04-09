@@ -6,6 +6,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jooq.DSLContext;
 import org.jooq.Query;
 
+import io.vertx.codegen.annotations.GenIgnore;
+import io.vertx.codegen.annotations.VertxGen;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
@@ -15,6 +17,7 @@ import io.vertx.core.Handler;
  *
  * @since 1.0.0
  */
+@VertxGen(concrete = false)
 public interface SQLBatchExecutor extends JooqDSLProvider {
 
     /**
@@ -27,6 +30,7 @@ public interface SQLBatchExecutor extends JooqDSLProvider {
      * @see BatchResult
      * @since 1.1.0
      */
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
     default void batch(@NotNull Function<DSLContext, Query> queryFunction, @NotNull BindBatchValues bindBatchValues,
                        @NotNull Handler<AsyncResult<BatchResult>> handler) {
         batch(queryFunction, bindBatchValues).onComplete(handler);
@@ -40,6 +44,7 @@ public interface SQLBatchExecutor extends JooqDSLProvider {
      * @return a {@code Future} of the asynchronous result
      * @since 1.1.0
      */
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
     default Future<BatchResult> batch(@NotNull Function<DSLContext, Query> queryFunction,
                                       @NotNull BindBatchValues bindBatchValues) {
         return batch(queryFunction.apply(dsl()), bindBatchValues);
@@ -54,6 +59,7 @@ public interface SQLBatchExecutor extends JooqDSLProvider {
      * @see BindBatchValues
      * @see BatchResult
      */
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
     default void batch(@NotNull Query query, @NotNull BindBatchValues bindBatchValues,
                        @NotNull Handler<AsyncResult<BatchResult>> handler) {
         batch(query, bindBatchValues).onComplete(handler);
@@ -66,6 +72,7 @@ public interface SQLBatchExecutor extends JooqDSLProvider {
      * @param bindBatchValues bind batch values
      * @return a {@code Future} of the asynchronous result
      */
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
     Future<BatchResult> batch(@NotNull Query query, @NotNull BindBatchValues bindBatchValues);
 
 }

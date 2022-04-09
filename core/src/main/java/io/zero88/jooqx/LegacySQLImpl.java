@@ -19,6 +19,7 @@ import org.jooq.DSLContext;
 import org.jooq.Field;
 import org.jooq.Param;
 import org.jooq.Query;
+import org.jooq.impl.DSL;
 
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
@@ -139,9 +140,9 @@ final class LegacySQLImpl {
         }
 
         @Override
-        public Future<Integer> ddl(@NotNull DDLQuery query) {
+        public Future<Integer> ddl(@NotNull DDLQuery statement) {
             final Promise<UpdateResult> promise = Promise.promise();
-            sqlClient().update(preparedQuery().sql(dsl().configuration(), query), promise);
+            sqlClient().update(preparedQuery().sql(dsl().configuration(), statement), promise);
             return promise.future().map(UpdateResult::getUpdated).otherwise(errorConverter()::reThrowError);
         }
 

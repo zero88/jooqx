@@ -8,7 +8,7 @@ import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
 interface SQLExecutorBuilder<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extends SQLResultCollector<RS>,
                                 E extends SQLExecutorBuilder<S, B, PQ, RS, RC, E>>
-    extends SQLExecutorSetting<S, B, PQ, RS, RC> {
+    extends SQLExecutorContext<S, B, PQ, RS, RC> {
 
     /**
      * Set vertx

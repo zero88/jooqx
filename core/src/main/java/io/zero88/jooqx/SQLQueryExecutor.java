@@ -7,7 +7,9 @@ import org.jooq.DSLContext;
 import org.jooq.Query;
 import org.jooq.TableLike;
 
+import io.vertx.codegen.annotations.GenIgnore;
 import io.vertx.codegen.annotations.Nullable;
+import io.vertx.codegen.annotations.VertxGen;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
@@ -18,6 +20,7 @@ import io.zero88.jooqx.adapter.SQLResultAdapter;
  *
  * @since 1.1.0
  */
+@VertxGen(concrete = false)
 public interface SQLQueryExecutor extends JooqDSLProvider {
 
     /**
@@ -33,6 +36,7 @@ public interface SQLQueryExecutor extends JooqDSLProvider {
      * @see SQLResultAdapter
      * @since 1.1.0
      */
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
     default <T, R> void execute(@NotNull Function<DSLContext, Query> queryFunction,
                                 @NotNull SQLResultAdapter<T, R> resultAdapter,
                                 @NotNull Handler<AsyncResult<@Nullable R>> handler) {
@@ -50,6 +54,7 @@ public interface SQLQueryExecutor extends JooqDSLProvider {
      * @return a {@code Future} of the asynchronous result
      * @since 1.1.0
      */
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
     default <T, R> Future<@Nullable R> execute(@NotNull Function<DSLContext, Query> queryFunction,
                                                @NotNull SQLResultAdapter<T, R> resultAdapter) {
         return execute(queryFunction.apply(dsl()), resultAdapter);
@@ -67,6 +72,7 @@ public interface SQLQueryExecutor extends JooqDSLProvider {
      * @see TableLike
      * @see SQLResultAdapter
      */
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
     default <T, R> void execute(@NotNull Query query, @NotNull SQLResultAdapter<T, R> resultAdapter,
                                 @NotNull Handler<AsyncResult<@Nullable R>> handler) {
         execute(query, resultAdapter).onComplete(handler);
@@ -81,6 +87,7 @@ public interface SQLQueryExecutor extends JooqDSLProvider {
      * @param resultAdapter the result adapter
      * @return a {@code Future} of the asynchronous result
      */
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
     <T, R> Future<@Nullable R> execute(@NotNull Query query, @NotNull SQLResultAdapter<T, R> resultAdapter);
 
 }

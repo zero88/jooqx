@@ -21,7 +21,7 @@ import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
  * SQL Result adapter receives Result set then mapping to expected result
  *
  * @param <T> Type of jOOQ Table in Query context
- * @param <R> Type of an expectation output
+ * @param <R> Type of expectation output
  * @see TableLike
  * @see Record
  * @see SQLResultCollector

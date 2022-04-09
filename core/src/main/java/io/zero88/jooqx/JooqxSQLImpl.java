@@ -258,8 +258,8 @@ final class JooqxSQLImpl {
         }
 
         @Override
-        public Future<Integer> ddl(@NotNull DDLQuery query) {
-            return sqlClient().query(preparedQuery().sql(dsl().configuration(), query))
+        public Future<Integer> ddl(@NotNull DDLQuery statement) {
+            return sqlClient().query(preparedQuery().sql(dsl().configuration(), statement))
                               .execute()
                               .map(SqlResult::size)
                               .otherwise(errorConverter()::reThrowError);
