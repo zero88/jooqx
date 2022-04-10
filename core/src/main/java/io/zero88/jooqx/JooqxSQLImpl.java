@@ -247,9 +247,9 @@ final class JooqxSQLImpl {
         }
 
         @Override
-        public <T, R> Future<BatchReturningResult<R>> batch(@NotNull Query query,
-                                                            @NotNull BindBatchValues bindBatchValues,
-                                                            @NotNull SQLResultAdapter.SQLResultListAdapter<T, R> adapter) {
+        public <T, R> Future<BatchReturningResult<R>> batchResult(@NotNull Query query,
+                                                                  @NotNull BindBatchValues bindBatchValues,
+                                                                  @NotNull SQLResultAdapter.SQLResultListAdapter<T, R> adapter) {
             return sqlClient().preparedQuery(preparedQuery().sql(dsl().configuration(), query))
                               .executeBatch(preparedQuery().bindValues(query, bindBatchValues, typeMapperRegistry()))
                               .map(rs -> adapter.collect(rs, new ReactiveSQLBC(), dsl(), typeMapperRegistry()))

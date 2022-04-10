@@ -16,6 +16,6 @@ import io.vertx.sqlclient.Tuple;
  * @since 1.1.0
  */
 public interface JooqxBase<S extends SqlClient>
-    extends SQLExecutor<S, Tuple, JooqxPreparedQuery, RowSet<Row>, JooqxResultCollector>, JooqxBatchExecutor {
+    extends SQLExecutor<S, Tuple, JooqxPreparedQuery, RowSet<Row>, JooqxResultCollector>, SQLBatchResultExecutor {
 
 }
