@@ -25,7 +25,7 @@ public final class SelectCount extends SelectAdhocOneResult<TableLike<Record1<In
     }
 
     @Override
-    public <RS> @NotNull Integer collect(@NotNull RS resultSet, @NotNull SQLResultCollector<RS> collector,
+    public @NotNull <RS> Integer collect(@NotNull RS resultSet, @NotNull SQLResultCollector<RS> collector,
                                          @NotNull DSLContext dsl, @NotNull DataTypeMapperRegistry registry) {
         final SQLCollectorPart<JsonRecord<?>, Integer> part = SQLResultAdapter.byJson()
                                                                               .andThen(r -> r.get(0, Integer.class));

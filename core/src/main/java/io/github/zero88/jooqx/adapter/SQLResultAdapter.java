@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.List;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.jooq.DSLContext;
 import org.jooq.Field;
 import org.jooq.Record;
@@ -29,7 +30,7 @@ import io.github.zero88.jooqx.datatype.DataTypeMapperRegistry;
  */
 public interface SQLResultAdapter<T, R> extends HasStrategy {
 
-    @SuppressWarnings({"rawtypes", "unchecked"})
+    @SuppressWarnings({ "rawtypes", "unchecked" })
     static IdentityCollectorPart<JsonRecord<?>> byJson() {
         return new IdentityCollectorPart<>((dsl, queryTbl) -> JsonRecord.create((TableLike<TableRecord>) queryTbl));
     }
@@ -71,8 +72,8 @@ public interface SQLResultAdapter<T, R> extends HasStrategy {
      * @return an expected result
      * @see DataTypeMapperRegistry
      */
-    @NotNull <RS> R collect(@NotNull RS resultSet, @NotNull SQLResultCollector<RS> collector, @NotNull DSLContext dsl,
-        @NotNull DataTypeMapperRegistry registry);
+    <RS> @Nullable R collect(@NotNull RS resultSet, @NotNull SQLResultCollector<RS> collector, @NotNull DSLContext dsl,
+                             @NotNull DataTypeMapperRegistry registry);
 
     /**
      * Indicates select many row
@@ -84,7 +85,7 @@ public interface SQLResultAdapter<T, R> extends HasStrategy {
 
         @Override
         @NotNull <RS> List<R> collect(@NotNull RS resultSet, @NotNull SQLResultCollector<RS> collector,
-            @NotNull DSLContext dsl, @NotNull DataTypeMapperRegistry registry);
+                                      @NotNull DSLContext dsl, @NotNull DataTypeMapperRegistry registry);
 
         @Override
         default @NotNull SelectStrategy strategy() {
@@ -107,8 +108,8 @@ public interface SQLResultAdapter<T, R> extends HasStrategy {
         }
 
         @Override
-        @NotNull <RS> R collect(@NotNull RS resultSet, @NotNull SQLResultCollector<RS> collector,
-            @NotNull DSLContext dsl, @NotNull DataTypeMapperRegistry registry);
+        <RS> @Nullable R collect(@NotNull RS resultSet, @NotNull SQLResultCollector<RS> collector,
+                                 @NotNull DSLContext dsl, @NotNull DataTypeMapperRegistry registry);
 
     }
 

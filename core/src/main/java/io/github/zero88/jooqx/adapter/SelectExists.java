@@ -24,7 +24,7 @@ public final class SelectExists extends SelectAdhocOneResult<TableLike<Record1<I
     }
 
     @Override
-    public <RS> @NotNull Boolean collect(@NotNull RS resultSet, @NotNull SQLResultCollector<RS> collector,
+    public @NotNull <RS> Boolean collect(@NotNull RS resultSet, @NotNull SQLResultCollector<RS> collector,
                                          @NotNull DSLContext dsl, @NotNull DataTypeMapperRegistry registry) {
         return collector.collect(resultSet, initStrategy(dsl, registry,
                                                          SQLResultAdapter.byTable(table()).andThen(Objects::nonNull)))

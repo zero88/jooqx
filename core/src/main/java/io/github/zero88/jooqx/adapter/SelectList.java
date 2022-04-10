@@ -29,7 +29,7 @@ public final class SelectList<T extends TableLike<? extends Record>, R extends R
 
     @Override
     public <RS> @NotNull List<I> collect(@NotNull RS resultSet, @NotNull SQLResultCollector<RS> collector,
-                                @NotNull DSLContext dsl, @NotNull DataTypeMapperRegistry registry) {
+                                         @NotNull DSLContext dsl, @NotNull DataTypeMapperRegistry registry) {
         return collector.collect(resultSet, createStrategy(registry, dsl));
     }
 

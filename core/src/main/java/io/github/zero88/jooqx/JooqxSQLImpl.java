@@ -230,7 +230,7 @@ final class JooqxSQLImpl {
         }
 
         @Override
-        public <T, R> Future<R> execute(@NotNull Query query, @NotNull SQLResultAdapter<T, R> adapter) {
+        public <T, R> Future<@Nullable R> execute(@NotNull Query query, @NotNull SQLResultAdapter<T, R> adapter) {
             return sqlClient().preparedQuery(preparedQuery().sql(dsl().configuration(), query))
                               .execute(preparedQuery().bindValues(query, typeMapperRegistry()))
                               .map(rs -> adapter.collect(rs, resultCollector(), dsl(), typeMapperRegistry()))
