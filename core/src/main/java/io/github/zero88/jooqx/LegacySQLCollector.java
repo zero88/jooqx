@@ -16,6 +16,7 @@ import io.vertx.ext.sql.ResultSet;
  * @since 1.0.0
  */
 @VertxGen
+@Deprecated
 public interface LegacySQLCollector extends SQLResultCollector<ResultSet>, SQLBatchCollector<ResultSet, List<Integer>> {
 
     static LegacySQLCollector create() {

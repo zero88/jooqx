@@ -18,6 +18,7 @@ import io.vertx.ext.sql.SQLClient;
  * @since 2.0.0
  */
 @VertxGen
+@Deprecated
 public interface LegacyJooqxBuilder extends
                                     SQLExecutorBuilder<SQLClient, JsonArray, LegacySQLPreparedQuery, ResultSet,
                                                           LegacySQLCollector, LegacyJooqxBuilder> {

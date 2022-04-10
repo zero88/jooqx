@@ -26,6 +26,7 @@ import io.vertx.ext.sql.SQLConnection;
  * @since 1.0.0
  */
 @VertxGen
+@Deprecated
 public interface LegacyJooqxTx extends LegacyInternal<SQLConnection>,
                                        SQLTxExecutor<SQLConnection, JsonArray, LegacySQLPreparedQuery, ResultSet,
                                                         LegacySQLCollector, LegacyJooqxTx> {

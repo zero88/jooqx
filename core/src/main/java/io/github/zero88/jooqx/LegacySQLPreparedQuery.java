@@ -18,6 +18,7 @@ import io.vertx.core.json.JsonArray;
  * @since 1.0.0
  */
 @VertxGen
+@Deprecated
 public interface LegacySQLPreparedQuery extends SQLPreparedQuery<JsonArray> {
 
     /**

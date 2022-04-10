@@ -28,6 +28,7 @@ import io.github.zero88.jooqx.adapter.RowConverterStrategy;
 import io.github.zero88.jooqx.adapter.SQLResultAdapter;
 import io.github.zero88.jooqx.adapter.SelectStrategy;
 import io.github.zero88.jooqx.datatype.DataTypeMapperRegistry;
+import io.vertx.codegen.annotations.Nullable;
 import io.vertx.core.Future;
 import io.vertx.core.Promise;
 import io.vertx.core.Vertx;
@@ -38,8 +39,10 @@ import io.vertx.ext.sql.SQLConnection;
 import io.vertx.ext.sql.SQLOperations;
 import io.vertx.ext.sql.UpdateResult;
 
+@Deprecated
 final class LegacySQLImpl {
 
+    @Deprecated
     interface LegacyInternal<S extends SQLOperations>
         extends SQLExecutor<S, JsonArray, LegacySQLPreparedQuery, ResultSet, LegacySQLCollector> {
 
@@ -52,6 +55,7 @@ final class LegacySQLImpl {
     }
 
 
+    @Deprecated
     static final class LegacySQLPQ extends SQLPQ<JsonArray> implements LegacySQLPreparedQuery {
 
         @Override
@@ -68,6 +72,7 @@ final class LegacySQLImpl {
     }
 
 
+    @Deprecated
     static final class LegacySQLRC implements LegacySQLCollector {
 
         @NotNull
@@ -106,6 +111,7 @@ final class LegacySQLImpl {
     }
 
 
+    @Deprecated
     abstract static class LegacySQLEI<S extends SQLOperations>
         extends SQLEI<S, JsonArray, LegacySQLPreparedQuery, ResultSet, LegacySQLCollector>
         implements LegacyInternal<S> {
@@ -117,7 +123,7 @@ final class LegacySQLImpl {
         }
 
         @Override
-        public final <T, R> Future<R> execute(@NotNull Query query, @NotNull SQLResultAdapter<T, R> adapter) {
+        public final <T, R> Future<@Nullable R> execute(@NotNull Query query, @NotNull SQLResultAdapter<T, R> adapter) {
             final Promise<ResultSet> promise = Promise.promise();
             sqlClient().queryWithParams(preparedQuery().sql(dsl().configuration(), query),
                                         preparedQuery().bindValues(query, typeMapperRegistry()), promise);
@@ -158,6 +164,7 @@ final class LegacySQLImpl {
     }
 
 
+    @Deprecated
     static final class LegacyJooqxImpl extends LegacySQLEI<SQLClient> implements LegacyJooqx {
 
         LegacyJooqxImpl(Vertx vertx, DSLContext dsl, SQLClient sqlClient, LegacySQLPreparedQuery preparedQuery,
@@ -190,6 +197,7 @@ final class LegacySQLImpl {
     }
 
 
+    @Deprecated
     static final class LegacyJooqTxImpl extends LegacySQLEI<SQLConnection> implements LegacyJooqxTx {
 
         private final LegacySQLEI<SQLClient> delegate;
@@ -259,8 +267,10 @@ final class LegacySQLImpl {
     }
 
 
-    static class LegacyJooqxBuilderImpl extends SQLExecutorBuilderImpl<SQLClient, JsonArray, LegacySQLPreparedQuery,
-                                                                      ResultSet, LegacySQLCollector, LegacyJooqxBuilder>
+    @Deprecated
+    static class LegacyJooqxBuilderImpl extends
+                                        SQLExecutorBuilderImpl<SQLClient, JsonArray, LegacySQLPreparedQuery,
+                                                                  ResultSet, LegacySQLCollector, LegacyJooqxBuilder>
         implements LegacyJooqxBuilder {
 
         @Override

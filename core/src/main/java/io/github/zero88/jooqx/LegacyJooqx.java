@@ -24,8 +24,13 @@ import io.vertx.ext.sql.SQLOperations;
  * @see JDBCClient
  * @see ResultSet
  * @since 1.0.0
+ * @deprecated Since <a href="https://vertx.io/docs/vertx-jdbc-client/java/#_legacy_jdbc_client_api">Vertx
+ *     deprecated</a>, this interface still works but not able to using with
+ *     <a href="https://vertx.io/docs/vertx-rx/java3/">Rxify version 3</a> and
+ *     <a href="https://smallrye.io/smallrye-mutiny-vertx-bindings/2.20.0/">Vertx mutiny</a>
  */
 @VertxGen
+@Deprecated
 public interface LegacyJooqx extends LegacyInternal<SQLClient> {
 
     /**
