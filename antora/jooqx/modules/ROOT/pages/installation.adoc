@@ -1,6 +1,6 @@
 == Installation
 
-To use `jooqx` add the following https://search.maven.org/artifact/io.github.zero88/jooqx-core/{jooqx-version}/jar[dependency]
+To use `jooqx` add the following https://search.maven.org/artifact/io.github.zero88/jooqx/{jooqx-version}/jar[dependency]
 to the `dependencies` section of your build descriptor:
 
 === Maven
@@ -12,7 +12,7 @@ In your `pom.xml`,
 <dependencies>
     <dependency>
         <groupId>io.github.zero88</groupId>
-        <artifactId>jooqx-core</artifactId>
+        <artifactId>jooqx</artifactId>
         <version>{jooqx-version}</version>
     </dependency>
     <!-- For some SPI includes specific converter based on Vert.x database client -->
@@ -31,7 +31,7 @@ In your `build.gradle`,
 [source,groovy,subs="attributes,verbatim"]
 ----
 dependencies {
-    api("io.github.zero88:jooqx-core:{jooqx-version}")
+    api("io.github.zero88:jooqx:{jooqx-version}")
     // For some SPI includes specific converter based on Vert.x database client
     api("io.github.zero88:jooqx-spi:{jooqx-version}")
 }
@@ -59,9 +59,9 @@ dependencies {
     // It is recommendation to use HikariCP instead of c3p0
     api("com.zaxxer:HikariCP:4.0.2")
     api("io.vertx:vertx-jdbc-client:{vertx-version}") {
-     exclude("com.mchange")
+        exclude("com.mchange")
     }
-    api("io.github.zero88:jooqx-core:{jooqx-version}")
+    api("io.github.zero88:jooqx:{jooqx-version}")
 }
 ----
 
@@ -71,7 +71,7 @@ dependencies {
 ----
 dependencies {
     api("io.vertx:vertx-pg-client:{vertx-version}")
-    api("io.github.zero88:jooqx-core:{jooqx-version}")
+    api("io.github.zero88:jooqx:{jooqx-version}")
 }
 ----
 
@@ -84,6 +84,6 @@ dependencies {
     // Agroal pool - Default in Vertx SQL client - Not yet has alternatives
     api("io.agroal:agroal-pool:1.9")
     api("io.vertx:vertx-sql-client:{vertx-version}")
-    api("io.github.zero88:jooqx-core:{jooqx-version}")
+    api("io.github.zero88:jooqx:{jooqx-version}")
 }
 ----
