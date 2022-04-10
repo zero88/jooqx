@@ -1,6 +1,6 @@
 dependencies {
     compileOnly(project(":spi"))
-    compileOnly(testFixtures(project(":jooqx-core")))
+    compileOnly(testFixtures(project(":jooqx")))
 //    compileOnly(project(":rsql:jooq"))
     compileOnly(project(":sample:model"))
     compileOnly(VertxLibs.jdbc)
@@ -21,5 +21,5 @@ apply<antora.AntoraDocComponentPlugin>()
 configure<antora.AntoraDocComponentExtension> {
     antoraModule.set("testing")
     antoraType.set(antora.AntoraType.MODULE)
-    javadocInDir.from(project(":jooqx-core").tasks.named<Javadoc>("testFixturesJavadoc"))
+    javadocInDir.from(project(":jooqx").tasks.named<Javadoc>("testFixturesJavadoc"))
 }

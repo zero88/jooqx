@@ -1,6 +1,6 @@
 dependencies {
     testImplementation(project(":sample:model"))
-    testImplementation(testFixtures(project(":jooqx-core")))
+    testImplementation(testFixtures(project(":jooqx")))
     testImplementation(project(":rsql:jooq"))
 
     testImplementation(DatabaseLibs.agroalApi)

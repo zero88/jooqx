@@ -4,3 +4,42 @@ zero88
 `jooqx` leverages the power of typesafe SQL from https://www.jooq.org[jOOQ DSL] and uses the reactive and non-blocking `SQL driver` from https://vertx.io/docs/#databases[Vert.x]
 
 == Overview
+
+`jooqx` Provide uniform API for among
+
+* [x] Vertx https://github.com/eclipse-vertx/vertx-sql-client[Reactive SQL client]
+* [x] Vertx https://vertx.io/docs/vertx-jdbc-client/java/#_legacy_jdbc_client_api[Legacy SQL client]
+
+`jooqx` supports:
+
+* [x] Lightweight and SPI
+* [x] Typesafe
+* [x] Native `jOOQ DSL` API
+* [x] Any database with `JDBC` driver and combine with legacy SQL
+* [x] Any database with `Vert.x reactive client`(`JDBCPool` is `reactive JDBC driver` so almost databases should work properly)
+* [x] JsonObject record
+* [x] Row/record transformation to `jOOQ` record
+* [x] A unified format for `exception` and able to replace/integrate seamlessly by your current application exception
+* [x] `CRUD` with prepared query by `jOOQ DSL`
+* [x] SQL Complex query with typesafe such as `join`, `with`, `having to`, etc
+* [x] SQL Batch insert/update/merge
+* [x] SQL Transaction
+** [?] Nested transaction (not yet tested, but API is available)
+** [ ] Transaction rollback condition
+** [ ] Transaction annotation
+* [ ] Procedure
+* [ ] DAO
+* [?] Resource Query Language (RQL) from https://github.com/zero88/rsql[rsql-jooq]
+* [x] Rxified API
+* [ ] Row streaming
+* [ ] Publish/subscribe
+* [x] Test fixtures API to easy setup test for your application testing or produce a minimum reproducer
+
+== Short Note
+
+Might you know, https://github.com/jklingsporn/vertx-jooq[vertx-jooq] is another library for `vert.x` and `jOOQ` integration was started in a longtime ago.
+
+I already used it, too. However, in a while I realized it doesn't meet my requirements for dynamic SQL.
+Also, this library is narrow a power of `jOOQ DSL` and SQL feature likes `paging`, `batch`, `transaction`, `complex query with join/having/group`, etc. It is quite hard to extend due to mostly depends on `Data Access Object (DAO)` pattern, and the generation time.
+
+Always have a different way to make it better, then I made this library to bring `jOOQ DSL` is first citizen and seamlessly combined with `Vert.x SQL client`.

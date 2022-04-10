@@ -2,6 +2,11 @@ plugins {
     `java-test-fixtures`
 }
 
+oss {
+    baseName.set("jooqx")
+    title.set("jOOQ.x")
+}
+
 dependencies {
     api(LogLibs.slf4j)
     api(VertxLibs.core)

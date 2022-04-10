@@ -19,10 +19,6 @@ import io.vertx.mysqlclient.MySQLPool;
 import io.vertx.pgclient.PgConnectOptions;
 import io.vertx.pgclient.PgPool;
 import io.vertx.sqlclient.PoolOptions;
-import io.zero88.jooqx.BindBatchValues;
-import io.zero88.jooqx.DSLAdapter;
-import io.zero88.jooqx.Jooqx;
-import io.zero88.jooqx.JsonRecord;
 import io.zero88.sample.data.pgsql.Tables;
 import io.zero88.sample.data.pgsql.tables.records.AuthorsRecord;
 
@@ -127,7 +123,7 @@ public class JooqxFeature implements ExampleFeature {
             System.out.println(ar.result().getSuccesses()); // 3
         });
         // Wanna get detail
-        jooqx.batch(insert, bindValues, DSLAdapter.fetchJsonRecords(Tables.AUTHORS), ar -> {
+        jooqx.batchResult(insert, bindValues, DSLAdapter.fetchJsonRecords(Tables.AUTHORS), ar -> {
             System.out.println(ar.result().getRecords().stream().map(JsonRecord::toJson).collect(Collectors.toList()));
             //[{"id":1,"name":"zero88","country":"VN"},{"id":2,"name":"jooq","country":"CH"},{"id":3,"name":"vertx",
             // "country":"FR"}]

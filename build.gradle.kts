@@ -8,6 +8,8 @@ plugins {
     id(PluginLibs.nexusPublish) version PluginLibs.Version.nexusPublish
 }
 
+project.ext.set("baseName", "jooqx")
+
 allprojects {
     group = "io.github.zero88"
 

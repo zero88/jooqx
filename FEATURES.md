@@ -167,7 +167,7 @@ dependencies {
 Then you can use same as `Vertx rx-java2 Rxified API`
 
 ```java
-Jooqx jooqx = Jooqx.newInstance(io.zero88.jooqx.Jooqx.builder()
+Jooqx jooqx = Jooqx.newInstance(io.github.zero88.jooqx.Jooqx.builder()
                                        .vertx(vertx)
                                        .dsl(dsl)
                                        .sqlClient(sqlClient)
@@ -205,18 +205,18 @@ generator.apply {
         withForcedTypes(
             // Use Vertx Type means io.vertx.pgclient.data.Interval is database type and user type
             ForcedType().withUserType("io.vertx.pgclient.data.Interval")
-                .withConverter("io.zero88.jooqx.datatype.UserTypeAsVertxType.create(new io.zero88.jooqx.spi.pg.datatype.IntervalConverter())")
+                .withConverter("io.github.zero88.jooqx.datatype.UserTypeAsVertxType.create(new io.github.zero88.jooqx.spi.pg.datatype.IntervalConverter())")
                 .withIncludeTypes("INTERVAL")
                 .withIncludeExpression("f_interval_1"),
             // Use Jooq Type means io.vertx.pgclient.data.Interval is database type, org.jooq.types.YearToSecond is jOOQ type and user type
             ForcedType().withUserType("io.vertx.pgclient.data.Interval")
-                .withConverter("io.zero88.jooqx.datatype.UserTypeAsJooqType.create(new io.zero88.jooqx.spi.pg.datatype.IntervalConverter())")
+                .withConverter("io.github.zero88.jooqx.datatype.UserTypeAsJooqType.create(new io.github.zero88.jooqx.spi.pg.datatype.IntervalConverter())")
                 .withIncludeTypes("INTERVAL")
                 .withIncludeExpression("f_interval_2"),
             // Three-way-conversion: io.vertx.pgclient.data.Interval is database type, org.jooq.types.YearToSecond is jOOQ intermediate type and user type is java.time.Duration
             ForcedType()
                 .withUserType("java.time.Duration")
-                .withConverter("io.zero88.jooqx.integtest.spi.pg.CustomInterval")
+                .withConverter("io.github.zero88.jooqx.integtest.spi.pg.CustomInterval")
                 .withIncludeTypes("INTERVAL")
                 .withIncludeExpression("f_interval_3")
         )
