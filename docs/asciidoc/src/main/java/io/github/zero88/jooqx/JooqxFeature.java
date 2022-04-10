@@ -19,10 +19,6 @@ import io.vertx.mysqlclient.MySQLPool;
 import io.vertx.pgclient.PgConnectOptions;
 import io.vertx.pgclient.PgPool;
 import io.vertx.sqlclient.PoolOptions;
-import io.zero88.jooqx.BindBatchValues;
-import io.zero88.jooqx.DSLAdapter;
-import io.zero88.jooqx.Jooqx;
-import io.zero88.jooqx.JsonRecord;
 import io.zero88.sample.data.pgsql.Tables;
 import io.zero88.sample.data.pgsql.tables.records.AuthorsRecord;
 

@@ -134,7 +134,7 @@ class PgReARxTest extends PgSQLReactiveTest<JDBCPool>
 
     @Test
     void test_simple_rx(VertxTestContext ctx) {
-        final io.zero88.jooqx.integtest.pgsql.tables.Books table = schema().BOOKS;
+        final io.github.zero88.jooqx.integtest.pgsql.tables.Books table = schema().BOOKS;
         Checkpoint cp = ctx.checkpoint();
         rxPool(jooqx).rxExecute(jooqx.dsl().selectFrom(table), DSLAdapter.fetchJsonRecords(table)).subscribe(recs -> {
             ctx.verify(() -> Assertions.assertEquals(7, recs.size()));

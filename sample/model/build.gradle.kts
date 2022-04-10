@@ -110,36 +110,36 @@ jooq {
                         )
                         withForcedTypes(
                             org.jooq.meta.jaxb.ForcedType().withUserType("io.vertx.pgclient.data.Interval")
-                                .withConverter("io.zero88.jooqx.datatype.UserTypeAsVertxType.create(new io.zero88.jooqx.spi.pg.datatype.IntervalConverter())")
+                                .withConverter("io.github.zero88.jooqx.datatype.UserTypeAsVertxType.create(new io.github.zero88.jooqx.spi.pg.datatype.IntervalConverter())")
                                 .withIncludeTypes("interval")
                                 .withIncludeExpression("interval"),
                             org.jooq.meta.jaxb.ForcedType()
                                 .withUserType("io.vertx.core.buffer.Buffer")
-                                .withConverter("io.zero88.jooqx.datatype.UserTypeAsVertxType.create(new io.zero88.jooqx.datatype.basic.BytesConverter())")
+                                .withConverter("io.github.zero88.jooqx.datatype.UserTypeAsVertxType.create(new io.github.zero88.jooqx.datatype.basic.BytesConverter())")
                                 .withIncludeTypes("bytea"),
                             org.jooq.meta.jaxb.ForcedType()
                                 .withUserType("io.vertx.core.json.JsonObject")
-                                .withConverter("io.zero88.jooqx.datatype.UserTypeAsVertxType.create(new io.zero88.jooqx.datatype.basic.JsonObjectJSONConverter())")
+                                .withConverter("io.github.zero88.jooqx.datatype.UserTypeAsVertxType.create(new io.github.zero88.jooqx.datatype.basic.JsonObjectJSONConverter())")
                                 .withIncludeTypes("JSON")
                                 .withIncludeExpression(".*json_data_type.JsonObject"),
                             org.jooq.meta.jaxb.ForcedType()
                                 .withUserType("io.vertx.core.json.JsonArray")
-                                .withConverter("io.zero88.jooqx.datatype.UserTypeAsVertxType.create(new io.zero88.jooqx.datatype.basic.JsonArrayJSONConverter())")
+                                .withConverter("io.github.zero88.jooqx.datatype.UserTypeAsVertxType.create(new io.github.zero88.jooqx.datatype.basic.JsonArrayJSONConverter())")
                                 .withIncludeTypes("JSON")
                                 .withIncludeExpression(".*json_data_type.JsonArray"),
                             org.jooq.meta.jaxb.ForcedType()
                                 .withUserType("io.vertx.core.json.JsonObject")
-                                .withConverter("io.zero88.jooqx.datatype.UserTypeAsVertxType.create(new io.zero88.jooqx.datatype.basic.JsonObjectJSONBConverter())")
+                                .withConverter("io.github.zero88.jooqx.datatype.UserTypeAsVertxType.create(new io.github.zero88.jooqx.datatype.basic.JsonObjectJSONBConverter())")
                                 .withIncludeTypes("JSONB")
                                 .withIncludeExpression(".*jsonb_data_type.JsonObject"),
                             org.jooq.meta.jaxb.ForcedType()
                                 .withUserType("io.vertx.core.json.JsonArray")
-                                .withConverter("io.zero88.jooqx.datatype.UserTypeAsVertxType.create(new io.zero88.jooqx.datatype.basic.JsonArrayJSONBConverter())")
+                                .withConverter("io.github.zero88.jooqx.datatype.UserTypeAsVertxType.create(new io.github.zero88.jooqx.datatype.basic.JsonArrayJSONBConverter())")
                                 .withIncludeTypes("JSONB")
                                 .withIncludeExpression(".*jsonb_data_type.JsonArray"),
                             org.jooq.meta.jaxb.ForcedType()
                                 .withUserType("java.time.Duration")
-                                .withConverter("io.zero88.jooqx.spi.pg.datatype.DurationConverter")
+                                .withConverter("io.github.zero88.jooqx.spi.pg.datatype.DurationConverter")
                                 .withIncludeTypes("Interval")
                                 .withIncludeExpression("f_interval")
                         )
