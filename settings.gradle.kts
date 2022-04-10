@@ -14,12 +14,12 @@ pluginManagement {
     }
 }
 
-rootProject.name = "jooqx"
+rootProject.name = "jooqx-parent"
 val profile: String by settings
 var pp: Array<String> = arrayOf()
 val pools = mutableMapOf(
     "jpa" to arrayOf(":jpa-ext"),
-    "jooqx" to arrayOf(":jooqx-core", ":spi"),
+    "jooqx" to arrayOf(":jooqx", ":spi"),
     "sample" to arrayOf(":sample:model", ":sample:web"),
     "rsql" to arrayOf(":rsql:core", ":rsql:jooq"),
     "integtest" to arrayOf(":integtest")
@@ -45,8 +45,8 @@ pp = when {
 }
 
 pp.forEach { include(it) }
-if (pp.contains(":jooqx-core")) {
-    project(":jooqx-core").projectDir = file("core")
+if (pp.contains(":jooqx")) {
+    project(":jooqx").projectDir = file("core")
 }
 
 if (gradle is ExtensionAware) {
