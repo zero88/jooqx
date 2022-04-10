@@ -19,6 +19,7 @@ import org.jooq.DSLContext;
 import org.jooq.Field;
 import org.jooq.Param;
 import org.jooq.Query;
+import org.jooq.impl.DSL;
 
 import io.github.zero88.jooqx.MiscImpl.BatchResultImpl;
 import io.github.zero88.jooqx.SQLImpl.SQLEI;
@@ -149,6 +150,18 @@ final class LegacySQLImpl {
             final Promise<UpdateResult> promise = Promise.promise();
             sqlClient().update(preparedQuery().sql(dsl().configuration(), statement), promise);
             return promise.future().map(UpdateResult::getUpdated).otherwise(errorConverter()::reThrowError);
+        }
+
+        @Override
+        public Future<Integer> sql(@NotNull String statement) {
+            final Promise<UpdateResult> promise = Promise.promise();
+            sqlClient().update(preparedQuery().sql(dsl().configuration(), DSL.query(statement)), promise);
+            return promise.future().map(UpdateResult::getUpdated).otherwise(errorConverter()::reThrowError);
+        }
+
+        @Override
+        public <T, R> Future<@Nullable R> sqlQuery(@NotNull String statement, @NotNull SQLResultAdapter<T, R> adapter) {
+            return execute(dsl -> dsl.resultQuery(statement), adapter);
         }
 
         protected abstract Future<SQLConnection> openConn();

@@ -17,10 +17,11 @@ import io.vertx.core.Vertx;
  * @see SQLBatchExecutor
  * @see SQLQueryExecutor
  * @see SQLDDLExecutor
+ * @see SQLPlainExecutor
  * @since 1.0.0
  */
 public interface SQLExecutor<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extends SQLResultCollector<RS>>
-    extends SQLExecutorContext<S, B, PQ, RS, RC>, SQLQueryExecutor, SQLBatchExecutor, SQLDDLExecutor {
+    extends SQLExecutorContext<S, B, PQ, RS, RC>, SQLQueryExecutor, SQLBatchExecutor, SQLDDLExecutor, SQLPlainExecutor {
 
     /**
      * Defines Vertx
