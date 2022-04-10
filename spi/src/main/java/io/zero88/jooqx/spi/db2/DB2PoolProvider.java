@@ -13,7 +13,7 @@ import io.zero88.jooqx.provider.JooqxSQLClientProvider;
  * DB2 pool provider
  *
  * @see DB2Pool
- * @since 1.1.0
+ * @since 2.0.0
  */
 public interface DB2PoolProvider extends JooqxSQLClientProvider<DB2Pool>, DB2ClientParser {
 

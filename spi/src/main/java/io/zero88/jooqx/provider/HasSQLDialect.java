@@ -7,7 +7,7 @@ import org.jooq.SQLDialect;
  * Provides SQL dialect
  *
  * @see SQLDialect
- * @since 1.1.0
+ * @since 2.0.0
  */
 @FunctionalInterface
 public interface HasSQLDialect {

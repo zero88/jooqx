@@ -11,7 +11,7 @@ import io.vertx.core.json.JsonObject;
  * SQL client provider
  *
  * @param <S> Type of SQL client
- * @since 1.1.0
+ * @since 2.0.0
  */
 public interface SQLClientProvider<S> {
 

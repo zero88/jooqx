@@ -8,7 +8,7 @@ import io.zero88.jooqx.provider.DBEmbeddedProvider.DBFileProvider;
  * Provides H2 database in local file
  *
  * @see DBFileProvider
- * @since 1.1.0
+ * @since 2.0.0
  */
 public interface DerbyFileProvider extends DBFileProvider {
 

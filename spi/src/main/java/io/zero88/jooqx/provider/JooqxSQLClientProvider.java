@@ -12,7 +12,7 @@ import io.vertx.sqlclient.SqlClient;
  *
  * @param <S> Type of reactive SQL client
  * @see SqlClient
- * @since 1.1.0
+ * @since 2.0.0
  */
 public interface JooqxSQLClientProvider<S extends SqlClient> extends SQLClientProvider<S> {
 

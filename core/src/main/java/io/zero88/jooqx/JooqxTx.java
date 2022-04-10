@@ -16,7 +16,7 @@ import io.vertx.sqlclient.Tuple;
 /**
  * Represents for a reactive SQL transaction executor
  *
- * @since 1.1.0
+ * @since 2.0.0
  */
 @VertxGen
 public interface JooqxTx extends JooqxConn,

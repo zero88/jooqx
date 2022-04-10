@@ -13,7 +13,7 @@ import io.zero88.jooqx.provider.JooqxSQLClientProvider;
  * MySQL pool provider
  *
  * @see MySQLPool
- * @since 1.1.0
+ * @since 2.0.0
  */
 public interface MySQLPoolProvider extends JooqxSQLClientProvider<MySQLPool>, MySQLClientParser {
 

@@ -13,7 +13,7 @@ import io.zero88.jooqx.provider.JooqxSQLClientProvider;
  * MSSQL pool provider
  *
  * @see MSSQLPool
- * @since 1.1.0
+ * @since 2.0.0
  */
 public interface MSSQLPoolProvider extends JooqxSQLClientProvider<MSSQLPool>, MSSQLClientParser {
 

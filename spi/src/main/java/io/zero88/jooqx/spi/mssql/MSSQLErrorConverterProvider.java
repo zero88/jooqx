@@ -9,7 +9,7 @@ import io.zero88.jooqx.provider.ErrorConverterProvider;
  * MSSQL error converter provider
  *
  * @see MSSQLErrorConverter
- * @since 1.1.0
+ * @since 2.0.0
  */
 public interface MSSQLErrorConverterProvider extends ErrorConverterProvider {
 

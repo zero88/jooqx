@@ -14,7 +14,7 @@ import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
  * Represents for an executor that executes {@code jOOQ query} on {@code Vertx reactive SQL pool}
  *
  * @see Pool
- * @since 1.1.0
+ * @since 2.0.0
  */
 @VertxGen
 public interface Jooqx extends JooqxBase<Pool> {

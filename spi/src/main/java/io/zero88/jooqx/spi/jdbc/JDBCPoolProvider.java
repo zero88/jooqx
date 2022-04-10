@@ -17,7 +17,7 @@ import io.zero88.jooqx.provider.SQLClientOptionParser;
  * Reactive JDBC pool provider
  *
  * @see JDBCPool
- * @since 1.1.0
+ * @since 2.0.0
  */
 public interface JDBCPoolProvider<P extends DataSourceProvider>
     extends JooqxSQLClientProvider<JDBCPool>, SQLClientOptionParser<JDBCConnectOptions>, JDBCExtension<P> {

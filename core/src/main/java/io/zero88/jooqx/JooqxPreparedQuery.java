@@ -15,7 +15,7 @@ import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 /**
  * Represents for a converter that transforms {@code jOOQ param} to {@code Vertx Reactive SQL} bind value
  *
- * @since 1.1.0
+ * @since 2.0.0
  */
 @VertxGen
 public interface JooqxPreparedQuery extends SQLPreparedQuery<Tuple> {

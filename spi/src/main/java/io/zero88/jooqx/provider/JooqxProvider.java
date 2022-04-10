@@ -20,7 +20,7 @@ import io.zero88.jooqx.JooqxResultCollector;
  * Reactive jOOQx provider
  *
  * @param <S> Type of {@link SqlClient}
- * @since 1.1.0
+ * @since 2.0.0
  */
 @SuppressWarnings("unchecked")
 public interface JooqxProvider<S extends SqlClient>

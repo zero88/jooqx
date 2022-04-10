@@ -18,7 +18,7 @@ import io.zero88.jooqx.adapter.SQLResultAdapter.SQLResultListAdapter;
  * The {@code reactive sql executor} that is adapted for {@link SqlClient} to execute batch SQL command and able to
  * return the number of succeed row and row detail
  *
- * @since 1.1.0
+ * @since 2.0.0
  */
 @VertxGen(concrete = false)
 public interface SQLBatchResultExecutor extends JooqDSLProvider {
@@ -34,7 +34,7 @@ public interface SQLBatchResultExecutor extends JooqDSLProvider {
      * @see BindBatchValues
      * @see SQLResultListAdapter
      * @see BatchReturningResult
-     * @since 1.1.0
+     * @since 2.0.0
      */
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
     default <T, R> void batchResult(@NotNull Function<DSLContext, Query> queryFunction,

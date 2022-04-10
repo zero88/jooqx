@@ -9,7 +9,7 @@ import io.zero88.jooqx.provider.ErrorConverterProvider;
  * MySQL error converter provider
  *
  * @see MySQLErrorConverter
- * @since 1.1.0
+ * @since 2.0.0
  */
 public interface MySQLErrorConverterProvider extends ErrorConverterProvider {
 

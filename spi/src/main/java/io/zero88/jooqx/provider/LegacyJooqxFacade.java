@@ -11,7 +11,7 @@ import io.zero88.jooqx.LegacySQLPreparedQuery;
  * Represents for Jooqx Legacy facade
  *
  * @see LegacyJooqx
- * @since 1.1.0
+ * @since 2.0.0
  */
 public interface LegacyJooqxFacade
     extends BaseJooqxFacade<SQLClient, JsonArray, LegacySQLPreparedQuery, ResultSet, LegacySQLCollector, LegacyJooqx> {

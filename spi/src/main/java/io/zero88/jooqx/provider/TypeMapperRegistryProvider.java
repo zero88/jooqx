@@ -6,7 +6,7 @@ import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
  * Data Type mapper registry provider
  *
  * @see DataTypeMapperRegistry
- * @since 1.1.0
+ * @since 2.0.0
  */
 public interface TypeMapperRegistryProvider {
 

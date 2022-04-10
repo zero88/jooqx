@@ -13,7 +13,7 @@ import io.vertx.sqlclient.Tuple;
  * @param <S> Type of SqlClient, can be {@code SqlConnection} or {@code Pool}
  * @see SqlConnection
  * @see Pool
- * @since 1.1.0
+ * @since 2.0.0
  */
 public interface JooqxBase<S extends SqlClient>
     extends SQLExecutor<S, Tuple, JooqxPreparedQuery, RowSet<Row>, JooqxResultCollector>, SQLBatchResultExecutor {

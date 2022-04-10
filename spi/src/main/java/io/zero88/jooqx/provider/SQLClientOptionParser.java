@@ -12,7 +12,7 @@ import io.vertx.sqlclient.PoolOptions;
  * A parser helps convert raw SQL connection option to a specific SQL driver connection option
  *
  * @param <T> Type of SQL driver connection option
- * @since 1.1.0
+ * @since 2.0.0
  */
 public interface SQLClientOptionParser<T> {
 

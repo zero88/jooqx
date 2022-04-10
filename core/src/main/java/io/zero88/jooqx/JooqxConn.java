@@ -14,7 +14,7 @@ import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
  * Represents for an executor that executes {@code jOOQ query} on {@code Vertx reactive SQL client} connection
  *
  * @see SqlConnection
- * @since 1.1.0
+ * @since 2.0.0
  */
 @VertxGen
 public interface JooqxConn extends JooqxBase<SqlConnection> {

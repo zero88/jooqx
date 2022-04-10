@@ -15,7 +15,7 @@ import io.zero88.jooqx.provider.JDBCExtension.C3P0Extension;
  *
  * @see JDBCPool#pool(Vertx, JDBCConnectOptions, PoolOptions)
  * @see JDBCPool
- * @since 1.1.0
+ * @since 2.0.0
  */
 public interface JDBCPoolC3P0Provider extends JDBCPoolProvider<C3P0DataSourceProvider>, C3P0Extension {
 

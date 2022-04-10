@@ -16,7 +16,7 @@ import io.zero88.jooqx.datatype.DataTypeMapperRegistry;
 /**
  * Represents a builder that construct {@link JooqxConn}
  *
- * @since 1.1.0
+ * @since 2.0.0
  */
 @VertxGen
 public interface JooqxConnBuilder extends

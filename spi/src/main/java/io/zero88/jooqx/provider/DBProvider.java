@@ -8,7 +8,7 @@ import io.vertx.core.json.JsonObject;
  * Provides database
  *
  * @param <DB> Type of database
- * @since 1.1.0
+ * @since 2.0.0
  */
 public interface DBProvider<DB> {
 

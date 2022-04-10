@@ -13,7 +13,7 @@ import io.zero88.jooqx.provider.JooqxSQLClientProvider;
  * PostgreSQL pool provider
  *
  * @see PgPool
- * @since 1.1.0
+ * @since 2.0.0
  */
 public interface PgPoolProvider extends JooqxSQLClientProvider<PgPool>, PgSQLClientParser {
 

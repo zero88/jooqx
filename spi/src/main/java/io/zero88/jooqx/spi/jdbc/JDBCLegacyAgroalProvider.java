@@ -8,7 +8,7 @@ import io.zero88.jooqx.provider.LegacySQLClientProvider;
  * Legacy JDBC client provider for {@code Agroal DataSource}
  *
  * @see AgroalCPDataSourceProvider
- * @since 1.1.0
+ * @since 2.0.0
  */
 public interface JDBCLegacyAgroalProvider extends LegacySQLClientProvider<AgroalCPDataSourceProvider>, AgroalExtension {
 

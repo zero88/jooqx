@@ -44,7 +44,7 @@ public interface JDBCExtension<P extends DataSourceProvider> {
      * HikariCP extension
      *
      * @see HikariCPDataSourceProvider
-     * @since 1.1.0
+     * @since 2.0.0
      */
     interface HikariCPExtension extends JDBCExtension<HikariCPDataSourceProvider> {
 
@@ -81,7 +81,7 @@ public interface JDBCExtension<P extends DataSourceProvider> {
      * C3P0 extension
      *
      * @see C3P0DataSourceProvider
-     * @since 1.1.0
+     * @since 2.0.0
      */
     interface C3P0Extension extends JDBCExtension<C3P0DataSourceProvider> {
 
@@ -101,7 +101,7 @@ public interface JDBCExtension<P extends DataSourceProvider> {
      * Agroal extension
      *
      * @see AgroalCPDataSourceProvider
-     * @since 1.1.0
+     * @since 2.0.0
      */
     interface AgroalExtension extends JDBCExtension<AgroalCPDataSourceProvider> {
 

@@ -14,7 +14,7 @@ import io.zero88.jooqx.adapter.RowConverterStrategy;
 /**
  * Represents for a collector that collects {@code Vert.x SQL result} to an expectation output
  *
- * @since 1.1.0
+ * @since 2.0.0
  */
 @VertxGen
 public interface JooqxResultCollector extends SQLResultCollector<RowSet<Row>> {

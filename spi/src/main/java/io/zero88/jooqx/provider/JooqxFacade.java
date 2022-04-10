@@ -18,7 +18,7 @@ import io.zero88.jooqx.JooqxResultCollector;
  * @see Jooqx
  * @see JooqxConn
  * @see SqlClient
- * @since 1.1.0
+ * @since 2.0.0
  */
 public interface JooqxFacade<S extends SqlClient>
     extends BaseJooqxFacade<S, Tuple, JooqxPreparedQuery, RowSet<Row>, JooqxResultCollector, JooqxBase<S>> {

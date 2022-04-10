@@ -12,7 +12,7 @@ import io.vertx.core.json.JsonObject;
  * <p>
  * For example: {@code H2}, {@code SQLite}
  *
- * @since 1.1.0
+ * @since 2.0.0
  */
 public interface DBEmbeddedProvider extends DBProvider<String> {
 
@@ -49,7 +49,7 @@ public interface DBEmbeddedProvider extends DBProvider<String> {
     /**
      * Memory Database provider
      *
-     * @since 1.1.0
+     * @since 2.0.0
      */
     interface DBMemoryProvider extends DBEmbeddedProvider {
 
@@ -64,7 +64,7 @@ public interface DBEmbeddedProvider extends DBProvider<String> {
     /**
      * Local file database provider
      *
-     * @since 1.1.0
+     * @since 2.0.0
      */
     interface DBFileProvider extends DBEmbeddedProvider {
 

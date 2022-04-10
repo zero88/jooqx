@@ -14,7 +14,7 @@ import io.zero88.jooqx.LegacySQLPreparedQuery;
 /**
  * Legacy {@code jOOQx} provider
  *
- * @since 1.1.0
+ * @since 2.0.0
  */
 public interface LegacyJooqxProvider extends
                                      BaseJooqxProvider<SQLClient, JsonArray, LegacySQLPreparedQuery, ResultSet,

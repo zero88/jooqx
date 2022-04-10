@@ -28,7 +28,7 @@ public interface SQLBatchExecutor extends JooqDSLProvider {
      * @param handler         async result handler
      * @see BindBatchValues
      * @see BatchResult
-     * @since 1.1.0
+     * @since 2.0.0
      */
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
     default void batch(@NotNull Function<DSLContext, Query> queryFunction, @NotNull BindBatchValues bindBatchValues,
@@ -42,7 +42,7 @@ public interface SQLBatchExecutor extends JooqDSLProvider {
      * @param queryFunction   query function
      * @param bindBatchValues bind batch values
      * @return a {@code Future} of the asynchronous result
-     * @since 1.1.0
+     * @since 2.0.0
      */
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
     default Future<BatchResult> batch(@NotNull Function<DSLContext, Query> queryFunction,

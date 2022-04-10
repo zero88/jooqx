@@ -24,7 +24,7 @@ import io.vertx.sqlclient.PoolOptions;
  * @see DataSourceProvider
  * @see SQLClient
  * @see JDBCClient
- * @since 1.1.0
+ * @since 2.0.0
  */
 public interface LegacySQLClientProvider<P extends DataSourceProvider>
     extends SQLClientProvider<SQLClient>, SQLClientOptionParser<JsonObject>, JDBCExtension<P> {

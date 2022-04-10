@@ -8,7 +8,7 @@ import io.zero88.jooqx.provider.DBEmbeddedProvider.DBMemoryProvider;
  * Provides Derby database in memory
  *
  * @see DBMemoryProvider
- * @since 1.1.0
+ * @since 2.0.0
  */
 public interface DerbyMemProvider extends DBMemoryProvider {
 

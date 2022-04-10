@@ -18,7 +18,7 @@ import io.zero88.jooqx.adapter.SQLResultAdapter;
 /**
  * Represents for a {@code query executor} that executes SQL command
  *
- * @since 1.1.0
+ * @since 2.0.0
  */
 @VertxGen(concrete = false)
 public interface SQLQueryExecutor extends JooqDSLProvider {
@@ -34,7 +34,7 @@ public interface SQLQueryExecutor extends JooqDSLProvider {
      * @see Query
      * @see TableLike
      * @see SQLResultAdapter
-     * @since 1.1.0
+     * @since 2.0.0
      */
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
     default <T, R> void execute(@NotNull Function<DSLContext, Query> queryFunction,
@@ -52,7 +52,7 @@ public interface SQLQueryExecutor extends JooqDSLProvider {
      * @param queryFunction the jOOQ query function
      * @param resultAdapter the result adapter
      * @return a {@code Future} of the asynchronous result
-     * @since 1.1.0
+     * @since 2.0.0
      */
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
     default <T, R> Future<@Nullable R> execute(@NotNull Function<DSLContext, Query> queryFunction,

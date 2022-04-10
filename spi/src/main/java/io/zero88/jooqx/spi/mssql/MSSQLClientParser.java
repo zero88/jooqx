@@ -10,7 +10,7 @@ import io.zero88.jooqx.provider.SQLClientOptionParser;
  * MSSQL connection option parser
  *
  * @see MSSQLConnectOptions
- * @since 1.1.0
+ * @since 2.0.0
  */
 public interface MSSQLClientParser extends SQLClientOptionParser<MSSQLConnectOptions> {
 

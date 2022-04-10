@@ -8,7 +8,7 @@ import io.zero88.jooqx.SQLErrorConverter;
  * Provides SQL error converter
  *
  * @see SQLErrorConverter
- * @since 1.1.0
+ * @since 2.0.0
  */
 public interface ErrorConverterProvider {
 

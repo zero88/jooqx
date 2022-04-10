@@ -12,7 +12,7 @@ import org.jooq.impl.DefaultConfiguration;
  * Provides jOOQ DSL Context
  *
  * @see DSLContext
- * @since 1.1.0
+ * @since 2.0.0
  */
 @FunctionalInterface
 public interface JooqDSLProvider {

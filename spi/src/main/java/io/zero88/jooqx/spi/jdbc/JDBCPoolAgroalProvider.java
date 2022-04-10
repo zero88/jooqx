@@ -7,7 +7,7 @@ import io.vertx.jdbcclient.impl.AgroalCPDataSourceProvider;
  * Reactive JDBC pool from Vert.x official that using {@code AgroalCP}
  *
  * @see JDBCPool
- * @since 1.1.0
+ * @since 2.0.0
  */
 public interface JDBCPoolAgroalProvider extends JDBCPoolProvider<AgroalCPDataSourceProvider> {
 

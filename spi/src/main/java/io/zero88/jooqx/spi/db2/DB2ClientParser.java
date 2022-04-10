@@ -10,7 +10,7 @@ import io.zero88.jooqx.provider.SQLClientOptionParser;
  * DB2 connection option parser
  *
  * @see DB2ConnectOptions
- * @since 1.1.0
+ * @since 2.0.0
  */
 public interface DB2ClientParser extends SQLClientOptionParser<DB2ConnectOptions> {
 

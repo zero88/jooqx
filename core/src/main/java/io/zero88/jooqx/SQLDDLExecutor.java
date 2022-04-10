@@ -15,7 +15,7 @@ import io.vertx.core.Handler;
 /**
  * Represents for a {@code DDL executor} that executes batch SQL command
  *
- * @since 1.1.0
+ * @since 2.0.0
  */
 @VertxGen(concrete = false)
 public interface SQLDDLExecutor extends JooqDSLProvider {
@@ -25,7 +25,7 @@ public interface SQLDDLExecutor extends JooqDSLProvider {
      *
      * @param ddlFunction DDL function produces DDL statement
      * @param handler     async result handler
-     * @since 1.1.0
+     * @since 2.0.0
      */
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
     default void ddl(@NotNull Function<DSLContext, DDLQuery> ddlFunction,
@@ -38,7 +38,7 @@ public interface SQLDDLExecutor extends JooqDSLProvider {
      *
      * @param ddlFunction DDL function produces DDL statement
      * @return a {@code Future} of the asynchronous result
-     * @since 1.1.0
+     * @since 2.0.0
      */
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
     default Future<Integer> ddl(@NotNull Function<DSLContext, DDLQuery> ddlFunction) {
@@ -50,7 +50,7 @@ public interface SQLDDLExecutor extends JooqDSLProvider {
      *
      * @param statement DDL statement
      * @param handler   async result handler
-     * @since 1.1.0
+     * @since 2.0.0
      */
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
     default void ddl(@NotNull DDLQuery statement, @NotNull Handler<AsyncResult<Integer>> handler) {
@@ -62,7 +62,7 @@ public interface SQLDDLExecutor extends JooqDSLProvider {
      *
      * @param statement DDL statement
      * @return a {@code Future} of the asynchronous result
-     * @since 1.1.0
+     * @since 2.0.0
      */
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
     Future<Integer> ddl(@NotNull DDLQuery statement);

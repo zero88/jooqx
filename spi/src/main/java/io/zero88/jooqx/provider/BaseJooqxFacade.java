@@ -23,7 +23,7 @@ import io.zero88.jooqx.SQLResultCollector;
  * @param <E>  Type of jOOQ.x
  * @see LegacyJooqxFacade
  * @see JooqxFacade
- * @since 1.1.0
+ * @since 2.0.0
  */
 public interface BaseJooqxFacade<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extends SQLResultCollector<RS>,
                                     E extends SQLExecutor<S, B, PQ, RS, RC>> {

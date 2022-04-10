@@ -8,7 +8,7 @@ import io.zero88.jooqx.provider.ErrorConverterProvider;
  * JDBC error converter provider
  *
  * @see JDBCErrorConverter
- * @since 1.1.0
+ * @since 2.0.0
  */
 public interface JDBCErrorConverterProvider extends ErrorConverterProvider {
 

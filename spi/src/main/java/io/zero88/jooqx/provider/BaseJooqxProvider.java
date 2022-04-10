@@ -21,7 +21,7 @@ import io.zero88.jooqx.SQLResultCollector;
  * @see SQLPreparedQuery
  * @see SQLResultCollector
  * @see SQLExecutor
- * @since 1.1.0
+ * @since 2.0.0
  */
 public interface BaseJooqxProvider<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extends SQLResultCollector<RS>,
                                       E extends SQLExecutor<S, B, PQ, RS, RC>>
