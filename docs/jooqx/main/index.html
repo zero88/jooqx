@@ -157,7 +157,111 @@
 <div class="sect1">
 <h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p><code>jooqx</code> Provide uniform API for among</p>
+</div>
+<div class="ulist checklist">
+<ul class="checklist">
+<li>
+<p><i class="fa fa-check-square-o"></i> Vertx <a href="https://github.com/eclipse-vertx/vertx-sql-client">Reactive SQL client</a></p>
+</li>
+<li>
+<p><i class="fa fa-check-square-o"></i> Vertx <a href="https://vertx.io/docs/vertx-jdbc-client/java/#_legacy_jdbc_client_api">Legacy SQL client</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>jooqx</code> supports:</p>
+</div>
+<div class="ulist checklist">
+<ul class="checklist">
+<li>
+<p><i class="fa fa-check-square-o"></i> Lightweight and SPI</p>
+</li>
+<li>
+<p><i class="fa fa-check-square-o"></i> Typesafe</p>
+</li>
+<li>
+<p><i class="fa fa-check-square-o"></i> Native <code>jOOQ DSL</code> API</p>
+</li>
+<li>
+<p><i class="fa fa-check-square-o"></i> Any database with <code>JDBC</code> driver and combine with legacy SQL</p>
+</li>
+<li>
+<p><i class="fa fa-check-square-o"></i> Any database with <code>Vert.x reactive client</code>(<code>JDBCPool</code> is <code>reactive JDBC driver</code> so almost databases should work properly)</p>
+</li>
+<li>
+<p><i class="fa fa-check-square-o"></i> JsonObject record</p>
+</li>
+<li>
+<p><i class="fa fa-check-square-o"></i> Row/record transformation to <code>jOOQ</code> record</p>
+</li>
+<li>
+<p><i class="fa fa-check-square-o"></i> A unified format for <code>exception</code> and able to replace/integrate seamlessly by your current application exception</p>
+</li>
+<li>
+<p><i class="fa fa-check-square-o"></i> <code>CRUD</code> with prepared query by <code>jOOQ DSL</code></p>
+</li>
+<li>
+<p><i class="fa fa-check-square-o"></i> SQL Complex query with typesafe such as <code>join</code>, <code>with</code>, <code>having to</code>, etc</p>
+</li>
+<li>
+<p><i class="fa fa-check-square-o"></i> SQL Batch insert/update/merge</p>
+</li>
+<li>
+<p><i class="fa fa-check-square-o"></i> SQL Transaction</p>
+<div class="ulist checklist">
+<ul class="checklist">
+<li>
+<p>[?] Nested transaction (not yet tested, but API is available)</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> Transaction rollback condition</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> Transaction annotation</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> Procedure</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> DAO</p>
+</li>
+<li>
+<p>[?] Resource Query Language (RQL) from <a href="https://github.com/zero88/rsql">rsql-jooq</a></p>
+</li>
+<li>
+<p><i class="fa fa-check-square-o"></i> Rxified API</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> Row streaming</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> Publish/subscribe</p>
+</li>
+<li>
+<p><i class="fa fa-check-square-o"></i> Test fixtures API to easy setup test for your application testing or produce a minimum reproducer</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_short_note"><a class="anchor" href="#_short_note"></a>Short Note</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Might you know, <a href="https://github.com/jklingsporn/vertx-jooq">vertx-jooq</a> is another library for <code>vert.x</code> and <code>jOOQ</code> integration was started in a longtime ago.</p>
+</div>
+<div class="paragraph">
+<p>I already used it, too. However, in a while I realized it doesn&#8217;t meet my requirements for dynamic SQL.
+Also, this library is narrow a power of <code>jOOQ DSL</code> and SQL feature likes <code>paging</code>, <code>batch</code>, <code>transaction</code>, <code>complex query with join/having/group</code>, etc. It is quite hard to extend due to mostly depends on <code>Data Access Object (DAO)</code> pattern, and the generation time.</p>
+</div>
+<div class="paragraph">
+<p>Always have a different way to make it better, then I made this library to bring <code>jOOQ DSL</code> is first citizen and seamlessly combined with <code>Vert.x SQL client</code>.</p>
+</div>
 </div>
 </div>
 </article>

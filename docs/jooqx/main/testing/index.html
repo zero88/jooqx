@@ -242,7 +242,7 @@ as a dependency.</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
   &lt;groupId&gt;io.github.zero88&lt;/groupId&gt;
   &lt;artifactId&gt;jooqx-core&lt;/artifactId&gt;
-  &lt;version&gt;1.1.0-SNAPSHOT&lt;/version&gt;
+  &lt;version&gt;2.0.0-SNAPSHOT&lt;/version&gt;
   &lt;classifier&gt;testFixtures&lt;/classifier&gt;
   &lt;type&gt;jar&lt;/type&gt;
 &lt;/dependency&gt;
@@ -266,7 +266,7 @@ as a dependency.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">api(testFixtures("io.github.zero88:jooqx-core:1.1.0-SNAPSHOT"))
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">api(testFixtures("io.github.zero88:jooqx-core:2.0.0-SNAPSHOT"))
 // sqlite
 api("org.xerial:sqlite-jdbc:3.34.0") )</code></pre>
 </div>
@@ -348,7 +348,7 @@ api("org.xerial:sqlite-jdbc:3.34.0") )</code></pre>
 
     @Test
     void test_simple_rx(VertxTestContext ctx) {
-        final io.zero88.jooqx.integtest.pgsql.tables.Books table = schema().BOOKS;
+        final io.github.zero88.jooqx.integtest.pgsql.tables.Books table = schema().BOOKS;
         Checkpoint cp = ctx.checkpoint();
         rxPool(jooqx).rxExecute(jooqx.dsl().selectFrom(table), DSLAdapter.fetchJsonRecords(table)).subscribe(recs -&gt; {
             ctx.verify(() -&gt; Assertions.assertEquals(7, recs.size()));

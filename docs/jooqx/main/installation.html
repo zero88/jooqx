@@ -150,7 +150,7 @@
 <h2 id="_installation"><a class="anchor" href="#_installation"></a>Installation</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To use <code>jooqx</code> add the following <a href="https://search.maven.org/artifact/io.github.zero88/jooqx-core/1.1.0-SNAPSHOT/jar">dependency</a>
+<p>To use <code>jooqx</code> add the following <a href="https://search.maven.org/artifact/io.github.zero88/jooqx/2.0.0-SNAPSHOT/jar">dependency</a>
 to the <code>dependencies</code> section of your build descriptor:</p>
 </div>
 <div class="sect2">
@@ -163,14 +163,14 @@ to the <code>dependencies</code> section of your build descriptor:</p>
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependencies&gt;
     &lt;dependency&gt;
         &lt;groupId&gt;io.github.zero88&lt;/groupId&gt;
-        &lt;artifactId&gt;jooqx-core&lt;/artifactId&gt;
-        &lt;version&gt;1.1.0-SNAPSHOT&lt;/version&gt;
+        &lt;artifactId&gt;jooqx&lt;/artifactId&gt;
+        &lt;version&gt;2.0.0-SNAPSHOT&lt;/version&gt;
     &lt;/dependency&gt;
     &lt;!-- For some SPI includes specific converter based on Vert.x database client --&gt;
     &lt;dependency&gt;
         &lt;groupId&gt;io.github.zero88&lt;/groupId&gt;
         &lt;artifactId&gt;jooqx-spi&lt;/artifactId&gt;
-        &lt;version&gt;1.1.0-SNAPSHOT&lt;/version&gt;
+        &lt;version&gt;2.0.0-SNAPSHOT&lt;/version&gt;
     &lt;/dependency&gt;
 &lt;/dependencies&gt;</code></pre>
 </div>
@@ -184,9 +184,9 @@ to the <code>dependencies</code> section of your build descriptor:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">dependencies {
-    api("io.github.zero88:jooqx-core:1.1.0-SNAPSHOT")
+    api("io.github.zero88:jooqx:2.0.0-SNAPSHOT")
     // For some SPI includes specific converter based on Vert.x database client
-    api("io.github.zero88:jooqx-spi:1.1.0-SNAPSHOT")
+    api("io.github.zero88:jooqx-spi:2.0.0-SNAPSHOT")
 }</code></pre>
 </div>
 </div>
@@ -235,9 +235,9 @@ to the <code>dependencies</code> section of your build descriptor:</p>
     // It is recommendation to use HikariCP instead of c3p0
     api("com.zaxxer:HikariCP:4.0.2")
     api("io.vertx:vertx-jdbc-client:4.2.3") {
-     exclude("com.mchange")
+        exclude("com.mchange")
     }
-    api("io.github.zero88:jooqx-core:1.1.0-SNAPSHOT")
+    api("io.github.zero88:jooqx:2.0.0-SNAPSHOT")
 }</code></pre>
 </div>
 </div>
@@ -252,7 +252,7 @@ to the <code>dependencies</code> section of your build descriptor:</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">dependencies {
     api("io.vertx:vertx-pg-client:4.2.3")
-    api("io.github.zero88:jooqx-core:1.1.0-SNAPSHOT")
+    api("io.github.zero88:jooqx:2.0.0-SNAPSHOT")
 }</code></pre>
 </div>
 </div>
@@ -270,7 +270,7 @@ to the <code>dependencies</code> section of your build descriptor:</p>
     // Agroal pool - Default in Vertx SQL client - Not yet has alternatives
     api("io.agroal:agroal-pool:1.9")
     api("io.vertx:vertx-sql-client:4.2.3")
-    api("io.github.zero88:jooqx-core:1.1.0-SNAPSHOT")
+    api("io.github.zero88:jooqx:2.0.0-SNAPSHOT")
 }</code></pre>
 </div>
 </div>

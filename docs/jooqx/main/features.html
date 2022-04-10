@@ -196,7 +196,7 @@ SelectForUpdateStep&lt;BooksRecord&gt; q = dsl.selectFrom(Tables.BOOKS)
 // Build jOOQx
 Jooqx jooqx = Jooqx.builder().setVertx(vertx).setDSL(dsl).setSqlClient(jdbcPool).build();
 // To rx-ify version
-io.zero88.jooqx.reactivex.Jooqx.newInstance(jooqx)
+io.github.zero88.jooqx.reactivex.Jooqx.newInstance(jooqx)
                                .rxExecute(q, DSLAdapter.fetchMany(q.asTable()))
                                .subscribe(records -&gt; {
                                    BooksRecord record = records.get(0);
@@ -221,7 +221,7 @@ SelectForUpdateStep&lt;BooksRecord&gt; q = dsl.selectFrom(Tables.BOOKS)
                                         .offset(5);
 
 // Build jOOQx
-io.zero88.jooqx.reactivex.Jooqx jooqx = io.zero88.jooqx.reactivex.Jooqx.builder()
+io.github.zero88.jooqx.reactivex.Jooqx jooqx = io.github.zero88.jooqx.reactivex.Jooqx.builder()
                                                                        .setVertx(vertx)
                                                                        .setDSL(dsl)
                                                                        .setSqlClient(jdbcPool)
