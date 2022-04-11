@@ -144,40 +144,59 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>static <a href="adapter/SelectCount.html" title="class in io.github.zero88.jooqx.adapter">SelectCount</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchCount(org.jooq.TableLike)">fetchCount</a></span>&#8203;(@NotNull org.jooq.TableLike&lt;org.jooq.Record1&lt;java.lang.Integer&gt;&gt;&nbsp;table)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchCount()">fetchCount</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Fetch count</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
+<td class="colFirst"><code>static <a href="adapter/SelectCount.html" title="class in io.github.zero88.jooqx.adapter">SelectCount</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchCount(org.jooq.TableLike)">fetchCount</a></span>&#8203;(@NotNull org.jooq.TableLike&lt;org.jooq.Record1&lt;java.lang.Integer&gt;&gt;&nbsp;table)</code></th>
+<td class="colLast">
+<div class="block">Fetch count</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>static <a href="adapter/SelectExists.html" title="class in io.github.zero88.jooqx.adapter">SelectExists</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchExists()">fetchExists</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Fetch exists</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>static <a href="adapter/SelectExists.html" title="class in io.github.zero88.jooqx.adapter">SelectExists</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchExists(org.jooq.TableLike)">fetchExists</a></span>&#8203;(@NotNull org.jooq.TableLike&lt;org.jooq.Record1&lt;java.lang.Integer&gt;&gt;&nbsp;table)</code></th>
 <td class="colLast">
 <div class="block">Fetch exists</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>static &lt;T extends org.jooq.TableLike&lt;? extends org.jooq.Record&gt;&gt;<br><a href="adapter/SelectOne.html" title="class in io.github.zero88.jooqx.adapter">SelectOne</a>&lt;T,&#8203;<a href="JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;?&gt;,&#8203;<a href="JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;?&gt;&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchJsonRecord(T)">fetchJsonRecord</a></span>&#8203;(T&nbsp;table)</code></th>
 <td class="colLast">
 <div class="block">Fetch one JsonRecord</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>static &lt;T extends org.jooq.TableLike&lt;? extends org.jooq.Record&gt;&gt;<br><a href="adapter/SelectList.html" title="class in io.github.zero88.jooqx.adapter">SelectList</a>&lt;T,&#8203;<a href="JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;?&gt;,&#8203;<a href="JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;?&gt;&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchJsonRecords(T)">fetchJsonRecords</a></span>&#8203;(T&nbsp;table)</code></th>
 <td class="colLast">
 <div class="block">Fetch many Json record</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>static <a href="adapter/SelectList.html" title="class in io.github.zero88.jooqx.adapter">SelectList</a>&lt;org.jooq.Select&lt;? extends org.jooq.Record&gt;,&#8203;org.jooq.Record,&#8203;org.jooq.Record&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchMany(org.jooq.Field...)">fetchMany</a></span>&#8203;(org.jooq.Field&lt;?&gt;...&nbsp;fields)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>static &lt;T extends org.jooq.Table&lt;R&gt;,&#8203;R extends org.jooq.Record&gt;<br><a href="adapter/SelectList.html" title="class in io.github.zero88.jooqx.adapter">SelectList</a>&lt;T,&#8203;R,&#8203;R&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchMany(T)">fetchMany</a></span>&#8203;(T&nbsp;table)</code></th>
 <td class="colLast">
 <div class="block">Fetch many</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>static &lt;T extends org.jooq.TableLike&lt;? extends org.jooq.Record&gt;,&#8203;R&gt;<br><a href="adapter/SelectList.html" title="class in io.github.zero88.jooqx.adapter">SelectList</a>&lt;T,&#8203;<a href="JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;?&gt;,&#8203;R&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchMany(T,java.lang.Class)">fetchMany</a></span>&#8203;(T&nbsp;table,
          @NotNull java.lang.Class&lt;R&gt;&nbsp;outputClass)</code></th>
@@ -185,7 +204,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Fetch many</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>static &lt;T extends org.jooq.TableLike&lt;? extends org.jooq.Record&gt;&gt;<br><a href="adapter/SelectList.html" title="class in io.github.zero88.jooqx.adapter">SelectList</a>&lt;T,&#8203;org.jooq.Record,&#8203;org.jooq.Record&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchMany(T,java.util.Collection)">fetchMany</a></span>&#8203;(T&nbsp;table,
          @NotNull java.util.Collection&lt;org.jooq.Field&lt;?&gt;&gt;&nbsp;fields)</code></th>
@@ -193,7 +212,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Fetch many</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>static &lt;T extends org.jooq.TableLike&lt;? extends org.jooq.Record&gt;,&#8203;R extends org.jooq.Record&gt;<br><a href="adapter/SelectList.html" title="class in io.github.zero88.jooqx.adapter">SelectList</a>&lt;T,&#8203;R,&#8203;R&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchMany(T,R)">fetchMany</a></span>&#8203;(T&nbsp;table,
          R&nbsp;record)</code></th>
@@ -201,7 +220,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Fetch many</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>static &lt;T extends org.jooq.TableLike&lt;? extends org.jooq.Record&gt;,&#8203;R extends org.jooq.Record,&#8203;Z extends org.jooq.Table&lt;R&gt;&gt;<br><a href="adapter/SelectList.html" title="class in io.github.zero88.jooqx.adapter">SelectList</a>&lt;T,&#8203;<a href="JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;?&gt;,&#8203;R&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchMany(T,Z)">fetchMany</a></span>&#8203;(T&nbsp;table,
          Z&nbsp;toTable)</code></th>
@@ -209,14 +228,19 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Fetch many</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i12" class="altColor">
+<td class="colFirst"><code>static <a href="adapter/SelectOne.html" title="class in io.github.zero88.jooqx.adapter">SelectOne</a>&lt;org.jooq.Select&lt;? extends org.jooq.Record&gt;,&#8203;org.jooq.Record,&#8203;org.jooq.Record&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchOne(org.jooq.Field...)">fetchOne</a></span>&#8203;(org.jooq.Field&lt;?&gt;...&nbsp;fields)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>static &lt;T extends org.jooq.Table&lt;R&gt;,&#8203;R extends org.jooq.Record&gt;<br><a href="adapter/SelectOne.html" title="class in io.github.zero88.jooqx.adapter">SelectOne</a>&lt;T,&#8203;R,&#8203;R&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchOne(T)">fetchOne</a></span>&#8203;(T&nbsp;table)</code></th>
 <td class="colLast">
 <div class="block">Fetch one</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>static &lt;T extends org.jooq.TableLike&lt;? extends org.jooq.Record&gt;,&#8203;R&gt;<br><a href="adapter/SelectOne.html" title="class in io.github.zero88.jooqx.adapter">SelectOne</a>&lt;T,&#8203;<a href="JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;?&gt;,&#8203;R&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchOne(T,java.lang.Class)">fetchOne</a></span>&#8203;(T&nbsp;table,
         @NotNull java.lang.Class&lt;R&gt;&nbsp;outputClass)</code></th>
@@ -224,7 +248,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Fetch one</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>static &lt;T extends org.jooq.TableLike&lt;? extends org.jooq.Record&gt;&gt;<br><a href="adapter/SelectOne.html" title="class in io.github.zero88.jooqx.adapter">SelectOne</a>&lt;T,&#8203;org.jooq.Record,&#8203;org.jooq.Record&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchOne(T,java.util.Collection)">fetchOne</a></span>&#8203;(T&nbsp;table,
         @NotNull java.util.Collection&lt;org.jooq.Field&lt;?&gt;&gt;&nbsp;fields)</code></th>
@@ -232,7 +256,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Fetch one</div>
 </td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>static &lt;T extends org.jooq.TableLike&lt;? extends org.jooq.Record&gt;,&#8203;R extends org.jooq.TableRecord&lt;R&gt;&gt;<br><a href="adapter/SelectOne.html" title="class in io.github.zero88.jooqx.adapter">SelectOne</a>&lt;T,&#8203;R,&#8203;R&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchOne(T,R)">fetchOne</a></span>&#8203;(T&nbsp;table,
         R&nbsp;record)</code></th>
@@ -240,7 +264,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Fetch one</div>
 </td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>static &lt;T extends org.jooq.TableLike&lt;? extends org.jooq.Record&gt;,&#8203;R extends org.jooq.Record,&#8203;Z extends org.jooq.Table&lt;R&gt;&gt;<br><a href="adapter/SelectOne.html" title="class in io.github.zero88.jooqx.adapter">SelectOne</a>&lt;T,&#8203;R,&#8203;R&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchOne(T,Z)">fetchOne</a></span>&#8203;(T&nbsp;table,
         Z&nbsp;toTable)</code></th>
@@ -265,6 +289,24 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <!--   -->
 </a>
 <h3>Method Detail</h3>
+<a id="fetchCount()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fetchCount</h4>
+<pre class="methodSignature">static&nbsp;<a href="adapter/SelectCount.html" title="class in io.github.zero88.jooqx.adapter">SelectCount</a>&nbsp;fetchCount()</pre>
+<div class="block">Fetch count</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>select count</dd>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0.0</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="adapter/SelectCount.html" title="class in io.github.zero88.jooqx.adapter"><code>SelectCount</code></a></dd>
+</dl>
+</li>
+</ul>
 <a id="fetchCount(org.jooq.TableLike)">
 <!--   -->
 </a>
@@ -279,6 +321,26 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd><code>table</code> - a query table context</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>select count</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="adapter/SelectCount.html" title="class in io.github.zero88.jooqx.adapter"><code>SelectCount</code></a></dd>
+</dl>
+</li>
+</ul>
+<a id="fetchExists()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fetchExists</h4>
+<pre class="methodSignature">static&nbsp;<a href="adapter/SelectExists.html" title="class in io.github.zero88.jooqx.adapter">SelectExists</a>&nbsp;fetchExists()</pre>
+<div class="block">Fetch exists</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>select exists</dd>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0.0</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="adapter/SelectExists.html" title="class in io.github.zero88.jooqx.adapter"><code>SelectExists</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -296,6 +358,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd><code>table</code> - a query table context</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>select exists</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="adapter/SelectExists.html" title="class in io.github.zero88.jooqx.adapter"><code>SelectExists</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -374,6 +438,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><code>TableLike</code></dd>
 </dl>
+</li>
+</ul>
+<a id="fetchOne(org.jooq.Field...)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fetchOne</h4>
+<pre class="methodSignature">static&nbsp;<a href="adapter/SelectOne.html" title="class in io.github.zero88.jooqx.adapter">SelectOne</a>&lt;org.jooq.Select&lt;? extends org.jooq.Record&gt;,&#8203;org.jooq.Record,&#8203;org.jooq.Record&gt;&nbsp;fetchOne&#8203;(org.jooq.Field&lt;?&gt;...&nbsp;fields)</pre>
 </li>
 </ul>
 <a id="fetchOne(org.jooq.TableLike,java.lang.Class)">
@@ -528,6 +601,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><code>TableLike</code></dd>
 </dl>
+</li>
+</ul>
+<a id="fetchMany(org.jooq.Field...)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fetchMany</h4>
+<pre class="methodSignature">static&nbsp;<a href="adapter/SelectList.html" title="class in io.github.zero88.jooqx.adapter">SelectList</a>&lt;org.jooq.Select&lt;? extends org.jooq.Record&gt;,&#8203;org.jooq.Record,&#8203;org.jooq.Record&gt;&nbsp;fetchMany&#8203;(org.jooq.Field&lt;?&gt;...&nbsp;fields)</pre>
 </li>
 </ul>
 <a id="fetchMany(org.jooq.TableLike,java.lang.Class)">

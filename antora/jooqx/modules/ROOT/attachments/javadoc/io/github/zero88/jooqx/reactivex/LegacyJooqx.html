@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":42,"i1":42,"i2":42,"i3":42,"i4":41,"i5":42,"i6":42,"i7":42,"i8":42,"i9":42,"i10":10,"i11":42,"i12":42,"i13":42,"i14":42,"i15":42,"i16":10,"i17":10,"i18":9,"i19":42,"i20":42,"i21":42,"i22":42,"i23":42,"i24":42,"i25":42,"i26":42,"i27":42,"i28":10,"i29":42,"i30":42,"i31":42};
+var data = {"i0":42,"i1":42,"i2":42,"i3":42,"i4":41,"i5":42,"i6":42,"i7":42,"i8":42,"i9":42,"i10":10,"i11":42,"i12":42,"i13":42,"i14":42,"i15":42,"i16":10,"i17":10,"i18":9,"i19":42,"i20":42,"i21":42,"i22":42,"i23":42,"i24":42,"i25":42,"i26":42,"i27":42,"i28":42,"i29":42,"i30":42,"i31":42,"i32":42,"i33":42,"i34":42,"i35":42,"i36":42,"i37":42,"i38":42,"i39":42,"i40":10,"i41":42,"i42":42,"i43":42};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"],32:["t6","Deprecated Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -404,32 +404,126 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i27" class="rowColor">
+<td class="colFirst"><code>io.reactivex.Single&lt;java.lang.Integer&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rxSql(java.lang.String)">rxSql</a></span>&#8203;(java.lang.String&nbsp;statement)</code></th>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
+</td>
+</tr>
+<tr id="i28" class="altColor">
+<td class="colFirst"><code>io.reactivex.Single&lt;java.lang.Integer&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rxSql(java.util.function.Function)">rxSql</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;java.lang.String&gt;&nbsp;sqlFunction)</code></th>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
+</td>
+</tr>
+<tr id="i29" class="rowColor">
+<td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>io.reactivex.Maybe&lt;R&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rxSqlQuery(java.lang.String,io.github.zero88.jooqx.adapter.SQLResultAdapter)">rxSqlQuery</a></span>&#8203;(java.lang.String&nbsp;statement,
+          <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</code></th>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
+</td>
+</tr>
+<tr id="i30" class="altColor">
+<td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>io.reactivex.Maybe&lt;R&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rxSqlQuery(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">rxSqlQuery</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;java.lang.String&gt;&nbsp;sqlFunction,
+          <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</code></th>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
+</td>
+</tr>
+<tr id="i31" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sql(java.lang.String)">sql</a></span>&#8203;(java.lang.String&nbsp;statement)</code></th>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
+</td>
+</tr>
+<tr id="i32" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sql(java.lang.String,io.vertx.core.Handler)">sql</a></span>&#8203;(java.lang.String&nbsp;statement,
+   io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;java.lang.Integer&gt;&gt;&nbsp;handler)</code></th>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
+</td>
+</tr>
+<tr id="i33" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sql(java.util.function.Function)">sql</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;java.lang.String&gt;&nbsp;sqlFunction)</code></th>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
+</td>
+</tr>
+<tr id="i34" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sql(java.util.function.Function,io.vertx.core.Handler)">sql</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;java.lang.String&gt;&nbsp;sqlFunction,
+   io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;java.lang.Integer&gt;&gt;&nbsp;handler)</code></th>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
+</td>
+</tr>
+<tr id="i35" class="rowColor">
 <td class="colFirst"><code>io.vertx.reactivex.ext.sql.SQLClient</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sqlClient()">sqlClient</a></span>()</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
 </td>
 </tr>
-<tr id="i28" class="altColor">
+<tr id="i36" class="altColor">
+<td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sqlQuery(java.lang.String,io.github.zero88.jooqx.adapter.SQLResultAdapter)">sqlQuery</a></span>&#8203;(java.lang.String&nbsp;statement,
+        <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</code></th>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
+</td>
+</tr>
+<tr id="i37" class="rowColor">
+<td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sqlQuery(java.lang.String,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">sqlQuery</a></span>&#8203;(java.lang.String&nbsp;statement,
+        <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter,
+        io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;R&gt;&gt;&nbsp;handler)</code></th>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
+</td>
+</tr>
+<tr id="i38" class="altColor">
+<td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sqlQuery(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">sqlQuery</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;java.lang.String&gt;&nbsp;sqlFunction,
+        <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</code></th>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
+</td>
+</tr>
+<tr id="i39" class="rowColor">
+<td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sqlQuery(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">sqlQuery</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;java.lang.String&gt;&nbsp;sqlFunction,
+        <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter,
+        io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;R&gt;&gt;&nbsp;handler)</code></th>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
+</td>
+</tr>
+<tr id="i40" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i29" class="rowColor">
+<tr id="i41" class="rowColor">
 <td class="colFirst"><code><a href="LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxTx</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#transaction()">transaction</a></span>()</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
 </td>
 </tr>
-<tr id="i30" class="altColor">
+<tr id="i42" class="altColor">
 <td class="colFirst"><code><a href="../datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype">DataTypeMapperRegistry</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#typeMapperRegistry()">typeMapperRegistry</a></span>()</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
 </td>
 </tr>
-<tr id="i31" class="rowColor">
+<tr id="i43" class="rowColor">
 <td class="colFirst"><code>io.vertx.reactivex.core.Vertx</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#vertx()">vertx</a></span>()</code></th>
 <td class="colLast">
@@ -553,6 +647,57 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getDelegate</h4>
 <pre class="methodSignature">public&nbsp;<a href="../LegacyJooqx.html" title="interface in io.github.zero88.jooqx">LegacyJooqx</a>&nbsp;getDelegate()</pre>
+</li>
+</ul>
+<a id="sql(java.lang.String,io.vertx.core.Handler)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>sql</h4>
+<pre class="methodSignature">@Deprecated
+public&nbsp;void&nbsp;sql&#8203;(java.lang.String&nbsp;statement,
+                io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;java.lang.Integer&gt;&gt;&nbsp;handler)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block">Execute the plain SQL statement without result (e.g: SET, INSERT, UPDATE, etc...)</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>statement</code> - the plain SQL statement without result</dd>
+<dd><code>handler</code> - async result handler</dd>
+</dl>
+</li>
+</ul>
+<a id="sql(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>sql</h4>
+<pre class="methodSignature">@Deprecated
+public&nbsp;void&nbsp;sql&#8203;(java.lang.String&nbsp;statement)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block">Execute the plain SQL statement without result (e.g: SET, INSERT, UPDATE, etc...)</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>statement</code> - the plain SQL statement without result</dd>
+</dl>
+</li>
+</ul>
+<a id="rxSql(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>rxSql</h4>
+<pre class="methodSignature">@Deprecated
+public&nbsp;io.reactivex.Single&lt;java.lang.Integer&gt;&nbsp;rxSql&#8203;(java.lang.String&nbsp;statement)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block">Execute the plain SQL statement without result (e.g: SET, INSERT, UPDATE, etc...)</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>statement</code> - the plain SQL statement without result</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+</dl>
 </li>
 </ul>
 <a id="builder()">
@@ -850,6 +995,171 @@ public&nbsp;&lt;T,&#8203;R&gt;&nbsp;io.reactivex.Maybe&lt;R&gt;&nbsp;rxExecute&#
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>query</code> - the jOOQ query</dd>
 <dd><code>resultAdapter</code> - the result adapter</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+</dl>
+</li>
+</ul>
+<a id="sql(java.util.function.Function,io.vertx.core.Handler)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>sql</h4>
+<pre class="methodSignature">@Deprecated
+public&nbsp;void&nbsp;sql&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;java.lang.String&gt;&nbsp;sqlFunction,
+                io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;java.lang.Integer&gt;&gt;&nbsp;handler)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block">Execute the plain SQL statement without result (e.g: SET, INSERT, UPDATE, etc...)</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sqlFunction</code> - the plain SQL function products a plain SQL statement without result</dd>
+<dd><code>handler</code> - async result handler</dd>
+</dl>
+</li>
+</ul>
+<a id="sql(java.util.function.Function)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>sql</h4>
+<pre class="methodSignature">@Deprecated
+public&nbsp;void&nbsp;sql&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;java.lang.String&gt;&nbsp;sqlFunction)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block">Execute the plain SQL statement without result (e.g: SET, INSERT, UPDATE, etc...)</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sqlFunction</code> - the plain SQL function products a plain SQL statement without result</dd>
+</dl>
+</li>
+</ul>
+<a id="rxSql(java.util.function.Function)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>rxSql</h4>
+<pre class="methodSignature">@Deprecated
+public&nbsp;io.reactivex.Single&lt;java.lang.Integer&gt;&nbsp;rxSql&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;java.lang.String&gt;&nbsp;sqlFunction)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block">Execute the plain SQL statement without result (e.g: SET, INSERT, UPDATE, etc...)</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sqlFunction</code> - the plain SQL function products a plain SQL statement without result</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+</dl>
+</li>
+</ul>
+<a id="sqlQuery(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>sqlQuery</h4>
+<pre class="methodSignature">@Deprecated
+public&nbsp;&lt;T,&#8203;R&gt;&nbsp;void&nbsp;sqlQuery&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;java.lang.String&gt;&nbsp;sqlFunction,
+                                 <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter,
+                                 io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;R&gt;&gt;&nbsp;handler)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block">Execute the plain SQL statement with results (e.g: SELECT, etc...)</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sqlFunction</code> - the plain SQL function products a plain SQL statement with results</dd>
+<dd><code>adapter</code> - </dd>
+<dd><code>handler</code> - async result handler</dd>
+</dl>
+</li>
+</ul>
+<a id="sqlQuery(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>sqlQuery</h4>
+<pre class="methodSignature">@Deprecated
+public&nbsp;&lt;T,&#8203;R&gt;&nbsp;void&nbsp;sqlQuery&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;java.lang.String&gt;&nbsp;sqlFunction,
+                                 <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block">Execute the plain SQL statement with results (e.g: SELECT, etc...)</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sqlFunction</code> - the plain SQL function products a plain SQL statement with results</dd>
+<dd><code>adapter</code> - </dd>
+</dl>
+</li>
+</ul>
+<a id="rxSqlQuery(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>rxSqlQuery</h4>
+<pre class="methodSignature">@Deprecated
+public&nbsp;&lt;T,&#8203;R&gt;&nbsp;io.reactivex.Maybe&lt;R&gt;&nbsp;rxSqlQuery&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;java.lang.String&gt;&nbsp;sqlFunction,
+                                                    <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block">Execute the plain SQL statement with results (e.g: SELECT, etc...)</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sqlFunction</code> - the plain SQL function products a plain SQL statement with results</dd>
+<dd><code>adapter</code> - </dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+</dl>
+</li>
+</ul>
+<a id="sqlQuery(java.lang.String,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>sqlQuery</h4>
+<pre class="methodSignature">@Deprecated
+public&nbsp;&lt;T,&#8203;R&gt;&nbsp;void&nbsp;sqlQuery&#8203;(java.lang.String&nbsp;statement,
+                                 <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter,
+                                 io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;R&gt;&gt;&nbsp;handler)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block">Execute the plain SQL statement with results (e.g: SELECT, etc...)</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>statement</code> - the plain SQL statement with results</dd>
+<dd><code>adapter</code> - </dd>
+<dd><code>handler</code> - async result handler</dd>
+</dl>
+</li>
+</ul>
+<a id="sqlQuery(java.lang.String,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>sqlQuery</h4>
+<pre class="methodSignature">@Deprecated
+public&nbsp;&lt;T,&#8203;R&gt;&nbsp;void&nbsp;sqlQuery&#8203;(java.lang.String&nbsp;statement,
+                                 <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block">Execute the plain SQL statement with results (e.g: SELECT, etc...)</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>statement</code> - the plain SQL statement with results</dd>
+<dd><code>adapter</code> - </dd>
+</dl>
+</li>
+</ul>
+<a id="rxSqlQuery(java.lang.String,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>rxSqlQuery</h4>
+<pre class="methodSignature">@Deprecated
+public&nbsp;&lt;T,&#8203;R&gt;&nbsp;io.reactivex.Maybe&lt;R&gt;&nbsp;rxSqlQuery&#8203;(java.lang.String&nbsp;statement,
+                                                    <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block">Execute the plain SQL statement with results (e.g: SELECT, etc...)</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>statement</code> - the plain SQL statement with results</dd>
+<dd><code>adapter</code> - </dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 </dl>
 </li>

@@ -131,8 +131,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <dl>
 <dt><span class="paramLabel">Type Parameters:</span></dt>
-<dd><code>R</code> - The jOOQ record type</dd>
-<dd><code>I</code> - The output object type</dd>
+<dd><code>R</code> - The type of jOOQ record</dd>
+<dd><code>I</code> - The type of output object</dd>
 </dl>
 <dl>
 <dt>Direct Known Subclasses:</dt>
@@ -141,10 +141,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public class <span class="typeNameLabel">SQLCollectorPart&lt;R extends org.jooq.Record,&#8203;I&gt;</span>
 extends java.lang.Object</pre>
-<div class="block">SQL collector part that helps creating collector in <a href="RowConverterStrategy.html#createCollector(java.util.function.Function)"><code>RowConverterStrategy.createCollector(Function)</code></a>
+<div class="block">SQL collector part that helps to create collector in <a href="RowConverterStrategy.html#createCollector(java.util.function.Function)"><code>RowConverterStrategy.createCollector(Function)</code></a>
  <p>
- This collector part will be init in SQLResultAdapter</div>
+ This collector part will be initialized in <a href="SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter"><code>SQLResultAdapter</code></a></div>
 <dl>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>1.0.0</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="RowConverterStrategy.html" title="interface in io.github.zero88.jooqx.adapter"><code>RowConverterStrategy</code></a>, 
 <a href="SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter"><code>SQLResultAdapter</code></a></dd>
@@ -274,15 +276,6 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="provider()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>provider</h4>
-<pre class="methodSignature">protected&nbsp;java.util.function.BiFunction&lt;org.jooq.DSLContext,&#8203;org.jooq.TableLike&lt;? extends org.jooq.Record&gt;,&#8203;<a href="SQLCollectorPart.html" title="type parameter in SQLCollectorPart">R</a>&gt;&nbsp;provider()</pre>
-</li>
-</ul>
 <a id="converter()">
 <!--   -->
 </a>
@@ -295,13 +288,22 @@ extends java.lang.Object</pre>
 <a id="toRecord(org.jooq.DSLContext,org.jooq.TableLike)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>toRecord</h4>
 <pre class="methodSignature">public&nbsp;<a href="SQLCollectorPart.html" title="type parameter in SQLCollectorPart">R</a>&nbsp;toRecord&#8203;(@NotNull
                   @NotNull org.jooq.DSLContext&nbsp;dsl,
                   @NotNull
                   @NotNull org.jooq.TableLike&lt;? extends org.jooq.Record&gt;&nbsp;queryTable)</pre>
+</li>
+</ul>
+<a id="provider()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>provider</h4>
+<pre class="methodSignature">protected&nbsp;java.util.function.BiFunction&lt;org.jooq.DSLContext,&#8203;org.jooq.TableLike&lt;? extends org.jooq.Record&gt;,&#8203;<a href="SQLCollectorPart.html" title="type parameter in SQLCollectorPart">R</a>&gt;&nbsp;provider()</pre>
 </li>
 </ul>
 </li>

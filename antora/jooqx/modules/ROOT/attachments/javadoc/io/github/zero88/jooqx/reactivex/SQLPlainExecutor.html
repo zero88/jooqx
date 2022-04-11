@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":1,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6,"i7":6};
+var data = {"i0":6,"i1":1,"i2":6,"i3":6,"i4":6};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -165,40 +165,18 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code>io.reactivex.Single&lt;java.lang.Integer&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rxSqlQuery(java.lang.String)">rxSqlQuery</a></span>&#8203;(java.lang.String&nbsp;statement)</code></th>
-<td class="colLast">
-<div class="block">Execute the plain SQL statement with results (e.g: SELECT, etc...)</div>
-</td>
-</tr>
-<tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sql(java.lang.String)">sql</a></span>&#8203;(java.lang.String&nbsp;statement)</code></th>
 <td class="colLast">
 <div class="block">Execute the plain SQL statement without result (e.g: SET, INSERT, UPDATE, etc...)</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sql(java.lang.String,io.vertx.core.Handler)">sql</a></span>&#8203;(java.lang.String&nbsp;statement,
    io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;java.lang.Integer&gt;&gt;&nbsp;handler)</code></th>
 <td class="colLast">
 <div class="block">Execute the plain SQL statement without result (e.g: SET, INSERT, UPDATE, etc...)</div>
-</td>
-</tr>
-<tr id="i6" class="altColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sqlQuery(java.lang.String)">sqlQuery</a></span>&#8203;(java.lang.String&nbsp;statement)</code></th>
-<td class="colLast">
-<div class="block">Execute the plain SQL statement with results (e.g: SELECT, etc...)</div>
-</td>
-</tr>
-<tr id="i7" class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sqlQuery(java.lang.String,io.vertx.core.Handler)">sqlQuery</a></span>&#8203;(java.lang.String&nbsp;statement,
-        io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;java.lang.Integer&gt;&gt;&nbsp;handler)</code></th>
-<td class="colLast">
-<div class="block">Execute the plain SQL statement with results (e.g: SELECT, etc...)</div>
 </td>
 </tr>
 </table>
@@ -268,51 +246,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>statement</code> - the plain SQL statement without result</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-</dl>
-</li>
-</ul>
-<a id="sqlQuery(java.lang.String,io.vertx.core.Handler)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>sqlQuery</h4>
-<pre class="methodSignature">void&nbsp;sqlQuery&#8203;(java.lang.String&nbsp;statement,
-              io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;java.lang.Integer&gt;&gt;&nbsp;handler)</pre>
-<div class="block">Execute the plain SQL statement with results (e.g: SELECT, etc...)</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>statement</code> - the plain SQL statement with results</dd>
-<dd><code>handler</code> - async result handler</dd>
-</dl>
-</li>
-</ul>
-<a id="sqlQuery(java.lang.String)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>sqlQuery</h4>
-<pre class="methodSignature">void&nbsp;sqlQuery&#8203;(java.lang.String&nbsp;statement)</pre>
-<div class="block">Execute the plain SQL statement with results (e.g: SELECT, etc...)</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>statement</code> - the plain SQL statement with results</dd>
-</dl>
-</li>
-</ul>
-<a id="rxSqlQuery(java.lang.String)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>rxSqlQuery</h4>
-<pre class="methodSignature">io.reactivex.Single&lt;java.lang.Integer&gt;&nbsp;rxSqlQuery&#8203;(java.lang.String&nbsp;statement)</pre>
-<div class="block">Execute the plain SQL statement with results (e.g: SELECT, etc...)</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>statement</code> - the plain SQL statement with results</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 </dl>
 </li>
