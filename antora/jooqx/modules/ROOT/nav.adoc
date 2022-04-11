@@ -1,6 +1,8 @@
 .Core
 * xref:index.adoc[Welcome]
-* xref:get-started.adoc[Get Started]
-* xref:installation.adoc[Installation]
-* xref:features.adoc[Features]
+* xref:usage.adoc[Usage]
+* xref:getting-started.adoc[Getting started]
+* xref:features.adoc[Browse features]
+include::partial$feature-nav.adoc[]
+
 * xref:apidocs.adoc[API docs]

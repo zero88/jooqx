@@ -1,0 +1,15 @@
+== SQL plain statement
+
+=== Execute plain SQL statement without result
+
+[source,java]
+----
+
+----
+
+=== Execute plain SQL statement with result
+
+[source,java]
+----
+
+----

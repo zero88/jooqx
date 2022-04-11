@@ -1,0 +1,58 @@
+== Your every day SQL job
+
+=== Fetch exists
+
+[source,java]
+----
+Function<DSLContext, Query> q = dsl -> dsl.selectOne()                      // <1>
+      .whereExists(dsl.selectFrom(Tables.AUTHORS)
+                      .where(Tables.AUTHORS.NAME.eq("zero88")));
+jooqx.execute(q, DSLAdapter.fetchExists())                                  // <2>
+     .onSuccess(result -> {
+         final Boolean isExists = result;                                   // <3>
+         System.out.println(isExists);
+     })
+    .onFailure(Throwable::printStackTrace);                                 // <4>
+----
+
+=== Fetch count
+
+[source,java]
+----
+
+----
+
+=== Simple Query data
+
+[source,java]
+----
+
+----
+
+=== Complex join query
+
+[source,java]
+----
+
+----
+
+=== Insert data
+
+[source,java]
+----
+
+----
+
+=== Update data
+
+[source,java]
+----
+
+----
+
+=== Delete data
+
+[source,java]
+----
+
+----
