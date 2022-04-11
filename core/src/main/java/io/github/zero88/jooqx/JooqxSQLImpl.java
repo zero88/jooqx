@@ -15,6 +15,7 @@ import org.jooq.Param;
 import org.jooq.Query;
 import org.jooq.conf.ParamType;
 import org.jooq.conf.Settings;
+import org.jooq.impl.DSL;
 
 import io.github.zero88.jooqx.MiscImpl.BatchResultImpl;
 import io.github.zero88.jooqx.SQLImpl.SQLEI;
@@ -261,8 +262,21 @@ final class JooqxSQLImpl {
         public Future<Integer> ddl(@NotNull DDLQuery statement) {
             return sqlClient().query(preparedQuery().sql(dsl().configuration(), statement))
                               .execute()
-                              .map(SqlResult::size)
+                              .map(SqlResult::rowCount)
                               .otherwise(errorConverter()::reThrowError);
+        }
+
+        @Override
+        public Future<Integer> sql(@NotNull String statement) {
+            return sqlClient().query(preparedQuery().sql(dsl().configuration(), DSL.query(statement)))
+                              .execute()
+                              .map(SqlResult::rowCount)
+                              .otherwise(errorConverter()::reThrowError);
+        }
+
+        @Override
+        public <T, R> Future<@Nullable R> sqlQuery(@NotNull String statement, @NotNull SQLResultAdapter<T, R> adapter) {
+            return execute(dsl -> dsl.resultQuery(statement), adapter);
         }
 
         @Override

@@ -9,7 +9,7 @@ import io.github.zero88.jooqx.spi.jdbc.JDBCLegacyHikariProvider;
 import io.vertx.ext.jdbc.spi.impl.HikariCPDataSourceProvider;
 import io.vertx.junit5.VertxTestContext;
 
-public class H2LeGDDLTest extends LegacyDBMemoryTest<HikariCPDataSourceProvider>
+class H2LeGDDLTest extends LegacyDBMemoryTest<HikariCPDataSourceProvider>
     implements H2MemProvider, H2SQLHelper, JDBCLegacyHikariProvider, DDLTest {
 
     @Test

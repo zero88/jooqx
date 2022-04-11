@@ -52,7 +52,7 @@ class PgReARelationTest extends PgSQLJooqxTest<PgConnection> implements PgConnPr
                                                                  .selectCount()
                                                                  .from(table)
                                                                  .where(table.COUNTRY.eq("USA"));
-        jooqx.execute(query, DSLAdapter.fetchCount(query.asTable()), ar -> ctx.verify(() -> {
+        jooqx.execute(query, DSLAdapter.fetchCount(), ar -> ctx.verify(() -> {
             Assertions.assertEquals(6, assertSuccess(ctx, ar));
             flag.flag();
         }));
@@ -66,7 +66,7 @@ class PgReARelationTest extends PgSQLJooqxTest<PgConnection> implements PgConnPr
         final SelectConditionStep<Record1<Integer>> q = dsl.selectOne()
                                                            .whereExists(dsl.selectFrom(table)
                                                                            .where(table.NAME.eq("Jane Austen")));
-        jooqx.execute(q, DSLAdapter.fetchExists(q.asTable()), ar -> ctx.verify(() -> {
+        jooqx.execute(q, DSLAdapter.fetchExists(), ar -> ctx.verify(() -> {
             Assertions.assertTrue(assertSuccess(ctx, ar));
             flag.flag();
         }));
@@ -85,8 +85,7 @@ class PgReARelationTest extends PgSQLJooqxTest<PgConnection> implements PgConnPr
             final BooksRecord into1 = record.into(BooksRecord.class);
             Assertions.assertEquals(8, into1.getId());
             Assertions.assertNull(into1.getTitle());
-            final Books into2 = record.into(
-                Books.class);
+            final Books into2 = record.into(Books.class);
             Assertions.assertEquals(8, into2.getId());
             Assertions.assertNull(into2.getTitle());
             final Authors into3 = record.into(Authors.class);
@@ -159,13 +158,12 @@ class PgReARelationTest extends PgSQLJooqxTest<PgConnection> implements PgConnPr
         final Checkpoint flag = ctx.checkpoint();
         final io.zero88.sample.data.pgsql.tables.Authors table = schema().AUTHORS;
         final SelectWhereStep<AuthorsRecord> query = jooqx.dsl().selectFrom(table);
-        jooqx.execute(query, DSLAdapter.fetchMany(table, Authors.class),
-                      ar -> {
-                          final List<Authors> books = assertResultSize(ctx, ar, 8);
-                          final Authors authors = books.get(0);
-                          ctx.verify(() -> Assertions.assertEquals(1, authors.getId()));
-                          flag.flag();
-                      });
+        jooqx.execute(query, DSLAdapter.fetchMany(table, Authors.class), ar -> {
+            final List<Authors> books = assertResultSize(ctx, ar, 8);
+            final Authors authors = books.get(0);
+            ctx.verify(() -> Assertions.assertEquals(1, authors.getId()));
+            flag.flag();
+        });
     }
 
 }

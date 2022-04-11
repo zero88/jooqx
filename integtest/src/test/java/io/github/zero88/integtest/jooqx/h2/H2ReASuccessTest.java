@@ -16,7 +16,7 @@ import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 import io.zero88.sample.data.h2.tables.Alldatatypes;
 
-public class H2ReASuccessTest extends JooqxDBMemoryTest<JDBCPool>
+class H2ReASuccessTest extends JooqxDBMemoryTest<JDBCPool>
     implements H2MemProvider, H2SQLHelper, JDBCPoolHikariProvider {
 
     @Override

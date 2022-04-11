@@ -89,7 +89,7 @@ public class JooqxFeature implements ExampleFeature {
                                                      .whereExists(dsl.selectFrom(Tables.AUTHORS)
                                                                      .where(Tables.AUTHORS.NAME.eq("zero88")));
         Jooqx jooqx = Jooqx.builder().setVertx(vertx).setDSL(dsl).setSqlClient(jdbcPool).build();
-        jooqx.execute(q, DSLAdapter.fetchExists(q.asTable()), ar -> {
+        jooqx.execute(q, DSLAdapter.fetchExists(), ar -> {
             final Boolean isExists = ar.result();
             System.out.println(isExists);
             // output: true

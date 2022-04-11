@@ -17,14 +17,13 @@ abstract class SQLResultAdapterImpl<T extends TableLike<? extends Record>, O> im
     }
 
     protected final <R extends Record, I> RowConverterStrategy<R, I> initStrategy(@NotNull DSLContext dsl,
-        @NotNull DataTypeMapperRegistry registry, @NotNull SQLCollectorPart<R, I> collectorPart) {
+                                                                                  @NotNull DataTypeMapperRegistry registry,
+                                                                                  @NotNull SQLCollectorPart<R, I> collectorPart) {
         return new RowConverterStrategyImpl<>(strategy(), table(), dsl, registry, collectorPart);
     }
 
     @Override
-    public @NotNull T table() {
-        return table;
-    }
+    public @NotNull T table() { return table; }
 
     abstract static class SelectResultInternal<T extends TableLike<? extends Record>, R extends Record, I, O>
         extends SQLResultAdapterImpl<T, O> {

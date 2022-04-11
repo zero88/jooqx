@@ -9,14 +9,15 @@ import org.jooq.Record;
 import org.jooq.TableLike;
 
 /**
- * SQL collector part that helps creating collector in {@link RowConverterStrategy#createCollector(Function)}
+ * SQL collector part that helps to create collector in {@link RowConverterStrategy#createCollector(Function)}
  * <p>
- * This collector part will be init in SQLResultAdapter
+ * This collector part will be initialized in {@link SQLResultAdapter}
  *
- * @param <R> The jOOQ record type
- * @param <I> The output object type
+ * @param <R> The type of jOOQ record
+ * @param <I> The type of output object
  * @see RowConverterStrategy
  * @see SQLResultAdapter
+ * @since 1.0.0
  */
 public class SQLCollectorPart<R extends Record, I> {
 
@@ -28,17 +29,13 @@ public class SQLCollectorPart<R extends Record, I> {
         this.converter = converter;
     }
 
-    protected BiFunction<DSLContext, TableLike<? extends Record>, R> provider() {
-        return provider;
-    }
-
-    public Function<R, I> converter() {
-        return converter;
-    }
+    public Function<R, I> converter() { return converter; }
 
     public R toRecord(@NotNull DSLContext dsl, @NotNull TableLike<? extends Record> queryTable) {
         return provider.apply(dsl, queryTable);
     }
+
+    protected BiFunction<DSLContext, TableLike<? extends Record>, R> provider() { return provider; }
 
     public static final class IdentityCollectorPart<R extends Record> extends SQLCollectorPart<R, R> {
 

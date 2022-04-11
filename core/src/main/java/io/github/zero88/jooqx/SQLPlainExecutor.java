@@ -3,10 +3,11 @@ package io.github.zero88.jooqx;
 import java.util.function.Function;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.jooq.DSLContext;
 
+import io.github.zero88.jooqx.adapter.SQLResultAdapter;
 import io.vertx.codegen.annotations.GenIgnore;
+import io.vertx.codegen.annotations.Nullable;
 import io.vertx.codegen.annotations.VertxGen;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
@@ -25,7 +26,6 @@ public interface SQLPlainExecutor extends JooqDSLProvider {
      *
      * @param sqlFunction the plain SQL function products a plain SQL statement without result
      * @param handler     async result handler
-     * @since 2.0.0
      */
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
     default void sql(@NotNull Function<DSLContext, String> sqlFunction,
@@ -38,7 +38,6 @@ public interface SQLPlainExecutor extends JooqDSLProvider {
      *
      * @param sqlFunction the plain SQL function products a plain SQL statement without result
      * @return a {@code Future} of the asynchronous result
-     * @since 2.0.0
      */
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
     default Future<Integer> sql(@NotNull Function<DSLContext, String> sqlFunction) {
@@ -50,7 +49,6 @@ public interface SQLPlainExecutor extends JooqDSLProvider {
      *
      * @param statement the plain SQL statement without result
      * @param handler   async result handler
-     * @since 2.0.0
      */
     default void sql(@NotNull String statement, @NotNull Handler<AsyncResult<Integer>> handler) {
         sql(statement).onComplete(handler);
@@ -61,7 +59,6 @@ public interface SQLPlainExecutor extends JooqDSLProvider {
      *
      * @param statement the plain SQL statement without result
      * @return a {@code Future} of the asynchronous result
-     * @since 2.0.0
      */
     Future<Integer> sql(@NotNull String statement);
 
@@ -70,24 +67,24 @@ public interface SQLPlainExecutor extends JooqDSLProvider {
      *
      * @param sqlFunction the plain SQL function products a plain SQL statement with results
      * @param handler     async result handler
-     * @since 2.0.0
      */
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    default void sqlQuery(@NotNull Function<DSLContext, String> sqlFunction,
-                          @NotNull Handler<AsyncResult<Integer>> handler) {
-        sqlQuery(sqlFunction).onComplete(handler);
+    default <T, R> void sqlQuery(@NotNull Function<DSLContext, String> sqlFunction,
+                                 @NotNull SQLResultAdapter<T, R> adapter,
+                                 @NotNull Handler<AsyncResult<@Nullable R>> handler) {
+        sqlQuery(sqlFunction, adapter).onComplete(handler);
     }
 
     /**
-     * Like {@link #sqlQuery(Function, Handler)} but returns a {@code Future} of the asynchronous result
+     * Like {@link #sqlQuery(String, SQLResultAdapter, Handler)} but returns a {@code Future} of the asynchronous result
      *
      * @param sqlFunction the plain SQL function products a plain SQL statement with results
      * @return a {@code Future} of the asynchronous result
-     * @since 2.0.0
      */
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    default Future<Integer> sqlQuery(@NotNull Function<DSLContext, String> sqlFunction) {
-        return sql(sqlFunction.apply(dsl()));
+    default <T, R> Future<@Nullable R> sqlQuery(@NotNull Function<DSLContext, String> sqlFunction,
+                                                @NotNull SQLResultAdapter<T, R> adapter) {
+        return sqlQuery(sqlFunction.apply(dsl()), adapter);
     }
 
     /**
@@ -95,19 +92,20 @@ public interface SQLPlainExecutor extends JooqDSLProvider {
      *
      * @param statement the plain SQL statement with results
      * @param handler   async result handler
-     * @since 2.0.0
      */
-    default void sqlQuery(@NotNull String statement, @NotNull Handler<AsyncResult<@Nullable Integer>> handler) {
-        sql(statement).onComplete(handler);
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    default <T, R> void sqlQuery(@NotNull String statement, @NotNull SQLResultAdapter<T, R> adapter,
+                                 @NotNull Handler<AsyncResult<@Nullable R>> handler) {
+        sqlQuery(statement, adapter).onComplete(handler);
     }
 
     /**
-     * Like {@link #sql(String, Handler)} but returns a {@code Future} of the asynchronous result
+     * Like {@link #sqlQuery(String, SQLResultAdapter, Handler)} but returns a {@code Future} of the asynchronous result
      *
      * @param statement the plain SQL statement with results
      * @return a {@code Future} of the asynchronous result
-     * @since 2.0.0
      */
-    Future<Integer> sqlQuery(@NotNull String statement);
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    <T, R> Future<@Nullable R> sqlQuery(@NotNull String statement, @NotNull SQLResultAdapter<T, R> adapter);
 
 }
