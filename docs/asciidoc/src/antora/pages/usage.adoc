@@ -1,4 +1,4 @@
-== Installation
+== Usage
 
 To use `jooqx` add the following https://search.maven.org/artifact/io.github.zero88/jooqx/{jooqx-version}/jar[dependency]
 to the `dependencies` section of your build descriptor:
@@ -36,6 +36,8 @@ dependencies {
     api("io.github.zero88:jooqx-spi:{jooqx-version}")
 }
 ----
+
+=== Remarks
 
 :icons: font
 [TIP]

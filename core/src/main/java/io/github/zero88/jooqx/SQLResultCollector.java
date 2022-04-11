@@ -25,8 +25,8 @@ public interface SQLResultCollector<RS> {
     Logger LOGGER = LoggerFactory.getLogger(SQLResultCollector.class);
 
     @GenIgnore
-    default void warnManyResult(boolean check, @NotNull SelectStrategy strategy) {
-        if (check) {
+    default void warnManyResult(boolean tooManyResults, @NotNull SelectStrategy strategy) {
+        if (tooManyResults) {
             LOGGER.warn("Query strategy is [{}] but query result contains more than one row", strategy);
         }
     }
