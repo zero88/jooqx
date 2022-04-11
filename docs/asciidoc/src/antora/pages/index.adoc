@@ -24,13 +24,16 @@ zero88
 * [x] SQL Complex query with typesafe such as `join`, `with`, `having to`, etc
 * [x] SQL Batch insert/update/merge
 * [x] SQL Transaction
-** [?] Nested transaction (not yet tested, but API is available)
+** [ ] Nested transaction (not yet tested, but API is available)
 ** [ ] Transaction rollback condition
 ** [ ] Transaction annotation
 * [ ] Procedure
 * [ ] DAO
-* [?] Resource Query Language (RQL) from https://github.com/zero88/rsql[rsql-jooq]
+* [ ] Resource Query Language (RQL) from https://github.com/zero88/rsql[rsql-jooq]
 * [x] Rxified API
+** [x] Rx2
+** [ ] Rx3
+** [ ] Mutiny
 * [ ] Row streaming
 * [ ] Publish/subscribe
 * [x] Test fixtures API to easy setup test for your application testing or produce a minimum reproducer
