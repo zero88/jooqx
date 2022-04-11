@@ -262,7 +262,7 @@ final class JooqxSQLImpl {
         public Future<Integer> ddl(@NotNull DDLQuery statement) {
             return sqlClient().query(preparedQuery().sql(dsl().configuration(), statement))
                               .execute()
-                              .map(SqlResult::size)
+                              .map(SqlResult::rowCount)
                               .otherwise(errorConverter()::reThrowError);
         }
 
@@ -270,7 +270,7 @@ final class JooqxSQLImpl {
         public Future<Integer> sql(@NotNull String statement) {
             return sqlClient().query(preparedQuery().sql(dsl().configuration(), DSL.query(statement)))
                               .execute()
-                              .map(SqlResult::size)
+                              .map(SqlResult::rowCount)
                               .otherwise(errorConverter()::reThrowError);
         }
 
