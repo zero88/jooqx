@@ -37,7 +37,7 @@ public interface SQLBatchExecutor extends JooqDSLProvider {
     }
 
     /**
-     * Like {@link #batch(Query, BindBatchValues, Handler)} but returns a {@code Future} of the asynchronous result
+     * Like {@link #batch(Function, BindBatchValues, Handler)} but returns a {@code Future} of the asynchronous result
      *
      * @param queryFunction   query function
      * @param bindBatchValues bind batch values
