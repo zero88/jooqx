@@ -1,7 +1,7 @@
 import org.gradle.api.tasks.SourceSetContainer
 import org.gradle.api.tasks.compile.JavaCompile
 
-fun genCodeByAnnotation(jc: JavaCompile, sourceSets: SourceSetContainer, sourceSet: String = "main") {
+fun genCodeByAnnotation(jc: JavaCompile, sourceSets: SourceSetContainer, sourceSet: String = "main", addToSrc: Boolean = true) {
     jc.apply {
         group = "other"
         source = sourceSets.getByName(sourceSet).java
@@ -14,5 +14,7 @@ fun genCodeByAnnotation(jc: JavaCompile, sourceSets: SourceSetContainer, sourceS
             "-Acodegen.output=${project.projectDir}/src/${sourceSet}"
         )
     }
-    sourceSets.getByName(sourceSet).java.srcDirs(jc.destinationDirectory.get())
+    if (addToSrc) {
+        sourceSets.getByName(sourceSet).java.srcDirs(jc.destinationDirectory.get())
+    }
 }

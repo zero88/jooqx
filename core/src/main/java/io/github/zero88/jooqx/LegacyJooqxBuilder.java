@@ -13,7 +13,7 @@ import io.vertx.ext.sql.ResultSet;
 import io.vertx.ext.sql.SQLClient;
 
 /**
- * Represents a builder that construct {@link LegacyJooqx}
+ * Represents a builder that constructs {@link LegacyJooqx}
  *
  * @since 2.0.0
  */

@@ -1,6 +1,6 @@
 // @formatter:off
 /**
- * == SQL Data Definition
+ * = SQL Data Definition
  */
 // @formatter:on
 

@@ -1,11 +1,11 @@
 /**
- * == Result adapter
+ * = Result adapter
  *
- * === JsonRecord
+ * == JsonRecord
  *
  * Vertx JsonObject vs jOOQ Record... Ya, merging: `JsonRecord`
  *
- * [source,$lang]
+ * [source,$lang,subs="attributes,verbatim"]
  * ----
  * {@link io.github.zero88.jooqx.resultadapter.ExampleResultAdapter#toJsonRecord(io.github.zero88.jooqx.Jooqx)}
  * ----
@@ -13,16 +13,16 @@
  * <2> Access Json record object seamlessly without cast type
  * <3> output: `{"id":88,"name":"zero88","country":"VN"}`
  *
- * === By Table
+ * == By Table
  *
- * [source,$lang]
+ * [source,$lang,subs="attributes,verbatim"]
  * ----
  * {@link io.github.zero88.jooqx.resultadapter.ExampleResultAdapter#toTableRecord(io.github.zero88.jooqx.Jooqx)}
  * ----
  *
- * === By Fields
+ * == By Fields
  *
- * [source,$lang]
+ * [source,$lang,subs="attributes,verbatim"]
  * ----
  * {@link io.github.zero88.jooqx.resultadapter.ExampleResultAdapter#toFields(io.github.zero88.jooqx.Jooqx)}
  * ----

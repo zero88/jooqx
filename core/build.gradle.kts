@@ -14,7 +14,10 @@ dependencies {
     compileOnly(VertxLibs.jdbc)
 
     compileOnly(VertxLibs.rx2)
+    compileOnly(VertxLibs.rx3)
     compileOnly(VertxLibs.codegen)
+    compileOnly(MutinyLibs.jdbc)
+    compileOnly(MutinyLibs.sqlClient)
     annotationProcessor(VertxLibs.codegen)
 
     testImplementation(VertxLibs.sqlClient)
@@ -51,11 +54,21 @@ dependencies {
 
 tasks {
     register<JavaCompile>("genSrcCode") {
-        genCodeByAnnotation(this, sourceSets)
+        genCodeByAnnotation(this, sourceSets, addToSrc = false)
+        options.isFailOnError = false
     }
 
     compileJava {
         dependsOn(named("genSrcCode"))
+        // Workaround to remove rxjava3 for Legacy SQL client due to deprecated
+        doFirst {
+            project.delete {
+                delete(project.fileTree("${project.buildDir}/generated/main/java").matching {
+                    include("**/rxjava3/Legacy*.java")
+                })
+            }
+        }
+        sourceSets.getByName("main").java.srcDirs("${project.buildDir}/generated/main/java")
     }
 
     register<JavaCompile>("genTestFixturesCode") {

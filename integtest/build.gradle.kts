@@ -20,7 +20,10 @@ dependencies {
     testImplementation(TestContainers.mysql)
 
     testImplementation(VertxLibs.rx2)
+    testImplementation(VertxLibs.rx3)
 
     testImplementation(LogLibs.logback)
 
+    testImplementation(MutinyLibs.core)
+    testImplementation(MutinyLibs.jdbc)
 }

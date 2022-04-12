@@ -6,7 +6,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jooq.DSLContext;
 import org.jooq.Query;
 
-import io.github.zero88.jooqx.LegacySQLImpl.LegacyInternal;
 import io.github.zero88.jooqx.adapter.SQLResultAdapter;
 import io.github.zero88.jooqx.datatype.DataTypeMapperRegistry;
 import io.vertx.codegen.annotations.GenIgnore;

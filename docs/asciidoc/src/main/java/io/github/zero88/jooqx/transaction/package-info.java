@@ -1,7 +1,7 @@
 /**
- * == SQL transaction
+ * = SQL transaction
  *
- * [source,$lang]
+ * [source,$lang,subs="attributes,verbatim"]
  * ----
  * {@link io.github.zero88.jooqx.transaction.ExampleTransaction#transaction(io.github.zero88.jooqx.Jooqx)}
  * ----

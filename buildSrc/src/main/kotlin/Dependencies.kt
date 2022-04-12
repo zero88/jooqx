@@ -75,7 +75,24 @@ object VertxLibs {
     const val codegen = "io.vertx:vertx-codegen:${Version.vertx}"
     const val docgen = "io.vertx:vertx-docgen:${Version.docgen}"
     const val rx2 = "io.vertx:vertx-rx-java2:${Version.vertx}"
+    const val rx3 = "io.vertx:vertx-rx-java3:${Version.vertx}"
 
+}
+
+object MutinyLibs {
+    object Version {
+        const val mutiny = "2.20.0"
+    }
+
+    const val core = "io.smallrye.reactive:smallrye-mutiny-vertx-core:${Version.mutiny}"
+    const val sqlClient = "io.smallrye.reactive:smallrye-mutiny-vertx-sql-client:${Version.mutiny}"
+    const val jdbc = "io.smallrye.reactive:smallrye-mutiny-vertx-jdbc-client:${Version.mutiny}"
+    const val pgsql = "io.smallrye.reactive:smallrye-mutiny-vertx-pg-client:${Version.mutiny}"
+    const val mysql = "io.smallrye.reactive:smallrye-mutiny-vertx-mysql-client:${Version.mutiny}"
+    const val db2 = "io.smallrye.reactive:smallrye-mutiny-vertx-db2-client:${Version.mutiny}"
+    const val oracle = "io.smallrye.reactive:smallrye-mutiny-vertx-oracle-client:${Version.mutiny}"
+    const val mssql = "io.smallrye.reactive:smallrye-mutiny-vertx-mssql-client:${Version.mutiny}"
+    const val codegen = "io.smallrye.reactive:vertx-mutiny-generator:${Version.mutiny}"
 }
 
 object LogLibs {

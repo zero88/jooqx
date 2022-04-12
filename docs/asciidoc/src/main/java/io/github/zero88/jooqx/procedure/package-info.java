@@ -1,7 +1,7 @@
 /**
- * == SQL procedure
+ * = SQL procedure
  *
- * [source,$lang]
+ * [source,$lang,subs="attributes,verbatim"]
  * ----
  * {@link io.github.zero88.jooqx.procedure.ExampleProcedure#procedure(io.github.zero88.jooqx.Jooqx)}
  * ----

@@ -1,8 +1,8 @@
 /**
- * == Basic usage
+ * = Basic usage
  *
- * === Simple execution
- * [source,$lang]
+ * == Simple execution
+ * [source,$lang,subs="attributes,verbatim"]
  * ----
  * {@link io.github.zero88.jooqx.JooqxBasic#future(io.vertx.core.Vertx)}
  * ----

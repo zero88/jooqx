@@ -14,7 +14,7 @@ import io.vertx.sqlclient.RowSet;
 import io.vertx.sqlclient.Tuple;
 
 /**
- * Represents a builder that construct {@link Jooqx}
+ * Represents a builder that constructs {@link Jooqx}
  *
  * @since 2.0.0
  */

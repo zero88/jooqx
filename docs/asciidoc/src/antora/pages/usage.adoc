@@ -11,6 +11,16 @@ In your `pom.xml`,
 ----
 <dependencies>
     <dependency>
+        <groupId>org.jooq</groupId>
+        <artifactId>jooq</artifactId>
+        <version>{jooq-version}</version>
+    </dependency>
+    <dependency>
+        <groupId>io.vertx</groupId>
+        <artifactId>vertx-core</artifactId>
+        <version>{vertx-version}</version>
+    </dependency>
+    <dependency>
         <groupId>io.github.zero88</groupId>
         <artifactId>jooqx</artifactId>
         <version>{jooqx-version}</version>
@@ -31,6 +41,8 @@ In your `build.gradle`,
 [source,groovy,subs="attributes,verbatim"]
 ----
 dependencies {
+    api("org.jooq:jooq:{jooqx-version}")
+    api("io.vertx:vertx-core:{vertx-version}")
     api("io.github.zero88:jooqx:{jooqx-version}")
     // For some SPI includes specific converter based on Vert.x database client
     api("io.github.zero88:jooqx-spi:{jooqx-version}")

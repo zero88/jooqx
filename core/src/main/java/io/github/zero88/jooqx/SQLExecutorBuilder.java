@@ -6,7 +6,7 @@ import org.jooq.DSLContext;
 import io.github.zero88.jooqx.datatype.DataTypeMapperRegistry;
 import io.vertx.core.Vertx;
 
-interface SQLExecutorBuilder<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extends SQLResultCollector<RS>,
+public interface SQLExecutorBuilder<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extends SQLResultCollector<RS>,
                                 E extends SQLExecutorBuilder<S, B, PQ, RS, RC, E>>
     extends SQLExecutorContext<S, B, PQ, RS, RC> {
 

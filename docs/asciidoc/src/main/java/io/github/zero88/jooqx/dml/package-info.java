@@ -1,51 +1,51 @@
 /**
- * == Your every day SQL job
+ * = Your every day SQL job
  *
- * === Fetch exists
+ * == Fetch exists
  *
- * [source,$lang]
+ * [source,$lang,subs="attributes,verbatim"]
  * ----
  * {@link io.github.zero88.jooqx.dml.ExampleDQL#fetchExists(io.github.zero88.jooqx.Jooqx)}
  * ----
  *
- * === Fetch count
+ * == Fetch count
  *
- * [source,$lang]
+ * [source,$lang,subs="attributes,verbatim"]
  * ----
  * {@link io.github.zero88.jooqx.dml.ExampleDQL#fetchCount(io.github.zero88.jooqx.Jooqx)}
  * ----
  *
- * === Simple Query data
+ * == Simple Query data
  *
- * [source,$lang]
+ * [source,$lang,subs="attributes,verbatim"]
  * ----
  * {@link io.github.zero88.jooqx.dml.ExampleDQL#query(io.github.zero88.jooqx.Jooqx)}
  * ----
  *
- * === Complex join query
+ * == Complex join query
  *
- * [source,$lang]
+ * [source,$lang,subs="attributes,verbatim"]
  * ----
  * {@link io.github.zero88.jooqx.dml.ExampleDQL#joinQuery(io.github.zero88.jooqx.Jooqx)}
  * ----
  *
- * === Insert data
+ * == Insert data
  *
- * [source,$lang]
+ * [source,$lang,subs="attributes,verbatim"]
  * ----
  * {@link io.github.zero88.jooqx.dml.ExampleDML#insert(io.github.zero88.jooqx.Jooqx)}
  * ----
  *
- * === Update data
+ * == Update data
  *
- * [source,$lang]
+ * [source,$lang,subs="attributes,verbatim"]
  * ----
  * {@link io.github.zero88.jooqx.dml.ExampleDML#update(io.github.zero88.jooqx.Jooqx)}
  * ----
  *
- * === Delete data
+ * == Delete data
  *
- * [source,$lang]
+ * [source,$lang,subs="attributes,verbatim"]
  * ----
  * {@link io.github.zero88.jooqx.dml.ExampleDML#delete(io.github.zero88.jooqx.Jooqx)}
  * ----

@@ -1,6 +1,6 @@
 // @formatter:off
 /**
- * == Error Handler
+ * = Error Handler
  *
  * Basically, `exception` in execution time will be thrown by each particular `jdbc` driver or `reactive SQL driver`,
  * it can be spaghetti code, dealing with `exception`, then `jooqx` is able to centralize any exception with properly
@@ -8,25 +8,25 @@
  *
  * It is easy to configure when building `executor`
  *
- * === With JDBC SQL client
+ * == With JDBC SQL client
  *
- * [source,$lang]
+ * [source,$lang,subs="attributes,verbatim"]
  * ----
  * {@link io.github.zero88.jooqx.errorhandler.ExampleErrorHandler#jdbcErrorHandler(io.vertx.core.Vertx, org.jooq.DSLContext, io.vertx.jdbcclient.JDBCPool)}
  * ----
  *
- * === With JDBC PostgreSQL client
+ * == With JDBC PostgreSQL client
  *
- * [source,$lang]
+ * [source,$lang,subs="attributes,verbatim"]
  * ----
  * {@link io.github.zero88.jooqx.errorhandler.ExampleErrorHandler#pgErrorHandler(io.vertx.core.Vertx, org.jooq.DSLContext, io.vertx.pgclient.PgPool)}
  * ----
  *
- * === Integrating with your existing application exception
+ * == Integrating with your existing application exception
  *
  * And so more, you can convert to your existing application exception (must `extends RuntimeException`) by
  *
- * [source,$lang]
+ * [source,$lang,subs="attributes,verbatim"]
  * ----
  * {@link io.github.zero88.jooqx.errorhandler.ExampleErrorHandler#integrate(io.vertx.core.Vertx, org.jooq.DSLContext, io.vertx.jdbcclient.JDBCPool)}
  * ----

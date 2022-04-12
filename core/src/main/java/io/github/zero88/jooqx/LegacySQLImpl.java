@@ -44,19 +44,6 @@ import io.vertx.ext.sql.UpdateResult;
 final class LegacySQLImpl {
 
     @Deprecated
-    interface LegacyInternal<S extends SQLOperations>
-        extends SQLExecutor<S, JsonArray, LegacySQLPreparedQuery, ResultSet, LegacySQLCollector> {
-
-        @Override
-        @NotNull LegacySQLPreparedQuery preparedQuery();
-
-        @Override
-        @NotNull LegacySQLCollector resultCollector();
-
-    }
-
-
-    @Deprecated
     static final class LegacySQLPQ extends SQLPQ<JsonArray> implements LegacySQLPreparedQuery {
 
         @Override

@@ -66,6 +66,7 @@ public interface SQLPlainExecutor extends JooqDSLProvider {
      * Execute the plain SQL statement with results (e.g: SELECT, etc...)
      *
      * @param sqlFunction the plain SQL function products a plain SQL statement with results
+     * @param adapter     the result adapter
      * @param handler     async result handler
      */
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
@@ -76,9 +77,11 @@ public interface SQLPlainExecutor extends JooqDSLProvider {
     }
 
     /**
-     * Like {@link #sqlQuery(String, SQLResultAdapter, Handler)} but returns a {@code Future} of the asynchronous result
+     * Like {@link #sqlQuery(Function, SQLResultAdapter, Handler)} but returns a {@code Future} of the asynchronous
+     * result
      *
      * @param sqlFunction the plain SQL function products a plain SQL statement with results
+     * @param adapter     the result adapter
      * @return a {@code Future} of the asynchronous result
      */
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
@@ -91,6 +94,7 @@ public interface SQLPlainExecutor extends JooqDSLProvider {
      * Execute the plain SQL statement with results (e.g: SELECT, etc...)
      *
      * @param statement the plain SQL statement with results
+     * @param adapter   the result adapter
      * @param handler   async result handler
      */
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
@@ -100,7 +104,8 @@ public interface SQLPlainExecutor extends JooqDSLProvider {
     }
 
     /**
-     * Like {@link #sqlQuery(String, SQLResultAdapter, Handler)} but returns a {@code Future} of the asynchronous result
+     * Like {@link #sqlQuery(String, SQLResultAdapter, Handler)} but returns a {@code Future} of the asynchronous
+     * result
      *
      * @param statement the plain SQL statement with results
      * @return a {@code Future} of the asynchronous result
