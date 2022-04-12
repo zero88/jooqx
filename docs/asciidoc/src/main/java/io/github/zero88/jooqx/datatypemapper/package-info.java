@@ -1,6 +1,6 @@
 // @formatter:off
 /**
- * == Data type mapper
+ * = Data type mapper
  *
  * `Vert.x Reactive SQL client` on each Database can provide set of different object types with JDBC then `jOOQ`
  * system cannot understand. It leads to 4 use cases:
@@ -23,7 +23,7 @@
  * * `Vert.x` PostgreSQL interval: `io.vertx.pgclient.data.Interval`
  * * `jOOQ` interval: `org.jooq.types.YearToSecond`
  *
- * [source,groovy]
+ * [source,groovy,subs="attributes,verbatim"]
  * ----
  * generator.apply {
  *     name = "org.jooq.codegen.DefaultGenerator"
@@ -56,14 +56,14 @@
  *
  * So, after generation, we have
  *
- * [source,java]
+ * [source,java,subs="attributes,verbatim"]
  * ----
  * assert record.getFInterval1().getClass().getName() == "io.vertx.pgclient.data.Interval"
  * assert record.getFInterval2().getClass().getName() == "org.jooq.types.YearToSecond"
  * assert record.getFInterval3().getClass().getName() == "java.time.Duration"
  * ----
  *
- * [source,$lang]
+ * [source,$lang,subs="attributes,verbatim"]
  * ----
  * {@link io.github.zero88.jooqx.datatypemapper.ExampleDataType#mapper(io.vertx.core.Vertx, io.vertx.pgclient.PgPool)}
  * ----

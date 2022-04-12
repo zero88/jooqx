@@ -1,7 +1,7 @@
 /**
- * == SQL batch
+ * = SQL batch
  *
- * [source,$lang]
+ * [source,$lang,subs="attributes,verbatim"]
  * ----
  * {@link io.github.zero88.jooqx.batch.ExampleBatch#batch(io.github.zero88.jooqx.Jooqx)}
  * ----

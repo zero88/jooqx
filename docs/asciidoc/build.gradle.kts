@@ -5,6 +5,7 @@ dependencies {
     compileOnly(VertxLibs.pgsql)
     compileOnly(VertxLibs.mysql)
     compileOnly(VertxLibs.rx2)
+    compileOnly(VertxLibs.rx3)
 
     implementation(VertxLibs.docgen)
     annotationProcessor(VertxLibs.docgen)
