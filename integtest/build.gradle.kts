@@ -24,4 +24,6 @@ dependencies {
 
     testImplementation(LogLibs.logback)
 
+    testImplementation(MutinyLibs.core)
+    testImplementation(MutinyLibs.jdbc)
 }

@@ -84,6 +84,7 @@ object MutinyLibs {
         const val mutiny = "2.20.0"
     }
 
+    const val core = "io.smallrye.reactive:smallrye-mutiny-vertx-core:${Version.mutiny}"
     const val sqlClient = "io.smallrye.reactive:smallrye-mutiny-vertx-sql-client:${Version.mutiny}"
     const val jdbc = "io.smallrye.reactive:smallrye-mutiny-vertx-jdbc-client:${Version.mutiny}"
     const val pgsql = "io.smallrye.reactive:smallrye-mutiny-vertx-pg-client:${Version.mutiny}"
