@@ -3,7 +3,6 @@ package io.github.zero88.jooqx;
 import org.jetbrains.annotations.NotNull;
 import org.jooq.DSLContext;
 
-import io.github.zero88.jooqx.LegacySQLImpl.LegacyInternal;
 import io.github.zero88.jooqx.LegacySQLImpl.LegacyJooqxBuilderImpl;
 import io.github.zero88.jooqx.datatype.DataTypeMapperRegistry;
 import io.vertx.codegen.annotations.GenIgnore;

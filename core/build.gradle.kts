@@ -16,6 +16,8 @@ dependencies {
     compileOnly(VertxLibs.rx2)
     compileOnly(VertxLibs.rx3)
     compileOnly(VertxLibs.codegen)
+    compileOnly(MutinyLibs.jdbc)
+    compileOnly(MutinyLibs.sqlClient)
     annotationProcessor(VertxLibs.codegen)
 
     testImplementation(VertxLibs.sqlClient)

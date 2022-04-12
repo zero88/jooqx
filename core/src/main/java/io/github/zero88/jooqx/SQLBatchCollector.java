@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
  * @see SQLResultCollector
  * @since 1.0.0
  */
-interface SQLBatchCollector<RS, BR> extends SQLResultCollector<RS> {
+public interface SQLBatchCollector<RS, BR> extends SQLResultCollector<RS> {
 
     /**
      * Compute Batch Result size
