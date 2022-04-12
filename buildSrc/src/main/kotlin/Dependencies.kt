@@ -75,6 +75,9 @@ object VertxLibs {
     const val codegen = "io.vertx:vertx-codegen:${Version.vertx}"
     const val docgen = "io.vertx:vertx-docgen:${Version.docgen}"
     const val rx2 = "io.vertx:vertx-rx-java2:${Version.vertx}"
+    const val rx3 = "io.vertx:vertx-rx-java3:${Version.vertx}"
+
+}
 
 }
 
