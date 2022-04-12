@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Untitled :: Reactive SQL with Vert.x and jOOQ</title>
-    <link rel="canonical" href="https://zero88.github.io/jooqx/jooqx/main/installation.html">
+    <link rel="canonical" href="https://zero88.github.io/jooqx/jooqx/main/features-dml.html">
     <meta name="generator" content="Antora 3.0.1">
     <link rel="stylesheet" href="../../_/css/site.css">
 <link rel="icon" href="../../favicon.ico" type="image/x-icon"/>
@@ -73,13 +73,49 @@
     <a class="nav-link" href="index.html">Welcome</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="get-started.html">Get Started</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="installation.html">Installation</a>
+    <a class="nav-link" href="usage.html">Usage</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="features.html">Features</a>
+    <a class="nav-link" href="getting-started.html">Getting started</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="features.html">Browse features</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-basic.html">Basic usage</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="features-dml.html">SQL daily job</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-ddl.html">SQL DDL</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-plain-sql.html">SQL plain statement</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-batch.html">SQL batch</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-procedure.html">SQL procedure</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-transaction.html">SQL transaction</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-result-adapter.html">Result adapter</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-datatype-mapper.html">DataType mapper</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-error-handler.html">Error handler</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-rxify.html">Rxify version</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="apidocs.html">API docs</a>
@@ -136,10 +172,11 @@
   <ul>
     <li><a href="index.html">jOOQ.x</a></li>
     <li>Core</li>
-    <li><a href="installation.html">Installation</a></li>
+    <li><a href="features.html">Browse features</a></li>
+    <li><a href="features-dml.html">SQL daily job</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/zero88/jooqx/edit/docs/main/antora/jooqx/modules/ROOT/pages/installation.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/zero88/jooqx/edit/docs/main/antora/jooqx/modules/ROOT/pages/features-dml.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -147,131 +184,69 @@
 </aside>
 <article class="doc">
 <div class="sect1">
-<h2 id="_installation"><a class="anchor" href="#_installation"></a>Installation</h2>
+<h2 id="_your_every_day_sql_job"><a class="anchor" href="#_your_every_day_sql_job"></a>Your every day SQL job</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>To use <code>jooqx</code> add the following <a href="https://search.maven.org/artifact/io.github.zero88/jooqx/2.0.0-SNAPSHOT/jar">dependency</a>
-to the <code>dependencies</code> section of your build descriptor:</p>
-</div>
 <div class="sect2">
-<h3 id="_maven"><a class="anchor" href="#_maven"></a>Maven</h3>
-<div class="paragraph">
-<p>In your <code>pom.xml</code>,</p>
-</div>
+<h3 id="_fetch_exists"><a class="anchor" href="#_fetch_exists"></a>Fetch exists</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependencies&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;io.github.zero88&lt;/groupId&gt;
-        &lt;artifactId&gt;jooqx&lt;/artifactId&gt;
-        &lt;version&gt;2.0.0-SNAPSHOT&lt;/version&gt;
-    &lt;/dependency&gt;
-    &lt;!-- For some SPI includes specific converter based on Vert.x database client --&gt;
-    &lt;dependency&gt;
-        &lt;groupId&gt;io.github.zero88&lt;/groupId&gt;
-        &lt;artifactId&gt;jooqx-spi&lt;/artifactId&gt;
-        &lt;version&gt;2.0.0-SNAPSHOT&lt;/version&gt;
-    &lt;/dependency&gt;
-&lt;/dependencies&gt;</code></pre>
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Function&lt;DSLContext, Query&gt; q = dsl -&gt; dsl.selectOne()                      <i class="conum" data-value="1"></i><b>(1)</b>
+      .whereExists(dsl.selectFrom(Tables.AUTHORS)
+                      .where(Tables.AUTHORS.NAME.eq("zero88")));
+jooqx.execute(q, DSLAdapter.fetchExists())                                  <i class="conum" data-value="2"></i><b>(2)</b>
+     .onSuccess(result -&gt; {
+         final Boolean isExists = result;                                   <i class="conum" data-value="3"></i><b>(3)</b>
+         System.out.println(isExists);
+     })
+    .onFailure(Throwable::printStackTrace);                                 <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_gradle"><a class="anchor" href="#_gradle"></a>Gradle</h3>
-<div class="paragraph">
-<p>In your <code>build.gradle</code>,</p>
-</div>
+<h3 id="_fetch_count"><a class="anchor" href="#_fetch_count"></a>Fetch count</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">dependencies {
-    api("io.github.zero88:jooqx:2.0.0-SNAPSHOT")
-    // For some SPI includes specific converter based on Vert.x database client
-    api("io.github.zero88:jooqx-spi:2.0.0-SNAPSHOT")
-}</code></pre>
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"></code></pre>
 </div>
 </div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="title"><code>jooqx</code> is only depended on 3 main libraries</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>io.vertx:vertx-core</code></p>
-</li>
-<li>
-<p><code>org.jooq:jooq</code></p>
-</li>
-<li>
-<p><code>org.slf4j:slf4j-api</code></p>
-</li>
-</ul>
 </div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Adding this <code>jooqx</code> library JAR will not automatically add a <code>database driver</code> JAR to your project. You should ensure that your project also has a suitable <code>database driver</code> as a dependency.</p>
-</div>
-<div class="paragraph">
-<p>For example:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>With <code>legacy JDBC</code> and connecting to <code>MySQL</code> driver</p>
-</li>
-</ul>
-</div>
+<div class="sect2">
+<h3 id="_simple_query_data"><a class="anchor" href="#_simple_query_data"></a>Simple Query data</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">dependencies {
-    api("mysql:mysql-connector-java:8.0.23")
-    // It is recommendation to use HikariCP instead of c3p0
-    api("com.zaxxer:HikariCP:4.0.2")
-    api("io.vertx:vertx-jdbc-client:4.2.3") {
-        exclude("com.mchange")
-    }
-    api("io.github.zero88:jooqx:2.0.0-SNAPSHOT")
-}</code></pre>
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"></code></pre>
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>With <code>reactive PostgreSQL</code> client</p>
-</li>
-</ul>
 </div>
+<div class="sect2">
+<h3 id="_complex_join_query"><a class="anchor" href="#_complex_join_query"></a>Complex join query</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">dependencies {
-    api("io.vertx:vertx-pg-client:4.2.3")
-    api("io.github.zero88:jooqx:2.0.0-SNAPSHOT")
-}</code></pre>
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"></code></pre>
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>With <code>reactive JDBC</code> client and <code>H2</code></p>
-</li>
-</ul>
 </div>
+<div class="sect2">
+<h3 id="_insert_data"><a class="anchor" href="#_insert_data"></a>Insert data</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">dependencies {
-    api("com.h2database:h2:1.4.200")
-    // Agroal pool - Default in Vertx SQL client - Not yet has alternatives
-    api("io.agroal:agroal-pool:1.9")
-    api("io.vertx:vertx-sql-client:4.2.3")
-    api("io.github.zero88:jooqx:2.0.0-SNAPSHOT")
-}</code></pre>
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_update_data"><a class="anchor" href="#_update_data"></a>Update data</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_delete_data"><a class="anchor" href="#_delete_data"></a>Delete data</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"></code></pre>
 </div>
 </div>
 </div>
