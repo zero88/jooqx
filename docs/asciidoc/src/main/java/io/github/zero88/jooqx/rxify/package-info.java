@@ -8,6 +8,7 @@
  *
  * - [x] https://vertx.io/docs/vertx-rx/java2/[Vert.x RxJava2]
  * - [x] https://vertx.io/docs/vertx-rx/java3/[Vert.x RxJava3]
+ * - [x] https://smallrye.io/smallrye-mutiny/[Vert.x Mutiny]
  *
  * == Dependencies setup
  *
@@ -21,13 +22,23 @@
  * ----
  * <dependency>
  *    <groupId>io.vertx</groupId>
- *    <artifactId>vertx-rx-java2</artifactId>  <1>
+ *    <artifactId>vertx-rx-java2</artifactId>                     <1>
  *    <version>{vertx-version}</version>
  * </dependency>
  * <dependency>
  *    <groupId>io.vertx</groupId>
- *    <artifactId>vertx-rx-java3</artifactId>  <2>
+ *    <artifactId>vertx-rx-java3</artifactId>                     <2>
  *    <version>{vertx-version}</version>
+ * </dependency>
+ * <dependency>
+ *    <groupId>io.smallrye.reactive</groupId>
+ *    <artifactId>smallrye-mutiny-vertx-core</artifactId>         <3>
+ *    <version>{mutiny-version}</version>
+ * </dependency>
+ * <dependency>
+ *    <groupId>io.smallrye.reactive</groupId>
+ *    <artifactId>smallrye-mutiny-vertx-pg-client</artifactId>    <4>
+ *    <version>{mutiny-version}</version>
  * </dependency>
  * <dependency>
  *   <groupId>io.github.zero88</groupId>
@@ -37,6 +48,8 @@
  * ----
  * <1> For using `Rx2` version
  * <2> For using `Rx3` version
+ * <3> For using `mutiny` version
+ * <4> Assume you are using `pg-client`
  *
  * === Gradle
  *
@@ -45,16 +58,20 @@
  * [source,gradle,subs="attributes,verbatim"]
  * ----
  * dependencies {
- *     api("io.github.zero88:jooqx:{jooqx-version}")    <1>
+ *     api("io.github.zero88:jooqx:{jooqx-version}")
  *     // with rx2
- *     api("io.vertx:vertx-rx-java2:{vertx-version}")   <2>
+ *     api("io.vertx:vertx-rx-java2:{vertx-version}")                                 <1>
  *     // or with rx3
- *     api("io.vertx:vertx-rx-java3:{vertx-version}")
- *     // Other database libs depends on your application
+ *     api("io.vertx:vertx-rx-java3:{vertx-version}")                                 <2>
+ *     // or with mutiny
+ *     api("io.smallrye.reactive:smallrye-mutiny-vertx-core:{mutiny-version}")        <3>
+ *     api("io.smallrye.reactive:smallrye-mutiny-vertx-pg-client:{mutiny-version}")   <4>
  * }
  * ----
  * <1> For using `Rx2` version
  * <2> For using `Rx3` version
+ * <3> For using `mutiny` version
+ * <4> Assume you are using `pg-client`
  *
  * Well done, now you can enjoy Rxify version with a little effort
  *
@@ -79,6 +96,13 @@
  * [source,$lang,subs="attributes,verbatim"]
  * ----
  * {@link io.github.zero88.jooqx.rxify.ExampleReactivex#rx3Builder(io.vertx.core.Vertx, io.vertx.mysqlclient.MySQLPool, org.jooq.DSLContext)}
+ * ----
+ *
+ * === `Mutiny` - By {@code jooqx} builder
+ *
+ * [source,$lang,subs="attributes,verbatim"]
+ * ----
+ * {@link io.github.zero88.jooqx.rxify.ExampleReactivex#mutinyBuilder(io.vertx.core.Vertx, io.vertx.pgclient.PgPool, org.jooq.DSLContext)}
  * ----
  */
 //@formatter:on

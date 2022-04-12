@@ -76,4 +76,27 @@ class ExampleReactivex {
         }, err -> { });
     }
 
+    public void mutinyBuilder(io.vertx.core.Vertx vertx, io.vertx.pgclient.PgPool pool, DSLContext dsl) {
+        io.vertx.mutiny.core.Vertx vertxRx3 = io.vertx.mutiny.core.Vertx.newInstance(vertx);
+        io.vertx.mutiny.pgclient.PgPool poolRx3 = io.vertx.mutiny.pgclient.PgPool.newInstance(pool);
+        // Build jOOQ query
+        SelectForUpdateStep<BooksRecord> q = dsl.selectFrom(Tables.BOOKS)
+                                                .orderBy(Tables.BOOKS.TITLE)
+                                                .limit(10)
+                                                .offset(5);
+
+        // Create mutiny jooqx by builder
+        io.github.zero88.jooqx.mutiny.Jooqx jooqx = io.github.zero88.jooqx.mutiny.Jooqx.builder()
+                                                                                       .setVertx(vertxRx3)
+                                                                                       .setSqlClient(poolRx3)
+                                                                                       .setDSL(dsl)
+                                                                                       .build();
+        // Mutiny-execute
+        jooqx.execute(q, DSLAdapter.fetchMany(q.asTable())).subscribe().with(records -> {
+            BooksRecord record = records.get(0);
+            System.out.println(record.getId()); // output: 1
+            System.out.println(record.getTitle()); // output: jooqx
+        }, err -> { });
+    }
+
 }

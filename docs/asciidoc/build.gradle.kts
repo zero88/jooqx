@@ -6,6 +6,8 @@ dependencies {
     compileOnly(VertxLibs.mysql)
     compileOnly(VertxLibs.rx2)
     compileOnly(VertxLibs.rx3)
+    compileOnly(MutinyLibs.core)
+    compileOnly(MutinyLibs.pgsql)
 
     implementation(VertxLibs.docgen)
     annotationProcessor(VertxLibs.docgen)
