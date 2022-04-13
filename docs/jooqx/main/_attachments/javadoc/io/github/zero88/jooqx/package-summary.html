@@ -160,7 +160,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <tr class="altColor">
 <th class="colFirst" scope="row"><a href="JooqxBuilder.html" title="interface in io.github.zero88.jooqx">JooqxBuilder</a></th>
 <td class="colLast">
-<div class="block">Represents a builder that construct <a href="Jooqx.html" title="interface in io.github.zero88.jooqx"><code>Jooqx</code></a></div>
+<div class="block">Represents a builder that constructs <a href="Jooqx.html" title="interface in io.github.zero88.jooqx"><code>Jooqx</code></a></div>
 </td>
 </tr>
 <tr class="rowColor">
@@ -172,7 +172,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <tr class="altColor">
 <th class="colFirst" scope="row"><a href="JooqxConnBuilder.html" title="interface in io.github.zero88.jooqx">JooqxConnBuilder</a></th>
 <td class="colLast">
-<div class="block">Represents a builder that construct <a href="JooqxConn.html" title="interface in io.github.zero88.jooqx"><code>JooqxConn</code></a></div>
+<div class="block">Represents a builder that constructs <a href="JooqxConn.html" title="interface in io.github.zero88.jooqx"><code>JooqxConn</code></a></div>
 </td>
 </tr>
 <tr class="rowColor">
@@ -201,29 +201,38 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="rowColor">
+<th class="colFirst" scope="row"><a href="LegacyInternal.html" title="interface in io.github.zero88.jooqx">LegacyInternal</a>&lt;S extends io.vertx.ext.sql.SQLOperations&gt;</th>
+<td class="colLast">Deprecated.</td>
+</tr>
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="LegacyJooqx.html" title="interface in io.github.zero88.jooqx">LegacyJooqx</a></th>
 <td class="colLast">Deprecated.
 <div class="deprecationComment">Since <a href="https://vertx.io/docs/vertx-jdbc-client/java/#_legacy_jdbc_client_api">Vertx
      deprecated</a>, this interface still works but not able to using with
-     <a href="https://vertx.io/docs/vertx-rx/java3/">Rxify version 3</a> and
-     <a href="https://smallrye.io/smallrye-mutiny-vertx-bindings/2.20.0/">Vertx mutiny</a></div>
+     <a href="https://vertx.io/docs/vertx-rx/java3/">Rxify version 3</a></div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="LegacyJooqxBuilder.html" title="interface in io.github.zero88.jooqx">LegacyJooqxBuilder</a></th>
 <td class="colLast">Deprecated.</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="LegacyJooqxTx.html" title="interface in io.github.zero88.jooqx">LegacyJooqxTx</a></th>
 <td class="colLast">Deprecated.</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="LegacySQLCollector.html" title="interface in io.github.zero88.jooqx">LegacySQLCollector</a></th>
 <td class="colLast">Deprecated.</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="LegacySQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">LegacySQLPreparedQuery</a></th>
 <td class="colLast">Deprecated.</td>
+</tr>
+<tr class="rowColor">
+<th class="colFirst" scope="row"><a href="SQLBatchCollector.html" title="interface in io.github.zero88.jooqx">SQLBatchCollector</a>&lt;RS,&#8203;BR&gt;</th>
+<td class="colLast">
+<div class="block">Represents for a collector that collects <code>Vert.x SQL batch result</code> to an expectation output</div>
+</td>
 </tr>
 <tr class="altColor">
 <th class="colFirst" scope="row"><a href="SQLBatchExecutor.html" title="interface in io.github.zero88.jooqx">SQLBatchExecutor</a></th>
@@ -258,30 +267,34 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="rowColor">
+<th class="colFirst" scope="row"><a href="SQLExecutorBuilder.html" title="interface in io.github.zero88.jooqx">SQLExecutorBuilder</a>&lt;S,&#8203;B,&#8203;PQ extends <a href="SQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">SQLPreparedQuery</a>&lt;B&gt;,&#8203;RS,&#8203;RC extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>&lt;RS&gt;,&#8203;E extends <a href="SQLExecutorBuilder.html" title="interface in io.github.zero88.jooqx">SQLExecutorBuilder</a>&lt;S,&#8203;B,&#8203;PQ,&#8203;RS,&#8203;RC,&#8203;E&gt;&gt;</th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="SQLPlainExecutor.html" title="interface in io.github.zero88.jooqx">SQLPlainExecutor</a></th>
 <td class="colLast">
 <div class="block">Represents for a <code>DDL executor</code> that executes batch SQL command</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="SQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">SQLPreparedQuery</a>&lt;B&gt;</th>
 <td class="colLast">
 <div class="block">Represents for SQL prepared query that transforms jOOQ Query to Vertx SQL prepared query</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></th>
 <td class="colLast">
 <div class="block">Represents for a <code>query executor</code> that executes SQL command</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>&lt;RS&gt;</th>
 <td class="colLast">
 <div class="block">Represents for a collector that collects <code>Vert.x SQL result</code> to an expectation output</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="SQLTxExecutor.html" title="interface in io.github.zero88.jooqx">SQLTxExecutor</a>&lt;S,&#8203;B,&#8203;P extends <a href="SQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">SQLPreparedQuery</a>&lt;B&gt;,&#8203;RS,&#8203;C extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>&lt;RS&gt;,&#8203;E extends <a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;S,&#8203;B,&#8203;P,&#8203;RS,&#8203;C&gt;&gt;</th>
 <td class="colLast">
 <div class="block">Represents for transaction executor</div>

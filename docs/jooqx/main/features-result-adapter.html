@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: Reactive SQL with Vert.x and jOOQ</title>
+    <title>Result adapter :: Reactive SQL with Vert.x and jOOQ</title>
     <link rel="canonical" href="https://zero88.github.io/jooqx/jooqx/main/features-result-adapter.html">
     <meta name="generator" content="Antora 3.0.1">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -183,11 +183,10 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
+<h1 class="page">Result adapter</h1>
 <div class="sect1">
-<h2 id="_result_adapter"><a class="anchor" href="#_result_adapter"></a>Result adapter</h2>
+<h2 id="_jsonrecord"><a class="anchor" href="#_jsonrecord"></a>JsonRecord</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_jsonrecord"><a class="anchor" href="#_jsonrecord"></a>JsonRecord</h3>
 <div class="paragraph">
 <p>Vertx JsonObject vs jOOQ Record&#8230;&#8203;</p>
 </div>
@@ -225,8 +224,10 @@ jooqx.execute(q, DSLAdapter.fetchJsonRecord(q.asTable()))   <i class="conum" dat
 </table>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_by_table"><a class="anchor" href="#_by_table"></a>By Table</h3>
+</div>
+<div class="sect1">
+<h2 id="_by_table"><a class="anchor" href="#_by_table"></a>By Table</h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">SelectWhereStep&lt;AuthorsRecord&gt; query = jooqx.dsl().selectFrom(Tables.AUTHORS);
@@ -240,8 +241,10 @@ jooqx.execute(query, DSLAdapter.fetchMany(Tables.AUTHORS, Authors.class), ar -&g
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_by_fields"><a class="anchor" href="#_by_fields"></a>By Fields</h3>
+</div>
+<div class="sect1">
+<h2 id="_by_fields"><a class="anchor" href="#_by_fields"></a>By Fields</h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Books table = Tables.BOOKS;
@@ -250,7 +253,6 @@ jooqx.execute(insert, DSLAdapter.fetchOne(table, Collections.singletonList(table
     Record record = ar.result();
     System.out.println(record.getValue(0));
 });</code></pre>
-</div>
 </div>
 </div>
 </div>

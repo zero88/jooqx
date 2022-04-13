@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: Reactive SQL with Vert.x and jOOQ</title>
+    <title>Error Handler :: Reactive SQL with Vert.x and jOOQ</title>
     <link rel="canonical" href="https://zero88.github.io/jooqx/jooqx/main/features-error-handler.html">
     <meta name="generator" content="Antora 3.0.1">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -183,8 +183,8 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<div class="sect1">
-<h2 id="_error_handler"><a class="anchor" href="#_error_handler"></a>Error Handler</h2>
+<h1 class="page">Error Handler</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
 <p>Basically, <code>exception</code> in execution time will be thrown by each particular <code>jdbc</code> driver or <code>reactive SQL driver</code>,
@@ -194,8 +194,11 @@ it can be spaghetti code, dealing with <code>exception</code>, then <code>jooqx<
 <div class="paragraph">
 <p>It is easy to configure when building <code>executor</code></p>
 </div>
-<div class="sect2">
-<h3 id="_with_jdbc_sql_client"><a class="anchor" href="#_with_jdbc_sql_client"></a>With JDBC SQL client</h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_with_jdbc_sql_client"><a class="anchor" href="#_with_jdbc_sql_client"></a>With JDBC SQL client</h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Jooqx jooqx = Jooqx.builder()
@@ -207,8 +210,10 @@ it can be spaghetti code, dealing with <code>exception</code>, then <code>jooqx<
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_with_jdbc_postgresql_client"><a class="anchor" href="#_with_jdbc_postgresql_client"></a>With JDBC PostgreSQL client</h3>
+</div>
+<div class="sect1">
+<h2 id="_with_jdbc_postgresql_client"><a class="anchor" href="#_with_jdbc_postgresql_client"></a>With JDBC PostgreSQL client</h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Jooqx jooqx = Jooqx.builder()
@@ -220,8 +225,10 @@ it can be spaghetti code, dealing with <code>exception</code>, then <code>jooqx<
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_integrating_with_your_existing_application_exception"><a class="anchor" href="#_integrating_with_your_existing_application_exception"></a>Integrating with your existing application exception</h3>
+</div>
+<div class="sect1">
+<h2 id="_integrating_with_your_existing_application_exception"><a class="anchor" href="#_integrating_with_your_existing_application_exception"></a>Integrating with your existing application exception</h2>
+<div class="sectionbody">
 <div class="paragraph">
 <p>And so more, you can convert to your existing application exception (must <code>extends RuntimeException</code>) by</p>
 </div>
@@ -235,7 +242,6 @@ Jooqx jooqx = Jooqx.builder()
                    .setSqlClient(pool)
                    .setErrorConverter(errorConverter)
                    .build();</code></pre>
-</div>
 </div>
 </div>
 </div>

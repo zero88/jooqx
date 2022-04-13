@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: Reactive SQL with Vert.x and jOOQ</title>
+    <title>SQL batch :: Reactive SQL with Vert.x and jOOQ</title>
     <link rel="canonical" href="https://zero88.github.io/jooqx/jooqx/main/features-batch.html">
     <meta name="generator" content="Antora 3.0.1">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -183,9 +183,7 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<div class="sect1">
-<h2 id="_sql_batch"><a class="anchor" href="#_sql_batch"></a>SQL batch</h2>
-<div class="sectionbody">
+<h1 class="page">SQL batch</h1>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">AuthorsRecord rec1 = new AuthorsRecord().setName("zero88").setCountry("VN");
@@ -209,8 +207,6 @@ jooqx.batchResult(insert, bindValues, DSLAdapter.fetchJsonRecords(Tables.AUTHORS
     //[{"id":1,"name":"zero88","country":"VN"},{"id":2,"name":"jooq","country":"CH"},{"id":3,"name":"vertx",
     // "country":"FR"}]
 });</code></pre>
-</div>
-</div>
 </div>
 </div>
 </article>
