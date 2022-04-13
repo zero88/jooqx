@@ -56,18 +56,19 @@ tasks {
     register<JavaCompile>("genSrcCode") {
         genCodeByAnnotation(this, sourceSets, addToSrc = false)
         options.isFailOnError = false
-    }
-
-    compileJava {
-        dependsOn(named("genSrcCode"))
         // Workaround to remove rxjava3 for Legacy SQL client due to deprecated
-        doFirst {
+        // Should make this task is cacheable
+        doLast {
             project.delete {
                 delete(project.fileTree("${project.buildDir}/generated/main/java").matching {
                     include("**/rxjava3/Legacy*.java")
                 })
             }
         }
+    }
+
+    compileJava {
+        dependsOn(named("genSrcCode"))
         sourceSets.getByName("main").java.srcDirs("${project.buildDir}/generated/main/java")
     }
 
