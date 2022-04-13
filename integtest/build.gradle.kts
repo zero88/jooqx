@@ -1,14 +1,24 @@
+configurations.all {
+    resolutionStrategy {
+        preferProjectModules()
+        force(VertxLibs.core)
+        force(VertxLibs.sqlClient)
+        force(VertxLibs.jdbc)
+    }
+}
+
 dependencies {
     testImplementation(project(":sample:model"))
     testImplementation(testFixtures(project(":jooqx")))
     testImplementation(project(":rsql:jooq"))
+    testImplementation(VertxLibs.sqlClient)
+    testImplementation(VertxLibs.jdbc)
 
     testImplementation(DatabaseLibs.agroalApi)
     testImplementation(DatabaseLibs.agroalPool)
     testImplementation(DatabaseLibs.hikari)
     testImplementation(DatabaseLibs.jooqMeta)
 
-    testImplementation(VertxLibs.jdbc)
     testImplementation(DatabaseLibs.h2)
 
     testImplementation(DatabaseLibs.pgsql)
