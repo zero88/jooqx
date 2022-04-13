@@ -28,14 +28,14 @@ zero88
 ** [ ] Transaction rollback condition
 ** [ ] Transaction annotation
 * [ ] Procedure
-* [ ] DAO
-* [ ] Resource Query Language (RQL) from https://github.com/zero88/rsql[rsql-jooq]
+* [ ] Resource Query Language (RQL) by https://zero88.github.io/jooqx/rsql/main/index.html[rsql-jooq]
 * [x] Rxified API
 ** [x] Rx2
-** [ ] Rx3
-** [ ] Mutiny
+** [x] Rx3
+** [x] Mutiny
 * [ ] Row streaming
 * [ ] Publish/subscribe
+* [ ] DAO
 * [x] Test fixtures API to easy setup test for your application testing or produce a minimum reproducer
 
 == Short Note
