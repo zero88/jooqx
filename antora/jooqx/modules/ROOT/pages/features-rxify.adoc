@@ -1,48 +1,85 @@
-== Rxify version
+= Rxify version
 
 Wanna use #jooq with #reactivex on #vertx...
 
 Stay tuned, one more step
 
-`jOOQ.x` supports out of the box https://vertx.io/docs/vertx-rx/java2/[Vert.x RxJava]
+`jOOQ.x` supports out of the box almost reactive version that officially supports by https://vertx.io/docs/#reactive[Vert.x]
 
-To use `jOOQ.x API` for RxJava2, add the following dependency to the dependencies section of your build descriptor:
+- [x] https://vertx.io/docs/vertx-rx/java2/[Vert.x RxJava2]
+- [x] https://vertx.io/docs/vertx-rx/java3/[Vert.x RxJava3]
+- [x] https://smallrye.io/smallrye-mutiny/[Vert.x Mutiny]
 
-=== Maven (in your `pom.xml`)
+== Dependencies setup
 
-[source,xml]
+To use `jOOQ.x API` with reactive version, add the following dependency to the dependencies section of your build descriptor:
+
+=== Maven
+
+In your `pom.xml`
+
+[source,xml,subs="attributes,verbatim"]
 ----
 <dependency>
    <groupId>io.vertx</groupId>
-   <artifactId>vertx-rx-java2</artifactId>
-   <version>4.0.3</version>
+   <artifactId>vertx-rx-java2</artifactId>                     <1>
+   <version>{vertx-version}</version>
+</dependency>
+<dependency>
+   <groupId>io.vertx</groupId>
+   <artifactId>vertx-rx-java3</artifactId>                     <2>
+   <version>{vertx-version}</version>
+</dependency>
+<dependency>
+   <groupId>io.smallrye.reactive</groupId>
+   <artifactId>smallrye-mutiny-vertx-core</artifactId>         <3>
+   <version>{mutiny-version}</version>
+</dependency>
+<dependency>
+   <groupId>io.smallrye.reactive</groupId>
+   <artifactId>smallrye-mutiny-vertx-pg-client</artifactId>    <4>
+   <version>{mutiny-version}</version>
 </dependency>
 <dependency>
   <groupId>io.github.zero88</groupId>
   <artifactId>jooqx</artifactId>
   <version>{jooqx-version}</version>
 </dependency>
-
-
 ----
+<1> For using `Rx2` version
+<2> For using `Rx3` version
+<3> For using `mutiny` version
+<4> Assume you are using `pg-client`
 
-=== Gradle (in your `build.gradle` or `build.gradle.kts`)
+=== Gradle
 
-[source,gradle]
+In your `build.gradle` or `build.gradle.kts`
+
+[source,gradle,subs="attributes,verbatim"]
 ----
 dependencies {
     api("io.github.zero88:jooqx:{jooqx-version}")
-    api("io.vertx:vertx-rx-java2:4.0.3")
-    // Other database libs depends on your application
+    // with rx2
+    api("io.vertx:vertx-rx-java2:{vertx-version}")                                 <1>
+    // or with rx3
+    api("io.vertx:vertx-rx-java3:{vertx-version}")                                 <2>
+    // or with mutiny
+    api("io.smallrye.reactive:smallrye-mutiny-vertx-core:{mutiny-version}")        <3>
+    api("io.smallrye.reactive:smallrye-mutiny-vertx-pg-client:{mutiny-version}")   <4>
 }
-
 ----
+<1> For using `Rx2` version
+<2> For using `Rx3` version
+<3> For using `mutiny` version
+<4> Assume you are using `pg-client`
 
-Then you can use same as `Vertx rx-java2 Rxified API`
+Well done, now you can enjoy Rxify version with a little effort
 
-=== By `jooqx` instance
+== Examples
 
-[source,java]
+=== `Rx2` - By `jooqx` instance
+
+[source,java,subs="attributes,verbatim"]
 ----
 SelectForUpdateStep<BooksRecord> q = jooqx.dsl()
                                           .selectFrom(Tables.BOOKS)
@@ -60,27 +97,78 @@ rxJooqx.rxExecute(q, DSLAdapter.fetchMany(q.asTable())).subscribe(records -> {
 }, err -> { });
 ----
 
-=== By reactive builder
+=== `Rx2` - By `jooqx` builder
 
-[source,java]
+[source,java,subs="attributes,verbatim"]
 ----
-JDBCConnectOptions connOpts = new io.vertx.jdbcclient.JDBCConnectOptions().setJdbcUrl("jdbc:h2:mem:jooqx");
-PoolOptions poolOptions = new io.vertx.sqlclient.PoolOptions().setMaxSize(5);
-JDBCPool jdbcPool = io.vertx.reactivex.jdbcclient.JDBCPool.pool(vertx, connOpts, poolOptions);
+io.vertx.reactivex.core.Vertx vertxRx2 = io.vertx.reactivex.core.Vertx.newInstance(vertx);
+io.vertx.reactivex.jdbcclient.JDBCPool poolRx2 = io.vertx.reactivex.jdbcclient.JDBCPool.newInstance(pool);
 // Build jOOQ query
 SelectForUpdateStep<BooksRecord> q = dsl.selectFrom(Tables.BOOKS)
                                         .orderBy(Tables.BOOKS.TITLE)
                                         .limit(10)
                                         .offset(5);
 
-// Create rxify jooqx by builder
+// Create rx2 jooqx by builder
 io.github.zero88.jooqx.reactivex.Jooqx jooqx = io.github.zero88.jooqx.reactivex.Jooqx.builder()
-                                                                                     .setVertx(vertx)
+                                                                                     .setVertx(vertxRx2)
+                                                                                     .setSqlClient(poolRx2)
                                                                                      .setDSL(dsl)
-                                                                                     .setSqlClient(jdbcPool)
                                                                                      .build();
 // Rx-execute
 jooqx.rxExecute(q, DSLAdapter.fetchMany(q.asTable())).subscribe(records -> {
+    BooksRecord record = records.get(0);
+    System.out.println(record.getId()); // output: 1
+    System.out.println(record.getTitle()); // output: jooqx
+}, err -> { });
+----
+
+=== `Rx3` - By `jooqx` builder
+
+[source,java,subs="attributes,verbatim"]
+----
+io.vertx.rxjava3.core.Vertx vertxRx3 = io.vertx.rxjava3.core.Vertx.newInstance(vertx);
+io.vertx.rxjava3.mysqlclient.MySQLPool poolRx3 = io.vertx.rxjava3.mysqlclient.MySQLPool.newInstance(pool);
+// Build jOOQ query
+SelectForUpdateStep<BooksRecord> q = dsl.selectFrom(Tables.BOOKS)
+                                        .orderBy(Tables.BOOKS.TITLE)
+                                        .limit(10)
+                                        .offset(5);
+
+// Create rx3 jooqx by builder
+io.github.zero88.jooqx.rxjava3.Jooqx jooqx = io.github.zero88.jooqx.rxjava3.Jooqx.builder()
+                                                                                 .setVertx(vertxRx3)
+                                                                                 .setSqlClient(poolRx3)
+                                                                                 .setDSL(dsl)
+                                                                                 .build();
+// Rx-execute
+jooqx.rxExecute(q, DSLAdapter.fetchMany(q.asTable())).subscribe(records -> {
+    BooksRecord record = records.get(0);
+    System.out.println(record.getId()); // output: 1
+    System.out.println(record.getTitle()); // output: jooqx
+}, err -> { });
+----
+
+=== `Mutiny` - By `jooqx` builder
+
+[source,java,subs="attributes,verbatim"]
+----
+io.vertx.mutiny.core.Vertx vertxRx3 = io.vertx.mutiny.core.Vertx.newInstance(vertx);
+io.vertx.mutiny.pgclient.PgPool poolRx3 = io.vertx.mutiny.pgclient.PgPool.newInstance(pool);
+// Build jOOQ query
+SelectForUpdateStep<BooksRecord> q = dsl.selectFrom(Tables.BOOKS)
+                                        .orderBy(Tables.BOOKS.TITLE)
+                                        .limit(10)
+                                        .offset(5);
+
+// Create mutiny jooqx by builder
+io.github.zero88.jooqx.mutiny.Jooqx jooqx = io.github.zero88.jooqx.mutiny.Jooqx.builder()
+                                                                               .setVertx(vertxRx3)
+                                                                               .setSqlClient(poolRx3)
+                                                                               .setDSL(dsl)
+                                                                               .build();
+// Mutiny-execute
+jooqx.execute(q, DSLAdapter.fetchMany(q.asTable())).subscribe().with(records -> {
     BooksRecord record = records.get(0);
     System.out.println(record.getId()); // output: 1
     System.out.println(record.getTitle()); // output: jooqx

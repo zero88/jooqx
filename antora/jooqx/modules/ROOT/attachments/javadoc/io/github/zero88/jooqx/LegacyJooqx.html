@@ -123,16 +123,16 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <dl>
 <dt>All Superinterfaces:</dt>
-<dd><code><a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooqx">JooqDSLProvider</a></code>, <code><a href="SQLBatchExecutor.html" title="interface in io.github.zero88.jooqx">SQLBatchExecutor</a></code>, <code><a href="SQLDDLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDDLExecutor</a></code>, <code><a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;io.vertx.ext.sql.SQLClient,&#8203;io.vertx.core.json.JsonArray,&#8203;<a href="LegacySQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">LegacySQLPreparedQuery</a>,&#8203;io.vertx.ext.sql.ResultSet,&#8203;<a href="LegacySQLCollector.html" title="interface in io.github.zero88.jooqx">LegacySQLCollector</a>&gt;</code>, <code><a href="SQLPlainExecutor.html" title="interface in io.github.zero88.jooqx">SQLPlainExecutor</a></code>, <code><a href="SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></code></dd>
+<dd><code><a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooqx">JooqDSLProvider</a></code>, <code><a href="LegacyInternal.html" title="interface in io.github.zero88.jooqx">LegacyInternal</a>&lt;io.vertx.ext.sql.SQLClient&gt;</code>, <code><a href="SQLBatchExecutor.html" title="interface in io.github.zero88.jooqx">SQLBatchExecutor</a></code>, <code><a href="SQLDDLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDDLExecutor</a></code>, <code><a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;io.vertx.ext.sql.SQLClient,&#8203;io.vertx.core.json.JsonArray,&#8203;<a href="LegacySQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">LegacySQLPreparedQuery</a>,&#8203;io.vertx.ext.sql.ResultSet,&#8203;<a href="LegacySQLCollector.html" title="interface in io.github.zero88.jooqx">LegacySQLCollector</a>&gt;</code>, <code><a href="SQLPlainExecutor.html" title="interface in io.github.zero88.jooqx">SQLPlainExecutor</a></code>, <code><a href="SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></code></dd>
 </dl>
 <hr>
 <pre>@Deprecated
-public interface <span class="typeNameLabel">LegacyJooqx</span></pre>
+public interface <span class="typeNameLabel">LegacyJooqx</span>
+extends <a href="LegacyInternal.html" title="interface in io.github.zero88.jooqx">LegacyInternal</a>&lt;io.vertx.ext.sql.SQLClient&gt;</pre>
 <div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span>
 <div class="deprecationComment">Since <a href="https://vertx.io/docs/vertx-jdbc-client/java/#_legacy_jdbc_client_api">Vertx
      deprecated</a>, this interface still works but not able to using with
-     <a href="https://vertx.io/docs/vertx-rx/java3/">Rxify version 3</a> and
-     <a href="https://smallrye.io/smallrye-mutiny-vertx-bindings/2.20.0/">Vertx mutiny</a></div>
+     <a href="https://vertx.io/docs/vertx-rx/java3/">Rxify version 3</a></div>
 </div>
 <div class="block">Represents for an executor that executes <code>jOOQ query</code> on <code>Vertx legacy JDBC client</code> connection</div>
 <dl>
@@ -374,6 +374,8 @@ public interface <span class="typeNameLabel">LegacyJooqx</span></pre>
 <div class="block">Defines prepared query</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="LegacyInternal.html#preparedQuery()">preparedQuery</a></code>&nbsp;in interface&nbsp;<code><a href="LegacyInternal.html" title="interface in io.github.zero88.jooqx">LegacyInternal</a>&lt;io.vertx.ext.sql.SQLClient&gt;</code></dd>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="SQLExecutor.html#preparedQuery()">preparedQuery</a></code>&nbsp;in interface&nbsp;<code><a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;io.vertx.ext.sql.SQLClient,&#8203;io.vertx.core.json.JsonArray,&#8203;<a href="LegacySQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">LegacySQLPreparedQuery</a>,&#8203;io.vertx.ext.sql.ResultSet,&#8203;<a href="LegacySQLCollector.html" title="interface in io.github.zero88.jooqx">LegacySQLCollector</a>&gt;</code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>prepared query</dd>
@@ -394,6 +396,8 @@ public interface <span class="typeNameLabel">LegacyJooqx</span></pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLExecutor.html#resultCollector()">SQLExecutor</a></code></span></div>
 <div class="block">Defines result collector depends on result set</div>
 <dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="LegacyInternal.html#resultCollector()">resultCollector</a></code>&nbsp;in interface&nbsp;<code><a href="LegacyInternal.html" title="interface in io.github.zero88.jooqx">LegacyInternal</a>&lt;io.vertx.ext.sql.SQLClient&gt;</code></dd>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="SQLExecutor.html#resultCollector()">resultCollector</a></code>&nbsp;in interface&nbsp;<code><a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;io.vertx.ext.sql.SQLClient,&#8203;io.vertx.core.json.JsonArray,&#8203;<a href="LegacySQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">LegacySQLPreparedQuery</a>,&#8203;io.vertx.ext.sql.ResultSet,&#8203;<a href="LegacySQLCollector.html" title="interface in io.github.zero88.jooqx">LegacySQLCollector</a>&gt;</code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>

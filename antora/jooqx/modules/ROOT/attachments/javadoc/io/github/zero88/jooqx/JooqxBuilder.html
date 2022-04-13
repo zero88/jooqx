@@ -123,11 +123,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <dl>
 <dt>All Superinterfaces:</dt>
-<dd><code><a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooqx">JooqDSLProvider</a></code></dd>
+<dd><code><a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooqx">JooqDSLProvider</a></code>, <code><a href="SQLExecutorBuilder.html" title="interface in io.github.zero88.jooqx">SQLExecutorBuilder</a>&lt;io.vertx.sqlclient.Pool,&#8203;io.vertx.sqlclient.Tuple,&#8203;<a href="JooqxPreparedQuery.html" title="interface in io.github.zero88.jooqx">JooqxPreparedQuery</a>,&#8203;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;,&#8203;<a href="JooqxResultCollector.html" title="interface in io.github.zero88.jooqx">JooqxResultCollector</a>,&#8203;<a href="JooqxBuilder.html" title="interface in io.github.zero88.jooqx">JooqxBuilder</a>&gt;</code></dd>
 </dl>
 <hr>
-<pre>public interface <span class="typeNameLabel">JooqxBuilder</span></pre>
-<div class="block">Represents a builder that construct <a href="Jooqx.html" title="interface in io.github.zero88.jooqx"><code>Jooqx</code></a></div>
+<pre>public interface <span class="typeNameLabel">JooqxBuilder</span>
+extends <a href="SQLExecutorBuilder.html" title="interface in io.github.zero88.jooqx">SQLExecutorBuilder</a>&lt;io.vertx.sqlclient.Pool,&#8203;io.vertx.sqlclient.Tuple,&#8203;<a href="JooqxPreparedQuery.html" title="interface in io.github.zero88.jooqx">JooqxPreparedQuery</a>,&#8203;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;,&#8203;<a href="JooqxResultCollector.html" title="interface in io.github.zero88.jooqx">JooqxResultCollector</a>,&#8203;<a href="JooqxBuilder.html" title="interface in io.github.zero88.jooqx">JooqxBuilder</a>&gt;</pre>
+<div class="block">Represents a builder that constructs <a href="Jooqx.html" title="interface in io.github.zero88.jooqx"><code>Jooqx</code></a></div>
 <dl>
 <dt><span class="simpleTagLabel">Since:</span></dt>
 <dd>2.0.0</dd>
@@ -182,37 +183,51 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>@NotNull <a href="JooqxBuilder.html" title="interface in io.github.zero88.jooqx">JooqxBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setDSL(org.jooq.DSLContext)">setDSL</a></span>&#8203;(org.jooq.DSLContext&nbsp;dsl)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Set DSL context</div>
+</td>
 </tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>@NotNull <a href="JooqxBuilder.html" title="interface in io.github.zero88.jooqx">JooqxBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setErrorConverter(io.github.zero88.jooqx.SQLErrorConverter)">setErrorConverter</a></span>&#8203;(<a href="SQLErrorConverter.html" title="interface in io.github.zero88.jooqx">SQLErrorConverter</a>&nbsp;errorConverter)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Set Error Converter</div>
+</td>
 </tr>
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code>@NotNull <a href="JooqxBuilder.html" title="interface in io.github.zero88.jooqx">JooqxBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPreparedQuery(io.github.zero88.jooqx.JooqxPreparedQuery)">setPreparedQuery</a></span>&#8203;(<a href="JooqxPreparedQuery.html" title="interface in io.github.zero88.jooqx">JooqxPreparedQuery</a>&nbsp;preparedQuery)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Set Prepare Query</div>
+</td>
 </tr>
 <tr id="i8" class="altColor">
 <td class="colFirst"><code>@NotNull <a href="JooqxBuilder.html" title="interface in io.github.zero88.jooqx">JooqxBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setResultCollector(io.github.zero88.jooqx.JooqxResultCollector)">setResultCollector</a></span>&#8203;(<a href="JooqxResultCollector.html" title="interface in io.github.zero88.jooqx">JooqxResultCollector</a>&nbsp;resultCollector)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Set Result Collector</div>
+</td>
 </tr>
 <tr id="i9" class="rowColor">
 <td class="colFirst"><code>@NotNull <a href="JooqxBuilder.html" title="interface in io.github.zero88.jooqx">JooqxBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSqlClient(io.vertx.sqlclient.Pool)">setSqlClient</a></span>&#8203;(io.vertx.sqlclient.Pool&nbsp;sqlClient)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Set SQL client</div>
+</td>
 </tr>
 <tr id="i10" class="altColor">
 <td class="colFirst"><code>@NotNull <a href="JooqxBuilder.html" title="interface in io.github.zero88.jooqx">JooqxBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTypeMapperRegistry(io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">setTypeMapperRegistry</a></span>&#8203;(<a href="datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;typeMapperRegistry)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Set Type Mapper Registry</div>
+</td>
 </tr>
 <tr id="i11" class="rowColor">
 <td class="colFirst"><code>@NotNull <a href="JooqxBuilder.html" title="interface in io.github.zero88.jooqx">JooqxBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setVertx(io.vertx.core.Vertx)">setVertx</a></span>&#8203;(io.vertx.core.Vertx&nbsp;vertx)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Set vertx</div>
+</td>
 </tr>
 <tr id="i12" class="altColor">
 <td class="colFirst"><code>@NotNull io.vertx.sqlclient.Pool</code></td>
@@ -264,6 +279,18 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h4>setVertx</h4>
 <pre class="methodSignature">@NotNull
 @NotNull <a href="JooqxBuilder.html" title="interface in io.github.zero88.jooqx">JooqxBuilder</a>&nbsp;setVertx&#8203;(io.vertx.core.Vertx&nbsp;vertx)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLExecutorBuilder.html#setVertx(io.vertx.core.Vertx)">SQLExecutorBuilder</a></code></span></div>
+<div class="block">Set vertx</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="SQLExecutorBuilder.html#setVertx(io.vertx.core.Vertx)">setVertx</a></code>&nbsp;in interface&nbsp;<code><a href="SQLExecutorBuilder.html" title="interface in io.github.zero88.jooqx">SQLExecutorBuilder</a>&lt;io.vertx.sqlclient.Pool,&#8203;io.vertx.sqlclient.Tuple,&#8203;<a href="JooqxPreparedQuery.html" title="interface in io.github.zero88.jooqx">JooqxPreparedQuery</a>,&#8203;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;,&#8203;<a href="JooqxResultCollector.html" title="interface in io.github.zero88.jooqx">JooqxResultCollector</a>,&#8203;<a href="JooqxBuilder.html" title="interface in io.github.zero88.jooqx">JooqxBuilder</a>&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>vertx</code> - vertx</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a reference to this for fluent API</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>Vertx</code></dd>
+</dl>
 </li>
 </ul>
 <a id="dsl()">
@@ -294,6 +321,18 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h4>setDSL</h4>
 <pre class="methodSignature">@NotNull
 @NotNull <a href="JooqxBuilder.html" title="interface in io.github.zero88.jooqx">JooqxBuilder</a>&nbsp;setDSL&#8203;(org.jooq.DSLContext&nbsp;dsl)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLExecutorBuilder.html#setDSL(org.jooq.DSLContext)">SQLExecutorBuilder</a></code></span></div>
+<div class="block">Set DSL context</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="SQLExecutorBuilder.html#setDSL(org.jooq.DSLContext)">setDSL</a></code>&nbsp;in interface&nbsp;<code><a href="SQLExecutorBuilder.html" title="interface in io.github.zero88.jooqx">SQLExecutorBuilder</a>&lt;io.vertx.sqlclient.Pool,&#8203;io.vertx.sqlclient.Tuple,&#8203;<a href="JooqxPreparedQuery.html" title="interface in io.github.zero88.jooqx">JooqxPreparedQuery</a>,&#8203;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;,&#8203;<a href="JooqxResultCollector.html" title="interface in io.github.zero88.jooqx">JooqxResultCollector</a>,&#8203;<a href="JooqxBuilder.html" title="interface in io.github.zero88.jooqx">JooqxBuilder</a>&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>dsl</code> - dsl context</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a reference to this for fluent API</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>DSLContext</code></dd>
+</dl>
 </li>
 </ul>
 <a id="sqlClient()">
@@ -318,7 +357,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h4>setSqlClient</h4>
 <pre class="methodSignature">@NotNull
 @NotNull <a href="JooqxBuilder.html" title="interface in io.github.zero88.jooqx">JooqxBuilder</a>&nbsp;setSqlClient&#8203;(io.vertx.sqlclient.Pool&nbsp;sqlClient)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLExecutorBuilder.html#setSqlClient(S)">SQLExecutorBuilder</a></code></span></div>
+<div class="block">Set SQL client</div>
 <dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="SQLExecutorBuilder.html#setSqlClient(S)">setSqlClient</a></code>&nbsp;in interface&nbsp;<code><a href="SQLExecutorBuilder.html" title="interface in io.github.zero88.jooqx">SQLExecutorBuilder</a>&lt;io.vertx.sqlclient.Pool,&#8203;io.vertx.sqlclient.Tuple,&#8203;<a href="JooqxPreparedQuery.html" title="interface in io.github.zero88.jooqx">JooqxPreparedQuery</a>,&#8203;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;,&#8203;<a href="JooqxResultCollector.html" title="interface in io.github.zero88.jooqx">JooqxResultCollector</a>,&#8203;<a href="JooqxBuilder.html" title="interface in io.github.zero88.jooqx">JooqxBuilder</a>&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sqlClient</code> - sql client</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a reference to this for fluent API</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><code>Pool</code></dd>
 </dl>
@@ -345,7 +392,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h4>setPreparedQuery</h4>
 <pre class="methodSignature">@NotNull
 @NotNull <a href="JooqxBuilder.html" title="interface in io.github.zero88.jooqx">JooqxBuilder</a>&nbsp;setPreparedQuery&#8203;(<a href="JooqxPreparedQuery.html" title="interface in io.github.zero88.jooqx">JooqxPreparedQuery</a>&nbsp;preparedQuery)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLExecutorBuilder.html#setPreparedQuery(PQ)">SQLExecutorBuilder</a></code></span></div>
+<div class="block">Set Prepare Query</div>
 <dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="SQLExecutorBuilder.html#setPreparedQuery(PQ)">setPreparedQuery</a></code>&nbsp;in interface&nbsp;<code><a href="SQLExecutorBuilder.html" title="interface in io.github.zero88.jooqx">SQLExecutorBuilder</a>&lt;io.vertx.sqlclient.Pool,&#8203;io.vertx.sqlclient.Tuple,&#8203;<a href="JooqxPreparedQuery.html" title="interface in io.github.zero88.jooqx">JooqxPreparedQuery</a>,&#8203;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;,&#8203;<a href="JooqxResultCollector.html" title="interface in io.github.zero88.jooqx">JooqxResultCollector</a>,&#8203;<a href="JooqxBuilder.html" title="interface in io.github.zero88.jooqx">JooqxBuilder</a>&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>preparedQuery</code> - prepare query</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a reference to this for fluent API</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="JooqxPreparedQuery.html" title="interface in io.github.zero88.jooqx"><code>JooqxPreparedQuery</code></a></dd>
 </dl>
@@ -372,7 +427,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h4>setResultCollector</h4>
 <pre class="methodSignature">@NotNull
 @NotNull <a href="JooqxBuilder.html" title="interface in io.github.zero88.jooqx">JooqxBuilder</a>&nbsp;setResultCollector&#8203;(<a href="JooqxResultCollector.html" title="interface in io.github.zero88.jooqx">JooqxResultCollector</a>&nbsp;resultCollector)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLExecutorBuilder.html#setResultCollector(RC)">SQLExecutorBuilder</a></code></span></div>
+<div class="block">Set Result Collector</div>
 <dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="SQLExecutorBuilder.html#setResultCollector(RC)">setResultCollector</a></code>&nbsp;in interface&nbsp;<code><a href="SQLExecutorBuilder.html" title="interface in io.github.zero88.jooqx">SQLExecutorBuilder</a>&lt;io.vertx.sqlclient.Pool,&#8203;io.vertx.sqlclient.Tuple,&#8203;<a href="JooqxPreparedQuery.html" title="interface in io.github.zero88.jooqx">JooqxPreparedQuery</a>,&#8203;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;,&#8203;<a href="JooqxResultCollector.html" title="interface in io.github.zero88.jooqx">JooqxResultCollector</a>,&#8203;<a href="JooqxBuilder.html" title="interface in io.github.zero88.jooqx">JooqxBuilder</a>&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>resultCollector</code> - a result collector</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a reference to this for fluent API</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="JooqxResultCollector.html" title="interface in io.github.zero88.jooqx"><code>JooqxResultCollector</code></a></dd>
 </dl>
@@ -395,6 +458,18 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h4>setErrorConverter</h4>
 <pre class="methodSignature">@NotNull
 @NotNull <a href="JooqxBuilder.html" title="interface in io.github.zero88.jooqx">JooqxBuilder</a>&nbsp;setErrorConverter&#8203;(<a href="SQLErrorConverter.html" title="interface in io.github.zero88.jooqx">SQLErrorConverter</a>&nbsp;errorConverter)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLExecutorBuilder.html#setErrorConverter(io.github.zero88.jooqx.SQLErrorConverter)">SQLExecutorBuilder</a></code></span></div>
+<div class="block">Set Error Converter</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="SQLExecutorBuilder.html#setErrorConverter(io.github.zero88.jooqx.SQLErrorConverter)">setErrorConverter</a></code>&nbsp;in interface&nbsp;<code><a href="SQLExecutorBuilder.html" title="interface in io.github.zero88.jooqx">SQLExecutorBuilder</a>&lt;io.vertx.sqlclient.Pool,&#8203;io.vertx.sqlclient.Tuple,&#8203;<a href="JooqxPreparedQuery.html" title="interface in io.github.zero88.jooqx">JooqxPreparedQuery</a>,&#8203;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;,&#8203;<a href="JooqxResultCollector.html" title="interface in io.github.zero88.jooqx">JooqxResultCollector</a>,&#8203;<a href="JooqxBuilder.html" title="interface in io.github.zero88.jooqx">JooqxBuilder</a>&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>errorConverter</code> - an error converter</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a reference to this for fluent API</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="SQLErrorConverter.html" title="interface in io.github.zero88.jooqx"><code>SQLErrorConverter</code></a></dd>
+</dl>
 </li>
 </ul>
 <a id="typeMapperRegistry()">
@@ -414,6 +489,18 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h4>setTypeMapperRegistry</h4>
 <pre class="methodSignature">@NotNull
 @NotNull <a href="JooqxBuilder.html" title="interface in io.github.zero88.jooqx">JooqxBuilder</a>&nbsp;setTypeMapperRegistry&#8203;(<a href="datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;typeMapperRegistry)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLExecutorBuilder.html#setTypeMapperRegistry(io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">SQLExecutorBuilder</a></code></span></div>
+<div class="block">Set Type Mapper Registry</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="SQLExecutorBuilder.html#setTypeMapperRegistry(io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">setTypeMapperRegistry</a></code>&nbsp;in interface&nbsp;<code><a href="SQLExecutorBuilder.html" title="interface in io.github.zero88.jooqx">SQLExecutorBuilder</a>&lt;io.vertx.sqlclient.Pool,&#8203;io.vertx.sqlclient.Tuple,&#8203;<a href="JooqxPreparedQuery.html" title="interface in io.github.zero88.jooqx">JooqxPreparedQuery</a>,&#8203;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;,&#8203;<a href="JooqxResultCollector.html" title="interface in io.github.zero88.jooqx">JooqxResultCollector</a>,&#8203;<a href="JooqxBuilder.html" title="interface in io.github.zero88.jooqx">JooqxBuilder</a>&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>typeMapperRegistry</code> - a type mapper registry</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a reference to this for fluent API</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype"><code>DataTypeMapperRegistry</code></a></dd>
+</dl>
 </li>
 </ul>
 <a id="build()">
@@ -425,6 +512,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <pre class="methodSignature">@NotNull
 @NotNull <a href="Jooqx.html" title="interface in io.github.zero88.jooqx">Jooqx</a>&nbsp;build()</pre>
 <dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="SQLExecutorBuilder.html#build()">build</a></code>&nbsp;in interface&nbsp;<code><a href="SQLExecutorBuilder.html" title="interface in io.github.zero88.jooqx">SQLExecutorBuilder</a>&lt;io.vertx.sqlclient.Pool,&#8203;io.vertx.sqlclient.Tuple,&#8203;<a href="JooqxPreparedQuery.html" title="interface in io.github.zero88.jooqx">JooqxPreparedQuery</a>,&#8203;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;,&#8203;<a href="JooqxResultCollector.html" title="interface in io.github.zero88.jooqx">JooqxResultCollector</a>,&#8203;<a href="JooqxBuilder.html" title="interface in io.github.zero88.jooqx">JooqxBuilder</a>&gt;</code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>a new <a href="Jooqx.html" title="interface in io.github.zero88.jooqx"><code>Jooqx</code></a> instance</dd>
 </dl>

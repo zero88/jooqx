@@ -1,4 +1,4 @@
-== Error Handler
+= Error Handler
 
 Basically, `exception` in execution time will be thrown by each particular `jdbc` driver or `reactive SQL driver`,
 it can be spaghetti code, dealing with `exception`, then `jooqx` is able to centralize any exception with properly
@@ -6,9 +6,9 @@ it can be spaghetti code, dealing with `exception`, then `jooqx` is able to cent
 
 It is easy to configure when building `executor`
 
-=== With JDBC SQL client
+== With JDBC SQL client
 
-[source,java]
+[source,java,subs="attributes,verbatim"]
 ----
 Jooqx jooqx = Jooqx.builder()
                    .setVertx(vertx)
@@ -18,9 +18,9 @@ Jooqx jooqx = Jooqx.builder()
                    .build();
 ----
 
-=== With JDBC PostgreSQL client
+== With JDBC PostgreSQL client
 
-[source,java]
+[source,java,subs="attributes,verbatim"]
 ----
 Jooqx jooqx = Jooqx.builder()
                    .setVertx(vertx)
@@ -30,11 +30,11 @@ Jooqx jooqx = Jooqx.builder()
                    .build();
 ----
 
-=== Integrating with your existing application exception
+== Integrating with your existing application exception
 
 And so more, you can convert to your existing application exception (must `extends RuntimeException`) by
 
-[source,java]
+[source,java,subs="attributes,verbatim"]
 ----
 SQLErrorConverter errorConverter = new JDBCErrorConverter()
     .andThen(dataAccessException -> new YourAppError(ErrorCode.DUPLICATE, dataAccessException));

@@ -1,15 +1,15 @@
-== SQL plain statement
+= SQL plain statement
 
-=== Execute plain SQL statement without result
+== Execute plain SQL statement without result
 
-[source,java]
+[source,java,subs="attributes,verbatim"]
 ----
 
 ----
 
-=== Execute plain SQL statement with result
+== Execute plain SQL statement with result
 
-[source,java]
+[source,java,subs="attributes,verbatim"]
 ----
 
 ----

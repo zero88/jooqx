@@ -2,8 +2,10 @@ io.github.zero88.jooqx
 io.github.zero88.jooqx.adapter
 io.github.zero88.jooqx.datatype
 io.github.zero88.jooqx.datatype.basic
+io.github.zero88.jooqx.mutiny
 io.github.zero88.jooqx.provider
 io.github.zero88.jooqx.reactivex
+io.github.zero88.jooqx.rxjava3
 io.github.zero88.jooqx.spi
 io.github.zero88.jooqx.spi.db2
 io.github.zero88.jooqx.spi.derby

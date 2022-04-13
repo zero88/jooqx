@@ -123,13 +123,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <dl>
 <dt>All Superinterfaces:</dt>
-<dd><code><a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooqx">JooqDSLProvider</a></code></dd>
+<dd><code><a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooqx">JooqDSLProvider</a></code>, <code><a href="SQLExecutorBuilder.html" title="interface in io.github.zero88.jooqx">SQLExecutorBuilder</a>&lt;io.vertx.ext.sql.SQLClient,&#8203;io.vertx.core.json.JsonArray,&#8203;<a href="LegacySQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">LegacySQLPreparedQuery</a>,&#8203;io.vertx.ext.sql.ResultSet,&#8203;<a href="LegacySQLCollector.html" title="interface in io.github.zero88.jooqx">LegacySQLCollector</a>,&#8203;<a href="LegacyJooqxBuilder.html" title="interface in io.github.zero88.jooqx">LegacyJooqxBuilder</a>&gt;</code></dd>
 </dl>
 <hr>
 <pre>@Deprecated
-public interface <span class="typeNameLabel">LegacyJooqxBuilder</span></pre>
+public interface <span class="typeNameLabel">LegacyJooqxBuilder</span>
+extends <a href="SQLExecutorBuilder.html" title="interface in io.github.zero88.jooqx">SQLExecutorBuilder</a>&lt;io.vertx.ext.sql.SQLClient,&#8203;io.vertx.core.json.JsonArray,&#8203;<a href="LegacySQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">LegacySQLPreparedQuery</a>,&#8203;io.vertx.ext.sql.ResultSet,&#8203;<a href="LegacySQLCollector.html" title="interface in io.github.zero88.jooqx">LegacySQLCollector</a>,&#8203;<a href="LegacyJooqxBuilder.html" title="interface in io.github.zero88.jooqx">LegacyJooqxBuilder</a>&gt;</pre>
 <div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
-<div class="block">Represents a builder that construct <a href="LegacyJooqx.html" title="interface in io.github.zero88.jooqx"><code>LegacyJooqx</code></a></div>
+<div class="block">Represents a builder that constructs <a href="LegacyJooqx.html" title="interface in io.github.zero88.jooqx"><code>LegacyJooqx</code></a></div>
 <dl>
 <dt><span class="simpleTagLabel">Since:</span></dt>
 <dd>2.0.0</dd>
@@ -195,49 +196,56 @@ public interface <span class="typeNameLabel">LegacyJooqxBuilder</span></pre>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setDSL(org.jooq.DSLContext)">setDSL</a></span>&#8203;(org.jooq.DSLContext&nbsp;dsl)</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
-&nbsp;</td>
+<div class="block">Set DSL context</div>
+</td>
 </tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>@NotNull <a href="LegacyJooqxBuilder.html" title="interface in io.github.zero88.jooqx">LegacyJooqxBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setErrorConverter(io.github.zero88.jooqx.SQLErrorConverter)">setErrorConverter</a></span>&#8203;(<a href="SQLErrorConverter.html" title="interface in io.github.zero88.jooqx">SQLErrorConverter</a>&nbsp;errorConverter)</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
-&nbsp;</td>
+<div class="block">Set Error Converter</div>
+</td>
 </tr>
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code>@NotNull <a href="LegacyJooqxBuilder.html" title="interface in io.github.zero88.jooqx">LegacyJooqxBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPreparedQuery(io.github.zero88.jooqx.LegacySQLPreparedQuery)">setPreparedQuery</a></span>&#8203;(<a href="LegacySQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">LegacySQLPreparedQuery</a>&nbsp;preparedQuery)</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
-&nbsp;</td>
+<div class="block">Set Prepare Query</div>
+</td>
 </tr>
 <tr id="i8" class="altColor">
 <td class="colFirst"><code>@NotNull <a href="LegacyJooqxBuilder.html" title="interface in io.github.zero88.jooqx">LegacyJooqxBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setResultCollector(io.github.zero88.jooqx.LegacySQLCollector)">setResultCollector</a></span>&#8203;(<a href="LegacySQLCollector.html" title="interface in io.github.zero88.jooqx">LegacySQLCollector</a>&nbsp;resultCollector)</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
-&nbsp;</td>
+<div class="block">Set Result Collector</div>
+</td>
 </tr>
 <tr id="i9" class="rowColor">
 <td class="colFirst"><code>@NotNull <a href="LegacyJooqxBuilder.html" title="interface in io.github.zero88.jooqx">LegacyJooqxBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSqlClient(io.vertx.ext.sql.SQLClient)">setSqlClient</a></span>&#8203;(io.vertx.ext.sql.SQLClient&nbsp;sqlClient)</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
-&nbsp;</td>
+<div class="block">Set SQL client</div>
+</td>
 </tr>
 <tr id="i10" class="altColor">
 <td class="colFirst"><code>@NotNull <a href="LegacyJooqxBuilder.html" title="interface in io.github.zero88.jooqx">LegacyJooqxBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTypeMapperRegistry(io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">setTypeMapperRegistry</a></span>&#8203;(<a href="datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;typeMapperRegistry)</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
-&nbsp;</td>
+<div class="block">Set Type Mapper Registry</div>
+</td>
 </tr>
 <tr id="i11" class="rowColor">
 <td class="colFirst"><code>@NotNull <a href="LegacyJooqxBuilder.html" title="interface in io.github.zero88.jooqx">LegacyJooqxBuilder</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setVertx(io.vertx.core.Vertx)">setVertx</a></span>&#8203;(io.vertx.core.Vertx&nbsp;vertx)</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
-&nbsp;</td>
+<div class="block">Set vertx</div>
+</td>
 </tr>
 <tr id="i12" class="altColor">
 <td class="colFirst"><code>@NotNull io.vertx.ext.sql.SQLClient</code></td>
@@ -297,6 +305,18 @@ public interface <span class="typeNameLabel">LegacyJooqxBuilder</span></pre>
 <pre class="methodSignature">@NotNull
 @NotNull <a href="LegacyJooqxBuilder.html" title="interface in io.github.zero88.jooqx">LegacyJooqxBuilder</a>&nbsp;setVertx&#8203;(io.vertx.core.Vertx&nbsp;vertx)</pre>
 <div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLExecutorBuilder.html#setVertx(io.vertx.core.Vertx)">SQLExecutorBuilder</a></code></span></div>
+<div class="block">Set vertx</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="SQLExecutorBuilder.html#setVertx(io.vertx.core.Vertx)">setVertx</a></code>&nbsp;in interface&nbsp;<code><a href="SQLExecutorBuilder.html" title="interface in io.github.zero88.jooqx">SQLExecutorBuilder</a>&lt;io.vertx.ext.sql.SQLClient,&#8203;io.vertx.core.json.JsonArray,&#8203;<a href="LegacySQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">LegacySQLPreparedQuery</a>,&#8203;io.vertx.ext.sql.ResultSet,&#8203;<a href="LegacySQLCollector.html" title="interface in io.github.zero88.jooqx">LegacySQLCollector</a>,&#8203;<a href="LegacyJooqxBuilder.html" title="interface in io.github.zero88.jooqx">LegacyJooqxBuilder</a>&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>vertx</code> - vertx</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a reference to this for fluent API</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>Vertx</code></dd>
+</dl>
 </li>
 </ul>
 <a id="dsl()">
@@ -329,6 +349,18 @@ public interface <span class="typeNameLabel">LegacyJooqxBuilder</span></pre>
 <pre class="methodSignature">@NotNull
 @NotNull <a href="LegacyJooqxBuilder.html" title="interface in io.github.zero88.jooqx">LegacyJooqxBuilder</a>&nbsp;setDSL&#8203;(org.jooq.DSLContext&nbsp;dsl)</pre>
 <div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLExecutorBuilder.html#setDSL(org.jooq.DSLContext)">SQLExecutorBuilder</a></code></span></div>
+<div class="block">Set DSL context</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="SQLExecutorBuilder.html#setDSL(org.jooq.DSLContext)">setDSL</a></code>&nbsp;in interface&nbsp;<code><a href="SQLExecutorBuilder.html" title="interface in io.github.zero88.jooqx">SQLExecutorBuilder</a>&lt;io.vertx.ext.sql.SQLClient,&#8203;io.vertx.core.json.JsonArray,&#8203;<a href="LegacySQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">LegacySQLPreparedQuery</a>,&#8203;io.vertx.ext.sql.ResultSet,&#8203;<a href="LegacySQLCollector.html" title="interface in io.github.zero88.jooqx">LegacySQLCollector</a>,&#8203;<a href="LegacyJooqxBuilder.html" title="interface in io.github.zero88.jooqx">LegacyJooqxBuilder</a>&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>dsl</code> - dsl context</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a reference to this for fluent API</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>DSLContext</code></dd>
+</dl>
 </li>
 </ul>
 <a id="sqlClient()">
@@ -355,7 +387,15 @@ public interface <span class="typeNameLabel">LegacyJooqxBuilder</span></pre>
 <pre class="methodSignature">@NotNull
 @NotNull <a href="LegacyJooqxBuilder.html" title="interface in io.github.zero88.jooqx">LegacyJooqxBuilder</a>&nbsp;setSqlClient&#8203;(io.vertx.ext.sql.SQLClient&nbsp;sqlClient)</pre>
 <div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLExecutorBuilder.html#setSqlClient(S)">SQLExecutorBuilder</a></code></span></div>
+<div class="block">Set SQL client</div>
 <dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="SQLExecutorBuilder.html#setSqlClient(S)">setSqlClient</a></code>&nbsp;in interface&nbsp;<code><a href="SQLExecutorBuilder.html" title="interface in io.github.zero88.jooqx">SQLExecutorBuilder</a>&lt;io.vertx.ext.sql.SQLClient,&#8203;io.vertx.core.json.JsonArray,&#8203;<a href="LegacySQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">LegacySQLPreparedQuery</a>,&#8203;io.vertx.ext.sql.ResultSet,&#8203;<a href="LegacySQLCollector.html" title="interface in io.github.zero88.jooqx">LegacySQLCollector</a>,&#8203;<a href="LegacyJooqxBuilder.html" title="interface in io.github.zero88.jooqx">LegacyJooqxBuilder</a>&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sqlClient</code> - sql client</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a reference to this for fluent API</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><code>SQLClient</code></dd>
 </dl>
@@ -384,7 +424,15 @@ public interface <span class="typeNameLabel">LegacyJooqxBuilder</span></pre>
 <pre class="methodSignature">@NotNull
 @NotNull <a href="LegacyJooqxBuilder.html" title="interface in io.github.zero88.jooqx">LegacyJooqxBuilder</a>&nbsp;setPreparedQuery&#8203;(<a href="LegacySQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">LegacySQLPreparedQuery</a>&nbsp;preparedQuery)</pre>
 <div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLExecutorBuilder.html#setPreparedQuery(PQ)">SQLExecutorBuilder</a></code></span></div>
+<div class="block">Set Prepare Query</div>
 <dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="SQLExecutorBuilder.html#setPreparedQuery(PQ)">setPreparedQuery</a></code>&nbsp;in interface&nbsp;<code><a href="SQLExecutorBuilder.html" title="interface in io.github.zero88.jooqx">SQLExecutorBuilder</a>&lt;io.vertx.ext.sql.SQLClient,&#8203;io.vertx.core.json.JsonArray,&#8203;<a href="LegacySQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">LegacySQLPreparedQuery</a>,&#8203;io.vertx.ext.sql.ResultSet,&#8203;<a href="LegacySQLCollector.html" title="interface in io.github.zero88.jooqx">LegacySQLCollector</a>,&#8203;<a href="LegacyJooqxBuilder.html" title="interface in io.github.zero88.jooqx">LegacyJooqxBuilder</a>&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>preparedQuery</code> - prepare query</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a reference to this for fluent API</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="LegacySQLPreparedQuery.html" title="interface in io.github.zero88.jooqx"><code>LegacySQLPreparedQuery</code></a></dd>
 </dl>
@@ -413,7 +461,15 @@ public interface <span class="typeNameLabel">LegacyJooqxBuilder</span></pre>
 <pre class="methodSignature">@NotNull
 @NotNull <a href="LegacyJooqxBuilder.html" title="interface in io.github.zero88.jooqx">LegacyJooqxBuilder</a>&nbsp;setResultCollector&#8203;(<a href="LegacySQLCollector.html" title="interface in io.github.zero88.jooqx">LegacySQLCollector</a>&nbsp;resultCollector)</pre>
 <div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLExecutorBuilder.html#setResultCollector(RC)">SQLExecutorBuilder</a></code></span></div>
+<div class="block">Set Result Collector</div>
 <dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="SQLExecutorBuilder.html#setResultCollector(RC)">setResultCollector</a></code>&nbsp;in interface&nbsp;<code><a href="SQLExecutorBuilder.html" title="interface in io.github.zero88.jooqx">SQLExecutorBuilder</a>&lt;io.vertx.ext.sql.SQLClient,&#8203;io.vertx.core.json.JsonArray,&#8203;<a href="LegacySQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">LegacySQLPreparedQuery</a>,&#8203;io.vertx.ext.sql.ResultSet,&#8203;<a href="LegacySQLCollector.html" title="interface in io.github.zero88.jooqx">LegacySQLCollector</a>,&#8203;<a href="LegacyJooqxBuilder.html" title="interface in io.github.zero88.jooqx">LegacyJooqxBuilder</a>&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>resultCollector</code> - a result collector</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a reference to this for fluent API</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="LegacySQLCollector.html" title="interface in io.github.zero88.jooqx"><code>LegacySQLCollector</code></a></dd>
 </dl>
@@ -438,6 +494,18 @@ public interface <span class="typeNameLabel">LegacyJooqxBuilder</span></pre>
 <pre class="methodSignature">@NotNull
 @NotNull <a href="LegacyJooqxBuilder.html" title="interface in io.github.zero88.jooqx">LegacyJooqxBuilder</a>&nbsp;setErrorConverter&#8203;(<a href="SQLErrorConverter.html" title="interface in io.github.zero88.jooqx">SQLErrorConverter</a>&nbsp;errorConverter)</pre>
 <div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLExecutorBuilder.html#setErrorConverter(io.github.zero88.jooqx.SQLErrorConverter)">SQLExecutorBuilder</a></code></span></div>
+<div class="block">Set Error Converter</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="SQLExecutorBuilder.html#setErrorConverter(io.github.zero88.jooqx.SQLErrorConverter)">setErrorConverter</a></code>&nbsp;in interface&nbsp;<code><a href="SQLExecutorBuilder.html" title="interface in io.github.zero88.jooqx">SQLExecutorBuilder</a>&lt;io.vertx.ext.sql.SQLClient,&#8203;io.vertx.core.json.JsonArray,&#8203;<a href="LegacySQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">LegacySQLPreparedQuery</a>,&#8203;io.vertx.ext.sql.ResultSet,&#8203;<a href="LegacySQLCollector.html" title="interface in io.github.zero88.jooqx">LegacySQLCollector</a>,&#8203;<a href="LegacyJooqxBuilder.html" title="interface in io.github.zero88.jooqx">LegacyJooqxBuilder</a>&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>errorConverter</code> - an error converter</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a reference to this for fluent API</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="SQLErrorConverter.html" title="interface in io.github.zero88.jooqx"><code>SQLErrorConverter</code></a></dd>
+</dl>
 </li>
 </ul>
 <a id="typeMapperRegistry()">
@@ -459,6 +527,18 @@ public interface <span class="typeNameLabel">LegacyJooqxBuilder</span></pre>
 <pre class="methodSignature">@NotNull
 @NotNull <a href="LegacyJooqxBuilder.html" title="interface in io.github.zero88.jooqx">LegacyJooqxBuilder</a>&nbsp;setTypeMapperRegistry&#8203;(<a href="datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;typeMapperRegistry)</pre>
 <div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLExecutorBuilder.html#setTypeMapperRegistry(io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">SQLExecutorBuilder</a></code></span></div>
+<div class="block">Set Type Mapper Registry</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="SQLExecutorBuilder.html#setTypeMapperRegistry(io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">setTypeMapperRegistry</a></code>&nbsp;in interface&nbsp;<code><a href="SQLExecutorBuilder.html" title="interface in io.github.zero88.jooqx">SQLExecutorBuilder</a>&lt;io.vertx.ext.sql.SQLClient,&#8203;io.vertx.core.json.JsonArray,&#8203;<a href="LegacySQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">LegacySQLPreparedQuery</a>,&#8203;io.vertx.ext.sql.ResultSet,&#8203;<a href="LegacySQLCollector.html" title="interface in io.github.zero88.jooqx">LegacySQLCollector</a>,&#8203;<a href="LegacyJooqxBuilder.html" title="interface in io.github.zero88.jooqx">LegacyJooqxBuilder</a>&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>typeMapperRegistry</code> - a type mapper registry</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a reference to this for fluent API</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype"><code>DataTypeMapperRegistry</code></a></dd>
+</dl>
 </li>
 </ul>
 <a id="build()">
@@ -471,6 +551,8 @@ public interface <span class="typeNameLabel">LegacyJooqxBuilder</span></pre>
 @NotNull <a href="LegacyJooqx.html" title="interface in io.github.zero88.jooqx">LegacyJooqx</a>&nbsp;build()</pre>
 <div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
 <dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="SQLExecutorBuilder.html#build()">build</a></code>&nbsp;in interface&nbsp;<code><a href="SQLExecutorBuilder.html" title="interface in io.github.zero88.jooqx">SQLExecutorBuilder</a>&lt;io.vertx.ext.sql.SQLClient,&#8203;io.vertx.core.json.JsonArray,&#8203;<a href="LegacySQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">LegacySQLPreparedQuery</a>,&#8203;io.vertx.ext.sql.ResultSet,&#8203;<a href="LegacySQLCollector.html" title="interface in io.github.zero88.jooqx">LegacySQLCollector</a>,&#8203;<a href="LegacyJooqxBuilder.html" title="interface in io.github.zero88.jooqx">LegacyJooqxBuilder</a>&gt;</code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>a new <a href="LegacyJooqx.html" title="interface in io.github.zero88.jooqx"><code>LegacyJooqx</code></a> instance</dd>
 </dl>

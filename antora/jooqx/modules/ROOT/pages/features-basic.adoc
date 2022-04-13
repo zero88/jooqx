@@ -1,7 +1,7 @@
-== Basic usage
+= Basic usage
 
-=== Simple execution
-[source,java]
+== Simple execution
+[source,java,subs="attributes,verbatim"]
 ----
 PgConnectOptions connectOptions = new PgConnectOptions()                // <1>
     .setPort(5432).setHost("the-host")

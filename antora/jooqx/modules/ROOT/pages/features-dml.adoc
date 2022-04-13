@@ -1,8 +1,8 @@
-== Your every day SQL job
+= Your every day SQL job
 
-=== Fetch exists
+== Fetch exists
 
-[source,java]
+[source,java,subs="attributes,verbatim"]
 ----
 Function<DSLContext, Query> q = dsl -> dsl.selectOne()                      // <1>
       .whereExists(dsl.selectFrom(Tables.AUTHORS)
@@ -15,44 +15,44 @@ jooqx.execute(q, DSLAdapter.fetchExists())                                  // <
     .onFailure(Throwable::printStackTrace);                                 // <4>
 ----
 
-=== Fetch count
+== Fetch count
 
-[source,java]
+[source,java,subs="attributes,verbatim"]
 ----
 
 ----
 
-=== Simple Query data
+== Simple Query data
 
-[source,java]
+[source,java,subs="attributes,verbatim"]
 ----
 
 ----
 
-=== Complex join query
+== Complex join query
 
-[source,java]
+[source,java,subs="attributes,verbatim"]
 ----
 
 ----
 
-=== Insert data
+== Insert data
 
-[source,java]
+[source,java,subs="attributes,verbatim"]
 ----
 
 ----
 
-=== Update data
+== Update data
 
-[source,java]
+[source,java,subs="attributes,verbatim"]
 ----
 
 ----
 
-=== Delete data
+== Delete data
 
-[source,java]
+[source,java,subs="attributes,verbatim"]
 ----
 
 ----

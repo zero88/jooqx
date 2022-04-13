@@ -123,11 +123,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <dl>
 <dt>All Superinterfaces:</dt>
-<dd><code><a href="JooqxResultCollector.html" title="interface in io.github.zero88.jooqx">JooqxResultCollector</a></code>, <code><a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>&lt;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;&gt;</code></dd>
+<dd><code><a href="JooqxResultCollector.html" title="interface in io.github.zero88.jooqx">JooqxResultCollector</a></code>, <code><a href="SQLBatchCollector.html" title="interface in io.github.zero88.jooqx">SQLBatchCollector</a>&lt;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;,&#8203;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;&gt;</code>, <code><a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>&lt;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;&gt;</code></dd>
 </dl>
 <hr>
 <pre>public interface <span class="typeNameLabel">JooqxBatchCollector</span>
-extends <a href="JooqxResultCollector.html" title="interface in io.github.zero88.jooqx">JooqxResultCollector</a></pre>
+extends <a href="JooqxResultCollector.html" title="interface in io.github.zero88.jooqx">JooqxResultCollector</a>, <a href="SQLBatchCollector.html" title="interface in io.github.zero88.jooqx">SQLBatchCollector</a>&lt;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;,&#8203;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;&gt;</pre>
 <div class="block">Represents for a collector that collects <code>Vert.x SQL batch result</code> to an expectation output</div>
 <dl>
 <dt><span class="simpleTagLabel">Since:</span></dt>
@@ -175,7 +175,9 @@ extends <a href="JooqxResultCollector.html" title="interface in io.github.zero88
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#batchResultSize(io.vertx.sqlclient.RowSet)">batchResultSize</a></span>&#8203;(@NotNull io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;&nbsp;batchResult)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Compute Batch Result size</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -216,6 +218,16 @@ extends <a href="JooqxResultCollector.html" title="interface in io.github.zero88
 <h4>batchResultSize</h4>
 <pre class="methodSignature">int&nbsp;batchResultSize&#8203;(@NotNull
                     @NotNull io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;&nbsp;batchResult)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLBatchCollector.html#batchResultSize(BR)">SQLBatchCollector</a></code></span></div>
+<div class="block">Compute Batch Result size</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="SQLBatchCollector.html#batchResultSize(BR)">batchResultSize</a></code>&nbsp;in interface&nbsp;<code><a href="SQLBatchCollector.html" title="interface in io.github.zero88.jooqx">SQLBatchCollector</a>&lt;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;,&#8203;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>batchResult</code> - batch result</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>result size</dd>
+</dl>
 </li>
 </ul>
 </li>

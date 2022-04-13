@@ -1,6 +1,6 @@
-== SQL procedure
+= SQL procedure
 
-[source,java]
+[source,java,subs="attributes,verbatim"]
 ----
 
 ----

@@ -1,6 +1,6 @@
-== SQL transaction
+= SQL transaction
 
-[source,java]
+[source,java,subs="attributes,verbatim"]
 ----
 jooqx.transaction().run(tx -> {
     InsertResultStep<BooksRecord> q1 = tx.dsl()

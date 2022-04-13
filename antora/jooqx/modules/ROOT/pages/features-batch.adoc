@@ -1,6 +1,6 @@
-== SQL batch
+= SQL batch
 
-[source,java]
+[source,java,subs="attributes,verbatim"]
 ----
 AuthorsRecord rec1 = new AuthorsRecord().setName("zero88").setCountry("VN");
 AuthorsRecord rec2 = new AuthorsRecord().setName("jooq").setCountry("CH");
