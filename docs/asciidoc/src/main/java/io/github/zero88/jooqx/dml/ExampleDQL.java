@@ -7,8 +7,8 @@ import org.jooq.Query;
 
 import io.github.zero88.jooqx.DSLAdapter;
 import io.github.zero88.jooqx.Jooqx;
+import io.github.zero88.sample.model.pgsql.Tables;
 import io.vertx.docgen.Source;
-import io.zero88.sample.data.pgsql.Tables;
 
 @Source
 class ExampleDQL {

@@ -11,12 +11,12 @@ import org.jooq.SelectWhereStep;
 import io.github.zero88.jooqx.DSLAdapter;
 import io.github.zero88.jooqx.Jooqx;
 import io.github.zero88.jooqx.JsonRecord;
+import io.github.zero88.sample.model.pgsql.Tables;
+import io.github.zero88.sample.model.pgsql.tables.Books;
+import io.github.zero88.sample.model.pgsql.tables.pojos.Authors;
+import io.github.zero88.sample.model.pgsql.tables.records.AuthorsRecord;
+import io.github.zero88.sample.model.pgsql.tables.records.BooksRecord;
 import io.vertx.docgen.Source;
-import io.zero88.sample.data.pgsql.Tables;
-import io.zero88.sample.data.pgsql.tables.Books;
-import io.zero88.sample.data.pgsql.tables.pojos.Authors;
-import io.zero88.sample.data.pgsql.tables.records.AuthorsRecord;
-import io.zero88.sample.data.pgsql.tables.records.BooksRecord;
 
 @Source
 class ExampleResultAdapter {

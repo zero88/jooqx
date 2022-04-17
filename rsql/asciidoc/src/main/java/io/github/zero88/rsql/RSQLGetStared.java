@@ -11,7 +11,7 @@ import org.jooq.Condition;
 
 import io.vertx.docgen.Source;
 import io.zero88.rsql.jooq.JooqRSQLParser;
-import io.zero88.sample.data.h2.Tables;
+import io.github.zero88.sample.model.pgsql.Tables;
 
 @Source
 public class RSQLGetStared {
@@ -22,7 +22,7 @@ public class RSQLGetStared {
         System.out.println(query); // => (FIRST_NAME==zero88)
 
         JooqRSQLParser parser = JooqRSQLParser.DEFAULT;
-        Condition condition = parser.criteria(query, Tables.AUTHOR);
+        Condition condition = parser.criteria(query, Tables.AUTHORS);
         System.out.println(condition.toString()); // => "AUTHOR"."FIRST_NAME" = 'zero88'
     }
 

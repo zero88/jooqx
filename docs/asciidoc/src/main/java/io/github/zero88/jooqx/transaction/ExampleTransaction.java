@@ -7,9 +7,9 @@ import org.jooq.impl.DSL;
 
 import io.github.zero88.jooqx.DSLAdapter;
 import io.github.zero88.jooqx.Jooqx;
+import io.github.zero88.sample.model.pgsql.Tables;
+import io.github.zero88.sample.model.pgsql.tables.records.BooksRecord;
 import io.vertx.docgen.Source;
-import io.zero88.sample.data.pgsql.Tables;
-import io.zero88.sample.data.pgsql.tables.records.BooksRecord;
 
 @Source
 class ExampleTransaction {

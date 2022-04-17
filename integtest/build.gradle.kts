@@ -1,9 +1,11 @@
-configurations.all {
-    resolutionStrategy {
-        preferProjectModules()
-        force(VertxLibs.core)
-        force(VertxLibs.sqlClient)
-        force(VertxLibs.jdbc)
+allprojects {
+    configurations.all {
+        resolutionStrategy {
+            preferProjectModules()
+            force(VertxLibs.core)
+            force(VertxLibs.sqlClient)
+            force(VertxLibs.jdbc)
+        }
     }
 }
 

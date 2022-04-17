@@ -12,7 +12,7 @@ docker rm -f postgres-gen mysql-gen
 set -e
 
 mkdir -p $pg_dir $mysql_dir
-cp -rf sample/model/src/main/resources/pg_schema.sql $pg_dir
+cp -rf integtest/pg/src/main/resources/pg_schema.sql $pg_dir
 cp -rf sample/model/src/main/resources/mysql_schema.sql $mysql_dir
 
 docker pull $pg_img
