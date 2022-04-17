@@ -1,6 +1,6 @@
 import nu.studer.gradle.jooq.JooqGenerate
+import org.jooq.meta.jaxb.Jdbc
 import org.jooq.meta.jaxb.Logging
-import org.jooq.meta.jaxb.Property
 
 plugins {
     id(PluginLibs.jooq)
@@ -12,20 +12,20 @@ dependencies {
     api(DatabaseLibs.jooqMetaExt)
 
     jooqGenerator(DatabaseLibs.pgsql)
+    jooqGenerator(TestContainers.pgsql)
     jooqGenerator(DatabaseLibs.jooqMetaExt)
+    jooqGenerator(LogLibs.logback)
 
     testImplementation(testFixtures(project(":jooqx")))
     testImplementation(project(":rsql:jooq"))
-    testImplementation(VertxLibs.sqlClient)
-    testImplementation(VertxLibs.jdbc)
+    testImplementation(LogLibs.logback)
 
     testImplementation(DatabaseLibs.agroalApi)
     testImplementation(DatabaseLibs.agroalPool)
     testImplementation(DatabaseLibs.hikari)
     testImplementation(DatabaseLibs.jooqMeta)
 
-    testImplementation(DatabaseLibs.h2)
-
+    testImplementation(VertxLibs.jdbc)
     testImplementation(DatabaseLibs.pgsql)
     testImplementation(VertxLibs.pgsql)
     testImplementation(TestContainers.pgsql)
@@ -33,36 +33,30 @@ dependencies {
     testImplementation(VertxLibs.rx2)
     testImplementation(VertxLibs.rx3)
 
-    testImplementation(LogLibs.logback)
-
     testImplementation(MutinyLibs.core)
     testImplementation(MutinyLibs.jdbc)
-
 }
+
+fun createJdbc(jdbc: Jdbc, version: String) {
+    val schema = "${projectDir}/src/main/resources/pg_schema.sql"
+    jdbc.driver = "org.testcontainers.jdbc.ContainerDatabaseDriver"
+    jdbc.url = "jdbc:tc:postgresql:${version}:///hey?TC_TMPFS=/testtmpfs:rw&TC_INITSCRIPT=file:${schema}"
+}
+
+val dbImage = (project.findProperty("dbImage") ?: "10-alpine").toString()
 
 jooq {
     version.set(DatabaseLibs.Version.jooq)
 
     configurations {
         create("testPgSchema") {
-            generateSchemaSourceOnCompilation.set(true)  // default (can be omitted)
             jooqConfiguration.apply {
                 logging = Logging.INFO
-                jdbc.apply {
-                    driver = "org.postgresql.Driver"
-                    url = "jdbc:postgresql://localhost:5423/testdb"
-                    user = "postgres"
-                    password = "123"
-                }
+                jdbc.apply { createJdbc(this, dbImage) }
                 generator.apply {
-                    name = "org.jooq.codegen.DefaultGenerator"
-                    strategy.name = "org.jooq.codegen.DefaultGeneratorStrategy"
                     database.apply {
                         name = "org.jooq.meta.postgres.PostgresDatabase"
                         inputSchema = "public"
-                        properties.add(
-                            Property().withKey("scripts").withValue("src/main/resources/pg_schema.sql")
-                        )
                     }
                     generate.apply {
                         isRecords = true
@@ -83,24 +77,13 @@ jooq {
         }
 
         create("testPgSchemaWithCustomType") {
-            generateSchemaSourceOnCompilation.set(true)  // default (can be omitted)
             jooqConfiguration.apply {
                 logging = Logging.INFO
-                jdbc.apply {
-                    driver = "org.postgresql.Driver"
-                    url = "jdbc:postgresql://localhost:5423/testdb"
-                    user = "postgres"
-                    password = "123"
-                }
+                jdbc.apply { createJdbc(this, dbImage) }
                 generator.apply {
-                    name = "org.jooq.codegen.DefaultGenerator"
-                    strategy.name = "org.jooq.codegen.DefaultGeneratorStrategy"
                     database.apply {
                         name = "org.jooq.meta.postgres.PostgresDatabase"
                         inputSchema = "public"
-                        properties.add(
-                            Property().withKey("scripts").withValue("src/main/resources/pg_schema.sql")
-                        )
                         withForcedTypes(
                             org.jooq.meta.jaxb.ForcedType().withUserType("io.vertx.pgclient.data.Interval")
                                 .withConverter("io.github.zero88.jooqx.datatype.UserTypeAsVertxType.create(new io.github.zero88.jooqx.spi.pg.datatype.IntervalConverter())")
@@ -153,13 +136,7 @@ jooq {
                 }
             }
         }
-
     }
-}
-
-tasks.register("generateJooq") {
-    group = "jooq"
-    dependsOn(tasks.withType<JooqGenerate>())
 }
 
 sourceSets {
@@ -167,4 +144,3 @@ sourceSets {
         java.srcDirs(tasks.withType<JooqGenerate>().map { it.outputDir.get().asFile })
     }
 }
-

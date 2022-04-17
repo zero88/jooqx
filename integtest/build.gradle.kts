@@ -1,3 +1,5 @@
+import nu.studer.gradle.jooq.JooqGenerate
+
 allprojects {
     configurations.all {
         resolutionStrategy {
@@ -7,6 +9,18 @@ allprojects {
             force(VertxLibs.jdbc)
         }
     }
+
+    tasks {
+        withType<JooqGenerate> { allInputsDeclared.set(true) }
+        register("generateJooq") {
+            group = "jooq"
+            dependsOn(withType<JooqGenerate>())
+        }
+        test {
+            project.findProperty("dbImage")?.let { systemProperty("dbImage", it) }
+        }
+    }
+
 }
 
 dependencies {

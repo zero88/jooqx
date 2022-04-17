@@ -171,11 +171,12 @@ AS 'select $1 + $2;'
     RETURNS NULL ON NULL INPUT;
 
 --
-CREATE OR REPLACE FUNCTION increment(i integer) RETURNS integer AS $$
-BEGIN
-    RETURN i + 1;
-END;
-$$ LANGUAGE plpgsql;
+CREATE OR REPLACE FUNCTION increment(i integer) RETURNS integer
+AS '
+    BEGIN
+        RETURN i + 1;
+    END;
+' LANGUAGE plpgsql;
 
 --
 CREATE FUNCTION dup(in int, out f1 int, out f2 text)
@@ -189,15 +190,13 @@ CREATE FUNCTION dup2(int) RETURNS dup_result
 AS $$ SELECT $1, CAST($1 AS text) || ' is text' $$
     LANGUAGE SQL;
 
---
+-- Create PROCEDURE from pg11
 -- CREATE OR REPLACE PROCEDURE SelectAllAuthors()
 -- LANGUAGE SQL
 -- AS $$
 --     SELECT * FROM authors
 -- $$;
-
+--
 -- CREATE PROCEDURE SelectBooks(_title varchar)
 -- LANGUAGE SQL
--- AS $$
---     SELECT * FROM books WHERE books.title = _title;
--- $$;
+-- AS $$ SELECT * FROM books WHERE books.title = _title $$;
