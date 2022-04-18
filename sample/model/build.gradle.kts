@@ -22,35 +22,6 @@ jooq {
     version.set(DatabaseLibs.Version.jooq)
 
     configurations {
-        create("testH2Schema") {
-            generateSchemaSourceOnCompilation.set(true)  // default (can be omitted)
-            jooqConfiguration.apply {
-                logging = Logging.INFO
-                generator.apply {
-                    name = "org.jooq.codegen.DefaultGenerator"
-                    strategy.name = "org.jooq.codegen.DefaultGeneratorStrategy"
-                    database.apply {
-                        name = "org.jooq.meta.extensions.ddl.DDLDatabase"
-                        properties.add(
-                            Property().withKey("scripts").withValue("src/main/resources/h2_schema.sql")
-                        )
-                    }
-                    generate.apply {
-                        isRecords = true
-                        isFluentSetters = true
-                        isDeprecated = false
-                        isImmutablePojos = false
-                        isInterfaces = false
-                        isDaos = false
-                    }
-                    target.apply {
-                        packageName = "io.zero88.sample.data.h2"
-                        directory = "build/generated/h2"
-                    }
-                }
-            }
-        }
-
         create("testMySQLSchema") {
             generateSchemaSourceOnCompilation.set(true)  // default (can be omitted)
             jooqConfiguration.apply {

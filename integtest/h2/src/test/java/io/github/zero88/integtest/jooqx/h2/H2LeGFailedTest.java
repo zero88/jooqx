@@ -11,10 +11,10 @@ import io.github.zero88.jooqx.DSLAdapter;
 import io.github.zero88.jooqx.LegacyTestDefinition.LegacyDBMemoryTest;
 import io.github.zero88.jooqx.spi.h2.H2MemProvider;
 import io.github.zero88.jooqx.spi.jdbc.JDBCLegacyHikariProvider;
+import io.github.zero88.sample.model.h2.tables.Author;
+import io.github.zero88.sample.model.h2.tables.records.AuthorRecord;
 import io.vertx.ext.jdbc.spi.impl.HikariCPDataSourceProvider;
 import io.vertx.junit5.VertxTestContext;
-import io.zero88.sample.data.h2.tables.Author;
-import io.zero88.sample.data.h2.tables.records.AuthorRecord;
 
 class H2LeGFailedTest extends LegacyDBMemoryTest<HikariCPDataSourceProvider>
     implements H2MemProvider, H2SQLHelper, JDBCLegacyHikariProvider {

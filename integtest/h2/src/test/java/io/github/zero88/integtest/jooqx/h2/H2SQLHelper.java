@@ -10,10 +10,10 @@ import io.github.zero88.jooqx.JooqSQL;
 import io.github.zero88.jooqx.SQLConnectionOption;
 import io.github.zero88.jooqx.SQLTestHelper;
 import io.github.zero88.jooqx.spi.jdbc.JDBCErrorConverterProvider;
+import io.github.zero88.sample.model.h2.DefaultCatalog;
+import io.github.zero88.sample.model.h2.DefaultSchema;
 import io.github.zero88.utils.Strings;
 import io.vertx.junit5.VertxTestContext;
-import io.zero88.sample.data.h2.DefaultCatalog;
-import io.zero88.sample.data.h2.DefaultSchema;
 
 import com.zaxxer.hikari.HikariDataSource;
 

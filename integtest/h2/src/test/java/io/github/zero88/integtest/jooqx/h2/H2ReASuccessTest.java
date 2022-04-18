@@ -10,11 +10,11 @@ import io.github.zero88.jooqx.DSLAdapter;
 import io.github.zero88.jooqx.JooqxTestDefinition.JooqxDBMemoryTest;
 import io.github.zero88.jooqx.spi.h2.H2MemProvider;
 import io.github.zero88.jooqx.spi.jdbc.JDBCPoolHikariProvider;
+import io.github.zero88.sample.model.h2.tables.Alldatatypes;
 import io.vertx.core.Vertx;
 import io.vertx.jdbcclient.JDBCPool;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
-import io.zero88.sample.data.h2.tables.Alldatatypes;
 
 class H2ReASuccessTest extends JooqxDBMemoryTest<JDBCPool>
     implements H2MemProvider, H2SQLHelper, JDBCPoolHikariProvider {
