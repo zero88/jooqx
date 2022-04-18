@@ -40,7 +40,7 @@ jobs:
       matrix:
         java: [ '8', '11', '17' ]
         os: [ 'ubuntu-latest', 'windows-latest' ]
-    name: Java ${{ matrix.Java }} (${{ matrix.os }}) build
+    name: Build & Test Java ${{ matrix.java }} (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2.4.0
@@ -52,7 +52,7 @@ jobs:
           version: ${{ needs.context.outputs.version }}
           semanticVersion: ${{ needs.context.outputs.semanticVersion }}
           hashVersion: ${{ needs.context.outputs.commitId }}
-          javaVersion: ${{ matrix.Java }}
+          javaVersion: ${{ matrix.java }}
 
       - name: Test
         shell: bash
