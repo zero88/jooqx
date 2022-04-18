@@ -67,6 +67,7 @@ jobs:
         java: [ '11' ]
         os: [ 'ubuntu-latest' ]
         db: [ 'pg:10-alpine', 'pg:12-alpine', 'pg:14-alpine', 'h2', 'mysql:5.7-debian', 'mysql:8.0-debian' ]
+      fail-fast: false
     name: Test ${{ matrix.db }} | Java ${{ matrix.java }} (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     env:
@@ -107,7 +108,8 @@ jobs:
       - name: Generate jOOQ test schema
         shell: bash
         run: |
-          ./gradlew :integtest:${{ steps.db_profile.outputs.project }}:generateJooq \
+          ./gradlew --stacktrace \
+              :integtest:${{ steps.db_profile.outputs.project }}:generateJooq \
               -Pprofile=${{ env.PROFILE }} \
               -PdbImage=${{ steps.db_profile.outputs.dbImage }} \
               -PsemanticVersion=${{ needs.context.outputs.semanticVersion }}
@@ -115,7 +117,9 @@ jobs:
       - name: Run test
         shell: bash
         run: |
-          ./gradlew :integtest:${{ steps.db_profile.outputs.project }}:test --stacktrace \
+          ./gradlew --stacktrace \
+              :integtest:${{ steps.db_profile.outputs.project }}:test \
+              :integtest:${{ steps.db_profile.outputs.project }}:jacocoTestReport \
               -Pprofile=${{ env.PROFILE }} \
               -PdbImage=${{ steps.db_profile.outputs.dbImage }} \
               -PsemanticVersion=${{ needs.context.outputs.semanticVersion }}
