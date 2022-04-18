@@ -2,7 +2,7 @@ dependencies {
     compileOnly(project(":spi"))
     compileOnly(testFixtures(project(":jooqx")))
 //    compileOnly(project(":rsql:jooq"))
-    compileOnly(project(":sample:model"))
+    compileOnly(project(":integtest:pg"))
     compileOnly(VertxLibs.jdbc)
     compileOnly(VertxLibs.pgsql)
     compileOnly(VertxLibs.mysql)

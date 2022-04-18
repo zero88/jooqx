@@ -1,39 +1,45 @@
-configurations.all {
-    resolutionStrategy {
-        preferProjectModules()
-        force(VertxLibs.core)
-        force(VertxLibs.sqlClient)
-        force(VertxLibs.jdbc)
+import nu.studer.gradle.jooq.JooqGenerate
+
+
+subprojects {
+    apply(plugin = PluginLibs.jooq)
+
+    configurations.all {
+        resolutionStrategy {
+            preferProjectModules()
+            force(VertxLibs.core)
+            force(VertxLibs.sqlClient)
+            force(VertxLibs.jdbc)
+        }
     }
-}
 
-dependencies {
-    testImplementation(project(":sample:model"))
-    testImplementation(testFixtures(project(":jooqx")))
-    testImplementation(project(":rsql:jooq"))
-    testImplementation(VertxLibs.sqlClient)
-    testImplementation(VertxLibs.jdbc)
+    dependencies {
+        implementation(DatabaseLibs.jooqMetaExt) // For generate model
 
-    testImplementation(DatabaseLibs.agroalApi)
-    testImplementation(DatabaseLibs.agroalPool)
-    testImplementation(DatabaseLibs.hikari)
-    testImplementation(DatabaseLibs.jooqMeta)
+        testImplementation(testFixtures(project(":jooqx")))
 
-    testImplementation(DatabaseLibs.h2)
+        testImplementation(DatabaseLibs.agroalApi)
+        testImplementation(DatabaseLibs.agroalPool)
+        testImplementation(DatabaseLibs.hikari)
+        testImplementation(DatabaseLibs.jooqMeta)
 
-    testImplementation(DatabaseLibs.pgsql)
-    testImplementation(VertxLibs.pgsql)
-    testImplementation(TestContainers.pgsql)
+        testImplementation(VertxLibs.rx2)
+        testImplementation(VertxLibs.rx3)
 
-    testImplementation(DatabaseLibs.mysql)
-    testImplementation(VertxLibs.mysql)
-    testImplementation(TestContainers.mysql)
+        testImplementation(MutinyLibs.core)
+        testImplementation(MutinyLibs.jdbc)
 
-    testImplementation(VertxLibs.rx2)
-    testImplementation(VertxLibs.rx3)
+        testImplementation(LogLibs.logback)
+    }
 
-    testImplementation(LogLibs.logback)
-
-    testImplementation(MutinyLibs.core)
-    testImplementation(MutinyLibs.jdbc)
+    tasks {
+        withType<JooqGenerate> { allInputsDeclared.set(true) }
+        register("generateJooq") {
+            group = "jooq"
+            dependsOn(withType<JooqGenerate>())
+        }
+        test {
+            project.findProperty("dbImage")?.let { systemProperty("dbImage", it) }
+        }
+    }
 }

@@ -40,8 +40,9 @@ abstract class SQLTestImpl<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extends 
         ((Logger) LoggerFactory.getLogger("io.vertx.sqlclient")).setLevel(Level.DEBUG);
         ((Logger) LoggerFactory.getLogger("io.vertx.ext.jdbc")).setLevel(Level.DEBUG);
         ((Logger) LoggerFactory.getLogger("org.jooq")).setLevel(Level.DEBUG);
+        ((Logger) LoggerFactory.getLogger("org.testcontainers")).setLevel(Level.INFO);
+        ((Logger) LoggerFactory.getLogger("com.github.dockerjava")).setLevel(Level.WARN);
         ((Logger) LoggerFactory.getLogger(SQLTest.class.getPackage().getName())).setLevel(Level.DEBUG);
-        ((Logger) LoggerFactory.getLogger("org.testcontainers")).setLevel(Level.DEBUG);
     }
 
     @BeforeEach

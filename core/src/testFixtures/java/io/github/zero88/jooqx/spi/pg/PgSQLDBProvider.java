@@ -9,11 +9,14 @@ import io.github.zero88.jooqx.HasDBProvider;
 
 public interface PgSQLDBProvider extends DBContainerProvider<PostgreSQLContainer<?>>,
                                          HasDBProvider<PostgreSQLContainer<?>,
-                                                                                                   DBContainerProvider<PostgreSQLContainer<?>>> {
+                                                          DBContainerProvider<PostgreSQLContainer<?>>> {
+
+    String[] SUPPORTED_IMAGES = { "10-alpine", "12-alpine", "14-alpine" };
 
     @Override
     default @NotNull PostgreSQLContainer<?> init() {
-        return initDBContainer("postgres:10-alpine");
+        final String dbImage = System.getProperty("dbImage", SUPPORTED_IMAGES[0]);
+        return initDBContainer("postgres:" + dbImage);
     }
 
     @Override

@@ -42,7 +42,7 @@ jobs:
       matrix:
         java: [ '8', '11', '17' ]
         os: [ 'ubuntu-latest', 'windows-latest' ]
-    name: Java ${{ matrix.Java }} (${{ matrix.os }}) build
+    name: Build Java ${{ matrix.java }} (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     env:
       PROFILE: 'ciBuild'
@@ -57,7 +57,7 @@ jobs:
           semanticVersion: ${{ needs.context.outputs.semanticVersion }}
           hashVersion: ${{ needs.context.outputs.commitId }}
           javaDist: ${{ env.JAVA_DIST }}
-          javaVersion: ${{ matrix.Java }}
+          javaVersion: ${{ matrix.java }}
 
   analysis:
     needs: context
@@ -66,7 +66,9 @@ jobs:
       matrix:
         java: [ '11' ]
         os: [ 'ubuntu-latest' ]
-    name: Java ${{ matrix.Java }} (${{ matrix.os }}) test
+        db: [ 'pg:10-alpine', 'pg:12-alpine', 'pg:14-alpine', 'h2', 'mysql:5.7-debian', 'mysql:8.0-debian' ]
+      fail-fast: false
+    name: Test ${{ matrix.db }} | Java ${{ matrix.java }} (${{ matrix.os }})
     runs-on: ${{ matrix.os }}
     env:
       PROFILE: 'ciSonar'
@@ -78,38 +80,61 @@ jobs:
       - uses: actions/setup-java@v2
         with:
           distribution: ${{ env.JAVA_DIST }}
-          java-version: ${{ matrix.Java }}
-          cache: 'gradle'
+          java-version: ${{ matrix.java }}
 
-      - name: Cache SonarCloud packages
-        uses: actions/cache@v2.1.4
+      - uses: actions/cache@v3
         with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ matrix.db }}-${{ runner.os }}-${{ matrix.java }}-${{ env.JAVA_DIST }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ matrix.db }}-${{ runner.os }}-${{ matrix.java }}-${{ env.JAVA_DIST }}-gradle-
+
+      - name: Get context
+        id: db_profile
+        shell: bash
+        run: |
+          echo ::set-output name=project::$(echo ${{ matrix.db }} | cut -d':' -f1)
+          echo ::set-output name=dbImage::$(echo ${{ matrix.db }} | cut -d':' -f2)
+
+#      - name: Cache SonarCloud packages
+#        uses: actions/cache@v2.1.4
+#        with:
+#          path: ~/.sonar/cache
+#          key: ${{ runner.os }}-sonar
+#          restore-keys: ${{ runner.os }}-sonar
 
       - name: Generate jOOQ test schema
         shell: bash
-        run: ./generateJooq.sh
-
-      - name: Full test
-        shell: bash
         run: |
-          ./gradlew test --stacktrace \
+          ./gradlew --stacktrace \
+              :integtest:${{ steps.db_profile.outputs.project }}:generateJooq \
               -Pprofile=${{ env.PROFILE }} \
+              -PdbImage=${{ steps.db_profile.outputs.dbImage }} \
               -PsemanticVersion=${{ needs.context.outputs.semanticVersion }}
 
-      - name: SonarQube
+      - name: Run test
         shell: bash
         run: |
-          ./gradlew sonarqube -x test --stacktrace \
+          ./gradlew --stacktrace \
+              :integtest:${{ steps.db_profile.outputs.project }}:test \
+              :integtest:${{ steps.db_profile.outputs.project }}:jacocoTestReport \
               -Pprofile=${{ env.PROFILE }} \
-              -PsemanticVersion=${{ needs.context.outputs.semanticVersion }} \
-              -Dsonar.branch.name=${{ needs.context.outputs.branch }} \
-              -Dsonar.login=${{ secrets.OSS_SONARQUBE_TOKEN }} \
-              -Dorg.gradle.jvmargs="-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              -PdbImage=${{ steps.db_profile.outputs.dbImage }} \
+              -PsemanticVersion=${{ needs.context.outputs.semanticVersion }}
+
+#      - name: SonarQube
+#        shell: bash
+#        run: |
+#          ./gradlew sonarqube -x test --stacktrace \
+#              -Pprofile=${{ env.PROFILE }} \
+#              -PsemanticVersion=${{ needs.context.outputs.semanticVersion }} \
+#              -Dsonar.branch.name=${{ needs.context.outputs.branch }} \
+#              -Dsonar.login=${{ secrets.OSS_SONARQUBE_TOKEN }} \
+#              -Dorg.gradle.jvmargs="-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError"
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   publish:
     needs: [ context, build, analysis ]

@@ -5,13 +5,13 @@ import org.jooq.SQLDialect;
 import org.jooq.SelectConditionStep;
 import org.jooq.impl.DSL;
 
+import io.github.zero88.sample.model.pgsql.Tables;
+import io.github.zero88.sample.model.pgsql.tables.records.AuthorsRecord;
 import io.vertx.core.Vertx;
 import io.vertx.docgen.Source;
 import io.vertx.pgclient.PgConnectOptions;
 import io.vertx.pgclient.PgPool;
 import io.vertx.sqlclient.PoolOptions;
-import io.zero88.sample.data.pgsql.Tables;
-import io.zero88.sample.data.pgsql.tables.records.AuthorsRecord;
 
 @Source
 public class JooqxBasic implements ExampleBasic {

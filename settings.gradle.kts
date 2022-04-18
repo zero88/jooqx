@@ -16,13 +16,14 @@ pluginManagement {
 
 rootProject.name = "jooqx-parent"
 val profile: String by settings
+val supportDatabases = arrayOf("db2", "h2", "mssql", "mysql", "oracle", "pg", "sqlite")
 var pp: Array<String> = arrayOf()
 val pools = mutableMapOf(
     "jpa" to arrayOf(":jpa-ext"),
     "jooqx" to arrayOf(":jooqx", ":spi"),
-    "sample" to arrayOf(":sample:model", ":sample:web"),
     "rsql" to arrayOf(":rsql:core", ":rsql:jooq"),
-    "integtest" to arrayOf(":integtest")
+    "integtest" to supportDatabases.map { ":integtest:${it}" }.toTypedArray(),
+    "sample" to arrayOf(":sample:web"),
 )
 val jooqxDocs = arrayOf(":docs:asciidoc", ":docs:testing-asciidoc")
 val rsqlDocs = arrayOf(":rsql:asciidoc")
@@ -30,8 +31,8 @@ val excludeCISonar = jooqxDocs + rsqlDocs
 val excludeCIBuild = pools["sample"]!! + pools["integtest"]!! + excludeCISonar
 pools.putAll(
     mapOf(
-        "jooqx:docs" to pools["jooqx"]!!.plus(pools["sample"]!!).plus(jooqxDocs),
-        "rsql:docs" to pools["rsql"]!!.plus(pools["jooqx"]!!).plus(pools["sample"]!!).plus(rsqlDocs)
+        "jooqx:docs" to pools["jooqx"]!!.plus(":integtest:pg").plus(jooqxDocs),
+        "rsql:docs" to pools["rsql"]!!.plus(pools["jooqx"]!!).plus(":integtest:pg").plus(rsqlDocs)
     )
 )
 
@@ -50,6 +51,7 @@ if (pp.contains(":jooqx")) {
 }
 
 if (gradle is ExtensionAware) {
-    (gradle as ExtensionAware).extensions.add("PROJECT_POOL", pools.toMap())
-    (gradle as ExtensionAware).extensions.add("SKIP_PUBLISH", excludeCIBuild + arrayOf(":docs", ":rsql", ":sample"))
+    val extensions = (gradle as ExtensionAware).extensions
+    extensions.add("PROJECT_POOL", pools.toMap())
+    extensions.add("SKIP_PUBLISH", excludeCIBuild + arrayOf(":docs", ":rsql", ":sample", ":integtest"))
 }

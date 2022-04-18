@@ -85,7 +85,7 @@ jobs:
 
       - name: Generate jOOQ test schema
         shell: bash
-        run: ./generateJooq.sh
+        run: ./gradlew :integtest:pg:generateJooq
 
       - name: Build docs
         shell: bash

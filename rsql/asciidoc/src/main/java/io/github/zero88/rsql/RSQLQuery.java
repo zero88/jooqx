@@ -2,12 +2,12 @@ package io.github.zero88.rsql;
 
 import org.jooq.DSLContext;
 
+import io.github.zero88.sample.model.pgsql.tables.Authors;
 import io.vertx.docgen.Source;
 import io.zero88.rsql.jooq.JooqRSQLParser;
 import io.zero88.rsql.jooq.JooqRSQLQueryContext;
 import io.zero88.rsql.jooq.query.JooqFetchCountQuery;
 import io.zero88.rsql.jooq.query.JooqFetchExistQuery;
-import io.zero88.sample.data.pgsql2.tables.Authors;
 
 @Source
 public class RSQLQuery {

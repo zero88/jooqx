@@ -10,14 +10,17 @@ import io.github.zero88.jooqx.HasDBProvider;
 public interface MySQLDBProvider extends DBContainerProvider<MySQLContainer<?>>,
                                          HasDBProvider<MySQLContainer<?>, DBContainerProvider<MySQLContainer<?>>> {
 
+    String[] SUPPORTED_IMAGES = { "5.7-debian", "8.0-debian" };
+
     @Override
     default @NotNull MySQLContainer<?> init() {
-        return initDBContainer("mysql:8.0");
+        final String dbImage = System.getProperty("dbImage", SUPPORTED_IMAGES[1]);
+        return initDBContainer("mysql:" + dbImage);
     }
 
     @Override
     default @NotNull MySQLContainer<?> initDBContainer(String imageName) {
-        return new MySQLContainer<>(DockerImageName.parse(imageName)).withDatabaseName("foo")
+        return new MySQLContainer<>(DockerImageName.parse(imageName)).withDatabaseName("test")
                                                                      .withUsername("foo")
                                                                      .withPassword("123")
                                                                      .withCommand("--bind-address=0.0.0.0");
