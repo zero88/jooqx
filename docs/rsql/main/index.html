@@ -217,7 +217,7 @@ String query = splitQuery(url).get("q"); // simple utils function to get URL que
 System.out.println(query); // =&gt; (FIRST_NAME==zero88)
 
 JooqRSQLParser parser = JooqRSQLParser.DEFAULT;
-Condition condition = parser.criteria(query, Tables.AUTHOR);
+Condition condition = parser.criteria(query, Tables.AUTHORS);
 System.out.println(condition.toString()); // =&gt; "AUTHOR"."FIRST_NAME" = 'zero88'</code></pre>
 </div>
 </div>
