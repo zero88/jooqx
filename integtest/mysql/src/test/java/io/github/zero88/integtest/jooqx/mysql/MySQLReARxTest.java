@@ -9,11 +9,11 @@ import io.github.zero88.jooqx.DSLAdapter;
 import io.github.zero88.jooqx.JooqxTestDefinition.JooqxRxHelper;
 import io.github.zero88.jooqx.spi.mysql.MySQLJooqxTest;
 import io.github.zero88.jooqx.spi.mysql.MySQLPoolProvider;
+import io.github.zero88.sample.model.mysql.tables.Authors;
 import io.vertx.core.Vertx;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 import io.vertx.mysqlclient.MySQLPool;
-import io.zero88.sample.data.mysql.tables.Authors;
 
 @Disabled
 //FIXME: Don't understand why it doesnt connect

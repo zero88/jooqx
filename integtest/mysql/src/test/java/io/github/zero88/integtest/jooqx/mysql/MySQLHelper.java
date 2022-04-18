@@ -5,10 +5,10 @@ import org.jooq.SQLDialect;
 
 import io.github.zero88.jooqx.JooqSQL;
 import io.github.zero88.jooqx.SQLTestHelper;
-import io.zero88.sample.data.mysql.DefaultCatalog;
-import io.zero88.sample.data.mysql.Testdb;
+import io.github.zero88.sample.model.mysql.DefaultCatalog;
+import io.github.zero88.sample.model.mysql.Test;
 
-public interface MySQLHelper extends JooqSQL<Testdb>, SQLTestHelper {
+public interface MySQLHelper extends JooqSQL<Test>, SQLTestHelper {
 
     @Override
     default @NotNull SQLDialect dialect() {
@@ -16,8 +16,8 @@ public interface MySQLHelper extends JooqSQL<Testdb>, SQLTestHelper {
     }
 
     @Override
-    default Testdb schema() {
-        return DefaultCatalog.DEFAULT_CATALOG.TESTDB;
+    default Test schema() {
+        return DefaultCatalog.DEFAULT_CATALOG.TEST;
     }
 
 }
