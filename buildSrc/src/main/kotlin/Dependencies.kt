@@ -99,12 +99,13 @@ object LogLibs {
 
     object Version {
 
-        const val slf4j = "1.7.30"
-        const val logback = "1.2.3"
+        const val slf4j = "1.7.36"
+        const val logback = "1.2.11"
     }
 
     const val slf4j = "org.slf4j:slf4j-api:${Version.slf4j}"
     const val logback = "ch.qos.logback:logback-classic:${Version.logback}"
+    const val slf4jSimple = "org.slf4j:slf4j-simple:${Version.slf4j}"
 }
 
 object DatabaseLibs {

@@ -9,7 +9,7 @@ dependencies {
     jooqGenerator(DatabaseLibs.jooqMetaExt)
     jooqGenerator(DatabaseLibs.mysql)
     jooqGenerator(TestContainers.mysql)
-    jooqGenerator(LogLibs.logback)
+    jooqGenerator(LogLibs.slf4jSimple)
 
     testImplementation(VertxLibs.mysql)
     testImplementation(TestContainers.mysql)

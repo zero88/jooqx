@@ -5,7 +5,7 @@ import org.jooq.meta.jaxb.Property
 dependencies {
     jooqGenerator(DatabaseLibs.h2)
     jooqGenerator(DatabaseLibs.jooqMetaExt)
-    jooqGenerator(LogLibs.logback)
+    jooqGenerator(LogLibs.slf4jSimple)
 }
 
 jooq {

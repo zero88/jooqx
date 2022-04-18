@@ -6,7 +6,7 @@ dependencies {
     compileOnly(project(":spi")) // for customize generate
     compileOnly(VertxLibs.pgsql) // for customize generate
 
-    jooqGenerator(LogLibs.logback)
+    jooqGenerator(LogLibs.slf4jSimple)
     jooqGenerator(DatabaseLibs.jooqMetaExt)
     jooqGenerator(DatabaseLibs.pgsql)
     jooqGenerator(TestContainers.pgsql)
