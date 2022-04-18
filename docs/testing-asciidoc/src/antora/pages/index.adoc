@@ -19,7 +19,7 @@ Let's begin
 
 [source,bash]
 ----
-./generateJooq.sh
+./gradlew generateJooq
 
 ./gradlew build test
 ----

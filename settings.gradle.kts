@@ -21,9 +21,9 @@ var pp: Array<String> = arrayOf()
 val pools = mutableMapOf(
     "jpa" to arrayOf(":jpa-ext"),
     "jooqx" to arrayOf(":jooqx", ":spi"),
-    "sample" to arrayOf(":sample:model", ":sample:web"/*, "sample:pg-sakila"*/),
     "rsql" to arrayOf(":rsql:core", ":rsql:jooq"),
-    "integtest" to arrayOf(":integtest") + supportDatabases.map { ":integtest:${it}" }
+    "integtest" to supportDatabases.map { ":integtest:${it}" }.toTypedArray(),
+    "sample" to arrayOf(":sample:web"),
 )
 val jooqxDocs = arrayOf(":docs:asciidoc", ":docs:testing-asciidoc")
 val rsqlDocs = arrayOf(":rsql:asciidoc")
@@ -53,6 +53,5 @@ if (pp.contains(":jooqx")) {
 if (gradle is ExtensionAware) {
     val extensions = (gradle as ExtensionAware).extensions
     extensions.add("PROJECT_POOL", pools.toMap())
-    extensions.add("SKIP_PUBLISH", excludeCIBuild + arrayOf(":docs", ":rsql", ":sample"))
-    //    extensions.add("SAKILA_PG", "${rootProject.projectDir}/sakila/postgres-sakila-db")
+    extensions.add("SKIP_PUBLISH", excludeCIBuild + arrayOf(":docs", ":rsql", ":sample", ":integtest"))
 }
