@@ -16,13 +16,14 @@ pluginManagement {
 
 rootProject.name = "jooqx-parent"
 val profile: String by settings
+val supportDatabases = arrayOf("db2", "h2", "mssql", "mysql", "oracle", "pg", "sqlite")
 var pp: Array<String> = arrayOf()
 val pools = mutableMapOf(
     "jpa" to arrayOf(":jpa-ext"),
     "jooqx" to arrayOf(":jooqx", ":spi"),
     "sample" to arrayOf(":sample:model", ":sample:web"/*, "sample:pg-sakila"*/),
     "rsql" to arrayOf(":rsql:core", ":rsql:jooq"),
-    "integtest" to arrayOf(":integtest", ":integtest:pg")
+    "integtest" to arrayOf(":integtest") + supportDatabases.map { ":integtest:${it}" }
 )
 val jooqxDocs = arrayOf(":docs:asciidoc", ":docs:testing-asciidoc")
 val rsqlDocs = arrayOf(":rsql:asciidoc")

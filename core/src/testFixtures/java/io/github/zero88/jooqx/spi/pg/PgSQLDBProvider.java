@@ -11,9 +11,11 @@ public interface PgSQLDBProvider extends DBContainerProvider<PostgreSQLContainer
                                          HasDBProvider<PostgreSQLContainer<?>,
                                                           DBContainerProvider<PostgreSQLContainer<?>>> {
 
+    String[] SUPPORTED_IMAGES = { "10-alpine", "12-alpine", "14-alpine" };
+
     @Override
     default @NotNull PostgreSQLContainer<?> init() {
-        final String dbImage = System.getProperty("dbImage", "10-alpine");
+        final String dbImage = System.getProperty("dbImage", SUPPORTED_IMAGES[0]);
         return initDBContainer("postgres:" + dbImage);
     }
 

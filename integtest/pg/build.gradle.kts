@@ -2,39 +2,19 @@ import nu.studer.gradle.jooq.JooqGenerate
 import org.jooq.meta.jaxb.Jdbc
 import org.jooq.meta.jaxb.Logging
 
-plugins {
-    id(PluginLibs.jooq)
-}
-
 dependencies {
-    api(project(":spi"))
-    api(VertxLibs.pgsql)
-    api(DatabaseLibs.jooqMetaExt)
+    compileOnly(project(":spi")) // for customize generate
+    compileOnly(VertxLibs.pgsql) // for customize generate
 
+    jooqGenerator(LogLibs.logback)
+    jooqGenerator(DatabaseLibs.jooqMetaExt)
     jooqGenerator(DatabaseLibs.pgsql)
     jooqGenerator(TestContainers.pgsql)
-    jooqGenerator(DatabaseLibs.jooqMetaExt)
-    jooqGenerator(LogLibs.logback)
-
-    testImplementation(testFixtures(project(":jooqx")))
-    testImplementation(project(":rsql:jooq"))
-    testImplementation(LogLibs.logback)
-
-    testImplementation(DatabaseLibs.agroalApi)
-    testImplementation(DatabaseLibs.agroalPool)
-    testImplementation(DatabaseLibs.hikari)
-    testImplementation(DatabaseLibs.jooqMeta)
 
     testImplementation(VertxLibs.jdbc)
-    testImplementation(DatabaseLibs.pgsql)
     testImplementation(VertxLibs.pgsql)
+    testImplementation(DatabaseLibs.pgsql)
     testImplementation(TestContainers.pgsql)
-
-    testImplementation(VertxLibs.rx2)
-    testImplementation(VertxLibs.rx3)
-
-    testImplementation(MutinyLibs.core)
-    testImplementation(MutinyLibs.jdbc)
 }
 
 fun createJdbc(jdbc: Jdbc, version: String) {

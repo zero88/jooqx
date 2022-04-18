@@ -10,6 +10,30 @@ allprojects {
         }
     }
 
+}
+
+subprojects {
+    apply(plugin = PluginLibs.jooq)
+
+    dependencies {
+        implementation(DatabaseLibs.jooqMetaExt) // For generate model
+
+        testImplementation(testFixtures(project(":jooqx")))
+
+        testImplementation(DatabaseLibs.agroalApi)
+        testImplementation(DatabaseLibs.agroalPool)
+        testImplementation(DatabaseLibs.hikari)
+        testImplementation(DatabaseLibs.jooqMeta)
+
+        testImplementation(VertxLibs.rx2)
+        testImplementation(VertxLibs.rx3)
+
+        testImplementation(MutinyLibs.core)
+        testImplementation(MutinyLibs.jdbc)
+
+        testImplementation(LogLibs.logback)
+    }
+
     tasks {
         withType<JooqGenerate> { allInputsDeclared.set(true) }
         register("generateJooq") {
@@ -20,7 +44,6 @@ allprojects {
             project.findProperty("dbImage")?.let { systemProperty("dbImage", it) }
         }
     }
-
 }
 
 dependencies {
