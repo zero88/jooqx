@@ -7,7 +7,7 @@ dependencies {
     compileOnly(VertxLibs.pgsql) // for customize generate
 
     jooqGenerator(LogLibs.slf4jSimple)
-    jooqGenerator(DatabaseLibs.jooqMetaExt)
+    jooqGenerator(JooqLibs.jooqMetaExt)
     jooqGenerator(DatabaseLibs.pgsql)
     jooqGenerator(TestContainers.pgsql)
 
@@ -26,7 +26,7 @@ fun createJdbc(jdbc: Jdbc, version: String) {
 val dbImage = (project.findProperty("dbImage") ?: "10-alpine").toString()
 
 jooq {
-    version.set(DatabaseLibs.Version.jooq)
+    version.set(JooqLibs.Version.jooq)
 
     configurations {
         create("testPgSchema") {

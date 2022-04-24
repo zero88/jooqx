@@ -4,12 +4,12 @@ import org.jooq.meta.jaxb.Property
 
 dependencies {
     jooqGenerator(DatabaseLibs.h2)
-    jooqGenerator(DatabaseLibs.jooqMetaExt)
+    jooqGenerator(JooqLibs.jooqMetaExt)
     jooqGenerator(LogLibs.slf4jSimple)
 }
 
 jooq {
-    version.set(DatabaseLibs.Version.jooq)
+    version.set(JooqLibs.Version.jooq)
 
     configurations {
         create("testH2Schema") {

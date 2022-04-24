@@ -12,7 +12,7 @@ configure<antora.AntoraDocComponentExtension> {
         mapOf(
             "jooqx-version" to project.version,
             "vertx-version" to VertxLibs.Version.vertx,
-            "jooq-version" to DatabaseLibs.Version.jooq,
+            "jooq-version" to JooqLibs.Version.jooq,
             "mutiny-version" to MutinyLibs.Version.mutiny
         )
     )

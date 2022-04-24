@@ -6,7 +6,7 @@ plugins {
 }
 
 dependencies {
-    jooqGenerator(DatabaseLibs.jooqMetaExt)
+    jooqGenerator(JooqLibs.jooqMetaExt)
     jooqGenerator(DatabaseLibs.mysql)
     jooqGenerator(TestContainers.mysql)
     jooqGenerator(LogLibs.slf4jSimple)
@@ -24,7 +24,7 @@ fun createJdbc(jdbc: org.jooq.meta.jaxb.Jdbc, version: String) {
 val dbImage = (project.findProperty("dbImage") ?: "8.0-debian").toString()
 
 jooq {
-    version.set(DatabaseLibs.Version.jooq)
+    version.set(JooqLibs.Version.jooq)
 
     configurations {
         create("testMySQLSchema") {
