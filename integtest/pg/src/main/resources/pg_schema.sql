@@ -163,6 +163,104 @@ CREATE TABLE all_data_types
     f_circle      CIRCLE
 );
 
+-- For Vertx data type
+CREATE TABLE vertx_temporal_data_type
+(
+    "id"          INTEGER NOT NULL PRIMARY KEY,
+    "Date"        date,
+    "Time"        time without time zone,
+    "TimeTz"      time with time zone,
+    "Timestamp"   timestamp without time zone,
+    "TimestampTz" timestamp with time zone,
+    "Interval"    interval
+);
+
+CREATE TABLE vertx_character_data_type
+(
+    "id"           INTEGER NOT NULL PRIMARY KEY,
+    "Name"         NAME,
+    "SingleChar"   CHAR,
+    "FixedChar"    CHAR(3),
+    "Text"         TEXT,
+    "VarCharacter" VARCHAR,
+    "uuid"         UUID,
+    "bytea"        bytea
+);
+
+CREATE TABLE vertx_json_data_type
+(
+    "id"           INTEGER NOT NULL PRIMARY KEY,
+    "JsonObject"   JSON,
+    "JsonArray"    JSON,
+    "Number"       JSON,
+    "String"       JSON,
+    "BooleanTrue"  JSON,
+    "BooleanFalse" JSON,
+    "NullValue"    JSON,
+    "Null"         JSON
+);
+
+CREATE TABLE vertx_jsonb_data_type
+(
+    "id"           INTEGER NOT NULL PRIMARY KEY,
+    "JsonObject"   JSONB,
+    "JsonArray"    JSONB,
+    "Number"       JSONB,
+    "String"       JSONB,
+    "BooleanTrue"  JSONB,
+    "BooleanFalse" JSONB,
+    "NullValue"    JSONB,
+    "Null"         JSONB
+);
+
+CREATE TABLE vertx_all_data_types
+(
+    id            SERIAL PRIMARY KEY,
+    f_boolean     BOOLEAN,
+    --number
+    f_int2        INT2,
+    f_int4        INT4,
+    f_int8        INT8,
+    f_float4      FLOAT4,
+    f_float8      FLOAT8,
+    f_decimal     DECIMAL(10, 10),
+    f_numeric     NUMERIC(10, 5),
+    -- char
+    f_char        CHAR,
+    f_varchar     VARCHAR,
+    f_text        TEXT,
+    -- misc
+    f_name        NAME,
+    f_uuid        UUID,
+    f_bytea       BYTEA,
+    -- date/time
+    f_date        DATE,
+    f_time        TIME,
+    f_timetz      TIMETZ,
+    f_timestamp   TIMESTAMP,
+    f_timestamptz TIMESTAMPTZ,
+    f_interval    INTERVAL,
+    -- enumerated
+    f_enum        mood,
+    -- json
+    f_json        JSON,
+    f_jsonb       JSONB,
+    --Geometric Types
+    f_point       POINT,
+    f_line        LINE,
+    f_lseg        LSEG,
+    f_box         BOX,
+    f_path        PATH,
+    f_polygon     POLYGON,
+    f_circle      CIRCLE
+);
+
+COMMENT ON TABLE vertx_temporal_data_type IS 'Vertx temporal data type';
+COMMENT ON TABLE vertx_character_data_type IS 'Vertx character data type';
+COMMENT ON TABLE vertx_json_data_type IS 'Vertx json data type';
+COMMENT ON TABLE vertx_jsonb_data_type IS 'Vertx jsonb data type';
+
+
 -- https://www.postgresql.org/docs/10/sql-createfunction.html
 CREATE FUNCTION add(integer, integer) RETURNS integer
 AS 'select $1 + $2;'
@@ -189,6 +287,22 @@ CREATE TYPE dup_result AS (f1 int, f2 text);
 CREATE FUNCTION dup2(int) RETURNS dup_result
 AS $$ SELECT $1, CAST($1 AS text) || ' is text' $$
     LANGUAGE SQL;
+
+-- CREATE OR REPLACE FUNCTION get_all_authors() RETURNS SETOF authors AS
+-- $BODY$
+-- DECLARE
+-- r authros%rowtype;
+-- BEGIN
+-- FOR r IN
+-- SELECT * FROM authors WHERE authors.id > 0
+--     LOOP
+--         -- can do some processing here
+--         RETURN NEXT r; -- return current row of SELECT
+-- END LOOP;
+--     RETURN;
+-- END;
+-- $BODY$
+-- LANGUAGE plpgsql;
 
 -- Create PROCEDURE from pg11
 -- CREATE OR REPLACE PROCEDURE SelectAllAuthors()

@@ -11,16 +11,16 @@ import io.github.zero88.jooqx.DSLAdapter;
 import io.github.zero88.jooqx.spi.pg.PgPoolProvider;
 import io.github.zero88.jooqx.spi.pg.PgSQLErrorConverterProvider;
 import io.github.zero88.jooqx.spi.pg.PgSQLJooqxTest;
-import io.github.zero88.sample.model.pgsql2.tables.AllDataTypes;
-import io.github.zero88.sample.model.pgsql2.tables.CharacterDataType;
-import io.github.zero88.sample.model.pgsql2.tables.JsonDataType;
-import io.github.zero88.sample.model.pgsql2.tables.JsonbDataType;
-import io.github.zero88.sample.model.pgsql2.tables.TemporalDataType;
-import io.github.zero88.sample.model.pgsql2.tables.records.AllDataTypesRecord;
-import io.github.zero88.sample.model.pgsql2.tables.records.CharacterDataTypeRecord;
-import io.github.zero88.sample.model.pgsql2.tables.records.JsonDataTypeRecord;
-import io.github.zero88.sample.model.pgsql2.tables.records.JsonbDataTypeRecord;
-import io.github.zero88.sample.model.pgsql2.tables.records.TemporalDataTypeRecord;
+import io.github.zero88.sample.model.pgsql.tables.VertxAllDataTypes;
+import io.github.zero88.sample.model.pgsql.tables.VertxCharacterDataType;
+import io.github.zero88.sample.model.pgsql.tables.VertxJsonDataType;
+import io.github.zero88.sample.model.pgsql.tables.VertxJsonbDataType;
+import io.github.zero88.sample.model.pgsql.tables.VertxTemporalDataType;
+import io.github.zero88.sample.model.pgsql.tables.records.VertxAllDataTypesRecord;
+import io.github.zero88.sample.model.pgsql.tables.records.VertxCharacterDataTypeRecord;
+import io.github.zero88.sample.model.pgsql.tables.records.VertxJsonDataTypeRecord;
+import io.github.zero88.sample.model.pgsql.tables.records.VertxJsonbDataTypeRecord;
+import io.github.zero88.sample.model.pgsql.tables.records.VertxTemporalDataTypeRecord;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
@@ -48,9 +48,9 @@ class PgReAVertxTypeTest extends PgSQLJooqxTest<PgPool>
     @Test
     void test_query_temporal(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
-        final TemporalDataType table = schema().TEMPORAL_DATA_TYPE;
+        final VertxTemporalDataType table = schema().VERTX_TEMPORAL_DATA_TYPE;
         jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
-            final TemporalDataTypeRecord record = assertSuccess(ctx, ar);
+            final VertxTemporalDataTypeRecord record = assertSuccess(ctx, ar);
             System.out.println(record);
             Assertions.assertNotNull(record.getInterval());
             cp.flag();
@@ -60,11 +60,11 @@ class PgReAVertxTypeTest extends PgSQLJooqxTest<PgPool>
     @Test
     void test_insert_interval(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
-        final TemporalDataType table = schema().TEMPORAL_DATA_TYPE;
+        final VertxTemporalDataType table = schema().VERTX_TEMPORAL_DATA_TYPE;
         final Interval interval = Interval.of(1, 2, 3, 4, 5, 6, 1000);
         jooqx.execute(jooqx.dsl().insertInto(table, table.ID, table.INTERVAL).values(10, interval).returning(),
                       DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
-                final TemporalDataTypeRecord record = assertSuccess(ctx, ar);
+                final VertxTemporalDataTypeRecord record = assertSuccess(ctx, ar);
                 System.out.println(record);
                 Assertions.assertEquals(interval, record.getInterval());
                 cp.flag();
@@ -74,9 +74,9 @@ class PgReAVertxTypeTest extends PgSQLJooqxTest<PgPool>
     @Test
     void test_query_buffer(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
-        final CharacterDataType table = schema().CHARACTER_DATA_TYPE;
+        final VertxCharacterDataType table = schema().VERTX_CHARACTER_DATA_TYPE;
         jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
-            final CharacterDataTypeRecord record = assertSuccess(ctx, ar);
+            final VertxCharacterDataTypeRecord record = assertSuccess(ctx, ar);
             System.out.println(record);
             Assertions.assertNotNull(record.getBytea());
             Assertions.assertEquals("HELLO", record.getBytea().toString());
@@ -87,9 +87,9 @@ class PgReAVertxTypeTest extends PgSQLJooqxTest<PgPool>
     @Test
     void test_json_object_json_array(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
-        final JsonDataType table = schema().JSON_DATA_TYPE;
+        final VertxJsonDataType table = schema().VERTX_JSON_DATA_TYPE;
         jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
-            final JsonDataTypeRecord record = assertSuccess(ctx, ar);
+            final VertxJsonDataTypeRecord record = assertSuccess(ctx, ar);
             System.out.println(record);
             Assertions.assertNotNull(record.getJsonobject());
             Assertions.assertEquals(
@@ -104,9 +104,9 @@ class PgReAVertxTypeTest extends PgSQLJooqxTest<PgPool>
     @Test
     void test_jsonb_object_json_array(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
-        final JsonbDataType table = schema().JSONB_DATA_TYPE;
+        final VertxJsonbDataType table = schema().VERTX_JSONB_DATA_TYPE;
         jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
-            final JsonbDataTypeRecord record = assertSuccess(ctx, ar);
+            final VertxJsonbDataTypeRecord record = assertSuccess(ctx, ar);
             System.out.println(record);
             Assertions.assertNotNull(record.getJsonobject());
             Assertions.assertEquals(
@@ -121,9 +121,9 @@ class PgReAVertxTypeTest extends PgSQLJooqxTest<PgPool>
     @Test
     void test_f_interval_as_duration(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
-        final AllDataTypes table = schema().ALL_DATA_TYPES;
+        final VertxAllDataTypes table = schema().VERTX_ALL_DATA_TYPES;
         jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
-            final AllDataTypesRecord record = assertSuccess(ctx, ar);
+            final VertxAllDataTypesRecord record = assertSuccess(ctx, ar);
             System.out.println(record);
             Assertions.assertEquals(Duration.parse("PT4H33M59S"), record.getFInterval());
             cp.flag();
