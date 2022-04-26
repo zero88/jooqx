@@ -14,13 +14,6 @@ dependencies {
     testImplementation(VertxLibs.mysql)
     testImplementation(TestContainers.mysql)
 }
-
-fun createJdbc(jdbc: org.jooq.meta.jaxb.Jdbc, version: String) {
-    val schema = "${projectDir}/src/main/resources/mysql_schema.sql"
-    jdbc.driver = "org.testcontainers.jdbc.ContainerDatabaseDriver"
-    jdbc.url = "jdbc:tc:mysql:${version}:///test?TC_TMPFS=/testtmpfs:rw&TC_INITSCRIPT=file:${schema}"
-}
-
 val dbImage = (project.findProperty("dbImage") ?: "8.0-debian").toString()
 
 jooq {
@@ -30,7 +23,11 @@ jooq {
         create("testMySQLSchema") {
             jooqConfiguration.apply {
                 logging = Logging.INFO
-                jdbc.apply { createJdbc(this, dbImage) }
+                jdbc.apply {
+                    val (driver, url) = getTestContainer("mysql:${dbImage}", "src/main/resources/mysql_schema.sql")
+                    this.driver = driver
+                    this.url = url
+                }
                 generator.apply {
                     name = "org.jooq.codegen.DefaultGenerator"
                     strategy.name = "org.jooq.codegen.DefaultGeneratorStrategy"
