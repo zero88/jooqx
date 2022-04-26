@@ -48,7 +48,7 @@ object TestLibs {
 object TestContainers {
     object Version {
 
-        const val ver = "1.16.2"
+        const val ver = "1.17.1"
     }
 
     const val junit5 = "org.testcontainers:junit-jupiter:${Version.ver}"
