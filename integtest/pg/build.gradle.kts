@@ -16,7 +16,9 @@ dependencies {
     testImplementation(DatabaseLibs.pgsql)
     testImplementation(TestContainers.pgsql)
 }
-val dbImage = (project.findProperty("dbImage") ?: "10-alpine").toString()
+val dbVersion = "postgresql:${(project.findProperty("dbImage") ?: "10-alpine")}"
+val sakilaSchema = "${(gradle as ExtensionAware).extensions["SAKILA_PG"]}/postgres-sakila-schema.sql"
+val dialect = "org.jooq.meta.postgres.PostgresDatabase"
 
 jooq {
     version.set(JooqLibs.Version.jooq)
@@ -26,13 +28,13 @@ jooq {
             jooqConfiguration.apply {
                 logging = Logging.INFO
                 jdbc.apply {
-                    val (driver, url) = getTestContainer("postgresql:${dbImage}", "src/main/resources/pg_schema.sql")
+                    val (driver, url) = getTestContainer(dbVersion, "src/main/resources/pg_schema.sql")
                     this.driver = driver
                     this.url = url
                 }
                 generator.apply {
                     database.apply {
-                        name = "org.jooq.meta.postgres.PostgresDatabase"
+                        name = dialect
                         inputSchema = "public"
                         withForcedTypes(
                             ForcedType()
@@ -85,6 +87,35 @@ jooq {
                     target.apply {
                         packageName = "io.github.zero88.sample.model.pgsql"
                         directory = "build/generated/pgsql"
+                    }
+                }
+            }
+        }
+
+        create("sakilaPgSchema") {
+            jooqConfiguration.apply {
+                logging = Logging.INFO
+                jdbc.apply {
+                    val (driver, url) = getTestContainer(dbVersion, sakilaSchema, "postgres")
+                    this.driver = driver
+                    this.url = url
+                }
+                generator.apply {
+                    database.apply {
+                        name = dialect
+                        inputSchema = "public"
+                    }
+                    generate.apply {
+                        isDeprecated = false
+                        isRecords = true
+                        isImmutablePojos = false
+                        isInterfaces = true
+                        isFluentSetters = true
+                        isDaos = true
+                    }
+                    target.apply {
+                        packageName = "io.github.zero88.sample.model.sakila.pgsql"
+                        directory = "build/generated/sakila"
                     }
                 }
             }

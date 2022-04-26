@@ -14,7 +14,9 @@ dependencies {
     testImplementation(VertxLibs.mysql)
     testImplementation(TestContainers.mysql)
 }
-val dbImage = (project.findProperty("dbImage") ?: "8.0-debian").toString()
+val dbVersion = "mysql:${(project.findProperty("dbImage") ?: "8.0-debian")}"
+val sakilaSchema = "${(gradle as ExtensionAware).extensions["SAKILA_MYSQL"]}/mysql-sakila-schema.sql"
+val dialect = "org.jooq.meta.mysql.MySQLDatabase"
 
 jooq {
     version.set(JooqLibs.Version.jooq)
@@ -24,15 +26,13 @@ jooq {
             jooqConfiguration.apply {
                 logging = Logging.INFO
                 jdbc.apply {
-                    val (driver, url) = getTestContainer("mysql:${dbImage}", "src/main/resources/mysql_schema.sql")
+                    val (driver, url) = getTestContainer(dbVersion, "src/main/resources/mysql_schema.sql")
                     this.driver = driver
                     this.url = url
                 }
                 generator.apply {
-                    name = "org.jooq.codegen.DefaultGenerator"
-                    strategy.name = "org.jooq.codegen.DefaultGeneratorStrategy"
                     database.apply {
-                        name = "org.jooq.meta.mysql.MySQLDatabase"
+                        name = dialect
                         inputSchema = "test"
                     }
                     generate.apply {
@@ -50,11 +50,46 @@ jooq {
                 }
             }
         }
+
+        create("sakilaMySQLSchema") {
+            jooqConfiguration.apply {
+                logging = Logging.INFO
+                jdbc.apply {
+                    val (driver, url) = getTestContainer(dbVersion, sakilaSchema, "root")
+                    this.driver = driver
+                    this.url = url
+                }
+                generator.apply {
+                    database.apply {
+                        name = dialect
+                        inputSchema = "test"
+                    }
+                    generate.apply {
+                        isDeprecated = false
+                        isRecords = true
+                        isImmutablePojos = false
+                        isInterfaces = true
+                        isFluentSetters = true
+                        isDaos = true
+                    }
+                    target.apply {
+                        packageName = "io.github.zero88.sample.model.sakila.mysql"
+                        directory = "build/generated/sakila"
+                    }
+                }
+            }
+        }
     }
 }
 
 sourceSets {
     main {
         java.srcDirs(tasks.withType<JooqGenerate>().map { it.outputDir.get().asFile })
+    }
+}
+
+tasks {
+    named("generateSakilaMySQLSchemaJooq") {
+        enabled = false // because MySQL init script doesn't work with DELIMITER https://github.com/docker-library/mysql/issues/16
     }
 }
