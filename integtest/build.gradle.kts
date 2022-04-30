@@ -14,14 +14,14 @@ subprojects {
     }
 
     dependencies {
-        implementation(DatabaseLibs.jooqMetaExt) // For generate model
+        implementation(JooqLibs.jooqMetaExt) // For generate model
 
         testImplementation(testFixtures(project(":jooqx")))
 
         testImplementation(DatabaseLibs.agroalApi)
         testImplementation(DatabaseLibs.agroalPool)
         testImplementation(DatabaseLibs.hikari)
-        testImplementation(DatabaseLibs.jooqMeta)
+        testImplementation(JooqLibs.jooqMeta)
 
         testImplementation(VertxLibs.rx2)
         testImplementation(VertxLibs.rx3)

@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 import io.github.zero88.integtest.jooqx.pg.PostgreSQLHelper.PgLegacyType;
 import io.github.zero88.jooqx.DSLAdapter;
 import io.github.zero88.jooqx.spi.pg.PgSQLLegacyTest;
-import io.github.zero88.sample.model.pgsql.tables.NumericDataType;
-import io.github.zero88.sample.model.pgsql.tables.records.NumericDataTypeRecord;
+import io.github.zero88.sample.model.pgsql.tables.AllDataTypes;
+import io.github.zero88.sample.model.pgsql.tables.records.AllDataTypesRecord;
 import io.vertx.core.Vertx;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
@@ -25,27 +25,28 @@ class PgLeGNumericTest extends PgSQLLegacyTest implements PgLegacyType {
     @Test
     void queryNumeric(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
-        final NumericDataType table = schema().NUMERIC_DATA_TYPE;
-        jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
-            final NumericDataTypeRecord record = assertSuccess(ctx, ar);
-            System.out.println(record);
+        final AllDataTypes table = schema().ALL_DATA_TYPES;
+        jooqx.execute(dsl -> dsl.selectFrom(table).where(table.ID.eq(1)).limit(1), DSLAdapter.fetchOne(table),
+                      ar -> ctx.verify(() -> {
+                          final AllDataTypesRecord record = assertSuccess(ctx, ar);
+                          System.out.println(record);
 
-            Assertions.assertNotNull(record.getBoolean());
+                          Assertions.assertNotNull(record.getFBoolean());
 
-            Assertions.assertNotNull(record.getInteger());
-            Assertions.assertNotNull(record.getLong());
+                          Assertions.assertNotNull(record.getFNumInt());
+                          Assertions.assertNotNull(record.getFNumLong());
 
-            Assertions.assertNotNull(record.getFloat());
-            Assertions.assertNotNull(record.getDouble());
+                          Assertions.assertNotNull(record.getFNumFloat4());
+                          Assertions.assertNotNull(record.getFNumDouble());
 
-            Assertions.assertNotNull(record.getSerial());
-            Assertions.assertNotNull(record.getBigserial());
+                          Assertions.assertNotNull(record.getFNumSerial());
+                          Assertions.assertNotNull(record.getFNumBigSerial());
+                          Assertions.assertNotNull(record.getFNumSmallSerial());
 
-            Assertions.assertNotNull(record.getShort());
-            Assertions.assertNotNull(record.getSmallserial());
-            Assertions.assertNotNull(record.getBigdecimal());
-            cp.flag();
-        }));
+                          Assertions.assertNotNull(record.getFNumShort());
+                          Assertions.assertNotNull(record.getFNumNumeric());
+                          cp.flag();
+                      }));
     }
 
 }

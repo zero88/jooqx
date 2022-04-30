@@ -48,7 +48,7 @@ object TestLibs {
 object TestContainers {
     object Version {
 
-        const val ver = "1.16.2"
+        const val ver = "1.17.1"
     }
 
     const val junit5 = "org.testcontainers:junit-jupiter:${Version.ver}"
@@ -108,11 +108,24 @@ object LogLibs {
     const val slf4jSimple = "org.slf4j:slf4j-simple:${Version.slf4j}"
 }
 
+object JooqLibs {
+    object Version {
+        private const val jooq314 = "3.14.13"
+        private const val jooq315 = "3.15.10"
+        private const val jooq316 = "3.16.6"
+        const val jooq = jooq314
+    }
+
+    const val jooq = "org.jooq:jooq:${Version.jooq}"
+    const val jooqMeta = "org.jooq:jooq-meta:${Version.jooq}"
+    const val jooqMetaExt = "org.jooq:jooq-meta-extensions:${Version.jooq}"
+    const val jooqCodegen = "org.jooq:jooq-codegen:${Version.jooq}"
+}
+
 object DatabaseLibs {
 
     object Version {
 
-        const val jooq = "3.14.8"
         const val h2 = "1.4.200"
         const val pgsql = "42.2.23"
         const val mysql = "8.0.23"
@@ -133,10 +146,6 @@ object DatabaseLibs {
     const val h2 = "com.h2database:h2:${Version.h2}"
     const val pgsql = "org.postgresql:postgresql:${Version.pgsql}"
     const val mysql = "mysql:mysql-connector-java:${Version.mysql}"
-    const val jooq = "org.jooq:jooq:${Version.jooq}"
-    const val jooqMeta = "org.jooq:jooq-meta:${Version.jooq}"
-    const val jooqMetaExt = "org.jooq:jooq-meta-extensions:${Version.jooq}"
-    const val jooqCodegen = "org.jooq:jooq-codegen:${Version.jooq}"
     const val sqlite = "org.xerial:sqlite-jdbc:${Version.sqlite}"
     const val derby = "org.apache.derby:derby:${Version.derby}"
     const val hsqldb = "org.hsqldb:hsqldb:${Version.hsqldb}"

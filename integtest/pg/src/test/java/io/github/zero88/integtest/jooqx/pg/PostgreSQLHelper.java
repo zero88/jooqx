@@ -63,7 +63,7 @@ public interface PostgreSQLHelper<S extends Schema> extends JooqSQL<S>, SQLTestH
     }
 
 
-    interface PgUseVertxType extends TypeMapperRegistryProvider, PostgreSQLHelper<io.github.zero88.sample.model.pgsql2.Public> {
+    interface PgUseVertxType extends TypeMapperRegistryProvider, PostgreSQLHelper<io.github.zero88.sample.model.pgsql.Public> {
 
         @Override
         default DataTypeMapperRegistry typeMapperRegistry() {
@@ -74,8 +74,8 @@ public interface PostgreSQLHelper<S extends Schema> extends JooqSQL<S>, SQLTestH
         }
 
         @Override
-        default io.github.zero88.sample.model.pgsql2.Public schema() {
-            return io.github.zero88.sample.model.pgsql2.DefaultCatalog.DEFAULT_CATALOG.PUBLIC;
+        default io.github.zero88.sample.model.pgsql.Public schema() {
+            return io.github.zero88.sample.model.pgsql.DefaultCatalog.DEFAULT_CATALOG.PUBLIC;
         }
 
         boolean alreadyGenerated();

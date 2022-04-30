@@ -2,3 +2,7 @@
 	path = webdocs
 	url = git@github.com:zero88/jooqx-webdocs.git
 	branch = main
+[submodule "sakila"]
+	path = sakila
+	url = git@github.com:jOOQ/sakila.git
+	branch = main

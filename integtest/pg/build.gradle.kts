@@ -1,5 +1,5 @@
 import nu.studer.gradle.jooq.JooqGenerate
-import org.jooq.meta.jaxb.Jdbc
+import org.jooq.meta.jaxb.ForcedType
 import org.jooq.meta.jaxb.Logging
 
 dependencies {
@@ -7,7 +7,7 @@ dependencies {
     compileOnly(VertxLibs.pgsql) // for customize generate
 
     jooqGenerator(LogLibs.slf4jSimple)
-    jooqGenerator(DatabaseLibs.jooqMetaExt)
+    jooqGenerator(JooqLibs.jooqMetaExt)
     jooqGenerator(DatabaseLibs.pgsql)
     jooqGenerator(TestContainers.pgsql)
 
@@ -16,27 +16,63 @@ dependencies {
     testImplementation(DatabaseLibs.pgsql)
     testImplementation(TestContainers.pgsql)
 }
-
-fun createJdbc(jdbc: Jdbc, version: String) {
-    val schema = "${projectDir}/src/main/resources/pg_schema.sql"
-    jdbc.driver = "org.testcontainers.jdbc.ContainerDatabaseDriver"
-    jdbc.url = "jdbc:tc:postgresql:${version}:///hey?TC_TMPFS=/testtmpfs:rw&TC_INITSCRIPT=file:${schema}"
-}
-
-val dbImage = (project.findProperty("dbImage") ?: "10-alpine").toString()
+val dbVersion = "postgresql:${(project.findProperty("dbImage") ?: "10-alpine")}"
+val sakilaSchema = "${(gradle as ExtensionAware).extensions["SAKILA_PG"]}/postgres-sakila-schema.sql"
+val dialect = "org.jooq.meta.postgres.PostgresDatabase"
 
 jooq {
-    version.set(DatabaseLibs.Version.jooq)
+    version.set(JooqLibs.Version.jooq)
 
     configurations {
         create("testPgSchema") {
             jooqConfiguration.apply {
                 logging = Logging.INFO
-                jdbc.apply { createJdbc(this, dbImage) }
+                jdbc.apply {
+                    val (driver, url) = getTestContainer(dbVersion, "src/main/resources/pg_schema.sql")
+                    this.driver = driver
+                    this.url = url
+                }
                 generator.apply {
                     database.apply {
-                        name = "org.jooq.meta.postgres.PostgresDatabase"
+                        name = dialect
                         inputSchema = "public"
+                        withForcedTypes(
+                            ForcedType()
+                                .withUserType("io.vertx.core.buffer.Buffer")
+                                .withConverter("io.github.zero88.jooqx.datatype.UserTypeAsVertxType.create(new io.github.zero88.jooqx.datatype.basic.BytesConverter())")
+                                .withIncludeTypes("bytea")
+                                .withIncludeExpression("vertx_.*"),
+                            ForcedType()
+                                .withUserType("io.vertx.core.json.JsonObject")
+                                .withConverter("io.github.zero88.jooqx.datatype.UserTypeAsVertxType.create(new io.github.zero88.jooqx.datatype.basic.JsonObjectJSONConverter())")
+                                .withIncludeTypes("JSON")
+                                .withIncludeExpression("vertx_.*.json_object"),
+                            ForcedType()
+                                .withUserType("io.vertx.core.json.JsonArray")
+                                .withConverter("io.github.zero88.jooqx.datatype.UserTypeAsVertxType.create(new io.github.zero88.jooqx.datatype.basic.JsonArrayJSONConverter())")
+                                .withIncludeTypes("JSON")
+                                .withIncludeExpression("vertx_.*.json_array"),
+                            ForcedType()
+                                .withUserType("io.vertx.core.json.JsonObject")
+                                .withConverter("io.github.zero88.jooqx.datatype.UserTypeAsVertxType.create(new io.github.zero88.jooqx.datatype.basic.JsonObjectJSONBConverter())")
+                                .withIncludeTypes("JSONB")
+                                .withIncludeExpression("vertx_.*.jsonb_object"),
+                            ForcedType()
+                                .withUserType("io.vertx.core.json.JsonArray")
+                                .withConverter("io.github.zero88.jooqx.datatype.UserTypeAsVertxType.create(new io.github.zero88.jooqx.datatype.basic.JsonArrayJSONBConverter())")
+                                .withIncludeTypes("JSONB")
+                                .withIncludeExpression("vertx_.*.jsonb_array"),
+                            ForcedType()
+                                .withUserType("io.vertx.pgclient.data.Interval")
+                                .withConverter("io.github.zero88.jooqx.datatype.UserTypeAsVertxType.create(new io.github.zero88.jooqx.spi.pg.datatype.IntervalConverter())")
+                                .withIncludeTypes("interval")
+                                .withIncludeExpression("vertx_.*.interval"),
+                            ForcedType()
+                                .withUserType("java.time.Duration")
+                                .withConverter("io.github.zero88.jooqx.spi.pg.datatype.DurationConverter")
+                                .withIncludeTypes("Interval")
+                                .withIncludeExpression("vertx_.*.duration"),
+                        )
                     }
                     generate.apply {
                         isRecords = true
@@ -56,62 +92,30 @@ jooq {
             }
         }
 
-        create("testPgSchemaWithCustomType") {
+        create("sakilaPgSchema") {
             jooqConfiguration.apply {
                 logging = Logging.INFO
-                jdbc.apply { createJdbc(this, dbImage) }
+                jdbc.apply {
+                    val (driver, url) = getTestContainer(dbVersion, sakilaSchema, "postgres")
+                    this.driver = driver
+                    this.url = url
+                }
                 generator.apply {
                     database.apply {
-                        name = "org.jooq.meta.postgres.PostgresDatabase"
+                        name = dialect
                         inputSchema = "public"
-                        withForcedTypes(
-                            org.jooq.meta.jaxb.ForcedType().withUserType("io.vertx.pgclient.data.Interval")
-                                .withConverter("io.github.zero88.jooqx.datatype.UserTypeAsVertxType.create(new io.github.zero88.jooqx.spi.pg.datatype.IntervalConverter())")
-                                .withIncludeTypes("interval")
-                                .withIncludeExpression("interval"),
-                            org.jooq.meta.jaxb.ForcedType()
-                                .withUserType("io.vertx.core.buffer.Buffer")
-                                .withConverter("io.github.zero88.jooqx.datatype.UserTypeAsVertxType.create(new io.github.zero88.jooqx.datatype.basic.BytesConverter())")
-                                .withIncludeTypes("bytea"),
-                            org.jooq.meta.jaxb.ForcedType()
-                                .withUserType("io.vertx.core.json.JsonObject")
-                                .withConverter("io.github.zero88.jooqx.datatype.UserTypeAsVertxType.create(new io.github.zero88.jooqx.datatype.basic.JsonObjectJSONConverter())")
-                                .withIncludeTypes("JSON")
-                                .withIncludeExpression(".*json_data_type.JsonObject"),
-                            org.jooq.meta.jaxb.ForcedType()
-                                .withUserType("io.vertx.core.json.JsonArray")
-                                .withConverter("io.github.zero88.jooqx.datatype.UserTypeAsVertxType.create(new io.github.zero88.jooqx.datatype.basic.JsonArrayJSONConverter())")
-                                .withIncludeTypes("JSON")
-                                .withIncludeExpression(".*json_data_type.JsonArray"),
-                            org.jooq.meta.jaxb.ForcedType()
-                                .withUserType("io.vertx.core.json.JsonObject")
-                                .withConverter("io.github.zero88.jooqx.datatype.UserTypeAsVertxType.create(new io.github.zero88.jooqx.datatype.basic.JsonObjectJSONBConverter())")
-                                .withIncludeTypes("JSONB")
-                                .withIncludeExpression(".*jsonb_data_type.JsonObject"),
-                            org.jooq.meta.jaxb.ForcedType()
-                                .withUserType("io.vertx.core.json.JsonArray")
-                                .withConverter("io.github.zero88.jooqx.datatype.UserTypeAsVertxType.create(new io.github.zero88.jooqx.datatype.basic.JsonArrayJSONBConverter())")
-                                .withIncludeTypes("JSONB")
-                                .withIncludeExpression(".*jsonb_data_type.JsonArray"),
-                            org.jooq.meta.jaxb.ForcedType()
-                                .withUserType("java.time.Duration")
-                                .withConverter("io.github.zero88.jooqx.spi.pg.datatype.DurationConverter")
-                                .withIncludeTypes("Interval")
-                                .withIncludeExpression("f_interval")
-                        )
                     }
                     generate.apply {
-                        isRecords = true
-                        isFluentSetters = true
                         isDeprecated = false
+                        isRecords = true
                         isImmutablePojos = false
-                        // UDT cannot generate with isInterfaces = true
-                        isInterfaces = false
-                        isDaos = false
+                        isInterfaces = true
+                        isFluentSetters = true
+                        isDaos = true
                     }
                     target.apply {
-                        packageName = "io.github.zero88.sample.model.pgsql2"
-                        directory = "build/generated/pgsql2"
+                        packageName = "io.github.zero88.sample.model.sakila.pgsql"
+                        directory = "build/generated/sakila"
                     }
                 }
             }

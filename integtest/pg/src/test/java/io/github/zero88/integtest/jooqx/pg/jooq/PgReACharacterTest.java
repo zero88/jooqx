@@ -11,8 +11,8 @@ import io.github.zero88.jooqx.DSLAdapter;
 import io.github.zero88.jooqx.spi.pg.PgPoolProvider;
 import io.github.zero88.jooqx.spi.pg.PgSQLErrorConverterProvider;
 import io.github.zero88.jooqx.spi.pg.PgSQLJooqxTest;
-import io.github.zero88.sample.model.pgsql.tables.CharacterDataType;
-import io.github.zero88.sample.model.pgsql.tables.records.CharacterDataTypeRecord;
+import io.github.zero88.sample.model.pgsql.tables.AllDataTypes;
+import io.github.zero88.sample.model.pgsql.tables.records.AllDataTypesRecord;
 import io.vertx.core.Vertx;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
@@ -31,23 +31,24 @@ class PgReACharacterTest extends PgSQLJooqxTest<PgPool>
     @Test
     void queryCharacter(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
-        final CharacterDataType table = schema().CHARACTER_DATA_TYPE;
-        jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
-            final CharacterDataTypeRecord record = assertSuccess(ctx, ar);
-            System.out.println(record);
-            Assertions.assertNotNull(record.getName());
+        final AllDataTypes table = schema().ALL_DATA_TYPES;
+        jooqx.execute(dsl -> dsl.selectFrom(table).where(table.ID.eq(21)).limit(1), DSLAdapter.fetchOne(table),
+                      ar -> ctx.verify(() -> {
+                          final AllDataTypesRecord record = assertSuccess(ctx, ar);
+                          System.out.println(record);
 
-            Assertions.assertNotNull(record.getFixedchar());
-            Assertions.assertNotNull(record.getSinglechar());
+                          Assertions.assertNotNull(record.getFStrFixedChar());
+                          Assertions.assertNotNull(record.getFStrChar());
 
-            Assertions.assertNotNull(record.getText());
-            Assertions.assertNotNull(record.getVarcharacter());
+                          Assertions.assertNotNull(record.getFStrText());
+                          Assertions.assertNotNull(record.getFStrVarchar());
 
-            Assertions.assertNotNull(record.getUuid());
-            Assertions.assertNotNull(record.getBytea());
-            Assertions.assertEquals("HELLO", new String(record.getBytea(), StandardCharsets.UTF_8));
-            flag.flag();
-        }));
+                          Assertions.assertNotNull(record.getFMiscName());
+                          Assertions.assertNotNull(record.getFMiscUuid());
+                          Assertions.assertNotNull(record.getFMiscBytea());
+                          Assertions.assertEquals("HELLO", new String(record.getFMiscBytea(), StandardCharsets.UTF_8));
+                          flag.flag();
+                      }));
     }
 
 }

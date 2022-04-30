@@ -54,4 +54,10 @@ if (gradle is ExtensionAware) {
     val extensions = (gradle as ExtensionAware).extensions
     extensions.add("PROJECT_POOL", pools.toMap())
     extensions.add("SKIP_PUBLISH", excludeCIBuild + arrayOf(":docs", ":rsql", ":sample", ":integtest"))
+    extensions.add("SAKILA_DB2", "${rootProject.projectDir}/sakila/db2-sakila-db")
+    extensions.add("SAKILA_ORACLE", "${rootProject.projectDir}/sakila/oracle-sakila-db")
+    extensions.add("SAKILA_MSSQL", "${rootProject.projectDir}/sakila/sql-server-sakila-db")
+    extensions.add("SAKILA_MYSQL", "${rootProject.projectDir}/sakila/mysql-sakila-db")
+    extensions.add("SAKILA_PG", "${rootProject.projectDir}/sakila/postgres-sakila-db")
+    extensions.add("SAKILA_SQLITE", "${rootProject.projectDir}/sakila/sqlite-sakila-db")
 }
