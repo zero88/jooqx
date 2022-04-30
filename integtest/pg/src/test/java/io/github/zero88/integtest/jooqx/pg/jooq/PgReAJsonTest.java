@@ -13,10 +13,8 @@ import io.github.zero88.jooqx.datatype.basic.JsonArrayJSONConverter;
 import io.github.zero88.jooqx.spi.pg.PgPoolProvider;
 import io.github.zero88.jooqx.spi.pg.PgSQLErrorConverterProvider;
 import io.github.zero88.jooqx.spi.pg.PgSQLJooqxTest;
-import io.github.zero88.sample.model.pgsql.tables.JsonDataType;
-import io.github.zero88.sample.model.pgsql.tables.JsonbDataType;
-import io.github.zero88.sample.model.pgsql.tables.records.JsonDataTypeRecord;
-import io.github.zero88.sample.model.pgsql.tables.records.JsonbDataTypeRecord;
+import io.github.zero88.sample.model.pgsql.tables.AllDataTypes;
+import io.github.zero88.sample.model.pgsql.tables.records.AllDataTypesRecord;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
@@ -25,8 +23,8 @@ import io.vertx.junit5.VertxTestContext;
 import io.vertx.pgclient.PgPool;
 import io.vertx.sqlclient.Tuple;
 
-class PgReAJsonTest extends PgSQLJooqxTest<PgPool> implements PgSQLErrorConverterProvider, PgPoolProvider,
-                                                              PgUseJooqType {
+class PgReAJsonTest extends PgSQLJooqxTest<PgPool>
+    implements PgSQLErrorConverterProvider, PgPoolProvider, PgUseJooqType {
 
     @Override
     @BeforeEach
@@ -38,55 +36,59 @@ class PgReAJsonTest extends PgSQLJooqxTest<PgPool> implements PgSQLErrorConverte
     @Override
     public DataTypeMapperRegistry typeMapperRegistry() {
         return PgUseJooqType.super.typeMapperRegistry()
-                                  .addByColumn(schema().JSON_DATA_TYPE.JSONARRAY,
+                                  .addByColumn(schema().ALL_DATA_TYPES.F_JSON_ARRAY,
                                                UserTypeAsJooqType.create(new JsonArrayJSONConverter()))
-                                  .addByColumn(schema().JSONB_DATA_TYPE.JSONARRAY,
+                                  .addByColumn(schema().ALL_DATA_TYPES.F_JSONB_ARRAY,
                                                UserTypeAsJooqType.create(new JsonArrayJSONBConverter()));
     }
 
     @Test
     void queryJson(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
-        final JsonDataType table = schema().JSON_DATA_TYPE;
-        jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
-            final JsonDataTypeRecord record = assertSuccess(ctx, ar);
-            System.out.println(record);
+        final AllDataTypes table = schema().ALL_DATA_TYPES;
+        jooqx.execute(dsl -> dsl.selectFrom(table).where(table.ID.eq(51)).limit(1), DSLAdapter.fetchOne(table),
+                      ar -> ctx.verify(() -> {
+                          final AllDataTypesRecord record = assertSuccess(ctx, ar);
+                          System.out.println(record);
+                          JsonObject data = new JsonObject("{\"str\":\"blah\", \"int\" : 1, \"float\" : 3.5, " +
+                                                           "\"object\": {}, \"array\" : []   }");
+                          Assertions.assertEquals(data.encode(), record.getFJsonObject().data());
+                          Assertions.assertEquals(new JsonArray("[1,true,null,9.5,\"Hi\"]").encode(),
+                                                  record.getFJsonArray().data());
 
-            Assertions.assertNull(record.getNull());
-            JsonObject data = new JsonObject(
-                "{\"str\":\"blah\", \"int\" : 1, \"float\" : 3.5, " + "\"object\": {}, \"array\" : []   }");
-            Assertions.assertEquals(data.encode(), record.getJsonobject().data());
-            Assertions.assertEquals(new JsonArray("[1,true,null,9.5,\"Hi\"]").encode(), record.getJsonarray().data());
+                          Assertions.assertEquals(4, table.F_JSON_NUMBER.coerce(Integer.class).get(record));
+                          Assertions.assertEquals("Hello World", table.F_JSON_STRING.coerce(String.class).get(record));
+                          Assertions.assertEquals(true, table.F_JSON_BOOLEAN_TRUE.coerce(Boolean.class).get(record));
+                          Assertions.assertEquals(false, table.F_JSON_BOOLEAN_FALSE.coerce(Boolean.class).get(record));
+                          Assertions.assertEquals(Tuple.JSON_NULL,
+                                                  table.F_JSON_NULL_VALUE.coerce(Object.class).get(record));
+                          Assertions.assertNull(record.getFJsonNull());
 
-            Assertions.assertEquals(4, table.NUMBER.coerce(Integer.class).get(record));
-            Assertions.assertEquals("Hello World", table.STRING.coerce(String.class).get(record));
-            Assertions.assertEquals(true, table.BOOLEANTRUE.coerce(Boolean.class).get(record));
-            Assertions.assertEquals(false, table.BOOLEANFALSE.coerce(Boolean.class).get(record));
-            Assertions.assertEquals(Tuple.JSON_NULL, table.NULLVALUE.coerce(Object.class).get(record));
-
-            cp.flag();
-        }));
+                          cp.flag();
+                      }));
     }
 
     @Test
     void queryJsonb(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
-        final JsonbDataType table = schema().JSONB_DATA_TYPE;
-        jooqx.execute(jooqx.dsl().selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
-            final JsonbDataTypeRecord record = assertSuccess(ctx, ar);
-            System.out.println(record);
+        final AllDataTypes table = schema().ALL_DATA_TYPES;
+        jooqx.execute(dsl -> dsl.selectFrom(table).where(table.ID.eq(61)).limit(1), DSLAdapter.fetchOne(table),
+                      ar -> ctx.verify(() -> {
+                          final AllDataTypesRecord record = assertSuccess(ctx, ar);
+                          System.out.println(record);
 
-            Assertions.assertNotNull(record.getJsonobject());
-            Assertions.assertNotNull(record.getJsonarray());
-            Assertions.assertNull(record.getNull());
+                          Assertions.assertNotNull(record.getFJsonbObject());
+                          Assertions.assertNotNull(record.getFJsonbArray());
+                          Assertions.assertNull(record.getFJsonbNull());
 
-            Assertions.assertEquals(4, table.NUMBER.coerce(Integer.class).get(record));
-            Assertions.assertEquals("Hello World", table.STRING.coerce(String.class).get(record));
-            Assertions.assertEquals(true, table.BOOLEANTRUE.coerce(Boolean.class).get(record));
-            Assertions.assertEquals(false, table.BOOLEANFALSE.coerce(Boolean.class).get(record));
-            Assertions.assertEquals(Tuple.JSON_NULL, table.NULLVALUE.coerce(Object.class).get(record));
-            cp.flag();
-        }));
+                          Assertions.assertEquals(4, table.F_JSONB_NUMBER.coerce(Integer.class).get(record));
+                          Assertions.assertEquals("Hello World", table.F_JSONB_STRING.coerce(String.class).get(record));
+                          Assertions.assertEquals(true, table.F_JSONB_BOOLEAN_TRUE.coerce(Boolean.class).get(record));
+                          Assertions.assertEquals(false, table.F_JSONB_BOOLEAN_FALSE.coerce(Boolean.class).get(record));
+                          Assertions.assertEquals(Tuple.JSON_NULL,
+                                                  table.F_JSONB_NULL_VALUE.coerce(Object.class).get(record));
+                          cp.flag();
+                      }));
     }
 
 }

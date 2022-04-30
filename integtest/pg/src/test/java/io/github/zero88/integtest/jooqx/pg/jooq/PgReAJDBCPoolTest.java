@@ -11,8 +11,8 @@ import io.github.zero88.jooqx.datatype.UserTypeAsJooqType;
 import io.github.zero88.jooqx.spi.jdbc.JDBCErrorConverterProvider;
 import io.github.zero88.jooqx.spi.jdbc.JDBCPoolHikariProvider;
 import io.github.zero88.jooqx.spi.pg.PgSQLJooqxTest;
-import io.github.zero88.sample.model.pgsql.tables.TemporalDataType;
-import io.github.zero88.sample.model.pgsql.tables.records.TemporalDataTypeRecord;
+import io.github.zero88.sample.model.pgsql.tables.AllDataTypes;
+import io.github.zero88.sample.model.pgsql.tables.records.AllDataTypesRecord;
 import io.vertx.core.Vertx;
 import io.vertx.jdbcclient.JDBCPool;
 import io.vertx.junit5.Checkpoint;
@@ -33,27 +33,28 @@ class PgReAJDBCPoolTest extends PgSQLJooqxTest<JDBCPool>
     @Override
     public DataTypeMapperRegistry typeMapperRegistry() {
         return PgUseJooqType.super.typeMapperRegistry()
-                                  .addByColumn(schema().TEMPORAL_DATA_TYPE.INTERVAL,
+                                  .addByColumn(schema().ALL_DATA_TYPES.F_INTERVAL,
                                                UserTypeAsJooqType.create(new JDBCIntervalConverter()));
     }
 
     @Test
     void queryTemporal(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
-        final TemporalDataType table = schema().TEMPORAL_DATA_TYPE;
+        final AllDataTypes table = schema().ALL_DATA_TYPES;
 
-        jooqx.execute(dsl -> dsl.selectFrom(table).limit(1), DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
-            final TemporalDataTypeRecord record = assertSuccess(ctx, ar);
-            System.out.println(record);
-            Assertions.assertNotNull(record.getDate());
-            Assertions.assertNotNull(record.getTime());
-            Assertions.assertNotNull(record.getTimestamp());
-            Assertions.assertNotNull(record.getTimetz());
-            Assertions.assertNotNull(record.getTimestamptz());
-            //TODO: Should use converter with String as interval
-            Assertions.assertNotNull(record.getInterval());
-            cp.flag();
-        }));
+        jooqx.execute(dsl -> dsl.selectFrom(table).where(table.ID.eq(31)).limit(1), DSLAdapter.fetchOne(table),
+                      ar -> ctx.verify(() -> {
+                          final AllDataTypesRecord record = assertSuccess(ctx, ar);
+                          System.out.println(record);
+                          Assertions.assertNotNull(record.getFDate());
+                          Assertions.assertNotNull(record.getFTime());
+                          Assertions.assertNotNull(record.getFTimestamp());
+                          Assertions.assertNotNull(record.getFTimetz());
+                          Assertions.assertNotNull(record.getFTimestamptz());
+                          //TODO: Should use converter with String as interval
+                          Assertions.assertNotNull(record.getFInterval());
+                          cp.flag();
+                      }));
     }
 
 }

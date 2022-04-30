@@ -46,32 +46,32 @@ jooq {
                                 .withUserType("io.vertx.core.json.JsonObject")
                                 .withConverter("io.github.zero88.jooqx.datatype.UserTypeAsVertxType.create(new io.github.zero88.jooqx.datatype.basic.JsonObjectJSONConverter())")
                                 .withIncludeTypes("JSON")
-                                .withIncludeExpression("vertx_json_data_type.JsonObject"),
+                                .withIncludeExpression("vertx_.*.json_object"),
                             ForcedType()
                                 .withUserType("io.vertx.core.json.JsonArray")
                                 .withConverter("io.github.zero88.jooqx.datatype.UserTypeAsVertxType.create(new io.github.zero88.jooqx.datatype.basic.JsonArrayJSONConverter())")
                                 .withIncludeTypes("JSON")
-                                .withIncludeExpression(".*vertx_json_data_type.JsonArray"),
+                                .withIncludeExpression("vertx_.*.json_array"),
                             ForcedType()
                                 .withUserType("io.vertx.core.json.JsonObject")
                                 .withConverter("io.github.zero88.jooqx.datatype.UserTypeAsVertxType.create(new io.github.zero88.jooqx.datatype.basic.JsonObjectJSONBConverter())")
                                 .withIncludeTypes("JSONB")
-                                .withIncludeExpression("vertx_jsonb_data_type.JsonObject"),
+                                .withIncludeExpression("vertx_.*.jsonb_object"),
                             ForcedType()
                                 .withUserType("io.vertx.core.json.JsonArray")
                                 .withConverter("io.github.zero88.jooqx.datatype.UserTypeAsVertxType.create(new io.github.zero88.jooqx.datatype.basic.JsonArrayJSONBConverter())")
                                 .withIncludeTypes("JSONB")
-                                .withIncludeExpression("vertx_jsonb_data_type.JsonArray"),
-                            ForcedType()
-                                .withUserType("java.time.Duration")
-                                .withConverter("io.github.zero88.jooqx.spi.pg.datatype.DurationConverter")
-                                .withIncludeTypes("Interval")
-                                .withIncludeExpression("vertx_all_data_types.f_interval"),
+                                .withIncludeExpression("vertx_.*.jsonb_array"),
                             ForcedType()
                                 .withUserType("io.vertx.pgclient.data.Interval")
                                 .withConverter("io.github.zero88.jooqx.datatype.UserTypeAsVertxType.create(new io.github.zero88.jooqx.spi.pg.datatype.IntervalConverter())")
                                 .withIncludeTypes("interval")
                                 .withIncludeExpression("vertx_.*.interval"),
+                            ForcedType()
+                                .withUserType("java.time.Duration")
+                                .withConverter("io.github.zero88.jooqx.spi.pg.datatype.DurationConverter")
+                                .withIncludeTypes("Interval")
+                                .withIncludeExpression("vertx_.*.duration"),
                         )
                     }
                     generate.apply {
