@@ -60,27 +60,28 @@ object VertxLibs {
 
     object Version {
 
-        const val vertx = "4.2.3"
+        private val pool42 = (0..7).toList()
+        @JvmField val vertx = "4.2.${pool42[3]}"
         const val docgen = "0.9.4"
     }
 
-    const val core = "io.vertx:vertx-core:${Version.vertx}"
-    const val junit5 = "io.vertx:vertx-junit5:${Version.vertx}"
-    const val sqlClient = "io.vertx:vertx-sql-client:${Version.vertx}"
-    const val jdbc = "io.vertx:vertx-jdbc-client:${Version.vertx}"
-    const val pgsql = "io.vertx:vertx-pg-client:${Version.vertx}"
-    const val mysql = "io.vertx:vertx-mysql-client:${Version.vertx}"
-    const val db2 = "io.vertx:vertx-db2-client:${Version.vertx}"
-    const val mssql = "io.vertx:vertx-mssql-client:${Version.vertx}"
-    const val codegen = "io.vertx:vertx-codegen:${Version.vertx}"
+    @JvmField val core = "io.vertx:vertx-core:${Version.vertx}"
+    @JvmField val junit5 = "io.vertx:vertx-junit5:${Version.vertx}"
+    @JvmField val sqlClient = "io.vertx:vertx-sql-client:${Version.vertx}"
+    @JvmField val jdbc = "io.vertx:vertx-jdbc-client:${Version.vertx}"
+    @JvmField val pgsql = "io.vertx:vertx-pg-client:${Version.vertx}"
+    @JvmField val mysql = "io.vertx:vertx-mysql-client:${Version.vertx}"
+    @JvmField val db2 = "io.vertx:vertx-db2-client:${Version.vertx}"
+    @JvmField val mssql = "io.vertx:vertx-mssql-client:${Version.vertx}"
+    @JvmField val codegen = "io.vertx:vertx-codegen:${Version.vertx}"
+    @JvmField val rx2 = "io.vertx:vertx-rx-java2:${Version.vertx}"
+    @JvmField val rx3 = "io.vertx:vertx-rx-java3:${Version.vertx}"
     const val docgen = "io.vertx:vertx-docgen:${Version.docgen}"
-    const val rx2 = "io.vertx:vertx-rx-java2:${Version.vertx}"
-    const val rx3 = "io.vertx:vertx-rx-java3:${Version.vertx}"
-
 }
 
 object MutinyLibs {
     object Version {
+
         const val mutiny = "2.20.0"
     }
 
@@ -110,16 +111,16 @@ object LogLibs {
 
 object JooqLibs {
     object Version {
-        private const val jooq314 = "3.14.13"
-        private const val jooq315 = "3.15.10"
-        private const val jooq316 = "3.16.6"
-        const val jooq = jooq314
+
+        private val pool = mapOf(14 to (0..13).toList(), 15 to (0..10).toList(), 16 to (0..6).toList())
+        private fun Int.ver(patch: Int): String = "${this}.${pool[this]?.get(patch)}"
+        @JvmField val jooq = "3.${14.ver(13)}"
     }
 
-    const val jooq = "org.jooq:jooq:${Version.jooq}"
-    const val jooqMeta = "org.jooq:jooq-meta:${Version.jooq}"
-    const val jooqMetaExt = "org.jooq:jooq-meta-extensions:${Version.jooq}"
-    const val jooqCodegen = "org.jooq:jooq-codegen:${Version.jooq}"
+    @JvmField val jooq = "org.jooq:jooq:${Version.jooq}"
+    @JvmField val jooqMeta = "org.jooq:jooq-meta:${Version.jooq}"
+    @JvmField val jooqMetaExt = "org.jooq:jooq-meta-extensions:${Version.jooq}"
+    @JvmField val jooqCodegen = "org.jooq:jooq-codegen:${Version.jooq}"
 }
 
 object DatabaseLibs {
