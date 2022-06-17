@@ -5,7 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.NotNull;
 import org.jooq.Configuration;
 import org.jooq.Param;
+import org.jooq.Parameter;
 import org.jooq.Query;
+import org.jooq.Routine;
 
 import io.github.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
@@ -55,5 +57,27 @@ public interface SQLPreparedQuery<B> {
      */
     @NotNull List<B> bindValues(@NotNull Query query, @NotNull BindBatchValues bindBatchValues,
                                 @NotNull DataTypeMapperRegistry mapperRegistry);
+
+    /**
+     * Generates jOOQ routine to sql query in String
+     *
+     * @param configuration jOOQ configuration
+     * @param routine       jOOQ routine
+     * @return sql
+     * @see Routine
+     */
+    @NotNull String routine(@NotNull Configuration configuration, @NotNull Routine routine);
+
+    /**
+     * Capture jOOQ parameter in jOOQ routine and convert to Vertx bind value holder
+     *
+     * @param routine        jOOQ routine
+     * @param mapperRegistry Data type mapper registry
+     * @return bind value holder
+     * @see Parameter
+     * @see Routine
+     * @see DataTypeMapperRegistry
+     */
+    @NotNull B routineValues(@NotNull Routine routine, @NotNull DataTypeMapperRegistry mapperRegistry);
 
 }

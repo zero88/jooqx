@@ -1,8 +1,13 @@
 package io.github.zero88.jooqx;
 
 import org.jetbrains.annotations.NotNull;
+import org.jooq.Routine;
 
+import io.github.zero88.jooqx.adapter.SQLResultAdapter;
 import io.github.zero88.jooqx.datatype.DataTypeMapperRegistry;
+import io.github.zero88.jooqx.routine.RoutineExecutorDelegate;
+import io.github.zero88.jooqx.routine.RoutineResult;
+import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 
 /**
@@ -15,13 +20,15 @@ import io.vertx.core.Vertx;
  * @param <RC> Type of SQL result set collector
  * @see JooqDSLProvider
  * @see SQLBatchExecutor
- * @see SQLQueryExecutor
  * @see SQLDDLExecutor
  * @see SQLPlainExecutor
+ * @see SQLQueryExecutor
+ * @see SQLRoutineExecutor
  * @since 1.0.0
  */
 public interface SQLExecutor<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extends SQLResultCollector<RS>>
-    extends SQLExecutorContext<S, B, PQ, RS, RC>, SQLQueryExecutor, SQLBatchExecutor, SQLDDLExecutor, SQLPlainExecutor {
+    extends SQLExecutorContext<S, B, PQ, RS, RC>, SQLQueryExecutor, SQLBatchExecutor, SQLDDLExecutor,
+            SQLRoutineExecutor, SQLPlainExecutor {
 
     /**
      * Defines Vertx
@@ -79,5 +86,21 @@ public interface SQLExecutor<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extend
      * @see SQLTxExecutor
      */
     @NotNull <E extends SQLExecutor<S, B, PQ, RS, RC>> SQLTxExecutor<S, B, PQ, RS, RC, E> transaction();
+
+    @Override
+    default <T> Future<T> routine(@NotNull Routine<T> routine) {
+        return RoutineExecutorDelegate.init(this).routine(routine);
+    }
+
+    @Override
+    default <T> Future<RoutineResult> routineResult(@NotNull Routine<T> routine) {
+        return RoutineExecutorDelegate.init(this).routineResult(routine);
+    }
+
+    @Override
+    default <T, X, R> Future<R> routineResultSet(@NotNull Routine<T> routine,
+                                                 @NotNull SQLResultAdapter<X, R> resultAdapter) {
+        return RoutineExecutorDelegate.init(this).routineResultSet(routine, resultAdapter);
+    }
 
 }

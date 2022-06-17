@@ -15,6 +15,7 @@ import org.jooq.Configuration;
 import org.jooq.DSLContext;
 import org.jooq.Param;
 import org.jooq.Query;
+import org.jooq.Routine;
 import org.jooq.SQLDialect;
 import org.jooq.conf.ParamType;
 import org.jooq.exception.SQLStateClass;
@@ -106,7 +107,7 @@ final class SQLImpl {
 
     abstract static class SQLPQ<T> implements SQLPreparedQuery<T> {
 
-        private static final Pattern NAMED_PARAM_PATTERN = Pattern.compile("(?<!:):(?!:)");
+        private static final Pattern NAMED_PARAM_PATTERN = Pattern.compile("(?<!:):(\\d+)(?!:)");
         private static final Logger LOGGER = LoggerFactory.getLogger(SQLPreparedQuery.class);
 
         @Override
@@ -116,15 +117,15 @@ final class SQLImpl {
             }
             final ParamType paramType = configuration.settings().getParamType();
             if (LOGGER.isTraceEnabled()) {
-                LOGGER.debug("DEFAULT:             {}", query.getSQL());
-                LOGGER.debug("NAMED:               {}", query.getSQL(ParamType.NAMED));
-                LOGGER.debug("INLINED:             {}", query.getSQL(ParamType.INLINED));
-                LOGGER.debug("NAMED_OR_INLINED:    {}", query.getSQL(ParamType.NAMED_OR_INLINED));
-                LOGGER.debug("INDEXED:             {}", query.getSQL(ParamType.INDEXED));
-                LOGGER.debug("FORCE_INDEXED:       {}", query.getSQL(ParamType.FORCE_INDEXED));
+                LOGGER.trace("DEFAULT:             {}", query.getSQL());
+                LOGGER.trace("NAMED:               {}", query.getSQL(ParamType.NAMED));
+                LOGGER.trace("INLINED:             {}", query.getSQL(ParamType.INLINED));
+                LOGGER.trace("NAMED_OR_INLINED:    {}", query.getSQL(ParamType.NAMED_OR_INLINED));
+                LOGGER.trace("INDEXED:             {}", query.getSQL(ParamType.INDEXED));
+                LOGGER.trace("FORCE_INDEXED:       {}", query.getSQL(ParamType.FORCE_INDEXED));
             }
             if (SQLDialect.POSTGRES.supports(configuration.dialect()) && paramType == ParamType.NAMED) {
-                final String sql = NAMED_PARAM_PATTERN.matcher(query.getSQL(paramType)).replaceAll("\\$");
+                final String sql = NAMED_PARAM_PATTERN.matcher(query.getSQL(paramType)).replaceAll("\\$$1");
                 if (LOGGER.isDebugEnabled()) {
                     LOGGER.debug("POSTGRESQL:          {}", sql);
                 }
@@ -144,6 +145,28 @@ final class SQLImpl {
         public final @NotNull List<T> bindValues(@NotNull Query query, @NotNull BindBatchValues bindBatchValues,
                                                  @NotNull DataTypeMapperRegistry mapperRegistry) {
             return this.convert(query.getParams(), bindBatchValues, mapperRegistry);
+        }
+
+        @Override
+        public @NotNull String routine(@NotNull Configuration configuration, @NotNull Routine routine) {
+            final DSLContext dsl = configuration.dsl();
+            if (LOGGER.isTraceEnabled()) {
+                LOGGER.trace("DEFAULT:             {}", dsl.render(routine));
+                LOGGER.trace("NAMED:               {}", dsl.renderNamedParams(routine));
+                LOGGER.trace("INLINED:             {}", dsl.renderInlined(routine));
+                LOGGER.trace("NAMED_OR_INLINED:    {}", dsl.renderNamedOrInlinedParams(routine));
+            }
+            final String sql = dsl.render(routine);
+            if (LOGGER.isDebugEnabled()) {
+                LOGGER.debug("Prepared Query:          {}", sql);
+            }
+            return sql;
+        }
+
+        @Override
+        public @NotNull T routineValues(@NotNull Routine routine, @NotNull DataTypeMapperRegistry mapperRegistry) {
+            //FIXME implement
+            return null;
         }
 
         protected abstract T doConvert(Map<String, Param<?>> params, DataTypeMapperRegistry registry,
