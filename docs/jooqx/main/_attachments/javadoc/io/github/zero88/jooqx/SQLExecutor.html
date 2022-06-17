@@ -26,8 +26,8 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
+var data = {"i0":6,"i1":6,"i2":6,"i3":18,"i4":18,"i5":18,"i6":6,"i7":6,"i8":6,"i9":6};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],16:["t5","Default Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -131,7 +131,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dl>
 <dl>
 <dt>All Superinterfaces:</dt>
-<dd><code><a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooqx">JooqDSLProvider</a></code>, <code><a href="SQLBatchExecutor.html" title="interface in io.github.zero88.jooqx">SQLBatchExecutor</a></code>, <code><a href="SQLDDLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDDLExecutor</a></code>, <code><a href="SQLPlainExecutor.html" title="interface in io.github.zero88.jooqx">SQLPlainExecutor</a></code>, <code><a href="SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></code></dd>
+<dd><code><a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooqx">JooqDSLProvider</a></code>, <code><a href="SQLBatchExecutor.html" title="interface in io.github.zero88.jooqx">SQLBatchExecutor</a></code>, <code><a href="SQLDDLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDDLExecutor</a></code>, <code><a href="SQLPlainExecutor.html" title="interface in io.github.zero88.jooqx">SQLPlainExecutor</a></code>, <code><a href="SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></code>, <code><a href="SQLRoutineExecutor.html" title="interface in io.github.zero88.jooqx">SQLRoutineExecutor</a></code></dd>
 </dl>
 <dl>
 <dt>All Known Subinterfaces:</dt>
@@ -139,7 +139,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dl>
 <hr>
 <pre>public interface <span class="typeNameLabel">SQLExecutor&lt;S,&#8203;B,&#8203;PQ extends <a href="SQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">SQLPreparedQuery</a>&lt;B&gt;,&#8203;RS,&#8203;RC extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>&lt;RS&gt;&gt;</span>
-extends <a href="SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a>, <a href="SQLBatchExecutor.html" title="interface in io.github.zero88.jooqx">SQLBatchExecutor</a>, <a href="SQLDDLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDDLExecutor</a>, <a href="SQLPlainExecutor.html" title="interface in io.github.zero88.jooqx">SQLPlainExecutor</a></pre>
+extends <a href="SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a>, <a href="SQLBatchExecutor.html" title="interface in io.github.zero88.jooqx">SQLBatchExecutor</a>, <a href="SQLDDLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDDLExecutor</a>, <a href="SQLRoutineExecutor.html" title="interface in io.github.zero88.jooqx">SQLRoutineExecutor</a>, <a href="SQLPlainExecutor.html" title="interface in io.github.zero88.jooqx">SQLPlainExecutor</a></pre>
 <div class="block">Represents for an executor that executes <code>jOOQ query</code> on <code>Vertx SQL client</code> connection</div>
 <dl>
 <dt><span class="simpleTagLabel">Since:</span></dt>
@@ -147,9 +147,10 @@ extends <a href="SQLQueryExecutor.html" title="interface in io.github.zero88.joo
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooqx"><code>JooqDSLProvider</code></a>, 
 <a href="SQLBatchExecutor.html" title="interface in io.github.zero88.jooqx"><code>SQLBatchExecutor</code></a>, 
-<a href="SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx"><code>SQLQueryExecutor</code></a>, 
 <a href="SQLDDLExecutor.html" title="interface in io.github.zero88.jooqx"><code>SQLDDLExecutor</code></a>, 
-<a href="SQLPlainExecutor.html" title="interface in io.github.zero88.jooqx"><code>SQLPlainExecutor</code></a></dd>
+<a href="SQLPlainExecutor.html" title="interface in io.github.zero88.jooqx"><code>SQLPlainExecutor</code></a>, 
+<a href="SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx"><code>SQLQueryExecutor</code></a>, 
+<a href="SQLRoutineExecutor.html" title="interface in io.github.zero88.jooqx"><code>SQLRoutineExecutor</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -165,7 +166,7 @@ extends <a href="SQLQueryExecutor.html" title="interface in io.github.zero88.joo
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t5" class="tableTab"><span><a href="javascript:show(16);">Default Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Method</th>
@@ -194,27 +195,43 @@ extends <a href="SQLQueryExecutor.html" title="interface in io.github.zero88.joo
 </td>
 </tr>
 <tr id="i3" class="rowColor">
+<td class="colFirst"><code>default &lt;T&gt;&nbsp;io.vertx.core.Future&lt;T&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#routine(org.jooq.Routine)">routine</a></span>&#8203;(@NotNull org.jooq.Routine&lt;T&gt;&nbsp;routine)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>default &lt;T&gt;&nbsp;io.vertx.core.Future&lt;<a href="routine/RoutineResult.html" title="interface in io.github.zero88.jooqx.routine">RoutineResult</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#routineResult(org.jooq.Routine)">routineResult</a></span>&#8203;(@NotNull org.jooq.Routine&lt;T&gt;&nbsp;routine)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>default &lt;T,&#8203;X,&#8203;R&gt;<br>io.vertx.core.Future&lt;R&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#routineResultSet(org.jooq.Routine,io.github.zero88.jooqx.adapter.SQLResultAdapter)">routineResultSet</a></span>&#8203;(@NotNull org.jooq.Routine&lt;T&gt;&nbsp;routine,
+                @NotNull <a href="adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;X,&#8203;R&gt;&nbsp;resultAdapter)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
 <td class="colFirst"><code><a href="SQLExecutor.html" title="type parameter in SQLExecutor">S</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sqlClient()">sqlClient</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Defines Vertx SQL client</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>&lt;E extends <a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">S</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">B</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">PQ</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">RS</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">RC</a>&gt;&gt;<br>@NotNull <a href="SQLTxExecutor.html" title="interface in io.github.zero88.jooqx">SQLTxExecutor</a>&lt;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">S</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">B</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">PQ</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">RS</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">RC</a>,&#8203;E&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#transaction()">transaction</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Open transaction executor</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code><a href="datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype">DataTypeMapperRegistry</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#typeMapperRegistry()">typeMapperRegistry</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Defines global data type mapper registry</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>@NotNull io.vertx.core.Vertx</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#vertx()">vertx</a></span>()</code></th>
 <td class="colLast">
@@ -256,6 +273,13 @@ extends <a href="SQLQueryExecutor.html" title="interface in io.github.zero88.joo
 </a>
 <h3>Methods inherited from interface&nbsp;io.github.zero88.jooqx.<a href="SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></h3>
 <code><a href="SQLQueryExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">execute</a>, <a href="SQLQueryExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">execute</a>, <a href="SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)">execute</a>, <a href="SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">execute</a></code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a id="methods.inherited.from.class.io.github.zero88.jooqx.SQLRoutineExecutor">
+<!--   -->
+</a>
+<h3>Methods inherited from interface&nbsp;io.github.zero88.jooqx.<a href="SQLRoutineExecutor.html" title="interface in io.github.zero88.jooqx">SQLRoutineExecutor</a></h3>
+<code><a href="SQLRoutineExecutor.html#routine(java.util.function.Function)">routine</a>, <a href="SQLRoutineExecutor.html#routine(java.util.function.Function,io.vertx.core.Handler)">routine</a>, <a href="SQLRoutineExecutor.html#routine(org.jooq.Routine,io.vertx.core.Handler)">routine</a>, <a href="SQLRoutineExecutor.html#routineResult(org.jooq.Routine,io.vertx.core.Handler)">routineResult</a>, <a href="SQLRoutineExecutor.html#routineResultSet(org.jooq.Routine,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">routineResultSet</a></code></li>
 </ul>
 </li>
 </ul>
@@ -373,7 +397,7 @@ extends <a href="SQLQueryExecutor.html" title="interface in io.github.zero88.joo
 <a id="transaction()">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>transaction</h4>
 <pre class="methodSignature">@NotNull
@@ -386,6 +410,50 @@ extends <a href="SQLQueryExecutor.html" title="interface in io.github.zero88.joo
 <dd>transaction executor</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="SQLTxExecutor.html" title="interface in io.github.zero88.jooqx"><code>SQLTxExecutor</code></a></dd>
+</dl>
+</li>
+</ul>
+<a id="routine(org.jooq.Routine)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>routine</h4>
+<pre class="methodSignature">default&nbsp;&lt;T&gt;&nbsp;io.vertx.core.Future&lt;T&gt;&nbsp;routine&#8203;(@NotNull
+                                            @NotNull org.jooq.Routine&lt;T&gt;&nbsp;routine)</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="SQLRoutineExecutor.html#routine(org.jooq.Routine)">routine</a></code>&nbsp;in interface&nbsp;<code><a href="SQLRoutineExecutor.html" title="interface in io.github.zero88.jooqx">SQLRoutineExecutor</a></code></dd>
+</dl>
+</li>
+</ul>
+<a id="routineResult(org.jooq.Routine)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>routineResult</h4>
+<pre class="methodSignature">default&nbsp;&lt;T&gt;&nbsp;io.vertx.core.Future&lt;<a href="routine/RoutineResult.html" title="interface in io.github.zero88.jooqx.routine">RoutineResult</a>&gt;&nbsp;routineResult&#8203;(@NotNull
+                                                              @NotNull org.jooq.Routine&lt;T&gt;&nbsp;routine)</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="SQLRoutineExecutor.html#routineResult(org.jooq.Routine)">routineResult</a></code>&nbsp;in interface&nbsp;<code><a href="SQLRoutineExecutor.html" title="interface in io.github.zero88.jooqx">SQLRoutineExecutor</a></code></dd>
+</dl>
+</li>
+</ul>
+<a id="routineResultSet(org.jooq.Routine,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>routineResultSet</h4>
+<pre class="methodSignature">default&nbsp;&lt;T,&#8203;X,&#8203;R&gt;&nbsp;io.vertx.core.Future&lt;R&gt;&nbsp;routineResultSet&#8203;(@NotNull
+                                                                     @NotNull org.jooq.Routine&lt;T&gt;&nbsp;routine,
+                                                                     @NotNull
+                                                                     @NotNull <a href="adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;X,&#8203;R&gt;&nbsp;resultAdapter)</pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="SQLRoutineExecutor.html#routineResultSet(org.jooq.Routine,io.github.zero88.jooqx.adapter.SQLResultAdapter)">routineResultSet</a></code>&nbsp;in interface&nbsp;<code><a href="SQLRoutineExecutor.html" title="interface in io.github.zero88.jooqx">SQLRoutineExecutor</a></code></dd>
 </dl>
 </li>
 </ul>

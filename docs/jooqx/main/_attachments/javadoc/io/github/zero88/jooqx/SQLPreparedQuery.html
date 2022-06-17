@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":6,"i2":6};
+var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -178,6 +178,22 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>@NotNull java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#routine(org.jooq.Configuration,org.jooq.Routine)">routine</a></span>&#8203;(@NotNull org.jooq.Configuration&nbsp;configuration,
+       @NotNull org.jooq.Routine&nbsp;routine)</code></th>
+<td class="colLast">
+<div class="block">Generates jOOQ routine to sql query in String</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code><a href="SQLPreparedQuery.html" title="type parameter in SQLPreparedQuery">B</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#routineValues(org.jooq.Routine,io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">routineValues</a></span>&#8203;(@NotNull org.jooq.Routine&nbsp;routine,
+             @NotNull <a href="datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;mapperRegistry)</code></th>
+<td class="colLast">
+<div class="block">Capture jOOQ parameter in jOOQ routine and convert to Vertx bind value holder</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>@NotNull java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sql(org.jooq.Configuration,org.jooq.Query)">sql</a></span>&#8203;(@NotNull org.jooq.Configuration&nbsp;configuration,
    @NotNull org.jooq.Query&nbsp;query)</code></th>
 <td class="colLast">
@@ -252,7 +268,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <a id="bindValues(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>bindValues</h4>
 <pre class="methodSignature">@NotNull
@@ -276,6 +292,54 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <a href="datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype"><code>DataTypeMapperRegistry</code></a></dd>
 <dt><span class="simpleTagLabel">API Note:</span></dt>
 <dd>It is used for batch execution</dd>
+</dl>
+</li>
+</ul>
+<a id="routine(org.jooq.Configuration,org.jooq.Routine)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>routine</h4>
+<pre class="methodSignature">@NotNull
+@NotNull java.lang.String&nbsp;routine&#8203;(@NotNull
+                                  @NotNull org.jooq.Configuration&nbsp;configuration,
+                                  @NotNull
+                                  @NotNull org.jooq.Routine&nbsp;routine)</pre>
+<div class="block">Generates jOOQ routine to sql query in String</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>configuration</code> - jOOQ configuration</dd>
+<dd><code>routine</code> - jOOQ routine</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>sql</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>Routine</code></dd>
+</dl>
+</li>
+</ul>
+<a id="routineValues(org.jooq.Routine,io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>routineValues</h4>
+<pre class="methodSignature">@NotNull
+<a href="SQLPreparedQuery.html" title="type parameter in SQLPreparedQuery">B</a>&nbsp;routineValues&#8203;(@NotNull
+                @NotNull org.jooq.Routine&nbsp;routine,
+                @NotNull
+                @NotNull <a href="datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;mapperRegistry)</pre>
+<div class="block">Capture jOOQ parameter in jOOQ routine and convert to Vertx bind value holder</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>routine</code> - jOOQ routine</dd>
+<dd><code>mapperRegistry</code> - Data type mapper registry</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>bind value holder</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>Parameter</code>, 
+<code>Routine</code>, 
+<a href="datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype"><code>DataTypeMapperRegistry</code></a></dd>
 </dl>
 </li>
 </ul>
