@@ -1,4 +1,4 @@
-package io.github.zero88.integtest.jooqx.pg.jooq;
+package io.github.zero88.integtest.jooqx.pg;
 
 import java.sql.SQLException;
 
@@ -10,7 +10,7 @@ import org.postgresql.util.PGInterval;
 
 import io.github.zero88.jooqx.datatype.JooqxConverter;
 
-class JDBCIntervalConverter implements JooqxConverter<String, YearToSecond> {
+public class JDBCIntervalConverter implements JooqxConverter<String, YearToSecond> {
 
     @Override
     public YearToSecond from(String vertxObject) {

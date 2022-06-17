@@ -2,7 +2,7 @@ package io.github.zero88.integtest.jooqx.pg.jooq;
 
 import org.junit.jupiter.api.Test;
 
-import io.github.zero88.integtest.jooqx.pg.PostgreSQLHelper.PgUseJooqType;
+import io.github.zero88.integtest.jooqx.pg.PgUseJooqType;
 import io.github.zero88.jooqx.DDLTest;
 import io.github.zero88.jooqx.spi.pg.PgPoolProvider;
 import io.github.zero88.jooqx.spi.pg.PgSQLErrorConverterProvider;

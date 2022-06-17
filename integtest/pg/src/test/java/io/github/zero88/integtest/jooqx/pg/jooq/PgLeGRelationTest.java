@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import io.github.zero88.integtest.jooqx.pg.PostgreSQLHelper.PgLegacyType;
+import io.github.zero88.integtest.jooqx.pg.PgUseJooqType;
 import io.github.zero88.jooqx.BindBatchValues;
 import io.github.zero88.jooqx.DSLAdapter;
 import io.github.zero88.jooqx.JsonRecord;
@@ -27,7 +27,7 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 
-class PgLeGRelationTest extends PgSQLLegacyTest implements PgLegacyType, JDBCErrorConverterProvider {
+class PgLeGRelationTest extends PgSQLLegacyTest implements PgUseJooqType, JDBCErrorConverterProvider {
 
     @Override
     @BeforeEach

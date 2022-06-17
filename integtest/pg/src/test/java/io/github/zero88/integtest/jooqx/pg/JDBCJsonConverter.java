@@ -1,11 +1,11 @@
-package io.github.zero88.integtest.jooqx.pg.jooq;
+package io.github.zero88.integtest.jooqx.pg;
 
 import org.jetbrains.annotations.NotNull;
 import org.jooq.JSON;
 
 import io.github.zero88.jooqx.datatype.JooqxConverter;
 
-class JDBCJsonConverter implements JooqxConverter<String, JSON> {
+public class JDBCJsonConverter implements JooqxConverter<String, JSON> {
 
     @Override
     public JSON from(String vertxObject) {

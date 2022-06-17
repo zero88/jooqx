@@ -5,7 +5,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import io.github.zero88.integtest.jooqx.pg.PostgreSQLHelper.PgLegacyType;
+import io.github.zero88.integtest.jooqx.pg.JDBCIntervalConverter;
+import io.github.zero88.integtest.jooqx.pg.PgUseJooqType;
 import io.github.zero88.jooqx.DSLAdapter;
 import io.github.zero88.jooqx.JooqDSLProvider;
 import io.github.zero88.jooqx.datatype.DataTypeMapperRegistry;
@@ -17,7 +18,7 @@ import io.vertx.core.Vertx;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 
-class PgLeGTemporalTest extends PgSQLLegacyTest implements PgLegacyType {
+class PgLeGTemporalTest extends PgSQLLegacyTest implements PgUseJooqType {
 
     @BeforeEach
     @Override

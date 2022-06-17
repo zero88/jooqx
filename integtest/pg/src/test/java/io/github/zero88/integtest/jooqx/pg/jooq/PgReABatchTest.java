@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import io.github.zero88.integtest.jooqx.pg.PostgreSQLHelper.PgUseJooqType;
+import io.github.zero88.integtest.jooqx.pg.PgUseJooqType;
 import io.github.zero88.jooqx.BatchResult;
 import io.github.zero88.jooqx.BatchReturningResult;
 import io.github.zero88.jooqx.BindBatchValues;
