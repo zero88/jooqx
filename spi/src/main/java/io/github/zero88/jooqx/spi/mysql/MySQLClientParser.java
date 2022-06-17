@@ -1,7 +1,5 @@
 package io.github.zero88.jooqx.spi.mysql;
 
-import java.nio.charset.StandardCharsets;
-
 import org.jetbrains.annotations.NotNull;
 
 import io.github.zero88.jooqx.provider.SQLClientOptionParser;
@@ -19,9 +17,7 @@ public interface MySQLClientParser extends SQLClientOptionParser<MySQLConnectOpt
     @Override
     @NotNull
     default MySQLConnectOptions parseConn(@NotNull JsonObject connOptions) {
-        return new MySQLConnectOptions(connOptions).setCharset("utf8")
-                                                   .setCharacterEncoding(StandardCharsets.UTF_8.name())
-                                                   .setCollation("utf8_general_ci");
+        return new MySQLConnectOptions(connOptions);
     }
 
 }
