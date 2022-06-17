@@ -10,13 +10,14 @@ dependencies {
     jooqGenerator(DatabaseLibs.mysql)
     jooqGenerator(TestContainers.mysql)
     jooqGenerator(LogLibs.slf4jSimple)
+    jooqGenerator(testFixtures(project(":jooqx")))
 
     testImplementation(VertxLibs.mysql)
     testImplementation(TestContainers.mysql)
 }
 val dbVersion = "mysql:${(project.findProperty("dbImage") ?: "8.0-debian")}"
-val sakilaSchema = "${(gradle as ExtensionAware).extensions["SAKILA_MYSQL"]}/mysql-sakila-schema.sql"
 val dialect = "org.jooq.meta.mysql.MySQLDatabase"
+fun getSchema(schemaFile: String): String = "${buildDir}/resources/main/${schemaFile}"
 
 jooq {
     version.set(JooqLibs.Version.jooq)
@@ -26,7 +27,11 @@ jooq {
             jooqConfiguration.apply {
                 logging = Logging.INFO
                 jdbc.apply {
-                    val (driver, url) = getTestContainer(dbVersion, "src/main/resources/mysql_schema.sql")
+                    val (driver, url) = getTestContainerByFun(
+                        dbVersion,
+                        "io.github.zero88.jooqx.spi.mysql.MySQLInitializer::init",
+                        mapOf("user" to "root", "allowMultiQueries" to true)
+                    )
                     this.driver = driver
                     this.url = url
                 }
@@ -55,7 +60,11 @@ jooq {
             jooqConfiguration.apply {
                 logging = Logging.INFO
                 jdbc.apply {
-                    val (driver, url) = getTestContainer(dbVersion, sakilaSchema, "root")
+                    val (driver, url) = getTestContainerByFun(
+                        dbVersion,
+                        "io.github.zero88.jooqx.spi.mysql.MySQLInitializer::init",
+                        mapOf("user" to "root", "allowMultiQueries" to true)
+                    )
                     this.driver = driver
                     this.url = url
                 }
@@ -89,7 +98,26 @@ sourceSets {
 }
 
 tasks {
-    named("generateSakilaMySQLSchemaJooq") {
+    processResources {
+        doLast {
+            copy {
+                from((gradle as ExtensionAware).extensions["SAKILA_MYSQL"])
+                into(destinationDir)
+            }
+        }
+    }
+    withType<JooqGenerate> {
+        dependsOn("processResources")
+    }
+    named<JooqGenerate>("generateTestMySQLSchemaJooq").configure {
+        setJavaExecSpec {
+            systemProperty("dbSchemaFile", getSchema("mysql_schema.sql"))
+        }
+    }
+    named<JooqGenerate>("generateSakilaMySQLSchemaJooq").configure {
+        setJavaExecSpec {
+            systemProperty("dbSchemaFile", getSchema("mysql-sakila-schema.sql"))
+        }
         enabled = false // because MySQL init script doesn't work with DELIMITER https://github.com/docker-library/mysql/issues/16
     }
 }

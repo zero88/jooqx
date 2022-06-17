@@ -5,7 +5,6 @@ import org.jooq.meta.jaxb.Logging
 dependencies {
     compileOnly(project(":spi")) // for customize generate
     compileOnly(VertxLibs.pgsql) // for customize generate
-
     jooqGenerator(LogLibs.slf4jSimple)
     jooqGenerator(JooqLibs.jooqMetaExt)
     jooqGenerator(DatabaseLibs.pgsql)
@@ -17,8 +16,8 @@ dependencies {
     testImplementation(TestContainers.pgsql)
 }
 val dbVersion = "postgresql:${(project.findProperty("dbImage") ?: "10-alpine")}"
-val sakilaSchema = "${(gradle as ExtensionAware).extensions["SAKILA_PG"]}/postgres-sakila-schema.sql"
 val dialect = "org.jooq.meta.postgres.PostgresDatabase"
+fun getSchema(schemaFile: String): String = "${buildDir}/resources/main/${schemaFile}"
 
 jooq {
     version.set(JooqLibs.Version.jooq)
@@ -28,7 +27,7 @@ jooq {
             jooqConfiguration.apply {
                 logging = Logging.INFO
                 jdbc.apply {
-                    val (driver, url) = getTestContainer(dbVersion, "src/main/resources/pg_schema.sql")
+                    val (driver, url) = getTestContainer(dbVersion, getSchema("pg_schema.sql"))
                     this.driver = driver
                     this.url = url
                 }
@@ -96,7 +95,7 @@ jooq {
             jooqConfiguration.apply {
                 logging = Logging.INFO
                 jdbc.apply {
-                    val (driver, url) = getTestContainer(dbVersion, sakilaSchema, "postgres")
+                    val (driver, url) = getTestContainer(dbVersion, getSchema("postgres-sakila-schema.sql"), mapOf("user" to "postgres"))
                     this.driver = driver
                     this.url = url
                 }
@@ -126,5 +125,19 @@ jooq {
 sourceSets {
     main {
         java.srcDirs(tasks.withType<JooqGenerate>().map { it.outputDir.get().asFile })
+    }
+}
+
+tasks {
+    processResources {
+        doLast {
+            copy {
+                from((gradle as ExtensionAware).extensions["SAKILA_PG"])
+                into(destinationDir)
+            }
+        }
+    }
+    withType<JooqGenerate> {
+        dependsOn("processResources")
     }
 }

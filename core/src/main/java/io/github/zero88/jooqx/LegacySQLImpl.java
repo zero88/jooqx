@@ -85,10 +85,9 @@ final class LegacySQLImpl {
 
         private Map<Field<?>, Integer> getColumnMap(ResultSet rs, Function<String, Field<?>> lookupField) {
             return IntStream.range(0, rs.getNumColumns())
-                            .boxed()
-                            .map(i -> Optional.ofNullable(lookupField.apply(rs.getColumnNames().get(i)))
-                                              .map(f -> new SimpleEntry<>(f, i))
-                                              .orElse(null))
+                            .mapToObj(i -> Optional.ofNullable(lookupField.apply(rs.getColumnNames().get(i)))
+                                                   .map(f -> new SimpleEntry<>(f, i))
+                                                   .orElse(null))
                             .filter(Objects::nonNull)
                             .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
         }

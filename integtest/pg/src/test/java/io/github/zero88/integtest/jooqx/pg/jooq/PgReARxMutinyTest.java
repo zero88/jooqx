@@ -4,9 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import io.github.zero88.integtest.jooqx.pg.PostgreSQLHelper.PgUseJooqType;
+import io.github.zero88.integtest.jooqx.pg.PgUseJooqType;
 import io.github.zero88.jooqx.DSLAdapter;
-import io.github.zero88.jooqx.JooqxTestDefinition.JooqxRxHelper;
 import io.github.zero88.jooqx.spi.jdbc.JDBCErrorConverterProvider;
 import io.github.zero88.jooqx.spi.jdbc.JDBCPoolAgroalProvider;
 import io.github.zero88.jooqx.spi.pg.PgSQLJooqxTest;
@@ -17,7 +16,7 @@ import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 
 class PgReARxMutinyTest extends PgSQLJooqxTest<JDBCPool>
-    implements PgUseJooqType, JDBCPoolAgroalProvider, JDBCErrorConverterProvider, JooqxRxHelper {
+    implements PgUseJooqType, JDBCPoolAgroalProvider, JDBCErrorConverterProvider {
 
     io.github.zero88.jooqx.mutiny.Jooqx jooqxMutiny;
 

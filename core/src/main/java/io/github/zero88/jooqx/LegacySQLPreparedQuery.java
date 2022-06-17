@@ -5,6 +5,7 @@ import java.util.List;
 import org.jetbrains.annotations.NotNull;
 import org.jooq.Configuration;
 import org.jooq.Query;
+import org.jooq.Routine;
 
 import io.github.zero88.jooqx.LegacySQLImpl.LegacySQLPQ;
 import io.github.zero88.jooqx.datatype.DataTypeMapperRegistry;
@@ -42,5 +43,13 @@ public interface LegacySQLPreparedQuery extends SQLPreparedQuery<JsonArray> {
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
     @NotNull List<JsonArray> bindValues(@NotNull Query query, @NotNull BindBatchValues bindBatchValues,
                                         @NotNull DataTypeMapperRegistry mapperRegistry);
+
+    @Override
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    @NotNull String routine(@NotNull Configuration configuration, @NotNull Routine routine);
+
+    @Override
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    @NotNull JsonArray routineValues(@NotNull Routine routine, @NotNull DataTypeMapperRegistry mapperRegistry);
 
 }

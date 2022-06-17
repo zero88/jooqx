@@ -12,7 +12,9 @@ import org.jetbrains.annotations.NotNull;
 import org.jooq.DDLQuery;
 import org.jooq.DSLContext;
 import org.jooq.Param;
+import org.jooq.Parameter;
 import org.jooq.Query;
+import org.jooq.Routine;
 import org.jooq.conf.ParamType;
 import org.jooq.conf.Settings;
 import org.jooq.impl.DSL;
@@ -43,15 +45,25 @@ final class JooqxSQLImpl {
 
     static final class ReactiveSQLPQ extends SQLPQ<Tuple> implements JooqxPreparedQuery {
 
-        protected ArrayTuple doConvert(Map<String, Param<?>> params, DataTypeMapperRegistry registry,
-                                       BiFunction<String, Param<?>, ?> queryValue) {
-            final ArrayTuple bindValues = new ArrayTuple(params.size());
+        protected Tuple doConvert(Map<String, Param<?>> params, DataTypeMapperRegistry registry,
+                                  BiFunction<String, Param<?>, ?> queryValue) {
+            final Tuple bindValues = new ArrayTuple(params.size());
             params.entrySet()
                   .stream()
                   .filter(entry -> !entry.getValue().isInline())
                   .forEachOrdered(
                       etr -> bindValues.addValue(registry.toDatabaseType(etr.getKey(), etr.getValue(), queryValue)));
             return bindValues;
+        }
+
+        @SuppressWarnings({ "rawtypes", "unchecked" })
+        @Override
+        public @NotNull Tuple routineValues(@NotNull Routine routine, @NotNull DataTypeMapperRegistry registry) {
+            final List<Parameter<?>> inParams = routine.getInParameters();
+            return inParams.stream()
+                           .collect(() -> new ArrayTuple(inParams.size()), (t, p) -> t.addValue(
+                               registry.toDatabaseType(p.getName(), (Param) routine.getInValue(p),
+                                                       (s, param) -> param.getValue())), (t1, t2) -> { });
         }
 
     }

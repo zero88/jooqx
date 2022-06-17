@@ -202,27 +202,43 @@ CREATE FUNCTION dup2(int) RETURNS dup_result
 AS $$ SELECT $1, CAST($1 AS text) || ' is text' $$
     LANGUAGE SQL;
 
--- CREATE OR REPLACE FUNCTION get_all_authors() RETURNS SETOF authors
---     AS $$
---     DECLARE
---         r authors%rowtype;
---     BEGIN
---     FOR r IN
---     SELECT * FROM authors WHERE authors.id > 0
---         LOOP
---             -- can do some processing here
---             RETURN NEXT r; -- return current row of SELECT
---     END LOOP;
---         RETURN;
---     END;
---     $$ LANGUAGE plpgsql;
+--
+CREATE OR REPLACE FUNCTION find_authors(like_name varchar) RETURNS SETOF authors
+    AS '
+        DECLARE r authors%rowtype;
+        BEGIN
+            FOR r IN
+                SELECT * FROM authors WHERE authors.name like (''%'' || like_name || ''%'')
+                    LOOP
+                        -- can do some processing here
+                        RETURN NEXT r; -- return current row of SELECT
+                    END LOOP;
+            RETURN;
+        END;
+    ' LANGUAGE plpgsql;
 
--- Create PROCEDURE from pg11
+--
+CREATE OR REPLACE FUNCTION remove_author(author_name varchar) RETURNS void
+    AS '
+        DECLARE aId authors.id%TYPE;
+        DECLARE bId books_authors.book_id%TYPE;
+        BEGIN
+            SELECT authors.id FROM authors WHERE authors.name = author_name LIMIT 1 into aId;
+            FOR bId IN
+                DELETE FROM books_authors WHERE author_id = aId RETURNING books_authors.book_id
+                LOOP
+                    DELETE FROM books WHERE books.id = cast(bId as int);
+                END LOOP;
+            DELETE FROM authors WHERE authors.id = aId;
+        END;
+    ' LANGUAGE plpgsql;
+
+-- Create PROCEDURE from pg11, that supported from jooq v3.16 https://github.com/jOOQ/jOOQ/issues/8431
 -- CREATE OR REPLACE PROCEDURE SelectAllAuthors()
 -- LANGUAGE SQL
--- AS $$
+-- AS '
 --     SELECT * FROM authors
--- $$;
+-- ';
 --
 -- CREATE PROCEDURE SelectBooks(_title varchar)
 -- LANGUAGE SQL
