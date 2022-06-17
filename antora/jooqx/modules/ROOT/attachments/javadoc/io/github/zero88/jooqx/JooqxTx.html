@@ -123,7 +123,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <dl>
 <dt>All Superinterfaces:</dt>
-<dd><code><a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooqx">JooqDSLProvider</a></code>, <code><a href="JooqxBase.html" title="interface in io.github.zero88.jooqx">JooqxBase</a>&lt;io.vertx.sqlclient.SqlConnection&gt;</code>, <code><a href="JooqxConn.html" title="interface in io.github.zero88.jooqx">JooqxConn</a></code>, <code><a href="SQLBatchExecutor.html" title="interface in io.github.zero88.jooqx">SQLBatchExecutor</a></code>, <code><a href="SQLBatchResultExecutor.html" title="interface in io.github.zero88.jooqx">SQLBatchResultExecutor</a></code>, <code><a href="SQLDDLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDDLExecutor</a></code>, <code><a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;io.vertx.sqlclient.SqlConnection,&#8203;io.vertx.sqlclient.Tuple,&#8203;<a href="JooqxPreparedQuery.html" title="interface in io.github.zero88.jooqx">JooqxPreparedQuery</a>,&#8203;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;,&#8203;<a href="JooqxResultCollector.html" title="interface in io.github.zero88.jooqx">JooqxResultCollector</a>&gt;</code>, <code><a href="SQLPlainExecutor.html" title="interface in io.github.zero88.jooqx">SQLPlainExecutor</a></code>, <code><a href="SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></code>, <code><a href="SQLTxExecutor.html" title="interface in io.github.zero88.jooqx">SQLTxExecutor</a>&lt;io.vertx.sqlclient.SqlConnection,&#8203;io.vertx.sqlclient.Tuple,&#8203;<a href="JooqxPreparedQuery.html" title="interface in io.github.zero88.jooqx">JooqxPreparedQuery</a>,&#8203;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;,&#8203;<a href="JooqxResultCollector.html" title="interface in io.github.zero88.jooqx">JooqxResultCollector</a>,&#8203;<a href="JooqxTx.html" title="interface in io.github.zero88.jooqx">JooqxTx</a>&gt;</code></dd>
+<dd><code><a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooqx">JooqDSLProvider</a></code>, <code><a href="JooqxBase.html" title="interface in io.github.zero88.jooqx">JooqxBase</a>&lt;io.vertx.sqlclient.SqlConnection&gt;</code>, <code><a href="JooqxConn.html" title="interface in io.github.zero88.jooqx">JooqxConn</a></code>, <code><a href="SQLBatchExecutor.html" title="interface in io.github.zero88.jooqx">SQLBatchExecutor</a></code>, <code><a href="SQLBatchResultExecutor.html" title="interface in io.github.zero88.jooqx">SQLBatchResultExecutor</a></code>, <code><a href="SQLDDLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDDLExecutor</a></code>, <code><a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;io.vertx.sqlclient.SqlConnection,&#8203;io.vertx.sqlclient.Tuple,&#8203;<a href="JooqxPreparedQuery.html" title="interface in io.github.zero88.jooqx">JooqxPreparedQuery</a>,&#8203;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;,&#8203;<a href="JooqxResultCollector.html" title="interface in io.github.zero88.jooqx">JooqxResultCollector</a>&gt;</code>, <code><a href="SQLPlainExecutor.html" title="interface in io.github.zero88.jooqx">SQLPlainExecutor</a></code>, <code><a href="SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></code>, <code><a href="SQLRoutineExecutor.html" title="interface in io.github.zero88.jooqx">SQLRoutineExecutor</a></code>, <code><a href="SQLTxExecutor.html" title="interface in io.github.zero88.jooqx">SQLTxExecutor</a>&lt;io.vertx.sqlclient.SqlConnection,&#8203;io.vertx.sqlclient.Tuple,&#8203;<a href="JooqxPreparedQuery.html" title="interface in io.github.zero88.jooqx">JooqxPreparedQuery</a>,&#8203;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;,&#8203;<a href="JooqxResultCollector.html" title="interface in io.github.zero88.jooqx">JooqxResultCollector</a>,&#8203;<a href="JooqxTx.html" title="interface in io.github.zero88.jooqx">JooqxTx</a>&gt;</code></dd>
 </dl>
 <hr>
 <pre>public interface <span class="typeNameLabel">JooqxTx</span>
@@ -205,6 +205,13 @@ extends <a href="JooqxConn.html" title="interface in io.github.zero88.jooqx">Joo
 <code><a href="SQLDDLExecutor.html#ddl(java.util.function.Function)">ddl</a>, <a href="SQLDDLExecutor.html#ddl(java.util.function.Function,io.vertx.core.Handler)">ddl</a>, <a href="SQLDDLExecutor.html#ddl(org.jooq.DDLQuery)">ddl</a>, <a href="SQLDDLExecutor.html#ddl(org.jooq.DDLQuery,io.vertx.core.Handler)">ddl</a></code></li>
 </ul>
 <ul class="blockList">
+<li class="blockList"><a id="methods.inherited.from.class.io.github.zero88.jooqx.SQLExecutor">
+<!--   -->
+</a>
+<h3>Methods inherited from interface&nbsp;io.github.zero88.jooqx.<a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a></h3>
+<code><a href="SQLExecutor.html#routine(org.jooq.Routine)">routine</a>, <a href="SQLExecutor.html#routineResult(org.jooq.Routine)">routineResult</a>, <a href="SQLExecutor.html#routineResultSet(org.jooq.Routine,io.github.zero88.jooqx.adapter.SQLResultAdapter)">routineResultSet</a></code></li>
+</ul>
+<ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.io.github.zero88.jooqx.SQLPlainExecutor">
 <!--   -->
 </a>
@@ -217,6 +224,13 @@ extends <a href="JooqxConn.html" title="interface in io.github.zero88.jooqx">Joo
 </a>
 <h3>Methods inherited from interface&nbsp;io.github.zero88.jooqx.<a href="SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></h3>
 <code><a href="SQLQueryExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">execute</a>, <a href="SQLQueryExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">execute</a>, <a href="SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)">execute</a>, <a href="SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">execute</a></code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a id="methods.inherited.from.class.io.github.zero88.jooqx.SQLRoutineExecutor">
+<!--   -->
+</a>
+<h3>Methods inherited from interface&nbsp;io.github.zero88.jooqx.<a href="SQLRoutineExecutor.html" title="interface in io.github.zero88.jooqx">SQLRoutineExecutor</a></h3>
+<code><a href="SQLRoutineExecutor.html#routine(java.util.function.Function)">routine</a>, <a href="SQLRoutineExecutor.html#routine(java.util.function.Function,io.vertx.core.Handler)">routine</a>, <a href="SQLRoutineExecutor.html#routine(org.jooq.Routine,io.vertx.core.Handler)">routine</a>, <a href="SQLRoutineExecutor.html#routineResult(org.jooq.Routine,io.vertx.core.Handler)">routineResult</a>, <a href="SQLRoutineExecutor.html#routineResultSet(org.jooq.Routine,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">routineResultSet</a></code></li>
 </ul>
 </li>
 </ul>

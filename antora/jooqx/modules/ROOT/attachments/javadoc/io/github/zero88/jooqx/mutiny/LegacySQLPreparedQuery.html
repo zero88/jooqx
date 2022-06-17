@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":9,"i3":10,"i4":10,"i5":10,"i6":9,"i7":10,"i8":10};
+var data = {"i0":10,"i1":10,"i2":9,"i3":10,"i4":10,"i5":10,"i6":9,"i7":10,"i8":10,"i9":10,"i10":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -244,11 +244,23 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#routine(org.jooq.Configuration,org.jooq.Routine)">routine</a></span>&#8203;(org.jooq.Configuration&nbsp;configuration,
+       org.jooq.Routine&nbsp;routine)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>io.vertx.core.json.JsonArray</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#routineValues(org.jooq.Routine,io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">routineValues</a></span>&#8203;(org.jooq.Routine&nbsp;routine,
+             <a href="../datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;mapperRegistry)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i9" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sql(org.jooq.Configuration,org.jooq.Query)">sql</a></span>&#8203;(org.jooq.Configuration&nbsp;configuration,
    org.jooq.Query&nbsp;query)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
@@ -414,6 +426,26 @@ extends java.lang.Object</pre>
 <pre class="methodSignature">public&nbsp;java.util.List&lt;io.vertx.core.json.JsonArray&gt;&nbsp;bindValues&#8203;(org.jooq.Query&nbsp;query,
                                                                <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
                                                                <a href="../datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;mapperRegistry)</pre>
+</li>
+</ul>
+<a id="routine(org.jooq.Configuration,org.jooq.Routine)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>routine</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;routine&#8203;(org.jooq.Configuration&nbsp;configuration,
+                                org.jooq.Routine&nbsp;routine)</pre>
+</li>
+</ul>
+<a id="routineValues(org.jooq.Routine,io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>routineValues</h4>
+<pre class="methodSignature">public&nbsp;io.vertx.core.json.JsonArray&nbsp;routineValues&#8203;(org.jooq.Routine&nbsp;routine,
+                                                  <a href="../datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;mapperRegistry)</pre>
 </li>
 </ul>
 <a id="newInstance(io.github.zero88.jooqx.LegacySQLPreparedQuery)">

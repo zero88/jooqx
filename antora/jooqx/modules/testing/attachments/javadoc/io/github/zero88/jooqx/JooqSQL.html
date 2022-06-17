@@ -26,8 +26,8 @@
     catch(err) {
     }
 //-->
-var data = {"i0":18,"i1":18,"i2":18,"i3":18,"i4":6};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],16:["t5","Default Methods"]};
+var data = {"i0":18,"i1":18,"i2":18,"i3":1,"i4":18,"i5":1,"i6":1,"i7":6};
+var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],16:["t5","Default Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -151,7 +151,7 @@ extends io.github.zero88.jooqx.JooqDSLProvider, io.github.zero88.jooqx.provider.
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t5" class="tableTab"><span><a href="javascript:show(16);">Default Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t5" class="tableTab"><span><a href="javascript:show(16);">Default Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Method</th>
@@ -177,6 +177,12 @@ extends io.github.zero88.jooqx.JooqDSLProvider, io.github.zero88.jooqx.provider.
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i3" class="rowColor">
+<td class="colFirst"><code>static java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#extractParam(org.jooq.Parameter,org.jooq.Param)">extractParam</a></span>&#8203;(org.jooq.Parameter&lt;?&gt;&nbsp;p,
+            org.jooq.Param&lt;?&gt;&nbsp;inValue)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>default void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#prepareDatabase(io.vertx.junit5.VertxTestContext,org.jooq.DSLContext,java.lang.String...)">prepareDatabase</a></span>&#8203;(@NotNull io.vertx.junit5.VertxTestContext&nbsp;context,
                @NotNull org.jooq.DSLContext&nbsp;dsl,
@@ -185,7 +191,18 @@ extends io.github.zero88.jooqx.JooqDSLProvider, io.github.zero88.jooqx.provider.
 <div class="block">Prepare database when tear-up test case</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>static void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#printJooqRoutine(org.jooq.DSLContext,org.jooq.Routine)">printJooqRoutine</a></span>&#8203;(org.jooq.DSLContext&nbsp;dsl,
+                org.jooq.Routine&lt;?&gt;&nbsp;routine)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>static void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#printJooqRoutineResult(org.jooq.Routine)">printJooqRoutineResult</a></span>&#8203;(org.jooq.Routine&lt;?&gt;&nbsp;proc)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code><a href="JooqSQL.html" title="type parameter in JooqSQL">S</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#schema()">schema</a></span>()</code></th>
 <td class="colLast">
@@ -277,7 +294,7 @@ default&nbsp;@NotNull org.jooq.DSLContext&nbsp;dsl()</pre>
 <a id="prepareDatabase(io.vertx.junit5.VertxTestContext,org.jooq.DSLContext,java.lang.String...)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>prepareDatabase</h4>
 <pre class="methodSignature">default&nbsp;void&nbsp;prepareDatabase&#8203;(@NotNull
@@ -293,6 +310,35 @@ default&nbsp;@NotNull org.jooq.DSLContext&nbsp;dsl()</pre>
 <dd><code>dsl</code> - dsl</dd>
 <dd><code>files</code> - SQL files</dd>
 </dl>
+</li>
+</ul>
+<a id="printJooqRoutine(org.jooq.DSLContext,org.jooq.Routine)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>printJooqRoutine</h4>
+<pre class="methodSignature">static&nbsp;void&nbsp;printJooqRoutine&#8203;(org.jooq.DSLContext&nbsp;dsl,
+                             org.jooq.Routine&lt;?&gt;&nbsp;routine)</pre>
+</li>
+</ul>
+<a id="extractParam(org.jooq.Parameter,org.jooq.Param)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>extractParam</h4>
+<pre class="methodSignature">static&nbsp;java.lang.String&nbsp;extractParam&#8203;(org.jooq.Parameter&lt;?&gt;&nbsp;p,
+                                     org.jooq.Param&lt;?&gt;&nbsp;inValue)</pre>
+</li>
+</ul>
+<a id="printJooqRoutineResult(org.jooq.Routine)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>printJooqRoutineResult</h4>
+<pre class="methodSignature">static&nbsp;void&nbsp;printJooqRoutineResult&#8203;(org.jooq.Routine&lt;?&gt;&nbsp;proc)</pre>
 </li>
 </ul>
 </li>
