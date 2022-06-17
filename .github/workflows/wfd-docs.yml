@@ -47,7 +47,7 @@ jobs:
           submodules: 'true'
 
       - name: Import GPG key
-        uses: crazy-max/ghaction-import-gpg@v3
+        uses: crazy-max/ghaction-import-gpg@v5
         with:
           git-user-signingkey: true
           git-commit-gpgsign: true
