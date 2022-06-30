@@ -44,10 +44,12 @@ public interface LegacySQLPreparedQuery extends SQLPreparedQuery<JsonArray> {
     @NotNull List<JsonArray> bindValues(@NotNull Query query, @NotNull BindBatchValues bindBatchValues,
                                         @NotNull DataTypeMapperRegistry mapperRegistry);
 
+    @SuppressWarnings("rawtypes")
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
     @NotNull String routine(@NotNull Configuration configuration, @NotNull Routine routine);
 
+    @SuppressWarnings("rawtypes")
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
     @NotNull JsonArray routineValues(@NotNull Routine routine, @NotNull DataTypeMapperRegistry mapperRegistry);

@@ -228,17 +228,12 @@ final class JooqxSQLImpl {
 
         private void tweakDSLSetting() {
             final Settings settings = dsl().configuration().settings();
-            try {
-                final Class<?> pgConn = JooqxImpl.class.getClassLoader().loadClass("io.vertx.pgclient.PgConnection");
-                final Class<?> pgPool = JooqxImpl.class.getClassLoader().loadClass("io.vertx.pgclient.PgPool");
-                if (pgConn.isInstance(sqlClient()) || pgPool.isInstance(sqlClient())) {
-                    if (settings.getParamType() != ParamType.INDEXED) {
-                        return;
-                    }
-                    settings.setParamType(ParamType.NAMED);
+            if (Utils.isSpecificClient("io.vertx.pgclient.PgPool", sqlClient()) ||
+                Utils.isSpecificClient("io.vertx.pgclient.PgConnection", sqlClient())) {
+                if (settings.getParamType() != ParamType.INDEXED) {
+                    return;
                 }
-            } catch (ClassNotFoundException ex) {
-                //nothing happens with another SQL client
+                settings.setParamType(ParamType.NAMED);
             }
         }
 

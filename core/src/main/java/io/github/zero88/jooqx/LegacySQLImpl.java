@@ -18,7 +18,9 @@ import org.jooq.DDLQuery;
 import org.jooq.DSLContext;
 import org.jooq.Field;
 import org.jooq.Param;
+import org.jooq.Parameter;
 import org.jooq.Query;
+import org.jooq.Routine;
 import org.jooq.impl.DSL;
 
 import io.github.zero88.jooqx.MiscImpl.BatchResultImpl;
@@ -39,6 +41,7 @@ import io.vertx.ext.sql.SQLClient;
 import io.vertx.ext.sql.SQLConnection;
 import io.vertx.ext.sql.SQLOperations;
 import io.vertx.ext.sql.UpdateResult;
+import io.vertx.sqlclient.impl.ArrayTuple;
 
 @Deprecated
 final class LegacySQLImpl {
@@ -55,6 +58,16 @@ final class LegacySQLImpl {
                   .filter(entry -> !entry.getValue().isInline())
                   .forEachOrdered(etr -> array.add(registry.toDatabaseType(etr.getKey(), etr.getValue(), queryValue)));
             return array;
+        }
+
+        @SuppressWarnings({ "rawtypes", "unchecked" })
+        @Override
+        public @NotNull JsonArray routineValues(@NotNull Routine routine, @NotNull DataTypeMapperRegistry registry) {
+            final List<Parameter<?>> inParams = routine.getInParameters();
+            return inParams.stream()
+                           .collect(JsonArray::new, (t, p) -> t.add(
+                               registry.toDatabaseType(p.getName(), (Param<?>) routine.getInValue(p),
+                                                       (s, param) -> param.getValue())), (t1, t2) -> { });
         }
 
     }

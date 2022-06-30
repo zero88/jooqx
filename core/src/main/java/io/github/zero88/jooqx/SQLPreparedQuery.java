@@ -66,6 +66,7 @@ public interface SQLPreparedQuery<B> {
      * @return sql
      * @see Routine
      */
+    @SuppressWarnings("rawtypes")
     @NotNull String routine(@NotNull Configuration configuration, @NotNull Routine routine);
 
     /**
@@ -78,6 +79,7 @@ public interface SQLPreparedQuery<B> {
      * @see Routine
      * @see DataTypeMapperRegistry
      */
+    @SuppressWarnings("rawtypes")
     @NotNull B routineValues(@NotNull Routine routine, @NotNull DataTypeMapperRegistry mapperRegistry);
 
 }
