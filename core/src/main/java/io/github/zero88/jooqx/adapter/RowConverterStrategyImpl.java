@@ -11,16 +11,16 @@ import org.jooq.TableLike;
 
 import io.github.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
-final class RowConverterStrategyImpl<R extends Record, O> implements RowConverterStrategy<R, O> {
+final class RowConverterStrategyImpl<REC extends Record, R> implements RowConverterStrategy<REC, R> {
 
     private final SelectStrategy strategy;
     private final TableLike<? extends Record> table;
     private final DSLContext dsl;
     private final DataTypeMapperRegistry dataTypeRegistry;
-    private final SQLCollectorPart<R, O> collectorPart;
+    private final SQLCollectorPart<REC, R> collectorPart;
 
     public RowConverterStrategyImpl(SelectStrategy strategy, TableLike<? extends Record> table, DSLContext dsl,
-                                    DataTypeMapperRegistry dataTypeRegistry, SQLCollectorPart<R, O> collectorPart) {
+                                    DataTypeMapperRegistry dataTypeRegistry, SQLCollectorPart<REC, R> collectorPart) {
         this.strategy         = strategy;
         this.table            = table;
         this.dsl              = dsl;
@@ -40,10 +40,10 @@ final class RowConverterStrategyImpl<R extends Record, O> implements RowConverte
 
     @Override
     @SuppressWarnings("unchecked")
-    public @NotNull Collector<Field<?>, R, O> createCollector(@NotNull Function<Field<?>, Object> getValue) {
+    public @NotNull Collector<Field<?>, REC, R> createCollector(@NotNull Function<Field<?>, Object> getValue) {
         return Collector.of(() -> collectorPart.toRecord(dsl, table),
-                            (r, f) -> r.set((Field<Object>) f, dataTypeRegistry.toUserType(f, getValue.apply(f))),
-                            (r, r2) -> r2, collectorPart.converter());
+                            (rec, f) -> rec.set((Field<Object>) f, dataTypeRegistry.toUserType(f, getValue.apply(f))),
+                            (rec1, rec2) -> rec2, collectorPart.converter());
     }
 
 }

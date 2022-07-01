@@ -41,7 +41,6 @@ import io.vertx.ext.sql.SQLClient;
 import io.vertx.ext.sql.SQLConnection;
 import io.vertx.ext.sql.SQLOperations;
 import io.vertx.ext.sql.UpdateResult;
-import io.vertx.sqlclient.impl.ArrayTuple;
 
 @Deprecated
 final class LegacySQLImpl {
@@ -78,7 +77,7 @@ final class LegacySQLImpl {
 
         @NotNull
         @Override
-        public <T, R> List<R> collect(@NotNull ResultSet resultSet, @NotNull RowConverterStrategy<T, R> strategy) {
+        public <REC, R> List<R> collect(@NotNull ResultSet resultSet, @NotNull RowConverterStrategy<REC, R> strategy) {
             final Map<Field<?>, Integer> map = getColumnMap(resultSet, strategy::lookupField);
             final List<JsonArray> results = resultSet.getResults();
             if (strategy.strategy() == SelectStrategy.MANY) {
@@ -92,7 +91,7 @@ final class LegacySQLImpl {
                           .orElse(new ArrayList<>());
         }
 
-        private <T, R> R toRecord(RowConverterStrategy<T, R> strategy, Map<Field<?>, Integer> map, JsonArray row) {
+        private <REC, R> R toRecord(RowConverterStrategy<REC, R> strategy, Map<Field<?>, Integer> map, JsonArray row) {
             return map.keySet().stream().collect(strategy.createCollector(f -> row.getValue(map.get(f))));
         }
 

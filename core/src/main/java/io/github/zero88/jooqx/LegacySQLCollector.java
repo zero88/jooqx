@@ -28,6 +28,6 @@ public interface LegacySQLCollector extends SQLResultCollector<ResultSet>, SQLBa
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    @NotNull <T, R> List<R> collect(@NotNull ResultSet resultSet, @NotNull RowConverterStrategy<T, R> strategy);
+    @NotNull <REC, R> List<R> collect(@NotNull ResultSet resultSet, @NotNull RowConverterStrategy<REC, R> strategy);
 
 }

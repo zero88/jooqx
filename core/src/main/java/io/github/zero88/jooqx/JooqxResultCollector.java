@@ -25,6 +25,6 @@ public interface JooqxResultCollector extends SQLResultCollector<RowSet<Row>> {
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    @NotNull <T, R> List<R> collect(@NotNull RowSet<Row> resultSet, @NotNull RowConverterStrategy<T, R> strategy);
+    @NotNull <REC, R> List<R> collect(@NotNull RowSet<Row> resultSet, @NotNull RowConverterStrategy<REC, R> strategy);
 
 }

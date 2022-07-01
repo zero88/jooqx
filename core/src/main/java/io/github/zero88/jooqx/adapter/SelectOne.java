@@ -13,21 +13,21 @@ import io.github.zero88.jooqx.datatype.DataTypeMapperRegistry;
 /**
  * Select one result adapter that returns only one row
  *
- * @param <T> Type of jOOQ table like
- * @param <R> Type of jOOQ record
- * @param <I> Type of output
+ * @param <T>   Type of jOOQ table like
+ * @param <REC> Type of jOOQ record
+ * @param <R>   Type of output result
  * @see SQLResultOneAdapter
  * @since 1.0.0
  */
-public final class SelectOne<T extends TableLike<? extends Record>, R extends Record, I>
-    extends SQLResultAdapterImpl.SelectResultInternal<T, R, I, I> implements SQLResultOneAdapter<T, I> {
+public final class SelectOne<T extends TableLike<? extends Record>, REC extends Record, R>
+    extends SQLResultAdapterImpl.SelectResultInternal<T, REC, R, R> implements SQLResultOneAdapter<T, R> {
 
-    public SelectOne(@NotNull T table, @NotNull SQLCollectorPart<R, I> collectorPart) {
-        super(table, collectorPart);
+    public SelectOne(@NotNull T table, @NotNull SQLCollectorPart<REC, R> collectorFactory) {
+        super(table, collectorFactory);
     }
 
     @Override
-    public <RS> @Nullable I collect(@NotNull RS resultSet, @NotNull SQLResultCollector<RS> collector,
+    public <RS> @Nullable R collect(@NotNull RS resultSet, @NotNull SQLResultCollector<RS> collector,
                                     @NotNull DSLContext dsl, @NotNull DataTypeMapperRegistry registry) {
         return collector.collect(resultSet, createStrategy(registry, dsl)).stream().findFirst().orElse(null);
     }

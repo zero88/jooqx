@@ -13,37 +13,38 @@ import org.jooq.TableLike;
  * <p>
  * This collector part will be initialized in {@link SQLResultAdapter}
  *
- * @param <R> The type of jOOQ record
- * @param <I> The type of output object
+ * @param <REC> The type of jOOQ record
+ * @param <R>   The type of output object
  * @see RowConverterStrategy
  * @see SQLResultAdapter
  * @since 1.0.0
  */
-public class SQLCollectorPart<R extends Record, I> {
+public class SQLCollectorPart<REC extends Record, R> {
 
-    private final BiFunction<DSLContext, TableLike<? extends Record>, R> provider;
-    private final Function<R, I> converter;
+    private final BiFunction<DSLContext, TableLike<? extends Record>, REC> provider;
+    private final Function<REC, R> converter;
 
-    public SQLCollectorPart(BiFunction<DSLContext, TableLike<? extends Record>, R> provider, Function<R, I> converter) {
+    public SQLCollectorPart(BiFunction<DSLContext, TableLike<? extends Record>, REC> provider,
+                            Function<REC, R> converter) {
         this.provider  = provider;
         this.converter = converter;
     }
 
-    public Function<R, I> converter() { return converter; }
+    public Function<REC, R> converter() { return converter; }
 
-    public R toRecord(@NotNull DSLContext dsl, @NotNull TableLike<? extends Record> queryTable) {
+    public REC toRecord(@NotNull DSLContext dsl, @NotNull TableLike<? extends Record> queryTable) {
         return provider.apply(dsl, queryTable);
     }
 
-    protected BiFunction<DSLContext, TableLike<? extends Record>, R> provider() { return provider; }
+    protected BiFunction<DSLContext, TableLike<? extends Record>, REC> provider() { return provider; }
 
-    public static final class IdentityCollectorPart<R extends Record> extends SQLCollectorPart<R, R> {
+    public static final class IdentityCollectorPart<REC extends Record> extends SQLCollectorPart<REC, REC> {
 
-        public IdentityCollectorPart(BiFunction<DSLContext, TableLike<? extends Record>, R> provider) {
+        public IdentityCollectorPart(BiFunction<DSLContext, TableLike<? extends Record>, REC> provider) {
             super(provider, Function.identity());
         }
 
-        public <O> SQLCollectorPart<R, O> andThen(Function<R, O> converter) {
+        public <R> SQLCollectorPart<REC, R> andThen(Function<REC, R> converter) {
             return new SQLCollectorPart<>(provider(), converter);
         }
 

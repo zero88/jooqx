@@ -72,14 +72,14 @@ final class JooqxSQLImpl {
     static class ReactiveSQLRC implements JooqxResultCollector {
 
         @Override
-        public @NotNull <T, R> List<R> collect(@NotNull RowSet<Row> resultSet,
-                                               @NotNull RowConverterStrategy<T, R> strategy) {
+        public @NotNull <REC, R> List<R> collect(@NotNull RowSet<Row> resultSet,
+                                                 @NotNull RowConverterStrategy<REC, R> strategy) {
             return doCollect(resultSet, strategy, strategy.strategy());
         }
 
         @NotNull
-        protected <T, R> List<R> doCollect(RowSet<Row> resultSet, RowConverterStrategy<T, R> strategy,
-                                           SelectStrategy selectStrategy) {
+        protected <REC, R> List<R> doCollect(RowSet<Row> resultSet, RowConverterStrategy<REC, R> strategy,
+                                             SelectStrategy selectStrategy) {
             final List<R> records = new ArrayList<>();
             final RowIterator<Row> iterator = resultSet.iterator();
             if (selectStrategy == SelectStrategy.MANY) {
@@ -91,7 +91,7 @@ final class JooqxSQLImpl {
             return records;
         }
 
-        private <T, R> R toRecord(@NotNull RowConverterStrategy<T, R> strategy, @NotNull Row row) {
+        private <REC, R> R toRecord(@NotNull RowConverterStrategy<REC, R> strategy, @NotNull Row row) {
             return IntStream.range(0, row.size())
                             .mapToObj(row::getColumnName)
                             .map(strategy::lookupField)
@@ -105,8 +105,8 @@ final class JooqxSQLImpl {
     static final class ReactiveSQLBC extends ReactiveSQLRC implements JooqxBatchCollector {
 
         @Override
-        public @NotNull <T, R> List<R> collect(@NotNull RowSet<Row> resultSet,
-                                               @NotNull RowConverterStrategy<T, R> strategy) {
+        public @NotNull <REC, R> List<R> collect(@NotNull RowSet<Row> resultSet,
+                                                 @NotNull RowConverterStrategy<REC, R> strategy) {
             final List<R> records = new ArrayList<>();
             while (resultSet != null) {
                 final List<R> rows = doCollect(resultSet, strategy, SelectStrategy.FIRST_ONE);

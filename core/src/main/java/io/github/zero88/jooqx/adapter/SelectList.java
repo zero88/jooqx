@@ -14,21 +14,21 @@ import io.github.zero88.jooqx.datatype.DataTypeMapperRegistry;
 /**
  * Select list result adapter that returns list of output
  *
- * @param <T> Type of jOOQ table like
- * @param <R> Type of jOOQ record
- * @param <I> Type of each item in output
+ * @param <T>   Type of jOOQ table like
+ * @param <REC> Type of jOOQ record
+ * @param <R>   Type of each item in list result
  * @see SQLResultListAdapter
  * @since 1.0.0
  */
-public final class SelectList<T extends TableLike<? extends Record>, R extends Record, I>
-    extends SQLResultAdapterImpl.SelectResultInternal<T, R, I, List<I>> implements SQLResultListAdapter<T, I> {
+public final class SelectList<T extends TableLike<? extends Record>, REC extends Record, R>
+    extends SQLResultAdapterImpl.SelectResultInternal<T, REC, R, List<R>> implements SQLResultListAdapter<T, R> {
 
-    public SelectList(@NotNull T table, @NotNull SQLCollectorPart<R, I> collectorPart) {
-        super(table, collectorPart);
+    public SelectList(@NotNull T table, @NotNull SQLCollectorPart<REC, R> collectorFactory) {
+        super(table, collectorFactory);
     }
 
     @Override
-    public <RS> @NotNull List<I> collect(@NotNull RS resultSet, @NotNull SQLResultCollector<RS> collector,
+    public <RS> @NotNull List<R> collect(@NotNull RS resultSet, @NotNull SQLResultCollector<RS> collector,
                                          @NotNull DSLContext dsl, @NotNull DataTypeMapperRegistry registry) {
         return collector.collect(resultSet, createStrategy(registry, dsl));
     }

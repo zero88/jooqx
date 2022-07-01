@@ -16,9 +16,9 @@ abstract class SQLResultAdapterImpl<T extends TableLike<? extends Record>, O> im
         this.table = table;
     }
 
-    protected final <R extends Record, I> RowConverterStrategy<R, I> initStrategy(@NotNull DSLContext dsl,
-                                                                                  @NotNull DataTypeMapperRegistry registry,
-                                                                                  @NotNull SQLCollectorPart<R, I> collectorPart) {
+    protected final <REC extends Record, R> RowConverterStrategy<REC, R> initStrategy(@NotNull DSLContext dsl,
+                                                                                      @NotNull DataTypeMapperRegistry registry,
+                                                                                      @NotNull SQLCollectorPart<REC, R> collectorPart) {
         return new RowConverterStrategyImpl<>(strategy(), table(), dsl, registry, collectorPart);
     }
 

@@ -25,8 +25,8 @@ public interface SQLResultCollector<RS> {
     Logger LOGGER = LoggerFactory.getLogger(SQLResultCollector.class);
 
     @GenIgnore
-    default void warnManyResult(boolean tooManyResults, @NotNull SelectStrategy strategy) {
-        if (tooManyResults) {
+    default void warnManyResult(boolean moreThanOneRow, @NotNull SelectStrategy strategy) {
+        if (moreThanOneRow) {
             LOGGER.warn("Query strategy is [{}] but query result contains more than one row", strategy);
         }
     }
@@ -34,12 +34,12 @@ public interface SQLResultCollector<RS> {
     /**
      * Collect result set to an expectation result
      *
-     * @param <T>       the type of input elements to the reduction operation
+     * @param <REC>     the type of jOOQ record of the reduction operation
      * @param <R>       the result type of the reduction operation
      * @param resultSet result set
      * @param strategy  row converter strategy
      * @return list output
      */
-    @NotNull <T, R> List<R> collect(@NotNull RS resultSet, @NotNull RowConverterStrategy<T, R> strategy);
+    @NotNull <REC, R> List<R> collect(@NotNull RS resultSet, @NotNull RowConverterStrategy<REC, R> strategy);
 
 }

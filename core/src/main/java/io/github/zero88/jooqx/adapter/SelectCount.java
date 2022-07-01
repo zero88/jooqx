@@ -7,7 +7,6 @@ import org.jooq.DSLContext;
 import org.jooq.Record1;
 import org.jooq.TableLike;
 
-import io.github.zero88.jooqx.JsonRecord;
 import io.github.zero88.jooqx.SQLResultCollector;
 import io.github.zero88.jooqx.datatype.DataTypeMapperRegistry;
 
@@ -27,9 +26,9 @@ public final class SelectCount extends SelectAdhocOneResult<TableLike<Record1<In
     @Override
     public @NotNull <RS> Integer collect(@NotNull RS resultSet, @NotNull SQLResultCollector<RS> collector,
                                          @NotNull DSLContext dsl, @NotNull DataTypeMapperRegistry registry) {
-        final SQLCollectorPart<JsonRecord<?>, Integer> part = SQLResultAdapter.byJson()
-                                                                              .andThen(r -> r.get(0, Integer.class));
-        return collector.collect(resultSet, initStrategy(dsl, registry, part))
+        return collector.collect(resultSet, initStrategy(dsl, registry, SQLResultAdapter.byJson()
+                                                                                        .andThen(r -> r.get(0,
+                                                                                                            Integer.class))))
                         .stream()
                         .filter(Objects::nonNull)
                         .findFirst()
