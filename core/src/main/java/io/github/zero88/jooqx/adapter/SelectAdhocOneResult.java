@@ -1,22 +1,26 @@
 package io.github.zero88.jooqx.adapter;
 
-import org.jetbrains.annotations.NotNull;
-import org.jooq.Record;
-import org.jooq.TableLike;
+import java.util.List;
 
-import io.github.zero88.jooqx.adapter.SQLResultAdapter.SQLResultOneAdapter;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.jooq.Record;
 
 /**
  * Select Adhoc adapter for one result is a base class for custom {@code Select one} implementations in client code.
  *
- * @see SQLResultAdapter.SQLResultOneAdapter
+ * @see SQLResultAdapter
  * @since 1.0.0
  */
-public abstract class SelectAdhocOneResult<T extends TableLike<? extends Record>, R> extends SQLResultAdapterImpl<T, R>
-    implements SQLResultOneAdapter<T, R> {
+public abstract class SelectAdhocOneResult<ROW, RESULT> extends SQLResultAdapterImpl<ROW, RESULT>
+    implements SQLResultOneAdapter<ROW, RESULT> {
 
-    protected SelectAdhocOneResult(@NotNull T table) {
-        super(table);
+    protected SelectAdhocOneResult(@NotNull RecordFactory<? extends Record, ROW> recordFactory) {
+        super(recordFactory);
     }
+
+    public RESULT collect(@NotNull List<ROW> records) { return convert(records.stream().findFirst().orElse(null)); }
+
+    protected abstract RESULT convert(@Nullable ROW row);
 
 }

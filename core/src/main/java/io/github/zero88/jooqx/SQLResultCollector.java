@@ -1,14 +1,15 @@
 package io.github.zero88.jooqx;
 
-import java.util.List;
-
 import org.jetbrains.annotations.NotNull;
+import org.jooq.DSLContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.github.zero88.jooqx.adapter.RowConverterStrategy;
+import io.github.zero88.jooqx.adapter.SQLResultAdapter;
 import io.github.zero88.jooqx.adapter.SelectStrategy;
+import io.github.zero88.jooqx.datatype.DataTypeMapperRegistry;
 import io.vertx.codegen.annotations.GenIgnore;
+import io.vertx.codegen.annotations.Nullable;
 
 /**
  * Represents for a collector that collects {@code Vert.x SQL result} to an expectation output
@@ -32,14 +33,15 @@ public interface SQLResultCollector<RS> {
     }
 
     /**
-     * Collect result set to an expectation result
+     * Collect result set to an expectation result that defines in SQL result adapter
      *
-     * @param <REC>     the type of jOOQ record of the reduction operation
-     * @param <R>       the result type of the reduction operation
+     * @param <ROW>     the type of jOOQ record of the reduction operation
+     * @param <RESULT>  the result type of the reduction operation
      * @param resultSet result set
-     * @param strategy  row converter strategy
-     * @return list output
+     * @return an expectation result
+     * @see SQLResultAdapter
      */
-    @NotNull <REC, R> List<R> collect(@NotNull RS resultSet, @NotNull RowConverterStrategy<REC, R> strategy);
+    @Nullable <ROW, RESULT> RESULT collect(@NotNull RS resultSet, @NotNull SQLResultAdapter<ROW, RESULT> adapter,
+                                           @NotNull DSLContext dslContext, @NotNull DataTypeMapperRegistry registry);
 
 }

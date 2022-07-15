@@ -1,7 +1,6 @@
 package io.github.zero88.jooqx;
 
 import java.util.AbstractMap.SimpleEntry;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +9,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -20,6 +20,7 @@ import org.jooq.Field;
 import org.jooq.Param;
 import org.jooq.Parameter;
 import org.jooq.Query;
+import org.jooq.Record;
 import org.jooq.Routine;
 import org.jooq.impl.DSL;
 
@@ -27,7 +28,7 @@ import io.github.zero88.jooqx.MiscImpl.BatchResultImpl;
 import io.github.zero88.jooqx.SQLImpl.SQLEI;
 import io.github.zero88.jooqx.SQLImpl.SQLExecutorBuilderImpl;
 import io.github.zero88.jooqx.SQLImpl.SQLPQ;
-import io.github.zero88.jooqx.adapter.RowConverterStrategy;
+import io.github.zero88.jooqx.adapter.RecordFactory;
 import io.github.zero88.jooqx.adapter.SQLResultAdapter;
 import io.github.zero88.jooqx.adapter.SelectStrategy;
 import io.github.zero88.jooqx.datatype.DataTypeMapperRegistry;
@@ -75,29 +76,41 @@ final class LegacySQLImpl {
     @Deprecated
     static final class LegacySQLRC implements LegacySQLCollector {
 
-        @NotNull
         @Override
-        public <REC, R> List<R> collect(@NotNull ResultSet resultSet, @NotNull RowConverterStrategy<REC, R> strategy) {
-            final Map<Field<?>, Integer> map = getColumnMap(resultSet, strategy::lookupField);
+        public <ROW, RESULT> @Nullable RESULT collect(@NotNull ResultSet resultSet,
+                                                      @NotNull SQLResultAdapter<ROW, RESULT> adapter,
+                                                      @NotNull DSLContext dslContext,
+                                                      @NotNull DataTypeMapperRegistry registry) {
+            final Map<Field, Integer> map = getColumnMap(resultSet.getColumnNames(), adapter.recordFactory()::lookup);
             final List<JsonArray> results = resultSet.getResults();
-            if (strategy.strategy() == SelectStrategy.MANY) {
-                return results.stream().map(row -> toRecord(strategy, map, row)).collect(Collectors.toList());
+            final RecordFactory<? extends Record, ROW> recordFactory = adapter.recordFactory();
+            if (adapter.strategy() == SelectStrategy.MANY) {
+                return adapter.collect(results.stream()
+                                              .map(row -> toRecord(row, dslContext, registry, recordFactory, map))
+                                              .collect(Collectors.toList()));
             }
-            warnManyResult(results.size() > 1, strategy.strategy());
+            warnManyResult(results.size() > 1, adapter.strategy());
             return results.stream()
                           .findFirst()
-                          .map(row -> toRecord(strategy, map, row))
+                          .map(row -> toRecord(row, dslContext, registry, recordFactory, map))
                           .map(Collections::singletonList)
-                          .orElse(new ArrayList<>());
+                          .map(adapter::collect)
+                          .orElse(null);
         }
 
-        private <REC, R> R toRecord(RowConverterStrategy<REC, R> strategy, Map<Field<?>, Integer> map, JsonArray row) {
-            return map.keySet().stream().collect(strategy.createCollector(f -> row.getValue(map.get(f))));
+        private <REC extends Record, ROW> ROW toRecord(JsonArray row, DSLContext dsl, DataTypeMapperRegistry registry,
+                                                       RecordFactory<REC, ROW> recordFactory, Map<Field, Integer> map) {
+            return map.keySet()
+                      .stream()
+                      .collect(Collector.of(() -> recordFactory.create(dsl),
+                                            (rec, f) -> rec.set(f, registry.toUserType(f, row.getValue(map.get(f)))),
+                                            (rec1, rec2) -> rec2, recordFactory::convert));
         }
 
-        private Map<Field<?>, Integer> getColumnMap(ResultSet rs, Function<String, Field<?>> lookupField) {
-            return IntStream.range(0, rs.getNumColumns())
-                            .mapToObj(i -> Optional.ofNullable(lookupField.apply(rs.getColumnNames().get(i)))
+        private Map<Field, Integer> getColumnMap(List<String> columnNames,
+                                                 BiFunction<String, Integer, Field<?>> lookupField) {
+            return IntStream.range(0, columnNames.size())
+                            .mapToObj(i -> Optional.ofNullable(lookupField.apply(columnNames.get(i), i))
                                                    .map(f -> new SimpleEntry<>(f, i))
                                                    .orElse(null))
                             .filter(Objects::nonNull)
@@ -127,7 +140,7 @@ final class LegacySQLImpl {
             sqlClient().queryWithParams(preparedQuery().sql(dsl().configuration(), query),
                                         preparedQuery().bindValues(query, typeMapperRegistry()), promise);
             return promise.future()
-                          .map(rs -> adapter.collect(rs, resultCollector(), dsl(), typeMapperRegistry()))
+                          .map(rs -> resultCollector().collect(rs, adapter, dsl(), typeMapperRegistry()))
                           .otherwise(errorConverter()::reThrowError);
         }
 

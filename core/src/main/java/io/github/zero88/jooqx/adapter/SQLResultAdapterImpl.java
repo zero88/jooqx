@@ -1,44 +1,19 @@
 package io.github.zero88.jooqx.adapter;
 
 import org.jetbrains.annotations.NotNull;
-import org.jooq.DSLContext;
 import org.jooq.Record;
-import org.jooq.TableLike;
 
-import io.github.zero88.jooqx.datatype.DataTypeMapperRegistry;
-
-abstract class SQLResultAdapterImpl<T extends TableLike<? extends Record>, O> implements SQLResultAdapter<T, O> {
+abstract class SQLResultAdapterImpl<ROW, RESULT> implements SQLResultAdapter<ROW, RESULT> {
 
     @NotNull
-    private final T table;
+    private final RecordFactory<? extends Record, ROW> recordFactory;
 
-    protected SQLResultAdapterImpl(@NotNull T table) {
-        this.table = table;
+    protected SQLResultAdapterImpl(@NotNull RecordFactory<? extends Record, ROW> recordFactory) {
+        this.recordFactory = recordFactory;
     }
 
-    protected final <REC extends Record, R> RowConverterStrategy<REC, R> initStrategy(@NotNull DSLContext dsl,
-                                                                                      @NotNull DataTypeMapperRegistry registry,
-                                                                                      @NotNull SQLCollectorPart<REC, R> collectorPart) {
-        return new RowConverterStrategyImpl<>(strategy(), table(), dsl, registry, collectorPart);
-    }
-
-    @Override
-    public @NotNull T table() { return table; }
-
-    abstract static class SelectResultInternal<T extends TableLike<? extends Record>, R extends Record, I, O>
-        extends SQLResultAdapterImpl<T, O> {
-
-        private final SQLCollectorPart<R, I> collectorPart;
-
-        protected SelectResultInternal(@NotNull T table, @NotNull SQLCollectorPart<R, I> collectorPart) {
-            super(table);
-            this.collectorPart = collectorPart;
-        }
-
-        RowConverterStrategy<R, I> createStrategy(@NotNull DataTypeMapperRegistry registry, @NotNull DSLContext dsl) {
-            return initStrategy(dsl, registry, collectorPart);
-        }
-
+    public RecordFactory<? extends Record, ROW> recordFactory() {
+        return recordFactory;
     }
 
 }
