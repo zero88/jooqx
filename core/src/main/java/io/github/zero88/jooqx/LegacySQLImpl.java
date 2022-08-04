@@ -20,7 +20,6 @@ import org.jooq.Record;
 import org.jooq.Routine;
 import org.jooq.impl.DSL;
 
-import io.github.zero88.jooqx.MiscImpl.BatchResultImpl;
 import io.github.zero88.jooqx.SQLImpl.SQLEI;
 import io.github.zero88.jooqx.SQLImpl.SQLExecutorBuilderImpl;
 import io.github.zero88.jooqx.SQLImpl.SQLPQ;
@@ -148,7 +147,7 @@ final class LegacySQLImpl {
                                                                              typeMapperRegistry()), promise));
             return promise.future()
                           .map(r -> resultCollector().batchResultSize(r))
-                          .map(s -> BatchResultImpl.create(bindBatchValues.size(), s))
+                          .map(s -> BatchResult.create(bindBatchValues.size(), s))
                           .otherwise(errorConverter()::reThrowError);
         }
 

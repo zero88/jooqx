@@ -22,7 +22,6 @@ import org.jooq.conf.ParamType;
 import org.jooq.conf.Settings;
 import org.jooq.impl.DSL;
 
-import io.github.zero88.jooqx.MiscImpl.BatchResultImpl;
 import io.github.zero88.jooqx.SQLImpl.SQLEI;
 import io.github.zero88.jooqx.SQLImpl.SQLExecutorBuilderImpl;
 import io.github.zero88.jooqx.SQLImpl.SQLPQ;
@@ -275,7 +274,7 @@ final class JooqxSQLImpl {
             return sqlClient().preparedQuery(preparedQuery().sql(dsl().configuration(), query))
                               .executeBatch(preparedQuery().bindValues(query, bindBatchValues, typeMapperRegistry()))
                               .map(r -> new ReactiveSQLBC().batchResultSize(r))
-                              .map(s -> BatchResultImpl.create(bindBatchValues.size(), s))
+                              .map(s -> BatchResult.create(bindBatchValues.size(), s))
                               .otherwise(errorConverter()::reThrowError);
         }
 
@@ -286,7 +285,7 @@ final class JooqxSQLImpl {
             return sqlClient().preparedQuery(preparedQuery().sql(dsl().configuration(), query))
                               .executeBatch(preparedQuery().bindValues(query, bindBatchValues, typeMapperRegistry()))
                               .map(rs -> new ReactiveSQLBC().collect(rs, adapter, dsl(), typeMapperRegistry()))
-                              .map(rs -> BatchResultImpl.create(bindBatchValues.size(), rs))
+                              .map(rs -> BatchReturningResult.create(bindBatchValues.size(), rs))
                               .otherwise(errorConverter()::reThrowError);
         }
 

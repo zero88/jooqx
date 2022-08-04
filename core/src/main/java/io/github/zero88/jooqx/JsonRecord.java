@@ -19,7 +19,7 @@ public interface JsonRecord<R extends TableRecord<R>> extends TableRecord<R> {
     JsonObject toJson();
 
     static <R extends TableRecord<R>> JsonRecord<R> create(@NotNull TableLike<R> table) {
-        return new MiscImpl.JsonRecordImpl<>(table.asTable());
+        return new JsonRecordImpl<>(table.asTable());
     }
 
 }
