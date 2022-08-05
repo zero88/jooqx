@@ -35,7 +35,7 @@ class MySQLJDBCQueryTest extends MySQLJooqxTest<JDBCPool>
     @Test
     void test_query_count(VertxTestContext ctx) {
         final Checkpoint cp = ctx.checkpoint();
-        jooqx.execute(dsl -> dsl.select(DSL.count().as("count")).from(Tables.BOOKS), DSLAdapter.fetchCount())
+        jooqx.execute(dsl -> dsl.selectCount().from(Tables.BOOKS), DSLAdapter.fetchCount())
              .onSuccess(r -> ctx.verify(() -> {
                  Assertions.assertEquals(7, r);
                  cp.flag();
