@@ -88,7 +88,7 @@ loadScripts(document, 'script');</script>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
@@ -132,7 +132,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <hr>
 <pre>public interface <span class="typeNameLabel">JooqxResultCollector</span>
 extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>&lt;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;&gt;</pre>
-<div class="block">Represents for a collector that collects <code>Vert.x SQL result</code> to an expectation output</div>
+<div class="block">Represents for a collector that collects then transform <code>Vert.x SQL result</code> to an expectation output</div>
 <dl>
 <dt><span class="simpleTagLabel">Since:</span></dt>
 <dd>2.0.0</dd>
@@ -143,23 +143,6 @@ extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.j
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
-<!-- =========== FIELD SUMMARY =========== -->
-<section role="region">
-<ul class="blockList">
-<li class="blockList"><a id="field.summary">
-<!--   -->
-</a>
-<h3>Field Summary</h3>
-<ul class="blockList">
-<li class="blockList"><a id="fields.inherited.from.class.io.github.zero88.jooqx.SQLResultCollector">
-<!--   -->
-</a>
-<h3>Fields inherited from interface&nbsp;io.github.zero88.jooqx.<a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a></h3>
-<code><a href="SQLResultCollector.html#LOGGER">LOGGER</a></code></li>
-</ul>
-</li>
-</ul>
-</section>
 <!-- ========== METHOD SUMMARY =========== -->
 <section role="region">
 <ul class="blockList">
@@ -175,11 +158,13 @@ extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.j
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>@NotNull java.util.List&lt;R&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#collect(io.vertx.sqlclient.RowSet,io.github.zero88.jooqx.adapter.RowConverterStrategy)">collect</a></span>&#8203;(@NotNull io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;&nbsp;resultSet,
-       @NotNull <a href="adapter/RowConverterStrategy.html" title="interface in io.github.zero88.jooqx.adapter">RowConverterStrategy</a>&lt;T,&#8203;R&gt;&nbsp;strategy)</code></th>
+<td class="colFirst"><code>&lt;ROW,&#8203;RESULT&gt;<br>RESULT</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#collect(io.vertx.sqlclient.RowSet,io.github.zero88.jooqx.adapter.SQLResultAdapter,org.jooq.DSLContext,io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">collect</a></span>&#8203;(@NotNull io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;&nbsp;resultSet,
+       @NotNull <a href="adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;ROW,&#8203;RESULT&gt;&nbsp;adapter,
+       @NotNull org.jooq.DSLContext&nbsp;dslContext,
+       @NotNull <a href="datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;registry)</code></th>
 <td class="colLast">
-<div class="block">Collect result set to an expectation result</div>
+<div class="block">Collect result set to an expectation result that defines in SQL result adapter</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
@@ -188,13 +173,6 @@ extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.j
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
-<ul class="blockList">
-<li class="blockList"><a id="methods.inherited.from.class.io.github.zero88.jooqx.SQLResultCollector">
-<!--   -->
-</a>
-<h3>Methods inherited from interface&nbsp;io.github.zero88.jooqx.<a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a></h3>
-<code><a href="SQLResultCollector.html#warnManyResult(boolean,io.github.zero88.jooqx.adapter.SelectStrategy)">warnManyResult</a></code></li>
-</ul>
 </li>
 </ul>
 </section>
@@ -220,30 +198,35 @@ extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.j
 <pre class="methodSignature">static&nbsp;<a href="JooqxResultCollector.html" title="interface in io.github.zero88.jooqx">JooqxResultCollector</a>&nbsp;create()</pre>
 </li>
 </ul>
-<a id="collect(io.vertx.sqlclient.RowSet,io.github.zero88.jooqx.adapter.RowConverterStrategy)">
+<a id="collect(io.vertx.sqlclient.RowSet,io.github.zero88.jooqx.adapter.SQLResultAdapter,org.jooq.DSLContext,io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>collect</h4>
-<pre class="methodSignature">@NotNull
-&lt;T,&#8203;R&gt;&nbsp;@NotNull java.util.List&lt;R&gt;&nbsp;collect&#8203;(@NotNull
-                                               @NotNull io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;&nbsp;resultSet,
-                                               @NotNull
-                                               @NotNull <a href="adapter/RowConverterStrategy.html" title="interface in io.github.zero88.jooqx.adapter">RowConverterStrategy</a>&lt;T,&#8203;R&gt;&nbsp;strategy)</pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLResultCollector.html#collect(RS,io.github.zero88.jooqx.adapter.RowConverterStrategy)">SQLResultCollector</a></code></span></div>
-<div class="block">Collect result set to an expectation result</div>
+<pre class="methodSignature">&lt;ROW,&#8203;RESULT&gt;&nbsp;RESULT&nbsp;collect&#8203;(@NotNull
+                                  @NotNull io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;&nbsp;resultSet,
+                                  @NotNull
+                                  @NotNull <a href="adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;ROW,&#8203;RESULT&gt;&nbsp;adapter,
+                                  @NotNull
+                                  @NotNull org.jooq.DSLContext&nbsp;dslContext,
+                                  @NotNull
+                                  @NotNull <a href="datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;registry)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLResultCollector.html#collect(RS,io.github.zero88.jooqx.adapter.SQLResultAdapter,org.jooq.DSLContext,io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">SQLResultCollector</a></code></span></div>
+<div class="block">Collect result set to an expectation result that defines in SQL result adapter</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="SQLResultCollector.html#collect(RS,io.github.zero88.jooqx.adapter.RowConverterStrategy)">collect</a></code>&nbsp;in interface&nbsp;<code><a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>&lt;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;&gt;</code></dd>
+<dd><code><a href="SQLResultCollector.html#collect(RS,io.github.zero88.jooqx.adapter.SQLResultAdapter,org.jooq.DSLContext,io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">collect</a></code>&nbsp;in interface&nbsp;<code><a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>&lt;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;&gt;</code></dd>
 <dt><span class="paramLabel">Type Parameters:</span></dt>
-<dd><code>T</code> - the type of input elements to the reduction operation</dd>
-<dd><code>R</code> - the result type of the reduction operation</dd>
+<dd><code>ROW</code> - the type of jOOQ record of the reduction operation</dd>
+<dd><code>RESULT</code> - the type of result after the reduction operation</dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>resultSet</code> - result set</dd>
-<dd><code>strategy</code> - row converter strategy</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>list output</dd>
+<dd>an expectation result</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter"><code>SQLResultAdapter</code></a>, 
+<a href="datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype"><code>DataTypeMapperRegistry</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -299,7 +282,7 @@ extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.j
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>

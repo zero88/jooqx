@@ -226,7 +226,7 @@ jooqx.execute(q, DSLAdapter.fetchJsonRecord(q.asTable()))   <i class="conum" dat
 </div>
 </div>
 <div class="sect1">
-<h2 id="_by_table"><a class="anchor" href="#_by_table"></a>By Table</h2>
+<h2 id="_by_class"><a class="anchor" href="#_by_class"></a>By class</h2>
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
@@ -249,7 +249,7 @@ jooqx.execute(query, DSLAdapter.fetchMany(Tables.AUTHORS, Authors.class), ar -&g
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Books table = Tables.BOOKS;
 InsertResultStep&lt;BooksRecord&gt; insert = jooqx.dsl().insertInto(table, table.TITLE).values("aha").returning();
-jooqx.execute(insert, DSLAdapter.fetchOne(table, Collections.singletonList(table.ID)), ar -&gt; {
+jooqx.execute(insert, DSLAdapter.fetchOne(table.ID), ar -&gt; {
     Record record = ar.result();
     System.out.println(record.getValue(0));
 });</code></pre>

@@ -43,6 +43,7 @@
 <li><a href="io/github/zero88/jooqx/DSLAdapter.html" title="interface in io.github.zero88.jooqx"><span class="interfaceName">DSLAdapter</span></a></li>
 <li><a href="io/github/zero88/jooqx/spi/pg/datatype/DurationConverter.html" title="class in io.github.zero88.jooqx.spi.pg.datatype">DurationConverter</a></li>
 <li><a href="io/github/zero88/jooqx/provider/ErrorConverterProvider.html" title="interface in io.github.zero88.jooqx.provider"><span class="interfaceName">ErrorConverterProvider</span></a></li>
+<li><a href="io/github/zero88/jooqx/adapter/FieldWrapper.html" title="interface in io.github.zero88.jooqx.adapter"><span class="interfaceName">FieldWrapper</span></a></li>
 <li><a href="io/github/zero88/jooqx/spi/h2/H2FileProvider.html" title="interface in io.github.zero88.jooqx.spi.h2"><span class="interfaceName">H2FileProvider</span></a></li>
 <li><a href="io/github/zero88/jooqx/spi/h2/H2MemProvider.html" title="interface in io.github.zero88.jooqx.spi.h2"><span class="interfaceName">H2MemProvider</span></a></li>
 <li><a href="io/github/zero88/jooqx/provider/HasSQLDialect.html" title="interface in io.github.zero88.jooqx.provider"><span class="interfaceName">HasSQLDialect</span></a></li>
@@ -140,9 +141,10 @@
 <li><a href="io/github/zero88/jooqx/spi/pg/PgSQLClientParser.html" title="interface in io.github.zero88.jooqx.spi.pg"><span class="interfaceName">PgSQLClientParser</span></a></li>
 <li><a href="io/github/zero88/jooqx/spi/pg/PgSQLErrorConverterProvider.html" title="interface in io.github.zero88.jooqx.spi.pg"><span class="interfaceName">PgSQLErrorConverterProvider</span></a></li>
 <li><a href="io/github/zero88/jooqx/spi/pg/datatype/PgTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.spi.pg.datatype">PgTypeMapperRegistry</a></li>
+<li><a href="io/github/zero88/jooqx/adapter/RecordFactory.html" title="interface in io.github.zero88.jooqx.adapter"><span class="interfaceName">RecordFactory</span></a></li>
+<li><a href="io/github/zero88/jooqx/adapter/RecordFactoryHelper.html" title="interface in io.github.zero88.jooqx.adapter"><span class="interfaceName">RecordFactoryHelper</span></a></li>
 <li><a href="io/github/zero88/jooqx/routine/RoutineExecutorDelegate.html" title="interface in io.github.zero88.jooqx.routine"><span class="interfaceName">RoutineExecutorDelegate</span></a></li>
 <li><a href="io/github/zero88/jooqx/routine/RoutineResult.html" title="interface in io.github.zero88.jooqx.routine"><span class="interfaceName">RoutineResult</span></a></li>
-<li><a href="io/github/zero88/jooqx/adapter/RowConverterStrategy.html" title="interface in io.github.zero88.jooqx.adapter"><span class="interfaceName">RowConverterStrategy</span></a></li>
 <li><a href="io/github/zero88/jooqx/spi/RuntimeJDBCErrorConverter.html" title="class in io.github.zero88.jooqx.spi">RuntimeJDBCErrorConverter</a></li>
 <li><a href="io/github/zero88/jooqx/adapter/SelectAdhocListResult.html" title="class in io.github.zero88.jooqx.adapter">SelectAdhocListResult</a></li>
 <li><a href="io/github/zero88/jooqx/adapter/SelectAdhocOneResult.html" title="class in io.github.zero88.jooqx.adapter">SelectAdhocOneResult</a></li>
@@ -164,8 +166,6 @@
 <li><a href="io/github/zero88/jooqx/provider/SQLClientProvider.html" title="interface in io.github.zero88.jooqx.provider"><span class="interfaceName">SQLClientProvider</span></a></li>
 <li><a href="io/github/zero88/jooqx/annotations/SQLClientSupport.html" title="annotation in io.github.zero88.jooqx.annotations">SQLClientSupport</a></li>
 <li><a href="io/github/zero88/jooqx/annotations/SQLClientType.html" title="enum in io.github.zero88.jooqx.annotations">SQLClientType</a></li>
-<li><a href="io/github/zero88/jooqx/adapter/SQLCollectorPart.html" title="class in io.github.zero88.jooqx.adapter">SQLCollectorPart</a></li>
-<li><a href="io/github/zero88/jooqx/adapter/SQLCollectorPart.IdentityCollectorPart.html" title="class in io.github.zero88.jooqx.adapter">SQLCollectorPart.IdentityCollectorPart</a></li>
 <li><a href="io/github/zero88/jooqx/mutiny/SQLDDLExecutor.html" title="interface in io.github.zero88.jooqx.mutiny"><span class="interfaceName">SQLDDLExecutor</span></a></li>
 <li><a href="io/github/zero88/jooqx/reactivex/SQLDDLExecutor.html" title="interface in io.github.zero88.jooqx.reactivex"><span class="interfaceName">SQLDDLExecutor</span></a></li>
 <li><a href="io/github/zero88/jooqx/rxjava3/SQLDDLExecutor.html" title="interface in io.github.zero88.jooqx.rxjava3"><span class="interfaceName">SQLDDLExecutor</span></a></li>
@@ -185,9 +185,11 @@
 <li><a href="io/github/zero88/jooqx/rxjava3/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx.rxjava3"><span class="interfaceName">SQLQueryExecutor</span></a></li>
 <li><a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx"><span class="interfaceName">SQLQueryExecutor</span></a></li>
 <li><a href="io/github/zero88/jooqx/adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter"><span class="interfaceName">SQLResultAdapter</span></a></li>
-<li><a href="io/github/zero88/jooqx/adapter/SQLResultAdapter.SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter"><span class="interfaceName">SQLResultAdapter.SQLResultListAdapter</span></a></li>
-<li><a href="io/github/zero88/jooqx/adapter/SQLResultAdapter.SQLResultOneAdapter.html" title="interface in io.github.zero88.jooqx.adapter"><span class="interfaceName">SQLResultAdapter.SQLResultOneAdapter</span></a></li>
 <li><a href="io/github/zero88/jooqx/SQLResultCollector.html" title="interface in io.github.zero88.jooqx"><span class="interfaceName">SQLResultCollector</span></a></li>
+<li><a href="io/github/zero88/jooqx/adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter"><span class="interfaceName">SQLResultListAdapter</span></a></li>
+<li><a href="io/github/zero88/jooqx/adapter/SQLResultListAdapter.SQLResultIdentityListAdapter.html" title="interface in io.github.zero88.jooqx.adapter"><span class="interfaceName">SQLResultListAdapter.SQLResultIdentityListAdapter</span></a></li>
+<li><a href="io/github/zero88/jooqx/adapter/SQLResultOneAdapter.html" title="interface in io.github.zero88.jooqx.adapter"><span class="interfaceName">SQLResultOneAdapter</span></a></li>
+<li><a href="io/github/zero88/jooqx/adapter/SQLResultOneAdapter.SQLResultIdentityOneAdapter.html" title="interface in io.github.zero88.jooqx.adapter"><span class="interfaceName">SQLResultOneAdapter.SQLResultIdentityOneAdapter</span></a></li>
 <li><a href="io/github/zero88/jooqx/mutiny/SQLRoutineExecutor.html" title="interface in io.github.zero88.jooqx.mutiny"><span class="interfaceName">SQLRoutineExecutor</span></a></li>
 <li><a href="io/github/zero88/jooqx/reactivex/SQLRoutineExecutor.html" title="interface in io.github.zero88.jooqx.reactivex"><span class="interfaceName">SQLRoutineExecutor</span></a></li>
 <li><a href="io/github/zero88/jooqx/rxjava3/SQLRoutineExecutor.html" title="interface in io.github.zero88.jooqx.rxjava3"><span class="interfaceName">SQLRoutineExecutor</span></a></li>
