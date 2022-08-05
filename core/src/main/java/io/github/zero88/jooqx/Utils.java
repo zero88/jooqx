@@ -20,7 +20,7 @@ public final class Utils {
         return isSpecificClient("io.vertx.ext.jdbc.JDBCClient", sqlClient);
     }
 
-    private static boolean isSpecificClient(String fqnSqlClassName, Object sqlClient) {
+    public static boolean isSpecificClient(String fqnSqlClassName, Object sqlClient) {
         if (sqlClient == null) {
             return false;
         }

@@ -1,16 +1,12 @@
 package io.github.zero88.jooqx.routine;
 
-import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.jetbrains.annotations.NotNull;
 import org.jooq.Field;
 import org.jooq.Record;
 import org.jooq.Routine;
-import org.jooq.Table;
 import org.jooq.impl.AbstractRoutine;
-import org.jooq.impl.DSL;
 
 import io.github.zero88.jooqx.DSLAdapter;
 import io.github.zero88.jooqx.JooqxBase;
@@ -37,7 +33,7 @@ class JDBCRoutineExecutor<S extends SqlClient> extends RoutineExecutorDelegateIm
     public <T> Future<RoutineResult> routineResult(@NotNull Routine<T> routine) {
         final AbstractRoutine<T> r = validate(routine);
         final Field<?>[] outFields = getRoutineOutputFields(r, r.asField(r.getName()));
-        final SelectOne<Table<Record>, Record, Record> adapter = createOutParamAdapter(outFields);
+        final SelectOne<Record> adapter = createOutParamAdapter(outFields);
         return routineResultSet(routine, adapter).map(record -> {
             final Record target = dsl().newRecord(outFields);
             target.fromArray(record.intoArray());
@@ -47,13 +43,12 @@ class JDBCRoutineExecutor<S extends SqlClient> extends RoutineExecutorDelegateIm
 
     @Override
     public <T, X, R> Future<@Nullable R> routineResultSet(@NotNull Routine<T> routine,
-                                                          @NotNull SQLResultAdapter<X, R> resultAdapter) {
+                                                          @NotNull SQLResultAdapter<X, R> adapter) {
         final Tuple bindValues = createBindValues(routine);
         return jooqx().sqlClient()
                       .preparedQuery(jooqx().preparedQuery().routine(dsl().configuration(), routine))
                       .execute(bindValues)
-                      .map(rs -> resultAdapter.collect(rs, jooqx().resultCollector(), dsl(),
-                                                       jooqx().typeMapperRegistry()))
+                      .map(rs -> jooqx().resultCollector().collect(rs, adapter, dsl(), jooqx().typeMapperRegistry()))
                       .otherwise(jooqx().errorConverter()::reThrowError);
     }
 
@@ -69,11 +64,10 @@ class JDBCRoutineExecutor<S extends SqlClient> extends RoutineExecutorDelegateIm
     }
 
     @NotNull
-    private SelectOne<Table<Record>, Record, Record> createOutParamAdapter(Field<?>[] outFields) {
-        final List<Field<?>> vertxOutFields = IntStream.range(0, outFields.length)
-                                                       .mapToObj(idx -> outFields[idx].as(String.valueOf(idx + 1)))
-                                                       .collect(Collectors.toList());
-        return DSLAdapter.fetchOne(DSL.table(dsl().newRecord(vertxOutFields)), vertxOutFields);
+    private SelectOne<Record> createOutParamAdapter(Field<?>[] outFields) {
+        return DSLAdapter.fetchOne(IntStream.range(0, outFields.length)
+                                            .mapToObj(idx -> outFields[idx].as(String.valueOf(idx + 1)))
+                                            .toArray(Field[]::new));
     }
 
 }

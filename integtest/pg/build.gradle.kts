@@ -14,6 +14,9 @@ dependencies {
     testImplementation(VertxLibs.pgsql)
     testImplementation(DatabaseLibs.pgsql)
     testImplementation(TestContainers.pgsql)
+
+    // For pg-14
+    testImplementation("com.ongres.scram:client:2.1")
 }
 val dbVersion = "postgresql:${(project.findProperty("dbImage") ?: "10-alpine")}"
 val dialect = "org.jooq.meta.postgres.PostgresDatabase"

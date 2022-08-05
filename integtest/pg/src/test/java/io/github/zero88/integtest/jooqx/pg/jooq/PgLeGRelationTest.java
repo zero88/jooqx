@@ -39,8 +39,7 @@ class PgLeGRelationTest extends PgSQLLegacyTest implements PgUseJooqType, JDBCEr
     @Test
     void test_query(VertxTestContext ctx) {
         final Books table = schema().BOOKS;
-        jooqx.execute(jooqx.dsl().selectFrom(table), DSLAdapter.fetchMany(table),
-                      ar -> assertResultSize(ctx, ar, 7));
+        jooqx.fetchMany(dsl -> dsl.selectFrom(table), ar -> assertResultSize(ctx, ar, 7));
     }
 
     @Test
@@ -73,17 +72,13 @@ class PgLeGRelationTest extends PgSQLLegacyTest implements PgUseJooqType, JDBCEr
                                                           .returning();
         jooqx.batch(insert, bindValues, ar -> {
             ctx.verify(() -> Assertions.assertEquals(3, ar.result().getSuccesses()));
-            jooqx.execute(jooqx.dsl().selectFrom(table), DSLAdapter.fetchJsonRecords(table),
-                          ar2 -> ctx.verify(() -> {
-                              final List<JsonRecord<?>> records = assertResultSize(ctx, ar2, 10);
-                              Assertions.assertEquals(new JsonObject().put("id", 8).put("title", "abc"),
-                                                      records.get(7).toJson());
-                              Assertions.assertEquals(new JsonObject().put("id", 9).put("title", "xyz"),
-                                                      records.get(8).toJson());
-                              Assertions.assertEquals(new JsonObject().put("id", 10).put("title", "qwe"),
-                                                      records.get(9).toJson());
-                              flag.flag();
-                          }));
+            jooqx.execute(jooqx.dsl().selectFrom(table), DSLAdapter.fetchJsonRecords(table), ar2 -> ctx.verify(() -> {
+                final List<JsonRecord<?>> records = assertResultSize(ctx, ar2, 10);
+                Assertions.assertEquals(new JsonObject().put("id", 8).put("title", "abc"), records.get(7).toJson());
+                Assertions.assertEquals(new JsonObject().put("id", 9).put("title", "xyz"), records.get(8).toJson());
+                Assertions.assertEquals(new JsonObject().put("id", 10).put("title", "qwe"), records.get(9).toJson());
+                flag.flag();
+            }));
         });
     }
 
@@ -122,12 +117,13 @@ class PgLeGRelationTest extends PgSQLLegacyTest implements PgUseJooqType, JDBCEr
         final BindBatchValues bindValues = new BindBatchValues().register(table.NAME, table.COUNTRY).add(i1, i2);
         jooqx.transaction()
              .run(tx -> tx.batch(tx.dsl().insertInto(table).set(bindValues.getDummyValues()), bindValues), result -> {
-                 assertJooqException(ctx, result, SQLStateClass.C23_INTEGRITY_CONSTRAINT_VIOLATION,
-                                     "Batch entry 1 insert into \"public\".\"authors\" (\"name\", " +
-                                     "\"country\") values ('n2', NULL) was aborted: ERROR: null value" +
-                                     " in column \"country\" violates not-null constraint\n" +
-                                     "  Detail: Failing row contains (10, n2, null).  Call " +
-                                     "getNextException to see other errors in the batch.");
+                 // Inconsistent msg in pg < 14 and pg >=14
+                 //                 "Batch entry 1 insert into \"public\".\"authors\" (\"name\", " +
+                 //                 "\"country\") values ('n2', NULL) was aborted: ERROR: null value" +
+                 //                 " in column \"country\" violates not-null constraint\n" +
+                 //                 "  Detail: Failing row contains (10, n2, null).  Call " +
+                 //                 "getNextException to see other errors in the batch."
+                 assertJooqException(ctx, result, SQLStateClass.C23_INTEGRITY_CONSTRAINT_VIOLATION);
                  jooqx.execute(jooqx.dsl().selectFrom(table), DSLAdapter.fetchMany(table), ar2 -> {
                      assertResultSize(ctx, ar2, 8);
                      flag.flag();

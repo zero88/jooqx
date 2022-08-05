@@ -12,6 +12,10 @@ import io.vertx.core.Handler;
  */
 public interface BatchResult {
 
+    static BatchResult create(int total, int successes) {
+        return new BatchResultImpl(total, successes);
+    }
+
     int getTotal();
 
     int getSuccesses();

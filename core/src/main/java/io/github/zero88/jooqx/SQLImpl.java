@@ -147,6 +147,7 @@ final class SQLImpl {
             return this.convert(query.getParams(), bindBatchValues, mapperRegistry);
         }
 
+        @SuppressWarnings("rawtypes")
         @Override
         public @NotNull String routine(@NotNull Configuration configuration, @NotNull Routine routine) {
             final DSLContext dsl = configuration.dsl();
@@ -161,12 +162,6 @@ final class SQLImpl {
                 LOGGER.debug("Prepared Query:          {}", sql);
             }
             return sql;
-        }
-
-        @Override
-        public @NotNull T routineValues(@NotNull Routine routine, @NotNull DataTypeMapperRegistry mapperRegistry) {
-            //FIXME implement
-            return null;
         }
 
         protected abstract T doConvert(Map<String, Param<?>> params, DataTypeMapperRegistry registry,

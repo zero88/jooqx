@@ -1,17 +1,18 @@
 package io.github.zero88.jooqx;
 
-import java.util.List;
-
 import org.jetbrains.annotations.NotNull;
+import org.jooq.DSLContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import io.github.zero88.jooqx.adapter.RowConverterStrategy;
+import io.github.zero88.jooqx.adapter.SQLResultAdapter;
 import io.github.zero88.jooqx.adapter.SelectStrategy;
+import io.github.zero88.jooqx.datatype.DataTypeMapperRegistry;
 import io.vertx.codegen.annotations.GenIgnore;
+import io.vertx.codegen.annotations.Nullable;
 
 /**
- * Represents for a collector that collects {@code Vert.x SQL result} to an expectation output
+ * Represents for a collector that collects and transforms {@code Vert.x SQL result} to an expectation output
  *
  * @param <RS> Type of Vertx SQL result set
  * @see LegacySQLCollector
@@ -21,25 +22,18 @@ import io.vertx.codegen.annotations.GenIgnore;
  */
 public interface SQLResultCollector<RS> {
 
-    @GenIgnore
-    Logger LOGGER = LoggerFactory.getLogger(SQLResultCollector.class);
-
-    @GenIgnore
-    default void warnManyResult(boolean tooManyResults, @NotNull SelectStrategy strategy) {
-        if (tooManyResults) {
-            LOGGER.warn("Query strategy is [{}] but query result contains more than one row", strategy);
-        }
-    }
-
     /**
-     * Collect result set to an expectation result
+     * Collect result set to an expectation result that defines in SQL result adapter
      *
-     * @param <T>       the type of input elements to the reduction operation
-     * @param <R>       the result type of the reduction operation
+     * @param <ROW>     the type of jOOQ record of the reduction operation
+     * @param <RESULT>  the type of result after the reduction operation
      * @param resultSet result set
-     * @param strategy  row converter strategy
-     * @return list output
+     * @return an expectation result
+     * @see SQLResultAdapter
+     * @see DataTypeMapperRegistry
+     * @since 2.0.0
      */
-    @NotNull <T, R> List<R> collect(@NotNull RS resultSet, @NotNull RowConverterStrategy<T, R> strategy);
+    @Nullable <ROW, RESULT> RESULT collect(@NotNull RS resultSet, @NotNull SQLResultAdapter<ROW, RESULT> adapter,
+                                           @NotNull DSLContext dslContext, @NotNull DataTypeMapperRegistry registry);
 
 }

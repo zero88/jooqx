@@ -1,7 +1,5 @@
 package io.github.zero88.integtest.jooqx.pg.jooq;
 
-import java.util.Collections;
-
 import org.jooq.InsertResultStep;
 import org.jooq.SelectConditionStep;
 import org.jooq.exception.SQLStateClass;
@@ -39,7 +37,7 @@ class PgReAFailedTest extends PgSQLJooqxTest<PgConnection>
                                                           .insertInto(table, table.ID, table.TITLE)
                                                           .values(1, "abc")
                                                           .returning(table.ID);
-        jooqx.execute(insert, DSLAdapter.fetchOne(table, Collections.singletonList(table.ID)),
+        jooqx.execute(insert, DSLAdapter.fetchOne(table.ID),
                       ar -> assertJooqException(ctx, ar, SQLStateClass.C23_INTEGRITY_CONSTRAINT_VIOLATION,
                                                 "duplicate key value violates unique constraint \"books_pkey\"",
                                                 PgException.class));
@@ -50,7 +48,7 @@ class PgReAFailedTest extends PgSQLJooqxTest<PgConnection>
         final Checkpoint flag = ctx.checkpoint();
         final Books table = schema().BOOKS;
         final SelectConditionStep<BooksRecord> insert = jooqx.dsl().selectFrom(table).where(table.ID.eq(1000));
-        jooqx.execute(insert, DSLAdapter.fetchOne(table, Collections.singletonList(table.ID)), ar -> ctx.verify(() -> {
+        jooqx.execute(insert, DSLAdapter.fetchOne(table.ID), ar -> ctx.verify(() -> {
             Assertions.assertNull(assertSuccess(ctx, ar));
             flag.flag();
         }));

@@ -3,10 +3,13 @@ package io.github.zero88.jooqx;
 import java.util.List;
 
 import org.jetbrains.annotations.NotNull;
+import org.jooq.DSLContext;
 
 import io.github.zero88.jooqx.LegacySQLImpl.LegacySQLRC;
-import io.github.zero88.jooqx.adapter.RowConverterStrategy;
+import io.github.zero88.jooqx.adapter.SQLResultAdapter;
+import io.github.zero88.jooqx.datatype.DataTypeMapperRegistry;
 import io.vertx.codegen.annotations.GenIgnore;
+import io.vertx.codegen.annotations.Nullable;
 import io.vertx.codegen.annotations.VertxGen;
 import io.vertx.ext.sql.ResultSet;
 
@@ -28,6 +31,7 @@ public interface LegacySQLCollector extends SQLResultCollector<ResultSet>, SQLBa
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    @NotNull <T, R> List<R> collect(@NotNull ResultSet resultSet, @NotNull RowConverterStrategy<T, R> strategy);
+    <ROW, RESULT> @Nullable RESULT collect(@NotNull ResultSet resultSet, @NotNull SQLResultAdapter<ROW, RESULT> adapter,
+                                           @NotNull DSLContext dslContext, @NotNull DataTypeMapperRegistry registry);
 
 }

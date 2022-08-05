@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jooq.DSLContext;
 import org.jooq.Query;
 
-import io.github.zero88.jooqx.adapter.SQLResultAdapter.SQLResultListAdapter;
+import io.github.zero88.jooqx.adapter.SQLResultListAdapter;
 import io.vertx.codegen.annotations.GenIgnore;
 import io.vertx.codegen.annotations.VertxGen;
 import io.vertx.core.AsyncResult;
