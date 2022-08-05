@@ -22,16 +22,6 @@ import io.vertx.codegen.annotations.Nullable;
  */
 public interface SQLResultCollector<RS> {
 
-    @GenIgnore
-    Logger LOGGER = LoggerFactory.getLogger(SQLResultCollector.class);
-
-    @GenIgnore
-    default void warnManyResult(boolean moreThanOneRow, @NotNull SelectStrategy strategy) {
-        if (moreThanOneRow) {
-            LOGGER.warn("Query strategy is [{}] but query result contains more than one row", strategy);
-        }
-    }
-
     /**
      * Collect result set to an expectation result that defines in SQL result adapter
      *

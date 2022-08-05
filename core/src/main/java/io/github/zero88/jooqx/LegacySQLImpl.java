@@ -18,6 +18,7 @@ import org.jooq.Parameter;
 import org.jooq.Query;
 import org.jooq.Record;
 import org.jooq.Routine;
+import org.jooq.exception.TooManyRowsException;
 import org.jooq.impl.DSL;
 
 import io.github.zero88.jooqx.SQLImpl.SQLEI;
@@ -86,7 +87,9 @@ final class LegacySQLImpl {
                                                                 .collect(collector(row, dsl, registry, recordFactory)))
                                               .collect(Collectors.toList()));
             }
-            warnManyResult(results.size() > 1, adapter.strategy());
+            if (results.size() > 1) {
+                throw new TooManyRowsException();
+            }
             return results.stream()
                           .findFirst()
                           .map(row -> fields.stream().collect(collector(row, dsl, registry, recordFactory)))

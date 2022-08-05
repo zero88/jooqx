@@ -10,6 +10,7 @@ import org.jooq.Record1;
 import org.jooq.SelectConditionStep;
 import org.jooq.SelectForUpdateStep;
 import org.jooq.SelectWhereStep;
+import org.jooq.exception.TooManyRowsException;
 import org.jooq.impl.DSL;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -136,13 +137,13 @@ class PgReARelationTest extends PgSQLJooqxTest<PgConnection> implements PgConnPr
                                                           .selectFrom(table)
                                                           .where(table.COUNTRY.eq("USA"))
                                                           .orderBy(table.ID.desc());
-        jooqx.execute(q, DSLAdapter.fetchJsonRecord(q.asTable()), ar -> ctx.verify(() -> {
-            final JsonRecord<?> result = ar.result();
-            Assertions.assertNotNull(result);
-            Assertions.assertEquals(new JsonObject("{\"id\":8,\"name\":\"Christian Wenz\",\"country\":\"USA\"}"),
-                                    result.toJson());
-            flag.flag();
-        }));
+        jooqx.execute(q, DSLAdapter.fetchJsonRecord(q.asTable()))
+             .onSuccess(event -> ctx.failNow("Should failed with TooManyRowsException"))
+             .onFailure(t -> ctx.verify(() -> {
+                 t.printStackTrace();
+                 Assertions.assertTrue(t instanceof TooManyRowsException);
+                 flag.flag();
+             }));
     }
 
     @Test

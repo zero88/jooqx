@@ -20,6 +20,7 @@ import org.jooq.Record;
 import org.jooq.Routine;
 import org.jooq.conf.ParamType;
 import org.jooq.conf.Settings;
+import org.jooq.exception.TooManyRowsException;
 import org.jooq.impl.DSL;
 
 import io.github.zero88.jooqx.SQLImpl.SQLEI;
@@ -98,8 +99,11 @@ final class JooqxSQLImpl {
             if (strategy == SelectStrategy.MANY) {
                 iterator.forEachRemaining(row -> records.add(fn.apply(row)));
             } else if (iterator.hasNext()) {
-                records.add(fn.apply(iterator.next()));
-                warnManyResult(iterator.hasNext(), strategy);
+                final Row row = iterator.next();
+                if (iterator.hasNext()) {
+                    throw new TooManyRowsException();
+                }
+                records.add(fn.apply(row));
             }
             return records;
         }
