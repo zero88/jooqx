@@ -19,7 +19,7 @@ public abstract class SelectAdhocOneResult<ROW, RESULT> extends SQLResultAdapter
         super(recordFactory);
     }
 
-    public RESULT collect(@NotNull List<ROW> records) { return convert(records.stream().findFirst().orElse(null)); }
+    public RESULT collect(@NotNull List<ROW> rows) { return convert(rows.stream().findFirst().orElse(null)); }
 
     protected abstract RESULT convert(@Nullable ROW row);
 

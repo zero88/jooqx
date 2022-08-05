@@ -18,7 +18,7 @@ public interface SQLResultOneAdapter<ROW, RESULT> extends SQLResultAdapter<ROW, 
 
     interface SQLResultIdentityOneAdapter<ROW> extends SQLResultOneAdapter<ROW, ROW> {
 
-        default ROW collect(@NotNull List<ROW> records) { return records.stream().findFirst().orElse(null); }
+        default ROW collect(@NotNull List<ROW> rows) { return rows.stream().findFirst().orElse(null); }
 
     }
 

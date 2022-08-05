@@ -13,7 +13,7 @@ import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.RowSet;
 
 /**
- * Represents for a collector that collects {@code Vert.x SQL result} to an expectation output
+ * Represents for a collector that collects then transform {@code Vert.x SQL result} to an expectation output
  *
  * @since 2.0.0
  */

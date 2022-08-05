@@ -1,12 +1,9 @@
 package io.github.zero88.jooqx;
 
-import java.util.AbstractMap.SimpleEntry;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collector;
@@ -16,7 +13,6 @@ import java.util.stream.IntStream;
 import org.jetbrains.annotations.NotNull;
 import org.jooq.DDLQuery;
 import org.jooq.DSLContext;
-import org.jooq.Field;
 import org.jooq.Param;
 import org.jooq.Parameter;
 import org.jooq.Query;
@@ -28,6 +24,7 @@ import io.github.zero88.jooqx.MiscImpl.BatchResultImpl;
 import io.github.zero88.jooqx.SQLImpl.SQLEI;
 import io.github.zero88.jooqx.SQLImpl.SQLExecutorBuilderImpl;
 import io.github.zero88.jooqx.SQLImpl.SQLPQ;
+import io.github.zero88.jooqx.adapter.FieldWrapper;
 import io.github.zero88.jooqx.adapter.RecordFactory;
 import io.github.zero88.jooqx.adapter.SQLResultAdapter;
 import io.github.zero88.jooqx.adapter.SelectStrategy;
@@ -79,42 +76,41 @@ final class LegacySQLImpl {
         @Override
         public <ROW, RESULT> @Nullable RESULT collect(@NotNull ResultSet resultSet,
                                                       @NotNull SQLResultAdapter<ROW, RESULT> adapter,
-                                                      @NotNull DSLContext dslContext,
+                                                      @NotNull DSLContext dsl,
                                                       @NotNull DataTypeMapperRegistry registry) {
-            final Map<Field, Integer> map = getColumnMap(resultSet.getColumnNames(), adapter.recordFactory()::lookup);
-            final List<JsonArray> results = resultSet.getResults();
             final RecordFactory<? extends Record, ROW> recordFactory = adapter.recordFactory();
+            final List<FieldWrapper> fields = getColumns(resultSet.getColumnNames(), recordFactory::lookup);
+            final List<JsonArray> results = resultSet.getResults();
             if (adapter.strategy() == SelectStrategy.MANY) {
                 return adapter.collect(results.stream()
-                                              .map(row -> toRecord(row, dslContext, registry, recordFactory, map))
+                                              .map(row -> fields.stream()
+                                                                .collect(collector(row, dsl, registry, recordFactory)))
                                               .collect(Collectors.toList()));
             }
             warnManyResult(results.size() > 1, adapter.strategy());
             return results.stream()
                           .findFirst()
-                          .map(row -> toRecord(row, dslContext, registry, recordFactory, map))
+                          .map(row -> fields.stream().collect(collector(row, dsl, registry, recordFactory)))
                           .map(Collections::singletonList)
                           .map(adapter::collect)
                           .orElse(null);
         }
 
-        private <REC extends Record, ROW> ROW toRecord(JsonArray row, DSLContext dsl, DataTypeMapperRegistry registry,
-                                                       RecordFactory<REC, ROW> recordFactory, Map<Field, Integer> map) {
-            return map.keySet()
-                      .stream()
-                      .collect(Collector.of(() -> recordFactory.create(dsl),
-                                            (rec, f) -> rec.set(f, registry.toUserType(f, row.getValue(map.get(f)))),
-                                            (rec1, rec2) -> rec2, recordFactory::convert));
+        @NotNull
+        private <REC extends Record, ROW> Collector<FieldWrapper, REC, ROW> collector(JsonArray row, DSLContext dsl,
+                                                                                      DataTypeMapperRegistry registry,
+                                                                                      RecordFactory<REC, ROW> recordFactory) {
+            return Collector.of(() -> recordFactory.create(dsl),
+                                (rec, f) -> rec.set(f.field(), registry.toUserType(f.field(), row.getValue(f.colNo()))),
+                                (rec1, rec2) -> rec2, recordFactory::map);
         }
 
-        private Map<Field, Integer> getColumnMap(List<String> columnNames,
-                                                 BiFunction<String, Integer, Field<?>> lookupField) {
+        private List<FieldWrapper> getColumns(List<String> columnNames,
+                                              BiFunction<String, Integer, FieldWrapper> lookupField) {
             return IntStream.range(0, columnNames.size())
-                            .mapToObj(i -> Optional.ofNullable(lookupField.apply(columnNames.get(i), i))
-                                                   .map(f -> new SimpleEntry<>(f, i))
-                                                   .orElse(null))
+                            .mapToObj(i -> lookupField.apply(columnNames.get(i), i))
                             .filter(Objects::nonNull)
-                            .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
+                            .collect(Collectors.toList());
         }
 
         @Override

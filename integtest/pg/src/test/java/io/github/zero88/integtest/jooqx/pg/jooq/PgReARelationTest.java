@@ -1,7 +1,6 @@
 package io.github.zero88.integtest.jooqx.pg.jooq;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import org.jooq.DSLContext;
@@ -80,7 +79,7 @@ class PgReARelationTest extends PgSQLJooqxTest<PgConnection> implements PgConnPr
                                                           .insertInto(table, table.ID, table.TITLE)
                                                           .values(Arrays.asList(DSL.defaultValue(table.ID), "abc"))
                                                           .returning(table.ID);
-        jooqx.execute(insert, DSLAdapter.fetchOne(table, Collections.singletonList(table.ID)), ar -> ctx.verify(() -> {
+        jooqx.execute(insert, DSLAdapter.fetchOne(table.ID), ar -> ctx.verify(() -> {
             final Record record = ar.result();
             final BooksRecord into1 = record.into(BooksRecord.class);
             Assertions.assertEquals(8, into1.getId());

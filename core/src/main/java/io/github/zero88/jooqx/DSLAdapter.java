@@ -8,7 +8,6 @@ import org.jooq.Record;
 import org.jooq.Record1;
 import org.jooq.Table;
 import org.jooq.TableLike;
-import org.jooq.TableRecord;
 import org.jooq.impl.DSL;
 
 import io.github.zero88.jooqx.adapter.RecordFactory;
@@ -41,6 +40,7 @@ public interface DSLAdapter {
      * @param table a query table context
      * @return select count
      * @see SelectCount
+     * @since 1.0.0
      */
     static SelectCount fetchCount(@NotNull TableLike<Record1<Integer>> table) {
         return new SelectCount(table);
@@ -63,6 +63,7 @@ public interface DSLAdapter {
      * @param table a query table context
      * @return select exists
      * @see SelectExists
+     * @since 1.0.0
      */
     static SelectExists fetchExists(@NotNull TableLike<Record1<Integer>> table) {
         return new SelectExists(table);
@@ -72,176 +73,226 @@ public interface DSLAdapter {
      * Fetch one JsonRecord
      *
      * @param table a query table context
-     * @param <T>   Type of jOOQ Table in Query context
      * @return select one adapter
      * @see TableLike
      * @see JsonRecord
+     * @since 1.0.0
      */
-    static <T extends TableLike<? extends Record>> SelectOne<JsonRecord<?>> fetchJsonRecord(@NotNull T table) {
+    static SelectOne<JsonRecord<?>> fetchJsonRecord(@NotNull TableLike<? extends Record> table) {
         return new SelectOne<>(RecordFactory.byJson(table));
     }
 
     /**
      * Fetch one
      *
-     * @param table  a query table context
-     * @param record record
-     * @param <T>    Type of jOOQ Table in Query context
-     * @param <REC>  Type of output jOOQ record
-     * @return select one adapter
-     * @see TableLike
-     */
-    static <T extends TableLike<? extends Record>, REC extends TableRecord<REC>> SelectOne<REC> fetchOne(
-        @NotNull T table, @NotNull REC record) {
-        return new SelectOne<>(RecordFactory.byRecord(record));
-    }
-
-    /**
-     * Fetch one
-     *
-     * @param table  a query table context
-     * @param fields given fields
-     * @param <T>    Type of jOOQ Table in Query context
-     * @return select one adapter
-     * @see TableLike
-     */
-    static <T extends TableLike<? extends Record>> SelectOne<Record> fetchOne(@NotNull T table,
-                                                                              @NotNull Collection<Field<?>> fields) {
-        return new SelectOne<>(RecordFactory.byFields(fields));
-    }
-
-    static SelectOne<Record> fetchOne(Field<?>... fields) {
-        return new SelectOne<>(RecordFactory.byFields(fields));
-    }
-
-    /**
-     * Fetch one
-     *
-     * @param table       a query table context
-     * @param outputClass given output class
-     * @param <T>         Type of jOOQ Table in Query context
-     * @param <R>         Type ot output class
-     * @return select one adapter
-     * @see TableLike
-     */
-    static <T extends TableLike<? extends Record>, R> SelectOne<R> fetchOne(@NotNull T table,
-                                                                            @NotNull Class<R> outputClass) {
-        return new SelectOne<>(RecordFactory.byClass(table, outputClass));
-    }
-
-    /**
-     * Fetch one
-     *
      * @param table a query table context
      * @param <T>   Type of jOOQ Table in Query context
      * @return select one adapter
      * @see TableLike
+     * @since 1.0.0
      */
     static <T extends Table<REC>, REC extends Record> SelectOne<REC> fetchOne(@NotNull T table) {
         return new SelectOne<>(RecordFactory.byTable(table));
     }
 
     /**
-     * Fetch one
+     * Fetch one record by the record definition
      *
-     * @param <T>   Type of jOOQ Table in Query context
-     * @param <REC> Type of record
-     * @param <Z>   Type of expectation table
-     * @param table a query table context
+     * @param <REC>  Type of output jOOQ record
+     * @param record record
+     * @return select one adapter
+     * @see Record
+     * @since 2.0.0
+     */
+    static <REC extends Record> SelectOne<REC> fetchOne(@NotNull REC record) {
+        return new SelectOne<>(RecordFactory.byRecord(record));
+    }
+
+    /**
+     * Fetch one record by a table of the query context then map to another record type
+     *
+     * @param table  a query table context
+     * @param record record
+     * @param <REC>  Type of output jOOQ record
      * @return select one adapter
      * @see TableLike
+     * @see Record
+     * @since 1.0.0
      */
-    static <T extends TableLike<? extends Record>, REC extends Record, Z extends Table<REC>> SelectOne<REC> fetchOne(
-        @NotNull T table, @NotNull Z toTable) {
-        return new SelectOne<>(RecordFactory.byConverter(table, r -> r.into(toTable)));
+    static <REC extends Record> SelectOne<REC> fetchOne(@NotNull TableLike<? extends Record> table,
+                                                        @NotNull REC record) {
+        return new SelectOne<>(RecordFactory.byMapper(table, rec -> rec.into(DSL.table(record))));
+    }
+
+    /**
+     * Fetch one record by a table of the query context then map into target fields
+     *
+     * @param table  a query table context
+     * @param fields a given target fields
+     * @return select one adapter
+     * @see TableLike
+     * @see Field
+     * @since 1.0.0
+     */
+    static SelectOne<Record> fetchOne(@NotNull TableLike<? extends Record> table,
+                                      @NotNull Collection<Field<?>> fields) {
+        return new SelectOne<>(RecordFactory.byMapper(table, rec -> rec.into(fields.stream().toArray(Field[]::new))));
+    }
+
+    /**
+     * Fetch one record by fields
+     *
+     * @param fields given fields
+     * @return select one adapter
+     * @see Field
+     * @since 2.0.0
+     */
+    static SelectOne<Record> fetchOne(Field<?>... fields) {
+        return new SelectOne<>(RecordFactory.byFields(fields));
+    }
+
+    /**
+     * Fetch one record by a table of the query context then map to custom type by given output class
+     *
+     * @param <R>         Type ot output class
+     * @param table       a query table context
+     * @param outputClass given output class
+     * @return select one adapter
+     * @see TableLike
+     * @see Record
+     * @since 1.0.0
+     */
+    static <R> SelectOne<R> fetchOne(@NotNull TableLike<? extends Record> table, @NotNull Class<R> outputClass) {
+        return new SelectOne<>(RecordFactory.byClass(table, outputClass));
+    }
+
+    /**
+     * Fetch one record by a table of the query context then map into target record that defines in target table
+     *
+     * @param <R>     Type of expectation record
+     * @param <T>     Type of expectation table
+     * @param table   a query table context
+     * @param toTable a target table
+     * @return select one adapter
+     * @see TableLike
+     * @since 1.0.0
+     */
+    static <R extends Record, T extends Table<R>> SelectOne<R> fetchOne(@NotNull TableLike<? extends Record> table,
+                                                                        @NotNull T toTable) {
+        return new SelectOne<>(RecordFactory.byMapper(table, r -> r.into(toTable)));
     }
 
     /**
      * Fetch many Json record
      *
      * @param table a query table context
-     * @param <T>   Type of jOOQ Table in Query context
      * @return select many adapter
      * @see TableLike
      * @see JsonRecord
+     * @since 1.0.0
      */
-    static <T extends TableLike<? extends Record>> SelectList<JsonRecord<?>> fetchJsonRecords(@NotNull T table) {
+    static SelectList<JsonRecord<?>> fetchJsonRecords(@NotNull TableLike<? extends Record> table) {
         return new SelectList<>(RecordFactory.byJson(table));
     }
 
     /**
      * Fetch many
      *
-     * @param table  a query table context
-     * @param record record
-     * @param <T>    Type of jOOQ Table in Query context
-     * @param <REC>  Type of record
-     * @return select many adapter
-     * @see TableLike
-     */
-    static <T extends TableLike<? extends Record>, REC extends Record> SelectList<REC> fetchMany(@NotNull T table,
-                                                                                                 @NotNull REC record) {
-        return new SelectList<>(RecordFactory.byRecord(record));
-    }
-
-    /**
-     * Fetch many
-     *
-     * @param table  a query table context
-     * @param fields given fields
-     * @param <T>    Type of jOOQ Table in Query context
-     * @return select many adapter
-     * @see TableLike
-     */
-    static <T extends TableLike<? extends Record>> SelectList<Record> fetchMany(@NotNull T table,
-                                                                                @NotNull Collection<Field<?>> fields) {
-        return new SelectList<>(RecordFactory.byFields(fields));
-    }
-
-    static SelectList<Record> fetchMany(Field<?>... fields) {
-        return new SelectList<>(RecordFactory.byFields(fields));
-    }
-
-    /**
-     * Fetch many
-     *
-     * @param table       a query table context
-     * @param outputClass given output class
-     * @param <T>         Type of jOOQ Table in Query context
-     * @param <R>         Type ot output class
-     * @return select many adapter
-     * @see TableLike
-     */
-    static <T extends TableLike<? extends Record>, R> SelectList<R> fetchMany(@NotNull T table,
-                                                                              @NotNull Class<R> outputClass) {
-        return new SelectList<>(RecordFactory.byClass(table, outputClass));
-    }
-
-    /**
-     * Fetch many
-     *
      * @param table a query table context
      * @param <T>   Type of jOOQ Table in Query context
      * @return select many adapter
      * @see TableLike
+     * @see Record
+     * @since 1.0.0
      */
     static <T extends Table<REC>, REC extends Record> SelectList<REC> fetchMany(@NotNull T table) {
         return new SelectList<>(RecordFactory.byTable(table));
     }
 
     /**
-     * Fetch many
+     * Fetch many records by the record definition
      *
-     * @param <T>   Type of jOOQ Table in Query context
-     * @param <REC> Type of record
-     * @param <Z>   Type of expectation table
-     * @param table a query table context
+     * @param <REC>  Type of record
+     * @param record record
+     * @return select many adapter
+     * @see Record
+     * @since 2.0.0
+     */
+    static <REC extends Record> SelectList<REC> fetchMany(@NotNull REC record) {
+        return new SelectList<>(RecordFactory.byRecord(record));
+    }
+
+    /**
+     * Fetch many by a table of the query context then map to another record type
+     *
+     * @param table  a query table context
+     * @param record record
+     * @param <REC>  Type of record
      * @return select many adapter
      * @see TableLike
+     * @see Record
+     * @since 1.0.0
      */
-    static <T extends TableLike<? extends Record>, REC extends Record, Z extends Table<REC>> SelectList<REC> fetchMany(
-        @NotNull T table, @NotNull Z toTable) {
-        return new SelectList<>(RecordFactory.byConverter(table, r -> r.into(toTable)));
+    static <REC extends Record> SelectList<REC> fetchMany(@NotNull TableLike<? extends Record> table,
+                                                          @NotNull REC record) {
+        return new SelectList<>(RecordFactory.byMapper(table, rec -> rec.into(DSL.table(record))));
+    }
+
+    /**
+     * Fetch many by a table of the query context then map into target fields
+     *
+     * @param table  a query table context
+     * @param fields given fields
+     * @return select many adapter
+     * @see TableLike
+     * @since 1.0.0
+     */
+    static SelectList<Record> fetchMany(@NotNull TableLike<? extends Record> table,
+                                        @NotNull Collection<Field<?>> fields) {
+        return new SelectList<>(RecordFactory.byMapper(table, rec -> rec.into(fields.stream().toArray(Field[]::new))));
+    }
+
+    /**
+     * Fetch many records by fields
+     *
+     * @param fields the given fields
+     * @return select many adapter
+     * @see Field
+     * @since 2.0.0
+     */
+    static SelectList<Record> fetchMany(Field<?>... fields) {
+        return new SelectList<>(RecordFactory.byFields(fields));
+    }
+
+    /**
+     * Fetch many records by a table of the query context then map to custom type by given output class
+     *
+     * @param <R>         Type ot output class
+     * @param table       a query table context
+     * @param outputClass a given output class
+     * @return select many adapter
+     * @see TableLike
+     * @since 1.0.0
+     */
+    static <R> SelectList<R> fetchMany(@NotNull TableLike<? extends Record> table, @NotNull Class<R> outputClass) {
+        return new SelectList<>(RecordFactory.byClass(table, outputClass));
+    }
+
+    /**
+     * Fetch many by a table of the query context then map into target record that defines in target table
+     *
+     * @param <R>     Type of record
+     * @param <T>     Type of expectation table
+     * @param table   a query table context
+     * @param toTable a target table
+     * @return select many adapter
+     * @see TableLike
+     * @see Record
+     * @since 1.0.0
+     */
+    static <R extends Record, T extends Table<R>> SelectList<R> fetchMany(@NotNull TableLike<? extends Record> table,
+                                                                          @NotNull T toTable) {
+        return new SelectList<>(RecordFactory.byMapper(table, r -> r.into(toTable)));
     }
 
 }

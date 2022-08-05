@@ -6,11 +6,12 @@ import org.jetbrains.annotations.NotNull;
 import org.jooq.Record;
 
 /**
- * SQL Result adapter receives result set then mapping to expected result
+ * Provides a capability to transform {@code Vert.x} SQL result set to an expected result (in {@code jOOQ} term).
  *
- * @param <ROW>    Type of SQL row
+ * @param <ROW>    Type of SQL row. Might be jOOQ record or custom type
  * @param <RESULT> Type of expectation result
- * @since 1.0.0
+ * @apiNote Breaking changes from v1.0.0
+ * @since 2.0.0
  */
 public interface SQLResultAdapter<ROW, RESULT> extends HasStrategy {
 
@@ -23,9 +24,9 @@ public interface SQLResultAdapter<ROW, RESULT> extends HasStrategy {
     /**
      * Collect list of row to an expectation result
      *
-     * @param records row list
+     * @param rows row list
      * @return an expectation result
      */
-    RESULT collect(@NotNull List<ROW> records);
+    RESULT collect(@NotNull List<ROW> rows);
 
 }

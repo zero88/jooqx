@@ -20,8 +20,8 @@ public abstract class SelectAdhocListResult<ROW, EACH> extends SQLResultAdapterI
         super(recordFactory);
     }
 
-    public List<EACH> collect(@NotNull List<ROW> records) {
-        return records.stream().map(this::convert).collect(Collectors.toList());
+    public List<EACH> collect(@NotNull List<ROW> rows) {
+        return rows.stream().map(this::convert).collect(Collectors.toList());
     }
 
     protected abstract EACH convert(@Nullable ROW row);

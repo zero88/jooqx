@@ -3,6 +3,7 @@ package io.github.zero88.jooqx;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -12,7 +13,6 @@ import java.util.stream.IntStream;
 import org.jetbrains.annotations.NotNull;
 import org.jooq.DDLQuery;
 import org.jooq.DSLContext;
-import org.jooq.Field;
 import org.jooq.Param;
 import org.jooq.Parameter;
 import org.jooq.Query;
@@ -26,6 +26,7 @@ import io.github.zero88.jooqx.MiscImpl.BatchResultImpl;
 import io.github.zero88.jooqx.SQLImpl.SQLEI;
 import io.github.zero88.jooqx.SQLImpl.SQLExecutorBuilderImpl;
 import io.github.zero88.jooqx.SQLImpl.SQLPQ;
+import io.github.zero88.jooqx.adapter.FieldWrapper;
 import io.github.zero88.jooqx.adapter.RecordFactory;
 import io.github.zero88.jooqx.adapter.SQLResultAdapter;
 import io.github.zero88.jooqx.adapter.SQLResultListAdapter;
@@ -81,20 +82,19 @@ final class JooqxSQLImpl {
                                                      @NotNull DSLContext dslContext,
                                                      @NotNull DataTypeMapperRegistry registry) {
             return adapter.collect(
-                doCollect(resultSet, dslContext, registry, adapter.recordFactory(), adapter.strategy()));
+                collect(resultSet, dslContext, registry, adapter.recordFactory(), adapter.strategy()));
         }
 
         @NotNull
-        protected final <ROW> List<ROW> doCollect(@NotNull RowSet<Row> resultSet, @NotNull DSLContext dsl,
-                                                  @NotNull DataTypeMapperRegistry registry,
-                                                  @NotNull RecordFactory<? extends Record, ROW> recordFactory,
-                                                  @NotNull SelectStrategy strategy) {
+        protected final <ROW> List<ROW> collect(@NotNull RowSet<Row> resultSet, @NotNull DSLContext dsl,
+                                                @NotNull DataTypeMapperRegistry registry,
+                                                @NotNull RecordFactory<? extends Record, ROW> recordFactory,
+                                                @NotNull SelectStrategy strategy) {
             final List<ROW> records = new ArrayList<>();
             final RowIterator<Row> iterator = resultSet.iterator();
             final Function<Row, ROW> fn = row -> IntStream.range(0, row.size())
                                                           .mapToObj(i -> recordFactory.lookup(row.getColumnName(i), i))
                                                           .filter(Objects::nonNull)
-                                                          .map(Field.class::cast)
                                                           .collect(rowToRecord(row, dsl, registry, recordFactory));
             if (strategy == SelectStrategy.MANY) {
                 iterator.forEachRemaining(row -> records.add(fn.apply(row)));
@@ -105,14 +105,20 @@ final class JooqxSQLImpl {
             return records;
         }
 
-        @SuppressWarnings({ "rawtypes", "unchecked" })
-        private static <REC extends Record, ROW> Collector<Field, REC, ROW> rowToRecord(@NotNull Row row,
+        private <REC extends Record, ROW> Collector<FieldWrapper, REC, ROW> rowToRecord(@NotNull Row row,
                                                                                         @NotNull DSLContext dsl,
                                                                                         @NotNull DataTypeMapperRegistry registry,
                                                                                         RecordFactory<REC, ROW> recordFactory) {
+            BiFunction<FieldWrapper, Row, Object> getValue = (f, r) -> {
+                try {
+                    return r.getValue(f.field().getName());
+                } catch (NoSuchElementException e) {
+                    return r.getValue(f.colNo());
+                }
+            };
             return Collector.of(() -> recordFactory.create(dsl),
-                                (rec, f) -> rec.set(f, registry.toUserType(f, row.getValue(f.getName()))),
-                                (rec1, rec2) -> rec2, recordFactory::convert);
+                                (rec, f) -> rec.set(f.field(), registry.toUserType(f.field(), getValue.apply(f, row))),
+                                (rec1, rec2) -> rec2, recordFactory::map);
         }
 
     }
@@ -127,8 +133,8 @@ final class JooqxSQLImpl {
                                                      @NotNull DataTypeMapperRegistry registry) {
             final List<ROW> records = new ArrayList<>();
             while (batchResult != null) {
-                final List<ROW> rows = doCollect(batchResult, dslContext, registry, adapter.recordFactory(),
-                                                 SelectStrategy.FIRST_ONE);
+                final List<ROW> rows = collect(batchResult, dslContext, registry, adapter.recordFactory(),
+                                               SelectStrategy.FIRST_ONE);
                 if (!rows.isEmpty()) {
                     records.add(rows.get(0));
                 }

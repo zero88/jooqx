@@ -1,14 +1,14 @@
 package io.github.zero88.jooqx.adapter;
 
-import java.util.Arrays;
-import java.util.Collection;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.jooq.DSLContext;
 import org.jooq.Field;
 import org.jooq.Record;
-import org.jooq.Table;
+import org.jooq.RecordMapper;
 import org.jooq.TableLike;
 import org.jooq.TableRecord;
 import org.jooq.impl.DSL;
@@ -16,57 +16,46 @@ import org.jooq.impl.DSL;
 import io.github.zero88.jooqx.JsonRecord;
 
 /**
- * Record factory
+ * Record factory defines the necessary methods to transform {@code Vert.x SQL row} to {@code jOOQ record} then map
+ * record into a custom type.
  *
  * @param <REC> The type of jOOQ record
  * @param <R>   The type of expected result
+ * @apiNote Record factory is only related to {@code jOOQ} functionality
+ * @see RecordMapper
  * @since 2.0.0
  */
-public interface RecordFactory<REC extends Record, R> {
+@SuppressWarnings({ "rawtypes", "unchecked" })
+public interface RecordFactory<REC extends Record, R> extends RecordMapper<REC, R> {
 
-    interface IdentityRecordFactory<REC extends Record> extends RecordFactory<REC, REC> { }
-
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    static IdentityRecordFactory<JsonRecord<?>> byJson(TableLike<? extends Record> tableLike) {
-        return new IdentityRecordFactoryImpl<>((fName, idx) -> tableLike.field(fName),
-                                               dsl -> JsonRecord.create((TableLike<TableRecord>) tableLike));
+    static <REC extends Record, T extends TableLike<REC>> RecordFactory<REC, REC> byTable(T table) {
+        return RecordFactory.of(RecordFactoryHelper.fieldFinderByTable(table),
+                                RecordFactoryHelper.recordProviderByTable(table));
     }
 
-    static <REC extends Record> IdentityRecordFactory<REC> byRecord(REC record) {
-        return new IdentityRecordFactoryImpl<>((fName, idx) -> record.field(fName),
-                                               dsl -> dsl.newRecord(DSL.table(record)));
+    static RecordFactory<JsonRecord<?>, JsonRecord<?>> byJson(TableLike<? extends Record> table) {
+        return RecordFactory.of(RecordFactoryHelper.fieldFinderByTable(table),
+                                dsl -> JsonRecord.create((TableLike<TableRecord>) table));
     }
 
-    static IdentityRecordFactory<Record> byFields(Field<?>... fields) {
-        return new IdentityRecordFactoryImpl<>(
-            (fName, idx) -> Arrays.stream(fields).filter(f -> f.getName().equals(fName)).findAny().orElse(null),
-            dsl -> dsl.newRecord(fields));
+    static <REC extends Record> RecordFactory<REC, REC> byRecord(REC record) {
+        return RecordFactory.of(RecordFactoryHelper.fieldFinderByRecord(record),
+                                dsl -> dsl.newRecord(DSL.table(record)));
     }
 
-    static IdentityRecordFactory<Record> byFields(Collection<Field<?>> fields) {
-        return new IdentityRecordFactoryImpl<>(
-            (fName, idx) -> fields.stream().filter(f -> f.getName().equals(fName)).findAny().orElse(null),
-            dsl -> dsl.newRecord(fields));
+    static RecordFactory<Record, Record> byFields(Field<?>... fields) {
+        return RecordFactory.of(RecordFactoryHelper.fieldFinderByFields(fields), dsl -> dsl.newRecord(fields));
     }
 
-    static <R> RecordFactory<? extends Record, R> byClass(TableLike<? extends Record> tableLike, Class<R> outputClass) {
-        return byConverter(tableLike, record -> record.into(outputClass));
+    static <REC extends Record, T extends TableLike<REC>, R> RecordFactory<REC, R> byClass(T tableLike,
+                                                                                           Class<R> outputClass) {
+        return byMapper(tableLike, record -> record.into(outputClass));
     }
 
-    @SuppressWarnings("unchecked")
-    static <REC extends Record, T extends TableLike<REC>> IdentityRecordFactory<REC> byTable(T table) {
-        return new IdentityRecordFactoryImpl<>((fName, idx) -> table.field(fName), dsl -> table instanceof Table
-                                                                                          ?
-                                                                                          ((Table<REC>) table).newRecord()
-                                                                                          : dsl.newRecord(
-                                                                                              table.asTable()));
-    }
-
-    @SuppressWarnings("unchecked")
-    static <REC extends Record, R> RecordFactory<REC, R> byConverter(TableLike<? extends Record> tableLike,
-                                                                     Function<REC, R> converter) {
-        return new RecordFactoryImpl<>((fieldName, idx) -> tableLike.field(fieldName),
-                                       dsl -> (REC) dsl.newRecord(tableLike.fields()), converter);
+    static <REC extends Record, T extends TableLike<REC>, R> RecordFactory<REC, R> byMapper(T table,
+                                                                                            RecordMapper<REC, R> mapper) {
+        return RecordFactory.of(RecordFactoryHelper.fieldFinderByTable(table),
+                                RecordFactoryHelper.recordProviderByTable(table), mapper);
     }
 
     /**
@@ -75,23 +64,39 @@ public interface RecordFactory<REC extends Record, R> {
      * @param context DSL context
      * @return new record
      */
-    REC create(DSLContext context);
+    @NotNull REC create(DSLContext context);
 
     /**
-     * Lookup jOOQ field in current jOOQ Query context
+     * Lookup jOOQ field in current Query context
      *
      * @param fieldName  field name
      * @param fieldIndex field index
-     * @return jOOQ field, it is nullable
+     * @return jOOQ field, it is nullable if not found field
+     * @see FieldWrapper
      */
-    @Nullable Field<?> lookup(String fieldName, int fieldIndex);
+    @Nullable FieldWrapper lookup(String fieldName, int fieldIndex);
 
-    /**
-     * Convert jOOQ record to an expected output
-     *
-     * @param record the record
-     * @return an expected result
-     */
-    R convert(REC record);
+    static <REC extends Record> RecordFactory<REC, REC> of(BiFunction<String, Integer, Field<?>> fieldFinder,
+                                                           Function<DSLContext, REC> recordProvider) {
+        return RecordFactory.of(fieldFinder, recordProvider, rec -> rec);
+    }
+
+    static <REC extends Record, R> RecordFactory<REC, R> of(BiFunction<String, Integer, Field<?>> fieldFinder,
+                                                            Function<DSLContext, REC> recordProvider,
+                                                            RecordMapper<REC, R> recordMapper) {
+        return new RecordFactory<REC, R>() {
+
+            @Override
+            public @Nullable R map(REC record) { return recordMapper.map(record); }
+
+            @Override
+            public @NotNull REC create(DSLContext context) { return recordProvider.apply(context); }
+
+            @Override
+            public @Nullable FieldWrapper lookup(String fieldName, int fieldIndex) {
+                return FieldWrapper.create(fieldFinder.apply(fieldName, fieldIndex), fieldIndex);
+            }
+        };
+    }
 
 }

@@ -1,7 +1,5 @@
 package io.github.zero88.jooqx.routine;
 
-import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.jetbrains.annotations.NotNull;
@@ -9,7 +7,6 @@ import org.jooq.Field;
 import org.jooq.Record;
 import org.jooq.Routine;
 import org.jooq.impl.AbstractRoutine;
-import org.jooq.impl.DSL;
 
 import io.github.zero88.jooqx.DSLAdapter;
 import io.github.zero88.jooqx.JooqxBase;
@@ -68,10 +65,9 @@ class JDBCRoutineExecutor<S extends SqlClient> extends RoutineExecutorDelegateIm
 
     @NotNull
     private SelectOne<Record> createOutParamAdapter(Field<?>[] outFields) {
-        final List<Field<?>> vertxOutFields = IntStream.range(0, outFields.length)
-                                                       .mapToObj(idx -> outFields[idx].as(String.valueOf(idx + 1)))
-                                                       .collect(Collectors.toList());
-        return DSLAdapter.fetchOne(DSL.table(dsl().newRecord(vertxOutFields)), vertxOutFields);
+        return DSLAdapter.fetchOne(IntStream.range(0, outFields.length)
+                                            .mapToObj(idx -> outFields[idx].as(String.valueOf(idx + 1)))
+                                            .toArray(Field[]::new));
     }
 
 }

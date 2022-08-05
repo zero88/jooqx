@@ -100,8 +100,7 @@ class PgReABatchTest extends PgSQLJooqxTest<PgPool>
                 flag.flag();
             });
         });
-        final Record1<Integer> t1Record1 = jooqx.dsl().newRecord(table.ID);
-        jooqx.batchResult(insert, bindValues, DSLAdapter.fetchMany(table, t1Record1), asserter);
+        jooqx.batchResult(insert, bindValues, DSLAdapter.fetchMany(jooqx.dsl().newRecord(table.ID)), asserter);
     }
 
     @Test

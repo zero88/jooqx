@@ -20,7 +20,7 @@ public interface SQLResultListAdapter<ROW, EACH> extends SQLResultAdapter<ROW, L
     interface SQLResultIdentityListAdapter<ROW> extends SQLResultListAdapter<ROW, ROW> {
 
         @Override
-        default List<ROW> collect(@NotNull List<ROW> records) { return records; }
+        default List<ROW> collect(@NotNull List<ROW> rows) { return rows; }
 
     }
 
