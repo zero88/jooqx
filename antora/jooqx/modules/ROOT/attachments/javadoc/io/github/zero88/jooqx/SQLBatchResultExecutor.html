@@ -160,20 +160,20 @@ extends <a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooq
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>default &lt;T,&#8203;R&gt;<br>io.vertx.core.Future&lt;<a href="BatchReturningResult.html" title="interface in io.github.zero88.jooqx">BatchReturningResult</a>&lt;R&gt;&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#batchResult(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultAdapter.SQLResultListAdapter)">batchResult</a></span>&#8203;(@NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#batchResult(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)">batchResult</a></span>&#8203;(@NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
            @NotNull <a href="BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
-           @NotNull <a href="adapter/SQLResultAdapter.SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter.SQLResultListAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</code></th>
+           @NotNull <a href="adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</code></th>
 <td class="colLast">
-<div class="block">Like <a href="#batchResult(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultAdapter.SQLResultListAdapter,io.vertx.core.Handler)"><code>batchResult(Function, BindBatchValues, SQLResultListAdapter, Handler)</code></a> but returns a <code>Future</code>
+<div class="block">Like <a href="#batchResult(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter,io.vertx.core.Handler)"><code>batchResult(Function, BindBatchValues, SQLResultListAdapter, Handler)</code></a> but returns a <code>Future</code>
  of the
  asynchronous result</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>default &lt;T,&#8203;R&gt;<br>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#batchResult(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultAdapter.SQLResultListAdapter,io.vertx.core.Handler)">batchResult</a></span>&#8203;(@NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#batchResult(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter,io.vertx.core.Handler)">batchResult</a></span>&#8203;(@NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
            @NotNull <a href="BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
-           @NotNull <a href="adapter/SQLResultAdapter.SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter.SQLResultListAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter,
+           @NotNull <a href="adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter,
            @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;<a href="BatchReturningResult.html" title="interface in io.github.zero88.jooqx">BatchReturningResult</a>&lt;R&gt;&gt;&gt;&nbsp;handler)</code></th>
 <td class="colLast">
 <div class="block">Result batch execute</div>
@@ -181,20 +181,20 @@ extends <a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooq
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>io.vertx.core.Future&lt;<a href="BatchReturningResult.html" title="interface in io.github.zero88.jooqx">BatchReturningResult</a>&lt;R&gt;&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#batchResult(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultAdapter.SQLResultListAdapter)">batchResult</a></span>&#8203;(@NotNull org.jooq.Query&nbsp;query,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#batchResult(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)">batchResult</a></span>&#8203;(@NotNull org.jooq.Query&nbsp;query,
            @NotNull <a href="BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
-           @NotNull <a href="adapter/SQLResultAdapter.SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter.SQLResultListAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</code></th>
+           @NotNull <a href="adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</code></th>
 <td class="colLast">
-<div class="block">Like <a href="#batchResult(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultAdapter.SQLResultListAdapter,io.vertx.core.Handler)"><code>batchResult(Query, BindBatchValues, SQLResultListAdapter, Handler)</code></a> but returns a <code>Future</code> of
+<div class="block">Like <a href="#batchResult(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter,io.vertx.core.Handler)"><code>batchResult(Query, BindBatchValues, SQLResultListAdapter, Handler)</code></a> but returns a <code>Future</code> of
  the
  asynchronous result</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>default &lt;T,&#8203;R&gt;<br>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#batchResult(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultAdapter.SQLResultListAdapter,io.vertx.core.Handler)">batchResult</a></span>&#8203;(@NotNull org.jooq.Query&nbsp;query,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#batchResult(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter,io.vertx.core.Handler)">batchResult</a></span>&#8203;(@NotNull org.jooq.Query&nbsp;query,
            @NotNull <a href="BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
-           @NotNull <a href="adapter/SQLResultAdapter.SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter.SQLResultListAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter,
+           @NotNull <a href="adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter,
            @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;<a href="BatchReturningResult.html" title="interface in io.github.zero88.jooqx">BatchReturningResult</a>&lt;R&gt;&gt;&gt;&nbsp;handler)</code></th>
 <td class="colLast">
 <div class="block">Result batch execute</div>
@@ -224,7 +224,7 @@ extends <a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooq
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="batchResult(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultAdapter.SQLResultListAdapter,io.vertx.core.Handler)">
+<a id="batchResult(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter,io.vertx.core.Handler)">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -235,7 +235,7 @@ extends <a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooq
                                      @NotNull
                                      @NotNull <a href="BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
                                      @NotNull
-                                     @NotNull <a href="adapter/SQLResultAdapter.SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter.SQLResultListAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter,
+                                     @NotNull <a href="adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter,
                                      @NotNull
                                      @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;<a href="BatchReturningResult.html" title="interface in io.github.zero88.jooqx">BatchReturningResult</a>&lt;R&gt;&gt;&gt;&nbsp;handler)</pre>
 <div class="block">Result batch execute</div>
@@ -251,12 +251,12 @@ extends <a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooq
 <dd>2.0.0</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="BindBatchValues.html" title="class in io.github.zero88.jooqx"><code>BindBatchValues</code></a>, 
-<a href="adapter/SQLResultAdapter.SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter"><code>SQLResultAdapter.SQLResultListAdapter</code></a>, 
+<a href="adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter"><code>SQLResultListAdapter</code></a>, 
 <a href="BatchReturningResult.html" title="interface in io.github.zero88.jooqx"><code>BatchReturningResult</code></a></dd>
 </dl>
 </li>
 </ul>
-<a id="batchResult(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultAdapter.SQLResultListAdapter)">
+<a id="batchResult(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -267,8 +267,8 @@ extends <a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooq
                                                                               @NotNull
                                                                               @NotNull <a href="BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
                                                                               @NotNull
-                                                                              @NotNull <a href="adapter/SQLResultAdapter.SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter.SQLResultListAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</pre>
-<div class="block">Like <a href="#batchResult(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultAdapter.SQLResultListAdapter,io.vertx.core.Handler)"><code>batchResult(Function, BindBatchValues, SQLResultListAdapter, Handler)</code></a> but returns a <code>Future</code>
+                                                                              @NotNull <a href="adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</pre>
+<div class="block">Like <a href="#batchResult(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter,io.vertx.core.Handler)"><code>batchResult(Function, BindBatchValues, SQLResultListAdapter, Handler)</code></a> but returns a <code>Future</code>
  of the
  asynchronous result</div>
 <dl>
@@ -279,12 +279,12 @@ extends <a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooq
 <dd>a <code>Future</code> of the asynchronous result</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="BindBatchValues.html" title="class in io.github.zero88.jooqx"><code>BindBatchValues</code></a>, 
-<a href="adapter/SQLResultAdapter.SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter"><code>SQLResultAdapter.SQLResultListAdapter</code></a>, 
+<a href="adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter"><code>SQLResultListAdapter</code></a>, 
 <a href="BatchReturningResult.html" title="interface in io.github.zero88.jooqx"><code>BatchReturningResult</code></a></dd>
 </dl>
 </li>
 </ul>
-<a id="batchResult(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultAdapter.SQLResultListAdapter,io.vertx.core.Handler)">
+<a id="batchResult(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter,io.vertx.core.Handler)">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -295,7 +295,7 @@ extends <a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooq
                                      @NotNull
                                      @NotNull <a href="BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
                                      @NotNull
-                                     @NotNull <a href="adapter/SQLResultAdapter.SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter.SQLResultListAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter,
+                                     @NotNull <a href="adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter,
                                      @NotNull
                                      @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;<a href="BatchReturningResult.html" title="interface in io.github.zero88.jooqx">BatchReturningResult</a>&lt;R&gt;&gt;&gt;&nbsp;handler)</pre>
 <div class="block">Result batch execute</div>
@@ -310,12 +310,12 @@ extends <a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooq
 <dd><code>handler</code> - async result handler</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="BindBatchValues.html" title="class in io.github.zero88.jooqx"><code>BindBatchValues</code></a>, 
-<a href="adapter/SQLResultAdapter.SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter"><code>SQLResultAdapter.SQLResultListAdapter</code></a>, 
+<a href="adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter"><code>SQLResultListAdapter</code></a>, 
 <a href="BatchReturningResult.html" title="interface in io.github.zero88.jooqx"><code>BatchReturningResult</code></a></dd>
 </dl>
 </li>
 </ul>
-<a id="batchResult(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultAdapter.SQLResultListAdapter)">
+<a id="batchResult(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)">
 <!--   -->
 </a>
 <ul class="blockListLast">
@@ -326,8 +326,8 @@ extends <a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooq
                                                                       @NotNull
                                                                       @NotNull <a href="BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
                                                                       @NotNull
-                                                                      @NotNull <a href="adapter/SQLResultAdapter.SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter.SQLResultListAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</pre>
-<div class="block">Like <a href="#batchResult(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultAdapter.SQLResultListAdapter,io.vertx.core.Handler)"><code>batchResult(Query, BindBatchValues, SQLResultListAdapter, Handler)</code></a> but returns a <code>Future</code> of
+                                                                      @NotNull <a href="adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</pre>
+<div class="block">Like <a href="#batchResult(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter,io.vertx.core.Handler)"><code>batchResult(Query, BindBatchValues, SQLResultListAdapter, Handler)</code></a> but returns a <code>Future</code> of
  the
  asynchronous result</div>
 <dl>
@@ -342,7 +342,7 @@ extends <a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooq
 <dd>a <code>Future</code> of the asynchronous result</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="BindBatchValues.html" title="class in io.github.zero88.jooqx"><code>BindBatchValues</code></a>, 
-<a href="adapter/SQLResultAdapter.SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter"><code>SQLResultAdapter.SQLResultListAdapter</code></a>, 
+<a href="adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter"><code>SQLResultListAdapter</code></a>, 
 <a href="BatchReturningResult.html" title="interface in io.github.zero88.jooqx"><code>BatchReturningResult</code></a></dd>
 </dl>
 </li>

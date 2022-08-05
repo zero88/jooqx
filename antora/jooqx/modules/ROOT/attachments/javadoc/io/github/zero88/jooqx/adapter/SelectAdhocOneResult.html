@@ -26,8 +26,8 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var data = {"i0":10,"i1":6,"i2":10};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -115,14 +115,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <main role="main">
 <div class="header">
 <div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">io.github.zero88.jooqx.adapter</a></div>
-<h2 title="Class SelectAdhocOneResult" class="title">Class SelectAdhocOneResult&lt;T extends org.jooq.TableLike&lt;? extends org.jooq.Record&gt;,&#8203;R&gt;</h2>
+<h2 title="Class SelectAdhocOneResult" class="title">Class SelectAdhocOneResult&lt;ROW,&#8203;RESULT&gt;</h2>
 </div>
 <div class="contentContainer">
 <ul class="inheritance">
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li>io.github.zero88.jooqx.adapter.SelectAdhocOneResult&lt;T,&#8203;R&gt;</li>
+<li>io.github.zero88.jooqx.adapter.SelectAdhocOneResult&lt;ROW,&#8203;RESULT&gt;</li>
 </ul>
 </li>
 </ul>
@@ -131,22 +131,22 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <dl>
 <dt>All Implemented Interfaces:</dt>
-<dd><code><a href="SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;</code>, <code><a href="SQLResultAdapter.SQLResultOneAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter.SQLResultOneAdapter</a>&lt;T,&#8203;R&gt;</code></dd>
+<dd><code><a href="SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;ROW,&#8203;RESULT&gt;</code>, <code><a href="SQLResultOneAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultOneAdapter</a>&lt;ROW,&#8203;RESULT&gt;</code></dd>
 </dl>
 <dl>
 <dt>Direct Known Subclasses:</dt>
 <dd><code><a href="SelectCount.html" title="class in io.github.zero88.jooqx.adapter">SelectCount</a></code>, <code><a href="SelectExists.html" title="class in io.github.zero88.jooqx.adapter">SelectExists</a></code></dd>
 </dl>
 <hr>
-<pre>public abstract class <span class="typeNameLabel">SelectAdhocOneResult&lt;T extends org.jooq.TableLike&lt;? extends org.jooq.Record&gt;,&#8203;R&gt;</span>
+<pre>public abstract class <span class="typeNameLabel">SelectAdhocOneResult&lt;ROW,&#8203;RESULT&gt;</span>
 extends java.lang.Object
-implements <a href="SQLResultAdapter.SQLResultOneAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter.SQLResultOneAdapter</a>&lt;T,&#8203;R&gt;</pre>
+implements <a href="SQLResultOneAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultOneAdapter</a>&lt;ROW,&#8203;RESULT&gt;</pre>
 <div class="block">Select Adhoc adapter for one result is a base class for custom <code>Select one</code> implementations in client code.</div>
 <dl>
 <dt><span class="simpleTagLabel">Since:</span></dt>
 <dd>1.0.0</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="SQLResultAdapter.SQLResultOneAdapter.html" title="interface in io.github.zero88.jooqx.adapter"><code>SQLResultAdapter.SQLResultOneAdapter</code></a></dd>
+<dd><a href="SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter"><code>SQLResultAdapter</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -162,11 +162,11 @@ implements <a href="SQLResultAdapter.SQLResultOneAdapter.html" title="interface 
 </a>
 <h3>Nested Class Summary</h3>
 <ul class="blockList">
-<li class="blockList"><a id="nested.classes.inherited.from.class.io.github.zero88.jooqx.adapter.SQLResultAdapter">
+<li class="blockList"><a id="nested.classes.inherited.from.class.io.github.zero88.jooqx.adapter.SQLResultOneAdapter">
 <!--   -->
 </a>
-<h3>Nested classes/interfaces inherited from interface&nbsp;io.github.zero88.jooqx.adapter.<a href="SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a></h3>
-<code><a href="SQLResultAdapter.SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter.SQLResultListAdapter</a>&lt;<a href="SQLResultAdapter.SQLResultListAdapter.html" title="type parameter in SQLResultAdapter.SQLResultListAdapter">T</a>,&#8203;<a href="SQLResultAdapter.SQLResultListAdapter.html" title="type parameter in SQLResultAdapter.SQLResultListAdapter">R</a>&gt;, <a href="SQLResultAdapter.SQLResultOneAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter.SQLResultOneAdapter</a>&lt;<a href="SQLResultAdapter.SQLResultOneAdapter.html" title="type parameter in SQLResultAdapter.SQLResultOneAdapter">T</a>,&#8203;<a href="SQLResultAdapter.SQLResultOneAdapter.html" title="type parameter in SQLResultAdapter.SQLResultOneAdapter">R</a>&gt;</code></li>
+<h3>Nested classes/interfaces inherited from interface&nbsp;io.github.zero88.jooqx.adapter.<a href="SQLResultOneAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultOneAdapter</a></h3>
+<code><a href="SQLResultOneAdapter.SQLResultIdentityOneAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultOneAdapter.SQLResultIdentityOneAdapter</a>&lt;<a href="SQLResultOneAdapter.SQLResultIdentityOneAdapter.html" title="type parameter in SQLResultOneAdapter.SQLResultIdentityOneAdapter">ROW</a>&gt;</code></li>
 </ul>
 </li>
 </ul>
@@ -187,7 +187,7 @@ implements <a href="SQLResultAdapter.SQLResultOneAdapter.html" title="interface 
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>protected </code></td>
-<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(T)">SelectAdhocOneResult</a></span>&#8203;(<a href="SelectAdhocOneResult.html" title="type parameter in SelectAdhocOneResult">T</a>&nbsp;table)</code></th>
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E(io.github.zero88.jooqx.adapter.RecordFactory)">SelectAdhocOneResult</a></span>&#8203;(@NotNull <a href="RecordFactory.html" title="interface in io.github.zero88.jooqx.adapter">RecordFactory</a>&lt;? extends org.jooq.Record,&#8203;<a href="SelectAdhocOneResult.html" title="type parameter in SelectAdhocOneResult">ROW</a>&gt;&nbsp;recordFactory)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -202,25 +202,28 @@ implements <a href="SQLResultAdapter.SQLResultOneAdapter.html" title="interface 
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Method</th>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>protected &lt;R extends org.jooq.Record,&#8203;I&gt;<br><a href="RowConverterStrategy.html" title="interface in io.github.zero88.jooqx.adapter">RowConverterStrategy</a>&lt;R,&#8203;I&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#initStrategy(org.jooq.DSLContext,io.github.zero88.jooqx.datatype.DataTypeMapperRegistry,io.github.zero88.jooqx.adapter.SQLCollectorPart)">initStrategy</a></span>&#8203;(@NotNull org.jooq.DSLContext&nbsp;dsl,
-            @NotNull <a href="../datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;registry,
-            @NotNull <a href="SQLCollectorPart.html" title="class in io.github.zero88.jooqx.adapter">SQLCollectorPart</a>&lt;R,&#8203;I&gt;&nbsp;collectorPart)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colFirst"><code><a href="SelectAdhocOneResult.html" title="type parameter in SelectAdhocOneResult">RESULT</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#collect(java.util.List)">collect</a></span>&#8203;(@NotNull java.util.List&lt;<a href="SelectAdhocOneResult.html" title="type parameter in SelectAdhocOneResult">ROW</a>&gt;&nbsp;rows)</code></th>
+<td class="colLast">
+<div class="block">Collect list of row to an expectation result</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>T</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#table()">table</a></span>()</code></th>
-<td class="colLast">
-<div class="block">A current context holder</div>
-</td>
+<td class="colFirst"><code>protected abstract <a href="SelectAdhocOneResult.html" title="type parameter in SelectAdhocOneResult">RESULT</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#convert(ROW)">convert</a></span>&#8203;(<a href="SelectAdhocOneResult.html" title="type parameter in SelectAdhocOneResult">ROW</a>&nbsp;row)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code><a href="RecordFactory.html" title="interface in io.github.zero88.jooqx.adapter">RecordFactory</a>&lt;? extends org.jooq.Record,&#8203;ROW&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#recordFactory()">recordFactory</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -235,14 +238,14 @@ implements <a href="SQLResultAdapter.SQLResultOneAdapter.html" title="interface 
 <!--   -->
 </a>
 <h3>Methods inherited from interface&nbsp;io.github.zero88.jooqx.adapter.<a href="SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a></h3>
-<code><a href="SQLResultAdapter.html#table()">table</a></code></li>
+<code><a href="SQLResultAdapter.html#recordFactory()">recordFactory</a></code></li>
 </ul>
 <ul class="blockList">
-<li class="blockList"><a id="methods.inherited.from.class.io.github.zero88.jooqx.adapter.SQLResultAdapter.SQLResultOneAdapter">
+<li class="blockList"><a id="methods.inherited.from.class.io.github.zero88.jooqx.adapter.SQLResultOneAdapter">
 <!--   -->
 </a>
-<h3>Methods inherited from interface&nbsp;io.github.zero88.jooqx.adapter.<a href="SQLResultAdapter.SQLResultOneAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter.SQLResultOneAdapter</a></h3>
-<code><a href="SQLResultAdapter.SQLResultOneAdapter.html#collect(RS,io.github.zero88.jooqx.SQLResultCollector,org.jooq.DSLContext,io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">collect</a>, <a href="SQLResultAdapter.SQLResultOneAdapter.html#strategy()">strategy</a></code></li>
+<h3>Methods inherited from interface&nbsp;io.github.zero88.jooqx.adapter.<a href="SQLResultOneAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultOneAdapter</a></h3>
+<code><a href="SQLResultOneAdapter.html#strategy()">strategy</a></code></li>
 </ul>
 </li>
 </ul>
@@ -260,16 +263,14 @@ implements <a href="SQLResultAdapter.SQLResultOneAdapter.html" title="interface 
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a id="&lt;init&gt;(org.jooq.TableLike)">
-<!--   -->
-</a><a id="&lt;init&gt;(T)">
+<a id="&lt;init&gt;(io.github.zero88.jooqx.adapter.RecordFactory)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>SelectAdhocOneResult</h4>
 <pre>protected&nbsp;SelectAdhocOneResult&#8203;(@NotNull
-                               <a href="SelectAdhocOneResult.html" title="type parameter in SelectAdhocOneResult">T</a>&nbsp;table)</pre>
+                               @NotNull <a href="RecordFactory.html" title="interface in io.github.zero88.jooqx.adapter">RecordFactory</a>&lt;? extends org.jooq.Record,&#8203;<a href="SelectAdhocOneResult.html" title="type parameter in SelectAdhocOneResult">ROW</a>&gt;&nbsp;recordFactory)</pre>
 </li>
 </ul>
 </li>
@@ -282,37 +283,52 @@ implements <a href="SQLResultAdapter.SQLResultOneAdapter.html" title="interface 
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="initStrategy(org.jooq.DSLContext,io.github.zero88.jooqx.datatype.DataTypeMapperRegistry,io.github.zero88.jooqx.adapter.SQLCollectorPart)">
+<a id="collect(java.util.List)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>initStrategy</h4>
-<pre class="methodSignature">protected final&nbsp;&lt;R extends org.jooq.Record,&#8203;I&gt;&nbsp;<a href="RowConverterStrategy.html" title="interface in io.github.zero88.jooqx.adapter">RowConverterStrategy</a>&lt;R,&#8203;I&gt;&nbsp;initStrategy&#8203;(@NotNull
-                                                                                                 @NotNull org.jooq.DSLContext&nbsp;dsl,
-                                                                                                 @NotNull
-                                                                                                 @NotNull <a href="../datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;registry,
-                                                                                                 @NotNull
-                                                                                                 @NotNull <a href="SQLCollectorPart.html" title="class in io.github.zero88.jooqx.adapter">SQLCollectorPart</a>&lt;R,&#8203;I&gt;&nbsp;collectorPart)</pre>
+<h4>collect</h4>
+<pre class="methodSignature">public&nbsp;<a href="SelectAdhocOneResult.html" title="type parameter in SelectAdhocOneResult">RESULT</a>&nbsp;collect&#8203;(@NotNull
+                      @NotNull java.util.List&lt;<a href="SelectAdhocOneResult.html" title="type parameter in SelectAdhocOneResult">ROW</a>&gt;&nbsp;rows)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLResultAdapter.html#collect(java.util.List)">SQLResultAdapter</a></code></span></div>
+<div class="block">Collect list of row to an expectation result</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="SQLResultAdapter.html#collect(java.util.List)">collect</a></code>&nbsp;in interface&nbsp;<code><a href="SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;<a href="SelectAdhocOneResult.html" title="type parameter in SelectAdhocOneResult">ROW</a>,&#8203;<a href="SelectAdhocOneResult.html" title="type parameter in SelectAdhocOneResult">RESULT</a>&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>rows</code> - row list</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>an expectation result</dd>
+</dl>
 </li>
 </ul>
-<a id="table()">
+<a id="convert(java.lang.Object)">
+<!--   -->
+</a><a id="convert(ROW)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>convert</h4>
+<pre class="methodSignature">protected abstract&nbsp;<a href="SelectAdhocOneResult.html" title="type parameter in SelectAdhocOneResult">RESULT</a>&nbsp;convert&#8203;(@Nullable
+                                  <a href="SelectAdhocOneResult.html" title="type parameter in SelectAdhocOneResult">ROW</a>&nbsp;row)</pre>
+</li>
+</ul>
+<a id="recordFactory()">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>table</h4>
-<pre class="methodSignature">@NotNull
-public&nbsp;T&nbsp;table()</pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLResultAdapter.html#table()">SQLResultAdapter</a></code></span></div>
-<div class="block">A current context holder</div>
+<h4>recordFactory</h4>
+<pre class="methodSignature">public&nbsp;<a href="RecordFactory.html" title="interface in io.github.zero88.jooqx.adapter">RecordFactory</a>&lt;? extends org.jooq.Record,&#8203;ROW&gt;&nbsp;recordFactory()</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="SQLResultAdapter.html#table()">table</a></code>&nbsp;in interface&nbsp;<code><a href="SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T extends org.jooq.TableLike&lt;? extends org.jooq.Record&gt;,&#8203;O&gt;</code></dd>
+<dd><code><a href="SQLResultAdapter.html#recordFactory()">recordFactory</a></code>&nbsp;in interface&nbsp;<code><a href="SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;ROW,&#8203;RESULT&gt;</code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>jOOQ table</dd>
+<dd>record factory</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><code>TableLike</code></dd>
+<dd><a href="RecordFactory.html" title="interface in io.github.zero88.jooqx.adapter"><code>RecordFactory</code></a></dd>
 </dl>
 </li>
 </ul>

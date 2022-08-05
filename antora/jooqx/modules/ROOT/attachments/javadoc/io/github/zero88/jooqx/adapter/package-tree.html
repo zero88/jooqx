@@ -104,20 +104,15 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul>
 <li class="circle">java.lang.Object
 <ul>
-<li class="circle">io.github.zero88.jooqx.adapter.<a href="SelectAdhocListResult.html" title="class in io.github.zero88.jooqx.adapter"><span class="typeNameLink">SelectAdhocListResult</span></a>&lt;T,&#8203;R&gt; (implements io.github.zero88.jooqx.adapter.<a href="SQLResultAdapter.SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter.SQLResultListAdapter</a>&lt;T,&#8203;R&gt;)</li>
-<li class="circle">io.github.zero88.jooqx.adapter.<a href="SelectAdhocOneResult.html" title="class in io.github.zero88.jooqx.adapter"><span class="typeNameLink">SelectAdhocOneResult</span></a>&lt;T,&#8203;R&gt; (implements io.github.zero88.jooqx.adapter.<a href="SQLResultAdapter.SQLResultOneAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter.SQLResultOneAdapter</a>&lt;T,&#8203;R&gt;)
+<li class="circle">io.github.zero88.jooqx.adapter.<a href="SelectAdhocListResult.html" title="class in io.github.zero88.jooqx.adapter"><span class="typeNameLink">SelectAdhocListResult</span></a>&lt;ROW,&#8203;EACH&gt; (implements io.github.zero88.jooqx.adapter.<a href="SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter</a>&lt;ROW,&#8203;EACH&gt;)</li>
+<li class="circle">io.github.zero88.jooqx.adapter.<a href="SelectAdhocOneResult.html" title="class in io.github.zero88.jooqx.adapter"><span class="typeNameLink">SelectAdhocOneResult</span></a>&lt;ROW,&#8203;RESULT&gt; (implements io.github.zero88.jooqx.adapter.<a href="SQLResultOneAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultOneAdapter</a>&lt;ROW,&#8203;RESULT&gt;)
 <ul>
 <li class="circle">io.github.zero88.jooqx.adapter.<a href="SelectCount.html" title="class in io.github.zero88.jooqx.adapter"><span class="typeNameLink">SelectCount</span></a></li>
 <li class="circle">io.github.zero88.jooqx.adapter.<a href="SelectExists.html" title="class in io.github.zero88.jooqx.adapter"><span class="typeNameLink">SelectExists</span></a></li>
 </ul>
 </li>
-<li class="circle">io.github.zero88.jooqx.adapter.<a href="SelectList.html" title="class in io.github.zero88.jooqx.adapter"><span class="typeNameLink">SelectList</span></a>&lt;T,&#8203;R,&#8203;I&gt; (implements io.github.zero88.jooqx.adapter.<a href="SQLResultAdapter.SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter.SQLResultListAdapter</a>&lt;T,&#8203;R&gt;)</li>
-<li class="circle">io.github.zero88.jooqx.adapter.<a href="SelectOne.html" title="class in io.github.zero88.jooqx.adapter"><span class="typeNameLink">SelectOne</span></a>&lt;T,&#8203;R,&#8203;I&gt; (implements io.github.zero88.jooqx.adapter.<a href="SQLResultAdapter.SQLResultOneAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter.SQLResultOneAdapter</a>&lt;T,&#8203;R&gt;)</li>
-<li class="circle">io.github.zero88.jooqx.adapter.<a href="SQLCollectorPart.html" title="class in io.github.zero88.jooqx.adapter"><span class="typeNameLink">SQLCollectorPart</span></a>&lt;R,&#8203;I&gt;
-<ul>
-<li class="circle">io.github.zero88.jooqx.adapter.<a href="SQLCollectorPart.IdentityCollectorPart.html" title="class in io.github.zero88.jooqx.adapter"><span class="typeNameLink">SQLCollectorPart.IdentityCollectorPart</span></a>&lt;R&gt;</li>
-</ul>
-</li>
+<li class="circle">io.github.zero88.jooqx.adapter.<a href="SelectList.html" title="class in io.github.zero88.jooqx.adapter"><span class="typeNameLink">SelectList</span></a>&lt;R&gt; (implements io.github.zero88.jooqx.adapter.<a href="SQLResultListAdapter.SQLResultIdentityListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter.SQLResultIdentityListAdapter</a>&lt;ROW&gt;)</li>
+<li class="circle">io.github.zero88.jooqx.adapter.<a href="SelectOne.html" title="class in io.github.zero88.jooqx.adapter"><span class="typeNameLink">SelectOne</span></a>&lt;R&gt; (implements io.github.zero88.jooqx.adapter.<a href="SQLResultOneAdapter.SQLResultIdentityOneAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultOneAdapter.SQLResultIdentityOneAdapter</a>&lt;ROW&gt;)</li>
 </ul>
 </li>
 </ul>
@@ -125,15 +120,29 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <section role="region">
 <h2 title="Interface Hierarchy">Interface Hierarchy</h2>
 <ul>
+<li class="circle">io.github.zero88.jooqx.adapter.<a href="FieldWrapper.html" title="interface in io.github.zero88.jooqx.adapter"><span class="typeNameLink">FieldWrapper</span></a></li>
 <li class="circle">io.github.zero88.jooqx.adapter.HasStrategy
 <ul>
-<li class="circle">io.github.zero88.jooqx.adapter.<a href="RowConverterStrategy.html" title="interface in io.github.zero88.jooqx.adapter"><span class="typeNameLink">RowConverterStrategy</span></a>&lt;R,&#8203;I&gt;</li>
-<li class="circle">io.github.zero88.jooqx.adapter.<a href="SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter"><span class="typeNameLink">SQLResultAdapter</span></a>&lt;T,&#8203;R&gt;
+<li class="circle">io.github.zero88.jooqx.adapter.<a href="SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter"><span class="typeNameLink">SQLResultAdapter</span></a>&lt;ROW,&#8203;RESULT&gt;
 <ul>
-<li class="circle">io.github.zero88.jooqx.adapter.<a href="SQLResultAdapter.SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter"><span class="typeNameLink">SQLResultAdapter.SQLResultListAdapter</span></a>&lt;T,&#8203;R&gt;</li>
-<li class="circle">io.github.zero88.jooqx.adapter.<a href="SQLResultAdapter.SQLResultOneAdapter.html" title="interface in io.github.zero88.jooqx.adapter"><span class="typeNameLink">SQLResultAdapter.SQLResultOneAdapter</span></a>&lt;T,&#8203;R&gt;</li>
+<li class="circle">io.github.zero88.jooqx.adapter.<a href="SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter"><span class="typeNameLink">SQLResultListAdapter</span></a>&lt;ROW,&#8203;EACH&gt;
+<ul>
+<li class="circle">io.github.zero88.jooqx.adapter.<a href="SQLResultListAdapter.SQLResultIdentityListAdapter.html" title="interface in io.github.zero88.jooqx.adapter"><span class="typeNameLink">SQLResultListAdapter.SQLResultIdentityListAdapter</span></a>&lt;ROW&gt;</li>
 </ul>
 </li>
+<li class="circle">io.github.zero88.jooqx.adapter.<a href="SQLResultOneAdapter.html" title="interface in io.github.zero88.jooqx.adapter"><span class="typeNameLink">SQLResultOneAdapter</span></a>&lt;ROW,&#8203;RESULT&gt;
+<ul>
+<li class="circle">io.github.zero88.jooqx.adapter.<a href="SQLResultOneAdapter.SQLResultIdentityOneAdapter.html" title="interface in io.github.zero88.jooqx.adapter"><span class="typeNameLink">SQLResultOneAdapter.SQLResultIdentityOneAdapter</span></a>&lt;ROW&gt;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="circle">io.github.zero88.jooqx.adapter.<a href="RecordFactoryHelper.html" title="interface in io.github.zero88.jooqx.adapter"><span class="typeNameLink">RecordFactoryHelper</span></a></li>
+<li class="circle">org.jooq.RecordMapper&lt;R,&#8203;E&gt;
+<ul>
+<li class="circle">io.github.zero88.jooqx.adapter.<a href="RecordFactory.html" title="interface in io.github.zero88.jooqx.adapter"><span class="typeNameLink">RecordFactory</span></a>&lt;REC,&#8203;R&gt;</li>
 </ul>
 </li>
 </ul>

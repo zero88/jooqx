@@ -26,8 +26,8 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":18};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],16:["t5","Default Methods"]};
+var data = {"i0":6};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -88,13 +88,13 @@ loadScripts(document, 'script');</script>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
@@ -131,7 +131,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dl>
 <hr>
 <pre>public interface <span class="typeNameLabel">SQLResultCollector&lt;RS&gt;</span></pre>
-<div class="block">Represents for a collector that collects <code>Vert.x SQL result</code> to an expectation output</div>
+<div class="block">Represents for a collector that collects and transforms <code>Vert.x SQL result</code> to an expectation output</div>
 <dl>
 <dt><span class="simpleTagLabel">Since:</span></dt>
 <dd>1.0.0</dd>
@@ -146,29 +146,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
-<!-- =========== FIELD SUMMARY =========== -->
-<section role="region">
-<ul class="blockList">
-<li class="blockList"><a id="field.summary">
-<!--   -->
-</a>
-<h3>Field Summary</h3>
-<table class="memberSummary">
-<caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
-<tr>
-<th class="colFirst" scope="col">Modifier and Type</th>
-<th class="colSecond" scope="col">Field</th>
-<th class="colLast" scope="col">Description</th>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>static org.slf4j.Logger</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#LOGGER">LOGGER</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-</table>
-</li>
-</ul>
-</section>
 <!-- ========== METHOD SUMMARY =========== -->
 <section role="region">
 <ul class="blockList">
@@ -177,25 +154,21 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t5" class="tableTab"><span><a href="javascript:show(16);">Default Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Method</th>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>@NotNull java.util.List&lt;R&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#collect(RS,io.github.zero88.jooqx.adapter.RowConverterStrategy)">collect</a></span>&#8203;(<a href="SQLResultCollector.html" title="type parameter in SQLResultCollector">RS</a>&nbsp;resultSet,
-       @NotNull <a href="adapter/RowConverterStrategy.html" title="interface in io.github.zero88.jooqx.adapter">RowConverterStrategy</a>&lt;T,&#8203;R&gt;&nbsp;strategy)</code></th>
+<td class="colFirst"><code>&lt;ROW,&#8203;RESULT&gt;<br>RESULT</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#collect(RS,io.github.zero88.jooqx.adapter.SQLResultAdapter,org.jooq.DSLContext,io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">collect</a></span>&#8203;(<a href="SQLResultCollector.html" title="type parameter in SQLResultCollector">RS</a>&nbsp;resultSet,
+       @NotNull <a href="adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;ROW,&#8203;RESULT&gt;&nbsp;adapter,
+       @NotNull org.jooq.DSLContext&nbsp;dslContext,
+       @NotNull <a href="datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;registry)</code></th>
 <td class="colLast">
-<div class="block">Collect result set to an expectation result</div>
+<div class="block">Collect result set to an expectation result that defines in SQL result adapter</div>
 </td>
-</tr>
-<tr id="i1" class="rowColor">
-<td class="colFirst"><code>default void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#warnManyResult(boolean,io.github.zero88.jooqx.adapter.SelectStrategy)">warnManyResult</a></span>&#8203;(boolean&nbsp;tooManyResults,
-              @NotNull <a href="adapter/SelectStrategy.html" title="enum in io.github.zero88.jooqx.adapter">SelectStrategy</a>&nbsp;strategy)</code></th>
-<td class="colLast">&nbsp;</td>
 </tr>
 </table>
 </li>
@@ -207,25 +180,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
-<!-- ============ FIELD DETAIL =========== -->
-<section role="region">
-<ul class="blockList">
-<li class="blockList"><a id="field.detail">
-<!--   -->
-</a>
-<h3>Field Detail</h3>
-<a id="LOGGER">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>LOGGER</h4>
-<pre>static final&nbsp;org.slf4j.Logger LOGGER</pre>
-</li>
-</ul>
-</li>
-</ul>
-</section>
 <!-- ============ METHOD DETAIL ========== -->
 <section role="region">
 <ul class="blockList">
@@ -233,40 +187,36 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="warnManyResult(boolean,io.github.zero88.jooqx.adapter.SelectStrategy)">
+<a id="collect(java.lang.Object,io.github.zero88.jooqx.adapter.SQLResultAdapter,org.jooq.DSLContext,io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">
 <!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>warnManyResult</h4>
-<pre class="methodSignature">default&nbsp;void&nbsp;warnManyResult&#8203;(boolean&nbsp;tooManyResults,
-                            @NotNull
-                            @NotNull <a href="adapter/SelectStrategy.html" title="enum in io.github.zero88.jooqx.adapter">SelectStrategy</a>&nbsp;strategy)</pre>
-</li>
-</ul>
-<a id="collect(java.lang.Object,io.github.zero88.jooqx.adapter.RowConverterStrategy)">
-<!--   -->
-</a><a id="collect(RS,io.github.zero88.jooqx.adapter.RowConverterStrategy)">
+</a><a id="collect(RS,io.github.zero88.jooqx.adapter.SQLResultAdapter,org.jooq.DSLContext,io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>collect</h4>
-<pre class="methodSignature">@NotNull
-&lt;T,&#8203;R&gt;&nbsp;@NotNull java.util.List&lt;R&gt;&nbsp;collect&#8203;(@NotNull
-                                               <a href="SQLResultCollector.html" title="type parameter in SQLResultCollector">RS</a>&nbsp;resultSet,
-                                               @NotNull
-                                               @NotNull <a href="adapter/RowConverterStrategy.html" title="interface in io.github.zero88.jooqx.adapter">RowConverterStrategy</a>&lt;T,&#8203;R&gt;&nbsp;strategy)</pre>
-<div class="block">Collect result set to an expectation result</div>
+<pre class="methodSignature">&lt;ROW,&#8203;RESULT&gt;&nbsp;RESULT&nbsp;collect&#8203;(@NotNull
+                                  <a href="SQLResultCollector.html" title="type parameter in SQLResultCollector">RS</a>&nbsp;resultSet,
+                                  @NotNull
+                                  @NotNull <a href="adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;ROW,&#8203;RESULT&gt;&nbsp;adapter,
+                                  @NotNull
+                                  @NotNull org.jooq.DSLContext&nbsp;dslContext,
+                                  @NotNull
+                                  @NotNull <a href="datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;registry)</pre>
+<div class="block">Collect result set to an expectation result that defines in SQL result adapter</div>
 <dl>
 <dt><span class="paramLabel">Type Parameters:</span></dt>
-<dd><code>T</code> - the type of input elements to the reduction operation</dd>
-<dd><code>R</code> - the result type of the reduction operation</dd>
+<dd><code>ROW</code> - the type of jOOQ record of the reduction operation</dd>
+<dd><code>RESULT</code> - the type of result after the reduction operation</dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>resultSet</code> - result set</dd>
-<dd><code>strategy</code> - row converter strategy</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>list output</dd>
+<dd>an expectation result</dd>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0.0</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter"><code>SQLResultAdapter</code></a>, 
+<a href="datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype"><code>DataTypeMapperRegistry</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -322,13 +272,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
-<li><a href="#field.detail">Field</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>

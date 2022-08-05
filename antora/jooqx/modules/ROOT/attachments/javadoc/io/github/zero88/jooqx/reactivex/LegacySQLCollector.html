@@ -210,9 +210,11 @@ extends java.lang.Object</pre>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>java.util.List&lt;R&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#collect(io.vertx.ext.sql.ResultSet,io.github.zero88.jooqx.adapter.RowConverterStrategy)">collect</a></span>&#8203;(io.vertx.ext.sql.ResultSet&nbsp;resultSet,
-       <a href="../adapter/RowConverterStrategy.html" title="interface in io.github.zero88.jooqx.adapter">RowConverterStrategy</a>&lt;T,&#8203;R&gt;&nbsp;strategy)</code></th>
+<td class="colFirst"><code>&lt;ROW,&#8203;RESULT&gt;<br>RESULT</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#collect(io.vertx.ext.sql.ResultSet,io.github.zero88.jooqx.adapter.SQLResultAdapter,org.jooq.DSLContext,io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">collect</a></span>&#8203;(io.vertx.ext.sql.ResultSet&nbsp;resultSet,
+       <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;ROW,&#8203;RESULT&gt;&nbsp;adapter,
+       org.jooq.DSLContext&nbsp;dslContext,
+       <a href="../datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;registry)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
@@ -382,14 +384,16 @@ extends java.lang.Object</pre>
 <pre class="methodSignature">public&nbsp;int&nbsp;batchResultSize&#8203;(java.util.List&lt;java.lang.Integer&gt;&nbsp;batchResult)</pre>
 </li>
 </ul>
-<a id="collect(io.vertx.ext.sql.ResultSet,io.github.zero88.jooqx.adapter.RowConverterStrategy)">
+<a id="collect(io.vertx.ext.sql.ResultSet,io.github.zero88.jooqx.adapter.SQLResultAdapter,org.jooq.DSLContext,io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>collect</h4>
-<pre class="methodSignature">public&nbsp;&lt;T,&#8203;R&gt;&nbsp;java.util.List&lt;R&gt;&nbsp;collect&#8203;(io.vertx.ext.sql.ResultSet&nbsp;resultSet,
-                                             <a href="../adapter/RowConverterStrategy.html" title="interface in io.github.zero88.jooqx.adapter">RowConverterStrategy</a>&lt;T,&#8203;R&gt;&nbsp;strategy)</pre>
+<pre class="methodSignature">public&nbsp;&lt;ROW,&#8203;RESULT&gt;&nbsp;RESULT&nbsp;collect&#8203;(io.vertx.ext.sql.ResultSet&nbsp;resultSet,
+                                         <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;ROW,&#8203;RESULT&gt;&nbsp;adapter,
+                                         org.jooq.DSLContext&nbsp;dslContext,
+                                         <a href="../datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;registry)</pre>
 </li>
 </ul>
 <a id="newInstance(io.github.zero88.jooqx.LegacySQLCollector)">

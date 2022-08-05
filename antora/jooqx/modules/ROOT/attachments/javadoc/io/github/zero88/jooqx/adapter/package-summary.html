@@ -114,28 +114,47 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tbody>
 <tr class="altColor">
-<th class="colFirst" scope="row"><a href="RowConverterStrategy.html" title="interface in io.github.zero88.jooqx.adapter">RowConverterStrategy</a>&lt;R,&#8203;I&gt;</th>
+<th class="colFirst" scope="row"><a href="FieldWrapper.html" title="interface in io.github.zero88.jooqx.adapter">FieldWrapper</a></th>
 <td class="colLast">
-<div class="block">A row converter strategy collects each row in result set to an expectation result</div>
+<div class="block">Represents for a field wrapper to know the column number of each field</div>
 </td>
 </tr>
 <tr class="rowColor">
-<th class="colFirst" scope="row"><a href="SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;</th>
+<th class="colFirst" scope="row"><a href="RecordFactory.html" title="interface in io.github.zero88.jooqx.adapter">RecordFactory</a>&lt;REC extends org.jooq.Record,&#8203;R&gt;</th>
 <td class="colLast">
-<div class="block">SQL Result adapter receives Result set then mapping to expected result</div>
+<div class="block">Record factory defines the necessary methods to transform <code>Vert.x SQL row</code> to <code>jOOQ record</code> then map
+ record into a custom type.</div>
 </td>
 </tr>
 <tr class="altColor">
-<th class="colFirst" scope="row"><a href="SQLResultAdapter.SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter.SQLResultListAdapter</a>&lt;T,&#8203;R&gt;</th>
+<th class="colFirst" scope="row"><a href="RecordFactoryHelper.html" title="interface in io.github.zero88.jooqx.adapter">RecordFactoryHelper</a></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<th class="colFirst" scope="row"><a href="SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;ROW,&#8203;RESULT&gt;</th>
+<td class="colLast">
+<div class="block">Provides a capability to transform <code>Vert.x</code> SQL result set to an expected result (in <code>jOOQ</code> term).</div>
+</td>
+</tr>
+<tr class="altColor">
+<th class="colFirst" scope="row"><a href="SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter</a>&lt;ROW,&#8203;EACH&gt;</th>
 <td class="colLast">
 <div class="block">Indicates select many row</div>
 </td>
 </tr>
 <tr class="rowColor">
-<th class="colFirst" scope="row"><a href="SQLResultAdapter.SQLResultOneAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter.SQLResultOneAdapter</a>&lt;T,&#8203;R&gt;</th>
+<th class="colFirst" scope="row"><a href="SQLResultListAdapter.SQLResultIdentityListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter.SQLResultIdentityListAdapter</a>&lt;ROW&gt;</th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<th class="colFirst" scope="row"><a href="SQLResultOneAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultOneAdapter</a>&lt;ROW,&#8203;RESULT&gt;</th>
 <td class="colLast">
 <div class="block">Indicates select only one row</div>
 </td>
+</tr>
+<tr class="rowColor">
+<th class="colFirst" scope="row"><a href="SQLResultOneAdapter.SQLResultIdentityOneAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultOneAdapter.SQLResultIdentityOneAdapter</a>&lt;ROW&gt;</th>
+<td class="colLast">&nbsp;</td>
 </tr>
 </tbody>
 </table>
@@ -149,13 +168,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tbody>
 <tr class="altColor">
-<th class="colFirst" scope="row"><a href="SelectAdhocListResult.html" title="class in io.github.zero88.jooqx.adapter">SelectAdhocListResult</a>&lt;T extends org.jooq.TableLike&lt;? extends org.jooq.Record&gt;,&#8203;R&gt;</th>
+<th class="colFirst" scope="row"><a href="SelectAdhocListResult.html" title="class in io.github.zero88.jooqx.adapter">SelectAdhocListResult</a>&lt;ROW,&#8203;EACH&gt;</th>
 <td class="colLast">
 <div class="block">Select Adhoc adapter for list result is a base class for custom <code>Select list</code> implementations in client code.</div>
 </td>
 </tr>
 <tr class="rowColor">
-<th class="colFirst" scope="row"><a href="SelectAdhocOneResult.html" title="class in io.github.zero88.jooqx.adapter">SelectAdhocOneResult</a>&lt;T extends org.jooq.TableLike&lt;? extends org.jooq.Record&gt;,&#8203;R&gt;</th>
+<th class="colFirst" scope="row"><a href="SelectAdhocOneResult.html" title="class in io.github.zero88.jooqx.adapter">SelectAdhocOneResult</a>&lt;ROW,&#8203;RESULT&gt;</th>
 <td class="colLast">
 <div class="block">Select Adhoc adapter for one result is a base class for custom <code>Select one</code> implementations in client code.</div>
 </td>
@@ -173,26 +192,16 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="altColor">
-<th class="colFirst" scope="row"><a href="SelectList.html" title="class in io.github.zero88.jooqx.adapter">SelectList</a>&lt;T extends org.jooq.TableLike&lt;? extends org.jooq.Record&gt;,&#8203;R extends org.jooq.Record,&#8203;I&gt;</th>
+<th class="colFirst" scope="row"><a href="SelectList.html" title="class in io.github.zero88.jooqx.adapter">SelectList</a>&lt;R&gt;</th>
 <td class="colLast">
 <div class="block">Select list result adapter that returns list of output</div>
 </td>
 </tr>
 <tr class="rowColor">
-<th class="colFirst" scope="row"><a href="SelectOne.html" title="class in io.github.zero88.jooqx.adapter">SelectOne</a>&lt;T extends org.jooq.TableLike&lt;? extends org.jooq.Record&gt;,&#8203;R extends org.jooq.Record,&#8203;I&gt;</th>
+<th class="colFirst" scope="row"><a href="SelectOne.html" title="class in io.github.zero88.jooqx.adapter">SelectOne</a>&lt;R&gt;</th>
 <td class="colLast">
 <div class="block">Select one result adapter that returns only one row</div>
 </td>
-</tr>
-<tr class="altColor">
-<th class="colFirst" scope="row"><a href="SQLCollectorPart.html" title="class in io.github.zero88.jooqx.adapter">SQLCollectorPart</a>&lt;R extends org.jooq.Record,&#8203;I&gt;</th>
-<td class="colLast">
-<div class="block">SQL collector part that helps to create collector in <a href="RowConverterStrategy.html#createCollector(java.util.function.Function)"><code>RowConverterStrategy.createCollector(Function)</code></a></div>
-</td>
-</tr>
-<tr class="rowColor">
-<th class="colFirst" scope="row"><a href="SQLCollectorPart.IdentityCollectorPart.html" title="class in io.github.zero88.jooqx.adapter">SQLCollectorPart.IdentityCollectorPart</a>&lt;R extends org.jooq.Record&gt;</th>
-<td class="colLast">&nbsp;</td>
 </tr>
 </tbody>
 </table>
