@@ -86,20 +86,17 @@ class PgReAFunctionTest extends PgSQLJooqxTest<PgPool>
     @Test
     void test_fn_returns_void(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint(3);
-        final String authorName = "J.D. Salinger";
+        final String name = "J.D. Salinger";
         final RemoveAuthor routine = new RemoveAuthor();
-        routine.setAuthorName(authorName);
+        routine.setAuthorName(name);
         jooqx.routine(routine)
              .onSuccess(r -> ctx.verify(cp::flag))
-             .flatMap(r -> jooqx.execute(dsl -> dsl.selectOne()
-                                                   .whereExists(dsl.selectFrom(Tables.AUTHORS)
-                                                                   .where(Tables.AUTHORS.NAME.eq(authorName))),
-                                         DSLAdapter.fetchExists()))
+             .flatMap(r -> jooqx.fetchExists(dsl -> dsl.selectFrom(Tables.AUTHORS).where(Tables.AUTHORS.NAME.eq(name))))
              .onSuccess(r -> ctx.verify(() -> {
                  Assertions.assertFalse(r);
                  cp.flag();
              }))
-             .flatMap(r -> jooqx.execute(dsl -> dsl.selectCount().from(Tables.BOOKS), DSLAdapter.fetchCount()))
+             .flatMap(r -> jooqx.fetchCount(dsl -> dsl.selectFrom(Tables.BOOKS)))
              .onSuccess(r -> ctx.verify(() -> {
                  Assertions.assertEquals(4, r);
                  cp.flag();

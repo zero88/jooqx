@@ -32,9 +32,7 @@ class PgReAJDBCPoolTest extends PgSQLJooqxTest<JDBCPool>
 
     @Override
     public DataTypeMapperRegistry typeMapperRegistry() {
-        return PgUseJooqType.super.typeMapperRegistry()
-                                  .addByColumn(schema().ALL_DATA_TYPES.F_INTERVAL,
-                                               UserTypeAsJooqType.create(new JDBCIntervalConverter()));
+        return PgUseJooqType.super.typeMapperRegistry().add(UserTypeAsJooqType.create(new JDBCIntervalConverter()));
     }
 
     @Test
@@ -42,19 +40,18 @@ class PgReAJDBCPoolTest extends PgSQLJooqxTest<JDBCPool>
         Checkpoint cp = ctx.checkpoint();
         final AllDataTypes table = schema().ALL_DATA_TYPES;
 
-        jooqx.execute(dsl -> dsl.selectFrom(table).where(table.ID.eq(31)).limit(1), DSLAdapter.fetchOne(table),
-                      ar -> ctx.verify(() -> {
-                          final AllDataTypesRecord record = assertSuccess(ctx, ar);
-                          System.out.println(record);
-                          Assertions.assertNotNull(record.getFDate());
-                          Assertions.assertNotNull(record.getFTime());
-                          Assertions.assertNotNull(record.getFTimestamp());
-                          Assertions.assertNotNull(record.getFTimetz());
-                          Assertions.assertNotNull(record.getFTimestamptz());
-                          //TODO: Should use converter with String as interval
-                          Assertions.assertNotNull(record.getFInterval());
-                          cp.flag();
-                      }));
+        jooqx.fetchOne(dsl -> dsl.selectFrom(table).where(table.ID.eq(31)).limit(1), ar -> ctx.verify(() -> {
+            final AllDataTypesRecord record = assertSuccess(ctx, ar);
+            System.out.println(record);
+            Assertions.assertNotNull(record.getFDate());
+            Assertions.assertNotNull(record.getFTime());
+            Assertions.assertNotNull(record.getFTimestamp());
+            Assertions.assertNotNull(record.getFTimetz());
+            Assertions.assertNotNull(record.getFTimestamptz());
+            //TODO: Should use converter with String as interval
+            Assertions.assertNotNull(record.getFInterval());
+            cp.flag();
+        }));
     }
 
 }
