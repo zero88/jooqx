@@ -15,6 +15,7 @@ import io.github.zero88.jooqx.spi.jdbc.JDBCErrorConverterProvider;
 import io.github.zero88.jooqx.spi.pg.PgSQLLegacyTest;
 import io.github.zero88.sample.model.pgsql.enums.Mood;
 import io.github.zero88.sample.model.pgsql.enums.Weather;
+import io.github.zero88.sample.model.pgsql.routines.Add;
 import io.github.zero88.sample.model.pgsql.tables.AllDataTypes;
 import io.github.zero88.sample.model.pgsql.tables.records.AllDataTypesRecord;
 import io.github.zero88.sample.model.pgsql.udt.records.FullAddressRecord;
@@ -73,6 +74,11 @@ class PgLeGUDTTest extends PgSQLLegacyTest implements JDBCErrorConverterProvider
                           Assertions.assertEquals(true, address.getHome());
                           flag.flag();
                       }));
+    }
+
+    @Test
+    void shouldUnsupportedRoutine() {
+        Assertions.assertThrows(UnsupportedOperationException.class, () -> jooqx.routine(new Add()));
     }
 
 }

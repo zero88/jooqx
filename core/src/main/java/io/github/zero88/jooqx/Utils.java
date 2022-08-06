@@ -17,7 +17,7 @@ public final class Utils {
     }
 
     public static boolean isLegacyJDBC(Object sqlClient) {
-        return isSpecificClient("io.vertx.ext.jdbc.JDBCClient", sqlClient);
+        return isSpecificClient("io.vertx.ext.sql.SQLClient", sqlClient);
     }
 
     public static boolean isSpecificClient(String fqnSqlClassName, Object sqlClient) {
