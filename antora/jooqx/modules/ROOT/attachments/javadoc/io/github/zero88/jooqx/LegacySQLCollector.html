@@ -26,8 +26,8 @@
     catch(err) {
     }
 //-->
-var data = {"i0":38,"i1":38,"i2":33};
-var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],32:["t6","Deprecated Methods"]};
+var data = {"i0":50,"i1":38,"i2":33};
+var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],16:["t5","Default Methods"],32:["t6","Deprecated Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -123,12 +123,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <dl>
 <dt>All Superinterfaces:</dt>
-<dd><code><a href="SQLBatchCollector.html" title="interface in io.github.zero88.jooqx">SQLBatchCollector</a>&lt;io.vertx.ext.sql.ResultSet,&#8203;java.util.List&lt;java.lang.Integer&gt;&gt;</code>, <code><a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>&lt;io.vertx.ext.sql.ResultSet&gt;</code></dd>
+<dd><code><a href="SQLBatchCollector.html" title="interface in io.github.zero88.jooqx">SQLBatchCollector</a>&lt;java.util.List&lt;java.lang.Integer&gt;&gt;</code>, <code><a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a></code></dd>
 </dl>
 <hr>
 <pre>@Deprecated
 public interface <span class="typeNameLabel">LegacySQLCollector</span>
-extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>&lt;io.vertx.ext.sql.ResultSet&gt;, <a href="SQLBatchCollector.html" title="interface in io.github.zero88.jooqx">SQLBatchCollector</a>&lt;io.vertx.ext.sql.ResultSet,&#8203;java.util.List&lt;java.lang.Integer&gt;&gt;</pre>
+extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>, <a href="SQLBatchCollector.html" title="interface in io.github.zero88.jooqx">SQLBatchCollector</a>&lt;java.util.List&lt;java.lang.Integer&gt;&gt;</pre>
 <div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
 <div class="block">Represents for Legacy SQL result set collector</div>
 <dl>
@@ -149,14 +149,14 @@ extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.j
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t6" class="tableTab"><span><a href="javascript:show(32);">Deprecated Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t5" class="tableTab"><span><a href="javascript:show(16);">Default Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t6" class="tableTab"><span><a href="javascript:show(32);">Deprecated Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Method</th>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>int</code></td>
+<td class="colFirst"><code>default int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#batchResultSize(java.util.List)">batchResultSize</a></span>&#8203;(@NotNull java.util.List&lt;java.lang.Integer&gt;&nbsp;batchResult)</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
@@ -182,6 +182,13 @@ extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.j
 &nbsp;</td>
 </tr>
 </table>
+<ul class="blockList">
+<li class="blockList"><a id="methods.inherited.from.class.io.github.zero88.jooqx.SQLBatchCollector">
+<!--   -->
+</a>
+<h3>Methods inherited from interface&nbsp;io.github.zero88.jooqx.<a href="SQLBatchCollector.html" title="interface in io.github.zero88.jooqx">SQLBatchCollector</a></h3>
+<code><a href="SQLBatchCollector.html#batchResult(io.github.zero88.jooqx.BindBatchValues,BR)">batchResult</a></code></li>
+</ul>
 </li>
 </ul>
 </section>
@@ -208,31 +215,10 @@ extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.j
 <div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
 </li>
 </ul>
-<a id="batchResultSize(java.util.List)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>batchResultSize</h4>
-<pre class="methodSignature">int&nbsp;batchResultSize&#8203;(@NotNull
-                    @NotNull java.util.List&lt;java.lang.Integer&gt;&nbsp;batchResult)</pre>
-<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLBatchCollector.html#batchResultSize(BR)">SQLBatchCollector</a></code></span></div>
-<div class="block">Compute Batch Result size</div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="SQLBatchCollector.html#batchResultSize(BR)">batchResultSize</a></code>&nbsp;in interface&nbsp;<code><a href="SQLBatchCollector.html" title="interface in io.github.zero88.jooqx">SQLBatchCollector</a>&lt;io.vertx.ext.sql.ResultSet,&#8203;java.util.List&lt;java.lang.Integer&gt;&gt;</code></dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>batchResult</code> - batch result</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>result size</dd>
-</dl>
-</li>
-</ul>
 <a id="collect(io.vertx.ext.sql.ResultSet,io.github.zero88.jooqx.adapter.SQLResultAdapter,org.jooq.DSLContext,io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>collect</h4>
 <pre class="methodSignature">&lt;ROW,&#8203;RESULT&gt;&nbsp;RESULT&nbsp;collect&#8203;(@NotNull
@@ -244,11 +230,8 @@ extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.j
                                   @NotNull
                                   @NotNull <a href="datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;registry)</pre>
 <div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLResultCollector.html#collect(RS,io.github.zero88.jooqx.adapter.SQLResultAdapter,org.jooq.DSLContext,io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">SQLResultCollector</a></code></span></div>
 <div class="block">Collect result set to an expectation result that defines in SQL result adapter</div>
 <dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="SQLResultCollector.html#collect(RS,io.github.zero88.jooqx.adapter.SQLResultAdapter,org.jooq.DSLContext,io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">collect</a></code>&nbsp;in interface&nbsp;<code><a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>&lt;io.vertx.ext.sql.ResultSet&gt;</code></dd>
 <dt><span class="paramLabel">Type Parameters:</span></dt>
 <dd><code>ROW</code> - the type of jOOQ record of the reduction operation</dd>
 <dd><code>RESULT</code> - the type of result after the reduction operation</dd>
@@ -256,9 +239,32 @@ extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.j
 <dd><code>resultSet</code> - result set</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>an expectation result</dd>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0.0</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter"><code>SQLResultAdapter</code></a>, 
 <a href="datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype"><code>DataTypeMapperRegistry</code></a></dd>
+</dl>
+</li>
+</ul>
+<a id="batchResultSize(java.util.List)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>batchResultSize</h4>
+<pre class="methodSignature">default&nbsp;int&nbsp;batchResultSize&#8203;(@NotNull
+                            @NotNull java.util.List&lt;java.lang.Integer&gt;&nbsp;batchResult)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLBatchCollector.html#batchResultSize(BR)">SQLBatchCollector</a></code></span></div>
+<div class="block">Compute Batch Result size</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="SQLBatchCollector.html#batchResultSize(BR)">batchResultSize</a></code>&nbsp;in interface&nbsp;<code><a href="SQLBatchCollector.html" title="interface in io.github.zero88.jooqx">SQLBatchCollector</a>&lt;java.util.List&lt;java.lang.Integer&gt;&gt;</code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>batchResult</code> - batch result</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>result size</dd>
 </dl>
 </li>
 </ul>

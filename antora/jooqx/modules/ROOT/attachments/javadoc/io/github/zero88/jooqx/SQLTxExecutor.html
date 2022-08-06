@@ -115,7 +115,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <main role="main">
 <div class="header">
 <div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">io.github.zero88.jooqx</a></div>
-<h2 title="Interface SQLTxExecutor" class="title">Interface SQLTxExecutor&lt;S,&#8203;B,&#8203;P extends <a href="SQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">SQLPreparedQuery</a>&lt;B&gt;,&#8203;RS,&#8203;C extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>&lt;RS&gt;,&#8203;E extends <a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;S,&#8203;B,&#8203;P,&#8203;RS,&#8203;C&gt;&gt;</h2>
+<h2 title="Interface SQLTxExecutor" class="title">Interface SQLTxExecutor&lt;S,&#8203;B,&#8203;P extends <a href="SQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">SQLPreparedQuery</a>&lt;B&gt;,&#8203;C extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>,&#8203;E extends <a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;S,&#8203;B,&#8203;P,&#8203;C&gt;&gt;</h2>
 </div>
 <div class="contentContainer">
 <div class="description">
@@ -126,7 +126,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd><code>S</code> - Type of Vertx SQL client</dd>
 <dd><code>B</code> - Type of Vertx query param holder</dd>
 <dd><code>P</code> - Type of SQL prepare query</dd>
-<dd><code>RS</code> - Type of Vertx result set</dd>
 <dd><code>C</code> - Type of SQL result collector</dd>
 <dd><code>E</code> - Type of jOOQ.x executor</dd>
 </dl>
@@ -135,7 +134,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd><code><a href="JooqxTx.html" title="interface in io.github.zero88.jooqx">JooqxTx</a></code>, <code><a href="LegacyJooqxTx.html" title="interface in io.github.zero88.jooqx">LegacyJooqxTx</a></code></dd>
 </dl>
 <hr>
-<pre>public interface <span class="typeNameLabel">SQLTxExecutor&lt;S,&#8203;B,&#8203;P extends <a href="SQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">SQLPreparedQuery</a>&lt;B&gt;,&#8203;RS,&#8203;C extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>&lt;RS&gt;,&#8203;E extends <a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;S,&#8203;B,&#8203;P,&#8203;RS,&#8203;C&gt;&gt;</span></pre>
+<pre>public interface <span class="typeNameLabel">SQLTxExecutor&lt;S,&#8203;B,&#8203;P extends <a href="SQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">SQLPreparedQuery</a>&lt;B&gt;,&#8203;C extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>,&#8203;E extends <a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;S,&#8203;B,&#8203;P,&#8203;C&gt;&gt;</span></pre>
 <div class="block">Represents for transaction executor</div>
 <dl>
 <dt><span class="simpleTagLabel">Since:</span></dt>

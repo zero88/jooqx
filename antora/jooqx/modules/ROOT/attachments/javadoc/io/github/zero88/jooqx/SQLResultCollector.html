@@ -26,12 +26,6 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
-var altColor = "altColor";
-var rowColor = "rowColor";
-var tableTab = "tableTab";
-var activeTableTab = "activeTableTab";
 var pathtoroot = "../../../../";
 var useModuleDirectories = false;
 loadScripts(document, 'script');</script>
@@ -90,13 +84,13 @@ loadScripts(document, 'script');</script>
 <li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
-<li><a href="#method.summary">Method</a></li>
+<li>Method</li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
-<li><a href="#method.detail">Method</a></li>
+<li>Method</li>
 </ul>
 </div>
 <a id="skip.navbar.top">
@@ -115,114 +109,23 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <main role="main">
 <div class="header">
 <div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">io.github.zero88.jooqx</a></div>
-<h2 title="Interface SQLResultCollector" class="title">Interface SQLResultCollector&lt;RS&gt;</h2>
+<h2 title="Interface SQLResultCollector" class="title">Interface SQLResultCollector</h2>
 </div>
 <div class="contentContainer">
 <div class="description">
 <ul class="blockList">
 <li class="blockList">
 <dl>
-<dt><span class="paramLabel">Type Parameters:</span></dt>
-<dd><code>RS</code> - Type of Vertx SQL result set</dd>
-</dl>
-<dl>
 <dt>All Known Subinterfaces:</dt>
-<dd><code><a href="JooqxBatchCollector.html" title="interface in io.github.zero88.jooqx">JooqxBatchCollector</a></code>, <code><a href="JooqxResultCollector.html" title="interface in io.github.zero88.jooqx">JooqxResultCollector</a></code>, <code><a href="LegacySQLCollector.html" title="interface in io.github.zero88.jooqx">LegacySQLCollector</a></code>, <code><a href="SQLBatchCollector.html" title="interface in io.github.zero88.jooqx">SQLBatchCollector</a>&lt;RS,&#8203;BR&gt;</code></dd>
+<dd><code><a href="JooqxResultCollector.html" title="interface in io.github.zero88.jooqx">JooqxResultCollector</a></code>, <code><a href="LegacySQLCollector.html" title="interface in io.github.zero88.jooqx">LegacySQLCollector</a></code></dd>
 </dl>
 <hr>
-<pre>public interface <span class="typeNameLabel">SQLResultCollector&lt;RS&gt;</span></pre>
+<pre>public interface <span class="typeNameLabel">SQLResultCollector</span></pre>
 <div class="block">Represents for a collector that collects and transforms <code>Vert.x SQL result</code> to an expectation output</div>
 <dl>
 <dt><span class="simpleTagLabel">Since:</span></dt>
 <dd>1.0.0</dd>
-<dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="LegacySQLCollector.html" title="interface in io.github.zero88.jooqx"><code>LegacySQLCollector</code></a>, 
-<a href="JooqxResultCollector.html" title="interface in io.github.zero88.jooqx"><code>JooqxResultCollector</code></a>, 
-<a href="JooqxBatchCollector.html" title="interface in io.github.zero88.jooqx"><code>JooqxBatchCollector</code></a></dd>
 </dl>
-</li>
-</ul>
-</div>
-<div class="summary">
-<ul class="blockList">
-<li class="blockList">
-<!-- ========== METHOD SUMMARY =========== -->
-<section role="region">
-<ul class="blockList">
-<li class="blockList"><a id="method.summary">
-<!--   -->
-</a>
-<h3>Method Summary</h3>
-<table class="memberSummary">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
-<tr>
-<th class="colFirst" scope="col">Modifier and Type</th>
-<th class="colSecond" scope="col">Method</th>
-<th class="colLast" scope="col">Description</th>
-</tr>
-<tr id="i0" class="altColor">
-<td class="colFirst"><code>&lt;ROW,&#8203;RESULT&gt;<br>RESULT</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#collect(RS,io.github.zero88.jooqx.adapter.SQLResultAdapter,org.jooq.DSLContext,io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">collect</a></span>&#8203;(<a href="SQLResultCollector.html" title="type parameter in SQLResultCollector">RS</a>&nbsp;resultSet,
-       @NotNull <a href="adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;ROW,&#8203;RESULT&gt;&nbsp;adapter,
-       @NotNull org.jooq.DSLContext&nbsp;dslContext,
-       @NotNull <a href="datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;registry)</code></th>
-<td class="colLast">
-<div class="block">Collect result set to an expectation result that defines in SQL result adapter</div>
-</td>
-</tr>
-</table>
-</li>
-</ul>
-</section>
-</li>
-</ul>
-</div>
-<div class="details">
-<ul class="blockList">
-<li class="blockList">
-<!-- ============ METHOD DETAIL ========== -->
-<section role="region">
-<ul class="blockList">
-<li class="blockList"><a id="method.detail">
-<!--   -->
-</a>
-<h3>Method Detail</h3>
-<a id="collect(java.lang.Object,io.github.zero88.jooqx.adapter.SQLResultAdapter,org.jooq.DSLContext,io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">
-<!--   -->
-</a><a id="collect(RS,io.github.zero88.jooqx.adapter.SQLResultAdapter,org.jooq.DSLContext,io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>collect</h4>
-<pre class="methodSignature">&lt;ROW,&#8203;RESULT&gt;&nbsp;RESULT&nbsp;collect&#8203;(@NotNull
-                                  <a href="SQLResultCollector.html" title="type parameter in SQLResultCollector">RS</a>&nbsp;resultSet,
-                                  @NotNull
-                                  @NotNull <a href="adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;ROW,&#8203;RESULT&gt;&nbsp;adapter,
-                                  @NotNull
-                                  @NotNull org.jooq.DSLContext&nbsp;dslContext,
-                                  @NotNull
-                                  @NotNull <a href="datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;registry)</pre>
-<div class="block">Collect result set to an expectation result that defines in SQL result adapter</div>
-<dl>
-<dt><span class="paramLabel">Type Parameters:</span></dt>
-<dd><code>ROW</code> - the type of jOOQ record of the reduction operation</dd>
-<dd><code>RESULT</code> - the type of result after the reduction operation</dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>resultSet</code> - result set</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>an expectation result</dd>
-<dt><span class="simpleTagLabel">Since:</span></dt>
-<dd>2.0.0</dd>
-<dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter"><code>SQLResultAdapter</code></a>, 
-<a href="datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype"><code>DataTypeMapperRegistry</code></a></dd>
-</dl>
-</li>
-</ul>
-</li>
-</ul>
-</section>
 </li>
 </ul>
 </div>
@@ -274,13 +177,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li>Nested&nbsp;|&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
-<li><a href="#method.summary">Method</a></li>
+<li>Method</li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
 <li>Constr&nbsp;|&nbsp;</li>
-<li><a href="#method.detail">Method</a></li>
+<li>Method</li>
 </ul>
 </div>
 <a id="skip.navbar.bottom">

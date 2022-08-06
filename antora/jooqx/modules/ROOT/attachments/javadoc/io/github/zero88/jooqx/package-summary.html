@@ -152,7 +152,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="rowColor">
-<th class="colFirst" scope="row"><a href="JooqxBatchCollector.html" title="interface in io.github.zero88.jooqx">JooqxBatchCollector</a></th>
+<th class="colFirst" scope="row"><a href="JooqxBatchCollector.html" title="interface in io.github.zero88.jooqx">JooqxBatchCollector</a>&lt;R&gt;</th>
 <td class="colLast">
 <div class="block">Represents for a collector that collects <code>Vert.x SQL batch result</code> to an expectation output</div>
 </td>
@@ -229,7 +229,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <td class="colLast">Deprecated.</td>
 </tr>
 <tr class="rowColor">
-<th class="colFirst" scope="row"><a href="SQLBatchCollector.html" title="interface in io.github.zero88.jooqx">SQLBatchCollector</a>&lt;RS,&#8203;BR&gt;</th>
+<th class="colFirst" scope="row"><a href="SQLBatchCollector.html" title="interface in io.github.zero88.jooqx">SQLBatchCollector</a>&lt;BR&gt;</th>
 <td class="colLast">
 <div class="block">Represents for a collector that collects <code>Vert.x SQL batch result</code> to an expectation output</div>
 </td>
@@ -261,13 +261,13 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="altColor">
-<th class="colFirst" scope="row"><a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;S,&#8203;B,&#8203;PQ extends <a href="SQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">SQLPreparedQuery</a>&lt;B&gt;,&#8203;RS,&#8203;RC extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>&lt;RS&gt;&gt;</th>
+<th class="colFirst" scope="row"><a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;S,&#8203;B,&#8203;PQ extends <a href="SQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">SQLPreparedQuery</a>&lt;B&gt;,&#8203;RC extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>&gt;</th>
 <td class="colLast">
 <div class="block">Represents for an executor that executes <code>jOOQ query</code> on <code>Vertx SQL client</code> connection</div>
 </td>
 </tr>
 <tr class="rowColor">
-<th class="colFirst" scope="row"><a href="SQLExecutorBuilder.html" title="interface in io.github.zero88.jooqx">SQLExecutorBuilder</a>&lt;S,&#8203;B,&#8203;PQ extends <a href="SQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">SQLPreparedQuery</a>&lt;B&gt;,&#8203;RS,&#8203;RC extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>&lt;RS&gt;,&#8203;E extends <a href="SQLExecutorBuilder.html" title="interface in io.github.zero88.jooqx">SQLExecutorBuilder</a>&lt;S,&#8203;B,&#8203;PQ,&#8203;RS,&#8203;RC,&#8203;E&gt;&gt;</th>
+<th class="colFirst" scope="row"><a href="SQLExecutorBuilder.html" title="interface in io.github.zero88.jooqx">SQLExecutorBuilder</a>&lt;S,&#8203;B,&#8203;PQ extends <a href="SQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">SQLPreparedQuery</a>&lt;B&gt;,&#8203;RC extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>,&#8203;E extends <a href="SQLExecutorBuilder.html" title="interface in io.github.zero88.jooqx">SQLExecutorBuilder</a>&lt;S,&#8203;B,&#8203;PQ,&#8203;RC,&#8203;E&gt;&gt;</th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor">
@@ -289,7 +289,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="rowColor">
-<th class="colFirst" scope="row"><a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>&lt;RS&gt;</th>
+<th class="colFirst" scope="row"><a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a></th>
 <td class="colLast">
 <div class="block">Represents for a collector that collects and transforms <code>Vert.x SQL result</code> to an expectation output</div>
 </td>
@@ -301,7 +301,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="rowColor">
-<th class="colFirst" scope="row"><a href="SQLTxExecutor.html" title="interface in io.github.zero88.jooqx">SQLTxExecutor</a>&lt;S,&#8203;B,&#8203;P extends <a href="SQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">SQLPreparedQuery</a>&lt;B&gt;,&#8203;RS,&#8203;C extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>&lt;RS&gt;,&#8203;E extends <a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;S,&#8203;B,&#8203;P,&#8203;RS,&#8203;C&gt;&gt;</th>
+<th class="colFirst" scope="row"><a href="SQLTxExecutor.html" title="interface in io.github.zero88.jooqx">SQLTxExecutor</a>&lt;S,&#8203;B,&#8203;P extends <a href="SQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">SQLPreparedQuery</a>&lt;B&gt;,&#8203;C extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>,&#8203;E extends <a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;S,&#8203;B,&#8203;P,&#8203;C&gt;&gt;</th>
 <td class="colLast">
 <div class="block">Represents for transaction executor</div>
 </td>

@@ -115,7 +115,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <main role="main">
 <div class="header">
 <div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">io.github.zero88.jooqx.provider</a></div>
-<h2 title="Interface BaseJooqxFacade" class="title">Interface BaseJooqxFacade&lt;S,&#8203;B,&#8203;PQ extends <a href="../SQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">SQLPreparedQuery</a>&lt;B&gt;,&#8203;RS,&#8203;RC extends <a href="../SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>&lt;RS&gt;,&#8203;E extends <a href="../SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;S,&#8203;B,&#8203;PQ,&#8203;RS,&#8203;RC&gt;&gt;</h2>
+<h2 title="Interface BaseJooqxFacade" class="title">Interface BaseJooqxFacade&lt;S,&#8203;B,&#8203;PQ extends <a href="../SQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">SQLPreparedQuery</a>&lt;B&gt;,&#8203;RC extends <a href="../SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>,&#8203;E extends <a href="../SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;S,&#8203;B,&#8203;PQ,&#8203;RC&gt;&gt;</h2>
 </div>
 <div class="contentContainer">
 <div class="description">
@@ -125,7 +125,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="paramLabel">Type Parameters:</span></dt>
 <dd><code>S</code> - Type of Vertx SQL client</dd>
 <dd><code>B</code> - Type of Vertx SQL bind value holder</dd>
-<dd><code>RS</code> - Type of Vertx SQL result set holder</dd>
 <dd><code>PQ</code> - Type of SQL prepare query</dd>
 <dd><code>RC</code> - Type of SQL result set collector</dd>
 <dd><code>E</code> - Type of jOOQ.x</dd>
@@ -135,7 +134,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd><code><a href="JooqxFacade.html" title="interface in io.github.zero88.jooqx.provider">JooqxFacade</a>&lt;S&gt;</code>, <code><a href="LegacyJooqxFacade.html" title="interface in io.github.zero88.jooqx.provider">LegacyJooqxFacade</a></code></dd>
 </dl>
 <hr>
-<pre>public interface <span class="typeNameLabel">BaseJooqxFacade&lt;S,&#8203;B,&#8203;PQ extends <a href="../SQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">SQLPreparedQuery</a>&lt;B&gt;,&#8203;RS,&#8203;RC extends <a href="../SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>&lt;RS&gt;,&#8203;E extends <a href="../SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;S,&#8203;B,&#8203;PQ,&#8203;RS,&#8203;RC&gt;&gt;</span></pre>
+<pre>public interface <span class="typeNameLabel">BaseJooqxFacade&lt;S,&#8203;B,&#8203;PQ extends <a href="../SQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">SQLPreparedQuery</a>&lt;B&gt;,&#8203;RC extends <a href="../SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>,&#8203;E extends <a href="../SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;S,&#8203;B,&#8203;PQ,&#8203;RC&gt;&gt;</span></pre>
 <div class="block">A <code>jOOQ.x</code> facade to help initialize new <code>jOOQ.x</code> instance</div>
 <dl>
 <dt><span class="simpleTagLabel">Since:</span></dt>
@@ -190,7 +189,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code>@NotNull <a href="BaseJooqxProvider.html" title="interface in io.github.zero88.jooqx.provider">BaseJooqxProvider</a>&lt;<a href="BaseJooqxFacade.html" title="type parameter in BaseJooqxFacade">S</a>,&#8203;<a href="BaseJooqxFacade.html" title="type parameter in BaseJooqxFacade">B</a>,&#8203;<a href="BaseJooqxFacade.html" title="type parameter in BaseJooqxFacade">PQ</a>,&#8203;<a href="BaseJooqxFacade.html" title="type parameter in BaseJooqxFacade">RS</a>,&#8203;<a href="BaseJooqxFacade.html" title="type parameter in BaseJooqxFacade">RC</a>,&#8203;<a href="BaseJooqxFacade.html" title="type parameter in BaseJooqxFacade">E</a>&gt;</code></td>
+<td class="colFirst"><code>@NotNull <a href="BaseJooqxProvider.html" title="interface in io.github.zero88.jooqx.provider">BaseJooqxProvider</a>&lt;<a href="BaseJooqxFacade.html" title="type parameter in BaseJooqxFacade">S</a>,&#8203;<a href="BaseJooqxFacade.html" title="type parameter in BaseJooqxFacade">B</a>,&#8203;<a href="BaseJooqxFacade.html" title="type parameter in BaseJooqxFacade">PQ</a>,&#8203;<a href="BaseJooqxFacade.html" title="type parameter in BaseJooqxFacade">RC</a>,&#8203;<a href="BaseJooqxFacade.html" title="type parameter in BaseJooqxFacade">E</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#jooqxProvider()">jooqxProvider</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
@@ -228,7 +227,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <h4>jooqxProvider</h4>
 <pre class="methodSignature">@NotNull
-@NotNull <a href="BaseJooqxProvider.html" title="interface in io.github.zero88.jooqx.provider">BaseJooqxProvider</a>&lt;<a href="BaseJooqxFacade.html" title="type parameter in BaseJooqxFacade">S</a>,&#8203;<a href="BaseJooqxFacade.html" title="type parameter in BaseJooqxFacade">B</a>,&#8203;<a href="BaseJooqxFacade.html" title="type parameter in BaseJooqxFacade">PQ</a>,&#8203;<a href="BaseJooqxFacade.html" title="type parameter in BaseJooqxFacade">RS</a>,&#8203;<a href="BaseJooqxFacade.html" title="type parameter in BaseJooqxFacade">RC</a>,&#8203;<a href="BaseJooqxFacade.html" title="type parameter in BaseJooqxFacade">E</a>&gt;&nbsp;jooqxProvider()</pre>
+@NotNull <a href="BaseJooqxProvider.html" title="interface in io.github.zero88.jooqx.provider">BaseJooqxProvider</a>&lt;<a href="BaseJooqxFacade.html" title="type parameter in BaseJooqxFacade">S</a>,&#8203;<a href="BaseJooqxFacade.html" title="type parameter in BaseJooqxFacade">B</a>,&#8203;<a href="BaseJooqxFacade.html" title="type parameter in BaseJooqxFacade">PQ</a>,&#8203;<a href="BaseJooqxFacade.html" title="type parameter in BaseJooqxFacade">RC</a>,&#8203;<a href="BaseJooqxFacade.html" title="type parameter in BaseJooqxFacade">E</a>&gt;&nbsp;jooqxProvider()</pre>
 </li>
 </ul>
 <a id="jooqx(io.vertx.core.Vertx,io.github.zero88.jooqx.JooqDSLProvider,io.vertx.core.json.JsonObject,io.vertx.core.json.JsonObject)">
