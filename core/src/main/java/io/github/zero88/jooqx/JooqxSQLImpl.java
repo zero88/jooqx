@@ -230,24 +230,22 @@ final class JooqxSQLImpl {
         }
 
         @Override
-        public Future<BatchResult> batch(@NotNull Query query, @NotNull BindBatchValues bindBatchValues) {
+        public Future<BatchResult> batch(@NotNull Query query, @NotNull BindBatchValues bindValues) {
             return sqlClient().preparedQuery(preparedQuery().sql(dsl().configuration(), query))
                               .collecting(Collectors.toList())
-                              .executeBatch(preparedQuery().bindValues(query, bindBatchValues, typeMapperRegistry()))
-                              .map(resultCollector().<Row>batchCollector()::batchResultSize)
-                              .map(s -> BatchResult.create(bindBatchValues.size(), s))
+                              .executeBatch(preparedQuery().bindValues(query, bindValues, typeMapperRegistry()))
+                              .map(br -> JooqxBatchCollector.<Row>create().batchResult(bindValues, br))
                               .otherwise(errorConverter()::reThrowError);
         }
 
         @Override
         public <T, R> Future<BatchReturningResult<R>> batchResult(@NotNull Query query,
-                                                                  @NotNull BindBatchValues bindBatchValues,
+                                                                  @NotNull BindBatchValues bindValues,
                                                                   @NotNull SQLResultListAdapter<T, R> adapter) {
             return sqlClient().preparedQuery(preparedQuery().sql(dsl().configuration(), query))
                               .collecting(resultCollector().collector(adapter, dsl(), typeMapperRegistry()))
-                              .executeBatch(preparedQuery().bindValues(query, bindBatchValues, typeMapperRegistry()))
-                              .map(resultCollector().<R>batchCollector()::reduce)
-                              .map(rs -> BatchReturningResult.create(bindBatchValues.size(), rs))
+                              .executeBatch(preparedQuery().bindValues(query, bindValues, typeMapperRegistry()))
+                              .map(br -> JooqxBatchCollector.<R>create().batchReturningResult(bindValues, br))
                               .otherwise(errorConverter()::reThrowError);
         }
 

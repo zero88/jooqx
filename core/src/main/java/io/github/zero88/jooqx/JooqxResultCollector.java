@@ -27,7 +27,7 @@ public interface JooqxResultCollector extends SQLResultCollector<RowSet<Row>> {
     }
 
     /**
-     * Create collector
+     * Create collector that helps transform result set to an expectation result that defines in SQL result adapter
      *
      * @param adapter    SQL result adapter
      * @param dslContext dsl context
@@ -40,23 +40,5 @@ public interface JooqxResultCollector extends SQLResultCollector<RowSet<Row>> {
     <ROW, RESULT> @NotNull Collector<Row, List<ROW>, RESULT> collector(@NotNull SQLResultAdapter<ROW, RESULT> adapter,
                                                                        @NotNull DSLContext dslContext,
                                                                        @NotNull DataTypeMapperRegistry registry);
-
-    /**
-     * Create result batch collector
-     *
-     * @param <R> Type of each row in batch result
-     * @return the batch collector
-     * @see JooqxBatchCollector
-     */
-    default <R> JooqxBatchCollector<R> batchCollector() {
-        return new JooqxBatchCollector<R>() {
-            @Override
-            public @NotNull <ROW, RESULT> Collector<Row, List<ROW>, RESULT> collector(
-                @NotNull SQLResultAdapter<ROW, RESULT> adapter, @NotNull DSLContext dslContext,
-                @NotNull DataTypeMapperRegistry registry) {
-                return JooqxResultCollector.this.collector(adapter, dslContext, registry);
-            }
-        };
-    }
 
 }

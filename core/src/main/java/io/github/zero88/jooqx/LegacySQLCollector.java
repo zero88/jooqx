@@ -20,14 +20,11 @@ import io.vertx.ext.sql.ResultSet;
  */
 @VertxGen
 @Deprecated
-public interface LegacySQLCollector extends SQLResultCollector<ResultSet>, SQLBatchCollector<ResultSet, List<Integer>> {
+public interface LegacySQLCollector extends SQLResultCollector<ResultSet>, SQLBatchCollector<List<Integer>> {
 
     static LegacySQLCollector create() {
         return new LegacySQLRC();
     }
-
-    @Override
-    int batchResultSize(@NotNull List<Integer> batchResult);
 
     /**
      * Collect result set to an expectation result that defines in SQL result adapter
@@ -43,5 +40,10 @@ public interface LegacySQLCollector extends SQLResultCollector<ResultSet>, SQLBa
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
     <ROW, RESULT> @Nullable RESULT collect(@NotNull ResultSet resultSet, @NotNull SQLResultAdapter<ROW, RESULT> adapter,
                                            @NotNull DSLContext dslContext, @NotNull DataTypeMapperRegistry registry);
+
+    @Override
+    default int batchResultSize(@NotNull List<Integer> batchResult) {
+        return batchResult.size();
+    }
 
 }

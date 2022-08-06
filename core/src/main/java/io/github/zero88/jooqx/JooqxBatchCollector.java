@@ -7,8 +7,6 @@ import org.jetbrains.annotations.NotNull;
 
 import io.vertx.codegen.annotations.GenIgnore;
 import io.vertx.codegen.annotations.VertxGen;
-import io.vertx.sqlclient.Row;
-import io.vertx.sqlclient.RowSet;
 import io.vertx.sqlclient.SqlResult;
 
 /**
@@ -19,22 +17,48 @@ import io.vertx.sqlclient.SqlResult;
  * @since 2.0.0
  */
 @VertxGen
-public interface JooqxBatchCollector<R>
-    extends JooqxResultCollector, SQLBatchCollector<RowSet<Row>, SqlResult<List<R>>> {
+public interface JooqxBatchCollector<R> extends SQLBatchCollector<SqlResult<List<R>>> {
+
+    static <R> JooqxBatchCollector<R> create() {
+        return batchResult -> {
+            final List<R> br = new ArrayList<>();
+            SqlResult<List<R>> rs = batchResult;
+            do {
+                br.add(rs.value().stream().findFirst().orElse(null));
+            } while ((rs = rs.next()) != null);
+            return br;
+        };
+    }
 
     @Override
     default int batchResultSize(@NotNull SqlResult<List<R>> batchResult) {
         return reduce(batchResult).size();
     }
 
+    /**
+     * Collect to batch returning result
+     *
+     * @param bindValues  the bind batch values
+     * @param batchResult the batch result
+     * @return batch returning result
+     * @see BindBatchValues
+     * @see BatchReturningResult
+     * @see SqlResult
+     */
     @GenIgnore
-    default List<R> reduce(SqlResult<List<R>> batchResult) {
-        final List<R> br = new ArrayList<>();
-        SqlResult<List<R>> res = batchResult;
-        do {
-            br.add(res.value().stream().findFirst().orElse(null));
-        } while ((res = res.next()) != null);
-        return br;
+    default BatchReturningResult<R> batchReturningResult(@NotNull BindBatchValues bindValues,
+                                                         @NotNull SqlResult<List<R>> batchResult) {
+        return BatchReturningResult.create(bindValues.size(), reduce(batchResult));
     }
+
+    /**
+     * Reduce batch result into list
+     *
+     * @param batchResult the {@code Vert.x} batch result
+     * @return list result
+     * @see SqlResult
+     */
+    @GenIgnore
+    List<R> reduce(SqlResult<List<R>> batchResult);
 
 }
