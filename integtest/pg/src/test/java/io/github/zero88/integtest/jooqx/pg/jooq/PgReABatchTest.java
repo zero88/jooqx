@@ -90,12 +90,12 @@ class PgReABatchTest extends PgSQLJooqxTest<PgPool>
         final Handler<AsyncResult<BatchReturningResult<Record1<?>>>> asserter = ar -> ctx.verify(() -> {
             final BatchReturningResult<Record1<?>> result = assertSuccess(ctx, ar);
             final List<Record1<?>> records = result.getRecords();
+            System.out.println(records);
             Assertions.assertEquals(2, result.getTotal());
             Assertions.assertEquals(2, result.getSuccesses());
-            Assertions.assertEquals(9, result.getRecords().get(0).value1());
-            Assertions.assertEquals(10, result.getRecords().get(1).value1());
-            System.out.println(records);
-            jooqx.execute(jooqx.dsl().selectFrom(table), DSLAdapter.fetchJsonRecords(table), ar2 -> {
+            Assertions.assertEquals(9, records.get(0).value1());
+            Assertions.assertEquals(10, records.get(1).value1());
+            jooqx.execute(dsl -> dsl.selectFrom(table), DSLAdapter.fetchJsonRecords(table), ar2 -> {
                 assertResultSize(ctx, ar2, 10);
                 flag.flag();
             });

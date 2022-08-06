@@ -25,9 +25,9 @@ import ch.qos.logback.classic.Level;
 import ch.qos.logback.classic.Logger;
 
 @ExtendWith(VertxExtension.class)
-abstract class SQLTestImpl<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extends SQLResultCollector<RS>,
-                              E extends SQLExecutor<S, B, PQ, RS, RC>, DB, DBP extends DBProvider<DB>>
-    implements SQLTest<S, B, PQ, RS, RC, E, DB, DBP> {
+abstract class SQLTestImpl<S, B, PQ extends SQLPreparedQuery<B>, RC extends SQLResultCollector,
+                              E extends SQLExecutor<S, B, PQ, RC>, DB, DBP extends DBProvider<DB>>
+    implements SQLTest<S, B, PQ, RC, E, DB, DBP> {
 
     public static int TIMEOUT_IN_SECOND = 10;
     protected E jooqx;
@@ -88,10 +88,10 @@ abstract class SQLTestImpl<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extends 
     }
 
     @Testcontainers
-    abstract static class DBContainerSQLTest<S, B, P extends SQLPreparedQuery<B>, R, C extends SQLResultCollector<R>,
-                                                    E extends SQLExecutor<S, B, P, R, C>,
+    abstract static class DBContainerSQLTest<S, B, P extends SQLPreparedQuery<B>, C extends SQLResultCollector,
+                                                    E extends SQLExecutor<S, B, P, C>,
                                                     K extends JdbcDatabaseContainer<?>>
-        extends SQLTestImpl<S, B, P, R, C, E, K, DBContainerProvider<K>> {
+        extends SQLTestImpl<S, B, P, C, E, K, DBContainerProvider<K>> {
 
         @Container
         protected K db = dbProvider().init();
@@ -104,9 +104,9 @@ abstract class SQLTestImpl<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extends 
     }
 
 
-    abstract static class DBMemorySQLTest<S, B, P extends SQLPreparedQuery<B>, R, C extends SQLResultCollector<R>,
-                                             E extends SQLExecutor<S, B, P, R, C>>
-        extends SQLTestImpl<S, B, P, R, C, E, String, DBMemoryProvider> implements DBMemoryProvider {
+    abstract static class DBMemorySQLTest<S, B, P extends SQLPreparedQuery<B>, C extends SQLResultCollector,
+                                             E extends SQLExecutor<S, B, P, C>>
+        extends SQLTestImpl<S, B, P, C, E, String, DBMemoryProvider> implements DBMemoryProvider {
 
         @Override
         protected String getDatabase() {

@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collector;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.jetbrains.annotations.NotNull;
@@ -37,7 +39,6 @@ import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 import io.vertx.sqlclient.Pool;
 import io.vertx.sqlclient.Row;
-import io.vertx.sqlclient.RowIterator;
 import io.vertx.sqlclient.RowSet;
 import io.vertx.sqlclient.SqlClient;
 import io.vertx.sqlclient.SqlConnection;
@@ -77,83 +78,37 @@ final class JooqxSQLImpl {
     static class ReactiveSQLRC implements JooqxResultCollector {
 
         @Override
-        public <ROW, RESULT> @NotNull RESULT collect(@NotNull RowSet<Row> resultSet,
-                                                     @NotNull SQLResultAdapter<ROW, RESULT> adapter,
-                                                     @NotNull DSLContext dslContext,
-                                                     @NotNull DataTypeMapperRegistry registry) {
-            return adapter.collect(
-                collect(resultSet, dslContext, registry, adapter.recordFactory(), adapter.strategy()));
+        public @NotNull <ROW, RESULT> Collector<Row, List<ROW>, RESULT> collector(
+            @NotNull SQLResultAdapter<ROW, RESULT> adapter, @NotNull DSLContext dsl,
+            @NotNull DataTypeMapperRegistry registry) {
+            return Collector.of(ArrayList::new,
+                                (rows, row) -> rows.add(rowToRecord(row, dsl, registry, adapter.recordFactory())),
+                                (rows1, rows2) -> rows2, rows -> collect(adapter, rows));
         }
 
-        @NotNull
-        protected final <ROW> List<ROW> collect(@NotNull RowSet<Row> resultSet, @NotNull DSLContext dsl,
-                                                @NotNull DataTypeMapperRegistry registry,
-                                                @NotNull RecordFactory<? extends Record, ROW> recordFactory,
-                                                @NotNull SelectStrategy strategy) {
-            final List<ROW> records = new ArrayList<>();
-            final RowIterator<Row> iterator = resultSet.iterator();
-            final Function<Row, ROW> fn = row -> IntStream.range(0, row.size())
-                                                          .mapToObj(i -> recordFactory.lookup(row.getColumnName(i), i))
-                                                          .filter(Objects::nonNull)
-                                                          .collect(rowToRecord(row, dsl, registry, recordFactory));
-            if (strategy == SelectStrategy.MANY) {
-                iterator.forEachRemaining(row -> records.add(fn.apply(row)));
-            } else if (iterator.hasNext()) {
-                final Row row = iterator.next();
-                if (iterator.hasNext()) {
-                    throw new TooManyRowsException();
-                }
-                records.add(fn.apply(row));
-            }
-            return records;
-        }
-
-        private <REC extends Record, ROW> Collector<FieldWrapper, REC, ROW> rowToRecord(@NotNull Row row,
-                                                                                        @NotNull DSLContext dsl,
-                                                                                        @NotNull DataTypeMapperRegistry registry,
-                                                                                        RecordFactory<REC, ROW> recordFactory) {
-            BiFunction<FieldWrapper, Row, Object> getValue = (f, r) -> {
+        protected final <REC extends Record, ROW> ROW rowToRecord(@NotNull Row row, @NotNull DSLContext dsl,
+                                                                  @NotNull DataTypeMapperRegistry registry,
+                                                                  @NotNull RecordFactory<REC, ROW> recordFactory) {
+            final Function<FieldWrapper, Object> getValue = (f) -> {
                 try {
-                    return r.getValue(f.field().getName());
+                    return registry.toUserType(f.field(), row.getValue(f.field().getName()));
                 } catch (NoSuchElementException e) {
-                    return r.getValue(f.colNo());
+                    return registry.toUserType(f.field(), row.getValue(f.colNo()));
                 }
             };
-            return Collector.of(() -> recordFactory.create(dsl),
-                                (rec, f) -> rec.set(f.field(), registry.toUserType(f.field(), getValue.apply(f, row))),
-                                (rec1, rec2) -> rec2, recordFactory::map);
+            final BiConsumer<REC, FieldWrapper> accumulator = (rec, f) -> rec.set(f.field(), getValue.apply(f));
+            return IntStream.range(0, row.size())
+                            .mapToObj(i -> recordFactory.lookup(row.getColumnName(i), i))
+                            .filter(Objects::nonNull)
+                            .collect(Collector.of(() -> recordFactory.create(dsl), accumulator, (r1, r2) -> r2,
+                                                  recordFactory::map));
         }
 
-    }
-
-
-    static final class ReactiveSQLBC extends ReactiveSQLRC implements JooqxBatchCollector {
-
-        @Override
-        public <ROW, RESULT> @NotNull RESULT collect(@NotNull RowSet<Row> batchResult,
-                                                     @NotNull SQLResultAdapter<ROW, RESULT> adapter,
-                                                     @NotNull DSLContext dslContext,
-                                                     @NotNull DataTypeMapperRegistry registry) {
-            final List<ROW> records = new ArrayList<>();
-            while (batchResult != null) {
-                final List<ROW> rows = collect(batchResult, dslContext, registry, adapter.recordFactory(),
-                                               SelectStrategy.FIRST_ONE);
-                if (!rows.isEmpty()) {
-                    records.add(rows.get(0));
-                }
-                batchResult = batchResult.next();
+        private static <ROW, RESULT> RESULT collect(@NotNull SQLResultAdapter<ROW, RESULT> adapter, List<ROW> rows) {
+            if (adapter.strategy() == SelectStrategy.FIRST_ONE && rows.size() > 1) {
+                throw new TooManyRowsException();
             }
-            return adapter.collect(records);
-        }
-
-        @Override
-        public int batchResultSize(@NotNull RowSet<Row> batchResult) {
-            final int[] count = new int[] { 0 };
-            while (batchResult != null) {
-                count[0]++;
-                batchResult = batchResult.next();
-            }
-            return count[0];
+            return adapter.collect(rows);
         }
 
     }
@@ -245,7 +200,7 @@ final class JooqxSQLImpl {
 
 
     abstract static class JooqxImpl<S extends SqlClient>
-        extends SQLEI<S, Tuple, JooqxPreparedQuery, RowSet<Row>, JooqxResultCollector> implements JooqxBase<S> {
+        extends SQLEI<S, Tuple, JooqxPreparedQuery, JooqxResultCollector> implements JooqxBase<S> {
 
         JooqxImpl(Vertx vertx, DSLContext dsl, S sqlClient, JooqxPreparedQuery preparedQuery,
                   JooqxResultCollector resultCollector, SQLErrorConverter errorConverter,
@@ -268,28 +223,29 @@ final class JooqxSQLImpl {
         @Override
         public <T, R> Future<@Nullable R> execute(@NotNull Query query, @NotNull SQLResultAdapter<T, R> adapter) {
             return sqlClient().preparedQuery(preparedQuery().sql(dsl().configuration(), query))
+                              .collecting(resultCollector().collector(adapter, dsl(), typeMapperRegistry()))
                               .execute(preparedQuery().bindValues(query, typeMapperRegistry()))
-                              .map(rs -> resultCollector().collect(rs, adapter, dsl(), typeMapperRegistry()))
+                              .map(SqlResult::value)
                               .otherwise(errorConverter()::reThrowError);
         }
 
         @Override
-        public Future<BatchResult> batch(@NotNull Query query, @NotNull BindBatchValues bindBatchValues) {
+        public Future<BatchResult> batch(@NotNull Query query, @NotNull BindBatchValues bindValues) {
             return sqlClient().preparedQuery(preparedQuery().sql(dsl().configuration(), query))
-                              .executeBatch(preparedQuery().bindValues(query, bindBatchValues, typeMapperRegistry()))
-                              .map(r -> new ReactiveSQLBC().batchResultSize(r))
-                              .map(s -> BatchResult.create(bindBatchValues.size(), s))
+                              .collecting(Collectors.toList())
+                              .executeBatch(preparedQuery().bindValues(query, bindValues, typeMapperRegistry()))
+                              .map(br -> JooqxBatchCollector.<Row>create().batchResult(bindValues, br))
                               .otherwise(errorConverter()::reThrowError);
         }
 
         @Override
         public <T, R> Future<BatchReturningResult<R>> batchResult(@NotNull Query query,
-                                                                  @NotNull BindBatchValues bindBatchValues,
+                                                                  @NotNull BindBatchValues bindValues,
                                                                   @NotNull SQLResultListAdapter<T, R> adapter) {
             return sqlClient().preparedQuery(preparedQuery().sql(dsl().configuration(), query))
-                              .executeBatch(preparedQuery().bindValues(query, bindBatchValues, typeMapperRegistry()))
-                              .map(rs -> new ReactiveSQLBC().collect(rs, adapter, dsl(), typeMapperRegistry()))
-                              .map(rs -> BatchReturningResult.create(bindBatchValues.size(), rs))
+                              .collecting(resultCollector().collector(adapter, dsl(), typeMapperRegistry()))
+                              .executeBatch(preparedQuery().bindValues(query, bindValues, typeMapperRegistry()))
+                              .map(br -> JooqxBatchCollector.<R>create().batchReturningResult(bindValues, br))
                               .otherwise(errorConverter()::reThrowError);
         }
 

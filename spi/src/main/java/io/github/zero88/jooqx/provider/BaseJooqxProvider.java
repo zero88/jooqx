@@ -15,7 +15,6 @@ import io.vertx.core.Vertx;
  * @param <S>  Type of SQL client
  * @param <B>  Type of Vertx bind value holder depends on SQL client
  * @param <PQ> Type of SQL prepare query
- * @param <RS> Type of Vertx SQL result set holder
  * @param <RC> Type of SQL result set collector
  * @param <E>  Type of SQL executor
  * @see SQLPreparedQuery
@@ -23,8 +22,8 @@ import io.vertx.core.Vertx;
  * @see SQLExecutor
  * @since 2.0.0
  */
-public interface BaseJooqxProvider<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extends SQLResultCollector<RS>,
-                                      E extends SQLExecutor<S, B, PQ, RS, RC>>
+public interface BaseJooqxProvider<S, B, PQ extends SQLPreparedQuery<B>, RC extends SQLResultCollector,
+                                      E extends SQLExecutor<S, B, PQ, RC>>
     extends ErrorConverterProvider, TypeMapperRegistryProvider {
 
     @NotNull E createExecutor(Vertx vertx, DSLContext dsl, S sqlClient);

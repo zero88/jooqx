@@ -5,12 +5,11 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Represents for a collector that collects {@code Vert.x SQL batch result} to an expectation output
  *
- * @param <RS> Type of Vertx SQL result set
  * @param <BR> Type of Vertx SQL batch result
  * @see SQLResultCollector
  * @since 1.0.0
  */
-public interface SQLBatchCollector<RS, BR> extends SQLResultCollector<RS> {
+public interface SQLBatchCollector<BR> {
 
     /**
      * Compute Batch Result size
@@ -19,5 +18,17 @@ public interface SQLBatchCollector<RS, BR> extends SQLResultCollector<RS> {
      * @return result size
      */
     int batchResultSize(@NotNull BR batchResult);
+
+    /**
+     * Collect the Vert.x batch result to the informative batch result
+     *
+     * @param bindValues  the bind batch values
+     * @param batchResult the Vert.x batch result
+     * @return the batch result
+     * @see BatchResult
+     */
+    default @NotNull BatchResult batchResult(@NotNull BindBatchValues bindValues, @NotNull BR batchResult) {
+        return BatchResult.create(bindValues.size(), batchResultSize(batchResult));
+    }
 
 }

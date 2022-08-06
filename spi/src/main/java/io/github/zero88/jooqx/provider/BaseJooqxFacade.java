@@ -17,7 +17,6 @@ import io.vertx.core.json.JsonObject;
  *
  * @param <S>  Type of Vertx SQL client
  * @param <B>  Type of Vertx SQL bind value holder
- * @param <RS> Type of Vertx SQL result set holder
  * @param <PQ> Type of SQL prepare query
  * @param <RC> Type of SQL result set collector
  * @param <E>  Type of jOOQ.x
@@ -25,12 +24,12 @@ import io.vertx.core.json.JsonObject;
  * @see JooqxFacade
  * @since 2.0.0
  */
-public interface BaseJooqxFacade<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extends SQLResultCollector<RS>,
-                                    E extends SQLExecutor<S, B, PQ, RS, RC>> {
+public interface BaseJooqxFacade<S, B, PQ extends SQLPreparedQuery<B>, RC extends SQLResultCollector,
+                                    E extends SQLExecutor<S, B, PQ, RC>> {
 
     @NotNull SQLClientProvider<S> clientProvider();
 
-    @NotNull BaseJooqxProvider<S, B, PQ, RS, RC, E> jooqxProvider();
+    @NotNull BaseJooqxProvider<S, B, PQ, RC, E> jooqxProvider();
 
     /**
      * Init {@code jOOQ.x} instance from configuration

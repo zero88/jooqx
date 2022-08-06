@@ -10,8 +10,6 @@ import io.github.zero88.jooqx.JooqxPreparedQuery;
 import io.github.zero88.jooqx.JooqxResultCollector;
 import io.vertx.core.Vertx;
 import io.vertx.sqlclient.Pool;
-import io.vertx.sqlclient.Row;
-import io.vertx.sqlclient.RowSet;
 import io.vertx.sqlclient.SqlClient;
 import io.vertx.sqlclient.SqlConnection;
 import io.vertx.sqlclient.Tuple;
@@ -24,7 +22,7 @@ import io.vertx.sqlclient.Tuple;
  */
 @SuppressWarnings("unchecked")
 public interface JooqxProvider<S extends SqlClient>
-    extends BaseJooqxProvider<S, Tuple, JooqxPreparedQuery, RowSet<Row>, JooqxResultCollector, JooqxBase<S>> {
+    extends BaseJooqxProvider<S, Tuple, JooqxPreparedQuery, JooqxResultCollector, JooqxBase<S>> {
 
     @Override
     default @NotNull JooqxBase<S> createExecutor(Vertx vertx, DSLContext dsl, S sqlClient) {

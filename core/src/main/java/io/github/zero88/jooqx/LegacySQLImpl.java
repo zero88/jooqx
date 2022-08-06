@@ -115,16 +115,12 @@ final class LegacySQLImpl {
                             .collect(Collectors.toList());
         }
 
-        @Override
-        public int batchResultSize(@NotNull List<Integer> batchResult) { return batchResult.size(); }
-
     }
 
 
     @Deprecated
     abstract static class LegacySQLEI<S extends SQLOperations>
-        extends SQLEI<S, JsonArray, LegacySQLPreparedQuery, ResultSet, LegacySQLCollector>
-        implements LegacyInternal<S> {
+        extends SQLEI<S, JsonArray, LegacySQLPreparedQuery, LegacySQLCollector> implements LegacyInternal<S> {
 
         LegacySQLEI(Vertx vertx, DSLContext dsl, S sqlClient, LegacySQLPreparedQuery preparedQuery,
                     LegacySQLCollector resultCollector, SQLErrorConverter errorConverter,
@@ -149,8 +145,7 @@ final class LegacySQLImpl {
                                                   preparedQuery().bindValues(query, bindBatchValues,
                                                                              typeMapperRegistry()), promise));
             return promise.future()
-                          .map(r -> resultCollector().batchResultSize(r))
-                          .map(s -> BatchResult.create(bindBatchValues.size(), s))
+                          .map(r -> resultCollector().batchResult(bindBatchValues, r))
                           .otherwise(errorConverter()::reThrowError);
         }
 

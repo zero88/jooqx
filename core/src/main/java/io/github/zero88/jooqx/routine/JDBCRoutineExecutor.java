@@ -16,6 +16,7 @@ import io.vertx.codegen.annotations.Nullable;
 import io.vertx.core.Future;
 import io.vertx.jdbcclient.SqlOutParam;
 import io.vertx.sqlclient.SqlClient;
+import io.vertx.sqlclient.SqlResult;
 import io.vertx.sqlclient.Tuple;
 
 class JDBCRoutineExecutor<S extends SqlClient> extends RoutineExecutorDelegateImpl {
@@ -44,11 +45,11 @@ class JDBCRoutineExecutor<S extends SqlClient> extends RoutineExecutorDelegateIm
     @Override
     public <T, X, R> Future<@Nullable R> routineResultSet(@NotNull Routine<T> routine,
                                                           @NotNull SQLResultAdapter<X, R> adapter) {
-        final Tuple bindValues = createBindValues(routine);
         return jooqx().sqlClient()
                       .preparedQuery(jooqx().preparedQuery().routine(dsl().configuration(), routine))
-                      .execute(bindValues)
-                      .map(rs -> jooqx().resultCollector().collect(rs, adapter, dsl(), jooqx().typeMapperRegistry()))
+                      .collecting(jooqx().resultCollector().collector(adapter, dsl(), jooqx().typeMapperRegistry()))
+                      .execute(createBindValues(routine))
+                      .map(SqlResult::value)
                       .otherwise(jooqx().errorConverter()::reThrowError);
     }
 

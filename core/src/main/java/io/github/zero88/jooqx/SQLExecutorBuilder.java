@@ -6,9 +6,9 @@ import org.jooq.DSLContext;
 import io.github.zero88.jooqx.datatype.DataTypeMapperRegistry;
 import io.vertx.core.Vertx;
 
-public interface SQLExecutorBuilder<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extends SQLResultCollector<RS>,
-                                E extends SQLExecutorBuilder<S, B, PQ, RS, RC, E>>
-    extends SQLExecutorContext<S, B, PQ, RS, RC> {
+public interface SQLExecutorBuilder<S, B, PQ extends SQLPreparedQuery<B>, RC extends SQLResultCollector,
+                                       E extends SQLExecutorBuilder<S, B, PQ, RC, E>>
+    extends SQLExecutorContext<S, B, PQ, RC> {
 
     /**
      * Set vertx
@@ -70,6 +70,6 @@ public interface SQLExecutorBuilder<S, B, PQ extends SQLPreparedQuery<B>, RS, RC
      */
     @NotNull E setTypeMapperRegistry(DataTypeMapperRegistry typeMapperRegistry);
 
-    @NotNull SQLExecutor<S, B, PQ, RS, RC> build();
+    @NotNull SQLExecutor<S, B, PQ, RC> build();
 
 }

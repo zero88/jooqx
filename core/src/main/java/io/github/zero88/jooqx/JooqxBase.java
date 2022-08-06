@@ -1,8 +1,6 @@
 package io.github.zero88.jooqx;
 
 import io.vertx.sqlclient.Pool;
-import io.vertx.sqlclient.Row;
-import io.vertx.sqlclient.RowSet;
 import io.vertx.sqlclient.SqlClient;
 import io.vertx.sqlclient.SqlConnection;
 import io.vertx.sqlclient.Tuple;
@@ -16,6 +14,6 @@ import io.vertx.sqlclient.Tuple;
  * @since 2.0.0
  */
 public interface JooqxBase<S extends SqlClient>
-    extends SQLExecutor<S, Tuple, JooqxPreparedQuery, RowSet<Row>, JooqxResultCollector>, SQLBatchResultExecutor {
+    extends SQLExecutor<S, Tuple, JooqxPreparedQuery, JooqxResultCollector>, SQLBatchResultExecutor {
 
 }

@@ -27,8 +27,8 @@ import io.vertx.core.Vertx;
 
 final class SQLImpl {
 
-    abstract static class SQLEI<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extends SQLResultCollector<RS>>
-        implements SQLExecutor<S, B, PQ, RS, RC> {
+    abstract static class SQLEI<S, B, PQ extends SQLPreparedQuery<B>, RC extends SQLResultCollector>
+        implements SQLExecutor<S, B, PQ, RC> {
 
         private final Vertx vertx;
         private final DSLContext dsl;
@@ -100,7 +100,7 @@ final class SQLImpl {
          * @param sqlClient SQL client
          * @return new instance of executor
          */
-        protected abstract SQLExecutor<S, B, PQ, RS, RC> withSqlClient(S sqlClient);
+        protected abstract SQLExecutor<S, B, PQ, RC> withSqlClient(S sqlClient);
 
     }
 
@@ -198,9 +198,8 @@ final class SQLImpl {
 
     @SuppressWarnings("unchecked")
     abstract static class SQLExecutorBuilderImpl<S, B, PQ extends SQLPreparedQuery<B>, RS,
-                                                        RC extends SQLResultCollector<RS>,
-                                                        E extends SQLExecutorBuilder<S, B, PQ, RS, RC, E>>
-        implements SQLExecutorBuilder<S, B, PQ, RS, RC, E> {
+                                                        RC extends SQLResultCollector, E extends SQLExecutorBuilder<S, B, PQ, RC, E>>
+        implements SQLExecutorBuilder<S, B, PQ, RC, E> {
 
         private Vertx vertx;
         private DSLContext dsl;
