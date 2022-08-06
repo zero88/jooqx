@@ -29,7 +29,17 @@ public interface LegacySQLCollector extends SQLResultCollector<ResultSet>, SQLBa
     @Override
     int batchResultSize(@NotNull List<Integer> batchResult);
 
-    @Override
+    /**
+     * Collect result set to an expectation result that defines in SQL result adapter
+     *
+     * @param <ROW>     the type of jOOQ record of the reduction operation
+     * @param <RESULT>  the type of result after the reduction operation
+     * @param resultSet result set
+     * @return an expectation result
+     * @see SQLResultAdapter
+     * @see DataTypeMapperRegistry
+     * @since 2.0.0
+     */
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
     <ROW, RESULT> @Nullable RESULT collect(@NotNull ResultSet resultSet, @NotNull SQLResultAdapter<ROW, RESULT> adapter,
                                            @NotNull DSLContext dslContext, @NotNull DataTypeMapperRegistry registry);

@@ -10,7 +10,6 @@ import io.github.zero88.jooqx.JooqxSQLImpl.ReactiveSQLRC;
 import io.github.zero88.jooqx.adapter.SQLResultAdapter;
 import io.github.zero88.jooqx.datatype.DataTypeMapperRegistry;
 import io.vertx.codegen.annotations.GenIgnore;
-import io.vertx.codegen.annotations.Nullable;
 import io.vertx.codegen.annotations.VertxGen;
 import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.RowSet;
@@ -27,12 +26,6 @@ public interface JooqxResultCollector extends SQLResultCollector<RowSet<Row>> {
         return new ReactiveSQLRC();
     }
 
-    @Override
-    @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    <ROW, RESULT> @Nullable RESULT collect(@NotNull RowSet<Row> resultSet,
-                                           @NotNull SQLResultAdapter<ROW, RESULT> adapter,
-                                           @NotNull DSLContext dslContext, @NotNull DataTypeMapperRegistry registry);
-
     /**
      * Create collector
      *
@@ -47,5 +40,23 @@ public interface JooqxResultCollector extends SQLResultCollector<RowSet<Row>> {
     <ROW, RESULT> @NotNull Collector<Row, List<ROW>, RESULT> collector(@NotNull SQLResultAdapter<ROW, RESULT> adapter,
                                                                        @NotNull DSLContext dslContext,
                                                                        @NotNull DataTypeMapperRegistry registry);
+
+    /**
+     * Create result batch collector
+     *
+     * @param <R> Type of each row in batch result
+     * @return the batch collector
+     * @see JooqxBatchCollector
+     */
+    default <R> JooqxBatchCollector<R> batchCollector() {
+        return new JooqxBatchCollector<R>() {
+            @Override
+            public @NotNull <ROW, RESULT> Collector<Row, List<ROW>, RESULT> collector(
+                @NotNull SQLResultAdapter<ROW, RESULT> adapter, @NotNull DSLContext dslContext,
+                @NotNull DataTypeMapperRegistry registry) {
+                return JooqxResultCollector.this.collector(adapter, dslContext, registry);
+            }
+        };
+    }
 
 }
