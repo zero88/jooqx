@@ -109,7 +109,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <main role="main">
 <div class="header">
 <div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">io.github.zero88.jooqx</a></div>
-<h2 title="Interface SQLTest" class="title">Interface SQLTest&lt;S,&#8203;B,&#8203;PQ extends io.github.zero88.jooqx.SQLPreparedQuery&lt;B&gt;,&#8203;RS,&#8203;RC extends io.github.zero88.jooqx.SQLResultCollector&lt;RS&gt;,&#8203;E extends io.github.zero88.jooqx.SQLExecutor&lt;S,&#8203;B,&#8203;PQ,&#8203;RS,&#8203;RC&gt;,&#8203;DB,&#8203;DBP extends io.github.zero88.jooqx.provider.DBProvider&lt;DB&gt;&gt;</h2>
+<h2 title="Interface SQLTest" class="title">Interface SQLTest&lt;S,&#8203;B,&#8203;PQ extends io.github.zero88.jooqx.SQLPreparedQuery&lt;B&gt;,&#8203;RC extends io.github.zero88.jooqx.SQLResultCollector,&#8203;E extends io.github.zero88.jooqx.SQLExecutor&lt;S,&#8203;B,&#8203;PQ,&#8203;RC&gt;,&#8203;DB,&#8203;DBP extends io.github.zero88.jooqx.provider.DBProvider&lt;DB&gt;&gt;</h2>
 </div>
 <div class="contentContainer">
 <div class="description">
@@ -117,7 +117,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <dl>
 <dt>All Superinterfaces:</dt>
-<dd><code>io.github.zero88.jooqx.provider.BaseJooqxFacade&lt;S,&#8203;B,&#8203;PQ,&#8203;RS,&#8203;RC,&#8203;E&gt;</code>, <code><a href="HasDBProvider.html" title="interface in io.github.zero88.jooqx">HasDBProvider</a>&lt;DB,&#8203;DBP&gt;</code>, <code>io.github.zero88.jooqx.JooqDSLProvider</code></dd>
+<dd><code>io.github.zero88.jooqx.provider.BaseJooqxFacade&lt;S,&#8203;B,&#8203;PQ,&#8203;RC,&#8203;E&gt;</code>, <code><a href="HasDBProvider.html" title="interface in io.github.zero88.jooqx">HasDBProvider</a>&lt;DB,&#8203;DBP&gt;</code>, <code>io.github.zero88.jooqx.JooqDSLProvider</code></dd>
 </dl>
 <dl>
 <dt>All Known Subinterfaces:</dt>
@@ -128,8 +128,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd><code><a href="JooqxTestDefinition.JooqxDBContainerTest.html" title="class in io.github.zero88.jooqx">JooqxTestDefinition.JooqxDBContainerTest</a></code>, <code><a href="JooqxTestDefinition.JooqxDBMemoryTest.html" title="class in io.github.zero88.jooqx">JooqxTestDefinition.JooqxDBMemoryTest</a></code>, <code><a href="LegacyTestDefinition.LegacyDBContainerTest.html" title="class in io.github.zero88.jooqx">LegacyTestDefinition.LegacyDBContainerTest</a></code>, <code><a href="LegacyTestDefinition.LegacyDBMemoryTest.html" title="class in io.github.zero88.jooqx">LegacyTestDefinition.LegacyDBMemoryTest</a></code>, <code><a href="spi/mysql/MySQLJooqxTest.html" title="class in io.github.zero88.jooqx.spi.mysql">MySQLJooqxTest</a></code>, <code><a href="spi/pg/PgSQLJooqxTest.html" title="class in io.github.zero88.jooqx.spi.pg">PgSQLJooqxTest</a></code>, <code><a href="spi/pg/PgSQLLegacyTest.html" title="class in io.github.zero88.jooqx.spi.pg">PgSQLLegacyTest</a></code></dd>
 </dl>
 <hr>
-<pre>public interface <span class="typeNameLabel">SQLTest&lt;S,&#8203;B,&#8203;PQ extends io.github.zero88.jooqx.SQLPreparedQuery&lt;B&gt;,&#8203;RS,&#8203;RC extends io.github.zero88.jooqx.SQLResultCollector&lt;RS&gt;,&#8203;E extends io.github.zero88.jooqx.SQLExecutor&lt;S,&#8203;B,&#8203;PQ,&#8203;RS,&#8203;RC&gt;,&#8203;DB,&#8203;DBP extends io.github.zero88.jooqx.provider.DBProvider&lt;DB&gt;&gt;</span>
-extends io.github.zero88.jooqx.provider.BaseJooqxFacade&lt;S,&#8203;B,&#8203;PQ,&#8203;RS,&#8203;RC,&#8203;E&gt;, <a href="HasDBProvider.html" title="interface in io.github.zero88.jooqx">HasDBProvider</a>&lt;DB,&#8203;DBP&gt;, io.github.zero88.jooqx.JooqDSLProvider</pre>
+<pre>public interface <span class="typeNameLabel">SQLTest&lt;S,&#8203;B,&#8203;PQ extends io.github.zero88.jooqx.SQLPreparedQuery&lt;B&gt;,&#8203;RC extends io.github.zero88.jooqx.SQLResultCollector,&#8203;E extends io.github.zero88.jooqx.SQLExecutor&lt;S,&#8203;B,&#8203;PQ,&#8203;RC&gt;,&#8203;DB,&#8203;DBP extends io.github.zero88.jooqx.provider.DBProvider&lt;DB&gt;&gt;</span>
+extends io.github.zero88.jooqx.provider.BaseJooqxFacade&lt;S,&#8203;B,&#8203;PQ,&#8203;RC,&#8203;E&gt;, <a href="HasDBProvider.html" title="interface in io.github.zero88.jooqx">HasDBProvider</a>&lt;DB,&#8203;DBP&gt;, io.github.zero88.jooqx.JooqDSLProvider</pre>
 <div class="block">SQL test interface</div>
 <dl>
 <dt><span class="seeLabel">See Also:</span></dt>

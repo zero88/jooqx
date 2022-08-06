@@ -115,7 +115,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <main role="main">
 <div class="header">
 <div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">io.github.zero88.jooqx</a></div>
-<h2 title="Interface SQLExecutorBuilder" class="title">Interface SQLExecutorBuilder&lt;S,&#8203;B,&#8203;PQ extends <a href="SQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">SQLPreparedQuery</a>&lt;B&gt;,&#8203;RS,&#8203;RC extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>&lt;RS&gt;,&#8203;E extends SQLExecutorBuilder&lt;S,&#8203;B,&#8203;PQ,&#8203;RS,&#8203;RC,&#8203;E&gt;&gt;</h2>
+<h2 title="Interface SQLExecutorBuilder" class="title">Interface SQLExecutorBuilder&lt;S,&#8203;B,&#8203;PQ extends <a href="SQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">SQLPreparedQuery</a>&lt;B&gt;,&#8203;RC extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>,&#8203;E extends SQLExecutorBuilder&lt;S,&#8203;B,&#8203;PQ,&#8203;RC,&#8203;E&gt;&gt;</h2>
 </div>
 <div class="contentContainer">
 <div class="description">
@@ -130,7 +130,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd><code><a href="JooqxBuilder.html" title="interface in io.github.zero88.jooqx">JooqxBuilder</a></code>, <code><a href="JooqxConnBuilder.html" title="interface in io.github.zero88.jooqx">JooqxConnBuilder</a></code>, <code><a href="LegacyJooqxBuilder.html" title="interface in io.github.zero88.jooqx">LegacyJooqxBuilder</a></code></dd>
 </dl>
 <hr>
-<pre>public interface <span class="typeNameLabel">SQLExecutorBuilder&lt;S,&#8203;B,&#8203;PQ extends <a href="SQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">SQLPreparedQuery</a>&lt;B&gt;,&#8203;RS,&#8203;RC extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>&lt;RS&gt;,&#8203;E extends SQLExecutorBuilder&lt;S,&#8203;B,&#8203;PQ,&#8203;RS,&#8203;RC,&#8203;E&gt;&gt;</span></pre>
+<pre>public interface <span class="typeNameLabel">SQLExecutorBuilder&lt;S,&#8203;B,&#8203;PQ extends <a href="SQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">SQLPreparedQuery</a>&lt;B&gt;,&#8203;RC extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>,&#8203;E extends SQLExecutorBuilder&lt;S,&#8203;B,&#8203;PQ,&#8203;RC,&#8203;E&gt;&gt;</span></pre>
 </li>
 </ul>
 </div>
@@ -152,7 +152,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>@NotNull <a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;<a href="SQLExecutorBuilder.html" title="type parameter in SQLExecutorBuilder">S</a>,&#8203;<a href="SQLExecutorBuilder.html" title="type parameter in SQLExecutorBuilder">B</a>,&#8203;<a href="SQLExecutorBuilder.html" title="type parameter in SQLExecutorBuilder">PQ</a>,&#8203;<a href="SQLExecutorBuilder.html" title="type parameter in SQLExecutorBuilder">RS</a>,&#8203;<a href="SQLExecutorBuilder.html" title="type parameter in SQLExecutorBuilder">RC</a>&gt;</code></td>
+<td class="colFirst"><code>@NotNull <a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;<a href="SQLExecutorBuilder.html" title="type parameter in SQLExecutorBuilder">S</a>,&#8203;<a href="SQLExecutorBuilder.html" title="type parameter in SQLExecutorBuilder">B</a>,&#8203;<a href="SQLExecutorBuilder.html" title="type parameter in SQLExecutorBuilder">PQ</a>,&#8203;<a href="SQLExecutorBuilder.html" title="type parameter in SQLExecutorBuilder">RC</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#build()">build</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
@@ -399,7 +399,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <h4>build</h4>
 <pre class="methodSignature">@NotNull
-@NotNull <a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;<a href="SQLExecutorBuilder.html" title="type parameter in SQLExecutorBuilder">S</a>,&#8203;<a href="SQLExecutorBuilder.html" title="type parameter in SQLExecutorBuilder">B</a>,&#8203;<a href="SQLExecutorBuilder.html" title="type parameter in SQLExecutorBuilder">PQ</a>,&#8203;<a href="SQLExecutorBuilder.html" title="type parameter in SQLExecutorBuilder">RS</a>,&#8203;<a href="SQLExecutorBuilder.html" title="type parameter in SQLExecutorBuilder">RC</a>&gt;&nbsp;build()</pre>
+@NotNull <a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;<a href="SQLExecutorBuilder.html" title="type parameter in SQLExecutorBuilder">S</a>,&#8203;<a href="SQLExecutorBuilder.html" title="type parameter in SQLExecutorBuilder">B</a>,&#8203;<a href="SQLExecutorBuilder.html" title="type parameter in SQLExecutorBuilder">PQ</a>,&#8203;<a href="SQLExecutorBuilder.html" title="type parameter in SQLExecutorBuilder">RC</a>&gt;&nbsp;build()</pre>
 </li>
 </ul>
 <a id="vertx()">

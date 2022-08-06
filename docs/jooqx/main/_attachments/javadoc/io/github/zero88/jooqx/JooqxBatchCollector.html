@@ -26,8 +26,8 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
+var data = {"i0":18,"i1":18,"i2":1,"i3":6};
+var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],16:["t5","Default Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -115,19 +115,23 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <main role="main">
 <div class="header">
 <div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">io.github.zero88.jooqx</a></div>
-<h2 title="Interface JooqxBatchCollector" class="title">Interface JooqxBatchCollector</h2>
+<h2 title="Interface JooqxBatchCollector" class="title">Interface JooqxBatchCollector&lt;R&gt;</h2>
 </div>
 <div class="contentContainer">
 <div class="description">
 <ul class="blockList">
 <li class="blockList">
 <dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>R</code> - Type of each row in batch result</dd>
+</dl>
+<dl>
 <dt>All Superinterfaces:</dt>
-<dd><code><a href="JooqxResultCollector.html" title="interface in io.github.zero88.jooqx">JooqxResultCollector</a></code>, <code><a href="SQLBatchCollector.html" title="interface in io.github.zero88.jooqx">SQLBatchCollector</a>&lt;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;,&#8203;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;&gt;</code>, <code><a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>&lt;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;&gt;</code></dd>
+<dd><code><a href="SQLBatchCollector.html" title="interface in io.github.zero88.jooqx">SQLBatchCollector</a>&lt;io.vertx.sqlclient.SqlResult&lt;java.util.List&lt;R&gt;&gt;&gt;</code></dd>
 </dl>
 <hr>
-<pre>public interface <span class="typeNameLabel">JooqxBatchCollector</span>
-extends <a href="JooqxResultCollector.html" title="interface in io.github.zero88.jooqx">JooqxResultCollector</a>, <a href="SQLBatchCollector.html" title="interface in io.github.zero88.jooqx">SQLBatchCollector</a>&lt;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;,&#8203;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;&gt;</pre>
+<pre>public interface <span class="typeNameLabel">JooqxBatchCollector&lt;R&gt;</span>
+extends <a href="SQLBatchCollector.html" title="interface in io.github.zero88.jooqx">SQLBatchCollector</a>&lt;io.vertx.sqlclient.SqlResult&lt;java.util.List&lt;R&gt;&gt;&gt;</pre>
 <div class="block">Represents for a collector that collects <code>Vert.x SQL batch result</code> to an expectation output</div>
 <dl>
 <dt><span class="simpleTagLabel">Since:</span></dt>
@@ -149,26 +153,46 @@ extends <a href="JooqxResultCollector.html" title="interface in io.github.zero88
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t5" class="tableTab"><span><a href="javascript:show(16);">Default Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Method</th>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>int</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#batchResultSize(io.vertx.sqlclient.RowSet)">batchResultSize</a></span>&#8203;(@NotNull io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;&nbsp;batchResult)</code></th>
+<td class="colFirst"><code>default int</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#batchResultSize(io.vertx.sqlclient.SqlResult)">batchResultSize</a></span>&#8203;(@NotNull io.vertx.sqlclient.SqlResult&lt;java.util.List&lt;<a href="JooqxBatchCollector.html" title="type parameter in JooqxBatchCollector">R</a>&gt;&gt;&nbsp;batchResult)</code></th>
 <td class="colLast">
 <div class="block">Compute Batch Result size</div>
 </td>
 </tr>
+<tr id="i1" class="rowColor">
+<td class="colFirst"><code>default <a href="BatchReturningResult.html" title="interface in io.github.zero88.jooqx">BatchReturningResult</a>&lt;<a href="JooqxBatchCollector.html" title="type parameter in JooqxBatchCollector">R</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#batchReturningResult(io.github.zero88.jooqx.BindBatchValues,io.vertx.sqlclient.SqlResult)">batchReturningResult</a></span>&#8203;(@NotNull <a href="BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindValues,
+                    @NotNull io.vertx.sqlclient.SqlResult&lt;java.util.List&lt;<a href="JooqxBatchCollector.html" title="type parameter in JooqxBatchCollector">R</a>&gt;&gt;&nbsp;batchResult)</code></th>
+<td class="colLast">
+<div class="block">Collect to batch returning result</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>static &lt;R&gt;&nbsp;<a href="JooqxBatchCollector.html" title="interface in io.github.zero88.jooqx">JooqxBatchCollector</a>&lt;R&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#create()">create</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>java.util.List&lt;<a href="JooqxBatchCollector.html" title="type parameter in JooqxBatchCollector">R</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#reduce(io.vertx.sqlclient.SqlResult)">reduce</a></span>&#8203;(io.vertx.sqlclient.SqlResult&lt;java.util.List&lt;<a href="JooqxBatchCollector.html" title="type parameter in JooqxBatchCollector">R</a>&gt;&gt;&nbsp;batchResult)</code></th>
+<td class="colLast">
+<div class="block">Reduce batch result into list</div>
+</td>
+</tr>
 </table>
 <ul class="blockList">
-<li class="blockList"><a id="methods.inherited.from.class.io.github.zero88.jooqx.JooqxResultCollector">
+<li class="blockList"><a id="methods.inherited.from.class.io.github.zero88.jooqx.SQLBatchCollector">
 <!--   -->
 </a>
-<h3>Methods inherited from interface&nbsp;io.github.zero88.jooqx.<a href="JooqxResultCollector.html" title="interface in io.github.zero88.jooqx">JooqxResultCollector</a></h3>
-<code><a href="JooqxResultCollector.html#collect(io.vertx.sqlclient.RowSet,io.github.zero88.jooqx.adapter.SQLResultAdapter,org.jooq.DSLContext,io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">collect</a></code></li>
+<h3>Methods inherited from interface&nbsp;io.github.zero88.jooqx.<a href="SQLBatchCollector.html" title="interface in io.github.zero88.jooqx">SQLBatchCollector</a></h3>
+<code><a href="SQLBatchCollector.html#batchResult(io.github.zero88.jooqx.BindBatchValues,BR)">batchResult</a></code></li>
 </ul>
 </li>
 </ul>
@@ -186,23 +210,74 @@ extends <a href="JooqxResultCollector.html" title="interface in io.github.zero88
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="batchResultSize(io.vertx.sqlclient.RowSet)">
+<a id="create()">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
+<li class="blockList">
+<h4>create</h4>
+<pre class="methodSignature">static&nbsp;&lt;R&gt;&nbsp;<a href="JooqxBatchCollector.html" title="interface in io.github.zero88.jooqx">JooqxBatchCollector</a>&lt;R&gt;&nbsp;create()</pre>
+</li>
+</ul>
+<a id="batchResultSize(io.vertx.sqlclient.SqlResult)">
+<!--   -->
+</a>
+<ul class="blockList">
 <li class="blockList">
 <h4>batchResultSize</h4>
-<pre class="methodSignature">int&nbsp;batchResultSize&#8203;(@NotNull
-                    @NotNull io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;&nbsp;batchResult)</pre>
+<pre class="methodSignature">default&nbsp;int&nbsp;batchResultSize&#8203;(@NotNull
+                            @NotNull io.vertx.sqlclient.SqlResult&lt;java.util.List&lt;<a href="JooqxBatchCollector.html" title="type parameter in JooqxBatchCollector">R</a>&gt;&gt;&nbsp;batchResult)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLBatchCollector.html#batchResultSize(BR)">SQLBatchCollector</a></code></span></div>
 <div class="block">Compute Batch Result size</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="SQLBatchCollector.html#batchResultSize(BR)">batchResultSize</a></code>&nbsp;in interface&nbsp;<code><a href="SQLBatchCollector.html" title="interface in io.github.zero88.jooqx">SQLBatchCollector</a>&lt;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;,&#8203;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;&gt;</code></dd>
+<dd><code><a href="SQLBatchCollector.html#batchResultSize(BR)">batchResultSize</a></code>&nbsp;in interface&nbsp;<code><a href="SQLBatchCollector.html" title="interface in io.github.zero88.jooqx">SQLBatchCollector</a>&lt;<a href="JooqxBatchCollector.html" title="type parameter in JooqxBatchCollector">R</a>&gt;</code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>batchResult</code> - batch result</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>result size</dd>
+</dl>
+</li>
+</ul>
+<a id="batchReturningResult(io.github.zero88.jooqx.BindBatchValues,io.vertx.sqlclient.SqlResult)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>batchReturningResult</h4>
+<pre class="methodSignature">default&nbsp;<a href="BatchReturningResult.html" title="interface in io.github.zero88.jooqx">BatchReturningResult</a>&lt;<a href="JooqxBatchCollector.html" title="type parameter in JooqxBatchCollector">R</a>&gt;&nbsp;batchReturningResult&#8203;(@NotNull
+                                                     @NotNull <a href="BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindValues,
+                                                     @NotNull
+                                                     @NotNull io.vertx.sqlclient.SqlResult&lt;java.util.List&lt;<a href="JooqxBatchCollector.html" title="type parameter in JooqxBatchCollector">R</a>&gt;&gt;&nbsp;batchResult)</pre>
+<div class="block">Collect to batch returning result</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>bindValues</code> - the bind batch values</dd>
+<dd><code>batchResult</code> - the batch result</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>batch returning result</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="BindBatchValues.html" title="class in io.github.zero88.jooqx"><code>BindBatchValues</code></a>, 
+<a href="BatchReturningResult.html" title="interface in io.github.zero88.jooqx"><code>BatchReturningResult</code></a>, 
+<code>SqlResult</code></dd>
+</dl>
+</li>
+</ul>
+<a id="reduce(io.vertx.sqlclient.SqlResult)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>reduce</h4>
+<pre class="methodSignature">java.util.List&lt;<a href="JooqxBatchCollector.html" title="type parameter in JooqxBatchCollector">R</a>&gt;&nbsp;reduce&#8203;(io.vertx.sqlclient.SqlResult&lt;java.util.List&lt;<a href="JooqxBatchCollector.html" title="type parameter in JooqxBatchCollector">R</a>&gt;&gt;&nbsp;batchResult)</pre>
+<div class="block">Reduce batch result into list</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>batchResult</code> - the <code>Vert.x</code> batch result</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>list result</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>SqlResult</code></dd>
 </dl>
 </li>
 </ul>

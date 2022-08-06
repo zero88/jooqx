@@ -123,15 +123,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <li class="blockList">
 <dl>
 <dt>All Superinterfaces:</dt>
-<dd><code><a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>&lt;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;&gt;</code></dd>
-</dl>
-<dl>
-<dt>All Known Subinterfaces:</dt>
-<dd><code><a href="JooqxBatchCollector.html" title="interface in io.github.zero88.jooqx">JooqxBatchCollector</a></code></dd>
+<dd><code><a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a></code></dd>
 </dl>
 <hr>
 <pre>public interface <span class="typeNameLabel">JooqxResultCollector</span>
-extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>&lt;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;&gt;</pre>
+extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a></pre>
 <div class="block">Represents for a collector that collects then transform <code>Vert.x SQL result</code> to an expectation output</div>
 <dl>
 <dt><span class="simpleTagLabel">Since:</span></dt>
@@ -158,13 +154,12 @@ extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.j
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>&lt;ROW,&#8203;RESULT&gt;<br>RESULT</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#collect(io.vertx.sqlclient.RowSet,io.github.zero88.jooqx.adapter.SQLResultAdapter,org.jooq.DSLContext,io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">collect</a></span>&#8203;(@NotNull io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;&nbsp;resultSet,
-       @NotNull <a href="adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;ROW,&#8203;RESULT&gt;&nbsp;adapter,
-       @NotNull org.jooq.DSLContext&nbsp;dslContext,
-       @NotNull <a href="datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;registry)</code></th>
+<td class="colFirst"><code>&lt;ROW,&#8203;RESULT&gt;<br>@NotNull java.util.stream.Collector&lt;io.vertx.sqlclient.Row,&#8203;java.util.List&lt;ROW&gt;,&#8203;RESULT&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#collector(io.github.zero88.jooqx.adapter.SQLResultAdapter,org.jooq.DSLContext,io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">collector</a></span>&#8203;(@NotNull <a href="adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;ROW,&#8203;RESULT&gt;&nbsp;adapter,
+         @NotNull org.jooq.DSLContext&nbsp;dslContext,
+         @NotNull <a href="datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;registry)</code></th>
 <td class="colLast">
-<div class="block">Collect result set to an expectation result that defines in SQL result adapter</div>
+<div class="block">Create collector that helps transform result set to an expectation result that defines in SQL result adapter</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
@@ -198,35 +193,30 @@ extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.j
 <pre class="methodSignature">static&nbsp;<a href="JooqxResultCollector.html" title="interface in io.github.zero88.jooqx">JooqxResultCollector</a>&nbsp;create()</pre>
 </li>
 </ul>
-<a id="collect(io.vertx.sqlclient.RowSet,io.github.zero88.jooqx.adapter.SQLResultAdapter,org.jooq.DSLContext,io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">
+<a id="collector(io.github.zero88.jooqx.adapter.SQLResultAdapter,org.jooq.DSLContext,io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>collect</h4>
-<pre class="methodSignature">&lt;ROW,&#8203;RESULT&gt;&nbsp;RESULT&nbsp;collect&#8203;(@NotNull
-                                  @NotNull io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;&nbsp;resultSet,
-                                  @NotNull
-                                  @NotNull <a href="adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;ROW,&#8203;RESULT&gt;&nbsp;adapter,
-                                  @NotNull
-                                  @NotNull org.jooq.DSLContext&nbsp;dslContext,
-                                  @NotNull
-                                  @NotNull <a href="datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;registry)</pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLResultCollector.html#collect(RS,io.github.zero88.jooqx.adapter.SQLResultAdapter,org.jooq.DSLContext,io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">SQLResultCollector</a></code></span></div>
-<div class="block">Collect result set to an expectation result that defines in SQL result adapter</div>
+<h4>collector</h4>
+<pre class="methodSignature">@NotNull
+&lt;ROW,&#8203;RESULT&gt;&nbsp;@NotNull java.util.stream.Collector&lt;io.vertx.sqlclient.Row,&#8203;java.util.List&lt;ROW&gt;,&#8203;RESULT&gt;&nbsp;collector&#8203;(@NotNull
+                                                                                                                                @NotNull <a href="adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;ROW,&#8203;RESULT&gt;&nbsp;adapter,
+                                                                                                                                @NotNull
+                                                                                                                                @NotNull org.jooq.DSLContext&nbsp;dslContext,
+                                                                                                                                @NotNull
+                                                                                                                                @NotNull <a href="datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;registry)</pre>
+<div class="block">Create collector that helps transform result set to an expectation result that defines in SQL result adapter</div>
 <dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="SQLResultCollector.html#collect(RS,io.github.zero88.jooqx.adapter.SQLResultAdapter,org.jooq.DSLContext,io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">collect</a></code>&nbsp;in interface&nbsp;<code><a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>&lt;io.vertx.sqlclient.RowSet&lt;io.vertx.sqlclient.Row&gt;&gt;</code></dd>
 <dt><span class="paramLabel">Type Parameters:</span></dt>
-<dd><code>ROW</code> - the type of jOOQ record of the reduction operation</dd>
-<dd><code>RESULT</code> - the type of result after the reduction operation</dd>
+<dd><code>ROW</code> - Type of intermediate row, might be jOOQ record or custom type</dd>
+<dd><code>RESULT</code> - Type of expectation result</dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>resultSet</code> - result set</dd>
+<dd><code>adapter</code> - SQL result adapter</dd>
+<dd><code>dslContext</code> - dsl context</dd>
+<dd><code>registry</code> - data type mapper registry</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>an expectation result</dd>
-<dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter"><code>SQLResultAdapter</code></a>, 
-<a href="datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype"><code>DataTypeMapperRegistry</code></a></dd>
+<dd>the collector</dd>
 </dl>
 </li>
 </ul>

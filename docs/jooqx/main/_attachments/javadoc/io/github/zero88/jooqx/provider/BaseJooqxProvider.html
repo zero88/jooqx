@@ -115,7 +115,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <main role="main">
 <div class="header">
 <div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">io.github.zero88.jooqx.provider</a></div>
-<h2 title="Interface BaseJooqxProvider" class="title">Interface BaseJooqxProvider&lt;S,&#8203;B,&#8203;PQ extends <a href="../SQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">SQLPreparedQuery</a>&lt;B&gt;,&#8203;RS,&#8203;RC extends <a href="../SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>&lt;RS&gt;,&#8203;E extends <a href="../SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;S,&#8203;B,&#8203;PQ,&#8203;RS,&#8203;RC&gt;&gt;</h2>
+<h2 title="Interface BaseJooqxProvider" class="title">Interface BaseJooqxProvider&lt;S,&#8203;B,&#8203;PQ extends <a href="../SQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">SQLPreparedQuery</a>&lt;B&gt;,&#8203;RC extends <a href="../SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>,&#8203;E extends <a href="../SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;S,&#8203;B,&#8203;PQ,&#8203;RC&gt;&gt;</h2>
 </div>
 <div class="contentContainer">
 <div class="description">
@@ -126,7 +126,6 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd><code>S</code> - Type of SQL client</dd>
 <dd><code>B</code> - Type of Vertx bind value holder depends on SQL client</dd>
 <dd><code>PQ</code> - Type of SQL prepare query</dd>
-<dd><code>RS</code> - Type of Vertx SQL result set holder</dd>
 <dd><code>RC</code> - Type of SQL result set collector</dd>
 <dd><code>E</code> - Type of SQL executor</dd>
 </dl>
@@ -139,7 +138,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd><code><a href="JooqxProvider.html" title="interface in io.github.zero88.jooqx.provider">JooqxProvider</a>&lt;S&gt;</code>, <code><a href="LegacyJooqxProvider.html" title="interface in io.github.zero88.jooqx.provider">LegacyJooqxProvider</a></code></dd>
 </dl>
 <hr>
-<pre>public interface <span class="typeNameLabel">BaseJooqxProvider&lt;S,&#8203;B,&#8203;PQ extends <a href="../SQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">SQLPreparedQuery</a>&lt;B&gt;,&#8203;RS,&#8203;RC extends <a href="../SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>&lt;RS&gt;,&#8203;E extends <a href="../SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;S,&#8203;B,&#8203;PQ,&#8203;RS,&#8203;RC&gt;&gt;</span>
+<pre>public interface <span class="typeNameLabel">BaseJooqxProvider&lt;S,&#8203;B,&#8203;PQ extends <a href="../SQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">SQLPreparedQuery</a>&lt;B&gt;,&#8203;RC extends <a href="../SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>,&#8203;E extends <a href="../SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;S,&#8203;B,&#8203;PQ,&#8203;RC&gt;&gt;</span>
 extends <a href="ErrorConverterProvider.html" title="interface in io.github.zero88.jooqx.provider">ErrorConverterProvider</a>, <a href="TypeMapperRegistryProvider.html" title="interface in io.github.zero88.jooqx.provider">TypeMapperRegistryProvider</a></pre>
 <div class="block">Jooqx Provider</div>
 <dl>
