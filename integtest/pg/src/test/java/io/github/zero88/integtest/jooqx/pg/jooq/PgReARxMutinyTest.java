@@ -37,12 +37,10 @@ class PgReARxMutinyTest extends PgSQLJooqxTest<JDBCPool>
     void test_query(VertxTestContext ctx) {
         final Books table = schema().BOOKS;
         Checkpoint cp = ctx.checkpoint();
-        jooqxMutiny.execute(jooqx.dsl().selectFrom(table), DSLAdapter.fetchJsonRecords(table))
-                   .subscribe()
-                   .with(recs -> {
-                       ctx.verify(() -> Assertions.assertEquals(7, recs.size()));
-                       cp.flag();
-                   }, ctx::failNow);
+        jooqxMutiny.execute(dsl -> dsl.selectFrom(table), DSLAdapter.fetchJsonRecords(table)).subscribe().with(recs -> {
+            ctx.verify(() -> Assertions.assertEquals(7, recs.size()));
+            cp.flag();
+        }, ctx::failNow);
     }
 
 }

@@ -38,7 +38,7 @@ class PgReARx2Test extends PgSQLJooqxTest<JDBCPool>
     void test_query(VertxTestContext ctx) {
         final Books table = schema().BOOKS;
         Checkpoint cp = ctx.checkpoint();
-        jooqxRx2.rxExecute(jooqx.dsl().selectFrom(table), DSLAdapter.fetchJsonRecords(table)).subscribe(recs -> {
+        jooqxRx2.rxExecute(dsl -> dsl.selectFrom(table), DSLAdapter.fetchJsonRecords(table)).subscribe(recs -> {
             ctx.verify(() -> Assertions.assertEquals(7, recs.size()));
             cp.flag();
         }, ctx::failNow);

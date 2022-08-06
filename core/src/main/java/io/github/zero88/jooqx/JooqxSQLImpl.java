@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Objects;
+import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collector;
@@ -77,12 +78,20 @@ final class JooqxSQLImpl {
     static class ReactiveSQLRC implements JooqxResultCollector {
 
         @Override
-        public <ROW, RESULT> @NotNull RESULT collect(@NotNull RowSet<Row> resultSet,
+        public <ROW, RESULT> @NotNull RESULT collect(@NotNull RowSet<Row> rs,
                                                      @NotNull SQLResultAdapter<ROW, RESULT> adapter,
                                                      @NotNull DSLContext dslContext,
                                                      @NotNull DataTypeMapperRegistry registry) {
-            return adapter.collect(
-                collect(resultSet, dslContext, registry, adapter.recordFactory(), adapter.strategy()));
+            return adapter.collect(collect(rs, dslContext, registry, adapter.recordFactory(), adapter.strategy()));
+        }
+
+        @Override
+        public @NotNull <ROW, RESULT> Collector<Row, List<ROW>, RESULT> collector(
+            @NotNull SQLResultAdapter<ROW, RESULT> adapter, @NotNull DSLContext dsl,
+            @NotNull DataTypeMapperRegistry registry) {
+            return Collector.of(ArrayList::new,
+                                (rows, row) -> rows.add(rowToRecord(row, dsl, registry, adapter.recordFactory())),
+                                (rows1, rows2) -> rows2, rows -> collect(adapter, rows));
         }
 
         @NotNull
@@ -92,36 +101,41 @@ final class JooqxSQLImpl {
                                                 @NotNull SelectStrategy strategy) {
             final List<ROW> records = new ArrayList<>();
             final RowIterator<Row> iterator = resultSet.iterator();
-            final Function<Row, ROW> fn = row -> IntStream.range(0, row.size())
-                                                          .mapToObj(i -> recordFactory.lookup(row.getColumnName(i), i))
-                                                          .filter(Objects::nonNull)
-                                                          .collect(rowToRecord(row, dsl, registry, recordFactory));
             if (strategy == SelectStrategy.MANY) {
-                iterator.forEachRemaining(row -> records.add(fn.apply(row)));
+                iterator.forEachRemaining(row -> records.add(rowToRecord(row, dsl, registry, recordFactory)));
             } else if (iterator.hasNext()) {
                 final Row row = iterator.next();
                 if (iterator.hasNext()) {
                     throw new TooManyRowsException();
                 }
-                records.add(fn.apply(row));
+                records.add(rowToRecord(row, dsl, registry, recordFactory));
             }
             return records;
         }
 
-        private <REC extends Record, ROW> Collector<FieldWrapper, REC, ROW> rowToRecord(@NotNull Row row,
-                                                                                        @NotNull DSLContext dsl,
-                                                                                        @NotNull DataTypeMapperRegistry registry,
-                                                                                        RecordFactory<REC, ROW> recordFactory) {
-            BiFunction<FieldWrapper, Row, Object> getValue = (f, r) -> {
+        private <REC extends Record, ROW> ROW rowToRecord(@NotNull Row row, @NotNull DSLContext dsl,
+                                                          @NotNull DataTypeMapperRegistry registry,
+                                                          RecordFactory<REC, ROW> recordFactory) {
+            final Function<FieldWrapper, Object> getValue = (f) -> {
                 try {
-                    return r.getValue(f.field().getName());
+                    return registry.toUserType(f.field(), row.getValue(f.field().getName()));
                 } catch (NoSuchElementException e) {
-                    return r.getValue(f.colNo());
+                    return registry.toUserType(f.field(), row.getValue(f.colNo()));
                 }
             };
-            return Collector.of(() -> recordFactory.create(dsl),
-                                (rec, f) -> rec.set(f.field(), registry.toUserType(f.field(), getValue.apply(f, row))),
-                                (rec1, rec2) -> rec2, recordFactory::map);
+            final BiConsumer<REC, FieldWrapper> accumulator = (rec, f) -> rec.set(f.field(), getValue.apply(f));
+            return IntStream.range(0, row.size())
+                            .mapToObj(i -> recordFactory.lookup(row.getColumnName(i), i))
+                            .filter(Objects::nonNull)
+                            .collect(Collector.of(() -> recordFactory.create(dsl), accumulator, (r1, r2) -> r2,
+                                                  recordFactory::map));
+        }
+
+        private static <ROW, RESULT> RESULT collect(@NotNull SQLResultAdapter<ROW, RESULT> adapter, List<ROW> rows) {
+            if (adapter.strategy() == SelectStrategy.FIRST_ONE && rows.size() > 1) {
+                throw new TooManyRowsException();
+            }
+            return adapter.collect(rows);
         }
 
     }
@@ -268,8 +282,9 @@ final class JooqxSQLImpl {
         @Override
         public <T, R> Future<@Nullable R> execute(@NotNull Query query, @NotNull SQLResultAdapter<T, R> adapter) {
             return sqlClient().preparedQuery(preparedQuery().sql(dsl().configuration(), query))
+                              .collecting(resultCollector().collector(adapter, dsl(), typeMapperRegistry()))
                               .execute(preparedQuery().bindValues(query, typeMapperRegistry()))
-                              .map(rs -> resultCollector().collect(rs, adapter, dsl(), typeMapperRegistry()))
+                              .map(SqlResult::value)
                               .otherwise(errorConverter()::reThrowError);
         }
 

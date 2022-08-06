@@ -1,5 +1,8 @@
 package io.github.zero88.jooqx;
 
+import java.util.List;
+import java.util.stream.Collector;
+
 import org.jetbrains.annotations.NotNull;
 import org.jooq.DSLContext;
 
@@ -29,5 +32,20 @@ public interface JooqxResultCollector extends SQLResultCollector<RowSet<Row>> {
     <ROW, RESULT> @Nullable RESULT collect(@NotNull RowSet<Row> resultSet,
                                            @NotNull SQLResultAdapter<ROW, RESULT> adapter,
                                            @NotNull DSLContext dslContext, @NotNull DataTypeMapperRegistry registry);
+
+    /**
+     * Create collector
+     *
+     * @param adapter    SQL result adapter
+     * @param dslContext dsl context
+     * @param registry   data type mapper registry
+     * @param <ROW>      Type of intermediate row, might be jOOQ record or custom type
+     * @param <RESULT>   Type of expectation result
+     * @return the collector
+     */
+    @GenIgnore
+    <ROW, RESULT> @NotNull Collector<Row, List<ROW>, RESULT> collector(@NotNull SQLResultAdapter<ROW, RESULT> adapter,
+                                                                       @NotNull DSLContext dslContext,
+                                                                       @NotNull DataTypeMapperRegistry registry);
 
 }
