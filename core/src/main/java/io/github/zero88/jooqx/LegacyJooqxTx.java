@@ -16,7 +16,6 @@ import io.vertx.core.Future;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonArray;
-import io.vertx.ext.sql.ResultSet;
 import io.vertx.ext.sql.SQLConnection;
 
 /**
@@ -27,7 +26,7 @@ import io.vertx.ext.sql.SQLConnection;
 @VertxGen
 @Deprecated
 public interface LegacyJooqxTx extends LegacyInternal<SQLConnection>,
-                                       SQLTxExecutor<SQLConnection, JsonArray, LegacySQLPreparedQuery, ResultSet,
+                                       SQLTxExecutor<SQLConnection, JsonArray, LegacySQLPreparedQuery,
                                                         LegacySQLCollector, LegacyJooqxTx> {
 
     @Override

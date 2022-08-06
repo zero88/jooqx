@@ -88,7 +88,7 @@ class PgLeGRelationTest extends PgSQLLegacyTest implements PgUseJooqType, JDBCEr
         final Books table = schema().BOOKS;
         final Handler<AsyncResult<BooksRecord>> asserter = ar -> {
             assertJooqException(ctx, ar, SQLStateClass.C23_INTEGRITY_CONSTRAINT_VIOLATION);
-            jooqx.execute(jooqx.dsl().selectFrom(table).where(table.ID.eq(1)), DSLAdapter.fetchOne(table),
+            jooqx.execute(dsl -> dsl.selectFrom(table).where(table.ID.eq(1)), DSLAdapter.fetchOne(table),
                           ar2 -> ctx.verify(() -> {
                               final BooksRecord record = assertSuccess(ctx, ar2);
                               Assertions.assertEquals("The Catcher in the Rye", record.getTitle());
@@ -96,16 +96,14 @@ class PgLeGRelationTest extends PgSQLLegacyTest implements PgUseJooqType, JDBCEr
                           }));
         };
         jooqx.transaction()
-             .run(tx -> tx.execute(tx.dsl()
-                                     .update(table)
-                                     .set(DSL.row(table.TITLE), DSL.row("something"))
-                                     .where(table.ID.eq(1))
-                                     .returning(), DSLAdapter.fetchOne(table))
-                          .flatMap(r -> tx.execute(tx.dsl()
-                                                     .update(table)
-                                                     .set(DSL.row(table.TITLE), DSL.row((String) null))
-                                                     .where(table.ID.eq(2))
-                                                     .returning(), DSLAdapter.fetchOne(table))), asserter);
+             .run(tx -> tx.execute(dsl -> dsl.update(table)
+                                             .set(DSL.row(table.TITLE), DSL.row("something"))
+                                             .where(table.ID.eq(1))
+                                             .returning(), DSLAdapter.fetchOne(table))
+                          .flatMap(r -> tx.execute(dsl -> dsl.update(table)
+                                                             .set(DSL.row(table.TITLE), DSL.row((String) null))
+                                                             .where(table.ID.eq(2))
+                                                             .returning(), DSLAdapter.fetchOne(table))), asserter);
     }
 
     @Test

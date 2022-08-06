@@ -120,8 +120,7 @@ final class LegacySQLImpl {
 
     @Deprecated
     abstract static class LegacySQLEI<S extends SQLOperations>
-        extends SQLEI<S, JsonArray, LegacySQLPreparedQuery, ResultSet, LegacySQLCollector>
-        implements LegacyInternal<S> {
+        extends SQLEI<S, JsonArray, LegacySQLPreparedQuery, LegacySQLCollector> implements LegacyInternal<S> {
 
         LegacySQLEI(Vertx vertx, DSLContext dsl, S sqlClient, LegacySQLPreparedQuery preparedQuery,
                     LegacySQLCollector resultCollector, SQLErrorConverter errorConverter,

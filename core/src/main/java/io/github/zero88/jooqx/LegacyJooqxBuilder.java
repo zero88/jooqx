@@ -9,7 +9,6 @@ import io.vertx.codegen.annotations.GenIgnore;
 import io.vertx.codegen.annotations.VertxGen;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonArray;
-import io.vertx.ext.sql.ResultSet;
 import io.vertx.ext.sql.SQLClient;
 
 /**
@@ -19,9 +18,8 @@ import io.vertx.ext.sql.SQLClient;
  */
 @VertxGen
 @Deprecated
-public interface LegacyJooqxBuilder extends
-                                    SQLExecutorBuilder<SQLClient, JsonArray, LegacySQLPreparedQuery, ResultSet,
-                                                          LegacySQLCollector, LegacyJooqxBuilder> {
+public interface LegacyJooqxBuilder
+    extends SQLExecutorBuilder<SQLClient, JsonArray, LegacySQLPreparedQuery, LegacySQLCollector, LegacyJooqxBuilder> {
 
     @Override
     @NotNull Vertx vertx();

@@ -200,7 +200,7 @@ final class JooqxSQLImpl {
 
 
     abstract static class JooqxImpl<S extends SqlClient>
-        extends SQLEI<S, Tuple, JooqxPreparedQuery, RowSet<Row>, JooqxResultCollector> implements JooqxBase<S> {
+        extends SQLEI<S, Tuple, JooqxPreparedQuery, JooqxResultCollector> implements JooqxBase<S> {
 
         JooqxImpl(Vertx vertx, DSLContext dsl, S sqlClient, JooqxPreparedQuery preparedQuery,
                   JooqxResultCollector resultCollector, SQLErrorConverter errorConverter,

@@ -20,7 +20,7 @@ import io.vertx.ext.sql.ResultSet;
  */
 @VertxGen
 @Deprecated
-public interface LegacySQLCollector extends SQLResultCollector<ResultSet>, SQLBatchCollector<List<Integer>> {
+public interface LegacySQLCollector extends SQLResultCollector, SQLBatchCollector<List<Integer>> {
 
     static LegacySQLCollector create() {
         return new LegacySQLRC();

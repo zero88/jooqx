@@ -11,16 +11,15 @@ import io.vertx.core.Handler;
 /**
  * Represents for transaction executor
  *
- * @param <S>  Type of Vertx SQL client
- * @param <B>  Type of Vertx query param holder
- * @param <P>  Type of SQL prepare query
- * @param <RS> Type of Vertx result set
- * @param <C>  Type of SQL result collector
- * @param <E>  Type of jOOQ.x executor
+ * @param <S> Type of Vertx SQL client
+ * @param <B> Type of Vertx query param holder
+ * @param <P> Type of SQL prepare query
+ * @param <C> Type of SQL result collector
+ * @param <E> Type of jOOQ.x executor
  * @since 1.0.0
  */
-public interface SQLTxExecutor<S, B, P extends SQLPreparedQuery<B>, RS, C extends SQLResultCollector<RS>,
-                                  E extends SQLExecutor<S, B, P, RS, C>> {
+public interface SQLTxExecutor<S, B, P extends SQLPreparedQuery<B>, C extends SQLResultCollector,
+                                  E extends SQLExecutor<S, B, P, C>> {
 
     /**
      * Run the transactional code

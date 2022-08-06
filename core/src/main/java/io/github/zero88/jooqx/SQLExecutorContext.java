@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 import io.github.zero88.jooqx.datatype.DataTypeMapperRegistry;
 import io.vertx.core.Vertx;
 
-interface SQLExecutorContext<S, B, PQ extends SQLPreparedQuery<B>, RS, RC extends SQLResultCollector<RS>>
+interface SQLExecutorContext<S, B, PQ extends SQLPreparedQuery<B>, RC extends SQLResultCollector>
     extends JooqDSLProvider {
 
     @NotNull Vertx vertx();

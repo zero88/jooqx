@@ -12,7 +12,6 @@ import io.github.zero88.jooqx.datatype.DataTypeMapperRegistry;
 import io.vertx.codegen.annotations.GenIgnore;
 import io.vertx.codegen.annotations.VertxGen;
 import io.vertx.sqlclient.Row;
-import io.vertx.sqlclient.RowSet;
 
 /**
  * Represents for a collector that collects then transform {@code Vert.x SQL result} to an expectation output
@@ -20,7 +19,7 @@ import io.vertx.sqlclient.RowSet;
  * @since 2.0.0
  */
 @VertxGen
-public interface JooqxResultCollector extends SQLResultCollector<RowSet<Row>> {
+public interface JooqxResultCollector extends SQLResultCollector {
 
     static JooqxResultCollector create() {
         return new ReactiveSQLRC();

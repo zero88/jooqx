@@ -9,8 +9,6 @@ import io.vertx.codegen.annotations.GenIgnore;
 import io.vertx.codegen.annotations.VertxGen;
 import io.vertx.core.Vertx;
 import io.vertx.sqlclient.Pool;
-import io.vertx.sqlclient.Row;
-import io.vertx.sqlclient.RowSet;
 import io.vertx.sqlclient.Tuple;
 
 /**
@@ -20,7 +18,7 @@ import io.vertx.sqlclient.Tuple;
  */
 @VertxGen
 public interface JooqxBuilder
-    extends SQLExecutorBuilder<Pool, Tuple, JooqxPreparedQuery, RowSet<Row>, JooqxResultCollector, JooqxBuilder> {
+    extends SQLExecutorBuilder<Pool, Tuple, JooqxPreparedQuery, JooqxResultCollector, JooqxBuilder> {
 
     @NotNull Vertx vertx();
 
