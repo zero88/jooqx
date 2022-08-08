@@ -99,14 +99,13 @@ class PgReARelationTest extends PgSQLJooqxTest<PgConnection> implements PgConnPr
     void test_select_one_convert_by_json_record(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
         final io.github.zero88.sample.model.pgsql.tables.Authors table = schema().AUTHORS;
-        final SelectForUpdateStep<AuthorsRecord> q = jooqx.dsl()
-                                                          .selectFrom(table)
-                                                          .where(table.COUNTRY.eq("USA"))
-                                                          .orderBy(table.NAME.desc())
-                                                          .limit(1)
-                                                          .offset(1);
-        jooqx.execute(q, DSLAdapter.fetchJsonRecord(q.asTable()), ar -> ctx.verify(() -> {
-            final JsonRecord<?> result = assertSuccess(ctx, ar);
+        jooqx.fetchJsonRecord(dsl -> jooqx.dsl()
+                                          .selectFrom(table)
+                                          .where(table.COUNTRY.eq("USA"))
+                                          .orderBy(table.NAME.desc())
+                                          .limit(1)
+                                          .offset(1), ar -> ctx.verify(() -> {
+            final JsonRecord<AuthorsRecord> result = assertSuccess(ctx, ar);
             Assertions.assertNotNull(result);
             Assertions.assertEquals(new JsonObject("{\"id\":4,\"name\":\"Scott Hanselman\",\"country\":\"USA\"}"),
                                     result.toJson());

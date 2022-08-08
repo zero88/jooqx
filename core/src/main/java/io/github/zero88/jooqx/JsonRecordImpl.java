@@ -1,23 +1,48 @@
 package io.github.zero88.jooqx;
 
-import java.util.Arrays;
+import java.util.Map;
 
-import org.jooq.Table;
-import org.jooq.TableRecord;
-import org.jooq.impl.CustomRecord;
+import org.jooq.JSONFormat;
+import org.jooq.Record;
 
 import io.vertx.core.json.JsonObject;
+import io.vertx.core.spi.json.JsonCodec;
 
-final class JsonRecordImpl<R extends TableRecord<R>> extends CustomRecord<R> implements JsonRecord<R> {
+final class JsonRecordImpl<R extends Record> implements JsonRecord<R> {
 
-    JsonRecordImpl(Table<R> table) {
-        super(table);
+    final R record;
+    JsonObject json;
+
+    JsonRecordImpl(R record) { this.record = record; }
+
+    @Override
+    public R record() {
+        return record;
     }
 
     public JsonObject toJson() {
-        final JsonObject json = new JsonObject();
-        Arrays.stream(this.fields()).forEach(f -> json.put(f.getName(), f.get(this)));
+        if (json == null) {
+            return json = new JsonObject(record.intoMap());
+        }
         return json;
+    }
+
+    @Override
+    public JsonObject toJson(JSONFormat format) {
+        return new JsonObject(record.formatJSON(format));
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public JsonObject toJson(JsonCodec codec) {
+        return codec == null
+               ? toJson()
+               : new JsonObject((Map<String, Object>) codec.fromValue(record.intoMap(), Map.class));
+    }
+
+    @Override
+    public String toString() {
+        return record.toString();
     }
 
 }

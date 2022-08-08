@@ -73,7 +73,7 @@ class PgLeGRelationTest extends PgSQLLegacyTest implements PgUseJooqType, JDBCEr
         jooqx.batch(insert, bindValues, ar -> {
             ctx.verify(() -> Assertions.assertEquals(3, ar.result().getSuccesses()));
             jooqx.execute(jooqx.dsl().selectFrom(table), DSLAdapter.fetchJsonRecords(table), ar2 -> ctx.verify(() -> {
-                final List<JsonRecord<?>> records = assertResultSize(ctx, ar2, 10);
+                final List<JsonRecord<BooksRecord>> records = assertResultSize(ctx, ar2, 10);
                 Assertions.assertEquals(new JsonObject().put("id", 8).put("title", "abc"), records.get(7).toJson());
                 Assertions.assertEquals(new JsonObject().put("id", 9).put("title", "xyz"), records.get(8).toJson());
                 Assertions.assertEquals(new JsonObject().put("id", 10).put("title", "qwe"), records.get(9).toJson());
