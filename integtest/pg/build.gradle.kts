@@ -15,6 +15,9 @@ dependencies {
     testImplementation(DatabaseLibs.pgsql)
     testImplementation(TestContainers.pgsql)
 
+    testImplementation(JacksonLibs.databind)
+    testImplementation(JacksonLibs.datetime)
+
     // For pg-14
     testImplementation("com.ongres.scram:client:2.1")
 }

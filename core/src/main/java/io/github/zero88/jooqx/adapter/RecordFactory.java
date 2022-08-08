@@ -10,10 +10,11 @@ import org.jooq.Field;
 import org.jooq.Record;
 import org.jooq.RecordMapper;
 import org.jooq.TableLike;
-import org.jooq.TableRecord;
 import org.jooq.impl.DSL;
 
 import io.github.zero88.jooqx.JsonRecord;
+import io.vertx.core.json.JsonObject;
+import io.vertx.core.spi.json.JsonCodec;
 
 /**
  * Record factory defines the necessary methods to transform {@code Vert.x SQL row} to {@code jOOQ record} then map
@@ -21,11 +22,9 @@ import io.github.zero88.jooqx.JsonRecord;
  *
  * @param <REC> The type of jOOQ record
  * @param <R>   The type of expected result
- * @apiNote Record factory is only related to {@code jOOQ} functionality
  * @see RecordMapper
  * @since 2.0.0
  */
-@SuppressWarnings({ "rawtypes", "unchecked" })
 public interface RecordFactory<REC extends Record, R> extends RecordMapper<REC, R> {
 
     static <REC extends Record, T extends TableLike<REC>> RecordFactory<REC, REC> byTable(T table) {
@@ -33,9 +32,16 @@ public interface RecordFactory<REC extends Record, R> extends RecordMapper<REC, 
                                 RecordFactoryHelper.recordProviderByTable(table));
     }
 
-    static RecordFactory<JsonRecord<?>, JsonRecord<?>> byJson(TableLike<? extends Record> table) {
-        return RecordFactory.of(RecordFactoryHelper.fieldFinderByTable(table),
-                                dsl -> JsonRecord.create((TableLike<TableRecord>) table));
+    static <REC extends Record> RecordFactory<REC, JsonRecord<REC>> byJsonRecord(TableLike<REC> table) {
+        return RecordFactory.byMapper(table, JsonRecord::create);
+    }
+
+    static <REC extends Record> RecordFactory<REC, JsonObject> byJson(TableLike<REC> table) {
+        return RecordFactory.byMapper(table, record -> JsonRecord.create(record).toJson());
+    }
+
+    static <REC extends Record> RecordFactory<REC, JsonObject> byJson(TableLike<REC> table, JsonCodec codec) {
+        return RecordFactory.byMapper(table, record -> JsonRecord.create(record).toJson(codec));
     }
 
     static <REC extends Record> RecordFactory<REC, REC> byRecord(REC record) {
