@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":1,"i1":1,"i2":1,"i3":1,"i4":1,"i5":1,"i6":6,"i7":6,"i8":1,"i9":1};
+var data = {"i0":1,"i1":1,"i2":1,"i3":1,"i4":1,"i5":1,"i6":1,"i7":1,"i8":6,"i9":6,"i10":1,"i11":1};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -140,8 +140,6 @@ extends org.jooq.RecordMapper&lt;REC,&#8203;R&gt;</pre>
 <dd>2.0.0</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><code>RecordMapper</code></dd>
-<dt><span class="simpleTagLabel">API Note:</span></dt>
-<dd>Record factory is only related to <code>jOOQ</code> functionality</dd>
 </dl>
 </li>
 </ul>
@@ -175,34 +173,45 @@ extends org.jooq.RecordMapper&lt;REC,&#8203;R&gt;</pre>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code>static <a href="RecordFactory.html" title="interface in io.github.zero88.jooqx.adapter">RecordFactory</a>&lt;<a href="../JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;?&gt;,&#8203;<a href="../JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;?&gt;&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#byJson(org.jooq.TableLike)">byJson</a></span>&#8203;(org.jooq.TableLike&lt;? extends org.jooq.Record&gt;&nbsp;table)</code></th>
+<td class="colFirst"><code>static &lt;REC extends org.jooq.Record&gt;<br><a href="RecordFactory.html" title="interface in io.github.zero88.jooqx.adapter">RecordFactory</a>&lt;REC,&#8203;io.vertx.core.json.JsonObject&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#byJson(org.jooq.TableLike)">byJson</a></span>&#8203;(org.jooq.TableLike&lt;REC&gt;&nbsp;table)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i3" class="rowColor">
+<td class="colFirst"><code>static &lt;REC extends org.jooq.Record&gt;<br><a href="RecordFactory.html" title="interface in io.github.zero88.jooqx.adapter">RecordFactory</a>&lt;REC,&#8203;io.vertx.core.json.JsonObject&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#byJson(org.jooq.TableLike,io.vertx.core.spi.json.JsonCodec)">byJson</a></span>&#8203;(org.jooq.TableLike&lt;REC&gt;&nbsp;table,
+      io.vertx.core.spi.json.JsonCodec&nbsp;codec)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>static &lt;REC extends org.jooq.Record&gt;<br><a href="RecordFactory.html" title="interface in io.github.zero88.jooqx.adapter">RecordFactory</a>&lt;REC,&#8203;<a href="../JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;REC&gt;&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#byJsonRecord(org.jooq.TableLike)">byJsonRecord</a></span>&#8203;(org.jooq.TableLike&lt;REC&gt;&nbsp;table)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>static &lt;REC extends org.jooq.Record,&#8203;T extends org.jooq.TableLike&lt;REC&gt;,&#8203;R&gt;<br><a href="RecordFactory.html" title="interface in io.github.zero88.jooqx.adapter">RecordFactory</a>&lt;REC,&#8203;R&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#byMapper(T,org.jooq.RecordMapper)">byMapper</a></span>&#8203;(T&nbsp;table,
         org.jooq.RecordMapper&lt;REC,&#8203;R&gt;&nbsp;mapper)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>static &lt;REC extends org.jooq.Record&gt;<br><a href="RecordFactory.html" title="interface in io.github.zero88.jooqx.adapter">RecordFactory</a>&lt;REC,&#8203;REC&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#byRecord(REC)">byRecord</a></span>&#8203;(REC&nbsp;record)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>static &lt;REC extends org.jooq.Record,&#8203;T extends org.jooq.TableLike&lt;REC&gt;&gt;<br><a href="RecordFactory.html" title="interface in io.github.zero88.jooqx.adapter">RecordFactory</a>&lt;REC,&#8203;REC&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#byTable(T)">byTable</a></span>&#8203;(T&nbsp;table)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code><a href="RecordFactory.html" title="type parameter in RecordFactory">REC</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#create(org.jooq.DSLContext)">create</a></span>&#8203;(org.jooq.DSLContext&nbsp;context)</code></th>
 <td class="colLast">
 <div class="block">Create new jOOQ record</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>@Nullable <a href="FieldWrapper.html" title="interface in io.github.zero88.jooqx.adapter">FieldWrapper</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#lookup(java.lang.String,int)">lookup</a></span>&#8203;(java.lang.String&nbsp;fieldName,
       int&nbsp;fieldIndex)</code></th>
@@ -210,13 +219,13 @@ extends org.jooq.RecordMapper&lt;REC,&#8203;R&gt;</pre>
 <div class="block">Lookup jOOQ field in current Query context</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>static &lt;REC extends org.jooq.Record&gt;<br><a href="RecordFactory.html" title="interface in io.github.zero88.jooqx.adapter">RecordFactory</a>&lt;REC,&#8203;REC&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#of(java.util.function.BiFunction,java.util.function.Function)">of</a></span>&#8203;(java.util.function.BiFunction&lt;java.lang.String,&#8203;java.lang.Integer,&#8203;org.jooq.Field&lt;?&gt;&gt;&nbsp;fieldFinder,
   java.util.function.Function&lt;org.jooq.DSLContext,&#8203;REC&gt;&nbsp;recordProvider)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>static &lt;REC extends org.jooq.Record,&#8203;R&gt;<br><a href="RecordFactory.html" title="interface in io.github.zero88.jooqx.adapter">RecordFactory</a>&lt;REC,&#8203;R&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#of(java.util.function.BiFunction,java.util.function.Function,org.jooq.RecordMapper)">of</a></span>&#8203;(java.util.function.BiFunction&lt;java.lang.String,&#8203;java.lang.Integer,&#8203;org.jooq.Field&lt;?&gt;&gt;&nbsp;fieldFinder,
   java.util.function.Function&lt;org.jooq.DSLContext,&#8203;REC&gt;&nbsp;recordProvider,
@@ -258,13 +267,32 @@ extends org.jooq.RecordMapper&lt;REC,&#8203;R&gt;</pre>
 <pre class="methodSignature">static&nbsp;&lt;REC extends org.jooq.Record,&#8203;T extends org.jooq.TableLike&lt;REC&gt;&gt;&nbsp;<a href="RecordFactory.html" title="interface in io.github.zero88.jooqx.adapter">RecordFactory</a>&lt;REC,&#8203;REC&gt;&nbsp;byTable&#8203;(T&nbsp;table)</pre>
 </li>
 </ul>
+<a id="byJsonRecord(org.jooq.TableLike)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>byJsonRecord</h4>
+<pre class="methodSignature">static&nbsp;&lt;REC extends org.jooq.Record&gt;&nbsp;<a href="RecordFactory.html" title="interface in io.github.zero88.jooqx.adapter">RecordFactory</a>&lt;REC,&#8203;<a href="../JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;REC&gt;&gt;&nbsp;byJsonRecord&#8203;(org.jooq.TableLike&lt;REC&gt;&nbsp;table)</pre>
+</li>
+</ul>
 <a id="byJson(org.jooq.TableLike)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>byJson</h4>
-<pre class="methodSignature">static&nbsp;<a href="RecordFactory.html" title="interface in io.github.zero88.jooqx.adapter">RecordFactory</a>&lt;<a href="../JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;?&gt;,&#8203;<a href="../JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;?&gt;&gt;&nbsp;byJson&#8203;(org.jooq.TableLike&lt;? extends org.jooq.Record&gt;&nbsp;table)</pre>
+<pre class="methodSignature">static&nbsp;&lt;REC extends org.jooq.Record&gt;&nbsp;<a href="RecordFactory.html" title="interface in io.github.zero88.jooqx.adapter">RecordFactory</a>&lt;REC,&#8203;io.vertx.core.json.JsonObject&gt;&nbsp;byJson&#8203;(org.jooq.TableLike&lt;REC&gt;&nbsp;table)</pre>
+</li>
+</ul>
+<a id="byJson(org.jooq.TableLike,io.vertx.core.spi.json.JsonCodec)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>byJson</h4>
+<pre class="methodSignature">static&nbsp;&lt;REC extends org.jooq.Record&gt;&nbsp;<a href="RecordFactory.html" title="interface in io.github.zero88.jooqx.adapter">RecordFactory</a>&lt;REC,&#8203;io.vertx.core.json.JsonObject&gt;&nbsp;byJson&#8203;(org.jooq.TableLike&lt;REC&gt;&nbsp;table,
+                                                                                                   io.vertx.core.spi.json.JsonCodec&nbsp;codec)</pre>
 </li>
 </ul>
 <a id="byRecord(org.jooq.Record)">

@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":1,"i1":6};
+var data = {"i0":1,"i1":1,"i2":6,"i3":6,"i4":6,"i5":6};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -115,7 +115,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <main role="main">
 <div class="header">
 <div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">io.github.zero88.jooqx</a></div>
-<h2 title="Interface JsonRecord" class="title">Interface JsonRecord&lt;R extends org.jooq.TableRecord&lt;R&gt;&gt;</h2>
+<h2 title="Interface JsonRecord" class="title">Interface JsonRecord&lt;R extends org.jooq.Record&gt;</h2>
 </div>
 <div class="contentContainer">
 <div class="description">
@@ -125,13 +125,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="paramLabel">Type Parameters:</span></dt>
 <dd><code>R</code> - Type of jOOQ record</dd>
 </dl>
-<dl>
-<dt>All Superinterfaces:</dt>
-<dd><code>org.jooq.Attachable</code>, <code>java.lang.Comparable&lt;org.jooq.Record&gt;</code>, <code>org.jooq.Formattable</code>, <code>org.jooq.Record</code>, <code>java.io.Serializable</code>, <code>org.jooq.TableRecord&lt;R&gt;</code></dd>
-</dl>
 <hr>
-<pre>public interface <span class="typeNameLabel">JsonRecord&lt;R extends org.jooq.TableRecord&lt;R&gt;&gt;</span>
-extends org.jooq.TableRecord&lt;R&gt;</pre>
+<pre>public interface <span class="typeNameLabel">JsonRecord&lt;R extends org.jooq.Record&gt;</span></pre>
 <div class="block">Represents for an intermediate record between Vertx ResultSet and actual jOOQ Record and does support serialize to
  <code>JsonObject</code></div>
 <dl>
@@ -161,44 +156,40 @@ extends org.jooq.TableRecord&lt;R&gt;</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>static &lt;R extends org.jooq.TableRecord&lt;R&gt;&gt;<br><a href="JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;R&gt;</code></td>
+<td class="colFirst"><code>static &lt;R extends org.jooq.Record&gt;<br><a href="JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;R&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#create(org.jooq.TableLike)">create</a></span>&#8203;(@NotNull org.jooq.TableLike&lt;R&gt;&nbsp;table)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
+<td class="colFirst"><code>static &lt;R extends org.jooq.Record&gt;<br><a href="JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;R&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#create(R)">create</a></span>&#8203;(R&nbsp;record)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code><a href="JsonRecord.html" title="type parameter in JsonRecord">R</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#record()">record</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>io.vertx.core.json.JsonObject</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toJson()">toJson</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>io.vertx.core.json.JsonObject</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toJson(io.vertx.core.spi.json.JsonCodec)">toJson</a></span>&#8203;(io.vertx.core.spi.json.JsonCodec&nbsp;codec)</code></th>
+<td class="colLast">
+<div class="block">Covert to json object by Object mapper</div>
+</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>io.vertx.core.json.JsonObject</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toJson(org.jooq.JSONFormat)">toJson</a></span>&#8203;(org.jooq.JSONFormat&nbsp;format)</code></th>
+<td class="colLast">
+<div class="block">Covert to json object by <code>JSONFormat</code></div>
+</td>
+</tr>
 </table>
-<ul class="blockList">
-<li class="blockList"><a id="methods.inherited.from.class.org.jooq.Attachable">
-<!--   -->
-</a>
-<h3>Methods inherited from interface&nbsp;org.jooq.Attachable</h3>
-<code>attach, configuration, detach</code></li>
-</ul>
-<ul class="blockList">
-<li class="blockList"><a id="methods.inherited.from.class.org.jooq.Formattable">
-<!--   -->
-</a>
-<h3>Methods inherited from interface&nbsp;org.jooq.Formattable</h3>
-<code>format, format, format, format, format, format, format, format, format, formatChart, formatChart, formatChart, formatChart, formatChart, formatChart, formatCSV, formatCSV, formatCSV, formatCSV, formatCSV, formatCSV, formatCSV, formatCSV, formatCSV, formatCSV, formatCSV, formatCSV, formatCSV, formatCSV, formatCSV, formatCSV, formatCSV, formatCSV, formatCSV, formatCSV, formatCSV, formatHTML, formatHTML, formatHTML, formatInsert, formatInsert, formatInsert, formatInsert, formatInsert, formatInsert, formatJSON, formatJSON, formatJSON, formatJSON, formatJSON, formatJSON, formatXML, formatXML, formatXML, formatXML, formatXML, formatXML, intoXML, intoXML, intoXML, intoXML</code></li>
-</ul>
-<ul class="blockList">
-<li class="blockList"><a id="methods.inherited.from.class.org.jooq.Record">
-<!--   -->
-</a>
-<h3>Methods inherited from interface&nbsp;org.jooq.Record</h3>
-<code>changed, changed, changed, changed, changed, changed, changed, changed, changed, changed, compareTo, equals, field, field, field, field, fields, fields, fields, fields, fields, fieldsRow, from, from, from, from, from, fromArray, fromArray, fromArray, fromArray, fromArray, fromMap, fromMap, fromMap, fromMap, fromMap, get, get, get, get, get, get, get, get, get, get, get, get, getValue, getValue, getValue, getValue, getValue, getValue, getValue, getValue, getValue, getValue, getValue, getValue, getValue, getValue, getValue, getValue, getValue, getValue, getValue, getValue, getValue, hashCode, indexOf, indexOf, indexOf, into, into, into, into, into, into, into, into, into, into, into, into, into, into, into, into, into, into, into, into, into, into, into, into, into, into, intoArray, intoList, intoMap, intoResultSet, intoStream, map, original, original, original, original, reset, reset, reset, reset, reset, set, set, setValue, setValue, size, valuesRow</code></li>
-</ul>
-<ul class="blockList">
-<li class="blockList"><a id="methods.inherited.from.class.org.jooq.TableRecord">
-<!--   -->
-</a>
-<h3>Methods inherited from interface&nbsp;org.jooq.TableRecord</h3>
-<code>fetchParent, getTable, insert, insert, insert, original, parent, with, with</code></li>
-</ul>
 </li>
 </ul>
 </section>
@@ -215,6 +206,21 @@ extends org.jooq.TableRecord&lt;R&gt;</pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
+<a id="record()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>record</h4>
+<pre class="methodSignature"><a href="JsonRecord.html" title="type parameter in JsonRecord">R</a>&nbsp;record()</pre>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>record</dd>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0.0</dd>
+</dl>
+</li>
+</ul>
 <a id="toJson()">
 <!--   -->
 </a>
@@ -224,14 +230,62 @@ extends org.jooq.TableRecord&lt;R&gt;</pre>
 <pre class="methodSignature">io.vertx.core.json.JsonObject&nbsp;toJson()</pre>
 </li>
 </ul>
+<a id="toJson(org.jooq.JSONFormat)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>toJson</h4>
+<pre class="methodSignature">io.vertx.core.json.JsonObject&nbsp;toJson&#8203;(org.jooq.JSONFormat&nbsp;format)</pre>
+<div class="block">Covert to json object by <code>JSONFormat</code></div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>format</code> - json format</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>json object</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>JSONFormat</code></dd>
+</dl>
+</li>
+</ul>
+<a id="toJson(io.vertx.core.spi.json.JsonCodec)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>toJson</h4>
+<pre class="methodSignature">io.vertx.core.json.JsonObject&nbsp;toJson&#8203;(io.vertx.core.spi.json.JsonCodec&nbsp;codec)</pre>
+<div class="block">Covert to json object by Object mapper</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>codec</code> - json codec</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>json object</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>JsonCodec</code></dd>
+</dl>
+</li>
+</ul>
+<a id="create(org.jooq.Record)">
+<!--   -->
+</a><a id="create(R)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>create</h4>
+<pre class="methodSignature">static&nbsp;&lt;R extends org.jooq.Record&gt;&nbsp;<a href="JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;R&gt;&nbsp;create&#8203;(@NotNull
+                                                        R&nbsp;record)</pre>
+</li>
+</ul>
 <a id="create(org.jooq.TableLike)">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>create</h4>
-<pre class="methodSignature">static&nbsp;&lt;R extends org.jooq.TableRecord&lt;R&gt;&gt;&nbsp;<a href="JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;R&gt;&nbsp;create&#8203;(@NotNull
-                                                                @NotNull org.jooq.TableLike&lt;R&gt;&nbsp;table)</pre>
+<pre class="methodSignature">static&nbsp;&lt;R extends org.jooq.Record&gt;&nbsp;<a href="JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;R&gt;&nbsp;create&#8203;(@NotNull
+                                                        @NotNull org.jooq.TableLike&lt;R&gt;&nbsp;table)</pre>
 </li>
 </ul>
 </li>

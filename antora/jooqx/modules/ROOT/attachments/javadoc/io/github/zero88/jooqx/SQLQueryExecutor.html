@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":18,"i1":18,"i2":6,"i3":18,"i4":18,"i5":18,"i6":18,"i7":18,"i8":18,"i9":18,"i10":18,"i11":18,"i12":18,"i13":18,"i14":18,"i15":18,"i16":18,"i17":18,"i18":18,"i19":18};
+var data = {"i0":18,"i1":18,"i2":6,"i3":18,"i4":18,"i5":18,"i6":18,"i7":18,"i8":18,"i9":18,"i10":18,"i11":18,"i12":18,"i13":18,"i14":18,"i15":18,"i16":18,"i17":18,"i18":18,"i19":18,"i20":18,"i21":18,"i22":18,"i23":18,"i24":18,"i25":18,"i26":18,"i27":18,"i28":18,"i29":18,"i30":18,"i31":18,"i32":18,"i33":18,"i34":18,"i35":18,"i36":18,"i37":18,"i38":18,"i39":18,"i40":18,"i41":18,"i42":18,"i43":18};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],16:["t5","Default Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -257,13 +257,215 @@ extends <a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooq
 </td>
 </tr>
 <tr id="i12" class="altColor">
+<td class="colFirst"><code>default &lt;REC extends org.jooq.Record&gt;<br>io.vertx.core.Future&lt;io.vertx.core.json.JsonArray&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchJsonArray(java.util.function.Function)">fetchJsonArray</a></span>&#8203;(@NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Select&lt;REC&gt;&gt;&nbsp;selectFn)</code></th>
+<td class="colLast">
+<div class="block">Like <a href="#fetchJsonArray(java.util.function.Function,io.vertx.core.Handler)"><code>fetchJsonArray(Function, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+</td>
+</tr>
+<tr id="i13" class="rowColor">
+<td class="colFirst"><code>default &lt;REC extends org.jooq.Record&gt;<br>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchJsonArray(java.util.function.Function,io.vertx.core.Handler)">fetchJsonArray</a></span>&#8203;(@NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Select&lt;REC&gt;&gt;&nbsp;selectFn,
+              @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;io.vertx.core.json.JsonArray&gt;&gt;&nbsp;handler)</code></th>
+<td class="colLast">
+<div class="block">Shortcut of <a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="DSLAdapter.html#fetchJsonArray(org.jooq.TableLike)"><code>DSLAdapter.fetchJsonArray(TableLike)</code></a></div>
+</td>
+</tr>
+<tr id="i14" class="altColor">
+<td class="colFirst"><code>default &lt;REC extends org.jooq.Record&gt;<br>io.vertx.core.Future&lt;io.vertx.core.json.JsonArray&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchJsonArray(java.util.function.Function,io.vertx.core.spi.json.JsonCodec)">fetchJsonArray</a></span>&#8203;(@NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Select&lt;REC&gt;&gt;&nbsp;selectFn,
+              @NotNull io.vertx.core.spi.json.JsonCodec&nbsp;codec)</code></th>
+<td class="colLast">
+<div class="block">Like <a href="#fetchJsonArray(java.util.function.Function,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)"><code>fetchJsonArray(Function, JsonCodec, Handler)</code></a> but returns a <code>Future</code> of the asynchronous
+ result</div>
+</td>
+</tr>
+<tr id="i15" class="rowColor">
+<td class="colFirst"><code>default &lt;REC extends org.jooq.Record&gt;<br>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchJsonArray(java.util.function.Function,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)">fetchJsonArray</a></span>&#8203;(@NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Select&lt;REC&gt;&gt;&nbsp;selectFn,
+              @NotNull io.vertx.core.spi.json.JsonCodec&nbsp;codec,
+              @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;io.vertx.core.json.JsonArray&gt;&gt;&nbsp;handler)</code></th>
+<td class="colLast">
+<div class="block">Shortcut of <a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="DSLAdapter.html#fetchJsonArray(org.jooq.TableLike,io.vertx.core.spi.json.JsonCodec)"><code>DSLAdapter.fetchJsonArray(TableLike, JsonCodec)</code></a></div>
+</td>
+</tr>
+<tr id="i16" class="altColor">
+<td class="colFirst"><code>default &lt;REC extends org.jooq.Record&gt;<br>io.vertx.core.Future&lt;io.vertx.core.json.JsonArray&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchJsonArray(org.jooq.Select)">fetchJsonArray</a></span>&#8203;(@NotNull org.jooq.Select&lt;REC&gt;&nbsp;select)</code></th>
+<td class="colLast">
+<div class="block">Like <a href="#fetchJsonArray(org.jooq.Select,io.vertx.core.Handler)"><code>fetchJsonArray(Select, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+</td>
+</tr>
+<tr id="i17" class="rowColor">
+<td class="colFirst"><code>default &lt;REC extends org.jooq.Record&gt;<br>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchJsonArray(org.jooq.Select,io.vertx.core.Handler)">fetchJsonArray</a></span>&#8203;(@NotNull org.jooq.Select&lt;REC&gt;&nbsp;select,
+              @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;io.vertx.core.json.JsonArray&gt;&gt;&nbsp;handler)</code></th>
+<td class="colLast">
+<div class="block">Shortcut of <a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="DSLAdapter.html#fetchJsonArray(org.jooq.TableLike)"><code>DSLAdapter.fetchJsonArray(TableLike)</code></a></div>
+</td>
+</tr>
+<tr id="i18" class="altColor">
+<td class="colFirst"><code>default &lt;REC extends org.jooq.Record&gt;<br>io.vertx.core.Future&lt;io.vertx.core.json.JsonArray&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchJsonArray(org.jooq.Select,io.vertx.core.spi.json.JsonCodec)">fetchJsonArray</a></span>&#8203;(@NotNull org.jooq.Select&lt;REC&gt;&nbsp;select,
+              @NotNull io.vertx.core.spi.json.JsonCodec&nbsp;codec)</code></th>
+<td class="colLast">
+<div class="block">Like <a href="#fetchJsonArray(org.jooq.Select,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)"><code>fetchJsonArray(Select, JsonCodec, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+</td>
+</tr>
+<tr id="i19" class="rowColor">
+<td class="colFirst"><code>default &lt;REC extends org.jooq.Record&gt;<br>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchJsonArray(org.jooq.Select,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)">fetchJsonArray</a></span>&#8203;(@NotNull org.jooq.Select&lt;REC&gt;&nbsp;select,
+              @NotNull io.vertx.core.spi.json.JsonCodec&nbsp;codec,
+              @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;io.vertx.core.json.JsonArray&gt;&gt;&nbsp;handler)</code></th>
+<td class="colLast">
+<div class="block">Shortcut of <a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="DSLAdapter.html#fetchJsonArray(org.jooq.TableLike,io.vertx.core.spi.json.JsonCodec)"><code>DSLAdapter.fetchJsonArray(TableLike, JsonCodec)</code></a></div>
+</td>
+</tr>
+<tr id="i20" class="altColor">
+<td class="colFirst"><code>default &lt;REC extends org.jooq.Record&gt;<br>io.vertx.core.Future&lt;io.vertx.core.json.JsonObject&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchJsonObject(java.util.function.Function)">fetchJsonObject</a></span>&#8203;(@NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Select&lt;REC&gt;&gt;&nbsp;selectFn)</code></th>
+<td class="colLast">
+<div class="block">Like <a href="#fetchJsonObject(java.util.function.Function,io.vertx.core.Handler)"><code>fetchJsonObject(Function, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+</td>
+</tr>
+<tr id="i21" class="rowColor">
+<td class="colFirst"><code>default &lt;REC extends org.jooq.Record&gt;<br>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchJsonObject(java.util.function.Function,io.vertx.core.Handler)">fetchJsonObject</a></span>&#8203;(@NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Select&lt;REC&gt;&gt;&nbsp;selectFn,
+               @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;io.vertx.core.json.JsonObject&gt;&gt;&nbsp;handler)</code></th>
+<td class="colLast">
+<div class="block">Shortcut of <a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="DSLAdapter.html#fetchJsonObject(org.jooq.TableLike)"><code>DSLAdapter.fetchJsonObject(TableLike)</code></a></div>
+</td>
+</tr>
+<tr id="i22" class="altColor">
+<td class="colFirst"><code>default &lt;REC extends org.jooq.Record&gt;<br>io.vertx.core.Future&lt;io.vertx.core.json.JsonObject&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchJsonObject(java.util.function.Function,io.vertx.core.spi.json.JsonCodec)">fetchJsonObject</a></span>&#8203;(@NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Select&lt;REC&gt;&gt;&nbsp;selectFn,
+               @NotNull io.vertx.core.spi.json.JsonCodec&nbsp;codec)</code></th>
+<td class="colLast">
+<div class="block">Like <a href="#fetchJsonObject(java.util.function.Function,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)"><code>fetchJsonObject(Function, JsonCodec, Handler)</code></a> but returns a <code>Future</code> of the asynchronous
+ result</div>
+</td>
+</tr>
+<tr id="i23" class="rowColor">
+<td class="colFirst"><code>default &lt;REC extends org.jooq.Record&gt;<br>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchJsonObject(java.util.function.Function,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)">fetchJsonObject</a></span>&#8203;(@NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Select&lt;REC&gt;&gt;&nbsp;selectFn,
+               @NotNull io.vertx.core.spi.json.JsonCodec&nbsp;codec,
+               @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;io.vertx.core.json.JsonObject&gt;&gt;&nbsp;handler)</code></th>
+<td class="colLast">
+<div class="block">Shortcut of <a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="DSLAdapter.html#fetchJsonObject(org.jooq.TableLike,io.vertx.core.spi.json.JsonCodec)"><code>DSLAdapter.fetchJsonObject(TableLike, JsonCodec)</code></a></div>
+</td>
+</tr>
+<tr id="i24" class="altColor">
+<td class="colFirst"><code>default &lt;REC extends org.jooq.Record&gt;<br>io.vertx.core.Future&lt;io.vertx.core.json.JsonObject&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchJsonObject(org.jooq.Select)">fetchJsonObject</a></span>&#8203;(@NotNull org.jooq.Select&lt;REC&gt;&nbsp;select)</code></th>
+<td class="colLast">
+<div class="block">Like <a href="#fetchJsonObject(org.jooq.Select,io.vertx.core.Handler)"><code>fetchJsonObject(Select, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+</td>
+</tr>
+<tr id="i25" class="rowColor">
+<td class="colFirst"><code>default &lt;REC extends org.jooq.Record&gt;<br>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchJsonObject(org.jooq.Select,io.vertx.core.Handler)">fetchJsonObject</a></span>&#8203;(@NotNull org.jooq.Select&lt;REC&gt;&nbsp;select,
+               @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;io.vertx.core.json.JsonObject&gt;&gt;&nbsp;handler)</code></th>
+<td class="colLast">
+<div class="block">Shortcut of <a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="DSLAdapter.html#fetchJsonObject(org.jooq.TableLike)"><code>DSLAdapter.fetchJsonObject(TableLike)</code></a></div>
+</td>
+</tr>
+<tr id="i26" class="altColor">
+<td class="colFirst"><code>default &lt;REC extends org.jooq.Record&gt;<br>io.vertx.core.Future&lt;io.vertx.core.json.JsonObject&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchJsonObject(org.jooq.Select,io.vertx.core.spi.json.JsonCodec)">fetchJsonObject</a></span>&#8203;(@NotNull org.jooq.Select&lt;REC&gt;&nbsp;select,
+               @NotNull io.vertx.core.spi.json.JsonCodec&nbsp;codec)</code></th>
+<td class="colLast">
+<div class="block">Like <a href="#fetchJsonObject(org.jooq.Select,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)"><code>fetchJsonObject(Select, JsonCodec, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+</td>
+</tr>
+<tr id="i27" class="rowColor">
+<td class="colFirst"><code>default &lt;REC extends org.jooq.Record&gt;<br>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchJsonObject(org.jooq.Select,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)">fetchJsonObject</a></span>&#8203;(@NotNull org.jooq.Select&lt;REC&gt;&nbsp;select,
+               @NotNull io.vertx.core.spi.json.JsonCodec&nbsp;codec,
+               @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;io.vertx.core.json.JsonObject&gt;&gt;&nbsp;handler)</code></th>
+<td class="colLast">
+<div class="block">Shortcut of <a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="DSLAdapter.html#fetchJsonObject(org.jooq.TableLike,io.vertx.core.spi.json.JsonCodec)"><code>DSLAdapter.fetchJsonObject(TableLike, JsonCodec)</code></a></div>
+</td>
+</tr>
+<tr id="i28" class="altColor">
+<td class="colFirst"><code>default &lt;REC extends org.jooq.Record&gt;<br>io.vertx.core.Future&lt;<a href="JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;REC&gt;&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchJsonRecord(java.util.function.Function)">fetchJsonRecord</a></span>&#8203;(@NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Select&lt;REC&gt;&gt;&nbsp;selectFn)</code></th>
+<td class="colLast">
+<div class="block">Like <a href="#fetchJsonRecord(java.util.function.Function,io.vertx.core.Handler)"><code>fetchJsonRecord(Function, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+</td>
+</tr>
+<tr id="i29" class="rowColor">
+<td class="colFirst"><code>default &lt;REC extends org.jooq.Record&gt;<br>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchJsonRecord(java.util.function.Function,io.vertx.core.Handler)">fetchJsonRecord</a></span>&#8203;(@NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Select&lt;REC&gt;&gt;&nbsp;selectFn,
+               @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;<a href="JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;REC&gt;&gt;&gt;&nbsp;handler)</code></th>
+<td class="colLast">
+<div class="block">Shortcut of <a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="DSLAdapter.html#fetchJsonRecord(org.jooq.TableLike)"><code>DSLAdapter.fetchJsonRecord(TableLike)</code></a></div>
+</td>
+</tr>
+<tr id="i30" class="altColor">
+<td class="colFirst"><code>default &lt;REC extends org.jooq.Record&gt;<br>io.vertx.core.Future&lt;<a href="JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;REC&gt;&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchJsonRecord(org.jooq.Select)">fetchJsonRecord</a></span>&#8203;(@NotNull org.jooq.Select&lt;REC&gt;&nbsp;select)</code></th>
+<td class="colLast">
+<div class="block">Like <a href="#fetchJsonRecord(org.jooq.Select,io.vertx.core.Handler)"><code>fetchJsonRecord(Select, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+</td>
+</tr>
+<tr id="i31" class="rowColor">
+<td class="colFirst"><code>default &lt;REC extends org.jooq.Record&gt;<br>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchJsonRecord(org.jooq.Select,io.vertx.core.Handler)">fetchJsonRecord</a></span>&#8203;(@NotNull org.jooq.Select&lt;REC&gt;&nbsp;select,
+               @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;<a href="JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;REC&gt;&gt;&gt;&nbsp;handler)</code></th>
+<td class="colLast">
+<div class="block">Shortcut of <a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="DSLAdapter.html#fetchJsonRecord(org.jooq.TableLike)"><code>DSLAdapter.fetchJsonRecord(TableLike)</code></a></div>
+</td>
+</tr>
+<tr id="i32" class="altColor">
+<td class="colFirst"><code>default &lt;REC extends org.jooq.Record&gt;<br>io.vertx.core.Future&lt;java.util.List&lt;<a href="JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;REC&gt;&gt;&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchJsonRecords(java.util.function.Function)">fetchJsonRecords</a></span>&#8203;(@NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Select&lt;REC&gt;&gt;&nbsp;selectFn)</code></th>
+<td class="colLast">
+<div class="block">Like <a href="#fetchJsonRecords(java.util.function.Function,io.vertx.core.Handler)"><code>fetchJsonRecords(Function, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+</td>
+</tr>
+<tr id="i33" class="rowColor">
+<td class="colFirst"><code>default &lt;REC extends org.jooq.Record&gt;<br>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchJsonRecords(java.util.function.Function,io.vertx.core.Handler)">fetchJsonRecords</a></span>&#8203;(@NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Select&lt;REC&gt;&gt;&nbsp;selectFn,
+                @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;java.util.List&lt;<a href="JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;REC&gt;&gt;&gt;&gt;&nbsp;handler)</code></th>
+<td class="colLast">
+<div class="block">Shortcut of <a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="DSLAdapter.html#fetchJsonRecords(org.jooq.TableLike)"><code>DSLAdapter.fetchJsonRecords(TableLike)</code></a></div>
+</td>
+</tr>
+<tr id="i34" class="altColor">
+<td class="colFirst"><code>default &lt;REC extends org.jooq.Record&gt;<br>io.vertx.core.Future&lt;java.util.List&lt;<a href="JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;REC&gt;&gt;&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchJsonRecords(org.jooq.Select)">fetchJsonRecords</a></span>&#8203;(@NotNull org.jooq.Select&lt;REC&gt;&nbsp;select)</code></th>
+<td class="colLast">
+<div class="block">Like <a href="#fetchJsonRecords(org.jooq.Select,io.vertx.core.Handler)"><code>fetchJsonRecords(Select, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+</td>
+</tr>
+<tr id="i35" class="rowColor">
+<td class="colFirst"><code>default &lt;REC extends org.jooq.Record&gt;<br>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchJsonRecords(org.jooq.Select,io.vertx.core.Handler)">fetchJsonRecords</a></span>&#8203;(@NotNull org.jooq.Select&lt;REC&gt;&nbsp;select,
+                @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;java.util.List&lt;<a href="JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;REC&gt;&gt;&gt;&gt;&nbsp;handler)</code></th>
+<td class="colLast">
+<div class="block">Shortcut of <a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="DSLAdapter.html#fetchJsonRecords(org.jooq.TableLike)"><code>DSLAdapter.fetchJsonRecords(TableLike)</code></a></div>
+</td>
+</tr>
+<tr id="i36" class="altColor">
 <td class="colFirst"><code>default &lt;REC extends org.jooq.Record&gt;<br>io.vertx.core.Future&lt;java.util.List&lt;REC&gt;&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchMany(java.util.function.Function)">fetchMany</a></span>&#8203;(@NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Select&lt;REC&gt;&gt;&nbsp;selectFn)</code></th>
 <td class="colLast">
 <div class="block">Like <a href="#fetchMany(java.util.function.Function,io.vertx.core.Handler)"><code>fetchMany(Function, Handler)</code></a>  but returns a <code>Future</code> of the asynchronous result</div>
 </td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i37" class="rowColor">
 <td class="colFirst"><code>default &lt;REC extends org.jooq.Record&gt;<br>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchMany(java.util.function.Function,io.vertx.core.Handler)">fetchMany</a></span>&#8203;(@NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Select&lt;REC&gt;&gt;&nbsp;selectFn,
          @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;java.util.List&lt;REC&gt;&gt;&gt;&nbsp;handler)</code></th>
@@ -272,14 +474,14 @@ extends <a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooq
  <a href="DSLAdapter.html#fetchMany(T)"><code>DSLAdapter.fetchMany(Table)</code></a></div>
 </td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i38" class="altColor">
 <td class="colFirst"><code>default &lt;REC extends org.jooq.Record&gt;<br>io.vertx.core.Future&lt;java.util.List&lt;REC&gt;&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchMany(org.jooq.Select)">fetchMany</a></span>&#8203;(@NotNull org.jooq.Select&lt;REC&gt;&nbsp;select)</code></th>
 <td class="colLast">
 <div class="block">Like <a href="#fetchMany(org.jooq.Select,io.vertx.core.Handler)"><code>fetchMany(Select, Handler)</code></a>  but returns a <code>Future</code> of the asynchronous result</div>
 </td>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i39" class="rowColor">
 <td class="colFirst"><code>default &lt;REC extends org.jooq.Record&gt;<br>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchMany(org.jooq.Select,io.vertx.core.Handler)">fetchMany</a></span>&#8203;(@NotNull org.jooq.Select&lt;REC&gt;&nbsp;select,
          @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;java.util.List&lt;REC&gt;&gt;&gt;&nbsp;handler)</code></th>
@@ -288,14 +490,14 @@ extends <a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooq
  <a href="DSLAdapter.html#fetchMany(T)"><code>DSLAdapter.fetchMany(Table)</code></a></div>
 </td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i40" class="altColor">
 <td class="colFirst"><code>default &lt;REC extends org.jooq.Record&gt;<br>io.vertx.core.Future&lt;REC&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchOne(java.util.function.Function)">fetchOne</a></span>&#8203;(@NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Select&lt;REC&gt;&gt;&nbsp;selectFn)</code></th>
 <td class="colLast">
 <div class="block">Like <a href="#fetchOne(java.util.function.Function,io.vertx.core.Handler)"><code>fetchOne(Function, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
 </td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i41" class="rowColor">
 <td class="colFirst"><code>default &lt;REC extends org.jooq.Record&gt;<br>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchOne(java.util.function.Function,io.vertx.core.Handler)">fetchOne</a></span>&#8203;(@NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Select&lt;REC&gt;&gt;&nbsp;selectFn,
         @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;REC&gt;&gt;&nbsp;handler)</code></th>
@@ -304,14 +506,14 @@ extends <a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooq
  <a href="DSLAdapter.html#fetchOne(T)"><code>DSLAdapter.fetchOne(Table)</code></a></div>
 </td>
 </tr>
-<tr id="i18" class="altColor">
+<tr id="i42" class="altColor">
 <td class="colFirst"><code>default &lt;REC extends org.jooq.Record&gt;<br>io.vertx.core.Future&lt;REC&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchOne(org.jooq.Select)">fetchOne</a></span>&#8203;(@NotNull org.jooq.Select&lt;REC&gt;&nbsp;select)</code></th>
 <td class="colLast">
 <div class="block">Like <a href="#fetchOne(org.jooq.Select,io.vertx.core.Handler)"><code>fetchOne(Select, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
 </td>
 </tr>
-<tr id="i19" class="rowColor">
+<tr id="i43" class="rowColor">
 <td class="colFirst"><code>default &lt;REC extends org.jooq.Record&gt;<br>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#fetchOne(org.jooq.Select,io.vertx.core.Handler)">fetchOne</a></span>&#8203;(@NotNull org.jooq.Select&lt;REC&gt;&nbsp;select,
         @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;REC&gt;&gt;&nbsp;handler)</code></th>
@@ -829,12 +1031,654 @@ extends <a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooq
 <a id="fetchCount(org.jooq.Select)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>fetchCount</h4>
 <pre class="methodSignature">default&nbsp;&lt;REC extends org.jooq.Record&gt;&nbsp;io.vertx.core.Future&lt;java.lang.Integer&gt;&nbsp;fetchCount&#8203;(@NotNull
                                                                                          @NotNull org.jooq.Select&lt;REC&gt;&nbsp;select)</pre>
 <div class="block">Like <a href="#fetchCount(org.jooq.Select,io.vertx.core.Handler)"><code>fetchCount(Select, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>REC</code> - Type of Record</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>select</code> - the jOOQ select</dd>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0.0</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>Select</code></dd>
+<dt><span class="simpleTagLabel">API Note:</span></dt>
+<dd>Unfortunately, it is not support <code>rxify/mutiny</code> version due to technical problem in
+     <code>Vert.x</code> code generator</dd>
+</dl>
+</li>
+</ul>
+<a id="fetchJsonRecord(java.util.function.Function,io.vertx.core.Handler)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fetchJsonRecord</h4>
+<pre class="methodSignature">default&nbsp;&lt;REC extends org.jooq.Record&gt;&nbsp;void&nbsp;fetchJsonRecord&#8203;(@NotNull
+                                                           @NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Select&lt;REC&gt;&gt;&nbsp;selectFn,
+                                                           @NotNull
+                                                           @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;<a href="JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;REC&gt;&gt;&gt;&nbsp;handler)</pre>
+<div class="block">Shortcut of <a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="DSLAdapter.html#fetchJsonRecord(org.jooq.TableLike)"><code>DSLAdapter.fetchJsonRecord(TableLike)</code></a></div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>REC</code> - Type of Record</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>selectFn</code> - the jOOQ select function</dd>
+<dd><code>handler</code> - the async result handler</dd>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0.0</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>Select</code></dd>
+<dt><span class="simpleTagLabel">API Note:</span></dt>
+<dd>Unfortunately, it is not support <code>rxify/mutiny</code> version due to technical problem in
+     <code>Vert.x</code> code generator</dd>
+</dl>
+</li>
+</ul>
+<a id="fetchJsonRecord(java.util.function.Function)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fetchJsonRecord</h4>
+<pre class="methodSignature">default&nbsp;&lt;REC extends org.jooq.Record&gt;&nbsp;io.vertx.core.Future&lt;<a href="JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;REC&gt;&gt;&nbsp;fetchJsonRecord&#8203;(@NotNull
+                                                                                            @NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Select&lt;REC&gt;&gt;&nbsp;selectFn)</pre>
+<div class="block">Like <a href="#fetchJsonRecord(java.util.function.Function,io.vertx.core.Handler)"><code>fetchJsonRecord(Function, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>REC</code> - Type of Record</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>selectFn</code> - the jOOQ select</dd>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0.0</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>Select</code></dd>
+<dt><span class="simpleTagLabel">API Note:</span></dt>
+<dd>Unfortunately, it is not support <code>rxify/mutiny</code> version due to technical problem in
+     <code>Vert.x</code> code generator</dd>
+</dl>
+</li>
+</ul>
+<a id="fetchJsonRecord(org.jooq.Select,io.vertx.core.Handler)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fetchJsonRecord</h4>
+<pre class="methodSignature">default&nbsp;&lt;REC extends org.jooq.Record&gt;&nbsp;void&nbsp;fetchJsonRecord&#8203;(@NotNull
+                                                           @NotNull org.jooq.Select&lt;REC&gt;&nbsp;select,
+                                                           @NotNull
+                                                           @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;<a href="JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;REC&gt;&gt;&gt;&nbsp;handler)</pre>
+<div class="block">Shortcut of <a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="DSLAdapter.html#fetchJsonRecord(org.jooq.TableLike)"><code>DSLAdapter.fetchJsonRecord(TableLike)</code></a></div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>REC</code> - Type of Record</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>select</code> - the jOOQ select</dd>
+<dd><code>handler</code> - the async result handler</dd>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0.0</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>Select</code></dd>
+<dt><span class="simpleTagLabel">API Note:</span></dt>
+<dd>Unfortunately, it is not support <code>rxify/mutiny</code> version due to technical problem in
+     <code>Vert.x</code> code generator</dd>
+</dl>
+</li>
+</ul>
+<a id="fetchJsonRecord(org.jooq.Select)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fetchJsonRecord</h4>
+<pre class="methodSignature">default&nbsp;&lt;REC extends org.jooq.Record&gt;&nbsp;io.vertx.core.Future&lt;<a href="JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;REC&gt;&gt;&nbsp;fetchJsonRecord&#8203;(@NotNull
+                                                                                            @NotNull org.jooq.Select&lt;REC&gt;&nbsp;select)</pre>
+<div class="block">Like <a href="#fetchJsonRecord(org.jooq.Select,io.vertx.core.Handler)"><code>fetchJsonRecord(Select, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>REC</code> - Type of Record</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>select</code> - the jOOQ select</dd>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0.0</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>Select</code></dd>
+<dt><span class="simpleTagLabel">API Note:</span></dt>
+<dd>Unfortunately, it is not support <code>rxify/mutiny</code> version due to technical problem in
+     <code>Vert.x</code> code generator</dd>
+</dl>
+</li>
+</ul>
+<a id="fetchJsonRecords(java.util.function.Function,io.vertx.core.Handler)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fetchJsonRecords</h4>
+<pre class="methodSignature">default&nbsp;&lt;REC extends org.jooq.Record&gt;&nbsp;void&nbsp;fetchJsonRecords&#8203;(@NotNull
+                                                            @NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Select&lt;REC&gt;&gt;&nbsp;selectFn,
+                                                            @NotNull
+                                                            @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;java.util.List&lt;<a href="JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;REC&gt;&gt;&gt;&gt;&nbsp;handler)</pre>
+<div class="block">Shortcut of <a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="DSLAdapter.html#fetchJsonRecords(org.jooq.TableLike)"><code>DSLAdapter.fetchJsonRecords(TableLike)</code></a></div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>REC</code> - Type of Record</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>selectFn</code> - the jOOQ select function</dd>
+<dd><code>handler</code> - the async result handler</dd>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0.0</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>Select</code></dd>
+<dt><span class="simpleTagLabel">API Note:</span></dt>
+<dd>Unfortunately, it is not support <code>rxify/mutiny</code> version due to technical problem in
+     <code>Vert.x</code> code generator</dd>
+</dl>
+</li>
+</ul>
+<a id="fetchJsonRecords(java.util.function.Function)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fetchJsonRecords</h4>
+<pre class="methodSignature">default&nbsp;&lt;REC extends org.jooq.Record&gt;&nbsp;io.vertx.core.Future&lt;java.util.List&lt;<a href="JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;REC&gt;&gt;&gt;&nbsp;fetchJsonRecords&#8203;(@NotNull
+                                                                                                             @NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Select&lt;REC&gt;&gt;&nbsp;selectFn)</pre>
+<div class="block">Like <a href="#fetchJsonRecords(java.util.function.Function,io.vertx.core.Handler)"><code>fetchJsonRecords(Function, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>REC</code> - Type of Record</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>selectFn</code> - the jOOQ select function</dd>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0.0</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>Select</code></dd>
+<dt><span class="simpleTagLabel">API Note:</span></dt>
+<dd>Unfortunately, it is not support <code>rxify/mutiny</code> version due to technical problem in
+     <code>Vert.x</code> code generator</dd>
+</dl>
+</li>
+</ul>
+<a id="fetchJsonRecords(org.jooq.Select,io.vertx.core.Handler)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fetchJsonRecords</h4>
+<pre class="methodSignature">default&nbsp;&lt;REC extends org.jooq.Record&gt;&nbsp;void&nbsp;fetchJsonRecords&#8203;(@NotNull
+                                                            @NotNull org.jooq.Select&lt;REC&gt;&nbsp;select,
+                                                            @NotNull
+                                                            @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;java.util.List&lt;<a href="JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;REC&gt;&gt;&gt;&gt;&nbsp;handler)</pre>
+<div class="block">Shortcut of <a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="DSLAdapter.html#fetchJsonRecords(org.jooq.TableLike)"><code>DSLAdapter.fetchJsonRecords(TableLike)</code></a></div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>REC</code> - Type of Record</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>select</code> - the jOOQ select</dd>
+<dd><code>handler</code> - the async result handler</dd>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0.0</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>Select</code></dd>
+<dt><span class="simpleTagLabel">API Note:</span></dt>
+<dd>Unfortunately, it is not support <code>rxify/mutiny</code> version due to technical problem in
+     <code>Vert.x</code> code generator</dd>
+</dl>
+</li>
+</ul>
+<a id="fetchJsonRecords(org.jooq.Select)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fetchJsonRecords</h4>
+<pre class="methodSignature">default&nbsp;&lt;REC extends org.jooq.Record&gt;&nbsp;io.vertx.core.Future&lt;java.util.List&lt;<a href="JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a>&lt;REC&gt;&gt;&gt;&nbsp;fetchJsonRecords&#8203;(@NotNull
+                                                                                                             @NotNull org.jooq.Select&lt;REC&gt;&nbsp;select)</pre>
+<div class="block">Like <a href="#fetchJsonRecords(org.jooq.Select,io.vertx.core.Handler)"><code>fetchJsonRecords(Select, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>REC</code> - Type of Record</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>select</code> - the jOOQ select</dd>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0.0</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>Select</code></dd>
+<dt><span class="simpleTagLabel">API Note:</span></dt>
+<dd>Unfortunately, it is not support <code>rxify/mutiny</code> version due to technical problem in
+     <code>Vert.x</code> code generator</dd>
+</dl>
+</li>
+</ul>
+<a id="fetchJsonObject(java.util.function.Function,io.vertx.core.Handler)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fetchJsonObject</h4>
+<pre class="methodSignature">default&nbsp;&lt;REC extends org.jooq.Record&gt;&nbsp;void&nbsp;fetchJsonObject&#8203;(@NotNull
+                                                           @NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Select&lt;REC&gt;&gt;&nbsp;selectFn,
+                                                           @NotNull
+                                                           @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;io.vertx.core.json.JsonObject&gt;&gt;&nbsp;handler)</pre>
+<div class="block">Shortcut of <a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="DSLAdapter.html#fetchJsonObject(org.jooq.TableLike)"><code>DSLAdapter.fetchJsonObject(TableLike)</code></a></div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>REC</code> - Type of Record</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>selectFn</code> - the jOOQ select function</dd>
+<dd><code>handler</code> - the async result handler</dd>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0.0</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>Select</code></dd>
+<dt><span class="simpleTagLabel">API Note:</span></dt>
+<dd>Unfortunately, it is not support <code>rxify/mutiny</code> version due to technical problem in
+     <code>Vert.x</code> code generator</dd>
+</dl>
+</li>
+</ul>
+<a id="fetchJsonObject(java.util.function.Function)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fetchJsonObject</h4>
+<pre class="methodSignature">default&nbsp;&lt;REC extends org.jooq.Record&gt;&nbsp;io.vertx.core.Future&lt;io.vertx.core.json.JsonObject&gt;&nbsp;fetchJsonObject&#8203;(@NotNull
+                                                                                                          @NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Select&lt;REC&gt;&gt;&nbsp;selectFn)</pre>
+<div class="block">Like <a href="#fetchJsonObject(java.util.function.Function,io.vertx.core.Handler)"><code>fetchJsonObject(Function, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>REC</code> - Type of Record</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>selectFn</code> - the jOOQ select</dd>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0.0</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>Select</code></dd>
+<dt><span class="simpleTagLabel">API Note:</span></dt>
+<dd>Unfortunately, it is not support <code>rxify/mutiny</code> version due to technical problem in
+     <code>Vert.x</code> code generator</dd>
+</dl>
+</li>
+</ul>
+<a id="fetchJsonObject(org.jooq.Select,io.vertx.core.Handler)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fetchJsonObject</h4>
+<pre class="methodSignature">default&nbsp;&lt;REC extends org.jooq.Record&gt;&nbsp;void&nbsp;fetchJsonObject&#8203;(@NotNull
+                                                           @NotNull org.jooq.Select&lt;REC&gt;&nbsp;select,
+                                                           @NotNull
+                                                           @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;io.vertx.core.json.JsonObject&gt;&gt;&nbsp;handler)</pre>
+<div class="block">Shortcut of <a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="DSLAdapter.html#fetchJsonObject(org.jooq.TableLike)"><code>DSLAdapter.fetchJsonObject(TableLike)</code></a></div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>REC</code> - Type of Record</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>select</code> - the jOOQ select</dd>
+<dd><code>handler</code> - the async result handler</dd>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0.0</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>Select</code></dd>
+<dt><span class="simpleTagLabel">API Note:</span></dt>
+<dd>Unfortunately, it is not support <code>rxify/mutiny</code> version due to technical problem in
+     <code>Vert.x</code> code generator</dd>
+</dl>
+</li>
+</ul>
+<a id="fetchJsonObject(org.jooq.Select)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fetchJsonObject</h4>
+<pre class="methodSignature">default&nbsp;&lt;REC extends org.jooq.Record&gt;&nbsp;io.vertx.core.Future&lt;io.vertx.core.json.JsonObject&gt;&nbsp;fetchJsonObject&#8203;(@NotNull
+                                                                                                          @NotNull org.jooq.Select&lt;REC&gt;&nbsp;select)</pre>
+<div class="block">Like <a href="#fetchJsonObject(org.jooq.Select,io.vertx.core.Handler)"><code>fetchJsonObject(Select, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>REC</code> - Type of Record</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>select</code> - the jOOQ select</dd>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0.0</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>Select</code></dd>
+<dt><span class="simpleTagLabel">API Note:</span></dt>
+<dd>Unfortunately, it is not support <code>rxify/mutiny</code> version due to technical problem in
+     <code>Vert.x</code> code generator</dd>
+</dl>
+</li>
+</ul>
+<a id="fetchJsonObject(java.util.function.Function,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fetchJsonObject</h4>
+<pre class="methodSignature">default&nbsp;&lt;REC extends org.jooq.Record&gt;&nbsp;void&nbsp;fetchJsonObject&#8203;(@NotNull
+                                                           @NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Select&lt;REC&gt;&gt;&nbsp;selectFn,
+                                                           @NotNull
+                                                           @NotNull io.vertx.core.spi.json.JsonCodec&nbsp;codec,
+                                                           @NotNull
+                                                           @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;io.vertx.core.json.JsonObject&gt;&gt;&nbsp;handler)</pre>
+<div class="block">Shortcut of <a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="DSLAdapter.html#fetchJsonObject(org.jooq.TableLike,io.vertx.core.spi.json.JsonCodec)"><code>DSLAdapter.fetchJsonObject(TableLike, JsonCodec)</code></a></div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>REC</code> - Type of Record</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>selectFn</code> - the jOOQ select function</dd>
+<dd><code>handler</code> - the async result handler</dd>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0.0</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>Select</code></dd>
+<dt><span class="simpleTagLabel">API Note:</span></dt>
+<dd>Unfortunately, it is not support <code>rxify/mutiny</code> version due to technical problem in
+     <code>Vert.x</code> code generator</dd>
+</dl>
+</li>
+</ul>
+<a id="fetchJsonObject(java.util.function.Function,io.vertx.core.spi.json.JsonCodec)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fetchJsonObject</h4>
+<pre class="methodSignature">default&nbsp;&lt;REC extends org.jooq.Record&gt;&nbsp;io.vertx.core.Future&lt;io.vertx.core.json.JsonObject&gt;&nbsp;fetchJsonObject&#8203;(@NotNull
+                                                                                                          @NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Select&lt;REC&gt;&gt;&nbsp;selectFn,
+                                                                                                          @NotNull
+                                                                                                          @NotNull io.vertx.core.spi.json.JsonCodec&nbsp;codec)</pre>
+<div class="block">Like <a href="#fetchJsonObject(java.util.function.Function,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)"><code>fetchJsonObject(Function, JsonCodec, Handler)</code></a> but returns a <code>Future</code> of the asynchronous
+ result</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>REC</code> - Type of Record</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>selectFn</code> - the jOOQ select</dd>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0.0</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>Select</code></dd>
+<dt><span class="simpleTagLabel">API Note:</span></dt>
+<dd>Unfortunately, it is not support <code>rxify/mutiny</code> version due to technical problem in
+     <code>Vert.x</code> code generator</dd>
+</dl>
+</li>
+</ul>
+<a id="fetchJsonObject(org.jooq.Select,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fetchJsonObject</h4>
+<pre class="methodSignature">default&nbsp;&lt;REC extends org.jooq.Record&gt;&nbsp;void&nbsp;fetchJsonObject&#8203;(@NotNull
+                                                           @NotNull org.jooq.Select&lt;REC&gt;&nbsp;select,
+                                                           @NotNull
+                                                           @NotNull io.vertx.core.spi.json.JsonCodec&nbsp;codec,
+                                                           @NotNull
+                                                           @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;io.vertx.core.json.JsonObject&gt;&gt;&nbsp;handler)</pre>
+<div class="block">Shortcut of <a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="DSLAdapter.html#fetchJsonObject(org.jooq.TableLike,io.vertx.core.spi.json.JsonCodec)"><code>DSLAdapter.fetchJsonObject(TableLike, JsonCodec)</code></a></div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>REC</code> - Type of Record</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>select</code> - the jOOQ select</dd>
+<dd><code>handler</code> - the async result handler</dd>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0.0</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>Select</code></dd>
+<dt><span class="simpleTagLabel">API Note:</span></dt>
+<dd>Unfortunately, it is not support <code>rxify/mutiny</code> version due to technical problem in
+     <code>Vert.x</code> code generator</dd>
+</dl>
+</li>
+</ul>
+<a id="fetchJsonObject(org.jooq.Select,io.vertx.core.spi.json.JsonCodec)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fetchJsonObject</h4>
+<pre class="methodSignature">default&nbsp;&lt;REC extends org.jooq.Record&gt;&nbsp;io.vertx.core.Future&lt;io.vertx.core.json.JsonObject&gt;&nbsp;fetchJsonObject&#8203;(@NotNull
+                                                                                                          @NotNull org.jooq.Select&lt;REC&gt;&nbsp;select,
+                                                                                                          @NotNull
+                                                                                                          @NotNull io.vertx.core.spi.json.JsonCodec&nbsp;codec)</pre>
+<div class="block">Like <a href="#fetchJsonObject(org.jooq.Select,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)"><code>fetchJsonObject(Select, JsonCodec, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>REC</code> - Type of Record</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>select</code> - the jOOQ select</dd>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0.0</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>Select</code></dd>
+<dt><span class="simpleTagLabel">API Note:</span></dt>
+<dd>Unfortunately, it is not support <code>rxify/mutiny</code> version due to technical problem in
+     <code>Vert.x</code> code generator</dd>
+</dl>
+</li>
+</ul>
+<a id="fetchJsonArray(java.util.function.Function,io.vertx.core.Handler)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fetchJsonArray</h4>
+<pre class="methodSignature">default&nbsp;&lt;REC extends org.jooq.Record&gt;&nbsp;void&nbsp;fetchJsonArray&#8203;(@NotNull
+                                                          @NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Select&lt;REC&gt;&gt;&nbsp;selectFn,
+                                                          @NotNull
+                                                          @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;io.vertx.core.json.JsonArray&gt;&gt;&nbsp;handler)</pre>
+<div class="block">Shortcut of <a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="DSLAdapter.html#fetchJsonArray(org.jooq.TableLike)"><code>DSLAdapter.fetchJsonArray(TableLike)</code></a></div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>REC</code> - Type of Record</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>selectFn</code> - the jOOQ select function</dd>
+<dd><code>handler</code> - the async result handler</dd>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0.0</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>Select</code></dd>
+<dt><span class="simpleTagLabel">API Note:</span></dt>
+<dd>Unfortunately, it is not support <code>rxify/mutiny</code> version due to technical problem in
+     <code>Vert.x</code> code generator</dd>
+</dl>
+</li>
+</ul>
+<a id="fetchJsonArray(java.util.function.Function)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fetchJsonArray</h4>
+<pre class="methodSignature">default&nbsp;&lt;REC extends org.jooq.Record&gt;&nbsp;io.vertx.core.Future&lt;io.vertx.core.json.JsonArray&gt;&nbsp;fetchJsonArray&#8203;(@NotNull
+                                                                                                        @NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Select&lt;REC&gt;&gt;&nbsp;selectFn)</pre>
+<div class="block">Like <a href="#fetchJsonArray(java.util.function.Function,io.vertx.core.Handler)"><code>fetchJsonArray(Function, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>REC</code> - Type of Record</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>selectFn</code> - the jOOQ select</dd>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0.0</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>Select</code></dd>
+<dt><span class="simpleTagLabel">API Note:</span></dt>
+<dd>Unfortunately, it is not support <code>rxify/mutiny</code> version due to technical problem in
+     <code>Vert.x</code> code generator</dd>
+</dl>
+</li>
+</ul>
+<a id="fetchJsonArray(org.jooq.Select,io.vertx.core.Handler)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fetchJsonArray</h4>
+<pre class="methodSignature">default&nbsp;&lt;REC extends org.jooq.Record&gt;&nbsp;void&nbsp;fetchJsonArray&#8203;(@NotNull
+                                                          @NotNull org.jooq.Select&lt;REC&gt;&nbsp;select,
+                                                          @NotNull
+                                                          @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;io.vertx.core.json.JsonArray&gt;&gt;&nbsp;handler)</pre>
+<div class="block">Shortcut of <a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="DSLAdapter.html#fetchJsonArray(org.jooq.TableLike)"><code>DSLAdapter.fetchJsonArray(TableLike)</code></a></div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>REC</code> - Type of Record</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>select</code> - the jOOQ select</dd>
+<dd><code>handler</code> - the async result handler</dd>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0.0</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>Select</code></dd>
+<dt><span class="simpleTagLabel">API Note:</span></dt>
+<dd>Unfortunately, it is not support <code>rxify/mutiny</code> version due to technical problem in
+     <code>Vert.x</code> code generator</dd>
+</dl>
+</li>
+</ul>
+<a id="fetchJsonArray(org.jooq.Select)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fetchJsonArray</h4>
+<pre class="methodSignature">default&nbsp;&lt;REC extends org.jooq.Record&gt;&nbsp;io.vertx.core.Future&lt;io.vertx.core.json.JsonArray&gt;&nbsp;fetchJsonArray&#8203;(@NotNull
+                                                                                                        @NotNull org.jooq.Select&lt;REC&gt;&nbsp;select)</pre>
+<div class="block">Like <a href="#fetchJsonArray(org.jooq.Select,io.vertx.core.Handler)"><code>fetchJsonArray(Select, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>REC</code> - Type of Record</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>select</code> - the jOOQ select</dd>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0.0</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>Select</code></dd>
+<dt><span class="simpleTagLabel">API Note:</span></dt>
+<dd>Unfortunately, it is not support <code>rxify/mutiny</code> version due to technical problem in
+     <code>Vert.x</code> code generator</dd>
+</dl>
+</li>
+</ul>
+<a id="fetchJsonArray(java.util.function.Function,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fetchJsonArray</h4>
+<pre class="methodSignature">default&nbsp;&lt;REC extends org.jooq.Record&gt;&nbsp;void&nbsp;fetchJsonArray&#8203;(@NotNull
+                                                          @NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Select&lt;REC&gt;&gt;&nbsp;selectFn,
+                                                          @NotNull
+                                                          @NotNull io.vertx.core.spi.json.JsonCodec&nbsp;codec,
+                                                          @NotNull
+                                                          @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;io.vertx.core.json.JsonArray&gt;&gt;&nbsp;handler)</pre>
+<div class="block">Shortcut of <a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="DSLAdapter.html#fetchJsonArray(org.jooq.TableLike,io.vertx.core.spi.json.JsonCodec)"><code>DSLAdapter.fetchJsonArray(TableLike, JsonCodec)</code></a></div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>REC</code> - Type of Record</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>selectFn</code> - the jOOQ select function</dd>
+<dd><code>handler</code> - the async result handler</dd>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0.0</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>Select</code></dd>
+<dt><span class="simpleTagLabel">API Note:</span></dt>
+<dd>Unfortunately, it is not support <code>rxify/mutiny</code> version due to technical problem in
+     <code>Vert.x</code> code generator</dd>
+</dl>
+</li>
+</ul>
+<a id="fetchJsonArray(java.util.function.Function,io.vertx.core.spi.json.JsonCodec)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fetchJsonArray</h4>
+<pre class="methodSignature">default&nbsp;&lt;REC extends org.jooq.Record&gt;&nbsp;io.vertx.core.Future&lt;io.vertx.core.json.JsonArray&gt;&nbsp;fetchJsonArray&#8203;(@NotNull
+                                                                                                        @NotNull java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Select&lt;REC&gt;&gt;&nbsp;selectFn,
+                                                                                                        @NotNull
+                                                                                                        @NotNull io.vertx.core.spi.json.JsonCodec&nbsp;codec)</pre>
+<div class="block">Like <a href="#fetchJsonArray(java.util.function.Function,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)"><code>fetchJsonArray(Function, JsonCodec, Handler)</code></a> but returns a <code>Future</code> of the asynchronous
+ result</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>REC</code> - Type of Record</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>selectFn</code> - the jOOQ select</dd>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0.0</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>Select</code></dd>
+<dt><span class="simpleTagLabel">API Note:</span></dt>
+<dd>Unfortunately, it is not support <code>rxify/mutiny</code> version due to technical problem in
+     <code>Vert.x</code> code generator</dd>
+</dl>
+</li>
+</ul>
+<a id="fetchJsonArray(org.jooq.Select,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>fetchJsonArray</h4>
+<pre class="methodSignature">default&nbsp;&lt;REC extends org.jooq.Record&gt;&nbsp;void&nbsp;fetchJsonArray&#8203;(@NotNull
+                                                          @NotNull org.jooq.Select&lt;REC&gt;&nbsp;select,
+                                                          @NotNull
+                                                          @NotNull io.vertx.core.spi.json.JsonCodec&nbsp;codec,
+                                                          @NotNull
+                                                          @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;io.vertx.core.json.JsonArray&gt;&gt;&nbsp;handler)</pre>
+<div class="block">Shortcut of <a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="DSLAdapter.html#fetchJsonArray(org.jooq.TableLike,io.vertx.core.spi.json.JsonCodec)"><code>DSLAdapter.fetchJsonArray(TableLike, JsonCodec)</code></a></div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>REC</code> - Type of Record</dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>select</code> - the jOOQ select</dd>
+<dd><code>handler</code> - the async result handler</dd>
+<dt><span class="simpleTagLabel">Since:</span></dt>
+<dd>2.0.0</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>Select</code></dd>
+<dt><span class="simpleTagLabel">API Note:</span></dt>
+<dd>Unfortunately, it is not support <code>rxify/mutiny</code> version due to technical problem in
+     <code>Vert.x</code> code generator</dd>
+</dl>
+</li>
+</ul>
+<a id="fetchJsonArray(org.jooq.Select,io.vertx.core.spi.json.JsonCodec)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>fetchJsonArray</h4>
+<pre class="methodSignature">default&nbsp;&lt;REC extends org.jooq.Record&gt;&nbsp;io.vertx.core.Future&lt;io.vertx.core.json.JsonArray&gt;&nbsp;fetchJsonArray&#8203;(@NotNull
+                                                                                                        @NotNull org.jooq.Select&lt;REC&gt;&nbsp;select,
+                                                                                                        @NotNull
+                                                                                                        @NotNull io.vertx.core.spi.json.JsonCodec&nbsp;codec)</pre>
+<div class="block">Like <a href="#fetchJsonArray(org.jooq.Select,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)"><code>fetchJsonArray(Select, JsonCodec, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
 <dl>
 <dt><span class="paramLabel">Type Parameters:</span></dt>
 <dd><code>REC</code> - Type of Record</dd>

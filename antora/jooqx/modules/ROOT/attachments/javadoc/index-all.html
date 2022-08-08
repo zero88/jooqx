@@ -729,7 +729,11 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/adapter/RecordFactory.html#byFields(org.jooq.Field...)">byFields(Field&lt;?&gt;...)</a></span> - Static method in interface io.github.zero88.jooqx.adapter.<a href="io/github/zero88/jooqx/adapter/RecordFactory.html" title="interface in io.github.zero88.jooqx.adapter">RecordFactory</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/adapter/RecordFactory.html#byJson(org.jooq.TableLike)">byJson(TableLike&lt;? extends Record&gt;)</a></span> - Static method in interface io.github.zero88.jooqx.adapter.<a href="io/github/zero88/jooqx/adapter/RecordFactory.html" title="interface in io.github.zero88.jooqx.adapter">RecordFactory</a></dt>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/adapter/RecordFactory.html#byJson(org.jooq.TableLike)">byJson(TableLike&lt;REC&gt;)</a></span> - Static method in interface io.github.zero88.jooqx.adapter.<a href="io/github/zero88/jooqx/adapter/RecordFactory.html" title="interface in io.github.zero88.jooqx.adapter">RecordFactory</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/adapter/RecordFactory.html#byJson(org.jooq.TableLike,io.vertx.core.spi.json.JsonCodec)">byJson(TableLike&lt;REC&gt;, JsonCodec)</a></span> - Static method in interface io.github.zero88.jooqx.adapter.<a href="io/github/zero88/jooqx/adapter/RecordFactory.html" title="interface in io.github.zero88.jooqx.adapter">RecordFactory</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/adapter/RecordFactory.html#byJsonRecord(org.jooq.TableLike)">byJsonRecord(TableLike&lt;REC&gt;)</a></span> - Static method in interface io.github.zero88.jooqx.adapter.<a href="io/github/zero88/jooqx/adapter/RecordFactory.html" title="interface in io.github.zero88.jooqx.adapter">RecordFactory</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/adapter/RecordFactory.html#byMapper(T,org.jooq.RecordMapper)">byMapper(T, RecordMapper&lt;REC, R&gt;)</a></span> - Static method in interface io.github.zero88.jooqx.adapter.<a href="io/github/zero88/jooqx/adapter/RecordFactory.html" title="interface in io.github.zero88.jooqx.adapter">RecordFactory</a></dt>
 <dd>&nbsp;</dd>
@@ -764,6 +768,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
 <div class="block">Collect result set to an expectation result that defines in SQL result adapter</div>
 </dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/adapter/SelectJsonArray.html#collect(java.util.List)">collect(List&lt;JsonObject&gt;)</a></span> - Method in class io.github.zero88.jooqx.adapter.<a href="io/github/zero88/jooqx/adapter/SelectJsonArray.html" title="class in io.github.zero88.jooqx.adapter">SelectJsonArray</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/adapter/SelectAdhocListResult.html#collect(java.util.List)">collect(List&lt;ROW&gt;)</a></span> - Method in class io.github.zero88.jooqx.adapter.<a href="io/github/zero88/jooqx/adapter/SelectAdhocListResult.html" title="class in io.github.zero88.jooqx.adapter">SelectAdhocListResult</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/adapter/SelectAdhocOneResult.html#collect(java.util.List)">collect(List&lt;ROW&gt;)</a></span> - Method in class io.github.zero88.jooqx.adapter.<a href="io/github/zero88/jooqx/adapter/SelectAdhocOneResult.html" title="class in io.github.zero88.jooqx.adapter">SelectAdhocOneResult</a></dt>
@@ -868,6 +874,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/JooqDSLProvider.html#create(org.jooq.SQLDialect)">create(SQLDialect)</a></span> - Static method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/JooqDSLProvider.html" title="interface in io.github.zero88.jooqx">JooqDSLProvider</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/JooqDSLProvider.html#create(org.jooq.SQLDialect,javax.sql.DataSource)">create(SQLDialect, DataSource)</a></span> - Static method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/JooqDSLProvider.html" title="interface in io.github.zero88.jooqx">JooqDSLProvider</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/JsonRecord.html#create(R)">create(R)</a></span> - Static method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/provider/DBEmbeddedProvider.html#createConnOptions(java.lang.String,io.vertx.core.json.JsonObject)">createConnOptions(String, JsonObject)</a></span> - Method in interface io.github.zero88.jooqx.provider.<a href="io/github/zero88/jooqx/provider/DBEmbeddedProvider.html" title="interface in io.github.zero88.jooqx.provider">DBEmbeddedProvider</a></dt>
 <dd>&nbsp;</dd>
@@ -1801,11 +1809,137 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Fetch exists</div>
 </dd>
-<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonRecord(org.jooq.TableLike)">fetchJsonRecord(TableLike&lt;? extends Record&gt;)</a></span> - Static method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/DSLAdapter.html" title="interface in io.github.zero88.jooqx">DSLAdapter</a></dt>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonArray(java.util.function.Function)">fetchJsonArray(Function&lt;DSLContext, Select&lt;REC&gt;&gt;)</a></span> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
 <dd>
-<div class="block">Fetch one JsonRecord</div>
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonArray(java.util.function.Function,io.vertx.core.Handler)"><code>SQLQueryExecutor.fetchJsonArray(Function, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
 </dd>
-<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonRecords(org.jooq.TableLike)">fetchJsonRecords(TableLike&lt;? extends Record&gt;)</a></span> - Static method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/DSLAdapter.html" title="interface in io.github.zero88.jooqx">DSLAdapter</a></dt>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonArray(java.util.function.Function,io.vertx.core.Handler)">fetchJsonArray(Function&lt;DSLContext, Select&lt;REC&gt;&gt;, Handler&lt;AsyncResult&lt;JsonArray&gt;&gt;)</a></span> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dd>
+<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonArray(org.jooq.TableLike)"><code>DSLAdapter.fetchJsonArray(TableLike)</code></a></div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonArray(java.util.function.Function,io.vertx.core.spi.json.JsonCodec)">fetchJsonArray(Function&lt;DSLContext, Select&lt;REC&gt;&gt;, JsonCodec)</a></span> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dd>
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonArray(java.util.function.Function,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)"><code>SQLQueryExecutor.fetchJsonArray(Function, JsonCodec, Handler)</code></a> but returns a <code>Future</code> of the asynchronous
+ result</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonArray(java.util.function.Function,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)">fetchJsonArray(Function&lt;DSLContext, Select&lt;REC&gt;&gt;, JsonCodec, Handler&lt;AsyncResult&lt;JsonArray&gt;&gt;)</a></span> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dd>
+<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonArray(org.jooq.TableLike,io.vertx.core.spi.json.JsonCodec)"><code>DSLAdapter.fetchJsonArray(TableLike, JsonCodec)</code></a></div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonArray(org.jooq.Select)">fetchJsonArray(Select&lt;REC&gt;)</a></span> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dd>
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonArray(org.jooq.Select,io.vertx.core.Handler)"><code>SQLQueryExecutor.fetchJsonArray(Select, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonArray(org.jooq.Select,io.vertx.core.Handler)">fetchJsonArray(Select&lt;REC&gt;, Handler&lt;AsyncResult&lt;JsonArray&gt;&gt;)</a></span> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dd>
+<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonArray(org.jooq.TableLike)"><code>DSLAdapter.fetchJsonArray(TableLike)</code></a></div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonArray(org.jooq.Select,io.vertx.core.spi.json.JsonCodec)">fetchJsonArray(Select&lt;REC&gt;, JsonCodec)</a></span> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dd>
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonArray(org.jooq.Select,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)"><code>SQLQueryExecutor.fetchJsonArray(Select, JsonCodec, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonArray(org.jooq.Select,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)">fetchJsonArray(Select&lt;REC&gt;, JsonCodec, Handler&lt;AsyncResult&lt;JsonArray&gt;&gt;)</a></span> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dd>
+<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonArray(org.jooq.TableLike,io.vertx.core.spi.json.JsonCodec)"><code>DSLAdapter.fetchJsonArray(TableLike, JsonCodec)</code></a></div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonArray(org.jooq.TableLike)">fetchJsonArray(TableLike&lt;? extends Record&gt;)</a></span> - Static method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/DSLAdapter.html" title="interface in io.github.zero88.jooqx">DSLAdapter</a></dt>
+<dd>
+<div class="block">Fetch result by a table of the query context then map into json array</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonArray(org.jooq.TableLike,io.vertx.core.spi.json.JsonCodec)">fetchJsonArray(TableLike&lt;? extends Record&gt;, JsonCodec)</a></span> - Static method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/DSLAdapter.html" title="interface in io.github.zero88.jooqx">DSLAdapter</a></dt>
+<dd>
+<div class="block">Fetch result by a table of the query context then map into json array</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonObject(java.util.function.Function)">fetchJsonObject(Function&lt;DSLContext, Select&lt;REC&gt;&gt;)</a></span> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dd>
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonObject(java.util.function.Function,io.vertx.core.Handler)"><code>SQLQueryExecutor.fetchJsonObject(Function, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonObject(java.util.function.Function,io.vertx.core.Handler)">fetchJsonObject(Function&lt;DSLContext, Select&lt;REC&gt;&gt;, Handler&lt;AsyncResult&lt;JsonObject&gt;&gt;)</a></span> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dd>
+<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonObject(org.jooq.TableLike)"><code>DSLAdapter.fetchJsonObject(TableLike)</code></a></div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonObject(java.util.function.Function,io.vertx.core.spi.json.JsonCodec)">fetchJsonObject(Function&lt;DSLContext, Select&lt;REC&gt;&gt;, JsonCodec)</a></span> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dd>
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonObject(java.util.function.Function,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)"><code>SQLQueryExecutor.fetchJsonObject(Function, JsonCodec, Handler)</code></a> but returns a <code>Future</code> of the asynchronous
+ result</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonObject(java.util.function.Function,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)">fetchJsonObject(Function&lt;DSLContext, Select&lt;REC&gt;&gt;, JsonCodec, Handler&lt;AsyncResult&lt;JsonObject&gt;&gt;)</a></span> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dd>
+<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonObject(org.jooq.TableLike,io.vertx.core.spi.json.JsonCodec)"><code>DSLAdapter.fetchJsonObject(TableLike, JsonCodec)</code></a></div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonObject(org.jooq.Select)">fetchJsonObject(Select&lt;REC&gt;)</a></span> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dd>
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonObject(org.jooq.Select,io.vertx.core.Handler)"><code>SQLQueryExecutor.fetchJsonObject(Select, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonObject(org.jooq.Select,io.vertx.core.Handler)">fetchJsonObject(Select&lt;REC&gt;, Handler&lt;AsyncResult&lt;JsonObject&gt;&gt;)</a></span> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dd>
+<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonObject(org.jooq.TableLike)"><code>DSLAdapter.fetchJsonObject(TableLike)</code></a></div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonObject(org.jooq.Select,io.vertx.core.spi.json.JsonCodec)">fetchJsonObject(Select&lt;REC&gt;, JsonCodec)</a></span> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dd>
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonObject(org.jooq.Select,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)"><code>SQLQueryExecutor.fetchJsonObject(Select, JsonCodec, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonObject(org.jooq.Select,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)">fetchJsonObject(Select&lt;REC&gt;, JsonCodec, Handler&lt;AsyncResult&lt;JsonObject&gt;&gt;)</a></span> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dd>
+<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonObject(org.jooq.TableLike,io.vertx.core.spi.json.JsonCodec)"><code>DSLAdapter.fetchJsonObject(TableLike, JsonCodec)</code></a></div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonObject(org.jooq.TableLike)">fetchJsonObject(TableLike&lt;? extends Record&gt;)</a></span> - Static method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/DSLAdapter.html" title="interface in io.github.zero88.jooqx">DSLAdapter</a></dt>
+<dd>
+<div class="block">Fetch one row to json object</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonObject(org.jooq.TableLike,io.vertx.core.spi.json.JsonCodec)">fetchJsonObject(TableLike&lt;? extends Record&gt;, JsonCodec)</a></span> - Static method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/DSLAdapter.html" title="interface in io.github.zero88.jooqx">DSLAdapter</a></dt>
+<dd>
+<div class="block">Fetch one row to json object</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonRecord(java.util.function.Function)">fetchJsonRecord(Function&lt;DSLContext, Select&lt;REC&gt;&gt;)</a></span> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dd>
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonRecord(java.util.function.Function,io.vertx.core.Handler)"><code>SQLQueryExecutor.fetchJsonRecord(Function, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonRecord(java.util.function.Function,io.vertx.core.Handler)">fetchJsonRecord(Function&lt;DSLContext, Select&lt;REC&gt;&gt;, Handler&lt;AsyncResult&lt;JsonRecord&lt;REC&gt;&gt;&gt;)</a></span> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dd>
+<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonRecord(org.jooq.TableLike)"><code>DSLAdapter.fetchJsonRecord(TableLike)</code></a></div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonRecord(org.jooq.Select)">fetchJsonRecord(Select&lt;REC&gt;)</a></span> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dd>
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonRecord(org.jooq.Select,io.vertx.core.Handler)"><code>SQLQueryExecutor.fetchJsonRecord(Select, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonRecord(org.jooq.Select,io.vertx.core.Handler)">fetchJsonRecord(Select&lt;REC&gt;, Handler&lt;AsyncResult&lt;JsonRecord&lt;REC&gt;&gt;&gt;)</a></span> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dd>
+<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonRecord(org.jooq.TableLike)"><code>DSLAdapter.fetchJsonRecord(TableLike)</code></a></div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonRecord(org.jooq.TableLike)">fetchJsonRecord(TableLike&lt;REC&gt;)</a></span> - Static method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/DSLAdapter.html" title="interface in io.github.zero88.jooqx">DSLAdapter</a></dt>
+<dd>
+<div class="block">Fetch one row to JsonRecord</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonRecords(java.util.function.Function)">fetchJsonRecords(Function&lt;DSLContext, Select&lt;REC&gt;&gt;)</a></span> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dd>
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonRecords(java.util.function.Function,io.vertx.core.Handler)"><code>SQLQueryExecutor.fetchJsonRecords(Function, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonRecords(java.util.function.Function,io.vertx.core.Handler)">fetchJsonRecords(Function&lt;DSLContext, Select&lt;REC&gt;&gt;, Handler&lt;AsyncResult&lt;List&lt;JsonRecord&lt;REC&gt;&gt;&gt;&gt;)</a></span> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dd>
+<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonRecords(org.jooq.TableLike)"><code>DSLAdapter.fetchJsonRecords(TableLike)</code></a></div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonRecords(org.jooq.Select)">fetchJsonRecords(Select&lt;REC&gt;)</a></span> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dd>
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonRecords(org.jooq.Select,io.vertx.core.Handler)"><code>SQLQueryExecutor.fetchJsonRecords(Select, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonRecords(org.jooq.Select,io.vertx.core.Handler)">fetchJsonRecords(Select&lt;REC&gt;, Handler&lt;AsyncResult&lt;List&lt;JsonRecord&lt;REC&gt;&gt;&gt;&gt;)</a></span> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dd>
+<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+ <a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonRecords(org.jooq.TableLike)"><code>DSLAdapter.fetchJsonRecords(TableLike)</code></a></div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonRecords(org.jooq.TableLike)">fetchJsonRecords(TableLike&lt;REC&gt;)</a></span> - Static method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/DSLAdapter.html" title="interface in io.github.zero88.jooqx">DSLAdapter</a></dt>
 <dd>
 <div class="block">Fetch many Json record</div>
 </dd>
@@ -2653,7 +2787,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/datatype/basic/JsonObjectJSONConverter.html#%3Cinit%3E()">JsonObjectJSONConverter()</a></span> - Constructor for class io.github.zero88.jooqx.datatype.basic.<a href="io/github/zero88/jooqx/datatype/basic/JsonObjectJSONConverter.html" title="class in io.github.zero88.jooqx.datatype.basic">JsonObjectJSONConverter</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="io/github/zero88/jooqx/JsonRecord.html" title="interface in io.github.zero88.jooqx"><span class="typeNameLink">JsonRecord</span></a>&lt;<a href="io/github/zero88/jooqx/JsonRecord.html" title="type parameter in JsonRecord">R</a> extends org.jooq.TableRecord&lt;<a href="io/github/zero88/jooqx/JsonRecord.html" title="type parameter in JsonRecord">R</a>&gt;&gt; - Interface in <a href="io/github/zero88/jooqx/package-summary.html">io.github.zero88.jooqx</a></dt>
+<dt><a href="io/github/zero88/jooqx/JsonRecord.html" title="interface in io.github.zero88.jooqx"><span class="typeNameLink">JsonRecord</span></a>&lt;<a href="io/github/zero88/jooqx/JsonRecord.html" title="type parameter in JsonRecord">R</a> extends org.jooq.Record&gt; - Interface in <a href="io/github/zero88/jooqx/package-summary.html">io.github.zero88.jooqx</a></dt>
 <dd>
 <div class="block">Represents for an intermediate record between Vertx ResultSet and actual jOOQ Record and does support serialize to
  <code>JsonObject</code></div>
@@ -3154,6 +3288,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a>
 <h2 class="title">R</h2>
 <dl>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/JsonRecord.html#record()">record()</a></span> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/adapter/SQLResultAdapter.html#recordFactory()">recordFactory()</a></span> - Method in interface io.github.zero88.jooqx.adapter.<a href="io/github/zero88/jooqx/adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/zero88/jooqx/adapter/RecordFactory.html" title="interface in io.github.zero88.jooqx.adapter"><span class="typeNameLink">RecordFactory</span></a>&lt;<a href="io/github/zero88/jooqx/adapter/RecordFactory.html" title="type parameter in RecordFactory">REC</a> extends org.jooq.Record,&#8203;<a href="io/github/zero88/jooqx/adapter/RecordFactory.html" title="type parameter in RecordFactory">R</a>&gt; - Interface in <a href="io/github/zero88/jooqx/adapter/package-summary.html">io.github.zero88.jooqx.adapter</a></dt>
@@ -4080,6 +4216,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <div class="block">Select exists result adapter that defines output in <code>Boolean</code> type</div>
 </dd>
 <dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/adapter/SelectExists.html#%3Cinit%3E(org.jooq.TableLike)">SelectExists(TableLike&lt;Record1&lt;Integer&gt;&gt;)</a></span> - Constructor for class io.github.zero88.jooqx.adapter.<a href="io/github/zero88/jooqx/adapter/SelectExists.html" title="class in io.github.zero88.jooqx.adapter">SelectExists</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/adapter/SelectJsonArray.html" title="class in io.github.zero88.jooqx.adapter"><span class="typeNameLink">SelectJsonArray</span></a> - Class in <a href="io/github/zero88/jooqx/adapter/package-summary.html">io.github.zero88.jooqx.adapter</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/adapter/SelectJsonArray.html#%3Cinit%3E(io.github.zero88.jooqx.adapter.RecordFactory)">SelectJsonArray(RecordFactory&lt;? extends Record, JsonObject&gt;)</a></span> - Constructor for class io.github.zero88.jooqx.adapter.<a href="io/github/zero88/jooqx/adapter/SelectJsonArray.html" title="class in io.github.zero88.jooqx.adapter">SelectJsonArray</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/zero88/jooqx/adapter/SelectList.html" title="class in io.github.zero88.jooqx.adapter"><span class="typeNameLink">SelectList</span></a>&lt;<a href="io/github/zero88/jooqx/adapter/SelectList.html" title="type parameter in SelectList">R</a>&gt; - Class in <a href="io/github/zero88/jooqx/adapter/package-summary.html">io.github.zero88.jooqx.adapter</a></dt>
 <dd>
@@ -5108,6 +5248,8 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>
 <div class="block">Represents for transaction executor</div>
 </dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/adapter/SelectJsonArray.html#strategy()">strategy()</a></span> - Method in class io.github.zero88.jooqx.adapter.<a href="io/github/zero88/jooqx/adapter/SelectJsonArray.html" title="class in io.github.zero88.jooqx.adapter">SelectJsonArray</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/adapter/SQLResultListAdapter.html#strategy()">strategy()</a></span> - Method in interface io.github.zero88.jooqx.adapter.<a href="io/github/zero88/jooqx/adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/adapter/SQLResultOneAdapter.html#strategy()">strategy()</a></span> - Method in interface io.github.zero88.jooqx.adapter.<a href="io/github/zero88/jooqx/adapter/SQLResultOneAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultOneAdapter</a></dt>
@@ -5158,6 +5300,14 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/JsonRecord.html#toJson()">toJson()</a></span> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/JsonRecord.html#toJson(io.vertx.core.spi.json.JsonCodec)">toJson(JsonCodec)</a></span> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a></dt>
+<dd>
+<div class="block">Covert to json object by Object mapper</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/JsonRecord.html#toJson(org.jooq.JSONFormat)">toJson(JSONFormat)</a></span> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/JsonRecord.html" title="interface in io.github.zero88.jooqx">JsonRecord</a></dt>
+<dd>
+<div class="block">Covert to json object by <code>JSONFormat</code></div>
+</dd>
 <dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/mutiny/Jooqx.html#toString()">toString()</a></span> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/Jooqx.html" title="class in io.github.zero88.jooqx.mutiny">Jooqx</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/zero88/jooqx/mutiny/JooqxBatchCollector.html#toString()">toString()</a></span> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/JooqxBatchCollector.html" title="class in io.github.zero88.jooqx.mutiny">JooqxBatchCollector</a></dt>
