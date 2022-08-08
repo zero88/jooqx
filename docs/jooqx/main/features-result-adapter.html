@@ -195,15 +195,13 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">SelectForUpdateStep&lt;AuthorsRecord&gt; q = jooqx.dsl()
-                                            .selectFrom(Tables.AUTHORS)
-                                            .where(Tables.AUTHORS.NAME.eq("zero88"))
-                                            .limit(1)
-                                            .offset(1);
-jooqx.execute(q, DSLAdapter.fetchJsonRecord(q.asTable()))   <i class="conum" data-value="1"></i><b>(1)</b>
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">jooqx.fetchJsonRecord(dsl -&gt; dsl.selectFrom(Tables.AUTHORS)                         <i class="conum" data-value="1"></i><b>(1)</b>
+                                .where(Tables.AUTHORS.NAME.eq("zero88"))
+                                .limit(1)
+                                .offset(1))
      .onSuccess(r -&gt; {
-        JsonRecord&lt;?&gt; record = r;                           <i class="conum" data-value="2"></i><b>(2)</b>
-        System.out.println(record.toJson());                <i class="conum" data-value="3"></i><b>(3)</b>
+         JsonRecord&lt;AuthorsRecord&gt; record = r;                                      <i class="conum" data-value="2"></i><b>(2)</b>
+         System.out.println(record.toJson());                                       <i class="conum" data-value="3"></i><b>(3)</b>
      });</code></pre>
 </div>
 </div>
