@@ -46,7 +46,7 @@ class PgReAComplexQueryTest extends PgSQLJooqxTest<PgPool> implements PgPoolProv
                                                      .onKey()
                                                      .where(schema.AUTHORS.ID.eq(2));
         jooqx.execute(query, DSLAdapter.fetchJsonRecords(query.asTable()), ar -> ctx.verify(() -> {
-            final List<JsonRecord<?>> records = assertResultSize(ctx, ar, 2);
+            final List<JsonRecord<Record>> records = assertResultSize(ctx, ar, 2);
             Assertions.assertEquals(
                 new JsonObject("{\"id\":2,\"name\":\"F. Scott. Fitzgerald\",\"country\":\"USA\",\"book_id\":4}"),
                 records.get(0).toJson());
@@ -90,9 +90,9 @@ class PgReAComplexQueryTest extends PgSQLJooqxTest<PgPool> implements PgPoolProv
                                                      .join(schema.BOOKS)
                                                      .on(schema.BOOKS.ID.eq(schema.BOOKS_AUTHORS.BOOK_ID))
                                                      .where(schema.AUTHORS.ID.eq(1));
-        jooqx.execute(query, DSLAdapter.fetchJsonRecords(query.asTable()), ar -> ctx.verify(() -> {
-            final List<JsonRecord<?>> records = assertResultSize(ctx, ar, 3);
-            final JsonRecord<?> record1 = records.get(0);
+        jooqx.fetchJsonRecords(query, ar -> ctx.verify(() -> {
+            final List<JsonRecord<Record>> records = assertResultSize(ctx, ar, 3);
+            final JsonRecord<Record> record1 = records.get(0);
             Assertions.assertEquals(new JsonObject("{\"id\":1,\"name\":\"J.D. Salinger\",\"country\":\"USA\"," +
                                                    "\"book_id\":1,\"book_title\":\"The Catcher in the Rye\"}"),
                                     record1.toJson());
@@ -102,13 +102,13 @@ class PgReAComplexQueryTest extends PgSQLJooqxTest<PgPool> implements PgPoolProv
             Assertions.assertEquals(new JsonObject("{\"id\":1,\"name\":\"J.D. Salinger\",\"country\":\"USA\"," +
                                                    "\"book_id\":3,\"book_title\":\"Franny and Zooey\"}"),
                                     records.get(2).toJson());
-            final Authors author = record1.into(Authors.class);
+            final Authors author = record1.record().into(Authors.class);
             Assertions.assertEquals(author.getId(), 1);
             Assertions.assertEquals(author.getName(), "J.D. Salinger");
             Assertions.assertEquals(author.getCountry(), "USA");
-            final Books book2 = record1.map(
-                r -> new Books().setId(r.get(record1.getTable().field("book_id"), Integer.class))
-                                .setTitle(r.get(record1.getTable().field("book_title"), String.class)));
+            final Books book2 = record1.record()
+                                       .map(r -> new Books().setId(r.get("book_id", Integer.class))
+                                                            .setTitle(r.get("book_title", String.class)));
             Assertions.assertEquals(book2.getId(), 1);
             Assertions.assertEquals(book2.getTitle(), "The Catcher in the Rye");
             flag.flag();
@@ -127,8 +127,8 @@ class PgReAComplexQueryTest extends PgSQLJooqxTest<PgPool> implements PgPoolProv
                                       .values(a1.value2(), a1.value3())
                                       .returning(), DSLAdapter.fetchOne(schema.AUTHORS))
                           .flatMap(r1 -> tx.execute(
-                              dsl.insertInto(schema.BOOKS, schema.BOOKS.TITLE).values(b1.value2()).returning(),
-                              DSLAdapter.fetchOne(schema.BOOKS))
+                                               dsl.insertInto(schema.BOOKS, schema.BOOKS.TITLE).values(b1.value2()).returning(),
+                                               DSLAdapter.fetchOne(schema.BOOKS))
                                            .flatMap(r2 -> tx.execute(
                                                dsl.insertInto(schema.BOOKS_AUTHORS, schema.BOOKS_AUTHORS.BOOK_ID,
                                                               schema.BOOKS_AUTHORS.AUTHOR_ID)

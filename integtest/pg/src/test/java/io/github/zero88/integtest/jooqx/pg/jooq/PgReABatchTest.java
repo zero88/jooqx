@@ -58,9 +58,9 @@ class PgReABatchTest extends PgSQLJooqxTest<PgPool>
                                                             .insertInto(table)
                                                             .set(bindValues.getDummyValues())
                                                             .returning();
-        final Handler<AsyncResult<BatchReturningResult<JsonRecord<?>>>> asserter = ar -> ctx.verify(() -> {
-            final BatchReturningResult<JsonRecord<?>> result = assertSuccess(ctx, ar);
-            final List<JsonRecord<?>> records = result.getRecords();
+        final Handler<AsyncResult<BatchReturningResult<JsonRecord<AuthorsRecord>>>> asserter = ar -> ctx.verify(() -> {
+            final BatchReturningResult<JsonRecord<AuthorsRecord>> result = assertSuccess(ctx, ar);
+            final List<JsonRecord<AuthorsRecord>> records = result.getRecords();
             String v = Json.CODEC.toString(records.stream().map(JsonRecord::toJson).collect(Collectors.toList()));
             Assertions.assertEquals(2, result.getTotal());
             Assertions.assertEquals(2, result.getSuccesses());

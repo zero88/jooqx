@@ -25,15 +25,13 @@ class ExampleResultAdapter {
         /*
          * Vertx JsonObject vs jOOQ Record... Ya, merging: JsonRecord
          */
-        SelectForUpdateStep<AuthorsRecord> q = jooqx.dsl()
-                                                    .selectFrom(Tables.AUTHORS)
-                                                    .where(Tables.AUTHORS.NAME.eq("zero88"))
-                                                    .limit(1)
-                                                    .offset(1);
-        jooqx.execute(q, DSLAdapter.fetchJsonRecord(q.asTable()))   // <1>
+        jooqx.fetchJsonRecord(dsl -> dsl.selectFrom(Tables.AUTHORS)                         // <1>
+                                        .where(Tables.AUTHORS.NAME.eq("zero88"))
+                                        .limit(1)
+                                        .offset(1))
              .onSuccess(r -> {
-                JsonRecord<?> record = r;                           // <2>
-                System.out.println(record.toJson());                // <3>
+                 JsonRecord<AuthorsRecord> record = r;                                      // <2>
+                 System.out.println(record.toJson());                                       // <3>
              });
     }
     // @formatter:on

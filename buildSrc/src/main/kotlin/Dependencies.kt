@@ -29,6 +29,7 @@ object JacksonLibs {
 
     const val annotations = "com.fasterxml.jackson.core:jackson-annotations:${Version.jackson}"
     const val databind = "com.fasterxml.jackson.core:jackson-databind:${Version.jackson}"
+    const val datetime = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${Version.jackson}"
 }
 
 object TestLibs {

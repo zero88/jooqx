@@ -8,7 +8,6 @@ import org.jooq.InsertResultStep;
 import org.jooq.Record;
 import org.jooq.Record1;
 import org.jooq.SelectConditionStep;
-import org.jooq.SelectForUpdateStep;
 import org.jooq.SelectWhereStep;
 import org.jooq.exception.TooManyRowsException;
 import org.jooq.impl.DSL;
@@ -26,6 +25,7 @@ import io.github.zero88.sample.model.pgsql.tables.pojos.Books;
 import io.github.zero88.sample.model.pgsql.tables.records.AuthorsRecord;
 import io.github.zero88.sample.model.pgsql.tables.records.BooksRecord;
 import io.vertx.core.Vertx;
+import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
@@ -99,14 +99,13 @@ class PgReARelationTest extends PgSQLJooqxTest<PgConnection> implements PgConnPr
     void test_select_one_convert_by_json_record(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
         final io.github.zero88.sample.model.pgsql.tables.Authors table = schema().AUTHORS;
-        final SelectForUpdateStep<AuthorsRecord> q = jooqx.dsl()
-                                                          .selectFrom(table)
-                                                          .where(table.COUNTRY.eq("USA"))
-                                                          .orderBy(table.NAME.desc())
-                                                          .limit(1)
-                                                          .offset(1);
-        jooqx.execute(q, DSLAdapter.fetchJsonRecord(q.asTable()), ar -> ctx.verify(() -> {
-            final JsonRecord<?> result = assertSuccess(ctx, ar);
+        jooqx.fetchJsonRecord(dsl -> jooqx.dsl()
+                                          .selectFrom(table)
+                                          .where(table.COUNTRY.eq("USA"))
+                                          .orderBy(table.NAME.desc())
+                                          .limit(1)
+                                          .offset(1), ar -> ctx.verify(() -> {
+            final JsonRecord<AuthorsRecord> result = assertSuccess(ctx, ar);
             Assertions.assertNotNull(result);
             Assertions.assertEquals(new JsonObject("{\"id\":4,\"name\":\"Scott Hanselman\",\"country\":\"USA\"}"),
                                     result.toJson());
@@ -115,11 +114,21 @@ class PgReARelationTest extends PgSQLJooqxTest<PgConnection> implements PgConnPr
     }
 
     @Test
+    void test_select_one_convert_by_json_object(VertxTestContext ctx) {
+        final Checkpoint flag = ctx.checkpoint();
+        jooqx.fetchJsonObject(dsl -> dsl.selectFrom(schema().AUTHORS).where(schema().AUTHORS.COUNTRY.eq("UK")).limit(1))
+             .onSuccess(r -> ctx.verify(() -> {
+                 Assertions.assertEquals(new JsonObject("{\"id\":3,\"name\":\"Jane Austen\",\"country\":\"UK\"}"), r);
+                 flag.flag();
+             }));
+    }
+
+    @Test
     void test_select_one_convert_by_table(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
         final io.github.zero88.sample.model.pgsql.tables.Authors table = schema().AUTHORS;
         final SelectConditionStep<AuthorsRecord> query = jooqx.dsl().selectFrom(table).where(table.COUNTRY.eq("UK"));
-        jooqx.execute(query, DSLAdapter.fetchOne(table), ar -> ctx.verify(() -> {
+        jooqx.fetchOne(query, ar -> ctx.verify(() -> {
             Assertions.assertTrue(ar.succeeded());
             final AuthorsRecord authors = ar.result();
             Assertions.assertEquals(3, authors.getId());
@@ -133,11 +142,7 @@ class PgReARelationTest extends PgSQLJooqxTest<PgConnection> implements PgConnPr
     void test_select_one_but_give_query_that_returns_many(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
         final io.github.zero88.sample.model.pgsql.tables.Authors table = schema().AUTHORS;
-        final SelectForUpdateStep<AuthorsRecord> q = jooqx.dsl()
-                                                          .selectFrom(table)
-                                                          .where(table.COUNTRY.eq("USA"))
-                                                          .orderBy(table.ID.desc());
-        jooqx.execute(q, DSLAdapter.fetchJsonRecord(q.asTable()))
+        jooqx.fetchJsonRecord(dsl -> dsl.selectFrom(table).where(table.COUNTRY.eq("USA")).orderBy(table.ID.desc()))
              .onSuccess(event -> ctx.failNow("Should failed with TooManyRowsException"))
              .onFailure(t -> ctx.verify(() -> {
                  t.printStackTrace();
@@ -148,13 +153,23 @@ class PgReARelationTest extends PgSQLJooqxTest<PgConnection> implements PgConnPr
 
     @Test
     void test_select_many_convert_by_json_record(VertxTestContext ctx) {
-        final io.github.zero88.sample.model.pgsql.tables.Books table = schema().BOOKS;
-        final SelectWhereStep<BooksRecord> query = jooqx.dsl().selectFrom(table);
-        jooqx.execute(query, DSLAdapter.fetchJsonRecords(table), ar -> assertResultSize(ctx, ar, 7));
+        jooqx.fetchJsonRecords(dsl -> dsl.selectFrom(schema().BOOKS), ar -> assertResultSize(ctx, ar, 7));
     }
 
     @Test
-    void test_select_many_convert_by_record_class(VertxTestContext ctx) {
+    void test_select_jsonArray(VertxTestContext ctx) {
+        final Checkpoint flag = ctx.checkpoint();
+        jooqx.fetchJsonArray(dsl -> dsl.selectFrom(schema().AUTHORS).limit(3)).onSuccess(r -> ctx.verify(() -> {
+            final JsonArray expected = new JsonArray(
+                "[{\"id\":1,\"name\":\"J.D. Salinger\",\"country\":\"USA\"},{\"id\":2,\"name\":\"F. Scott. " +
+                "Fitzgerald\",\"country\":\"USA\"},{\"id\":3,\"name\":\"Jane Austen\",\"country\":\"UK\"}]");
+            Assertions.assertEquals(expected, r);
+            flag.flag();
+        })).onFailure(ctx::failNow);
+    }
+
+    @Test
+    void test_select_many_convert_by_pojo_class(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
         final io.github.zero88.sample.model.pgsql.tables.Authors table = schema().AUTHORS;
         final SelectWhereStep<AuthorsRecord> query = jooqx.dsl().selectFrom(table);

@@ -19,6 +19,9 @@ import io.vertx.codegen.annotations.VertxGen;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
+import io.vertx.core.json.JsonArray;
+import io.vertx.core.json.JsonObject;
+import io.vertx.core.spi.json.JsonCodec;
 
 /**
  * Represents for a {@code query executor} that executes SQL command
@@ -346,6 +349,413 @@ public interface SQLQueryExecutor extends JooqDSLProvider {
     @GenIgnore
     default <REC extends Record> Future<Integer> fetchCount(@NotNull Select<REC> select) {
         return execute(DSL.selectCount().from(select), DSLAdapter.fetchCount());
+    }
+
+    /**
+     * Shortcut of {@link #execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
+     * {@link DSLAdapter#fetchJsonRecord(TableLike)}
+     *
+     * @param selectFn the jOOQ select function
+     * @param handler  the async result handler
+     * @param <REC>    Type of Record
+     * @apiNote Unfortunately, it is not support {@code rxify/mutiny} version due to technical problem in
+     *     {@code Vert.x} code generator
+     * @see Select
+     * @since 2.0.0
+     */
+    @GenIgnore
+    default <REC extends Record> void fetchJsonRecord(@NotNull Function<DSLContext, Select<REC>> selectFn,
+                                                      @NotNull Handler<AsyncResult<JsonRecord<REC>>> handler) {
+        fetchJsonRecord(selectFn).onComplete(handler);
+    }
+
+    /**
+     * Like {@link #fetchJsonRecord(Function, Handler)} but returns a {@code Future} of the asynchronous result
+     *
+     * @param selectFn the jOOQ select
+     * @param <REC>    Type of Record
+     * @apiNote Unfortunately, it is not support {@code rxify/mutiny} version due to technical problem in
+     *     {@code Vert.x} code generator
+     * @see Select
+     * @since 2.0.0
+     */
+    @GenIgnore
+    default <REC extends Record> Future<JsonRecord<REC>> fetchJsonRecord(
+        @NotNull Function<DSLContext, Select<REC>> selectFn) {
+        return fetchJsonRecord(selectFn.apply(dsl()));
+    }
+
+    /**
+     * Shortcut of {@link #execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
+     * {@link DSLAdapter#fetchJsonRecord(TableLike)}
+     *
+     * @param select  the jOOQ select
+     * @param handler the async result handler
+     * @param <REC>   Type of Record
+     * @apiNote Unfortunately, it is not support {@code rxify/mutiny} version due to technical problem in
+     *     {@code Vert.x} code generator
+     * @see Select
+     * @since 2.0.0
+     */
+    @GenIgnore
+    default <REC extends Record> void fetchJsonRecord(@NotNull Select<REC> select,
+                                                      @NotNull Handler<AsyncResult<JsonRecord<REC>>> handler) {
+        fetchJsonRecord(select).onComplete(handler);
+    }
+
+    /**
+     * Like {@link #fetchJsonRecord(Select, Handler)} but returns a {@code Future} of the asynchronous result
+     *
+     * @param select the jOOQ select
+     * @param <REC>  Type of Record
+     * @apiNote Unfortunately, it is not support {@code rxify/mutiny} version due to technical problem in
+     *     {@code Vert.x} code generator
+     * @see Select
+     * @since 2.0.0
+     */
+    @GenIgnore
+    default <REC extends Record> Future<JsonRecord<REC>> fetchJsonRecord(@NotNull Select<REC> select) {
+        return execute(select, DSLAdapter.fetchJsonRecord(select.asTable()));
+    }
+
+    /**
+     * Shortcut of {@link #execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
+     * {@link DSLAdapter#fetchJsonRecords(TableLike)}
+     *
+     * @param selectFn the jOOQ select function
+     * @param handler  the async result handler
+     * @param <REC>    Type of Record
+     * @apiNote Unfortunately, it is not support {@code rxify/mutiny} version due to technical problem in
+     *     {@code Vert.x} code generator
+     * @see Select
+     * @since 2.0.0
+     */
+    @GenIgnore
+    default <REC extends Record> void fetchJsonRecords(@NotNull Function<DSLContext, Select<REC>> selectFn,
+                                                       @NotNull Handler<AsyncResult<List<JsonRecord<REC>>>> handler) {
+        fetchJsonRecords(selectFn).onComplete(handler);
+    }
+
+    /**
+     * Like {@link #fetchJsonRecords(Function, Handler)} but returns a {@code Future} of the asynchronous result
+     *
+     * @param selectFn the jOOQ select function
+     * @param <REC>    Type of Record
+     * @apiNote Unfortunately, it is not support {@code rxify/mutiny} version due to technical problem in
+     *     {@code Vert.x} code generator
+     * @see Select
+     * @since 2.0.0
+     */
+    @GenIgnore
+    default <REC extends Record> Future<List<JsonRecord<REC>>> fetchJsonRecords(
+        @NotNull Function<DSLContext, Select<REC>> selectFn) {
+        return fetchJsonRecords(selectFn.apply(dsl()));
+    }
+
+    /**
+     * Shortcut of {@link #execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
+     * {@link DSLAdapter#fetchJsonRecords(TableLike)}
+     *
+     * @param select  the jOOQ select
+     * @param handler the async result handler
+     * @param <REC>   Type of Record
+     * @apiNote Unfortunately, it is not support {@code rxify/mutiny} version due to technical problem in
+     *     {@code Vert.x} code generator
+     * @see Select
+     * @since 2.0.0
+     */
+    @GenIgnore
+    default <REC extends Record> void fetchJsonRecords(@NotNull Select<REC> select,
+                                                       @NotNull Handler<AsyncResult<List<JsonRecord<REC>>>> handler) {
+        fetchJsonRecords(select).onComplete(handler);
+    }
+
+    /**
+     * Like {@link #fetchJsonRecords(Select, Handler)} but returns a {@code Future} of the asynchronous result
+     *
+     * @param select the jOOQ select
+     * @param <REC>  Type of Record
+     * @apiNote Unfortunately, it is not support {@code rxify/mutiny} version due to technical problem in
+     *     {@code Vert.x} code generator
+     * @see Select
+     * @since 2.0.0
+     */
+    @GenIgnore
+    default <REC extends Record> Future<List<JsonRecord<REC>>> fetchJsonRecords(@NotNull Select<REC> select) {
+        return execute(select, DSLAdapter.fetchJsonRecords(select.asTable()));
+    }
+
+    /**
+     * Shortcut of {@link #execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
+     * {@link DSLAdapter#fetchJsonObject(TableLike)}
+     *
+     * @param selectFn the jOOQ select function
+     * @param handler  the async result handler
+     * @param <REC>    Type of Record
+     * @apiNote Unfortunately, it is not support {@code rxify/mutiny} version due to technical problem in
+     *     {@code Vert.x} code generator
+     * @see Select
+     * @since 2.0.0
+     */
+    @GenIgnore
+    default <REC extends Record> void fetchJsonObject(@NotNull Function<DSLContext, Select<REC>> selectFn,
+                                                      @NotNull Handler<AsyncResult<JsonObject>> handler) {
+        fetchJsonObject(selectFn).onComplete(handler);
+    }
+
+    /**
+     * Like {@link #fetchJsonObject(Function, Handler)} but returns a {@code Future} of the asynchronous result
+     *
+     * @param selectFn the jOOQ select
+     * @param <REC>    Type of Record
+     * @apiNote Unfortunately, it is not support {@code rxify/mutiny} version due to technical problem in
+     *     {@code Vert.x} code generator
+     * @see Select
+     * @since 2.0.0
+     */
+    @GenIgnore
+    default <REC extends Record> Future<JsonObject> fetchJsonObject(
+        @NotNull Function<DSLContext, Select<REC>> selectFn) {
+        return fetchJsonObject(selectFn.apply(dsl()));
+    }
+
+    /**
+     * Shortcut of {@link #execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
+     * {@link DSLAdapter#fetchJsonObject(TableLike)}
+     *
+     * @param select  the jOOQ select
+     * @param handler the async result handler
+     * @param <REC>   Type of Record
+     * @apiNote Unfortunately, it is not support {@code rxify/mutiny} version due to technical problem in
+     *     {@code Vert.x} code generator
+     * @see Select
+     * @since 2.0.0
+     */
+    @GenIgnore
+    default <REC extends Record> void fetchJsonObject(@NotNull Select<REC> select,
+                                                      @NotNull Handler<AsyncResult<JsonObject>> handler) {
+        fetchJsonObject(select).onComplete(handler);
+    }
+
+    /**
+     * Like {@link #fetchJsonObject(Select, Handler)} but returns a {@code Future} of the asynchronous result
+     *
+     * @param select the jOOQ select
+     * @param <REC>  Type of Record
+     * @apiNote Unfortunately, it is not support {@code rxify/mutiny} version due to technical problem in
+     *     {@code Vert.x} code generator
+     * @see Select
+     * @since 2.0.0
+     */
+    @GenIgnore
+    default <REC extends Record> Future<JsonObject> fetchJsonObject(@NotNull Select<REC> select) {
+        return execute(select, DSLAdapter.fetchJsonObject(select.asTable()));
+    }
+
+    /**
+     * Shortcut of {@link #execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
+     * {@link DSLAdapter#fetchJsonObject(TableLike, JsonCodec)}
+     *
+     * @param selectFn the jOOQ select function
+     * @param handler  the async result handler
+     * @param <REC>    Type of Record
+     * @apiNote Unfortunately, it is not support {@code rxify/mutiny} version due to technical problem in
+     *     {@code Vert.x} code generator
+     * @see Select
+     * @since 2.0.0
+     */
+    @GenIgnore
+    default <REC extends Record> void fetchJsonObject(@NotNull Function<DSLContext, Select<REC>> selectFn,
+                                                      @NotNull JsonCodec codec,
+                                                      @NotNull Handler<AsyncResult<JsonObject>> handler) {
+        fetchJsonObject(selectFn, codec).onComplete(handler);
+    }
+
+    /**
+     * Like {@link #fetchJsonObject(Function, JsonCodec, Handler)} but returns a {@code Future} of the asynchronous
+     * result
+     *
+     * @param selectFn the jOOQ select
+     * @param <REC>    Type of Record
+     * @apiNote Unfortunately, it is not support {@code rxify/mutiny} version due to technical problem in
+     *     {@code Vert.x} code generator
+     * @see Select
+     * @since 2.0.0
+     */
+    @GenIgnore
+    default <REC extends Record> Future<JsonObject> fetchJsonObject(@NotNull Function<DSLContext, Select<REC>> selectFn,
+                                                                    @NotNull JsonCodec codec) {
+        return fetchJsonObject(selectFn.apply(dsl()), codec);
+    }
+
+    /**
+     * Shortcut of {@link #execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
+     * {@link DSLAdapter#fetchJsonObject(TableLike, JsonCodec)}
+     *
+     * @param select  the jOOQ select
+     * @param handler the async result handler
+     * @param <REC>   Type of Record
+     * @apiNote Unfortunately, it is not support {@code rxify/mutiny} version due to technical problem in
+     *     {@code Vert.x} code generator
+     * @see Select
+     * @since 2.0.0
+     */
+    @GenIgnore
+    default <REC extends Record> void fetchJsonObject(@NotNull Select<REC> select, @NotNull JsonCodec codec,
+                                                      @NotNull Handler<AsyncResult<JsonObject>> handler) {
+        fetchJsonObject(select, codec).onComplete(handler);
+    }
+
+    /**
+     * Like {@link #fetchJsonObject(Select, JsonCodec, Handler)} but returns a {@code Future} of the asynchronous result
+     *
+     * @param select the jOOQ select
+     * @param <REC>  Type of Record
+     * @apiNote Unfortunately, it is not support {@code rxify/mutiny} version due to technical problem in
+     *     {@code Vert.x} code generator
+     * @see Select
+     * @since 2.0.0
+     */
+    @GenIgnore
+    default <REC extends Record> Future<JsonObject> fetchJsonObject(@NotNull Select<REC> select,
+                                                                    @NotNull JsonCodec codec) {
+        return execute(select, DSLAdapter.fetchJsonObject(select.asTable(), codec));
+    }
+
+    /**
+     * Shortcut of {@link #execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
+     * {@link DSLAdapter#fetchJsonArray(TableLike)}
+     *
+     * @param selectFn the jOOQ select function
+     * @param handler  the async result handler
+     * @param <REC>    Type of Record
+     * @apiNote Unfortunately, it is not support {@code rxify/mutiny} version due to technical problem in
+     *     {@code Vert.x} code generator
+     * @see Select
+     * @since 2.0.0
+     */
+    @GenIgnore
+    default <REC extends Record> void fetchJsonArray(@NotNull Function<DSLContext, Select<REC>> selectFn,
+                                                     @NotNull Handler<AsyncResult<JsonArray>> handler) {
+        fetchJsonArray(selectFn).onComplete(handler);
+    }
+
+    /**
+     * Like {@link #fetchJsonArray(Function, Handler)} but returns a {@code Future} of the asynchronous result
+     *
+     * @param selectFn the jOOQ select
+     * @param <REC>    Type of Record
+     * @apiNote Unfortunately, it is not support {@code rxify/mutiny} version due to technical problem in
+     *     {@code Vert.x} code generator
+     * @see Select
+     * @since 2.0.0
+     */
+    @GenIgnore
+    default <REC extends Record> Future<JsonArray> fetchJsonArray(@NotNull Function<DSLContext, Select<REC>> selectFn) {
+        return fetchJsonArray(selectFn.apply(dsl()));
+    }
+
+    /**
+     * Shortcut of {@link #execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
+     * {@link DSLAdapter#fetchJsonArray(TableLike)}
+     *
+     * @param select  the jOOQ select
+     * @param handler the async result handler
+     * @param <REC>   Type of Record
+     * @apiNote Unfortunately, it is not support {@code rxify/mutiny} version due to technical problem in
+     *     {@code Vert.x} code generator
+     * @see Select
+     * @since 2.0.0
+     */
+    @GenIgnore
+    default <REC extends Record> void fetchJsonArray(@NotNull Select<REC> select,
+                                                     @NotNull Handler<AsyncResult<JsonArray>> handler) {
+        fetchJsonArray(select).onComplete(handler);
+    }
+
+    /**
+     * Like {@link #fetchJsonArray(Select, Handler)} but returns a {@code Future} of the asynchronous result
+     *
+     * @param select the jOOQ select
+     * @param <REC>  Type of Record
+     * @apiNote Unfortunately, it is not support {@code rxify/mutiny} version due to technical problem in
+     *     {@code Vert.x} code generator
+     * @see Select
+     * @since 2.0.0
+     */
+    @GenIgnore
+    default <REC extends Record> Future<JsonArray> fetchJsonArray(@NotNull Select<REC> select) {
+        return execute(select, DSLAdapter.fetchJsonArray(select.asTable()));
+    }
+
+    /**
+     * Shortcut of {@link #execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
+     * {@link DSLAdapter#fetchJsonArray(TableLike, JsonCodec)}
+     *
+     * @param selectFn the jOOQ select function
+     * @param handler  the async result handler
+     * @param <REC>    Type of Record
+     * @apiNote Unfortunately, it is not support {@code rxify/mutiny} version due to technical problem in
+     *     {@code Vert.x} code generator
+     * @see Select
+     * @since 2.0.0
+     */
+    @GenIgnore
+    default <REC extends Record> void fetchJsonArray(@NotNull Function<DSLContext, Select<REC>> selectFn,
+                                                     @NotNull JsonCodec codec,
+                                                     @NotNull Handler<AsyncResult<JsonArray>> handler) {
+        fetchJsonArray(selectFn, codec).onComplete(handler);
+    }
+
+    /**
+     * Like {@link #fetchJsonArray(Function, JsonCodec, Handler)} but returns a {@code Future} of the asynchronous
+     * result
+     *
+     * @param selectFn the jOOQ select
+     * @param <REC>    Type of Record
+     * @apiNote Unfortunately, it is not support {@code rxify/mutiny} version due to technical problem in
+     *     {@code Vert.x} code generator
+     * @see Select
+     * @since 2.0.0
+     */
+    @GenIgnore
+    default <REC extends Record> Future<JsonArray> fetchJsonArray(@NotNull Function<DSLContext, Select<REC>> selectFn,
+                                                                  @NotNull JsonCodec codec) {
+        return fetchJsonArray(selectFn.apply(dsl()), codec);
+    }
+
+    /**
+     * Shortcut of {@link #execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
+     * {@link DSLAdapter#fetchJsonArray(TableLike, JsonCodec)}
+     *
+     * @param select  the jOOQ select
+     * @param handler the async result handler
+     * @param <REC>   Type of Record
+     * @apiNote Unfortunately, it is not support {@code rxify/mutiny} version due to technical problem in
+     *     {@code Vert.x} code generator
+     * @see Select
+     * @since 2.0.0
+     */
+    @GenIgnore
+    default <REC extends Record> void fetchJsonArray(@NotNull Select<REC> select, @NotNull JsonCodec codec,
+                                                     @NotNull Handler<AsyncResult<JsonArray>> handler) {
+        fetchJsonArray(select, codec).onComplete(handler);
+    }
+
+    /**
+     * Like {@link #fetchJsonArray(Select, JsonCodec, Handler)} but returns a {@code Future} of the asynchronous result
+     *
+     * @param select the jOOQ select
+     * @param <REC>  Type of Record
+     * @apiNote Unfortunately, it is not support {@code rxify/mutiny} version due to technical problem in
+     *     {@code Vert.x} code generator
+     * @see Select
+     * @since 2.0.0
+     */
+    @GenIgnore
+    default <REC extends Record> Future<JsonArray> fetchJsonArray(@NotNull Select<REC> select,
+                                                                  @NotNull JsonCodec codec) {
+        return execute(select, DSLAdapter.fetchJsonArray(select.asTable(), codec));
     }
 
 }

@@ -13,8 +13,11 @@ import org.jooq.impl.DSL;
 import io.github.zero88.jooqx.adapter.RecordFactory;
 import io.github.zero88.jooqx.adapter.SelectCount;
 import io.github.zero88.jooqx.adapter.SelectExists;
+import io.github.zero88.jooqx.adapter.SelectJsonArray;
 import io.github.zero88.jooqx.adapter.SelectList;
 import io.github.zero88.jooqx.adapter.SelectOne;
+import io.vertx.core.json.JsonObject;
+import io.vertx.core.spi.json.JsonCodec;
 
 /**
  * DSL adapter
@@ -70,7 +73,7 @@ public interface DSLAdapter {
     }
 
     /**
-     * Fetch one JsonRecord
+     * Fetch one row to JsonRecord
      *
      * @param table a query table context
      * @return select one adapter
@@ -78,8 +81,32 @@ public interface DSLAdapter {
      * @see JsonRecord
      * @since 1.0.0
      */
-    static SelectOne<JsonRecord<?>> fetchJsonRecord(@NotNull TableLike<? extends Record> table) {
+    static <REC extends Record> SelectOne<JsonRecord<REC>> fetchJsonRecord(@NotNull TableLike<REC> table) {
+        return new SelectOne<>(RecordFactory.byJsonRecord(table));
+    }
+
+    /**
+     * Fetch one row to json object
+     *
+     * @param table a query table context
+     * @return select json object adapter
+     * @since 2.0.0
+     */
+    static SelectOne<JsonObject> fetchJsonObject(@NotNull TableLike<? extends Record> table) {
         return new SelectOne<>(RecordFactory.byJson(table));
+    }
+
+    /**
+     * Fetch one row to json object
+     *
+     * @param table a query table context
+     * @param codec a Json codec
+     * @return select json object adapter
+     * @see JsonCodec
+     * @since 2.0.0
+     */
+    static SelectOne<JsonObject> fetchJsonObject(@NotNull TableLike<? extends Record> table, JsonCodec codec) {
+        return new SelectOne<>(RecordFactory.byJson(table, codec));
     }
 
     /**
@@ -191,8 +218,8 @@ public interface DSLAdapter {
      * @see JsonRecord
      * @since 1.0.0
      */
-    static SelectList<JsonRecord<?>> fetchJsonRecords(@NotNull TableLike<? extends Record> table) {
-        return new SelectList<>(RecordFactory.byJson(table));
+    static <REC extends Record> SelectList<JsonRecord<REC>> fetchJsonRecords(@NotNull TableLike<REC> table) {
+        return new SelectList<>(RecordFactory.byJsonRecord(table));
     }
 
     /**
@@ -293,6 +320,36 @@ public interface DSLAdapter {
     static <R extends Record, T extends Table<R>> SelectList<R> fetchMany(@NotNull TableLike<? extends Record> table,
                                                                           @NotNull T toTable) {
         return new SelectList<>(RecordFactory.byMapper(table, r -> r.into(toTable)));
+    }
+
+    /**
+     * Fetch result by a table of the query context then map into json array
+     *
+     * @param table a query table context
+     * @return select json array adapter
+     * @see TableLike
+     * @see Record
+     * @see SelectJsonArray
+     * @since 2.0.0
+     */
+    static SelectJsonArray fetchJsonArray(@NotNull TableLike<? extends Record> table) {
+        return new SelectJsonArray(RecordFactory.byJson(table));
+    }
+
+    /**
+     * Fetch result by a table of the query context then map into json array
+     *
+     * @param table a query table context
+     * @param codec a Json codec
+     * @return select json array adapter
+     * @see TableLike
+     * @see Record
+     * @see JsonCodec
+     * @see SelectJsonArray
+     * @since 2.0.0
+     */
+    static SelectJsonArray fetchJsonArray(@NotNull TableLike<? extends Record> table, JsonCodec codec) {
+        return new SelectJsonArray(RecordFactory.byJson(table, codec));
     }
 
 }
