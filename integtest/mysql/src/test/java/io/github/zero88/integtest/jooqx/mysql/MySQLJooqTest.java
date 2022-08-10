@@ -23,7 +23,7 @@ import io.vertx.junit5.VertxTestContext;
 
 import com.zaxxer.hikari.HikariDataSource;
 
-class MySQLJooqRoutineTest extends MySQLJooqxTest<JDBCPool>
+class MySQLJooqTest extends MySQLJooqxTest<JDBCPool>
     implements JDBCPoolHikariProvider, JDBCErrorConverterProvider, MySQLHelper {
 
     private HikariDataSource dataSource;
