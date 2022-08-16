@@ -6,24 +6,16 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import io.github.zero88.jooqx.BlockQuery;
 import io.github.zero88.jooqx.DSLAdapter;
-import io.github.zero88.jooqx.JooqSQL;
 import io.github.zero88.jooqx.spi.mysql.MySQLJooqxTest;
 import io.github.zero88.jooqx.spi.mysql.MySQLPoolProvider;
 import io.github.zero88.sample.model.mysql.Tables;
-import io.github.zero88.sample.model.mysql.routines.CountAuthorByCountry;
-import io.github.zero88.sample.model.mysql.routines.Hello;
-import io.github.zero88.sample.model.mysql.routines.RemoveAuthor;
-import io.github.zero88.sample.model.mysql.routines.SelectBooksByAuthor;
 import io.github.zero88.sample.model.mysql.tables.Authors;
-import io.github.zero88.sample.model.mysql.tables.Books;
-import io.github.zero88.sample.model.mysql.tables.records.BooksRecord;
 import io.vertx.core.Vertx;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
-import io.vertx.mysqlclient.MySQLConnection;
 import io.vertx.mysqlclient.MySQLPool;
-import io.vertx.mysqlclient.MySQLSetOption;
 
 class MySQLReAQueryTest extends MySQLJooqxTest<MySQLPool> implements MySQLPoolProvider, MySQLHelper {
 
@@ -68,6 +60,19 @@ class MySQLReAQueryTest extends MySQLJooqxTest<MySQLPool> implements MySQLPoolPr
             Assertions.assertTrue(r);
             cp.flag();
         })).onFailure(ctx::failNow);
+    }
+
+    @Test
+    @Disabled("Unsupported: MySQL unable execute multiple queries?")
+    void test_select_block(VertxTestContext ctx) {
+        final Checkpoint flag = ctx.checkpoint();
+        jooqx.block(dsl -> BlockQuery.create()
+                                     .add(dsl.select().from(schema().AUTHORS), DSLAdapter.fetchMany(schema().AUTHORS))
+                                     .add(dsl.select().from(schema().BOOKS), DSLAdapter.fetchMany(schema().BOOKS)))
+             .onSuccess(r -> ctx.verify(() -> {
+                 flag.flag();
+             }))
+             .onFailure(ctx::failNow);
     }
 
 }

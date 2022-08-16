@@ -42,6 +42,28 @@ CREATE TABLE book_to_book_store
     CONSTRAINT fk_b2bs_book FOREIGN KEY (book_id) REFERENCES book (id) ON DELETE CASCADE
 );
 
+CREATE TABLE authors
+(
+    id      SERIAL PRIMARY KEY,
+    name    VARCHAR(70)  NOT NULL,
+    country VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE books
+(
+    id    SERIAL PRIMARY KEY,
+    title VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE books_authors
+(
+    id        SERIAL PRIMARY KEY,
+    author_id INT NOT NULL,
+    book_id   INT NOT NULL,
+    FOREIGN KEY (author_id) REFERENCES authors (id),
+    FOREIGN KEY (book_id) REFERENCES books (id)
+);
+
 CREATE TABLE IF NOT EXISTS AllDataTypes
 (
     id INT AUTO_INCREMENT,

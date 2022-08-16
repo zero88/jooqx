@@ -1,6 +1,7 @@
 package io.github.zero88.integtest.jooqx.mysql;
 
 import org.jooq.DSLContext;
+import org.jooq.Results;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -95,6 +96,19 @@ class MySQLJooqTest extends MySQLJooqxTest<JDBCPool>
         JooqSQL.printJooqRoutine(_dsl, proc);
         proc.execute(_dsl.configuration());
         JooqSQL.printJooqRoutineResult(proc);
+        cp.flag();
+    }
+
+    @Test
+    void test_select_block(VertxTestContext ctx) {
+        final Checkpoint cp = ctx.checkpoint();
+        final Results results = _dsl.queries(_dsl.selectFrom(schema().AUTHORS), _dsl.selectFrom(schema().BOOKS))
+                                    .fetchMany();
+        Assertions.assertEquals(2, results.size());
+        results.forEach(records -> {
+            System.out.println(records.recordType());
+            System.out.println(records);
+        });
         cp.flag();
     }
 

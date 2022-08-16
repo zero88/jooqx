@@ -149,4 +149,30 @@ public class PgJooqTest extends PgSQLJooqxTest<JDBCPool>
         System.out.println("RESULTS:                " + routine.getResults() + "::" + routine.getResults().getClass());
         cp.flag();
     }
+
+    @Test
+    void test_execute_block(VertxTestContext ctx) {
+        final Checkpoint cp = ctx.checkpoint(1);
+        final int execute = _dsl.begin(
+            _dsl.insertInto(schema().AUTHORS, schema().AUTHORS.ID, schema().AUTHORS.NAME, schema().AUTHORS.COUNTRY)
+                .values(Arrays.asList(DSL.defaultValue(Tables.AUTHORS.ID), "abc", "xyz")),
+            _dsl.insertInto(schema().AUTHORS, schema().AUTHORS.ID, schema().AUTHORS.NAME, schema().AUTHORS.COUNTRY)
+                .values(Arrays.asList(DSL.defaultValue(Tables.AUTHORS.ID), "abc1", "xyz1"))).execute();
+        Assertions.assertEquals(0, execute);
+        Assertions.assertEquals(10, _dsl.selectCount().from(schema().AUTHORS).fetchOne().get(0));
+        cp.flag();
+    }
+
+    @Test
+    void test_select_block(VertxTestContext ctx) {
+        final Checkpoint cp = ctx.checkpoint();
+        final Results results = _dsl.queries(_dsl.selectFrom(schema().AUTHORS), _dsl.selectFrom(schema().BOOKS))
+                                    .fetchMany();
+        results.forEach(records -> {
+            System.out.println(records.recordType());
+            System.out.println(records);
+        });
+        cp.flag();
+    }
+
 }

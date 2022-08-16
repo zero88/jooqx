@@ -5,7 +5,11 @@ import java.util.function.Function;
 import org.jetbrains.annotations.ApiStatus.Experimental;
 import org.jetbrains.annotations.NotNull;
 import org.jooq.DSLContext;
+import org.jooq.SQLDialect;
+import org.jooq.Support;
 
+import io.github.zero88.jooqx.annotations.SQLClientSupport;
+import io.github.zero88.jooqx.annotations.SQLClientType;
 import io.vertx.codegen.annotations.GenIgnore;
 import io.vertx.codegen.annotations.VertxGen;
 import io.vertx.core.AsyncResult;
@@ -33,6 +37,7 @@ public interface SQLBlockExecutor extends JooqDSLProvider {
      */
     @Experimental
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    @SQLClientSupport(client = { SQLClientType.JDBC }, dialect = @Support(SQLDialect.POSTGRES))
     default void block(@NotNull Function<DSLContext, BlockQuery> blockQueryFn,
                        @NotNull Handler<AsyncResult<BlockResult>> handler) {
         block(blockQueryFn).onComplete(handler);
@@ -48,6 +53,7 @@ public interface SQLBlockExecutor extends JooqDSLProvider {
      */
     @Experimental
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    @SQLClientSupport(client = { SQLClientType.JDBC }, dialect = @Support(SQLDialect.POSTGRES))
     default Future<BlockResult> block(@NotNull Function<DSLContext, BlockQuery> blockQueryFn) {
         return block(blockQueryFn.apply(dsl()));
     }
@@ -63,6 +69,7 @@ public interface SQLBlockExecutor extends JooqDSLProvider {
      */
     @Experimental
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    @SQLClientSupport(client = { SQLClientType.JDBC }, dialect = @Support(SQLDialect.POSTGRES))
     default void block(@NotNull BlockQuery blockQuery, @NotNull Handler<AsyncResult<BlockResult>> handler) {
         block(blockQuery).onComplete(handler);
     }
@@ -78,6 +85,7 @@ public interface SQLBlockExecutor extends JooqDSLProvider {
      */
     @Experimental
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    @SQLClientSupport(client = { SQLClientType.JDBC }, dialect = @Support(SQLDialect.POSTGRES))
     Future<BlockResult> block(@NotNull BlockQuery blockQuery);
 
 }

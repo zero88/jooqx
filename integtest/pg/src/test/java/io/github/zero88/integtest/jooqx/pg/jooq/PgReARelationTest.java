@@ -13,13 +13,16 @@ import org.jooq.exception.TooManyRowsException;
 import org.jooq.impl.DSL;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import io.github.zero88.integtest.jooqx.pg.PgUseJooqType;
+import io.github.zero88.jooqx.BlockQuery;
 import io.github.zero88.jooqx.DSLAdapter;
 import io.github.zero88.jooqx.JsonRecord;
 import io.github.zero88.jooqx.spi.pg.PgConnProvider;
 import io.github.zero88.jooqx.spi.pg.PgSQLJooqxTest;
+import io.github.zero88.sample.model.pgsql.Tables;
 import io.github.zero88.sample.model.pgsql.tables.pojos.Authors;
 import io.github.zero88.sample.model.pgsql.tables.pojos.Books;
 import io.github.zero88.sample.model.pgsql.tables.records.AuthorsRecord;
@@ -179,6 +182,38 @@ class PgReARelationTest extends PgSQLJooqxTest<PgConnection> implements PgConnPr
             ctx.verify(() -> Assertions.assertEquals(1, authors.getId()));
             flag.flag();
         });
+    }
+
+    @Test
+    @Disabled("io.vertx.pgclient.PgException: ERROR: cannot insert multiple commands into a prepared statement (42601)")
+    void test_insert_block(VertxTestContext ctx) {
+        final Checkpoint flag = ctx.checkpoint();
+        jooqx.block(dsl -> BlockQuery.createBlock()
+                                     .add(dsl.insertInto(schema().AUTHORS, schema().AUTHORS.ID, schema().AUTHORS.NAME,
+                                                         schema().AUTHORS.COUNTRY)
+                                             .values(Arrays.asList(DSL.defaultValue(Tables.AUTHORS.ID), "abc", "xyz"))
+                                             .returning(), DSLAdapter.fetchOne(schema().AUTHORS))
+                                     .add(dsl.insertInto(schema().AUTHORS, schema().AUTHORS.ID, schema().AUTHORS.NAME,
+                                                         schema().AUTHORS.COUNTRY)
+                                             .values(Arrays.asList(DSL.defaultValue(Tables.AUTHORS.ID), "abc1", "xyz1"))
+                                             .returning(), DSLAdapter.fetchOne(schema().AUTHORS)))
+             .onSuccess(r -> ctx.verify(() -> {
+                 flag.flag();
+             }))
+             .onFailure(ctx::failNow);
+    }
+
+    @Test
+    @Disabled("io.vertx.pgclient.PgException: ERROR: cannot insert multiple commands into a prepared statement (42601)")
+    void test_select_block(VertxTestContext ctx) {
+        final Checkpoint flag = ctx.checkpoint();
+        jooqx.block(dsl -> BlockQuery.create()
+                                     .add(dsl.selectFrom(schema().AUTHORS), DSLAdapter.fetchMany(schema().AUTHORS))
+                                     .add(dsl.selectFrom(schema().BOOKS), DSLAdapter.fetchMany(schema().BOOKS)))
+             .onSuccess(r -> ctx.verify(() -> {
+                 flag.flag();
+             }))
+             .onFailure(ctx::failNow);
     }
 
 }
