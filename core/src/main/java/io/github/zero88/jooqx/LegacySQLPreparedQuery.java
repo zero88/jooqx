@@ -37,6 +37,10 @@ public interface LegacySQLPreparedQuery extends SQLPreparedQuery<JsonArray> {
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    @NotNull String sql(@NotNull Configuration configuration, @NotNull BlockQuery blockQuery);
+
+    @Override
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
     @NotNull JsonArray bindValues(@NotNull Query query, @NotNull DataTypeMapperRegistry mapperRegistry);
 
     @Override

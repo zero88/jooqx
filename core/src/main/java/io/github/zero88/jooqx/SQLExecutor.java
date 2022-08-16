@@ -26,8 +26,8 @@ import io.vertx.core.Vertx;
  * @since 1.0.0
  */
 public interface SQLExecutor<S, B, PQ extends SQLPreparedQuery<B>, RC extends SQLResultCollector>
-    extends SQLExecutorContext<S, B, PQ, RC>, SQLQueryExecutor, SQLBatchExecutor, SQLDDLExecutor, SQLRoutineExecutor,
-            SQLPlainExecutor {
+    extends SQLExecutorContext<S, B, PQ, RC>, SQLQueryExecutor, SQLBatchExecutor, SQLBlockExecutor, SQLDDLExecutor,
+            SQLRoutineExecutor, SQLPlainExecutor {
 
     /**
      * Defines Vertx

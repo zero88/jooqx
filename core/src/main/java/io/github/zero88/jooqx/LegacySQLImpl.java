@@ -98,6 +98,19 @@ final class LegacySQLImpl {
                           .orElse(null);
         }
 
+        @Override
+        public BlockResult collect(@NotNull ResultSet resultSet, @NotNull List<SQLResultAdapter> adapters,
+                                   @NotNull DSLContext dslContext, @NotNull DataTypeMapperRegistry registry) {
+            final BlockResult blockResult = BlockResult.create();
+            final int[] count = { 0 };
+            ResultSet rs = resultSet;
+            do {
+                blockResult.append(collect(rs, adapters.get(count[0]), dslContext, registry));
+                count[0]++;
+            } while ((rs = rs.getNext()) != null);
+            return blockResult;
+        }
+
         @NotNull
         private <REC extends Record, ROW> Collector<FieldWrapper, REC, ROW> collector(JsonArray row, DSLContext dsl,
                                                                                       DataTypeMapperRegistry registry,
@@ -146,6 +159,15 @@ final class LegacySQLImpl {
                                                                              typeMapperRegistry()), promise));
             return promise.future()
                           .map(r -> resultCollector().batchResult(bindBatchValues, r))
+                          .otherwise(errorConverter()::reThrowError);
+        }
+
+        @Override
+        public Future<BlockResult> block(@NotNull BlockQuery blockQuery) {
+            final Promise<ResultSet> promise = Promise.promise();
+            sqlClient().query(preparedQuery().sql(dsl().configuration(), blockQuery), promise);
+            return promise.future()
+                          .map(rs -> resultCollector().collect(rs, blockQuery.adapters(), dsl(), typeMapperRegistry()))
                           .otherwise(errorConverter()::reThrowError);
         }
 

@@ -250,6 +250,22 @@ final class JooqxSQLImpl {
         }
 
         @Override
+        public Future<BlockResult> block(@NotNull BlockQuery blockQuery) {
+            return sqlClient().preparedQuery(preparedQuery().sql(dsl().configuration(), blockQuery))
+                              .execute()
+                              .map(rows -> {
+                                  List collectors = blockQuery.adapters()
+                                                              .stream()
+                                                              .map(
+                                                                  adapter -> resultCollector().collector(adapter, dsl(),
+                                                                                                         typeMapperRegistry()))
+                                                              .collect(Collectors.toList());
+                                  return JooqxBlockCollector.create().blockResult(rows, collectors);
+                              })
+                              .otherwise(errorConverter()::reThrowError);
+        }
+
+        @Override
         public Future<Integer> ddl(@NotNull DDLQuery statement) {
             return sqlClient().query(preparedQuery().sql(dsl().configuration(), statement))
                               .execute()

@@ -22,7 +22,7 @@ import io.github.zero88.jooqx.datatype.DataTypeMapperRegistry;
 public interface SQLPreparedQuery<B> {
 
     /**
-     * Generate jOOQ query to sql query in String
+     * Generate jOOQ query to SQL statement
      *
      * @param configuration jOOQ configuration
      * @param query         jOOQ query
@@ -30,6 +30,16 @@ public interface SQLPreparedQuery<B> {
      * @see Query
      */
     @NotNull String sql(@NotNull Configuration configuration, @NotNull Query query);
+
+    /**
+     * Generate jOOQ queries to SQL statements
+     *
+     * @param configuration jOOQ configuration
+     * @param blockQuery    block query
+     * @return sql
+     * @see BlockQuery
+     */
+    @NotNull String sql(@NotNull Configuration configuration, @NotNull BlockQuery blockQuery);
 
     /**
      * Capture jOOQ param in jOOQ query and convert to Vertx bind value holder

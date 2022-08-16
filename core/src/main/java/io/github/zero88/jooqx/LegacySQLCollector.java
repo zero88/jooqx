@@ -46,4 +46,8 @@ public interface LegacySQLCollector extends SQLResultCollector, SQLBatchCollecto
         return batchResult.size();
     }
 
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    BlockResult collect(@NotNull ResultSet resultSet, @NotNull List<SQLResultAdapter> adapter,
+                        @NotNull DSLContext dslContext, @NotNull DataTypeMapperRegistry registry);
+
 }
