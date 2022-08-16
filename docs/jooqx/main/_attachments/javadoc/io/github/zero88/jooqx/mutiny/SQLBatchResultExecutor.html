@@ -163,7 +163,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
            <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
            <a href="../adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</code></th>
 <td class="colLast">
-<div class="block">Result batch execute</div>
+<div class="block">Execute batch statements then receive results</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
@@ -316,7 +316,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 &lt;T,&#8203;R&gt;&nbsp;io.smallrye.mutiny.Uni&lt;<a href="../BatchReturningResult.html" title="interface in io.github.zero88.jooqx">BatchReturningResult</a>&lt;R&gt;&gt;&nbsp;batchResult&#8203;(org.jooq.Query&nbsp;query,
                                                                         <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
                                                                         <a href="../adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</pre>
-<div class="block">Result batch execute
+<div class="block">Execute batch statements then receive results
  <p>
  Unlike the <em>bare</em> Vert.x variant, this method returns a <code>Uni</code>.
  Don't forget to <em>subscribe</em> on it to trigger the operation.</div>

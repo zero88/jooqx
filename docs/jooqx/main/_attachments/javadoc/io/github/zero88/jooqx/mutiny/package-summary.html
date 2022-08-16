@@ -118,24 +118,30 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="altColor">
-<th class="colFirst" scope="row"><a href="SQLDDLExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLDDLExecutor</a></th>
+<th class="colFirst" scope="row"><a href="SQLBlockExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLBlockExecutor</a></th>
 <td class="colLast">
-<div class="block">Represents for a <code>DDL executor</code> that executes batch SQL command</div>
+<div class="block">Represents for a <code>Block executor</code> that executes SQL statements</div>
 </td>
 </tr>
 <tr class="rowColor">
+<th class="colFirst" scope="row"><a href="SQLDDLExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLDDLExecutor</a></th>
+<td class="colLast">
+<div class="block">Represents for a <code>DDL executor</code> that executes SQL DDL statements</div>
+</td>
+</tr>
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="SQLPlainExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLPlainExecutor</a></th>
 <td class="colLast">
 <div class="block">Represents for a <code>DDL executor</code> that executes batch SQL command</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLQueryExecutor</a></th>
 <td class="colLast">
 <div class="block">Represents for a <code>query executor</code> that executes SQL command</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="SQLRoutineExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLRoutineExecutor</a></th>
 <td class="colLast">
 <div class="block">Represents for a <code>routine executor</code> that executes SQL function or SQL procedure</div>
@@ -165,66 +171,72 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </td>
 </tr>
 <tr class="altColor">
+<th class="colFirst" scope="row"><a href="JooqxBlockCollector.html" title="class in io.github.zero88.jooqx.mutiny">JooqxBlockCollector</a></th>
+<td class="colLast">
+<div class="block">Represents for a collector that collects <code>Vert.x SQL block result</code> to an expectation output</div>
+</td>
+</tr>
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="JooqxBuilder.html" title="class in io.github.zero88.jooqx.mutiny">JooqxBuilder</a></th>
 <td class="colLast">
 <div class="block">Represents a builder that constructs <a href="Jooqx.html" title="class in io.github.zero88.jooqx.mutiny"><code>Jooqx</code></a></div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.mutiny">JooqxConn</a></th>
 <td class="colLast">
 <div class="block">Represents for an executor that executes <code>jOOQ query</code> on <code>Vertx reactive SQL client</code> connection</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="JooqxConnBuilder.html" title="class in io.github.zero88.jooqx.mutiny">JooqxConnBuilder</a></th>
 <td class="colLast">
 <div class="block">Represents a builder that constructs <a href="JooqxConn.html" title="class in io.github.zero88.jooqx.mutiny"><code>JooqxConn</code></a></div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="JooqxPreparedQuery.html" title="class in io.github.zero88.jooqx.mutiny">JooqxPreparedQuery</a></th>
 <td class="colLast">
 <div class="block">Represents for a converter that transforms <code>jOOQ param</code> to <code>Vertx Reactive SQL</code> bind value</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="JooqxResultCollector.html" title="class in io.github.zero88.jooqx.mutiny">JooqxResultCollector</a></th>
 <td class="colLast">
 <div class="block">Represents for a collector that collects then transform <code>Vert.x SQL result</code> to an expectation output</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="JooqxTx.html" title="class in io.github.zero88.jooqx.mutiny">JooqxTx</a></th>
 <td class="colLast">
 <div class="block">Represents for a reactive SQL transaction executor</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="LegacyJooqx.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqx</a></th>
 <td class="colLast">
 <div class="block">Represents for an executor that executes <code>jOOQ query</code> on <code>Vertx legacy JDBC client</code> connection</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="LegacyJooqxBuilder.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqxBuilder</a></th>
 <td class="colLast">
 <div class="block">Represents a builder that constructs <a href="LegacyJooqx.html" title="class in io.github.zero88.jooqx.mutiny"><code>LegacyJooqx</code></a></div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqxTx</a></th>
 <td class="colLast">
 <div class="block">Represents for a legacy SQL transaction executor</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <th class="colFirst" scope="row"><a href="LegacySQLCollector.html" title="class in io.github.zero88.jooqx.mutiny">LegacySQLCollector</a></th>
 <td class="colLast">
 <div class="block">Represents for Legacy SQL result set collector</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <th class="colFirst" scope="row"><a href="LegacySQLPreparedQuery.html" title="class in io.github.zero88.jooqx.mutiny">LegacySQLPreparedQuery</a></th>
 <td class="colLast">
 <div class="block">Represents for a converter that transforms <code>jOOQ param</code> to <code>Vertx legacy SQL</code> bind value</div>
