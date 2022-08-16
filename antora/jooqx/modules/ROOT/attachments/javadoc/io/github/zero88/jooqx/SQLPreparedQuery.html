@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6};
+var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6,"i5":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -194,10 +194,18 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>@NotNull java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sql(org.jooq.Configuration,io.github.zero88.jooqx.BlockQuery)">sql</a></span>&#8203;(@NotNull org.jooq.Configuration&nbsp;configuration,
+   @NotNull <a href="BlockQuery.html" title="interface in io.github.zero88.jooqx">BlockQuery</a>&nbsp;blockQuery)</code></th>
+<td class="colLast">
+<div class="block">Generate jOOQ queries to SQL statements</div>
+</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>@NotNull java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sql(org.jooq.Configuration,org.jooq.Query)">sql</a></span>&#8203;(@NotNull org.jooq.Configuration&nbsp;configuration,
    @NotNull org.jooq.Query&nbsp;query)</code></th>
 <td class="colLast">
-<div class="block">Generate jOOQ query to sql query in String</div>
+<div class="block">Generate jOOQ query to SQL statement</div>
 </td>
 </tr>
 </table>
@@ -228,7 +236,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
                               @NotNull org.jooq.Configuration&nbsp;configuration,
                               @NotNull
                               @NotNull org.jooq.Query&nbsp;query)</pre>
-<div class="block">Generate jOOQ query to sql query in String</div>
+<div class="block">Generate jOOQ query to SQL statement</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>configuration</code> - jOOQ configuration</dd>
@@ -237,6 +245,29 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd>sql</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><code>Query</code></dd>
+</dl>
+</li>
+</ul>
+<a id="sql(org.jooq.Configuration,io.github.zero88.jooqx.BlockQuery)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>sql</h4>
+<pre class="methodSignature">@NotNull
+@NotNull java.lang.String&nbsp;sql&#8203;(@NotNull
+                              @NotNull org.jooq.Configuration&nbsp;configuration,
+                              @NotNull
+                              @NotNull <a href="BlockQuery.html" title="interface in io.github.zero88.jooqx">BlockQuery</a>&nbsp;blockQuery)</pre>
+<div class="block">Generate jOOQ queries to SQL statements</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>configuration</code> - jOOQ configuration</dd>
+<dd><code>blockQuery</code> - block query</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>sql</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="BlockQuery.html" title="interface in io.github.zero88.jooqx"><code>BlockQuery</code></a></dd>
 </dl>
 </li>
 </ul>

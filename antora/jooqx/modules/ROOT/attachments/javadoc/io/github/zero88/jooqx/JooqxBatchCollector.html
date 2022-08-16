@@ -26,8 +26,8 @@
     catch(err) {
     }
 //-->
-var data = {"i0":18,"i1":18,"i2":1,"i3":6};
-var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],16:["t5","Default Methods"]};
+var data = {"i0":18,"i1":18,"i2":1,"i3":18};
+var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],16:["t5","Default Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -153,7 +153,7 @@ extends <a href="SQLBatchCollector.html" title="interface in io.github.zero88.jo
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t5" class="tableTab"><span><a href="javascript:show(16);">Default Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t5" class="tableTab"><span><a href="javascript:show(16);">Default Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Method</th>
@@ -180,7 +180,7 @@ extends <a href="SQLBatchCollector.html" title="interface in io.github.zero88.jo
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code>java.util.List&lt;<a href="JooqxBatchCollector.html" title="type parameter in JooqxBatchCollector">R</a>&gt;</code></td>
+<td class="colFirst"><code>default java.util.List&lt;<a href="JooqxBatchCollector.html" title="type parameter in JooqxBatchCollector">R</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#reduce(io.vertx.sqlclient.SqlResult)">reduce</a></span>&#8203;(io.vertx.sqlclient.SqlResult&lt;java.util.List&lt;<a href="JooqxBatchCollector.html" title="type parameter in JooqxBatchCollector">R</a>&gt;&gt;&nbsp;batchResult)</code></th>
 <td class="colLast">
 <div class="block">Reduce batch result into list</div>
@@ -269,7 +269,7 @@ extends <a href="SQLBatchCollector.html" title="interface in io.github.zero88.jo
 <ul class="blockListLast">
 <li class="blockList">
 <h4>reduce</h4>
-<pre class="methodSignature">java.util.List&lt;<a href="JooqxBatchCollector.html" title="type parameter in JooqxBatchCollector">R</a>&gt;&nbsp;reduce&#8203;(io.vertx.sqlclient.SqlResult&lt;java.util.List&lt;<a href="JooqxBatchCollector.html" title="type parameter in JooqxBatchCollector">R</a>&gt;&gt;&nbsp;batchResult)</pre>
+<pre class="methodSignature">default&nbsp;java.util.List&lt;<a href="JooqxBatchCollector.html" title="type parameter in JooqxBatchCollector">R</a>&gt;&nbsp;reduce&#8203;(io.vertx.sqlclient.SqlResult&lt;java.util.List&lt;<a href="JooqxBatchCollector.html" title="type parameter in JooqxBatchCollector">R</a>&gt;&gt;&nbsp;batchResult)</pre>
 <div class="block">Reduce batch result into list</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>

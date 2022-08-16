@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":50,"i1":38,"i2":33};
+var data = {"i0":50,"i1":38,"i2":50,"i3":33};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],16:["t5","Default Methods"],32:["t6","Deprecated Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -175,6 +175,17 @@ extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.j
 </td>
 </tr>
 <tr id="i2" class="altColor">
+<td class="colFirst"><code>default <a href="BlockResult.html" title="interface in io.github.zero88.jooqx">BlockResult</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#collect(io.vertx.ext.sql.ResultSet,java.util.List,org.jooq.DSLContext,io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">collect</a></span>&#8203;(@NotNull io.vertx.ext.sql.ResultSet&nbsp;multipleResultSet,
+       @NotNull java.util.List&lt;<a href="adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&gt;&nbsp;adapters,
+       @NotNull org.jooq.DSLContext&nbsp;dslContext,
+       @NotNull <a href="datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;registry)</code></th>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block">Collect multiple result set to block result</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>static <a href="LegacySQLCollector.html" title="interface in io.github.zero88.jooqx">LegacySQLCollector</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#create()">create</a></span>()</code></th>
 <td class="colLast">
@@ -236,7 +247,10 @@ extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.j
 <dd><code>ROW</code> - the type of jOOQ record of the reduction operation</dd>
 <dd><code>RESULT</code> - the type of result after the reduction operation</dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>resultSet</code> - result set</dd>
+<dd><code>resultSet</code> - the result set</dd>
+<dd><code>adapter</code> - the SQL result adapter</dd>
+<dd><code>dslContext</code> - the DSL context</dd>
+<dd><code>registry</code> - the data type registry</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>an expectation result</dd>
 <dt><span class="simpleTagLabel">Since:</span></dt>
@@ -250,7 +264,7 @@ extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.j
 <a id="batchResultSize(java.util.List)">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>batchResultSize</h4>
 <pre class="methodSignature">default&nbsp;int&nbsp;batchResultSize&#8203;(@NotNull
@@ -265,6 +279,35 @@ extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.j
 <dd><code>batchResult</code> - batch result</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>result size</dd>
+</dl>
+</li>
+</ul>
+<a id="collect(io.vertx.ext.sql.ResultSet,java.util.List,org.jooq.DSLContext,io.github.zero88.jooqx.datatype.DataTypeMapperRegistry)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>collect</h4>
+<pre class="methodSignature">default&nbsp;<a href="BlockResult.html" title="interface in io.github.zero88.jooqx">BlockResult</a>&nbsp;collect&#8203;(@NotNull
+                            @NotNull io.vertx.ext.sql.ResultSet&nbsp;multipleResultSet,
+                            @NotNull
+                            @NotNull java.util.List&lt;<a href="adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&gt;&nbsp;adapters,
+                            @NotNull
+                            @NotNull org.jooq.DSLContext&nbsp;dslContext,
+                            @NotNull
+                            @NotNull <a href="datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;registry)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block">Collect multiple result set to block result</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>multipleResultSet</code> - multiple result set</dd>
+<dd><code>adapters</code> - the adapters</dd>
+<dd><code>dslContext</code> - the DSL context</dd>
+<dd><code>registry</code> - the data type registry</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>a Block result</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="BlockResult.html" title="interface in io.github.zero88.jooqx"><code>BlockResult</code></a></dd>
 </dl>
 </li>
 </ul>

@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":42,"i1":42,"i2":42,"i3":42,"i4":42,"i5":42,"i6":41,"i7":42,"i8":42,"i9":42,"i10":42,"i11":42,"i12":42,"i13":42,"i14":10,"i15":42,"i16":42,"i17":42,"i18":42,"i19":42,"i20":42,"i21":42,"i22":10,"i23":10,"i24":9,"i25":42,"i26":42,"i27":42,"i28":42,"i29":42,"i30":42,"i31":42,"i32":42,"i33":42,"i34":42,"i35":42,"i36":42,"i37":42,"i38":42,"i39":42,"i40":42,"i41":42,"i42":42,"i43":42,"i44":42,"i45":42,"i46":42,"i47":42,"i48":42,"i49":42,"i50":42,"i51":42,"i52":10,"i53":42,"i54":42,"i55":42};
+var data = {"i0":42,"i1":42,"i2":42,"i3":42,"i4":42,"i5":42,"i6":42,"i7":42,"i8":42,"i9":42,"i10":42,"i11":42,"i12":41,"i13":42,"i14":42,"i15":42,"i16":42,"i17":42,"i18":42,"i19":42,"i20":10,"i21":42,"i22":42,"i23":42,"i24":42,"i25":42,"i26":42,"i27":42,"i28":10,"i29":10,"i30":9,"i31":42,"i32":42,"i33":42,"i34":42,"i35":42,"i36":42,"i37":42,"i38":42,"i39":42,"i40":42,"i41":42,"i42":42,"i43":42,"i44":42,"i45":42,"i46":42,"i47":42,"i48":42,"i49":42,"i50":42,"i51":42,"i52":42,"i53":42,"i54":42,"i55":42,"i56":42,"i57":42,"i58":10,"i59":42,"i60":42,"i61":42};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"],32:["t6","Deprecated Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -253,74 +253,116 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i6" class="altColor">
-<td class="colFirst"><code>static <a href="LegacyJooqxBuilder.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqxBuilder</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#builder()">builder</a></span>()</code></th>
+<td class="colFirst"><code>io.smallrye.mutiny.Uni&lt;<a href="../BlockResult.html" title="interface in io.github.zero88.jooqx">BlockResult</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#block(io.github.zero88.jooqx.BlockQuery)">block</a></span>&#8203;(<a href="../BlockQuery.html" title="interface in io.github.zero88.jooqx">BlockQuery</a>&nbsp;blockQuery)</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </td>
 </tr>
 <tr id="i7" class="rowColor">
-<td class="colFirst"><code>io.smallrye.mutiny.Uni&lt;java.lang.Integer&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#ddl(java.util.function.Function)">ddl</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.DDLQuery&gt;&nbsp;ddlFunction)</code></th>
+<td class="colFirst"><code>io.smallrye.mutiny.Uni&lt;<a href="../BlockResult.html" title="interface in io.github.zero88.jooqx">BlockResult</a>&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#block(java.util.function.Function)">block</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;<a href="../BlockQuery.html" title="interface in io.github.zero88.jooqx">BlockQuery</a>&gt;&nbsp;blockQueryFn)</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </td>
 </tr>
 <tr id="i8" class="altColor">
-<td class="colFirst"><code>io.smallrye.mutiny.Uni&lt;java.lang.Integer&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#ddl(org.jooq.DDLQuery)">ddl</a></span>&#8203;(org.jooq.DDLQuery&nbsp;statement)</code></th>
+<td class="colFirst"><code><a href="../BlockResult.html" title="interface in io.github.zero88.jooqx">BlockResult</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#blockAndAwait(io.github.zero88.jooqx.BlockQuery)">blockAndAwait</a></span>&#8203;(<a href="../BlockQuery.html" title="interface in io.github.zero88.jooqx">BlockQuery</a>&nbsp;blockQuery)</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </td>
 </tr>
 <tr id="i9" class="rowColor">
-<td class="colFirst"><code>java.lang.Integer</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#ddlAndAwait(java.util.function.Function)">ddlAndAwait</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.DDLQuery&gt;&nbsp;ddlFunction)</code></th>
+<td class="colFirst"><code><a href="../BlockResult.html" title="interface in io.github.zero88.jooqx">BlockResult</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#blockAndAwait(java.util.function.Function)">blockAndAwait</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;<a href="../BlockQuery.html" title="interface in io.github.zero88.jooqx">BlockQuery</a>&gt;&nbsp;blockQueryFn)</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </td>
 </tr>
 <tr id="i10" class="altColor">
-<td class="colFirst"><code>java.lang.Integer</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#ddlAndAwait(org.jooq.DDLQuery)">ddlAndAwait</a></span>&#8203;(org.jooq.DDLQuery&nbsp;statement)</code></th>
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#blockAndForget(io.github.zero88.jooqx.BlockQuery)">blockAndForget</a></span>&#8203;(<a href="../BlockQuery.html" title="interface in io.github.zero88.jooqx">BlockQuery</a>&nbsp;blockQuery)</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </td>
 </tr>
 <tr id="i11" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#ddlAndForget(java.util.function.Function)">ddlAndForget</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.DDLQuery&gt;&nbsp;ddlFunction)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#blockAndForget(java.util.function.Function)">blockAndForget</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;<a href="../BlockQuery.html" title="interface in io.github.zero88.jooqx">BlockQuery</a>&gt;&nbsp;blockQueryFn)</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </td>
 </tr>
 <tr id="i12" class="altColor">
+<td class="colFirst"><code>static <a href="LegacyJooqxBuilder.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqxBuilder</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#builder()">builder</a></span>()</code></th>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
+</td>
+</tr>
+<tr id="i13" class="rowColor">
+<td class="colFirst"><code>io.smallrye.mutiny.Uni&lt;java.lang.Integer&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#ddl(java.util.function.Function)">ddl</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.DDLQuery&gt;&nbsp;ddlFunction)</code></th>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
+</td>
+</tr>
+<tr id="i14" class="altColor">
+<td class="colFirst"><code>io.smallrye.mutiny.Uni&lt;java.lang.Integer&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#ddl(org.jooq.DDLQuery)">ddl</a></span>&#8203;(org.jooq.DDLQuery&nbsp;statement)</code></th>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
+</td>
+</tr>
+<tr id="i15" class="rowColor">
+<td class="colFirst"><code>java.lang.Integer</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#ddlAndAwait(java.util.function.Function)">ddlAndAwait</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.DDLQuery&gt;&nbsp;ddlFunction)</code></th>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
+</td>
+</tr>
+<tr id="i16" class="altColor">
+<td class="colFirst"><code>java.lang.Integer</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#ddlAndAwait(org.jooq.DDLQuery)">ddlAndAwait</a></span>&#8203;(org.jooq.DDLQuery&nbsp;statement)</code></th>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
+</td>
+</tr>
+<tr id="i17" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#ddlAndForget(java.util.function.Function)">ddlAndForget</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.DDLQuery&gt;&nbsp;ddlFunction)</code></th>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
+</td>
+</tr>
+<tr id="i18" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#ddlAndForget(org.jooq.DDLQuery)">ddlAndForget</a></span>&#8203;(org.jooq.DDLQuery&nbsp;statement)</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i19" class="rowColor">
 <td class="colFirst"><code>org.jooq.DSLContext</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#dsl()">dsl</a></span>()</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
 </td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i20" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(java.lang.Object&nbsp;o)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i21" class="rowColor">
 <td class="colFirst"><code><a href="../SQLErrorConverter.html" title="interface in io.github.zero88.jooqx">SQLErrorConverter</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#errorConverter()">errorConverter</a></span>()</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
 </td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i22" class="altColor">
 <td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>io.smallrye.mutiny.Uni&lt;R&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">execute</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
        <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</code></th>
@@ -328,7 +370,7 @@ extends java.lang.Object</pre>
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i23" class="rowColor">
 <td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>io.smallrye.mutiny.Uni&lt;R&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)">execute</a></span>&#8203;(org.jooq.Query&nbsp;query,
        <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</code></th>
@@ -336,7 +378,7 @@ extends java.lang.Object</pre>
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </td>
 </tr>
-<tr id="i18" class="altColor">
+<tr id="i24" class="altColor">
 <td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>R</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#executeAndAwait(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">executeAndAwait</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
                <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</code></th>
@@ -344,7 +386,7 @@ extends java.lang.Object</pre>
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </td>
 </tr>
-<tr id="i19" class="rowColor">
+<tr id="i25" class="rowColor">
 <td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>R</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#executeAndAwait(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)">executeAndAwait</a></span>&#8203;(org.jooq.Query&nbsp;query,
                <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</code></th>
@@ -352,7 +394,7 @@ extends java.lang.Object</pre>
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </td>
 </tr>
-<tr id="i20" class="altColor">
+<tr id="i26" class="altColor">
 <td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#executeAndForget(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">executeAndForget</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
                 <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</code></th>
@@ -360,7 +402,7 @@ extends java.lang.Object</pre>
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </td>
 </tr>
-<tr id="i21" class="rowColor">
+<tr id="i27" class="rowColor">
 <td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#executeAndForget(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)">executeAndForget</a></span>&#8203;(org.jooq.Query&nbsp;query,
                 <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</code></th>
@@ -368,99 +410,99 @@ extends java.lang.Object</pre>
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </td>
 </tr>
-<tr id="i22" class="altColor">
+<tr id="i28" class="altColor">
 <td class="colFirst"><code><a href="../LegacyJooqx.html" title="interface in io.github.zero88.jooqx">LegacyJooqx</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDelegate()">getDelegate</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i23" class="rowColor">
+<tr id="i29" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hashCode()">hashCode</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i24" class="altColor">
+<tr id="i30" class="altColor">
 <td class="colFirst"><code>static <a href="LegacyJooqx.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqx</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#newInstance(io.github.zero88.jooqx.LegacyJooqx)">newInstance</a></span>&#8203;(<a href="../LegacyJooqx.html" title="interface in io.github.zero88.jooqx">LegacyJooqx</a>&nbsp;arg)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i25" class="rowColor">
+<tr id="i31" class="rowColor">
 <td class="colFirst"><code><a href="LegacySQLPreparedQuery.html" title="class in io.github.zero88.jooqx.mutiny">LegacySQLPreparedQuery</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#preparedQuery()">preparedQuery</a></span>()</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </td>
 </tr>
-<tr id="i26" class="altColor">
+<tr id="i32" class="altColor">
 <td class="colFirst"><code><a href="LegacySQLCollector.html" title="class in io.github.zero88.jooqx.mutiny">LegacySQLCollector</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resultCollector()">resultCollector</a></span>()</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </td>
 </tr>
-<tr id="i27" class="rowColor">
+<tr id="i33" class="rowColor">
 <td class="colFirst"><code>&lt;T&gt;&nbsp;io.smallrye.mutiny.Uni&lt;T&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#routine(java.util.function.Function)">routine</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Routine&lt;T&gt;&gt;&nbsp;routineFunction)</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
 </td>
 </tr>
-<tr id="i28" class="altColor">
+<tr id="i34" class="altColor">
 <td class="colFirst"><code>&lt;T&gt;&nbsp;io.smallrye.mutiny.Uni&lt;T&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#routine(org.jooq.Routine)">routine</a></span>&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine)</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
 </td>
 </tr>
-<tr id="i29" class="rowColor">
+<tr id="i35" class="rowColor">
 <td class="colFirst"><code>&lt;T&gt;&nbsp;T</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#routineAndAwait(java.util.function.Function)">routineAndAwait</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Routine&lt;T&gt;&gt;&nbsp;routineFunction)</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
 </td>
 </tr>
-<tr id="i30" class="altColor">
+<tr id="i36" class="altColor">
 <td class="colFirst"><code>&lt;T&gt;&nbsp;T</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#routineAndAwait(org.jooq.Routine)">routineAndAwait</a></span>&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine)</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
 </td>
 </tr>
-<tr id="i31" class="rowColor">
+<tr id="i37" class="rowColor">
 <td class="colFirst"><code>&lt;T&gt;&nbsp;void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#routineAndForget(java.util.function.Function)">routineAndForget</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Routine&lt;T&gt;&gt;&nbsp;routineFunction)</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
 </td>
 </tr>
-<tr id="i32" class="altColor">
+<tr id="i38" class="altColor">
 <td class="colFirst"><code>&lt;T&gt;&nbsp;void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#routineAndForget(org.jooq.Routine)">routineAndForget</a></span>&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine)</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
 </td>
 </tr>
-<tr id="i33" class="rowColor">
+<tr id="i39" class="rowColor">
 <td class="colFirst"><code>&lt;T&gt;&nbsp;io.smallrye.mutiny.Uni&lt;<a href="../routine/RoutineResult.html" title="interface in io.github.zero88.jooqx.routine">RoutineResult</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#routineResult(org.jooq.Routine)">routineResult</a></span>&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine)</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
 </td>
 </tr>
-<tr id="i34" class="altColor">
+<tr id="i40" class="altColor">
 <td class="colFirst"><code>&lt;T&gt;&nbsp;<a href="../routine/RoutineResult.html" title="interface in io.github.zero88.jooqx.routine">RoutineResult</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#routineResultAndAwait(org.jooq.Routine)">routineResultAndAwait</a></span>&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine)</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
 </td>
 </tr>
-<tr id="i35" class="rowColor">
+<tr id="i41" class="rowColor">
 <td class="colFirst"><code>&lt;T&gt;&nbsp;void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#routineResultAndForget(org.jooq.Routine)">routineResultAndForget</a></span>&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine)</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
 </td>
 </tr>
-<tr id="i36" class="altColor">
+<tr id="i42" class="altColor">
 <td class="colFirst"><code>&lt;T,&#8203;X,&#8203;R&gt;<br>io.smallrye.mutiny.Uni&lt;R&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#routineResultSet(org.jooq.Routine,io.github.zero88.jooqx.adapter.SQLResultAdapter)">routineResultSet</a></span>&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine,
                 <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;X,&#8203;R&gt;&nbsp;resultAdapter)</code></th>
@@ -468,7 +510,7 @@ extends java.lang.Object</pre>
 <div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
 </td>
 </tr>
-<tr id="i37" class="rowColor">
+<tr id="i43" class="rowColor">
 <td class="colFirst"><code>&lt;T,&#8203;X,&#8203;R&gt;<br>R</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#routineResultSetAndAwait(org.jooq.Routine,io.github.zero88.jooqx.adapter.SQLResultAdapter)">routineResultSetAndAwait</a></span>&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine,
                         <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;X,&#8203;R&gt;&nbsp;resultAdapter)</code></th>
@@ -476,7 +518,7 @@ extends java.lang.Object</pre>
 <div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
 </td>
 </tr>
-<tr id="i38" class="altColor">
+<tr id="i44" class="altColor">
 <td class="colFirst"><code>&lt;T,&#8203;X,&#8203;R&gt;<br>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#routineResultSetAndForget(org.jooq.Routine,io.github.zero88.jooqx.adapter.SQLResultAdapter)">routineResultSetAndForget</a></span>&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine,
                          <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;X,&#8203;R&gt;&nbsp;resultAdapter)</code></th>
@@ -484,56 +526,56 @@ extends java.lang.Object</pre>
 <div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
 </td>
 </tr>
-<tr id="i39" class="rowColor">
+<tr id="i45" class="rowColor">
 <td class="colFirst"><code>io.smallrye.mutiny.Uni&lt;java.lang.Integer&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sql(java.lang.String)">sql</a></span>&#8203;(java.lang.String&nbsp;statement)</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </td>
 </tr>
-<tr id="i40" class="altColor">
+<tr id="i46" class="altColor">
 <td class="colFirst"><code>io.smallrye.mutiny.Uni&lt;java.lang.Integer&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sql(java.util.function.Function)">sql</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;java.lang.String&gt;&nbsp;sqlFunction)</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </td>
 </tr>
-<tr id="i41" class="rowColor">
+<tr id="i47" class="rowColor">
 <td class="colFirst"><code>java.lang.Integer</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sqlAndAwait(java.lang.String)">sqlAndAwait</a></span>&#8203;(java.lang.String&nbsp;statement)</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </td>
 </tr>
-<tr id="i42" class="altColor">
+<tr id="i48" class="altColor">
 <td class="colFirst"><code>java.lang.Integer</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sqlAndAwait(java.util.function.Function)">sqlAndAwait</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;java.lang.String&gt;&nbsp;sqlFunction)</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </td>
 </tr>
-<tr id="i43" class="rowColor">
+<tr id="i49" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sqlAndForget(java.lang.String)">sqlAndForget</a></span>&#8203;(java.lang.String&nbsp;statement)</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </td>
 </tr>
-<tr id="i44" class="altColor">
+<tr id="i50" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sqlAndForget(java.util.function.Function)">sqlAndForget</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;java.lang.String&gt;&nbsp;sqlFunction)</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </td>
 </tr>
-<tr id="i45" class="rowColor">
+<tr id="i51" class="rowColor">
 <td class="colFirst"><code>io.vertx.mutiny.ext.sql.SQLClient</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sqlClient()">sqlClient</a></span>()</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </td>
 </tr>
-<tr id="i46" class="altColor">
+<tr id="i52" class="altColor">
 <td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>io.smallrye.mutiny.Uni&lt;R&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sqlQuery(java.lang.String,io.github.zero88.jooqx.adapter.SQLResultAdapter)">sqlQuery</a></span>&#8203;(java.lang.String&nbsp;statement,
         <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</code></th>
@@ -541,7 +583,7 @@ extends java.lang.Object</pre>
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </td>
 </tr>
-<tr id="i47" class="rowColor">
+<tr id="i53" class="rowColor">
 <td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>io.smallrye.mutiny.Uni&lt;R&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sqlQuery(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">sqlQuery</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;java.lang.String&gt;&nbsp;sqlFunction,
         <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</code></th>
@@ -549,7 +591,7 @@ extends java.lang.Object</pre>
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </td>
 </tr>
-<tr id="i48" class="altColor">
+<tr id="i54" class="altColor">
 <td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>R</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sqlQueryAndAwait(java.lang.String,io.github.zero88.jooqx.adapter.SQLResultAdapter)">sqlQueryAndAwait</a></span>&#8203;(java.lang.String&nbsp;statement,
                 <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</code></th>
@@ -557,7 +599,7 @@ extends java.lang.Object</pre>
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </td>
 </tr>
-<tr id="i49" class="rowColor">
+<tr id="i55" class="rowColor">
 <td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>R</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sqlQueryAndAwait(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">sqlQueryAndAwait</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;java.lang.String&gt;&nbsp;sqlFunction,
                 <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</code></th>
@@ -565,7 +607,7 @@ extends java.lang.Object</pre>
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </td>
 </tr>
-<tr id="i50" class="altColor">
+<tr id="i56" class="altColor">
 <td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sqlQueryAndForget(java.lang.String,io.github.zero88.jooqx.adapter.SQLResultAdapter)">sqlQueryAndForget</a></span>&#8203;(java.lang.String&nbsp;statement,
                  <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</code></th>
@@ -573,7 +615,7 @@ extends java.lang.Object</pre>
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </td>
 </tr>
-<tr id="i51" class="rowColor">
+<tr id="i57" class="rowColor">
 <td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sqlQueryAndForget(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">sqlQueryAndForget</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;java.lang.String&gt;&nbsp;sqlFunction,
                  <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</code></th>
@@ -581,26 +623,26 @@ extends java.lang.Object</pre>
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </td>
 </tr>
-<tr id="i52" class="altColor">
+<tr id="i58" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i53" class="rowColor">
+<tr id="i59" class="rowColor">
 <td class="colFirst"><code><a href="LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqxTx</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#transaction()">transaction</a></span>()</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </td>
 </tr>
-<tr id="i54" class="altColor">
+<tr id="i60" class="altColor">
 <td class="colFirst"><code><a href="../datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype">DataTypeMapperRegistry</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#typeMapperRegistry()">typeMapperRegistry</a></span>()</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
 </td>
 </tr>
-<tr id="i55" class="rowColor">
+<tr id="i61" class="rowColor">
 <td class="colFirst"><code>io.vertx.mutiny.core.Vertx</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#vertx()">vertx</a></span>()</code></th>
 <td class="colLast">
@@ -1600,6 +1642,130 @@ public&nbsp;&lt;T,&#8203;R&gt;&nbsp;void&nbsp;executeAndForget&#8203;(org.jooq.Q
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>query</code> - the jOOQ query</dd>
 <dd><code>resultAdapter</code> - the result adapter</dd>
+</dl>
+</li>
+</ul>
+<a id="block(java.util.function.Function)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>block</h4>
+<pre class="methodSignature">@CheckReturnValue
+@Deprecated
+public&nbsp;io.smallrye.mutiny.Uni&lt;<a href="../BlockResult.html" title="interface in io.github.zero88.jooqx">BlockResult</a>&gt;&nbsp;block&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;<a href="../BlockQuery.html" title="interface in io.github.zero88.jooqx">BlockQuery</a>&gt;&nbsp;blockQueryFn)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block">Block execute
+ <p>
+ Unlike the <em>bare</em> Vert.x variant, this method returns a <code>Uni</code>.
+ Don't forget to <em>subscribe</em> on it to trigger the operation.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>blockQueryFn</code> - the block of SQL queries function</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the <code>uni</code> firing the result of the operation when completed, or a failure if the operation failed.</dd>
+</dl>
+</li>
+</ul>
+<a id="blockAndAwait(java.util.function.Function)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>blockAndAwait</h4>
+<pre class="methodSignature">@Deprecated
+public&nbsp;<a href="../BlockResult.html" title="interface in io.github.zero88.jooqx">BlockResult</a>&nbsp;blockAndAwait&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;<a href="../BlockQuery.html" title="interface in io.github.zero88.jooqx">BlockQuery</a>&gt;&nbsp;blockQueryFn)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block">Blocking variant of <code>io.github.zero88.jooqx.mutiny.SQLBlockExecutor#block(Function<DSLContext,BlockQuery>)</code>.
+ <p>
+ This method waits for the completion of the underlying asynchronous operation.
+ If the operation completes successfully, the result is returned, otherwise the failure is thrown (potentially wrapped in a RuntimeException).</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>blockQueryFn</code> - the block of SQL queries function</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the BlockResult instance produced by the operation.</dd>
+</dl>
+</li>
+</ul>
+<a id="blockAndForget(java.util.function.Function)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>blockAndForget</h4>
+<pre class="methodSignature">@Deprecated
+public&nbsp;void&nbsp;blockAndForget&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;<a href="../BlockQuery.html" title="interface in io.github.zero88.jooqx">BlockQuery</a>&gt;&nbsp;blockQueryFn)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block">Variant of <code>io.github.zero88.jooqx.mutiny.SQLBlockExecutor#block(Function<DSLContext,BlockQuery>)</code> that ignores the result of the operation.
+ <p>
+ This method subscribes on the result of <code>io.github.zero88.jooqx.mutiny.SQLBlockExecutor#block(Function<DSLContext,BlockQuery>)</code>, but discards the outcome (item or failure).
+ This method is useful to trigger the asynchronous operation from <code>io.github.zero88.jooqx.mutiny.SQLBlockExecutor#block(Function<DSLContext,BlockQuery>)</code> but you don't need to compose it with other operations.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>blockQueryFn</code> - the block of SQL queries function</dd>
+</dl>
+</li>
+</ul>
+<a id="block(io.github.zero88.jooqx.BlockQuery)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>block</h4>
+<pre class="methodSignature">@CheckReturnValue
+@Deprecated
+public&nbsp;io.smallrye.mutiny.Uni&lt;<a href="../BlockResult.html" title="interface in io.github.zero88.jooqx">BlockResult</a>&gt;&nbsp;block&#8203;(<a href="../BlockQuery.html" title="interface in io.github.zero88.jooqx">BlockQuery</a>&nbsp;blockQuery)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block">Block execute
+ <p>
+ Unlike the <em>bare</em> Vert.x variant, this method returns a <code>Uni</code>.
+ Don't forget to <em>subscribe</em> on it to trigger the operation.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>blockQuery</code> - the block of SQL queries</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the <code>uni</code> firing the result of the operation when completed, or a failure if the operation failed.</dd>
+</dl>
+</li>
+</ul>
+<a id="blockAndAwait(io.github.zero88.jooqx.BlockQuery)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>blockAndAwait</h4>
+<pre class="methodSignature">@Deprecated
+public&nbsp;<a href="../BlockResult.html" title="interface in io.github.zero88.jooqx">BlockResult</a>&nbsp;blockAndAwait&#8203;(<a href="../BlockQuery.html" title="interface in io.github.zero88.jooqx">BlockQuery</a>&nbsp;blockQuery)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block">Blocking variant of <a href="SQLBlockExecutor.html#block(io.github.zero88.jooqx.BlockQuery)"><code>SQLBlockExecutor.block(BlockQuery)</code></a>.
+ <p>
+ This method waits for the completion of the underlying asynchronous operation.
+ If the operation completes successfully, the result is returned, otherwise the failure is thrown (potentially wrapped in a RuntimeException).</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>blockQuery</code> - the block of SQL queries</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the BlockResult instance produced by the operation.</dd>
+</dl>
+</li>
+</ul>
+<a id="blockAndForget(io.github.zero88.jooqx.BlockQuery)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>blockAndForget</h4>
+<pre class="methodSignature">@Deprecated
+public&nbsp;void&nbsp;blockAndForget&#8203;(<a href="../BlockQuery.html" title="interface in io.github.zero88.jooqx">BlockQuery</a>&nbsp;blockQuery)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block">Variant of <a href="SQLBlockExecutor.html#block(io.github.zero88.jooqx.BlockQuery)"><code>SQLBlockExecutor.block(BlockQuery)</code></a> that ignores the result of the operation.
+ <p>
+ This method subscribes on the result of <a href="SQLBlockExecutor.html#block(io.github.zero88.jooqx.BlockQuery)"><code>SQLBlockExecutor.block(BlockQuery)</code></a>, but discards the outcome (item or failure).
+ This method is useful to trigger the asynchronous operation from <a href="SQLBlockExecutor.html#block(io.github.zero88.jooqx.BlockQuery)"><code>SQLBlockExecutor.block(BlockQuery)</code></a> but you don't need to compose it with other operations.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>blockQuery</code> - the block of SQL queries</dd>
 </dl>
 </li>
 </ul>
