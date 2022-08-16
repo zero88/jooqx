@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 
 import io.github.zero88.integtest.jooqx.pg.PgUseJooqType;
 import io.github.zero88.jooqx.BindBatchValues;
+import io.github.zero88.jooqx.BlockQuery;
 import io.github.zero88.jooqx.DSLAdapter;
 import io.github.zero88.jooqx.JsonRecord;
 import io.github.zero88.jooqx.spi.jdbc.JDBCErrorConverterProvider;
@@ -127,6 +128,27 @@ class PgLeGRelationTest extends PgSQLLegacyTest implements PgUseJooqType, JDBCEr
                      flag.flag();
                  });
              });
+    }
+
+    @Test
+    void test_select_block(VertxTestContext ctx) {
+        final Checkpoint flag = ctx.checkpoint();
+        jooqx.block(dsl -> BlockQuery.create()
+                                     .add(dsl.selectFrom(schema().AUTHORS).limit(3), DSLAdapter.fetchMany(schema().AUTHORS))
+                                     .add(dsl.selectFrom(schema().BOOKS), DSLAdapter.fetchMany(schema().BOOKS)))
+             .onSuccess(blockResult -> ctx.verify(() -> {
+                 Assertions.assertEquals(2, blockResult.size());
+
+                 final List<AuthorsRecord> records = blockResult.get(0);
+                 Assertions.assertEquals(3, records.size());
+                 System.out.println(records);
+
+                 final List<BooksRecord> records2 = blockResult.get(1);
+                 Assertions.assertEquals(7, records2.size());
+                 System.out.println(records2);
+                 flag.flag();
+             }))
+             .onFailure(ctx::failNow);
     }
 
 }

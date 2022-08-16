@@ -36,6 +36,10 @@ public interface JooqxPreparedQuery extends SQLPreparedQuery<Tuple> {
 
     @Override
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    @NotNull String sql(@NotNull Configuration configuration, @NotNull BlockQuery blockQuery);
+
+    @Override
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
     @NotNull Tuple bindValues(@NotNull Query query, @NotNull DataTypeMapperRegistry mapperRegistry);
 
     @Override

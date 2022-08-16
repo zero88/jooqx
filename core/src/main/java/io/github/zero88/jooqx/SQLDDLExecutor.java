@@ -13,7 +13,7 @@ import io.vertx.core.Future;
 import io.vertx.core.Handler;
 
 /**
- * Represents for a {@code DDL executor} that executes batch SQL command
+ * Represents for a {@code DDL executor} that executes SQL DDL statements
  *
  * @since 2.0.0
  */

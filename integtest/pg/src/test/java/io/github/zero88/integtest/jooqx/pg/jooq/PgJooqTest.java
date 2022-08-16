@@ -5,17 +5,16 @@ import java.util.Optional;
 
 import org.jooq.DSLContext;
 import org.jooq.Parameter;
+import org.jooq.Results;
+import org.jooq.impl.DSL;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import io.github.zero88.integtest.jooqx.pg.DupResultConverter;
 import io.github.zero88.integtest.jooqx.pg.PgUseJooqType;
-import io.github.zero88.jooqx.DSLAdapter;
 import io.github.zero88.jooqx.JooqDSLProvider;
 import io.github.zero88.jooqx.JooqSQL;
-import io.github.zero88.jooqx.datatype.DataTypeMapperRegistry;
-import io.github.zero88.jooqx.datatype.UserTypeAsJooqType;
 import io.github.zero88.jooqx.spi.jdbc.JDBCErrorConverterProvider;
 import io.github.zero88.jooqx.spi.jdbc.JDBCPoolHikariProvider;
 import io.github.zero88.jooqx.spi.pg.PgSQLJooqxTest;
@@ -24,8 +23,6 @@ import io.github.zero88.sample.model.pgsql.routines.Add;
 import io.github.zero88.sample.model.pgsql.routines.Dup;
 import io.github.zero88.sample.model.pgsql.routines.Dup2;
 import io.github.zero88.sample.model.pgsql.routines.RemoveAuthor;
-import io.github.zero88.sample.model.pgsql.tables.records.FindAuthorsRecord;
-import io.github.zero88.sample.model.pgsql.udt.records.DupResultRecord;
 import io.github.zero88.utils.Strings;
 import io.vertx.core.Vertx;
 import io.vertx.jdbcclient.JDBCPool;
@@ -37,26 +34,31 @@ import io.vertx.sqlclient.Tuple;
 
 import com.zaxxer.hikari.HikariDataSource;
 
-class PgReAJDBCFunctionTest extends PgSQLJooqxTest<JDBCPool>
+public class PgJooqTest extends PgSQLJooqxTest<JDBCPool>
     implements PgUseJooqType, JDBCPoolHikariProvider, JDBCErrorConverterProvider {
+
+    private HikariDataSource dataSource;
+    private DSLContext _dsl;
 
     @Override
     @BeforeEach
     public void tearUp(Vertx vertx, VertxTestContext ctx) {
         super.tearUp(vertx, ctx);
         this.prepareDatabase(ctx, this, connOpt, "pg_data/book_author.sql");
+        dataSource = this.createDataSource(connOpt);
+        _dsl       = JooqDSLProvider.create(dialect(), dataSource).dsl();
     }
 
     @Override
-    public DataTypeMapperRegistry typeMapperRegistry() {
-        return PgUseJooqType.super.typeMapperRegistry().add(UserTypeAsJooqType.create(new DupResultConverter()));
+    @AfterEach
+    public void tearDown(Vertx vertx, VertxTestContext ctx) {
+        super.tearDown(vertx, ctx);
+        dataSource.close();
     }
 
     @Test
     void test_jooq_fn_returns_value(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint(1);
-        final HikariDataSource dataSource = this.createDataSource(connOpt);
-        final DSLContext _dsl = JooqDSLProvider.create(dialect(), dataSource).dsl();
 
         final Add add = new Add();
         add.set__1(1);
@@ -69,16 +71,12 @@ class PgReAJDBCFunctionTest extends PgSQLJooqxTest<JDBCPool>
         System.out.println("RETURN VALUE:           " + add.getReturnValue() + "::" +
                            Optional.ofNullable(add.getReturnValue()).map(Object::getClass).orElse(null));
         System.out.println("RESULTS:                " + add.getResults() + "::" + add.getResults().getClass());
-        dataSource.close();
         cp.flag();
     }
 
     @Test
     void test_jooq_fn_returns_2_outParams(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint(2);
-        final HikariDataSource dataSource = this.createDataSource(connOpt);
-        final JooqDSLProvider dslProvider = JooqDSLProvider.create(dialect(), dataSource);
-        final DSLContext _dsl = dslProvider.dsl();
 
         final Dup dup = new Dup();
         dup.set__1(2);
@@ -93,7 +91,6 @@ class PgReAJDBCFunctionTest extends PgSQLJooqxTest<JDBCPool>
             Object v = dup.getValue(p);
             System.out.println("RETURN VALUE [" + i + "]:       " + v + "::" + v.getClass());
         }
-        dataSource.close();
         cp.flag();
 
         // Plain vertx
@@ -123,8 +120,6 @@ class PgReAJDBCFunctionTest extends PgSQLJooqxTest<JDBCPool>
     @Test
     void test_jooq_fn_returns_udt(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint(1);
-        final HikariDataSource dataSource = this.createDataSource(connOpt);
-        final DSLContext _dsl = JooqDSLProvider.create(dialect(), dataSource).dsl();
 
         final Dup2 dup2 = new Dup2();
         dup2.set__1(5);
@@ -136,16 +131,12 @@ class PgReAJDBCFunctionTest extends PgSQLJooqxTest<JDBCPool>
         System.out.println("RETURN VALUE:           " + dup2.getReturnValue() + "::" +
                            Optional.ofNullable(dup2.getReturnValue()).map(Object::getClass).orElse(null));
         System.out.println("RESULTS:                " + dup2.getResults() + "::" + dup2.getResults().getClass());
-        dataSource.close();
         cp.flag();
     }
 
     @Test
     void test_jooq_fn_returns_void(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint(1);
-        final HikariDataSource dataSource = this.createDataSource(connOpt);
-        final JooqDSLProvider dslProvider = JooqDSLProvider.create(dialect(), dataSource);
-        final DSLContext _dsl = dslProvider.dsl();
 
         final RemoveAuthor routine = new RemoveAuthor();
         routine.setAuthorName("J.D. Salinger");
@@ -156,84 +147,32 @@ class PgReAJDBCFunctionTest extends PgSQLJooqxTest<JDBCPool>
         System.out.println("RETURN VALUE:           " + routine.getReturnValue() + "::" +
                            Optional.ofNullable(routine.getReturnValue()).map(Object::getClass).orElse(null));
         System.out.println("RESULTS:                " + routine.getResults() + "::" + routine.getResults().getClass());
-        dataSource.close();
         cp.flag();
     }
 
     @Test
-    void test_fn_returns_value(VertxTestContext ctx) {
-        Checkpoint cp = ctx.checkpoint();
-        final Add add3 = new Add();
-        add3.set__1(5);
-        add3.set__2(10);
-        jooqx.routine(add3).onSuccess(output -> ctx.verify(() -> {
-            Assertions.assertEquals(15, output);
-            cp.flag();
-        })).onFailure(ctx::failNow);
+    void test_execute_block(VertxTestContext ctx) {
+        final Checkpoint cp = ctx.checkpoint(1);
+        final int execute = _dsl.begin(
+            _dsl.insertInto(schema().AUTHORS, schema().AUTHORS.ID, schema().AUTHORS.NAME, schema().AUTHORS.COUNTRY)
+                .values(Arrays.asList(DSL.defaultValue(Tables.AUTHORS.ID), "abc", "xyz")),
+            _dsl.insertInto(schema().AUTHORS, schema().AUTHORS.ID, schema().AUTHORS.NAME, schema().AUTHORS.COUNTRY)
+                .values(Arrays.asList(DSL.defaultValue(Tables.AUTHORS.ID), "abc1", "xyz1"))).execute();
+        Assertions.assertEquals(0, execute);
+        Assertions.assertEquals(10, _dsl.selectCount().from(schema().AUTHORS).fetchOne().get(0));
+        cp.flag();
     }
 
     @Test
-    void test_fn_returns_udt(VertxTestContext ctx) {
+    void test_select_block(VertxTestContext ctx) {
         final Checkpoint cp = ctx.checkpoint();
-        final Dup2 routine = new Dup2();
-        routine.set__1(7);
-        jooqx.routine(routine).onSuccess(rec -> ctx.verify(() -> {
-            System.out.println(rec);
-            Assertions.assertEquals(DupResultRecord.class, rec.getClass());
-            Assertions.assertEquals(rec.getF1(), 7);
-            Assertions.assertEquals(rec.getF2(), "7 is text");
-            cp.flag();
-        })).onFailure(ctx::failNow);
-    }
-
-    @Test
-    void test_fn_returns_void(VertxTestContext ctx) {
-        final Checkpoint cp = ctx.checkpoint();
-        final String author = "Jane Austen";
-        final RemoveAuthor routine = new RemoveAuthor();
-        routine.setAuthorName(author);
-        jooqx.routine(routine)
-             .flatMap(ignore -> jooqx.execute(dsl -> dsl.selectOne()
-                                                        .whereExists(dsl.selectFrom(Tables.AUTHORS)
-                                                                        .where(Tables.AUTHORS.NAME.eq(author))),
-                                              DSLAdapter.fetchExists()))
-             .onSuccess(isExisted -> ctx.verify(() -> {
-                 Assertions.assertFalse(isExisted);
-                 cp.flag();
-             }))
-             .onFailure(ctx::failNow);
-    }
-
-    @Test
-    void test_fn_returns_outParams(VertxTestContext ctx) {
-        final Checkpoint cp = ctx.checkpoint();
-        final Dup dup = new Dup();
-        dup.set__1(5);
-        jooqx.routineResult(dup)
-             .onSuccess(rr -> ctx.verify(() -> {
-                 System.out.println(rr);
-                 Assertions.assertEquals("[\"f1\", \"f2\"]", Arrays.toString(rr.getOutputFields()));
-                 Assertions.assertNotNull(rr.getRecord());
-                 Assertions.assertEquals(2, rr.getRecord().fields().length);
-                 Assertions.assertEquals(5, rr.getRecord().get(rr.getOutputFields()[0]));
-                 Assertions.assertEquals("5 is text", rr.getRecord().get(rr.getOutputFields()[1]));
-                 cp.flag();
-             }))
-             .onFailure(ctx::failNow);
-    }
-
-    @Test
-    void test_fn_returns_resultSet(VertxTestContext ctx) {
-        Checkpoint cp = ctx.checkpoint(1);
-        jooqx.execute(dsl -> dsl.selectFrom(Tables.FIND_AUTHORS.call("")), DSLAdapter.fetchMany(Tables.FIND_AUTHORS))
-             .onSuccess(rows -> {
-                 System.out.println(rows);
-                 Assertions.assertEquals(8, rows.size());
-                 FindAuthorsRecord record = rows.get(0);
-                 Assertions.assertEquals(1, record.getId());
-                 cp.flag();
-             })
-             .onFailure(ctx::failNow);
+        final Results results = _dsl.queries(_dsl.selectFrom(schema().AUTHORS), _dsl.selectFrom(schema().BOOKS))
+                                    .fetchMany();
+        results.forEach(records -> {
+            System.out.println(records.recordType());
+            System.out.println(records);
+        });
+        cp.flag();
     }
 
 }

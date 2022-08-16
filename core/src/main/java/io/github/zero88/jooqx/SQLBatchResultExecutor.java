@@ -26,8 +26,6 @@ public interface SQLBatchResultExecutor extends JooqDSLProvider {
     /**
      * Result batch execute
      *
-     * @param <T>             type of jOOQ table
-     * @param <R>             type of expectation result
      * @param queryFunction   query function
      * @param bindBatchValues bind batch values
      * @param handler         async result handler
@@ -46,8 +44,7 @@ public interface SQLBatchResultExecutor extends JooqDSLProvider {
 
     /**
      * Like {@link #batchResult(Function, BindBatchValues, SQLResultListAdapter, Handler)} but returns a {@code Future}
-     * of the
-     * asynchronous result
+     * of the asynchronous result
      *
      * @param queryFunction   query function
      * @param bindBatchValues bind batch values
@@ -64,10 +61,8 @@ public interface SQLBatchResultExecutor extends JooqDSLProvider {
     }
 
     /**
-     * Result batch execute
+     * Execute batch statements then receive results
      *
-     * @param <T>             type of jOOQ table
-     * @param <R>             type of expectation output
      * @param query           jOOQ query
      * @param bindBatchValues bind batch values
      * @param adapter         result adapter
@@ -85,11 +80,8 @@ public interface SQLBatchResultExecutor extends JooqDSLProvider {
 
     /**
      * Like {@link #batchResult(Query, BindBatchValues, SQLResultListAdapter, Handler)} but returns a {@code Future} of
-     * the
-     * asynchronous result
+     * the asynchronous result
      *
-     * @param <T>             type of jOOQ table
-     * @param <R>             type of expectation result
      * @param query           jOOQ query
      * @param bindBatchValues bind batch values
      * @param adapter         result adapter

@@ -19,16 +19,7 @@ import io.vertx.sqlclient.SqlResult;
 @VertxGen
 public interface JooqxBatchCollector<R> extends SQLBatchCollector<SqlResult<List<R>>> {
 
-    static <R> JooqxBatchCollector<R> create() {
-        return batchResult -> {
-            final List<R> br = new ArrayList<>();
-            SqlResult<List<R>> rs = batchResult;
-            do {
-                br.add(rs.value().stream().findFirst().orElse(null));
-            } while ((rs = rs.next()) != null);
-            return br;
-        };
-    }
+    static <R> JooqxBatchCollector<R> create() { return new JooqxBatchCollector<R>() { }; }
 
     @Override
     default int batchResultSize(@NotNull SqlResult<List<R>> batchResult) {
@@ -59,6 +50,13 @@ public interface JooqxBatchCollector<R> extends SQLBatchCollector<SqlResult<List
      * @see SqlResult
      */
     @GenIgnore
-    List<R> reduce(SqlResult<List<R>> batchResult);
+    default List<R> reduce(SqlResult<List<R>> batchResult) {
+        SqlResult<List<R>> rs = batchResult;
+        final List<R> br = new ArrayList<>();
+        do {
+            br.add(rs.value().stream().findFirst().orElse(null));
+        } while ((rs = rs.next()) != null);
+        return br;
+    }
 
 }

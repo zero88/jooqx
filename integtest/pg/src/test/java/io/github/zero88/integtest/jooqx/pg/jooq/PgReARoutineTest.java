@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import io.github.zero88.integtest.jooqx.pg.DupResultConverter;
 import io.github.zero88.integtest.jooqx.pg.PgUseJooqType;
-import io.github.zero88.jooqx.DSLAdapter;
 import io.github.zero88.jooqx.datatype.DataTypeMapperRegistry;
 import io.github.zero88.jooqx.datatype.UserTypeAsJooqType;
 import io.github.zero88.jooqx.spi.pg.PgPoolProvider;
@@ -26,7 +25,7 @@ import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 import io.vertx.pgclient.PgPool;
 
-class PgReAFunctionTest extends PgSQLJooqxTest<PgPool>
+class PgReARoutineTest extends PgSQLJooqxTest<PgPool>
     implements PgPoolProvider, PgUseJooqType, PgSQLErrorConverterProvider {
 
     @Override
@@ -107,19 +106,17 @@ class PgReAFunctionTest extends PgSQLJooqxTest<PgPool>
     @Test
     void test_fn_returns_resultSet(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
-        jooqx.execute(dsl -> dsl.selectFrom(Tables.FIND_AUTHORS.call("Sc")), DSLAdapter.fetchMany(Tables.FIND_AUTHORS))
-             .onSuccess(rows -> ctx.verify(() -> {
-                 System.out.println(rows);
-                 Assertions.assertEquals(2, rows.size());
-                 FindAuthorsRecord rec1 = rows.get(0);
-                 Assertions.assertEquals(2, rec1.getId());
-                 Assertions.assertEquals("F. Scott. Fitzgerald", rec1.getName());
-                 FindAuthorsRecord rec2 = rows.get(1);
-                 Assertions.assertEquals(4, rec2.getId());
-                 Assertions.assertEquals("Scott Hanselman", rec2.getName());
-                 cp.flag();
-             }))
-             .onFailure(ctx::failNow);
+        jooqx.fetchMany(dsl -> dsl.selectFrom(Tables.FIND_AUTHORS.call("Sc"))).onSuccess(rows -> ctx.verify(() -> {
+            System.out.println(rows);
+            Assertions.assertEquals(2, rows.size());
+            FindAuthorsRecord rec1 = rows.get(0);
+            Assertions.assertEquals(2, rec1.getId());
+            Assertions.assertEquals("F. Scott. Fitzgerald", rec1.getName());
+            FindAuthorsRecord rec2 = rows.get(1);
+            Assertions.assertEquals(4, rec2.getId());
+            Assertions.assertEquals("Scott Hanselman", rec2.getName());
+            cp.flag();
+        })).onFailure(ctx::failNow);
     }
 
 }

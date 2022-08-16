@@ -150,6 +150,15 @@ final class LegacySQLImpl {
         }
 
         @Override
+        public Future<BlockResult> block(@NotNull BlockQuery blockQuery) {
+            final Promise<ResultSet> promise = Promise.promise();
+            sqlClient().query(preparedQuery().sql(dsl().configuration(), blockQuery), promise);
+            return promise.future()
+                          .map(rs -> resultCollector().collect(rs, blockQuery.adapters(), dsl(), typeMapperRegistry()))
+                          .otherwise(errorConverter()::reThrowError);
+        }
+
+        @Override
         public Future<Integer> ddl(@NotNull DDLQuery statement) {
             final Promise<UpdateResult> promise = Promise.promise();
             sqlClient().update(preparedQuery().sql(dsl().configuration(), statement), promise);

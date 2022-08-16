@@ -1,3 +1,5 @@
+private fun Map<Int, List<Int>>.ver(minor: Int, patch: Int):String = "${minor}.${this[minor]?.get(patch)}"
+
 object UtilLibs {
 
     object Version {
@@ -61,8 +63,8 @@ object VertxLibs {
 
     object Version {
 
-        private val pool42 = (0..7).toList()
-        @JvmField val vertx = "4.2.${pool42[3]}"
+        private val pool = mapOf(2 to (0..7).toList(), 3 to (0..3).toList())
+        @JvmField val vertx = "4.${pool.ver(2, 3)}"
         const val docgen = "0.9.4"
     }
 
@@ -114,8 +116,7 @@ object JooqLibs {
     object Version {
 
         private val pool = mapOf(14 to (0..13).toList(), 15 to (0..10).toList(), 16 to (0..6).toList())
-        private fun Int.ver(patch: Int): String = "${this}.${pool[this]?.get(patch)}"
-        @JvmField val jooq = "3.${14.ver(13)}"
+        @JvmField val jooq = "3.${pool.ver(14 ,13)}"
     }
 
     @JvmField val jooq = "org.jooq:jooq:${Version.jooq}"

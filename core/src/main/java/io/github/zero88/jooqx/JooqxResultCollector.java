@@ -40,4 +40,12 @@ public interface JooqxResultCollector extends SQLResultCollector {
                                                                        @NotNull DSLContext dslContext,
                                                                        @NotNull DataTypeMapperRegistry registry);
 
+    default <R> JooqxBatchCollector<R> batchCollector() {
+        return JooqxBatchCollector.create();
+    }
+
+    default JooqxBlockCollector blockCollector() {
+        return JooqxBlockCollector.create();
+    }
+
 }
