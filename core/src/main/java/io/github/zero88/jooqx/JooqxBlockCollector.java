@@ -6,6 +6,7 @@ import java.util.stream.StreamSupport;
 
 import org.jetbrains.annotations.NotNull;
 
+import io.vertx.codegen.annotations.GenIgnore;
 import io.vertx.codegen.annotations.VertxGen;
 import io.vertx.sqlclient.Row;
 import io.vertx.sqlclient.RowSet;
@@ -29,6 +30,7 @@ public interface JooqxBlockCollector {
      * @see BlockResult
      * @see RowSet
      */
+    @GenIgnore
     default BlockResult blockResult(@NotNull RowSet<Row> resultSet, List<Collector<Row, List, Object>> collectors) {
         RowSet<Row> rs = resultSet;
         final int[] count = { 0 };

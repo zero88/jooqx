@@ -234,7 +234,7 @@ final class JooqxSQLImpl {
             return sqlClient().preparedQuery(preparedQuery().sql(dsl().configuration(), query))
                               .collecting(Collectors.toList())
                               .executeBatch(preparedQuery().bindValues(query, bindValues, typeMapperRegistry()))
-                              .map(br -> JooqxBatchCollector.<Row>create().batchResult(bindValues, br))
+                              .map(br -> resultCollector().<Row>batchCollector().batchResult(bindValues, br))
                               .otherwise(errorConverter()::reThrowError);
         }
 
@@ -245,22 +245,23 @@ final class JooqxSQLImpl {
             return sqlClient().preparedQuery(preparedQuery().sql(dsl().configuration(), query))
                               .collecting(resultCollector().collector(adapter, dsl(), typeMapperRegistry()))
                               .executeBatch(preparedQuery().bindValues(query, bindValues, typeMapperRegistry()))
-                              .map(br -> JooqxBatchCollector.<R>create().batchReturningResult(bindValues, br))
+                              .map(br -> resultCollector().<R>batchCollector().batchReturningResult(bindValues, br))
                               .otherwise(errorConverter()::reThrowError);
         }
 
         @Override
+        @SuppressWarnings({ "unchecked", "rawtypes" })
         public Future<BlockResult> block(@NotNull BlockQuery blockQuery) {
             return sqlClient().preparedQuery(preparedQuery().sql(dsl().configuration(), blockQuery))
                               .execute()
                               .map(rows -> {
-                                  List collectors = blockQuery.adapters()
-                                                              .stream()
-                                                              .map(
-                                                                  adapter -> resultCollector().collector(adapter, dsl(),
-                                                                                                         typeMapperRegistry()))
-                                                              .collect(Collectors.toList());
-                                  return JooqxBlockCollector.create().blockResult(rows, collectors);
+                                  final Function<SQLResultAdapter, Collector<Row, List, Object>> mapper
+                                      = adapter -> resultCollector().collector(adapter, dsl(), typeMapperRegistry());
+                                  final List<Collector<Row, List, Object>> l = blockQuery.adapters()
+                                                                                         .stream()
+                                                                                         .map(mapper)
+                                                                                         .collect(Collectors.toList());
+                                  return resultCollector().blockCollector().blockResult(rows, l);
                               })
                               .otherwise(errorConverter()::reThrowError);
         }

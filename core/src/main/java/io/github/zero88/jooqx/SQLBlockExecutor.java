@@ -11,6 +11,7 @@ import org.jooq.Support;
 import io.github.zero88.jooqx.annotations.SQLClientSupport;
 import io.github.zero88.jooqx.annotations.SQLClientType;
 import io.vertx.codegen.annotations.GenIgnore;
+import io.vertx.codegen.annotations.Unstable;
 import io.vertx.codegen.annotations.VertxGen;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
@@ -21,6 +22,7 @@ import io.vertx.core.Handler;
  *
  * @since 2.0.0
  */
+@Unstable
 @Experimental
 @VertxGen(concrete = false)
 
@@ -35,6 +37,7 @@ public interface SQLBlockExecutor extends JooqDSLProvider {
      * @see BlockResult
      * @since 2.0.0
      */
+    @Unstable
     @Experimental
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
     @SQLClientSupport(client = { SQLClientType.JDBC }, dialect = @Support(SQLDialect.POSTGRES))
@@ -51,6 +54,7 @@ public interface SQLBlockExecutor extends JooqDSLProvider {
      * @see BlockResult
      * @since 2.0.0
      */
+    @Unstable
     @Experimental
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
     @SQLClientSupport(client = { SQLClientType.JDBC }, dialect = @Support(SQLDialect.POSTGRES))
@@ -67,6 +71,7 @@ public interface SQLBlockExecutor extends JooqDSLProvider {
      * @see BlockResult
      * @since 2.0.0
      */
+    @Unstable
     @Experimental
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
     @SQLClientSupport(client = { SQLClientType.JDBC }, dialect = @Support(SQLDialect.POSTGRES))
@@ -83,6 +88,7 @@ public interface SQLBlockExecutor extends JooqDSLProvider {
      * @see BlockResult
      * @since 2.0.0
      */
+    @Unstable
     @Experimental
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
     @SQLClientSupport(client = { SQLClientType.JDBC }, dialect = @Support(SQLDialect.POSTGRES))

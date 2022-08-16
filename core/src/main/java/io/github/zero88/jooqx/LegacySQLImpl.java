@@ -98,19 +98,6 @@ final class LegacySQLImpl {
                           .orElse(null);
         }
 
-        @Override
-        public BlockResult collect(@NotNull ResultSet resultSet, @NotNull List<SQLResultAdapter> adapters,
-                                   @NotNull DSLContext dslContext, @NotNull DataTypeMapperRegistry registry) {
-            final BlockResult blockResult = BlockResult.create();
-            final int[] count = { 0 };
-            ResultSet rs = resultSet;
-            do {
-                blockResult.append(collect(rs, adapters.get(count[0]), dslContext, registry));
-                count[0]++;
-            } while ((rs = rs.getNext()) != null);
-            return blockResult;
-        }
-
         @NotNull
         private <REC extends Record, ROW> Collector<FieldWrapper, REC, ROW> collector(JsonArray row, DSLContext dsl,
                                                                                       DataTypeMapperRegistry registry,

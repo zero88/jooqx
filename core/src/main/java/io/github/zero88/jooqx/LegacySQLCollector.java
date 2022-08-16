@@ -29,9 +29,12 @@ public interface LegacySQLCollector extends SQLResultCollector, SQLBatchCollecto
     /**
      * Collect result set to an expectation result that defines in SQL result adapter
      *
-     * @param <ROW>     the type of jOOQ record of the reduction operation
-     * @param <RESULT>  the type of result after the reduction operation
-     * @param resultSet result set
+     * @param <ROW>      the type of jOOQ record of the reduction operation
+     * @param <RESULT>   the type of result after the reduction operation
+     * @param resultSet  the result set
+     * @param adapter    the SQL result adapter
+     * @param dslContext the DSL context
+     * @param registry   the data type registry
      * @return an expectation result
      * @see SQLResultAdapter
      * @see DataTypeMapperRegistry
@@ -46,8 +49,27 @@ public interface LegacySQLCollector extends SQLResultCollector, SQLBatchCollecto
         return batchResult.size();
     }
 
+    /**
+     * Collect multiple result set to block result
+     *
+     * @param multipleResultSet multiple result set
+     * @param adapters          the adapters
+     * @param dslContext        the DSL context
+     * @param registry          the data type registry
+     * @return a Block result
+     * @see BlockResult
+     */
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    BlockResult collect(@NotNull ResultSet resultSet, @NotNull List<SQLResultAdapter> adapter,
-                        @NotNull DSLContext dslContext, @NotNull DataTypeMapperRegistry registry);
+    default BlockResult collect(@NotNull ResultSet multipleResultSet, @NotNull List<SQLResultAdapter> adapters,
+                                @NotNull DSLContext dslContext, @NotNull DataTypeMapperRegistry registry) {
+        ResultSet rs = multipleResultSet;
+        final BlockResult blockResult = BlockResult.create();
+        final int[] count = { 0 };
+        do {
+            blockResult.append(collect(rs, adapters.get(count[0]), dslContext, registry));
+            count[0]++;
+        } while ((rs = rs.getNext()) != null);
+        return blockResult;
+    }
 
 }
