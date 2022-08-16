@@ -49,6 +49,10 @@ final class SQLImpl {
             this.typeMapperRegistry = Optional.ofNullable(typeMapperRegistry).orElseGet(this::defMapperRegistry);
         }
 
+        protected final RuntimeException unableOpenConn(Throwable cause) {
+            return transientConnFailed("Unable open SQL connection", cause);
+        }
+
         protected final RuntimeException transientConnFailed(String errorMsg, Throwable cause) {
             final String sqlState = SQLStateClass.C08_CONNECTION_EXCEPTION.className();
             return this.errorConverter().handle(new SQLTransientConnectionException(errorMsg, sqlState, cause));

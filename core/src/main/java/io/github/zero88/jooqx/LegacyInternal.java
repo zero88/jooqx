@@ -15,4 +15,12 @@ public interface LegacyInternal<S extends SQLOperations>
     @Override
     @NotNull LegacySQLCollector resultCollector();
 
+    @Override
+    @SuppressWarnings("unchecked")
+    @NotNull LegacyJooqxTx transaction();
+
+    @Override
+    @SuppressWarnings("unchecked")
+    @NotNull LegacyJooqxSession session();
+
 }

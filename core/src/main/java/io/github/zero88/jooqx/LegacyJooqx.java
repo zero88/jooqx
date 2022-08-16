@@ -78,7 +78,12 @@ public interface LegacyJooqx extends LegacyInternal<SQLClient> {
      * @see LegacyJooqxTx
      */
     @Override
-    @SuppressWarnings("unchecked")
     @NotNull LegacyJooqxTx transaction();
+
+    /**
+     * @see LegacyJooqxSession
+     */
+    @Override
+    @NotNull LegacyJooqxSession session();
 
 }

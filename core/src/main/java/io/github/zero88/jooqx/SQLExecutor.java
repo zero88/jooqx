@@ -86,6 +86,15 @@ public interface SQLExecutor<S, B, PQ extends SQLPreparedQuery<B>, RC extends SQ
      */
     @NotNull <E extends SQLExecutor<S, B, PQ, RC>> SQLTxExecutor<S, B, PQ, RC, E> transaction();
 
+    /**
+     * Open session executor
+     *
+     * @param <E> Type of VertxJooqExecutor
+     * @return transaction executor
+     * @see SQLSessionExecutor
+     */
+    @NotNull <E extends SQLExecutor<S, B, PQ, RC>> SQLSessionExecutor<S, B, PQ, RC, E> session();
+
     @Override
     default <T> Future<T> routine(@NotNull Routine<T> routine) {
         return RoutineExecutorDelegate.init(this).routine(routine);

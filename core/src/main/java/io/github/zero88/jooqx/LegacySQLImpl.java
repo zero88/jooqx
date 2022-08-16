@@ -129,6 +129,14 @@ final class LegacySQLImpl {
         }
 
         @Override
+        @SuppressWarnings("unchecked")
+        public abstract @NotNull LegacyJooqxTx transaction();
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public abstract @NotNull LegacyJooqxSession session();
+
+        @Override
         public final <T, R> Future<@Nullable R> execute(@NotNull Query query, @NotNull SQLResultAdapter<T, R> adapter) {
             final Promise<ResultSet> promise = Promise.promise();
             sqlClient().queryWithParams(preparedQuery().sql(dsl().configuration(), query),
@@ -200,8 +208,10 @@ final class LegacySQLImpl {
         }
 
         @Override
-        @SuppressWarnings("unchecked")
-        public @NotNull LegacyJooqxTx transaction() { return new LegacyJooqTxImpl(this); }
+        public @NotNull LegacyJooqxTx transaction() { return new LegacyJooqxConnImpl(this); }
+
+        @Override
+        public @NotNull LegacyJooqxSession session() { return new LegacyJooqxConnImpl(this); }
 
         @Override
         protected LegacyJooqx withSqlClient(@NotNull SQLClient sqlClient) {
@@ -212,7 +222,7 @@ final class LegacySQLImpl {
             final Promise<SQLConnection> promise = Promise.promise();
             sqlClient().getConnection(ar -> {
                 if (ar.failed()) {
-                    promise.fail(transientConnFailed("Unable open SQL connection", ar.cause()));
+                    promise.fail(unableOpenConn(ar.cause()));
                 } else {
                     promise.complete(ar.result());
                 }
@@ -224,35 +234,53 @@ final class LegacySQLImpl {
 
 
     @Deprecated
-    static final class LegacyJooqTxImpl extends LegacySQLEI<SQLConnection> implements LegacyJooqxTx {
+    static final class LegacyJooqxConnImpl extends LegacySQLEI<SQLConnection>
+        implements LegacyJooqxTx, LegacyJooqxSession {
 
         private final LegacySQLEI<SQLClient> delegate;
 
-        LegacyJooqTxImpl(Vertx vertx, DSLContext dsl, SQLConnection sqlClient, LegacySQLPreparedQuery preparedQuery,
-                         LegacySQLCollector resultCollector, SQLErrorConverter errorConverter,
-                         DataTypeMapperRegistry typeMapperRegistry) {
+        LegacyJooqxConnImpl(Vertx vertx, DSLContext dsl, SQLConnection sqlClient, LegacySQLPreparedQuery preparedQuery,
+                            LegacySQLCollector resultCollector, SQLErrorConverter errorConverter,
+                            DataTypeMapperRegistry typeMapperRegistry) {
             super(vertx, dsl, sqlClient, preparedQuery, resultCollector, errorConverter, typeMapperRegistry);
             this.delegate = null;
         }
 
-        LegacyJooqTxImpl(@NotNull LegacySQLEI<SQLClient> delegate) {
+        LegacyJooqxConnImpl(@NotNull LegacySQLEI<SQLClient> delegate) {
             super(delegate.vertx(), delegate.dsl(), null, delegate.preparedQuery(), delegate.resultCollector(),
                   delegate.errorConverter(), delegate.typeMapperRegistry());
             this.delegate = delegate;
         }
 
         @Override
-        public <X> Future<X> run(@NotNull Function<LegacyJooqxTx, Future<X>> block) {
+        public @NotNull LegacyJooqxTx transaction() { return delegate().transaction(); }
+
+        @Override
+        public @NotNull LegacyJooqxSession session() { return delegate().session(); }
+
+        @Override
+        public <X> Future<X> run(@NotNull Function<LegacyJooqxTx, Future<X>> transactionFn) {
             final Promise<X> promise = Promise.promise();
-            delegate.openConn().map(conn -> conn.setAutoCommit(false, committable -> {
+            delegate().openConn().map(conn -> conn.setAutoCommit(false, committable -> {
                 if (committable.failed()) {
                     failed(conn, promise, transientConnFailed("Unable begin transaction", committable.cause()));
                 } else {
-                    block.apply(withSqlClient(conn))
-                         .onSuccess(r -> commit(conn, promise, r))
-                         .onFailure(t -> rollback(conn, promise, t));
+                    transactionFn.apply(withSqlClient(conn))
+                                 .onSuccess(r -> commit(conn, promise, r))
+                                 .onFailure(t -> rollback(conn, promise, t));
                 }
             }));
+            return promise.future();
+        }
+
+        @Override
+        public <R> Future<R> perform(@NotNull Function<LegacyJooqxSession, Future<R>> sessionFn) {
+            final Promise<R> promise = Promise.promise();
+            delegate().openConn()
+                      .map(conn -> sessionFn.apply(withSqlClient(conn))
+                                            .onSuccess(promise::complete)
+                                            .onFailure(promise::fail)
+                                            .onComplete(r -> conn.close()));
             return promise.future();
         }
 
@@ -260,9 +288,9 @@ final class LegacySQLImpl {
         protected Future<SQLConnection> openConn() { return Future.succeededFuture(sqlClient()); }
 
         @Override
-        protected LegacyJooqxTx withSqlClient(@NotNull SQLConnection sqlConn) {
-            return new LegacyJooqTxImpl(vertx(), dsl(), sqlConn, preparedQuery(), resultCollector(), errorConverter(),
-                                        typeMapperRegistry());
+        protected LegacyJooqxConnImpl withSqlClient(@NotNull SQLConnection sqlConn) {
+            return new LegacyJooqxConnImpl(vertx(), dsl(), sqlConn, preparedQuery(), resultCollector(),
+                                           errorConverter(), typeMapperRegistry());
         }
 
         private <X> void commit(@NotNull SQLConnection conn, @NotNull Promise<X> promise, X output) {
@@ -288,6 +316,15 @@ final class LegacySQLImpl {
         private <X> void failed(@NotNull SQLConnection conn, @NotNull Promise<X> promise, @NotNull Throwable t) {
             promise.fail(t);
             conn.close();
+        }
+
+        private LegacySQLEI<SQLClient> delegate() {
+            if (Objects.isNull(delegate)) {
+                throw new UnsupportedOperationException(
+                    "Unsupported using connection on SQL connection: [" + sqlClient().getClass() +
+                    "]. Switch using SQL pool");
+            }
+            return delegate;
         }
 
     }

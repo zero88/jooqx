@@ -25,7 +25,6 @@ import io.vertx.core.Handler;
 @Unstable
 @Experimental
 @VertxGen(concrete = false)
-
 public interface SQLBlockExecutor extends JooqDSLProvider {
 
     /**
