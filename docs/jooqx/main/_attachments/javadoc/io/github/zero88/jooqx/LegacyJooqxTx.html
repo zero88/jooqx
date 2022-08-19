@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":38,"i1":50,"i2":38,"i3":38,"i4":38,"i5":50,"i6":38,"i7":38,"i8":38,"i9":50,"i10":38,"i11":50,"i12":38,"i13":38};
+var data = {"i0":38,"i1":50,"i2":38,"i3":50};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],16:["t5","Default Methods"],32:["t6","Deprecated Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -156,102 +156,31 @@ extends <a href="LegacyInternal.html" title="interface in io.github.zero88.jooqx
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>io.vertx.core.Future&lt;<a href="BatchResult.html" title="interface in io.github.zero88.jooqx">BatchResult</a>&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#batch(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues)">batch</a></span>&#8203;(@NotNull org.jooq.Query&nbsp;query,
-     @NotNull <a href="BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</code></th>
-<td class="colLast">
-<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
-<div class="block">Like <a href="SQLBatchExecutor.html#batch(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.vertx.core.Handler)"><code>SQLBatchExecutor.batch(Query, BindBatchValues, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
-</td>
-</tr>
-<tr id="i1" class="rowColor">
-<td class="colFirst"><code>default void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#batch(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.vertx.core.Handler)">batch</a></span>&#8203;(@NotNull org.jooq.Query&nbsp;query,
-     @NotNull <a href="BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
-     @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;<a href="BatchResult.html" title="interface in io.github.zero88.jooqx">BatchResult</a>&gt;&gt;&nbsp;handler)</code></th>
-<td class="colLast">
-<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
-<div class="block">Batch execute</div>
-</td>
-</tr>
-<tr id="i2" class="altColor">
-<td class="colFirst"><code>@NotNull org.jooq.DSLContext</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#dsl()">dsl</a></span>()</code></th>
-<td class="colLast">
-<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
-<div class="block">Defines jOOQ <code>DSL Context</code></div>
-</td>
-</tr>
-<tr id="i3" class="rowColor">
-<td class="colFirst"><code>@NotNull <a href="SQLErrorConverter.html" title="interface in io.github.zero88.jooqx">SQLErrorConverter</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#errorConverter()">errorConverter</a></span>()</code></th>
-<td class="colLast">
-<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
-<div class="block">Defines an error converter that rethrows a uniform exception by <a href="SQLErrorConverter.html#reThrowError(java.lang.Throwable)"><code>SQLErrorConverter.reThrowError(Throwable)</code></a>
- if any error in execution time</div>
-</td>
-</tr>
-<tr id="i4" class="altColor">
-<td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>io.vertx.core.Future&lt;R&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)">execute</a></span>&#8203;(@NotNull org.jooq.Query&nbsp;query,
-       @NotNull <a href="adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</code></th>
-<td class="colLast">
-<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
-<div class="block">Like <a href="SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
-</td>
-</tr>
-<tr id="i5" class="rowColor">
-<td class="colFirst"><code>default &lt;T,&#8203;R&gt;<br>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">execute</a></span>&#8203;(@NotNull org.jooq.Query&nbsp;query,
-       @NotNull <a href="adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter,
-       @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;R&gt;&gt;&nbsp;handler)</code></th>
-<td class="colLast">
-<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
-<div class="block">Execute <code>jOOQ query</code> then return async result</div>
-</td>
-</tr>
-<tr id="i6" class="altColor">
-<td class="colFirst"><code>@NotNull <a href="LegacySQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">LegacySQLPreparedQuery</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#preparedQuery()">preparedQuery</a></span>()</code></th>
-<td class="colLast">
-<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
-<div class="block">Defines prepared query</div>
-</td>
-</tr>
-<tr id="i7" class="rowColor">
-<td class="colFirst"><code>@NotNull <a href="LegacySQLCollector.html" title="interface in io.github.zero88.jooqx">LegacySQLCollector</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resultCollector()">resultCollector</a></span>()</code></th>
-<td class="colLast">
-<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
-<div class="block">Defines result collector depends on result set</div>
-</td>
-</tr>
-<tr id="i8" class="altColor">
 <td class="colFirst"><code>&lt;X&gt;&nbsp;io.vertx.core.Future&lt;X&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#run(java.util.function.Function)">run</a></span>&#8203;(@NotNull java.util.function.Function&lt;<a href="LegacyJooqxTx.html" title="interface in io.github.zero88.jooqx">LegacyJooqxTx</a>,&#8203;io.vertx.core.Future&lt;X&gt;&gt;&nbsp;function)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#run(java.util.function.Function)">run</a></span>&#8203;(@NotNull java.util.function.Function&lt;<a href="LegacyJooqxTx.html" title="interface in io.github.zero88.jooqx">LegacyJooqxTx</a>,&#8203;io.vertx.core.Future&lt;X&gt;&gt;&nbsp;transactionFn)</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
 <div class="block">Like <a href="SQLTxExecutor.html#run(java.util.function.Function,io.vertx.core.Handler)"><code>SQLTxExecutor.run(Function, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>default &lt;X&gt;&nbsp;void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#run(java.util.function.Function,io.vertx.core.Handler)">run</a></span>&#8203;(@NotNull java.util.function.Function&lt;<a href="LegacyJooqxTx.html" title="interface in io.github.zero88.jooqx">LegacyJooqxTx</a>,&#8203;io.vertx.core.Future&lt;X&gt;&gt;&nbsp;function,
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#run(java.util.function.Function,io.vertx.core.Handler)">run</a></span>&#8203;(@NotNull java.util.function.Function&lt;<a href="LegacyJooqxTx.html" title="interface in io.github.zero88.jooqx">LegacyJooqxTx</a>,&#8203;io.vertx.core.Future&lt;X&gt;&gt;&nbsp;transactionFn,
    @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;X&gt;&gt;&nbsp;handler)</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
 <div class="block">Run the transactional code</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
-<td class="colFirst"><code>@NotNull io.vertx.ext.sql.SQLConnection</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sqlClient()">sqlClient</a></span>()</code></th>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>@NotNull <a href="LegacyJooqxSession.html" title="interface in io.github.zero88.jooqx">LegacyJooqxSession</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#session()">session</a></span>()</code></th>
 <td class="colLast">
 <div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
-<div class="block">Defines Vertx SQL client</div>
+<div class="block">Open session executor</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>default @NotNull <a href="LegacyJooqxTx.html" title="interface in io.github.zero88.jooqx">LegacyJooqxTx</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#transaction()">transaction</a></span>()</code></th>
 <td class="colLast">
@@ -259,29 +188,27 @@ extends <a href="LegacyInternal.html" title="interface in io.github.zero88.jooqx
 <div class="block">Open transaction executor</div>
 </td>
 </tr>
-<tr id="i12" class="altColor">
-<td class="colFirst"><code>@NotNull <a href="datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype">DataTypeMapperRegistry</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#typeMapperRegistry()">typeMapperRegistry</a></span>()</code></th>
-<td class="colLast">
-<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
-<div class="block">Defines global data type mapper registry</div>
-</td>
-</tr>
-<tr id="i13" class="rowColor">
-<td class="colFirst"><code>@NotNull io.vertx.core.Vertx</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#vertx()">vertx</a></span>()</code></th>
-<td class="colLast">
-<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
-<div class="block">Defines Vertx</div>
-</td>
-</tr>
 </table>
+<ul class="blockList">
+<li class="blockList"><a id="methods.inherited.from.class.io.github.zero88.jooqx.JooqDSLProvider">
+<!--   -->
+</a>
+<h3>Methods inherited from interface&nbsp;io.github.zero88.jooqx.<a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooqx">JooqDSLProvider</a></h3>
+<code><a href="JooqDSLProvider.html#dsl()">dsl</a></code></li>
+</ul>
+<ul class="blockList">
+<li class="blockList"><a id="methods.inherited.from.class.io.github.zero88.jooqx.LegacyInternal">
+<!--   -->
+</a>
+<h3>Methods inherited from interface&nbsp;io.github.zero88.jooqx.<a href="LegacyInternal.html" title="interface in io.github.zero88.jooqx">LegacyInternal</a></h3>
+<code><a href="LegacyInternal.html#preparedQuery()">preparedQuery</a>, <a href="LegacyInternal.html#resultCollector()">resultCollector</a></code></li>
+</ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.io.github.zero88.jooqx.SQLBatchExecutor">
 <!--   -->
 </a>
 <h3>Methods inherited from interface&nbsp;io.github.zero88.jooqx.<a href="SQLBatchExecutor.html" title="interface in io.github.zero88.jooqx">SQLBatchExecutor</a></h3>
-<code><a href="SQLBatchExecutor.html#batch(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues)">batch</a>, <a href="SQLBatchExecutor.html#batch(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues,io.vertx.core.Handler)">batch</a></code></li>
+<code><a href="SQLBatchExecutor.html#batch(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues)">batch</a>, <a href="SQLBatchExecutor.html#batch(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues,io.vertx.core.Handler)">batch</a>, <a href="SQLBatchExecutor.html#batch(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues)">batch</a>, <a href="SQLBatchExecutor.html#batch(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.vertx.core.Handler)">batch</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.io.github.zero88.jooqx.SQLBlockExecutor">
@@ -302,7 +229,7 @@ extends <a href="LegacyInternal.html" title="interface in io.github.zero88.jooqx
 <!--   -->
 </a>
 <h3>Methods inherited from interface&nbsp;io.github.zero88.jooqx.<a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a></h3>
-<code><a href="SQLExecutor.html#routine(org.jooq.Routine)">routine</a>, <a href="SQLExecutor.html#routineResult(org.jooq.Routine)">routineResult</a>, <a href="SQLExecutor.html#routineResultSet(org.jooq.Routine,io.github.zero88.jooqx.adapter.SQLResultAdapter)">routineResultSet</a></code></li>
+<code><a href="SQLExecutor.html#errorConverter()">errorConverter</a>, <a href="SQLExecutor.html#routine(org.jooq.Routine)">routine</a>, <a href="SQLExecutor.html#routineResult(org.jooq.Routine)">routineResult</a>, <a href="SQLExecutor.html#routineResultSet(org.jooq.Routine,io.github.zero88.jooqx.adapter.SQLResultAdapter)">routineResultSet</a>, <a href="SQLExecutor.html#sqlClient()">sqlClient</a>, <a href="SQLExecutor.html#typeMapperRegistry()">typeMapperRegistry</a>, <a href="SQLExecutor.html#vertx()">vertx</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.io.github.zero88.jooqx.SQLPlainExecutor">
@@ -316,7 +243,7 @@ extends <a href="LegacyInternal.html" title="interface in io.github.zero88.jooqx
 <!--   -->
 </a>
 <h3>Methods inherited from interface&nbsp;io.github.zero88.jooqx.<a href="SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></h3>
-<code><a href="SQLQueryExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">execute</a>, <a href="SQLQueryExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">execute</a>, <a href="SQLQueryExecutor.html#fetchCount(java.util.function.Function)">fetchCount</a>, <a href="SQLQueryExecutor.html#fetchCount(java.util.function.Function,io.vertx.core.Handler)">fetchCount</a>, <a href="SQLQueryExecutor.html#fetchCount(org.jooq.Select)">fetchCount</a>, <a href="SQLQueryExecutor.html#fetchCount(org.jooq.Select,io.vertx.core.Handler)">fetchCount</a>, <a href="SQLQueryExecutor.html#fetchExists(java.util.function.Function)">fetchExists</a>, <a href="SQLQueryExecutor.html#fetchExists(java.util.function.Function,io.vertx.core.Handler)">fetchExists</a>, <a href="SQLQueryExecutor.html#fetchExists(org.jooq.Select)">fetchExists</a>, <a href="SQLQueryExecutor.html#fetchExists(org.jooq.Select,io.vertx.core.Handler)">fetchExists</a>, <a href="SQLQueryExecutor.html#fetchJsonArray(java.util.function.Function)">fetchJsonArray</a>, <a href="SQLQueryExecutor.html#fetchJsonArray(java.util.function.Function,io.vertx.core.Handler)">fetchJsonArray</a>, <a href="SQLQueryExecutor.html#fetchJsonArray(java.util.function.Function,io.vertx.core.spi.json.JsonCodec)">fetchJsonArray</a>, <a href="SQLQueryExecutor.html#fetchJsonArray(java.util.function.Function,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)">fetchJsonArray</a>, <a href="SQLQueryExecutor.html#fetchJsonArray(org.jooq.Select)">fetchJsonArray</a>, <a href="SQLQueryExecutor.html#fetchJsonArray(org.jooq.Select,io.vertx.core.Handler)">fetchJsonArray</a>, <a href="SQLQueryExecutor.html#fetchJsonArray(org.jooq.Select,io.vertx.core.spi.json.JsonCodec)">fetchJsonArray</a>, <a href="SQLQueryExecutor.html#fetchJsonArray(org.jooq.Select,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)">fetchJsonArray</a>, <a href="SQLQueryExecutor.html#fetchJsonObject(java.util.function.Function)">fetchJsonObject</a>, <a href="SQLQueryExecutor.html#fetchJsonObject(java.util.function.Function,io.vertx.core.Handler)">fetchJsonObject</a>, <a href="SQLQueryExecutor.html#fetchJsonObject(java.util.function.Function,io.vertx.core.spi.json.JsonCodec)">fetchJsonObject</a>, <a href="SQLQueryExecutor.html#fetchJsonObject(java.util.function.Function,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)">fetchJsonObject</a>, <a href="SQLQueryExecutor.html#fetchJsonObject(org.jooq.Select)">fetchJsonObject</a>, <a href="SQLQueryExecutor.html#fetchJsonObject(org.jooq.Select,io.vertx.core.Handler)">fetchJsonObject</a>, <a href="SQLQueryExecutor.html#fetchJsonObject(org.jooq.Select,io.vertx.core.spi.json.JsonCodec)">fetchJsonObject</a>, <a href="SQLQueryExecutor.html#fetchJsonObject(org.jooq.Select,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)">fetchJsonObject</a>, <a href="SQLQueryExecutor.html#fetchJsonRecord(java.util.function.Function)">fetchJsonRecord</a>, <a href="SQLQueryExecutor.html#fetchJsonRecord(java.util.function.Function,io.vertx.core.Handler)">fetchJsonRecord</a>, <a href="SQLQueryExecutor.html#fetchJsonRecord(org.jooq.Select)">fetchJsonRecord</a>, <a href="SQLQueryExecutor.html#fetchJsonRecord(org.jooq.Select,io.vertx.core.Handler)">fetchJsonRecord</a>, <a href="SQLQueryExecutor.html#fetchJsonRecords(java.util.function.Function)">fetchJsonRecords</a>, <a href="SQLQueryExecutor.html#fetchJsonRecords(java.util.function.Function,io.vertx.core.Handler)">fetchJsonRecords</a>, <a href="SQLQueryExecutor.html#fetchJsonRecords(org.jooq.Select)">fetchJsonRecords</a>, <a href="SQLQueryExecutor.html#fetchJsonRecords(org.jooq.Select,io.vertx.core.Handler)">fetchJsonRecords</a>, <a href="SQLQueryExecutor.html#fetchMany(java.util.function.Function)">fetchMany</a>, <a href="SQLQueryExecutor.html#fetchMany(java.util.function.Function,io.vertx.core.Handler)">fetchMany</a>, <a href="SQLQueryExecutor.html#fetchMany(org.jooq.Select)">fetchMany</a>, <a href="SQLQueryExecutor.html#fetchMany(org.jooq.Select,io.vertx.core.Handler)">fetchMany</a>, <a href="SQLQueryExecutor.html#fetchOne(java.util.function.Function)">fetchOne</a>, <a href="SQLQueryExecutor.html#fetchOne(java.util.function.Function,io.vertx.core.Handler)">fetchOne</a>, <a href="SQLQueryExecutor.html#fetchOne(org.jooq.Select)">fetchOne</a>, <a href="SQLQueryExecutor.html#fetchOne(org.jooq.Select,io.vertx.core.Handler)">fetchOne</a></code></li>
+<code><a href="SQLQueryExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">execute</a>, <a href="SQLQueryExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">execute</a>, <a href="SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)">execute</a>, <a href="SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">execute</a>, <a href="SQLQueryExecutor.html#fetchCount(java.util.function.Function)">fetchCount</a>, <a href="SQLQueryExecutor.html#fetchCount(java.util.function.Function,io.vertx.core.Handler)">fetchCount</a>, <a href="SQLQueryExecutor.html#fetchCount(org.jooq.Select)">fetchCount</a>, <a href="SQLQueryExecutor.html#fetchCount(org.jooq.Select,io.vertx.core.Handler)">fetchCount</a>, <a href="SQLQueryExecutor.html#fetchExists(java.util.function.Function)">fetchExists</a>, <a href="SQLQueryExecutor.html#fetchExists(java.util.function.Function,io.vertx.core.Handler)">fetchExists</a>, <a href="SQLQueryExecutor.html#fetchExists(org.jooq.Select)">fetchExists</a>, <a href="SQLQueryExecutor.html#fetchExists(org.jooq.Select,io.vertx.core.Handler)">fetchExists</a>, <a href="SQLQueryExecutor.html#fetchJsonArray(java.util.function.Function)">fetchJsonArray</a>, <a href="SQLQueryExecutor.html#fetchJsonArray(java.util.function.Function,io.vertx.core.Handler)">fetchJsonArray</a>, <a href="SQLQueryExecutor.html#fetchJsonArray(java.util.function.Function,io.vertx.core.spi.json.JsonCodec)">fetchJsonArray</a>, <a href="SQLQueryExecutor.html#fetchJsonArray(java.util.function.Function,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)">fetchJsonArray</a>, <a href="SQLQueryExecutor.html#fetchJsonArray(org.jooq.Select)">fetchJsonArray</a>, <a href="SQLQueryExecutor.html#fetchJsonArray(org.jooq.Select,io.vertx.core.Handler)">fetchJsonArray</a>, <a href="SQLQueryExecutor.html#fetchJsonArray(org.jooq.Select,io.vertx.core.spi.json.JsonCodec)">fetchJsonArray</a>, <a href="SQLQueryExecutor.html#fetchJsonArray(org.jooq.Select,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)">fetchJsonArray</a>, <a href="SQLQueryExecutor.html#fetchJsonObject(java.util.function.Function)">fetchJsonObject</a>, <a href="SQLQueryExecutor.html#fetchJsonObject(java.util.function.Function,io.vertx.core.Handler)">fetchJsonObject</a>, <a href="SQLQueryExecutor.html#fetchJsonObject(java.util.function.Function,io.vertx.core.spi.json.JsonCodec)">fetchJsonObject</a>, <a href="SQLQueryExecutor.html#fetchJsonObject(java.util.function.Function,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)">fetchJsonObject</a>, <a href="SQLQueryExecutor.html#fetchJsonObject(org.jooq.Select)">fetchJsonObject</a>, <a href="SQLQueryExecutor.html#fetchJsonObject(org.jooq.Select,io.vertx.core.Handler)">fetchJsonObject</a>, <a href="SQLQueryExecutor.html#fetchJsonObject(org.jooq.Select,io.vertx.core.spi.json.JsonCodec)">fetchJsonObject</a>, <a href="SQLQueryExecutor.html#fetchJsonObject(org.jooq.Select,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)">fetchJsonObject</a>, <a href="SQLQueryExecutor.html#fetchJsonRecord(java.util.function.Function)">fetchJsonRecord</a>, <a href="SQLQueryExecutor.html#fetchJsonRecord(java.util.function.Function,io.vertx.core.Handler)">fetchJsonRecord</a>, <a href="SQLQueryExecutor.html#fetchJsonRecord(org.jooq.Select)">fetchJsonRecord</a>, <a href="SQLQueryExecutor.html#fetchJsonRecord(org.jooq.Select,io.vertx.core.Handler)">fetchJsonRecord</a>, <a href="SQLQueryExecutor.html#fetchJsonRecords(java.util.function.Function)">fetchJsonRecords</a>, <a href="SQLQueryExecutor.html#fetchJsonRecords(java.util.function.Function,io.vertx.core.Handler)">fetchJsonRecords</a>, <a href="SQLQueryExecutor.html#fetchJsonRecords(org.jooq.Select)">fetchJsonRecords</a>, <a href="SQLQueryExecutor.html#fetchJsonRecords(org.jooq.Select,io.vertx.core.Handler)">fetchJsonRecords</a>, <a href="SQLQueryExecutor.html#fetchMany(java.util.function.Function)">fetchMany</a>, <a href="SQLQueryExecutor.html#fetchMany(java.util.function.Function,io.vertx.core.Handler)">fetchMany</a>, <a href="SQLQueryExecutor.html#fetchMany(org.jooq.Select)">fetchMany</a>, <a href="SQLQueryExecutor.html#fetchMany(org.jooq.Select,io.vertx.core.Handler)">fetchMany</a>, <a href="SQLQueryExecutor.html#fetchOne(java.util.function.Function)">fetchOne</a>, <a href="SQLQueryExecutor.html#fetchOne(java.util.function.Function,io.vertx.core.Handler)">fetchOne</a>, <a href="SQLQueryExecutor.html#fetchOne(org.jooq.Select)">fetchOne</a>, <a href="SQLQueryExecutor.html#fetchOne(org.jooq.Select,io.vertx.core.Handler)">fetchOne</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.io.github.zero88.jooqx.SQLRoutineExecutor">
@@ -341,151 +268,26 @@ extends <a href="LegacyInternal.html" title="interface in io.github.zero88.jooqx
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a id="vertx()">
+<a id="session()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>vertx</h4>
+<h4>session</h4>
 <pre class="methodSignature">@NotNull
-@NotNull io.vertx.core.Vertx&nbsp;vertx()</pre>
+@NotNull <a href="LegacyJooqxSession.html" title="interface in io.github.zero88.jooqx">LegacyJooqxSession</a>&nbsp;session()</pre>
 <div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLExecutor.html#vertx()">SQLExecutor</a></code></span></div>
-<div class="block">Defines Vertx</div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLExecutor.html#session()">SQLExecutor</a></code></span></div>
+<div class="block">Open session executor</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="SQLExecutor.html#vertx()">vertx</a></code>&nbsp;in interface&nbsp;<code><a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;io.vertx.ext.sql.SQLConnection,&#8203;io.vertx.core.json.JsonArray,&#8203;<a href="LegacySQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">LegacySQLPreparedQuery</a>,&#8203;<a href="LegacySQLCollector.html" title="interface in io.github.zero88.jooqx">LegacySQLCollector</a>&gt;</code></dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>vertx</dd>
-</dl>
-</li>
-</ul>
-<a id="dsl()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>dsl</h4>
-<pre class="methodSignature">@NotNull
-@NotNull org.jooq.DSLContext&nbsp;dsl()</pre>
-<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="JooqDSLProvider.html#dsl()">JooqDSLProvider</a></code></span></div>
-<div class="block">Defines jOOQ <code>DSL Context</code></div>
-<dl>
+<dd><code><a href="LegacyInternal.html#session()">session</a></code>&nbsp;in interface&nbsp;<code><a href="LegacyInternal.html" title="interface in io.github.zero88.jooqx">LegacyInternal</a>&lt;io.vertx.ext.sql.SQLConnection&gt;</code></dd>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="JooqDSLProvider.html#dsl()">dsl</a></code>&nbsp;in interface&nbsp;<code><a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooqx">JooqDSLProvider</a></code></dd>
+<dd><code><a href="SQLExecutor.html#session()">session</a></code>&nbsp;in interface&nbsp;<code><a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;io.vertx.ext.sql.SQLConnection,&#8203;io.vertx.core.json.JsonArray,&#8203;<a href="LegacySQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">LegacySQLPreparedQuery</a>,&#8203;<a href="LegacySQLCollector.html" title="interface in io.github.zero88.jooqx">LegacySQLCollector</a>&gt;</code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>the DSL context</dd>
+<dd>transaction executor</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
-<dd><code>DSLContext</code></dd>
-</dl>
-</li>
-</ul>
-<a id="sqlClient()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>sqlClient</h4>
-<pre class="methodSignature">@NotNull
-@NotNull io.vertx.ext.sql.SQLConnection&nbsp;sqlClient()</pre>
-<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLExecutor.html#sqlClient()">SQLExecutor</a></code></span></div>
-<div class="block">Defines Vertx SQL client</div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="SQLExecutor.html#sqlClient()">sqlClient</a></code>&nbsp;in interface&nbsp;<code><a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;io.vertx.ext.sql.SQLConnection,&#8203;io.vertx.core.json.JsonArray,&#8203;<a href="LegacySQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">LegacySQLPreparedQuery</a>,&#8203;<a href="LegacySQLCollector.html" title="interface in io.github.zero88.jooqx">LegacySQLCollector</a>&gt;</code></dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>sql client</dd>
-</dl>
-</li>
-</ul>
-<a id="preparedQuery()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>preparedQuery</h4>
-<pre class="methodSignature">@NotNull
-@NotNull <a href="LegacySQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">LegacySQLPreparedQuery</a>&nbsp;preparedQuery()</pre>
-<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLExecutor.html#preparedQuery()">SQLExecutor</a></code></span></div>
-<div class="block">Defines prepared query</div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="LegacyInternal.html#preparedQuery()">preparedQuery</a></code>&nbsp;in interface&nbsp;<code><a href="LegacyInternal.html" title="interface in io.github.zero88.jooqx">LegacyInternal</a>&lt;io.vertx.ext.sql.SQLConnection&gt;</code></dd>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="SQLExecutor.html#preparedQuery()">preparedQuery</a></code>&nbsp;in interface&nbsp;<code><a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;io.vertx.ext.sql.SQLConnection,&#8203;io.vertx.core.json.JsonArray,&#8203;<a href="LegacySQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">LegacySQLPreparedQuery</a>,&#8203;<a href="LegacySQLCollector.html" title="interface in io.github.zero88.jooqx">LegacySQLCollector</a>&gt;</code></dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>prepared query</dd>
-<dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="SQLPreparedQuery.html" title="interface in io.github.zero88.jooqx"><code>SQLPreparedQuery</code></a></dd>
-</dl>
-</li>
-</ul>
-<a id="resultCollector()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>resultCollector</h4>
-<pre class="methodSignature">@NotNull
-@NotNull <a href="LegacySQLCollector.html" title="interface in io.github.zero88.jooqx">LegacySQLCollector</a>&nbsp;resultCollector()</pre>
-<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLExecutor.html#resultCollector()">SQLExecutor</a></code></span></div>
-<div class="block">Defines result collector depends on result set</div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="LegacyInternal.html#resultCollector()">resultCollector</a></code>&nbsp;in interface&nbsp;<code><a href="LegacyInternal.html" title="interface in io.github.zero88.jooqx">LegacyInternal</a>&lt;io.vertx.ext.sql.SQLConnection&gt;</code></dd>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="SQLExecutor.html#resultCollector()">resultCollector</a></code>&nbsp;in interface&nbsp;<code><a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;io.vertx.ext.sql.SQLConnection,&#8203;io.vertx.core.json.JsonArray,&#8203;<a href="LegacySQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">LegacySQLPreparedQuery</a>,&#8203;<a href="LegacySQLCollector.html" title="interface in io.github.zero88.jooqx">LegacySQLCollector</a>&gt;</code></dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>result collector</dd>
-<dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx"><code>SQLResultCollector</code></a></dd>
-</dl>
-</li>
-</ul>
-<a id="errorConverter()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>errorConverter</h4>
-<pre class="methodSignature">@NotNull
-@NotNull <a href="SQLErrorConverter.html" title="interface in io.github.zero88.jooqx">SQLErrorConverter</a>&nbsp;errorConverter()</pre>
-<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLExecutor.html#errorConverter()">SQLExecutor</a></code></span></div>
-<div class="block">Defines an error converter that rethrows a uniform exception by <a href="SQLErrorConverter.html#reThrowError(java.lang.Throwable)"><code>SQLErrorConverter.reThrowError(Throwable)</code></a>
- if any error in execution time</div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="SQLExecutor.html#errorConverter()">errorConverter</a></code>&nbsp;in interface&nbsp;<code><a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;io.vertx.ext.sql.SQLConnection,&#8203;io.vertx.core.json.JsonArray,&#8203;<a href="LegacySQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">LegacySQLPreparedQuery</a>,&#8203;<a href="LegacySQLCollector.html" title="interface in io.github.zero88.jooqx">LegacySQLCollector</a>&gt;</code></dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>error handler</dd>
-<dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="SQLErrorConverter.html" title="interface in io.github.zero88.jooqx"><code>SQLErrorConverter</code></a></dd>
-</dl>
-</li>
-</ul>
-<a id="typeMapperRegistry()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>typeMapperRegistry</h4>
-<pre class="methodSignature">@NotNull
-@NotNull <a href="datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;typeMapperRegistry()</pre>
-<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLExecutor.html#typeMapperRegistry()">SQLExecutor</a></code></span></div>
-<div class="block">Defines global data type mapper registry</div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="SQLExecutor.html#typeMapperRegistry()">typeMapperRegistry</a></code>&nbsp;in interface&nbsp;<code><a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;io.vertx.ext.sql.SQLConnection,&#8203;io.vertx.core.json.JsonArray,&#8203;<a href="LegacySQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">LegacySQLPreparedQuery</a>,&#8203;<a href="LegacySQLCollector.html" title="interface in io.github.zero88.jooqx">LegacySQLCollector</a>&gt;</code></dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>registry</dd>
-<dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype"><code>DataTypeMapperRegistry</code></a></dd>
+<dd><a href="SQLSessionExecutor.html" title="interface in io.github.zero88.jooqx"><code>SQLSessionExecutor</code></a></dd>
 </dl>
 </li>
 </ul>
@@ -502,116 +304,13 @@ default&nbsp;@NotNull <a href="LegacyJooqxTx.html" title="interface in io.github
 <div class="block">Open transaction executor</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="LegacyInternal.html#transaction()">transaction</a></code>&nbsp;in interface&nbsp;<code><a href="LegacyInternal.html" title="interface in io.github.zero88.jooqx">LegacyInternal</a>&lt;io.vertx.ext.sql.SQLConnection&gt;</code></dd>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="SQLExecutor.html#transaction()">transaction</a></code>&nbsp;in interface&nbsp;<code><a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;io.vertx.ext.sql.SQLConnection,&#8203;io.vertx.core.json.JsonArray,&#8203;<a href="LegacySQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">LegacySQLPreparedQuery</a>,&#8203;<a href="LegacySQLCollector.html" title="interface in io.github.zero88.jooqx">LegacySQLCollector</a>&gt;</code></dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>transaction executor</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="SQLTxExecutor.html" title="interface in io.github.zero88.jooqx"><code>SQLTxExecutor</code></a></dd>
-</dl>
-</li>
-</ul>
-<a id="execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>execute</h4>
-<pre class="methodSignature">&lt;T,&#8203;R&gt;&nbsp;io.vertx.core.Future&lt;R&gt;&nbsp;execute&#8203;(@NotNull
-                                            @NotNull org.jooq.Query&nbsp;query,
-                                            @NotNull
-                                            @NotNull <a href="adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</pre>
-<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)">SQLQueryExecutor</a></code></span></div>
-<div class="block">Like <a href="SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)">execute</a></code>&nbsp;in interface&nbsp;<code><a href="SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></code></dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>query</code> - the jOOQ query</dd>
-<dd><code>adapter</code> - the result adapter</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>a <code>Future</code> of the asynchronous result</dd>
-</dl>
-</li>
-</ul>
-<a id="execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>execute</h4>
-<pre class="methodSignature">default&nbsp;&lt;T,&#8203;R&gt;&nbsp;void&nbsp;execute&#8203;(@NotNull
-                                 @NotNull org.jooq.Query&nbsp;query,
-                                 @NotNull
-                                 @NotNull <a href="adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter,
-                                 @NotNull
-                                 @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;R&gt;&gt;&nbsp;handler)</pre>
-<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">SQLQueryExecutor</a></code></span></div>
-<div class="block">Execute <code>jOOQ query</code> then return async result</div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">execute</a></code>&nbsp;in interface&nbsp;<code><a href="SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></code></dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>query</code> - the jOOQ query</dd>
-<dd><code>resultAdapter</code> - the result adapter</dd>
-<dd><code>handler</code> - the async result handler</dd>
-<dt><span class="seeLabel">See Also:</span></dt>
-<dd><code>Query</code>, 
-<code>TableLike</code>, 
-<a href="adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter"><code>SQLResultAdapter</code></a></dd>
-</dl>
-</li>
-</ul>
-<a id="batch(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.vertx.core.Handler)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>batch</h4>
-<pre class="methodSignature">default&nbsp;void&nbsp;batch&#8203;(@NotNull
-                   @NotNull org.jooq.Query&nbsp;query,
-                   @NotNull
-                   @NotNull <a href="BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
-                   @NotNull
-                   @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;<a href="BatchResult.html" title="interface in io.github.zero88.jooqx">BatchResult</a>&gt;&gt;&nbsp;handler)</pre>
-<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLBatchExecutor.html#batch(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.vertx.core.Handler)">SQLBatchExecutor</a></code></span></div>
-<div class="block">Batch execute</div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="SQLBatchExecutor.html#batch(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.vertx.core.Handler)">batch</a></code>&nbsp;in interface&nbsp;<code><a href="SQLBatchExecutor.html" title="interface in io.github.zero88.jooqx">SQLBatchExecutor</a></code></dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>query</code> - query</dd>
-<dd><code>bindBatchValues</code> - bind batch values</dd>
-<dd><code>handler</code> - async result handler</dd>
-<dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="BindBatchValues.html" title="class in io.github.zero88.jooqx"><code>BindBatchValues</code></a>, 
-<a href="BatchResult.html" title="interface in io.github.zero88.jooqx"><code>BatchResult</code></a></dd>
-</dl>
-</li>
-</ul>
-<a id="batch(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>batch</h4>
-<pre class="methodSignature">io.vertx.core.Future&lt;<a href="BatchResult.html" title="interface in io.github.zero88.jooqx">BatchResult</a>&gt;&nbsp;batch&#8203;(@NotNull
-                                        @NotNull org.jooq.Query&nbsp;query,
-                                        @NotNull
-                                        @NotNull <a href="BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</pre>
-<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
-<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLBatchExecutor.html#batch(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues)">SQLBatchExecutor</a></code></span></div>
-<div class="block">Like <a href="SQLBatchExecutor.html#batch(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.vertx.core.Handler)"><code>SQLBatchExecutor.batch(Query, BindBatchValues, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
-<dl>
-<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="SQLBatchExecutor.html#batch(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues)">batch</a></code>&nbsp;in interface&nbsp;<code><a href="SQLBatchExecutor.html" title="interface in io.github.zero88.jooqx">SQLBatchExecutor</a></code></dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>query</code> - query</dd>
-<dd><code>bindBatchValues</code> - bind batch values</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>a <code>Future</code> of the asynchronous result</dd>
 </dl>
 </li>
 </ul>
@@ -622,7 +321,7 @@ default&nbsp;@NotNull <a href="LegacyJooqxTx.html" title="interface in io.github
 <li class="blockList">
 <h4>run</h4>
 <pre class="methodSignature">default&nbsp;&lt;X&gt;&nbsp;void&nbsp;run&#8203;(@NotNull
-                     @NotNull java.util.function.Function&lt;<a href="LegacyJooqxTx.html" title="interface in io.github.zero88.jooqx">LegacyJooqxTx</a>,&#8203;io.vertx.core.Future&lt;X&gt;&gt;&nbsp;function,
+                     @NotNull java.util.function.Function&lt;<a href="LegacyJooqxTx.html" title="interface in io.github.zero88.jooqx">LegacyJooqxTx</a>,&#8203;io.vertx.core.Future&lt;X&gt;&gt;&nbsp;transactionFn,
                      @NotNull
                      @NotNull io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;X&gt;&gt;&nbsp;handler)</pre>
 <div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
@@ -634,7 +333,7 @@ default&nbsp;@NotNull <a href="LegacyJooqxTx.html" title="interface in io.github
 <dt><span class="paramLabel">Type Parameters:</span></dt>
 <dd><code>X</code> - Type of result</dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>function</code> - transaction function</dd>
+<dd><code>transactionFn</code> - transaction function</dd>
 <dd><code>handler</code> - handler</dd>
 </dl>
 </li>
@@ -646,7 +345,7 @@ default&nbsp;@NotNull <a href="LegacyJooqxTx.html" title="interface in io.github
 <li class="blockList">
 <h4>run</h4>
 <pre class="methodSignature">&lt;X&gt;&nbsp;io.vertx.core.Future&lt;X&gt;&nbsp;run&#8203;(@NotNull
-                                @NotNull java.util.function.Function&lt;<a href="LegacyJooqxTx.html" title="interface in io.github.zero88.jooqx">LegacyJooqxTx</a>,&#8203;io.vertx.core.Future&lt;X&gt;&gt;&nbsp;function)</pre>
+                                @NotNull java.util.function.Function&lt;<a href="LegacyJooqxTx.html" title="interface in io.github.zero88.jooqx">LegacyJooqxTx</a>,&#8203;io.vertx.core.Future&lt;X&gt;&gt;&nbsp;transactionFn)</pre>
 <div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLTxExecutor.html#run(java.util.function.Function)">SQLTxExecutor</a></code></span></div>
 <div class="block">Like <a href="SQLTxExecutor.html#run(java.util.function.Function,io.vertx.core.Handler)"><code>SQLTxExecutor.run(Function, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
@@ -656,7 +355,7 @@ default&nbsp;@NotNull <a href="LegacyJooqxTx.html" title="interface in io.github
 <dt><span class="paramLabel">Type Parameters:</span></dt>
 <dd><code>X</code> - Type of result</dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>function</code> - transaction function</dd>
+<dd><code>transactionFn</code> - transaction function</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>a <code>Future</code> of the asynchronous result</dd>
 </dl>
