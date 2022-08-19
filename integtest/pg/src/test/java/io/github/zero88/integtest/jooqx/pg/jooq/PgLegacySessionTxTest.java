@@ -1,5 +1,8 @@
 package io.github.zero88.integtest.jooqx.pg.jooq;
 
+import java.util.Arrays;
+
+import org.jooq.exception.DataAccessException;
 import org.jooq.exception.SQLStateClass;
 import org.jooq.impl.DSL;
 import org.junit.jupiter.api.Assertions;
@@ -75,6 +78,30 @@ class PgLegacySessionTxTest extends PgSQLLegacyTest implements PgUseJooqType, JD
                      flag.flag();
                  });
              });
+    }
+
+    @Test
+    void test_session_throw_ex_but_still_inserted_first_when_multiple_inserts_failed_in_second(VertxTestContext ctx) {
+        final Checkpoint flag = ctx.checkpoint();
+        final Authors table = schema().AUTHORS;
+        AuthorsRecord i1 = new AuthorsRecord().setName("n1").setCountry("AT");
+        AuthorsRecord i2 = new AuthorsRecord().setName("n2");
+        jooqx.session()
+             .perform(s -> s.execute(dsl -> dsl.insertInto(table).set(i1).returning(), DSLAdapter.fetchOne(table))
+                            .flatMap(r1 -> s.execute(dsl -> dsl.insertInto(table).set(i2).returning(),
+                                                     DSLAdapter.fetchOne(table)).map(r2 -> Arrays.asList(r1, r2))))
+             .onSuccess(result -> ctx.failNow("Should failed"))
+             .onFailure(t -> ctx.verify(() -> {
+                 Assertions.assertInstanceOf(DataAccessException.class, t);
+                 Assertions.assertTrue(
+                     t.getMessage().contains("null value in column \"country\" violates not-null constraint"));
+                 jooqx.fetchExists(dsl -> dsl.selectFrom(table).where(table.NAME.eq("n1").and(table.COUNTRY.eq("AT"))))
+                      .onSuccess(b -> ctx.verify(() -> {
+                          Assertions.assertTrue(b);
+                          flag.flag();
+                      }))
+                      .onFailure(ctx::failNow);
+             }));
     }
 
 }
