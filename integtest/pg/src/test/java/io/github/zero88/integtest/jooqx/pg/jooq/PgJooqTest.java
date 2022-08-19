@@ -23,6 +23,8 @@ import io.github.zero88.sample.model.pgsql.routines.Add;
 import io.github.zero88.sample.model.pgsql.routines.Dup;
 import io.github.zero88.sample.model.pgsql.routines.Dup2;
 import io.github.zero88.sample.model.pgsql.routines.RemoveAuthor;
+import io.github.zero88.sample.model.pgsql.tables.AllDataTypes;
+import io.github.zero88.sample.model.pgsql.tables.records.AllDataTypesRecord;
 import io.github.zero88.utils.Strings;
 import io.vertx.core.Vertx;
 import io.vertx.jdbcclient.JDBCPool;
@@ -34,7 +36,7 @@ import io.vertx.sqlclient.Tuple;
 
 import com.zaxxer.hikari.HikariDataSource;
 
-public class PgJooqTest extends PgSQLJooqxTest<JDBCPool>
+class PgJooqTest extends PgSQLJooqxTest<JDBCPool>
     implements PgUseJooqType, JDBCPoolHikariProvider, JDBCErrorConverterProvider {
 
     private HikariDataSource dataSource;
@@ -44,7 +46,7 @@ public class PgJooqTest extends PgSQLJooqxTest<JDBCPool>
     @BeforeEach
     public void tearUp(Vertx vertx, VertxTestContext ctx) {
         super.tearUp(vertx, ctx);
-        this.prepareDatabase(ctx, this, connOpt, "pg_data/book_author.sql");
+        this.prepareDatabase(ctx, this, connOpt, "pg_data/book_author.sql", "pg_data/temporal.sql");
         dataSource = this.createDataSource(connOpt);
         _dsl       = JooqDSLProvider.create(dialect(), dataSource).dsl();
     }
@@ -57,7 +59,7 @@ public class PgJooqTest extends PgSQLJooqxTest<JDBCPool>
     }
 
     @Test
-    void test_jooq_fn_returns_value(VertxTestContext ctx) {
+    void test_fn_returns_value(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint(1);
 
         final Add add = new Add();
@@ -75,7 +77,7 @@ public class PgJooqTest extends PgSQLJooqxTest<JDBCPool>
     }
 
     @Test
-    void test_jooq_fn_returns_2_outParams(VertxTestContext ctx) {
+    void test_fn_returns_2_outParams(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint(2);
 
         final Dup dup = new Dup();
@@ -118,7 +120,7 @@ public class PgJooqTest extends PgSQLJooqxTest<JDBCPool>
     }
 
     @Test
-    void test_jooq_fn_returns_udt(VertxTestContext ctx) {
+    void test_fn_returns_udt(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint(1);
 
         final Dup2 dup2 = new Dup2();
@@ -135,7 +137,7 @@ public class PgJooqTest extends PgSQLJooqxTest<JDBCPool>
     }
 
     @Test
-    void test_jooq_fn_returns_void(VertxTestContext ctx) {
+    void test_fn_returns_void(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint(1);
 
         final RemoveAuthor routine = new RemoveAuthor();
@@ -151,7 +153,7 @@ public class PgJooqTest extends PgSQLJooqxTest<JDBCPool>
     }
 
     @Test
-    void test_execute_block(VertxTestContext ctx) {
+    void test_block_insert(VertxTestContext ctx) {
         final Checkpoint cp = ctx.checkpoint(1);
         final int execute = _dsl.begin(
             _dsl.insertInto(schema().AUTHORS, schema().AUTHORS.ID, schema().AUTHORS.NAME, schema().AUTHORS.COUNTRY)
@@ -164,7 +166,7 @@ public class PgJooqTest extends PgSQLJooqxTest<JDBCPool>
     }
 
     @Test
-    void test_select_block(VertxTestContext ctx) {
+    void test_block_select(VertxTestContext ctx) {
         final Checkpoint cp = ctx.checkpoint();
         final Results results = _dsl.queries(_dsl.selectFrom(schema().AUTHORS), _dsl.selectFrom(schema().BOOKS))
                                     .fetchMany();
@@ -173,6 +175,28 @@ public class PgJooqTest extends PgSQLJooqxTest<JDBCPool>
             System.out.println(records);
         });
         cp.flag();
+    }
+
+    @Test
+    void test_query_temporal(VertxTestContext ctx) {
+        final Checkpoint flag = ctx.checkpoint();
+        final DSLContext dsl = JooqDSLProvider.create(dialect(), createDataSource(connOpt)).dsl();
+        final AllDataTypes table = schema().ALL_DATA_TYPES;
+        final AllDataTypesRecord record = dsl.selectFrom(table).where(table.ID.eq(31)).fetchOne();
+        ctx.verify(() -> {
+            System.out.println(record);
+            Assertions.assertNotNull(record);
+            Assertions.assertNotNull(record.getFDate());
+            Assertions.assertNotNull(record.getFTime());
+            Assertions.assertNotNull(record.getFTimetz());
+            Assertions.assertNotNull(record.getFTimestamp());
+            Assertions.assertNotNull(record.getFTimestamptz());
+            Assertions.assertNotNull(record.getFInterval());
+            Assertions.assertEquals(10, record.getFInterval().getYears());
+            Assertions.assertEquals(3, record.getFInterval().getMonths());
+            Assertions.assertEquals(332, record.getFInterval().getDays());
+        });
+        flag.flag();
     }
 
 }

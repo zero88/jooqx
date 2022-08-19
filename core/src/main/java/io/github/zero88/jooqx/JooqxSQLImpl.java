@@ -114,7 +114,7 @@ final class JooqxSQLImpl {
     }
 
 
-    static class JooqxConnImpl extends JooqxImpl<SqlConnection> implements JooqxTx {
+    static class JooqxConnImpl extends JooqxImpl<SqlConnection> implements JooqxTx, JooqxSession {
 
         private final Jooqx delegate;
 
@@ -133,20 +133,30 @@ final class JooqxSQLImpl {
 
         @Override
         @SuppressWarnings("unchecked")
-        public @NotNull JooqxTx transaction() {
-            return delegate().transaction();
-        }
+        public @NotNull JooqxTx transaction() { return delegate().transaction(); }
 
         @Override
-        public <X> Future<@Nullable X> run(@NotNull Function<JooqxTx, Future<X>> function) {
+        @SuppressWarnings("unchecked")
+        public @NotNull JooqxSession session() { return delegate().session(); }
+
+        @Override
+        public <X> Future<@Nullable X> run(@NotNull Function<JooqxTx, Future<X>> transactionFn) {
             return delegate().sqlClient()
                              .getConnection()
-                             .compose(conn -> beginTx(conn, function), t -> Future.failedFuture(
-                                 transientConnFailed("Unable to open SQL connection", t)));
+                             .compose(conn -> beginTx(conn, transactionFn),
+                                      t -> Future.failedFuture(unableOpenConn(t)));
         }
 
         @Override
-        protected JooqxTx withSqlClient(SqlConnection sqlClient) {
+        public <R> Future<R> perform(@NotNull Function<JooqxSession, Future<R>> sessionFn) {
+            return delegate().sqlClient()
+                             .getConnection()
+                             .compose(conn -> sessionFn.apply(withSqlClient(conn)).onComplete(ar -> conn.close()),
+                                      t -> Future.failedFuture(unableOpenConn(t)));
+        }
+
+        @Override
+        protected JooqxConnImpl withSqlClient(SqlConnection sqlClient) {
             return new JooqxConnImpl(vertx(), dsl(), sqlClient, preparedQuery(), resultCollector(), errorConverter(),
                                      typeMapperRegistry());
         }
@@ -184,9 +194,14 @@ final class JooqxSQLImpl {
         }
 
         @Override
-        @NotNull
         @SuppressWarnings("unchecked")
-        public JooqxTx transaction() {
+        public @NotNull JooqxTx transaction() {
+            return new JooqxConnImpl(this);
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public @NotNull JooqxSession session() {
             return new JooqxConnImpl(this);
         }
 

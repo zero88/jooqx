@@ -21,16 +21,14 @@ public interface JooqxTx
     extends JooqxConn, SQLTxExecutor<SqlConnection, Tuple, JooqxPreparedQuery, JooqxResultCollector, JooqxTx> {
 
     @Override
-    default @NotNull JooqxTx transaction() {
-        return this;
+    default @NotNull JooqxTx transaction() { return this; }
+
+    @Override
+    default <X> void run(@NotNull Function<JooqxTx, Future<X>> transactionFn, @NotNull Handler<AsyncResult<X>> handler) {
+        run(transactionFn).onComplete(handler);
     }
 
     @Override
-    default <X> void run(@NotNull Function<JooqxTx, Future<X>> function, @NotNull Handler<AsyncResult<X>> handler) {
-        SQLTxExecutor.super.run(function, handler);
-    }
-
-    @Override
-    <X> Future<X> run(@NotNull Function<JooqxTx, Future<X>> function);
+    <X> Future<X> run(@NotNull Function<JooqxTx, Future<X>> transactionFn);
 
 }

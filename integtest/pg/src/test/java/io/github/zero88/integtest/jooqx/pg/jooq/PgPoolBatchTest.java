@@ -1,14 +1,11 @@
 package io.github.zero88.integtest.jooqx.pg.jooq;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.jooq.InsertResultStep;
 import org.jooq.InsertSetMoreStep;
 import org.jooq.Record1;
-import org.jooq.exception.SQLStateClass;
-import org.jooq.impl.DSL;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,9 +20,7 @@ import io.github.zero88.jooqx.spi.pg.PgPoolProvider;
 import io.github.zero88.jooqx.spi.pg.PgSQLErrorConverterProvider;
 import io.github.zero88.jooqx.spi.pg.PgSQLJooqxTest;
 import io.github.zero88.sample.model.pgsql.tables.Authors;
-import io.github.zero88.sample.model.pgsql.tables.Books;
 import io.github.zero88.sample.model.pgsql.tables.records.AuthorsRecord;
-import io.github.zero88.sample.model.pgsql.tables.records.BooksRecord;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
@@ -34,7 +29,7 @@ import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 import io.vertx.pgclient.PgPool;
 
-class PgReABatchTest extends PgSQLJooqxTest<PgPool>
+class PgPoolBatchTest extends PgSQLJooqxTest<PgPool>
     implements PgPoolProvider, PgUseJooqType, PgSQLErrorConverterProvider {
 
     @Override
@@ -119,80 +114,6 @@ class PgReABatchTest extends PgSQLJooqxTest<PgPool>
             Assertions.assertEquals(2, result.getSuccesses());
             jooqx.execute(jooqx.dsl().selectFrom(table), DSLAdapter.fetchJsonRecords(table), ar2 -> {
                 assertResultSize(ctx, ar2, 10);
-                flag.flag();
-            });
-        }));
-    }
-
-    @Test
-    void transaction_insert_success(VertxTestContext context) {
-        final Checkpoint flag = context.checkpoint();
-        final Books table = schema().BOOKS;
-        jooqx.transaction().run(tx -> {
-            final InsertResultStep<BooksRecord> q1 = tx.dsl()
-                                                       .insertInto(table, table.ID, table.TITLE)
-                                                       .values(Arrays.asList(DSL.defaultValue(table.ID), "abc"))
-                                                       .returning(table.ID);
-            final InsertResultStep<BooksRecord> q2 = tx.dsl()
-                                                       .insertInto(table, table.ID, table.TITLE)
-                                                       .values(Arrays.asList(DSL.defaultValue(table.ID), "xyz"))
-                                                       .returning(table.ID);
-            return tx.execute(q1, DSLAdapter.fetchOne(table)).flatMap(b1 -> tx.execute(q2, DSLAdapter.fetchOne(table)));
-        }, ar -> context.verify(() -> {
-            final BooksRecord record = assertSuccess(context, ar);
-            Assertions.assertNotNull(record);
-            Assertions.assertEquals(9, record.getId());
-            jooqx.execute(jooqx.dsl().selectFrom(table), DSLAdapter.fetchMany(table), ar2 -> {
-                assertResultSize(context, ar2, 9);
-                flag.flag();
-            });
-        }));
-    }
-
-    @Test
-    void transaction_failed_due_to_conflict_key(VertxTestContext context) {
-        final Checkpoint flag = context.checkpoint();
-        final Books table = schema().BOOKS;
-        jooqx.transaction().run(tx -> {
-            final InsertResultStep<BooksRecord> q1 = tx.dsl()
-                                                       .insertInto(table, table.ID, table.TITLE)
-                                                       .values(Arrays.asList(DSL.defaultValue(table.ID), "abc"))
-                                                       .returning(table.ID);
-            final InsertResultStep<BooksRecord> q2 = tx.dsl()
-                                                       .insertInto(table, table.ID, table.TITLE)
-                                                       .values(1, "xyz")
-                                                       .returning(table.ID);
-            return tx.execute(q1, DSLAdapter.fetchOne(table)).flatMap(b1 -> tx.execute(q2, DSLAdapter.fetchOne(table)));
-        }, ar -> context.verify(() -> {
-            assertJooqException(context, ar, SQLStateClass.C23_INTEGRITY_CONSTRAINT_VIOLATION);
-            jooqx.execute(jooqx.dsl().selectFrom(table), DSLAdapter.fetchMany(table), ar2 -> {
-                assertResultSize(context, ar2, 7);
-                flag.flag();
-            });
-        }));
-    }
-
-    @Test
-    void transaction_batch_success(VertxTestContext context) {
-        final Checkpoint flag = context.checkpoint();
-        final Authors table = schema().AUTHORS;
-        jooqx.transaction().run(tx -> {
-            AuthorsRecord rec1 = new AuthorsRecord().setName("abc").setCountry("AU");
-            AuthorsRecord rec2 = new AuthorsRecord().setName("haha");
-            final BindBatchValues bindValues = new BindBatchValues().register(table.NAME)
-                                                                    .registerValue(table.COUNTRY, "VN")
-                                                                    .add(rec1, rec2);
-            final InsertSetMoreStep<AuthorsRecord> insert = jooqx.dsl()
-                                                                 .insertInto(table)
-                                                                 .set(bindValues.getDummyValues());
-            return tx.batch(insert, bindValues);
-        }, ar -> context.verify(() -> {
-            final BatchResult result = assertSuccess(context, ar);
-            Assertions.assertNotNull(result);
-            Assertions.assertEquals(2, result.getSuccesses());
-            Assertions.assertEquals(2, result.getTotal());
-            jooqx.execute(jooqx.dsl().selectFrom(table), DSLAdapter.fetchMany(table), ar2 -> {
-                assertResultSize(context, ar2, 10);
                 flag.flag();
             });
         }));

@@ -1,9 +1,8 @@
 package io.github.zero88.integtest.jooqx.pg.jooq;
 
 import java.util.Arrays;
-import java.util.List;
 
-import org.jooq.InsertResultStep;
+import org.jooq.exception.DataAccessException;
 import org.jooq.exception.SQLStateClass;
 import org.jooq.impl.DSL;
 import org.junit.jupiter.api.Assertions;
@@ -12,9 +11,7 @@ import org.junit.jupiter.api.Test;
 
 import io.github.zero88.integtest.jooqx.pg.PgUseJooqType;
 import io.github.zero88.jooqx.BindBatchValues;
-import io.github.zero88.jooqx.BlockQuery;
 import io.github.zero88.jooqx.DSLAdapter;
-import io.github.zero88.jooqx.JsonRecord;
 import io.github.zero88.jooqx.spi.jdbc.JDBCErrorConverterProvider;
 import io.github.zero88.jooqx.spi.pg.PgSQLLegacyTest;
 import io.github.zero88.sample.model.pgsql.tables.Authors;
@@ -24,11 +21,10 @@ import io.github.zero88.sample.model.pgsql.tables.records.BooksRecord;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Handler;
 import io.vertx.core.Vertx;
-import io.vertx.core.json.JsonObject;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 
-class PgLeGRelationTest extends PgSQLLegacyTest implements PgUseJooqType, JDBCErrorConverterProvider {
+class PgLegacySessionTxTest extends PgSQLLegacyTest implements PgUseJooqType, JDBCErrorConverterProvider {
 
     @Override
     @BeforeEach
@@ -38,53 +34,7 @@ class PgLeGRelationTest extends PgSQLLegacyTest implements PgUseJooqType, JDBCEr
     }
 
     @Test
-    void test_query(VertxTestContext ctx) {
-        final Books table = schema().BOOKS;
-        jooqx.fetchMany(dsl -> dsl.selectFrom(table), ar -> assertResultSize(ctx, ar, 7));
-    }
-
-    @Test
-    void test_insert(VertxTestContext ctx) {
-        Checkpoint flag = ctx.checkpoint();
-        final Books table = schema().BOOKS;
-        final InsertResultStep<BooksRecord> insert = jooqx.dsl()
-                                                          .insertInto(table, table.ID, table.TITLE)
-                                                          .values(Arrays.asList(DSL.defaultValue(table.ID), "abc"))
-                                                          .returning(table.ID);
-        jooqx.execute(insert, DSLAdapter.fetchJsonRecord(table), ar -> ctx.verify(() -> {
-            final JsonRecord<?> jsonRecord = assertSuccess(ctx, ar);
-            Assertions.assertEquals(new JsonObject().put("id", 8).put("title", null), jsonRecord.toJson());
-            flag.flag();
-        }));
-    }
-
-    @Test
-    void test_batch_insert(VertxTestContext ctx) {
-        final Checkpoint flag = ctx.checkpoint();
-        final Books table = schema().BOOKS;
-        BooksRecord rec1 = new BooksRecord().setTitle("abc");
-        BooksRecord rec2 = new BooksRecord().setTitle("xyz");
-        BooksRecord rec3 = new BooksRecord().setTitle("qwe");
-
-        final BindBatchValues bindValues = new BindBatchValues().register(table.TITLE).add(rec1, rec2, rec3);
-        final InsertResultStep<BooksRecord> insert = jooqx.dsl()
-                                                          .insertInto(table)
-                                                          .set(bindValues.getDummyValues())
-                                                          .returning();
-        jooqx.batch(insert, bindValues, ar -> {
-            ctx.verify(() -> Assertions.assertEquals(3, ar.result().getSuccesses()));
-            jooqx.execute(jooqx.dsl().selectFrom(table), DSLAdapter.fetchJsonRecords(table), ar2 -> ctx.verify(() -> {
-                final List<JsonRecord<BooksRecord>> records = assertResultSize(ctx, ar2, 10);
-                Assertions.assertEquals(new JsonObject().put("id", 8).put("title", "abc"), records.get(7).toJson());
-                Assertions.assertEquals(new JsonObject().put("id", 9).put("title", "xyz"), records.get(8).toJson());
-                Assertions.assertEquals(new JsonObject().put("id", 10).put("title", "qwe"), records.get(9).toJson());
-                flag.flag();
-            }));
-        });
-    }
-
-    @Test
-    void test_transaction_multiple_update_but_one_failed(VertxTestContext ctx) {
+    void test_transaction_failed_when_multiple_update(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
         final Books table = schema().BOOKS;
         final Handler<AsyncResult<BooksRecord>> asserter = ar -> {
@@ -108,7 +58,7 @@ class PgLeGRelationTest extends PgSQLLegacyTest implements PgUseJooqType, JDBCEr
     }
 
     @Test
-    void test_transaction_batch_insert_failed(VertxTestContext ctx) {
+    void test_transaction_failed_when_batch_insert(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
         final Authors table = schema().AUTHORS;
         AuthorsRecord i1 = new AuthorsRecord().setName("n1").setCountry("AT");
@@ -131,24 +81,27 @@ class PgLeGRelationTest extends PgSQLLegacyTest implements PgUseJooqType, JDBCEr
     }
 
     @Test
-    void test_select_block(VertxTestContext ctx) {
+    void test_session_throw_ex_but_still_inserted_first_when_multiple_inserts_failed_in_second(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
-        jooqx.block(dsl -> BlockQuery.create()
-                                     .add(dsl.selectFrom(schema().AUTHORS).limit(3), DSLAdapter.fetchMany(schema().AUTHORS))
-                                     .add(dsl.selectFrom(schema().BOOKS), DSLAdapter.fetchMany(schema().BOOKS)))
-             .onSuccess(blockResult -> ctx.verify(() -> {
-                 Assertions.assertEquals(2, blockResult.size());
-
-                 final List<AuthorsRecord> records = blockResult.get(0);
-                 Assertions.assertEquals(3, records.size());
-                 System.out.println(records);
-
-                 final List<BooksRecord> records2 = blockResult.get(1);
-                 Assertions.assertEquals(7, records2.size());
-                 System.out.println(records2);
-                 flag.flag();
-             }))
-             .onFailure(ctx::failNow);
+        final Authors table = schema().AUTHORS;
+        AuthorsRecord i1 = new AuthorsRecord().setName("n1").setCountry("AT");
+        AuthorsRecord i2 = new AuthorsRecord().setName("n2");
+        jooqx.session()
+             .perform(s -> s.execute(dsl -> dsl.insertInto(table).set(i1).returning(), DSLAdapter.fetchOne(table))
+                            .flatMap(r1 -> s.execute(dsl -> dsl.insertInto(table).set(i2).returning(),
+                                                     DSLAdapter.fetchOne(table)).map(r2 -> Arrays.asList(r1, r2))))
+             .onSuccess(result -> ctx.failNow("Should failed"))
+             .onFailure(t -> ctx.verify(() -> {
+                 Assertions.assertInstanceOf(DataAccessException.class, t);
+                 Assertions.assertTrue(
+                     t.getMessage().contains("null value in column \"country\" violates not-null constraint"));
+                 jooqx.fetchExists(dsl -> dsl.selectFrom(table).where(table.NAME.eq("n1").and(table.COUNTRY.eq("AT"))))
+                      .onSuccess(b -> ctx.verify(() -> {
+                          Assertions.assertTrue(b);
+                          flag.flag();
+                      }))
+                      .onFailure(ctx::failNow);
+             }));
     }
 
 }

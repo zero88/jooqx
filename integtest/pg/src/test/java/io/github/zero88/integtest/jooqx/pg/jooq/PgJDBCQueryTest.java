@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import io.github.zero88.integtest.jooqx.pg.JDBCIntervalConverter;
@@ -26,7 +25,7 @@ import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 
 //Fixed in https://github.com/vert-x3/vertx-jdbc-client/pull/235
-class PgReAJDBCPoolTest extends PgSQLJooqxTest<JDBCPool>
+class PgJDBCQueryTest extends PgSQLJooqxTest<JDBCPool>
     implements PgUseJooqType, JDBCPoolHikariProvider, JDBCErrorConverterProvider {
 
     @Override
@@ -42,7 +41,7 @@ class PgReAJDBCPoolTest extends PgSQLJooqxTest<JDBCPool>
     }
 
     @Test
-    void queryTemporal(VertxTestContext ctx) {
+    void test_query_temporal(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
         final AllDataTypes table = schema().ALL_DATA_TYPES;
 
@@ -61,7 +60,7 @@ class PgReAJDBCPoolTest extends PgSQLJooqxTest<JDBCPool>
     }
 
     @Test
-    void test_select_block(VertxTestContext ctx) {
+    void test_block_select(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
         jooqx.block(dsl -> BlockQuery.create()
                                      .add(dsl.selectFrom(schema().AUTHORS), DSLAdapter.fetchMany(schema().AUTHORS))

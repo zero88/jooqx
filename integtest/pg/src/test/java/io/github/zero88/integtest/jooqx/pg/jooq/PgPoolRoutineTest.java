@@ -25,7 +25,7 @@ import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 import io.vertx.pgclient.PgPool;
 
-class PgReARoutineTest extends PgSQLJooqxTest<PgPool>
+class PgPoolRoutineTest extends PgSQLJooqxTest<PgPool>
     implements PgPoolProvider, PgUseJooqType, PgSQLErrorConverterProvider {
 
     @Override

@@ -9,6 +9,7 @@ import org.jooq.Record;
 import org.jooq.Record1;
 import org.jooq.SelectConditionStep;
 import org.jooq.SelectWhereStep;
+import org.jooq.exception.SQLStateClass;
 import org.jooq.exception.TooManyRowsException;
 import org.jooq.impl.DSL;
 import org.junit.jupiter.api.Assertions;
@@ -21,6 +22,7 @@ import io.github.zero88.jooqx.BlockQuery;
 import io.github.zero88.jooqx.DSLAdapter;
 import io.github.zero88.jooqx.JsonRecord;
 import io.github.zero88.jooqx.spi.pg.PgConnProvider;
+import io.github.zero88.jooqx.spi.pg.PgSQLErrorConverterProvider;
 import io.github.zero88.jooqx.spi.pg.PgSQLJooqxTest;
 import io.github.zero88.sample.model.pgsql.Tables;
 import io.github.zero88.sample.model.pgsql.tables.pojos.Authors;
@@ -33,12 +35,14 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 import io.vertx.pgclient.PgConnection;
+import io.vertx.pgclient.PgException;
 
 /**
  * If using v4.0.0, pretty sure thread leak, but v4.0.2 is already fixed
  * <a href="vertx-sql-client#909">https://github.com/eclipse-vertx/vertx-sql-client/issues/909</a>
  */
-class PgReARelationTest extends PgSQLJooqxTest<PgConnection> implements PgConnProvider, PgUseJooqType {
+class PgConnTest extends PgSQLJooqxTest<PgConnection>
+    implements PgConnProvider, PgUseJooqType, PgSQLErrorConverterProvider {
 
     @Override
     @BeforeEach
@@ -48,7 +52,31 @@ class PgReARelationTest extends PgSQLJooqxTest<PgConnection> implements PgConnPr
     }
 
     @Test
-    void test_count(VertxTestContext ctx) {
+    void test_insert_failed(VertxTestContext ctx) {
+        final io.github.zero88.sample.model.pgsql.tables.Books table = schema().BOOKS;
+        final InsertResultStep<BooksRecord> insert = jooqx.dsl()
+                                                          .insertInto(table, table.ID, table.TITLE)
+                                                          .values(1, "abc")
+                                                          .returning(table.ID);
+        jooqx.execute(insert, DSLAdapter.fetchOne(table.ID),
+                      ar -> assertJooqException(ctx, ar, SQLStateClass.C23_INTEGRITY_CONSTRAINT_VIOLATION,
+                                                "duplicate key value violates unique constraint \"books_pkey\"",
+                                                PgException.class));
+    }
+
+    @Test
+    void test_select_none_exist(VertxTestContext ctx) {
+        final Checkpoint flag = ctx.checkpoint();
+        final io.github.zero88.sample.model.pgsql.tables.Books table = schema().BOOKS;
+        final SelectConditionStep<BooksRecord> insert = jooqx.dsl().selectFrom(table).where(table.ID.eq(1000));
+        jooqx.execute(insert, DSLAdapter.fetchOne(table.ID), ar -> ctx.verify(() -> {
+            Assertions.assertNull(assertSuccess(ctx, ar));
+            flag.flag();
+        }));
+    }
+
+    @Test
+    void test_select_count(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
         final io.github.zero88.sample.model.pgsql.tables.Authors table = schema().AUTHORS;
         final SelectConditionStep<Record1<Integer>> query = jooqx.dsl()
@@ -62,7 +90,7 @@ class PgReARelationTest extends PgSQLJooqxTest<PgConnection> implements PgConnPr
     }
 
     @Test
-    void test_exist(VertxTestContext ctx) {
+    void test_select_exist(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
         final io.github.zero88.sample.model.pgsql.tables.Authors table = schema().AUTHORS;
         final DSLContext dsl = jooqx.dsl();
@@ -186,7 +214,7 @@ class PgReARelationTest extends PgSQLJooqxTest<PgConnection> implements PgConnPr
 
     @Test
     @Disabled("io.vertx.pgclient.PgException: ERROR: cannot insert multiple commands into a prepared statement (42601)")
-    void test_insert_block(VertxTestContext ctx) {
+    void test_block_insert(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
         jooqx.block(dsl -> BlockQuery.createBlock()
                                      .add(dsl.insertInto(schema().AUTHORS, schema().AUTHORS.ID, schema().AUTHORS.NAME,
@@ -197,23 +225,33 @@ class PgReARelationTest extends PgSQLJooqxTest<PgConnection> implements PgConnPr
                                                          schema().AUTHORS.COUNTRY)
                                              .values(Arrays.asList(DSL.defaultValue(Tables.AUTHORS.ID), "abc1", "xyz1"))
                                              .returning(), DSLAdapter.fetchOne(schema().AUTHORS)))
-             .onSuccess(r -> ctx.verify(() -> {
-                 flag.flag();
-             }))
+             .onSuccess(r -> ctx.verify(flag::flag))
              .onFailure(ctx::failNow);
     }
 
     @Test
     @Disabled("io.vertx.pgclient.PgException: ERROR: cannot insert multiple commands into a prepared statement (42601)")
-    void test_select_block(VertxTestContext ctx) {
+    void test_block_select(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
         jooqx.block(dsl -> BlockQuery.create()
                                      .add(dsl.selectFrom(schema().AUTHORS), DSLAdapter.fetchMany(schema().AUTHORS))
                                      .add(dsl.selectFrom(schema().BOOKS), DSLAdapter.fetchMany(schema().BOOKS)))
-             .onSuccess(r -> ctx.verify(() -> {
-                 flag.flag();
-             }))
+             .onSuccess(r -> ctx.verify(flag::flag))
              .onFailure(ctx::failNow);
+    }
+
+    @Test
+    void should_unsupported_session() {
+        Assertions.assertThrows(UnsupportedOperationException.class, jooqx::session,
+                                "Unsupported using connection on SQL connection: [class io.vertx.pgclient.impl" +
+                                ".PgConnectionImpl]. Switch using SQL pool");
+    }
+
+    @Test
+    void should_unsupported_transaction() {
+        Assertions.assertThrows(UnsupportedOperationException.class, jooqx::transaction,
+                                "Unsupported using connection on SQL connection: [class io.vertx.pgclient.impl" +
+                                ".PgConnectionImpl]. Switch using SQL pool");
     }
 
 }

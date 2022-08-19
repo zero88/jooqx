@@ -10,7 +10,7 @@ import io.github.zero88.jooqx.spi.pg.PgSQLJooqxTest;
 import io.vertx.junit5.VertxTestContext;
 import io.vertx.pgclient.PgPool;
 
-class PgReADDLTest extends PgSQLJooqxTest<PgPool>
+class PgPoolDDLTest extends PgSQLJooqxTest<PgPool>
     implements PgSQLErrorConverterProvider, PgPoolProvider, PgUseJooqType, DDLTest {
 
     @Test

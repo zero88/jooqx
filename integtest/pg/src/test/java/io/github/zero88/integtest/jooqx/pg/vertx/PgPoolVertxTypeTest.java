@@ -26,7 +26,7 @@ import io.vertx.pgclient.data.Interval;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-class PgReAVertxTypeTest extends PgSQLJooqxTest<PgPool>
+class PgPoolVertxTypeTest extends PgSQLJooqxTest<PgPool>
     implements PgSQLErrorConverterProvider, PgPoolProvider, PgUseVertxType {
 
     @BeforeAll
@@ -89,7 +89,7 @@ class PgReAVertxTypeTest extends PgSQLJooqxTest<PgPool>
     }
 
     @Test
-    void test_json_object_json_array(VertxTestContext ctx) {
+    void test_query_json(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
         final VertxAllDataTypes table = schema().VERTX_ALL_DATA_TYPES;
         jooqx.fetchOne(dsl -> dsl.selectFrom(table).where(table.ID.eq(51)).limit(1), ar -> ctx.verify(() -> {
@@ -106,7 +106,7 @@ class PgReAVertxTypeTest extends PgSQLJooqxTest<PgPool>
     }
 
     @Test
-    void test_jsonb_object_json_array(VertxTestContext ctx) {
+    void test_query_jsonb(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
         final VertxAllDataTypes table = schema().VERTX_ALL_DATA_TYPES;
         jooqx.fetchOne(dsl -> dsl.selectFrom(table).where(table.ID.eq(61)).limit(1), ar -> ctx.verify(() -> {
@@ -123,7 +123,7 @@ class PgReAVertxTypeTest extends PgSQLJooqxTest<PgPool>
     }
 
     @Test
-    void test_field_interval_but_covert_to_duration(VertxTestContext ctx) {
+    void test_query_field_interval_but_covert_to_duration(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
         final VertxAllDataTypes table = schema().VERTX_ALL_DATA_TYPES;
         jooqx.fetchOne(dsl -> dsl.selectFrom(table).where(table.ID.eq(31)).limit(1), ar -> ctx.verify(() -> {
@@ -135,30 +135,32 @@ class PgReAVertxTypeTest extends PgSQLJooqxTest<PgPool>
     }
 
     @Test
-    void queryJsonToJsonObject(VertxTestContext ctx) {
+    void test_query_JSON_To_JsonObject(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
         final VertxAllDataTypes table = schema().VERTX_ALL_DATA_TYPES;
         jooqx.fetchJsonObject(dsl -> dsl.selectFrom(table).where(table.ID.eq(31)).limit(1), new DatabindCodec())
              .onSuccess(r -> ctx.verify(() -> {
-                 Assertions.assertEquals(new JsonObject(
+                 System.out.println(r);
+                 final JsonObject expected = new JsonObject(
                      "{\"id\":31,\"f_boolean\":null,\"f_num_short\":null,\"f_num_int\":null,\"f_num_long\":null," +
-                     "\"f_num_float4\":null,\"f_num_double\":null,\"f_num_decimal\":null," +
-                     "\"f_num_numeric\":null,\"f_num_small_serial\":3,\"f_num_serial\":3,\"f_num_big_serial\":3," +
-                     "\"f_str_char\":null,\"f_str_fixed_char\":null,\"f_str_varchar\":null,\"f_str_text\":null," +
-                     "\"f_misc_name\":null,\"f_misc_uuid\":null,\"f_misc_bytea\":null,\"f_date\":\"1981-05-30\"," +
-                     "\"f_time\":\"17:55:04.90512\",\"f_timetz\":\"17:55:04.905120+03:07\"," +
-                     "\"f_timestamp\":\"2017-05-14T19:35:58.237666\"," +
-                     "\"f_timestamptz\":\"2017-05-15T02:59:59.237666Z\"," +
-                     "\"f_interval\":{\"years\":10,\"months\":3,\"days\":332,\"hours\":20,\"minutes\":20," +
-                     "\"seconds\":20,\"microseconds\":999999},\"f_duration\":\"PT4H33M59S\"," +
-                     "\"f_udt_mood\":null,\"f_udt_weather\":null,\"f_udt_address\":null,\"f_json_object\":null," +
-                     "\"f_json_array\":null,\"f_json_number\":null,\"f_json_string\":null," +
-                     "\"f_json_boolean_true\":null,\"f_json_boolean_false\":null,\"f_json_null_value\":null," +
-                     "\"f_json_null\":null,\"f_jsonb_object\":null,\"f_jsonb_array\":null,\"f_jsonb_number\":null," +
-                     "\"f_jsonb_string\":null,\"f_jsonb_boolean_true\":null,\"f_jsonb_boolean_false\":null," +
-                     "\"f_jsonb_null_value\":null,\"f_jsonb_null\":null,\"f_point\":null,\"f_line\":null," +
-                     "\"f_lseg\":null,\"f_box\":null,\"f_closed_path\":null," +
-                     "\"f_opened_path\":null,\"f_polygon\":null,\"f_circle\":null}"), r);
+                     "\"f_num_float4\":null,\"f_num_double\":null,\"f_num_decimal\":null,\"f_num_numeric\":null," +
+                     "\"f_num_small_serial\":3,\"f_num_serial\":3,\"f_num_big_serial\":3,\"f_str_char\":null," +
+                     "\"f_str_fixed_char\":null,\"f_str_varchar\":null,\"f_str_text\":null,\"f_misc_name\":null," +
+                     "\"f_misc_uuid\":null,\"f_misc_bytea\":null,\"f_date\":\"1981-05-30\",\"f_time\":\"17:55:04" +
+                     ".90512\",\"f_timetz\":\"17:55:04.905120+03:07\",\"f_timestamp\":\"2017-05-14T19:35:58.237666\"," +
+                     "\"f_timestamptz\":\"2017-05-15T02:59:59.237666Z\",\"f_interval\":{\"years\":10,\"months\":3," +
+                     "\"days\":332,\"hours\":20,\"minutes\":20,\"seconds\":20,\"microseconds\":999999}," +
+                     "\"f_duration\":\"PT4H33M59S\",\"f_udt_mood\":null,\"f_udt_weather\":null," +
+                     "\"f_udt_address\":null,\"f_json_object\":null,\"f_json_array\":null,\"f_json_number\":null," +
+                     "\"f_json_string\":null,\"f_json_boolean_true\":null,\"f_json_boolean_false\":null," +
+                     "\"f_json_null_value\":null,\"f_json_null\":null,\"f_jsonb_object\":null,\"f_jsonb_array\":null," +
+                     "\"f_jsonb_number\":null,\"f_jsonb_string\":null,\"f_jsonb_boolean_true\":null," +
+                     "\"f_jsonb_boolean_false\":null,\"f_jsonb_null_value\":null,\"f_jsonb_null\":null," +
+                     "\"f_point\":null,\"f_line\":null,\"f_lseg\":null,\"f_box\":null,\"f_closed_path\":null," +
+                     "\"f_opened_path\":null,\"f_polygon\":null,\"f_circle\":null}");
+                 System.out.println(expected.hashCode());
+                 System.out.println(r.hashCode());
+                 Assertions.assertEquals(expected.encode(), r.encode());
                  cp.flag();
              }))
              .onFailure(ctx::failNow);

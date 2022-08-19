@@ -66,4 +66,10 @@ public interface Jooqx extends JooqxBase<Pool> {
     @Override
     @NotNull JooqxTx transaction();
 
+    /**
+     * @see JooqxSession
+     */
+    @SuppressWarnings("unchecked")
+    @Override
+    @NotNull JooqxSession session();
 }

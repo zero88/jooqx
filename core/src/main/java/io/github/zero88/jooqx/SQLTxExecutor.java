@@ -24,21 +24,19 @@ public interface SQLTxExecutor<S, B, P extends SQLPreparedQuery<B>, C extends SQ
     /**
      * Run the transactional code
      *
-     * @param function transaction function
-     * @param handler  handler
-     * @param <X>      Type of result
+     * @param transactionFn transaction function
+     * @param handler       handler
+     * @param <X>           Type of result
      */
-    default <X> void run(@NotNull Function<E, Future<X>> function, @NotNull Handler<AsyncResult<X>> handler) {
-        run(function).onComplete(handler);
-    }
+    <X> void run(@NotNull Function<E, Future<X>> transactionFn, @NotNull Handler<AsyncResult<X>> handler);
 
     /**
      * Like {@link #run(Function, Handler)} but returns a {@code Future} of the asynchronous result
      *
-     * @param function transaction function
-     * @param <X>      Type of result
+     * @param transactionFn transaction function
+     * @param <X>           Type of result
      * @return a {@code Future} of the asynchronous result
      */
-    <X> Future<X> run(@NotNull Function<E, Future<X>> function);
+    <X> Future<X> run(@NotNull Function<E, Future<X>> transactionFn);
 
 }

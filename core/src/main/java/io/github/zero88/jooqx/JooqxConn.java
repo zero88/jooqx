@@ -64,4 +64,8 @@ public interface JooqxConn extends JooqxBase<SqlConnection> {
     @Override
     @NotNull JooqxTx transaction();
 
+    @Override
+    @SuppressWarnings("unchecked")
+    @NotNull JooqxSession session();
+
 }
