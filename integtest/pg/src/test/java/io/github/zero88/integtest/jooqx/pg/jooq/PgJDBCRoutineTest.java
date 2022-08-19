@@ -26,7 +26,7 @@ import io.vertx.jdbcclient.JDBCPool;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 
-class PgReAJDBCRoutineTest extends PgSQLJooqxTest<JDBCPool>
+class PgJDBCRoutineTest extends PgSQLJooqxTest<JDBCPool>
     implements PgUseJooqType, JDBCPoolHikariProvider, JDBCErrorConverterProvider {
 
     @Override

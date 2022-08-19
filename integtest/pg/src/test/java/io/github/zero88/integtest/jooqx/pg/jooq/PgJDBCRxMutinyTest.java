@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 
 import io.github.zero88.integtest.jooqx.pg.PgUseJooqType;
 import io.github.zero88.jooqx.DSLAdapter;
-import io.github.zero88.jooqx.reactivex.Jooqx;
-import io.github.zero88.jooqx.reactivex.JooqxBuilder;
+import io.github.zero88.jooqx.mutiny.Jooqx;
+import io.github.zero88.jooqx.mutiny.JooqxBuilder;
 import io.github.zero88.jooqx.spi.jdbc.JDBCErrorConverterProvider;
 import io.github.zero88.jooqx.spi.jdbc.JDBCPoolAgroalProvider;
 import io.github.zero88.jooqx.spi.pg.PgSQLJooqxTest;
@@ -17,28 +17,28 @@ import io.vertx.jdbcclient.JDBCPool;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
 
-class PgReARx2Test extends PgSQLJooqxTest<JDBCPool>
+class PgJDBCRxMutinyTest extends PgSQLJooqxTest<JDBCPool>
     implements PgUseJooqType, JDBCPoolAgroalProvider, JDBCErrorConverterProvider {
 
-    Jooqx jooqxRx2;
+    Jooqx jooqxMutiny;
 
     @Override
     @BeforeEach
     public void tearUp(Vertx vertx, VertxTestContext ctx) {
         super.tearUp(vertx, ctx);
         this.prepareDatabase(ctx, this, connOpt, "pg_data/book_author.sql");
-        jooqxRx2 = JooqxBuilder.newInstance(io.github.zero88.jooqx.Jooqx.builder())
-                               .setVertx(io.vertx.reactivex.core.Vertx.newInstance(vertx))
-                               .setDSL(jooqx.dsl())
-                               .setSqlClient(io.vertx.reactivex.jdbcclient.JDBCPool.newInstance(jooqx.sqlClient()))
-                               .build();
+        jooqxMutiny = JooqxBuilder.newInstance(io.github.zero88.jooqx.Jooqx.builder())
+                                  .setVertx(io.vertx.mutiny.core.Vertx.newInstance(vertx))
+                                  .setDSL(jooqx.dsl())
+                                  .setSqlClient(io.vertx.mutiny.jdbcclient.JDBCPool.newInstance(jooqx.sqlClient()))
+                                  .build();
     }
 
     @Test
     void test_query(VertxTestContext ctx) {
         final Books table = schema().BOOKS;
         Checkpoint cp = ctx.checkpoint();
-        jooqxRx2.rxExecute(dsl -> dsl.selectFrom(table), DSLAdapter.fetchJsonRecords(table)).subscribe(recs -> {
+        jooqxMutiny.execute(dsl -> dsl.selectFrom(table), DSLAdapter.fetchJsonRecords(table)).subscribe().with(recs -> {
             ctx.verify(() -> Assertions.assertEquals(7, recs.size()));
             cp.flag();
         }, ctx::failNow);
