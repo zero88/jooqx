@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":9,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10,"i28":10,"i29":10,"i30":10,"i31":10,"i32":10,"i33":10,"i34":10,"i35":10,"i36":10,"i37":10,"i38":10,"i39":10,"i40":10,"i41":10,"i42":10,"i43":10,"i44":10,"i45":10,"i46":10,"i47":10,"i48":10,"i49":10,"i50":10,"i51":10,"i52":10,"i53":10,"i54":10,"i55":10,"i56":10,"i57":10,"i58":10,"i59":10,"i60":10,"i61":10,"i62":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":9,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10,"i28":10,"i29":10,"i30":10,"i31":10,"i32":10,"i33":10,"i34":10,"i35":10,"i36":10,"i37":10,"i38":10,"i39":10,"i40":10,"i41":10,"i42":10,"i43":10,"i44":10,"i45":10,"i46":10,"i47":10,"i48":10,"i49":10,"i50":10,"i51":10,"i52":10,"i53":10,"i54":10,"i55":10,"i56":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -225,14 +225,18 @@ extends java.lang.Object</pre>
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#batch(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues)">batch</a></span>&#8203;(org.jooq.Query&nbsp;query,
      <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Batch execute</div>
+</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#batch(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.vertx.core.Handler)">batch</a></span>&#8203;(org.jooq.Query&nbsp;query,
      <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
      io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;<a href="../BatchResult.html" title="interface in io.github.zero88.jooqx">BatchResult</a>&gt;&gt;&nbsp;handler)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Batch execute</div>
+</td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
@@ -295,21 +299,11 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i12" class="altColor">
-<td class="colFirst"><code>org.jooq.DSLContext</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#dsl()">dsl</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr id="i13" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#equals(java.lang.Object)">equals</a></span>&#8203;(java.lang.Object&nbsp;o)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i14" class="altColor">
-<td class="colFirst"><code><a href="../SQLErrorConverter.html" title="interface in io.github.zero88.jooqx">SQLErrorConverter</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#errorConverter()">errorConverter</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr id="i15" class="rowColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">execute</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
        <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</code></th>
@@ -317,7 +311,7 @@ extends java.lang.Object</pre>
 <div class="block">Execute <code>jOOQ query</code> then return async result</div>
 </td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">execute</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
        <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter,
@@ -326,102 +320,96 @@ extends java.lang.Object</pre>
 <div class="block">Execute <code>jOOQ query</code> then return async result</div>
 </td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)">execute</a></span>&#8203;(org.jooq.Query&nbsp;query,
        <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Execute <code>jOOQ query</code> then return async result</div>
+</td>
 </tr>
-<tr id="i18" class="altColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">execute</a></span>&#8203;(org.jooq.Query&nbsp;query,
        <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter,
        io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;R&gt;&gt;&nbsp;handler)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Execute <code>jOOQ query</code> then return async result</div>
+</td>
 </tr>
-<tr id="i19" class="rowColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code><a href="../LegacyJooqxTx.html" title="interface in io.github.zero88.jooqx">LegacyJooqxTx</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getDelegate()">getDelegate</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i20" class="altColor">
+<tr id="i18" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#hashCode()">hashCode</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i21" class="rowColor">
+<tr id="i19" class="rowColor">
 <td class="colFirst"><code>static <a href="LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxTx</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#newInstance(io.github.zero88.jooqx.LegacyJooqxTx)">newInstance</a></span>&#8203;(<a href="../LegacyJooqxTx.html" title="interface in io.github.zero88.jooqx">LegacyJooqxTx</a>&nbsp;arg)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i22" class="altColor">
-<td class="colFirst"><code><a href="LegacySQLPreparedQuery.html" title="class in io.github.zero88.jooqx.reactivex">LegacySQLPreparedQuery</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#preparedQuery()">preparedQuery</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr id="i23" class="rowColor">
-<td class="colFirst"><code><a href="LegacySQLCollector.html" title="class in io.github.zero88.jooqx.reactivex">LegacySQLCollector</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resultCollector()">resultCollector</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr id="i24" class="altColor">
+<tr id="i20" class="altColor">
 <td class="colFirst"><code>&lt;T&gt;&nbsp;void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#routine(java.util.function.Function)">routine</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Routine&lt;T&gt;&gt;&nbsp;routineFunction)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i25" class="rowColor">
+<tr id="i21" class="rowColor">
 <td class="colFirst"><code>&lt;T&gt;&nbsp;void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#routine(java.util.function.Function,io.vertx.core.Handler)">routine</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Routine&lt;T&gt;&gt;&nbsp;routineFunction,
        io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;T&gt;&gt;&nbsp;handler)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i26" class="altColor">
+<tr id="i22" class="altColor">
 <td class="colFirst"><code>&lt;T&gt;&nbsp;io.vertx.core.Future&lt;T&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#routine(org.jooq.Routine,io.vertx.core.Handler)">routine</a></span>&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine,
        io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;T&gt;&gt;&nbsp;handler)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i27" class="rowColor">
+<tr id="i23" class="rowColor">
 <td class="colFirst"><code>&lt;T&gt;&nbsp;void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#routineResult(org.jooq.Routine)">routineResult</a></span>&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i28" class="altColor">
+<tr id="i24" class="altColor">
 <td class="colFirst"><code>&lt;T&gt;&nbsp;void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#routineResult(org.jooq.Routine,io.vertx.core.Handler)">routineResult</a></span>&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine,
              io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;<a href="../routine/RoutineResult.html" title="interface in io.github.zero88.jooqx.routine">RoutineResult</a>&gt;&gt;&nbsp;handler)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i29" class="rowColor">
+<tr id="i25" class="rowColor">
 <td class="colFirst"><code>&lt;T,&#8203;X,&#8203;R&gt;<br>io.vertx.core.Future&lt;R&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#routineResultSet(org.jooq.Routine,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">routineResultSet</a></span>&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine,
                 <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;X,&#8203;R&gt;&nbsp;resultAdapter,
                 io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;R&gt;&gt;&nbsp;handler)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
+<tr id="i26" class="altColor">
+<td class="colFirst"><code>&lt;X&gt;&nbsp;void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#run(io.reactivex.functions.Function)">run</a></span>&#8203;(io.reactivex.functions.Function&lt;<a href="LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxTx</a>,&#8203;io.reactivex.Single&lt;X&gt;&gt;&nbsp;transactionFn)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i27" class="rowColor">
+<td class="colFirst"><code>&lt;X&gt;&nbsp;void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#run(io.reactivex.functions.Function,io.vertx.core.Handler)">run</a></span>&#8203;(io.reactivex.functions.Function&lt;<a href="LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxTx</a>,&#8203;io.reactivex.Single&lt;X&gt;&gt;&nbsp;transactionFn,
+   io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;X&gt;&gt;&nbsp;handler)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i28" class="altColor">
+<td class="colFirst"><code>&lt;X&gt;&nbsp;void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#run(java.util.function.Function)">run</a></span>&#8203;(java.util.function.Function&lt;<a href="LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxTx</a>,&#8203;io.vertx.core.Future&lt;X&gt;&gt;&nbsp;transactionFn)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i29" class="rowColor">
+<td class="colFirst"><code>&lt;X&gt;&nbsp;void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#run(java.util.function.Function,io.vertx.core.Handler)">run</a></span>&#8203;(java.util.function.Function&lt;<a href="LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxTx</a>,&#8203;io.vertx.core.Future&lt;X&gt;&gt;&nbsp;transactionFn,
+   io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;X&gt;&gt;&nbsp;handler)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
 <tr id="i30" class="altColor">
-<td class="colFirst"><code>&lt;X&gt;&nbsp;void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#run(io.reactivex.functions.Function)">run</a></span>&#8203;(io.reactivex.functions.Function&lt;<a href="LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxTx</a>,&#8203;io.reactivex.Single&lt;X&gt;&gt;&nbsp;function)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr id="i31" class="rowColor">
-<td class="colFirst"><code>&lt;X&gt;&nbsp;void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#run(io.reactivex.functions.Function,io.vertx.core.Handler)">run</a></span>&#8203;(io.reactivex.functions.Function&lt;<a href="LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxTx</a>,&#8203;io.reactivex.Single&lt;X&gt;&gt;&nbsp;function,
-   io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;X&gt;&gt;&nbsp;handler)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr id="i32" class="altColor">
-<td class="colFirst"><code>&lt;X&gt;&nbsp;void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#run(java.util.function.Function)">run</a></span>&#8203;(java.util.function.Function&lt;<a href="LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxTx</a>,&#8203;io.vertx.core.Future&lt;X&gt;&gt;&nbsp;function)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr id="i33" class="rowColor">
-<td class="colFirst"><code>&lt;X&gt;&nbsp;void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#run(java.util.function.Function,io.vertx.core.Handler)">run</a></span>&#8203;(java.util.function.Function&lt;<a href="LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxTx</a>,&#8203;io.vertx.core.Future&lt;X&gt;&gt;&nbsp;function,
-   io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;X&gt;&gt;&nbsp;handler)</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr id="i34" class="altColor">
 <td class="colFirst"><code>io.reactivex.Single&lt;<a href="../BatchResult.html" title="interface in io.github.zero88.jooqx">BatchResult</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rxBatch(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues)">rxBatch</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
        <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</code></th>
@@ -429,41 +417,43 @@ extends java.lang.Object</pre>
 <div class="block">Batch execute</div>
 </td>
 </tr>
-<tr id="i35" class="rowColor">
+<tr id="i31" class="rowColor">
 <td class="colFirst"><code>io.reactivex.Single&lt;<a href="../BatchResult.html" title="interface in io.github.zero88.jooqx">BatchResult</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rxBatch(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues)">rxBatch</a></span>&#8203;(org.jooq.Query&nbsp;query,
        <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Batch execute</div>
+</td>
 </tr>
-<tr id="i36" class="altColor">
+<tr id="i32" class="altColor">
 <td class="colFirst"><code>io.reactivex.Single&lt;<a href="../BlockResult.html" title="interface in io.github.zero88.jooqx">BlockResult</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rxBlock(io.github.zero88.jooqx.BlockQuery)">rxBlock</a></span>&#8203;(<a href="../BlockQuery.html" title="interface in io.github.zero88.jooqx">BlockQuery</a>&nbsp;blockQuery)</code></th>
 <td class="colLast">
 <div class="block">Block execute</div>
 </td>
 </tr>
-<tr id="i37" class="rowColor">
+<tr id="i33" class="rowColor">
 <td class="colFirst"><code>io.reactivex.Single&lt;<a href="../BlockResult.html" title="interface in io.github.zero88.jooqx">BlockResult</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rxBlock(java.util.function.Function)">rxBlock</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;<a href="../BlockQuery.html" title="interface in io.github.zero88.jooqx">BlockQuery</a>&gt;&nbsp;blockQueryFn)</code></th>
 <td class="colLast">
 <div class="block">Block execute</div>
 </td>
 </tr>
-<tr id="i38" class="altColor">
+<tr id="i34" class="altColor">
 <td class="colFirst"><code>io.reactivex.Single&lt;java.lang.Integer&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rxDdl(java.util.function.Function)">rxDdl</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.DDLQuery&gt;&nbsp;ddlFunction)</code></th>
 <td class="colLast">
 <div class="block">Execute DDL statement</div>
 </td>
 </tr>
-<tr id="i39" class="rowColor">
+<tr id="i35" class="rowColor">
 <td class="colFirst"><code>io.reactivex.Single&lt;java.lang.Integer&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rxDdl(org.jooq.DDLQuery)">rxDdl</a></span>&#8203;(org.jooq.DDLQuery&nbsp;statement)</code></th>
 <td class="colLast">
 <div class="block">Execute DDL statement</div>
 </td>
 </tr>
-<tr id="i40" class="altColor">
+<tr id="i36" class="altColor">
 <td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>io.reactivex.Maybe&lt;R&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rxExecute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">rxExecute</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
          <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</code></th>
@@ -471,47 +461,49 @@ extends java.lang.Object</pre>
 <div class="block">Execute <code>jOOQ query</code> then return async result</div>
 </td>
 </tr>
-<tr id="i41" class="rowColor">
+<tr id="i37" class="rowColor">
 <td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>io.reactivex.Maybe&lt;R&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rxExecute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)">rxExecute</a></span>&#8203;(org.jooq.Query&nbsp;query,
          <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</code></th>
-<td class="colLast">&nbsp;</td>
+<td class="colLast">
+<div class="block">Execute <code>jOOQ query</code> then return async result</div>
+</td>
 </tr>
-<tr id="i42" class="altColor">
+<tr id="i38" class="altColor">
 <td class="colFirst"><code>&lt;T&gt;&nbsp;io.reactivex.Single&lt;T&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rxRoutine(java.util.function.Function)">rxRoutine</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Routine&lt;T&gt;&gt;&nbsp;routineFunction)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i43" class="rowColor">
+<tr id="i39" class="rowColor">
 <td class="colFirst"><code>&lt;T&gt;&nbsp;io.reactivex.Single&lt;<a href="../routine/RoutineResult.html" title="interface in io.github.zero88.jooqx.routine">RoutineResult</a>&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rxRoutineResult(org.jooq.Routine)">rxRoutineResult</a></span>&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i44" class="altColor">
+<tr id="i40" class="altColor">
 <td class="colFirst"><code>&lt;X&gt;&nbsp;io.reactivex.Single&lt;X&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rxRun(io.reactivex.functions.Function)">rxRun</a></span>&#8203;(io.reactivex.functions.Function&lt;<a href="LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxTx</a>,&#8203;io.reactivex.Single&lt;X&gt;&gt;&nbsp;function)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rxRun(io.reactivex.functions.Function)">rxRun</a></span>&#8203;(io.reactivex.functions.Function&lt;<a href="LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxTx</a>,&#8203;io.reactivex.Single&lt;X&gt;&gt;&nbsp;transactionFn)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i45" class="rowColor">
+<tr id="i41" class="rowColor">
 <td class="colFirst"><code>&lt;X&gt;&nbsp;io.reactivex.Single&lt;X&gt;</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rxRun(java.util.function.Function)">rxRun</a></span>&#8203;(java.util.function.Function&lt;<a href="LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxTx</a>,&#8203;io.vertx.core.Future&lt;X&gt;&gt;&nbsp;function)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rxRun(java.util.function.Function)">rxRun</a></span>&#8203;(java.util.function.Function&lt;<a href="LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxTx</a>,&#8203;io.vertx.core.Future&lt;X&gt;&gt;&nbsp;transactionFn)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i46" class="altColor">
+<tr id="i42" class="altColor">
 <td class="colFirst"><code>io.reactivex.Single&lt;java.lang.Integer&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rxSql(java.lang.String)">rxSql</a></span>&#8203;(java.lang.String&nbsp;statement)</code></th>
 <td class="colLast">
 <div class="block">Execute the plain SQL statement without result (e.g: SET, INSERT, UPDATE, etc...)</div>
 </td>
 </tr>
-<tr id="i47" class="rowColor">
+<tr id="i43" class="rowColor">
 <td class="colFirst"><code>io.reactivex.Single&lt;java.lang.Integer&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rxSql(java.util.function.Function)">rxSql</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;java.lang.String&gt;&nbsp;sqlFunction)</code></th>
 <td class="colLast">
 <div class="block">Execute the plain SQL statement without result (e.g: SET, INSERT, UPDATE, etc...)</div>
 </td>
 </tr>
-<tr id="i48" class="altColor">
+<tr id="i44" class="altColor">
 <td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>io.reactivex.Maybe&lt;R&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rxSqlQuery(java.lang.String,io.github.zero88.jooqx.adapter.SQLResultAdapter)">rxSqlQuery</a></span>&#8203;(java.lang.String&nbsp;statement,
           <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</code></th>
@@ -519,7 +511,7 @@ extends java.lang.Object</pre>
 <div class="block">Execute the plain SQL statement with results (e.g: SELECT, etc...)</div>
 </td>
 </tr>
-<tr id="i49" class="rowColor">
+<tr id="i45" class="rowColor">
 <td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>io.reactivex.Maybe&lt;R&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#rxSqlQuery(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">rxSqlQuery</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;java.lang.String&gt;&nbsp;sqlFunction,
           <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</code></th>
@@ -527,14 +519,19 @@ extends java.lang.Object</pre>
 <div class="block">Execute the plain SQL statement with results (e.g: SELECT, etc...)</div>
 </td>
 </tr>
-<tr id="i50" class="altColor">
+<tr id="i46" class="altColor">
+<td class="colFirst"><code><a href="LegacyJooqxSession.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxSession</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#session()">session</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i47" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sql(java.lang.String)">sql</a></span>&#8203;(java.lang.String&nbsp;statement)</code></th>
 <td class="colLast">
 <div class="block">Execute the plain SQL statement without result (e.g: SET, INSERT, UPDATE, etc...)</div>
 </td>
 </tr>
-<tr id="i51" class="rowColor">
+<tr id="i48" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sql(java.lang.String,io.vertx.core.Handler)">sql</a></span>&#8203;(java.lang.String&nbsp;statement,
    io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;java.lang.Integer&gt;&gt;&nbsp;handler)</code></th>
@@ -542,14 +539,14 @@ extends java.lang.Object</pre>
 <div class="block">Execute the plain SQL statement without result (e.g: SET, INSERT, UPDATE, etc...)</div>
 </td>
 </tr>
-<tr id="i52" class="altColor">
+<tr id="i49" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sql(java.util.function.Function)">sql</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;java.lang.String&gt;&nbsp;sqlFunction)</code></th>
 <td class="colLast">
 <div class="block">Execute the plain SQL statement without result (e.g: SET, INSERT, UPDATE, etc...)</div>
 </td>
 </tr>
-<tr id="i53" class="rowColor">
+<tr id="i50" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sql(java.util.function.Function,io.vertx.core.Handler)">sql</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;java.lang.String&gt;&nbsp;sqlFunction,
    io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;java.lang.Integer&gt;&gt;&nbsp;handler)</code></th>
@@ -557,12 +554,7 @@ extends java.lang.Object</pre>
 <div class="block">Execute the plain SQL statement without result (e.g: SET, INSERT, UPDATE, etc...)</div>
 </td>
 </tr>
-<tr id="i54" class="altColor">
-<td class="colFirst"><code>io.vertx.reactivex.ext.sql.SQLConnection</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sqlClient()">sqlClient</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr id="i55" class="rowColor">
+<tr id="i51" class="rowColor">
 <td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sqlQuery(java.lang.String,io.github.zero88.jooqx.adapter.SQLResultAdapter)">sqlQuery</a></span>&#8203;(java.lang.String&nbsp;statement,
         <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</code></th>
@@ -570,7 +562,7 @@ extends java.lang.Object</pre>
 <div class="block">Execute the plain SQL statement with results (e.g: SELECT, etc...)</div>
 </td>
 </tr>
-<tr id="i56" class="altColor">
+<tr id="i52" class="altColor">
 <td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sqlQuery(java.lang.String,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">sqlQuery</a></span>&#8203;(java.lang.String&nbsp;statement,
         <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter,
@@ -579,7 +571,7 @@ extends java.lang.Object</pre>
 <div class="block">Execute the plain SQL statement with results (e.g: SELECT, etc...)</div>
 </td>
 </tr>
-<tr id="i57" class="rowColor">
+<tr id="i53" class="rowColor">
 <td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sqlQuery(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">sqlQuery</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;java.lang.String&gt;&nbsp;sqlFunction,
         <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</code></th>
@@ -587,7 +579,7 @@ extends java.lang.Object</pre>
 <div class="block">Execute the plain SQL statement with results (e.g: SELECT, etc...)</div>
 </td>
 </tr>
-<tr id="i58" class="altColor">
+<tr id="i54" class="altColor">
 <td class="colFirst"><code>&lt;T,&#8203;R&gt;<br>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sqlQuery(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">sqlQuery</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;java.lang.String&gt;&nbsp;sqlFunction,
         <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter,
@@ -596,24 +588,14 @@ extends java.lang.Object</pre>
 <div class="block">Execute the plain SQL statement with results (e.g: SELECT, etc...)</div>
 </td>
 </tr>
-<tr id="i59" class="rowColor">
+<tr id="i55" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#toString()">toString</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i60" class="altColor">
+<tr id="i56" class="altColor">
 <td class="colFirst"><code><a href="LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxTx</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#transaction()">transaction</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr id="i61" class="rowColor">
-<td class="colFirst"><code><a href="../datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype">DataTypeMapperRegistry</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#typeMapperRegistry()">typeMapperRegistry</a></span>()</code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr id="i62" class="altColor">
-<td class="colFirst"><code>io.vertx.reactivex.core.Vertx</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#vertx()">vertx</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -780,31 +762,13 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a id="vertx()">
+<a id="session()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>vertx</h4>
-<pre class="methodSignature">public&nbsp;io.vertx.reactivex.core.Vertx&nbsp;vertx()</pre>
-</li>
-</ul>
-<a id="sqlClient()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>sqlClient</h4>
-<pre class="methodSignature">public&nbsp;io.vertx.reactivex.ext.sql.SQLConnection&nbsp;sqlClient()</pre>
-</li>
-</ul>
-<a id="resultCollector()">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>resultCollector</h4>
-<pre class="methodSignature">public&nbsp;<a href="LegacySQLCollector.html" title="class in io.github.zero88.jooqx.reactivex">LegacySQLCollector</a>&nbsp;resultCollector()</pre>
+<h4>session</h4>
+<pre class="methodSignature">public&nbsp;<a href="LegacyJooqxSession.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxSession</a>&nbsp;session()</pre>
 </li>
 </ul>
 <a id="transaction()">
@@ -822,7 +786,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>run</h4>
-<pre class="methodSignature">public&nbsp;&lt;X&gt;&nbsp;void&nbsp;run&#8203;(java.util.function.Function&lt;<a href="LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxTx</a>,&#8203;io.vertx.core.Future&lt;X&gt;&gt;&nbsp;function,
+<pre class="methodSignature">public&nbsp;&lt;X&gt;&nbsp;void&nbsp;run&#8203;(java.util.function.Function&lt;<a href="LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxTx</a>,&#8203;io.vertx.core.Future&lt;X&gt;&gt;&nbsp;transactionFn,
                     io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;X&gt;&gt;&nbsp;handler)</pre>
 </li>
 </ul>
@@ -832,7 +796,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>run</h4>
-<pre class="methodSignature">public&nbsp;&lt;X&gt;&nbsp;void&nbsp;run&#8203;(java.util.function.Function&lt;<a href="LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxTx</a>,&#8203;io.vertx.core.Future&lt;X&gt;&gt;&nbsp;function)</pre>
+<pre class="methodSignature">public&nbsp;&lt;X&gt;&nbsp;void&nbsp;run&#8203;(java.util.function.Function&lt;<a href="LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxTx</a>,&#8203;io.vertx.core.Future&lt;X&gt;&gt;&nbsp;transactionFn)</pre>
 </li>
 </ul>
 <a id="rxRun(java.util.function.Function)">
@@ -841,7 +805,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>rxRun</h4>
-<pre class="methodSignature">public&nbsp;&lt;X&gt;&nbsp;io.reactivex.Single&lt;X&gt;&nbsp;rxRun&#8203;(java.util.function.Function&lt;<a href="LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxTx</a>,&#8203;io.vertx.core.Future&lt;X&gt;&gt;&nbsp;function)</pre>
+<pre class="methodSignature">public&nbsp;&lt;X&gt;&nbsp;io.reactivex.Single&lt;X&gt;&nbsp;rxRun&#8203;(java.util.function.Function&lt;<a href="LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxTx</a>,&#8203;io.vertx.core.Future&lt;X&gt;&gt;&nbsp;transactionFn)</pre>
 </li>
 </ul>
 <a id="run(io.reactivex.functions.Function,io.vertx.core.Handler)">
@@ -850,7 +814,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>run</h4>
-<pre class="methodSignature">public&nbsp;&lt;X&gt;&nbsp;void&nbsp;run&#8203;(io.reactivex.functions.Function&lt;<a href="LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxTx</a>,&#8203;io.reactivex.Single&lt;X&gt;&gt;&nbsp;function,
+<pre class="methodSignature">public&nbsp;&lt;X&gt;&nbsp;void&nbsp;run&#8203;(io.reactivex.functions.Function&lt;<a href="LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxTx</a>,&#8203;io.reactivex.Single&lt;X&gt;&gt;&nbsp;transactionFn,
                     io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;X&gt;&gt;&nbsp;handler)</pre>
 </li>
 </ul>
@@ -860,7 +824,7 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>run</h4>
-<pre class="methodSignature">public&nbsp;&lt;X&gt;&nbsp;void&nbsp;run&#8203;(io.reactivex.functions.Function&lt;<a href="LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxTx</a>,&#8203;io.reactivex.Single&lt;X&gt;&gt;&nbsp;function)</pre>
+<pre class="methodSignature">public&nbsp;&lt;X&gt;&nbsp;void&nbsp;run&#8203;(io.reactivex.functions.Function&lt;<a href="LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxTx</a>,&#8203;io.reactivex.Single&lt;X&gt;&gt;&nbsp;transactionFn)</pre>
 </li>
 </ul>
 <a id="rxRun(io.reactivex.functions.Function)">
@@ -869,95 +833,107 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>rxRun</h4>
-<pre class="methodSignature">public&nbsp;&lt;X&gt;&nbsp;io.reactivex.Single&lt;X&gt;&nbsp;rxRun&#8203;(io.reactivex.functions.Function&lt;<a href="LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxTx</a>,&#8203;io.reactivex.Single&lt;X&gt;&gt;&nbsp;function)</pre>
+<pre class="methodSignature">public&nbsp;&lt;X&gt;&nbsp;io.reactivex.Single&lt;X&gt;&nbsp;rxRun&#8203;(io.reactivex.functions.Function&lt;<a href="LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxTx</a>,&#8203;io.reactivex.Single&lt;X&gt;&gt;&nbsp;transactionFn)</pre>
 </li>
 </ul>
-<a id="ddl(java.util.function.Function,io.vertx.core.Handler)">
+<a id="execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>ddl</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;ddl&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.DDLQuery&gt;&nbsp;ddlFunction,
-                io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;java.lang.Integer&gt;&gt;&nbsp;handler)</pre>
-<div class="block">Execute DDL statement</div>
+<h4>execute</h4>
+<pre class="methodSignature">public&nbsp;&lt;T,&#8203;R&gt;&nbsp;void&nbsp;execute&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
+                                <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter,
+                                io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;R&gt;&gt;&nbsp;handler)</pre>
+<div class="block">Execute <code>jOOQ query</code> then return async result</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>ddlFunction</code> - DDL function produces DDL statement</dd>
-<dd><code>handler</code> - async result handler</dd>
+<dd><code>queryFunction</code> - the jOOQ query function</dd>
+<dd><code>resultAdapter</code> - the result adapter</dd>
+<dd><code>handler</code> - the async result handler</dd>
 </dl>
 </li>
 </ul>
-<a id="ddl(java.util.function.Function)">
+<a id="execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>ddl</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;ddl&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.DDLQuery&gt;&nbsp;ddlFunction)</pre>
-<div class="block">Execute DDL statement</div>
+<h4>execute</h4>
+<pre class="methodSignature">public&nbsp;&lt;T,&#8203;R&gt;&nbsp;void&nbsp;execute&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
+                                <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</pre>
+<div class="block">Execute <code>jOOQ query</code> then return async result</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>ddlFunction</code> - DDL function produces DDL statement</dd>
+<dd><code>queryFunction</code> - the jOOQ query function</dd>
+<dd><code>resultAdapter</code> - the result adapter</dd>
 </dl>
 </li>
 </ul>
-<a id="rxDdl(java.util.function.Function)">
+<a id="rxExecute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>rxDdl</h4>
-<pre class="methodSignature">public&nbsp;io.reactivex.Single&lt;java.lang.Integer&gt;&nbsp;rxDdl&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.DDLQuery&gt;&nbsp;ddlFunction)</pre>
-<div class="block">Execute DDL statement</div>
+<h4>rxExecute</h4>
+<pre class="methodSignature">public&nbsp;&lt;T,&#8203;R&gt;&nbsp;io.reactivex.Maybe&lt;R&gt;&nbsp;rxExecute&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
+                                                   <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</pre>
+<div class="block">Execute <code>jOOQ query</code> then return async result</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>ddlFunction</code> - DDL function produces DDL statement</dd>
+<dd><code>queryFunction</code> - the jOOQ query function</dd>
+<dd><code>resultAdapter</code> - the result adapter</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 </dl>
 </li>
 </ul>
-<a id="ddl(org.jooq.DDLQuery,io.vertx.core.Handler)">
+<a id="execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>ddl</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;ddl&#8203;(org.jooq.DDLQuery&nbsp;statement,
-                io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;java.lang.Integer&gt;&gt;&nbsp;handler)</pre>
-<div class="block">Execute DDL statement</div>
+<h4>execute</h4>
+<pre class="methodSignature">public&nbsp;&lt;T,&#8203;R&gt;&nbsp;void&nbsp;execute&#8203;(org.jooq.Query&nbsp;query,
+                                <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter,
+                                io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;R&gt;&gt;&nbsp;handler)</pre>
+<div class="block">Execute <code>jOOQ query</code> then return async result</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>statement</code> - DDL statement</dd>
-<dd><code>handler</code> - async result handler</dd>
+<dd><code>query</code> - the jOOQ query</dd>
+<dd><code>resultAdapter</code> - the result adapter</dd>
+<dd><code>handler</code> - the async result handler</dd>
 </dl>
 </li>
 </ul>
-<a id="ddl(org.jooq.DDLQuery)">
+<a id="execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>ddl</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;ddl&#8203;(org.jooq.DDLQuery&nbsp;statement)</pre>
-<div class="block">Execute DDL statement</div>
+<h4>execute</h4>
+<pre class="methodSignature">public&nbsp;&lt;T,&#8203;R&gt;&nbsp;void&nbsp;execute&#8203;(org.jooq.Query&nbsp;query,
+                                <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</pre>
+<div class="block">Execute <code>jOOQ query</code> then return async result</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>statement</code> - DDL statement</dd>
+<dd><code>query</code> - the jOOQ query</dd>
+<dd><code>resultAdapter</code> - the result adapter</dd>
 </dl>
 </li>
 </ul>
-<a id="rxDdl(org.jooq.DDLQuery)">
+<a id="rxExecute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>rxDdl</h4>
-<pre class="methodSignature">public&nbsp;io.reactivex.Single&lt;java.lang.Integer&gt;&nbsp;rxDdl&#8203;(org.jooq.DDLQuery&nbsp;statement)</pre>
-<div class="block">Execute DDL statement</div>
+<h4>rxExecute</h4>
+<pre class="methodSignature">public&nbsp;&lt;T,&#8203;R&gt;&nbsp;io.reactivex.Maybe&lt;R&gt;&nbsp;rxExecute&#8203;(org.jooq.Query&nbsp;query,
+                                                   <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</pre>
+<div class="block">Execute <code>jOOQ query</code> then return async result</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>statement</code> - DDL statement</dd>
+<dd><code>query</code> - the jOOQ query</dd>
+<dd><code>resultAdapter</code> - the result adapter</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 </dl>
 </li>
@@ -1011,6 +987,134 @@ extends java.lang.Object</pre>
 <dd><code>bindBatchValues</code> - bind batch values</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 </dl>
+</li>
+</ul>
+<a id="batch(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.vertx.core.Handler)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>batch</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;batch&#8203;(org.jooq.Query&nbsp;query,
+                  <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
+                  io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;<a href="../BatchResult.html" title="interface in io.github.zero88.jooqx">BatchResult</a>&gt;&gt;&nbsp;handler)</pre>
+<div class="block">Batch execute</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>query</code> - query</dd>
+<dd><code>bindBatchValues</code> - bind batch values</dd>
+<dd><code>handler</code> - async result handler</dd>
+</dl>
+</li>
+</ul>
+<a id="batch(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>batch</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;batch&#8203;(org.jooq.Query&nbsp;query,
+                  <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</pre>
+<div class="block">Batch execute</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>query</code> - query</dd>
+<dd><code>bindBatchValues</code> - bind batch values</dd>
+</dl>
+</li>
+</ul>
+<a id="rxBatch(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>rxBatch</h4>
+<pre class="methodSignature">public&nbsp;io.reactivex.Single&lt;<a href="../BatchResult.html" title="interface in io.github.zero88.jooqx">BatchResult</a>&gt;&nbsp;rxBatch&#8203;(org.jooq.Query&nbsp;query,
+                                                <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</pre>
+<div class="block">Batch execute</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>query</code> - query</dd>
+<dd><code>bindBatchValues</code> - bind batch values</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+</dl>
+</li>
+</ul>
+<a id="routine(java.util.function.Function,io.vertx.core.Handler)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>routine</h4>
+<pre class="methodSignature">public&nbsp;&lt;T&gt;&nbsp;void&nbsp;routine&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Routine&lt;T&gt;&gt;&nbsp;routineFunction,
+                        io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;T&gt;&gt;&nbsp;handler)</pre>
+</li>
+</ul>
+<a id="routine(java.util.function.Function)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>routine</h4>
+<pre class="methodSignature">public&nbsp;&lt;T&gt;&nbsp;void&nbsp;routine&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Routine&lt;T&gt;&gt;&nbsp;routineFunction)</pre>
+</li>
+</ul>
+<a id="rxRoutine(java.util.function.Function)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>rxRoutine</h4>
+<pre class="methodSignature">public&nbsp;&lt;T&gt;&nbsp;io.reactivex.Single&lt;T&gt;&nbsp;rxRoutine&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Routine&lt;T&gt;&gt;&nbsp;routineFunction)</pre>
+</li>
+</ul>
+<a id="routine(org.jooq.Routine,io.vertx.core.Handler)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>routine</h4>
+<pre class="methodSignature">public&nbsp;&lt;T&gt;&nbsp;io.vertx.core.Future&lt;T&gt;&nbsp;routine&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine,
+                                           io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;T&gt;&gt;&nbsp;handler)</pre>
+</li>
+</ul>
+<a id="routineResult(org.jooq.Routine,io.vertx.core.Handler)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>routineResult</h4>
+<pre class="methodSignature">public&nbsp;&lt;T&gt;&nbsp;void&nbsp;routineResult&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine,
+                              io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;<a href="../routine/RoutineResult.html" title="interface in io.github.zero88.jooqx.routine">RoutineResult</a>&gt;&gt;&nbsp;handler)</pre>
+</li>
+</ul>
+<a id="routineResult(org.jooq.Routine)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>routineResult</h4>
+<pre class="methodSignature">public&nbsp;&lt;T&gt;&nbsp;void&nbsp;routineResult&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine)</pre>
+</li>
+</ul>
+<a id="rxRoutineResult(org.jooq.Routine)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>rxRoutineResult</h4>
+<pre class="methodSignature">public&nbsp;&lt;T&gt;&nbsp;io.reactivex.Single&lt;<a href="../routine/RoutineResult.html" title="interface in io.github.zero88.jooqx.routine">RoutineResult</a>&gt;&nbsp;rxRoutineResult&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine)</pre>
+</li>
+</ul>
+<a id="routineResultSet(org.jooq.Routine,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>routineResultSet</h4>
+<pre class="methodSignature">public&nbsp;&lt;T,&#8203;X,&#8203;R&gt;&nbsp;io.vertx.core.Future&lt;R&gt;&nbsp;routineResultSet&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine,
+                                                                    <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;X,&#8203;R&gt;&nbsp;resultAdapter,
+                                                                    io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;R&gt;&gt;&nbsp;handler)</pre>
 </li>
 </ul>
 <a id="sql(java.util.function.Function,io.vertx.core.Handler)">
@@ -1160,134 +1264,6 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a id="routine(java.util.function.Function,io.vertx.core.Handler)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>routine</h4>
-<pre class="methodSignature">public&nbsp;&lt;T&gt;&nbsp;void&nbsp;routine&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Routine&lt;T&gt;&gt;&nbsp;routineFunction,
-                        io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;T&gt;&gt;&nbsp;handler)</pre>
-</li>
-</ul>
-<a id="routine(java.util.function.Function)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>routine</h4>
-<pre class="methodSignature">public&nbsp;&lt;T&gt;&nbsp;void&nbsp;routine&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Routine&lt;T&gt;&gt;&nbsp;routineFunction)</pre>
-</li>
-</ul>
-<a id="rxRoutine(java.util.function.Function)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>rxRoutine</h4>
-<pre class="methodSignature">public&nbsp;&lt;T&gt;&nbsp;io.reactivex.Single&lt;T&gt;&nbsp;rxRoutine&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Routine&lt;T&gt;&gt;&nbsp;routineFunction)</pre>
-</li>
-</ul>
-<a id="routine(org.jooq.Routine,io.vertx.core.Handler)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>routine</h4>
-<pre class="methodSignature">public&nbsp;&lt;T&gt;&nbsp;io.vertx.core.Future&lt;T&gt;&nbsp;routine&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine,
-                                           io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;T&gt;&gt;&nbsp;handler)</pre>
-</li>
-</ul>
-<a id="routineResult(org.jooq.Routine,io.vertx.core.Handler)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>routineResult</h4>
-<pre class="methodSignature">public&nbsp;&lt;T&gt;&nbsp;void&nbsp;routineResult&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine,
-                              io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;<a href="../routine/RoutineResult.html" title="interface in io.github.zero88.jooqx.routine">RoutineResult</a>&gt;&gt;&nbsp;handler)</pre>
-</li>
-</ul>
-<a id="routineResult(org.jooq.Routine)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>routineResult</h4>
-<pre class="methodSignature">public&nbsp;&lt;T&gt;&nbsp;void&nbsp;routineResult&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine)</pre>
-</li>
-</ul>
-<a id="rxRoutineResult(org.jooq.Routine)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>rxRoutineResult</h4>
-<pre class="methodSignature">public&nbsp;&lt;T&gt;&nbsp;io.reactivex.Single&lt;<a href="../routine/RoutineResult.html" title="interface in io.github.zero88.jooqx.routine">RoutineResult</a>&gt;&nbsp;rxRoutineResult&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine)</pre>
-</li>
-</ul>
-<a id="routineResultSet(org.jooq.Routine,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>routineResultSet</h4>
-<pre class="methodSignature">public&nbsp;&lt;T,&#8203;X,&#8203;R&gt;&nbsp;io.vertx.core.Future&lt;R&gt;&nbsp;routineResultSet&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine,
-                                                                    <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;X,&#8203;R&gt;&nbsp;resultAdapter,
-                                                                    io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;R&gt;&gt;&nbsp;handler)</pre>
-</li>
-</ul>
-<a id="execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>execute</h4>
-<pre class="methodSignature">public&nbsp;&lt;T,&#8203;R&gt;&nbsp;void&nbsp;execute&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
-                                <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter,
-                                io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;R&gt;&gt;&nbsp;handler)</pre>
-<div class="block">Execute <code>jOOQ query</code> then return async result</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>queryFunction</code> - the jOOQ query function</dd>
-<dd><code>resultAdapter</code> - the result adapter</dd>
-<dd><code>handler</code> - the async result handler</dd>
-</dl>
-</li>
-</ul>
-<a id="execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>execute</h4>
-<pre class="methodSignature">public&nbsp;&lt;T,&#8203;R&gt;&nbsp;void&nbsp;execute&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
-                                <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</pre>
-<div class="block">Execute <code>jOOQ query</code> then return async result</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>queryFunction</code> - the jOOQ query function</dd>
-<dd><code>resultAdapter</code> - the result adapter</dd>
-</dl>
-</li>
-</ul>
-<a id="rxExecute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>rxExecute</h4>
-<pre class="methodSignature">public&nbsp;&lt;T,&#8203;R&gt;&nbsp;io.reactivex.Maybe&lt;R&gt;&nbsp;rxExecute&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
-                                                   <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</pre>
-<div class="block">Execute <code>jOOQ query</code> then return async result</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>queryFunction</code> - the jOOQ query function</dd>
-<dd><code>resultAdapter</code> - the result adapter</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-</dl>
-</li>
-</ul>
 <a id="block(java.util.function.Function,io.vertx.core.Handler)">
 <!--   -->
 </a>
@@ -1378,102 +1354,94 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a id="dsl()">
+<a id="ddl(java.util.function.Function,io.vertx.core.Handler)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>dsl</h4>
-<pre class="methodSignature">public&nbsp;org.jooq.DSLContext&nbsp;dsl()</pre>
+<h4>ddl</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;ddl&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.DDLQuery&gt;&nbsp;ddlFunction,
+                io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;java.lang.Integer&gt;&gt;&nbsp;handler)</pre>
+<div class="block">Execute DDL statement</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>ddlFunction</code> - DDL function produces DDL statement</dd>
+<dd><code>handler</code> - async result handler</dd>
+</dl>
 </li>
 </ul>
-<a id="preparedQuery()">
+<a id="ddl(java.util.function.Function)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>preparedQuery</h4>
-<pre class="methodSignature">public&nbsp;<a href="LegacySQLPreparedQuery.html" title="class in io.github.zero88.jooqx.reactivex">LegacySQLPreparedQuery</a>&nbsp;preparedQuery()</pre>
+<h4>ddl</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;ddl&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.DDLQuery&gt;&nbsp;ddlFunction)</pre>
+<div class="block">Execute DDL statement</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>ddlFunction</code> - DDL function produces DDL statement</dd>
+</dl>
 </li>
 </ul>
-<a id="errorConverter()">
+<a id="rxDdl(java.util.function.Function)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>errorConverter</h4>
-<pre class="methodSignature">public&nbsp;<a href="../SQLErrorConverter.html" title="interface in io.github.zero88.jooqx">SQLErrorConverter</a>&nbsp;errorConverter()</pre>
+<h4>rxDdl</h4>
+<pre class="methodSignature">public&nbsp;io.reactivex.Single&lt;java.lang.Integer&gt;&nbsp;rxDdl&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.DDLQuery&gt;&nbsp;ddlFunction)</pre>
+<div class="block">Execute DDL statement</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>ddlFunction</code> - DDL function produces DDL statement</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+</dl>
 </li>
 </ul>
-<a id="typeMapperRegistry()">
+<a id="ddl(org.jooq.DDLQuery,io.vertx.core.Handler)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>typeMapperRegistry</h4>
-<pre class="methodSignature">public&nbsp;<a href="../datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype">DataTypeMapperRegistry</a>&nbsp;typeMapperRegistry()</pre>
+<h4>ddl</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;ddl&#8203;(org.jooq.DDLQuery&nbsp;statement,
+                io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;java.lang.Integer&gt;&gt;&nbsp;handler)</pre>
+<div class="block">Execute DDL statement</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>statement</code> - DDL statement</dd>
+<dd><code>handler</code> - async result handler</dd>
+</dl>
 </li>
 </ul>
-<a id="execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">
+<a id="ddl(org.jooq.DDLQuery)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>execute</h4>
-<pre class="methodSignature">public&nbsp;&lt;T,&#8203;R&gt;&nbsp;void&nbsp;execute&#8203;(org.jooq.Query&nbsp;query,
-                                <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter,
-                                io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;R&gt;&gt;&nbsp;handler)</pre>
+<h4>ddl</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;ddl&#8203;(org.jooq.DDLQuery&nbsp;statement)</pre>
+<div class="block">Execute DDL statement</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>statement</code> - DDL statement</dd>
+</dl>
 </li>
 </ul>
-<a id="execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
+<a id="rxDdl(org.jooq.DDLQuery)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>execute</h4>
-<pre class="methodSignature">public&nbsp;&lt;T,&#8203;R&gt;&nbsp;void&nbsp;execute&#8203;(org.jooq.Query&nbsp;query,
-                                <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</pre>
-</li>
-</ul>
-<a id="rxExecute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>rxExecute</h4>
-<pre class="methodSignature">public&nbsp;&lt;T,&#8203;R&gt;&nbsp;io.reactivex.Maybe&lt;R&gt;&nbsp;rxExecute&#8203;(org.jooq.Query&nbsp;query,
-                                                   <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</pre>
-</li>
-</ul>
-<a id="batch(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.vertx.core.Handler)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>batch</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;batch&#8203;(org.jooq.Query&nbsp;query,
-                  <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
-                  io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;<a href="../BatchResult.html" title="interface in io.github.zero88.jooqx">BatchResult</a>&gt;&gt;&nbsp;handler)</pre>
-</li>
-</ul>
-<a id="batch(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>batch</h4>
-<pre class="methodSignature">public&nbsp;void&nbsp;batch&#8203;(org.jooq.Query&nbsp;query,
-                  <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</pre>
-</li>
-</ul>
-<a id="rxBatch(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>rxBatch</h4>
-<pre class="methodSignature">public&nbsp;io.reactivex.Single&lt;<a href="../BatchResult.html" title="interface in io.github.zero88.jooqx">BatchResult</a>&gt;&nbsp;rxBatch&#8203;(org.jooq.Query&nbsp;query,
-                                                <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</pre>
+<h4>rxDdl</h4>
+<pre class="methodSignature">public&nbsp;io.reactivex.Single&lt;java.lang.Integer&gt;&nbsp;rxDdl&#8203;(org.jooq.DDLQuery&nbsp;statement)</pre>
+<div class="block">Execute DDL statement</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>statement</code> - DDL statement</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+</dl>
 </li>
 </ul>
 <a id="newInstance(io.github.zero88.jooqx.LegacyJooqxTx)">

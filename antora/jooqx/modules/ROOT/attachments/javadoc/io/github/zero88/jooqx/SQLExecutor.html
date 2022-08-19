@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":6,"i2":6,"i3":18,"i4":18,"i5":18,"i6":6,"i7":6,"i8":6,"i9":6};
+var data = {"i0":6,"i1":6,"i2":6,"i3":18,"i4":18,"i5":18,"i6":6,"i7":6,"i8":6,"i9":6,"i10":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],16:["t5","Default Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -134,7 +134,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dl>
 <dl>
 <dt>All Known Subinterfaces:</dt>
-<dd><code><a href="Jooqx.html" title="interface in io.github.zero88.jooqx">Jooqx</a></code>, <code><a href="JooqxBase.html" title="interface in io.github.zero88.jooqx">JooqxBase</a>&lt;S&gt;</code>, <code><a href="JooqxConn.html" title="interface in io.github.zero88.jooqx">JooqxConn</a></code>, <code><a href="JooqxTx.html" title="interface in io.github.zero88.jooqx">JooqxTx</a></code>, <code><a href="LegacyInternal.html" title="interface in io.github.zero88.jooqx">LegacyInternal</a>&lt;S&gt;</code>, <code><a href="LegacyJooqx.html" title="interface in io.github.zero88.jooqx">LegacyJooqx</a></code>, <code><a href="LegacyJooqxTx.html" title="interface in io.github.zero88.jooqx">LegacyJooqxTx</a></code></dd>
+<dd><code><a href="Jooqx.html" title="interface in io.github.zero88.jooqx">Jooqx</a></code>, <code><a href="JooqxBase.html" title="interface in io.github.zero88.jooqx">JooqxBase</a>&lt;S&gt;</code>, <code><a href="JooqxConn.html" title="interface in io.github.zero88.jooqx">JooqxConn</a></code>, <code><a href="JooqxSession.html" title="interface in io.github.zero88.jooqx">JooqxSession</a></code>, <code><a href="JooqxTx.html" title="interface in io.github.zero88.jooqx">JooqxTx</a></code>, <code><a href="LegacyInternal.html" title="interface in io.github.zero88.jooqx">LegacyInternal</a>&lt;S&gt;</code>, <code><a href="LegacyJooqx.html" title="interface in io.github.zero88.jooqx">LegacyJooqx</a></code>, <code><a href="LegacyJooqxSession.html" title="interface in io.github.zero88.jooqx">LegacyJooqxSession</a></code>, <code><a href="LegacyJooqxTx.html" title="interface in io.github.zero88.jooqx">LegacyJooqxTx</a></code></dd>
 </dl>
 <hr>
 <pre>public interface <span class="typeNameLabel">SQLExecutor&lt;S,&#8203;B,&#8203;PQ extends <a href="SQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">SQLPreparedQuery</a>&lt;B&gt;,&#8203;RC extends <a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>&gt;</span>
@@ -210,27 +210,34 @@ extends <a href="SQLQueryExecutor.html" title="interface in io.github.zero88.joo
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i6" class="altColor">
+<td class="colFirst"><code>&lt;E extends <a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">S</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">B</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">PQ</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">RC</a>&gt;&gt;<br>@NotNull <a href="SQLSessionExecutor.html" title="interface in io.github.zero88.jooqx">SQLSessionExecutor</a>&lt;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">S</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">B</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">PQ</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">RC</a>,&#8203;E&gt;</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#session()">session</a></span>()</code></th>
+<td class="colLast">
+<div class="block">Open session executor</div>
+</td>
+</tr>
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code><a href="SQLExecutor.html" title="type parameter in SQLExecutor">S</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#sqlClient()">sqlClient</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Defines Vertx SQL client</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>&lt;E extends <a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">S</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">B</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">PQ</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">RC</a>&gt;&gt;<br>@NotNull <a href="SQLTxExecutor.html" title="interface in io.github.zero88.jooqx">SQLTxExecutor</a>&lt;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">S</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">B</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">PQ</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">RC</a>,&#8203;E&gt;</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#transaction()">transaction</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Open transaction executor</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code><a href="datatype/DataTypeMapperRegistry.html" title="class in io.github.zero88.jooqx.datatype">DataTypeMapperRegistry</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#typeMapperRegistry()">typeMapperRegistry</a></span>()</code></th>
 <td class="colLast">
 <div class="block">Defines global data type mapper registry</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>@NotNull io.vertx.core.Vertx</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#vertx()">vertx</a></span>()</code></th>
 <td class="colLast">
@@ -416,6 +423,25 @@ extends <a href="SQLQueryExecutor.html" title="interface in io.github.zero88.joo
 <dd>transaction executor</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="SQLTxExecutor.html" title="interface in io.github.zero88.jooqx"><code>SQLTxExecutor</code></a></dd>
+</dl>
+</li>
+</ul>
+<a id="session()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>session</h4>
+<pre class="methodSignature">@NotNull
+&lt;E extends <a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">S</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">B</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">PQ</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">RC</a>&gt;&gt;&nbsp;@NotNull <a href="SQLSessionExecutor.html" title="interface in io.github.zero88.jooqx">SQLSessionExecutor</a>&lt;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">S</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">B</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">PQ</a>,&#8203;<a href="SQLExecutor.html" title="type parameter in SQLExecutor">RC</a>,&#8203;E&gt;&nbsp;session()</pre>
+<div class="block">Open session executor</div>
+<dl>
+<dt><span class="paramLabel">Type Parameters:</span></dt>
+<dd><code>E</code> - Type of VertxJooqExecutor</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>transaction executor</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="SQLSessionExecutor.html" title="interface in io.github.zero88.jooqx"><code>SQLSessionExecutor</code></a></dd>
 </dl>
 </li>
 </ul>

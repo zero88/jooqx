@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":38,"i1":38};
+var data = {"i0":38,"i1":38,"i2":38,"i3":38};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],32:["t6","Deprecated Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -127,7 +127,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </dl>
 <dl>
 <dt>All Known Subinterfaces:</dt>
-<dd><code><a href="LegacyJooqx.html" title="interface in io.github.zero88.jooqx">LegacyJooqx</a></code>, <code><a href="LegacyJooqxTx.html" title="interface in io.github.zero88.jooqx">LegacyJooqxTx</a></code></dd>
+<dd><code><a href="LegacyJooqx.html" title="interface in io.github.zero88.jooqx">LegacyJooqx</a></code>, <code><a href="LegacyJooqxSession.html" title="interface in io.github.zero88.jooqx">LegacyJooqxSession</a></code>, <code><a href="LegacyJooqxTx.html" title="interface in io.github.zero88.jooqx">LegacyJooqxTx</a></code></dd>
 </dl>
 <hr>
 <pre>@Deprecated
@@ -170,6 +170,22 @@ extends <a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">S
 <div class="block">Defines result collector depends on result set</div>
 </td>
 </tr>
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>@NotNull <a href="LegacyJooqxSession.html" title="interface in io.github.zero88.jooqx">LegacyJooqxSession</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#session()">session</a></span>()</code></th>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block">Open session executor</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>@NotNull <a href="LegacyJooqxTx.html" title="interface in io.github.zero88.jooqx">LegacyJooqxTx</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#transaction()">transaction</a></span>()</code></th>
+<td class="colLast">
+<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block">Open transaction executor</div>
+</td>
+</tr>
 </table>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.io.github.zero88.jooqx.JooqDSLProvider">
@@ -204,7 +220,7 @@ extends <a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">S
 <!--   -->
 </a>
 <h3>Methods inherited from interface&nbsp;io.github.zero88.jooqx.<a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a></h3>
-<code><a href="SQLExecutor.html#errorConverter()">errorConverter</a>, <a href="SQLExecutor.html#routine(org.jooq.Routine)">routine</a>, <a href="SQLExecutor.html#routineResult(org.jooq.Routine)">routineResult</a>, <a href="SQLExecutor.html#routineResultSet(org.jooq.Routine,io.github.zero88.jooqx.adapter.SQLResultAdapter)">routineResultSet</a>, <a href="SQLExecutor.html#sqlClient()">sqlClient</a>, <a href="SQLExecutor.html#transaction()">transaction</a>, <a href="SQLExecutor.html#typeMapperRegistry()">typeMapperRegistry</a>, <a href="SQLExecutor.html#vertx()">vertx</a></code></li>
+<code><a href="SQLExecutor.html#errorConverter()">errorConverter</a>, <a href="SQLExecutor.html#routine(org.jooq.Routine)">routine</a>, <a href="SQLExecutor.html#routineResult(org.jooq.Routine)">routineResult</a>, <a href="SQLExecutor.html#routineResultSet(org.jooq.Routine,io.github.zero88.jooqx.adapter.SQLResultAdapter)">routineResultSet</a>, <a href="SQLExecutor.html#sqlClient()">sqlClient</a>, <a href="SQLExecutor.html#typeMapperRegistry()">typeMapperRegistry</a>, <a href="SQLExecutor.html#vertx()">vertx</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.io.github.zero88.jooqx.SQLPlainExecutor">
@@ -267,7 +283,7 @@ extends <a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">S
 <a id="resultCollector()">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>resultCollector</h4>
 <pre class="methodSignature">@NotNull
@@ -282,6 +298,48 @@ extends <a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">S
 <dd>result collector</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="SQLResultCollector.html" title="interface in io.github.zero88.jooqx"><code>SQLResultCollector</code></a></dd>
+</dl>
+</li>
+</ul>
+<a id="transaction()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>transaction</h4>
+<pre class="methodSignature">@NotNull
+@NotNull <a href="LegacyJooqxTx.html" title="interface in io.github.zero88.jooqx">LegacyJooqxTx</a>&nbsp;transaction()</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLExecutor.html#transaction()">SQLExecutor</a></code></span></div>
+<div class="block">Open transaction executor</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="SQLExecutor.html#transaction()">transaction</a></code>&nbsp;in interface&nbsp;<code><a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;<a href="LegacyInternal.html" title="type parameter in LegacyInternal">S</a> extends io.vertx.ext.sql.SQLOperations,&#8203;io.vertx.core.json.JsonArray,&#8203;<a href="LegacySQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">LegacySQLPreparedQuery</a>,&#8203;<a href="LegacySQLCollector.html" title="interface in io.github.zero88.jooqx">LegacySQLCollector</a>&gt;</code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>transaction executor</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="SQLTxExecutor.html" title="interface in io.github.zero88.jooqx"><code>SQLTxExecutor</code></a></dd>
+</dl>
+</li>
+</ul>
+<a id="session()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>session</h4>
+<pre class="methodSignature">@NotNull
+@NotNull <a href="LegacyJooqxSession.html" title="interface in io.github.zero88.jooqx">LegacyJooqxSession</a>&nbsp;session()</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="SQLExecutor.html#session()">SQLExecutor</a></code></span></div>
+<div class="block">Open session executor</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="SQLExecutor.html#session()">session</a></code>&nbsp;in interface&nbsp;<code><a href="SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;<a href="LegacyInternal.html" title="type parameter in LegacyInternal">S</a> extends io.vertx.ext.sql.SQLOperations,&#8203;io.vertx.core.json.JsonArray,&#8203;<a href="LegacySQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">LegacySQLPreparedQuery</a>,&#8203;<a href="LegacySQLCollector.html" title="interface in io.github.zero88.jooqx">LegacySQLCollector</a>&gt;</code></dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>transaction executor</dd>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><a href="SQLSessionExecutor.html" title="interface in io.github.zero88.jooqx"><code>SQLSessionExecutor</code></a></dd>
 </dl>
 </li>
 </ul>
