@@ -87,7 +87,7 @@ jobs:
 
       - name: Project context
         id: context
-        uses: zero88/gh-project-context@v1.2
+        uses: zero88/gh-project-context@main
         with:
           mustSign: true
           nextVerMode: PATCH
