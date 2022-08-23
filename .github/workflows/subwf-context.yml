@@ -87,7 +87,7 @@ jobs:
 
       - name: Project context
         id: context
-        uses: zero88/gh-project-context@v1.1
+        uses: zero88/gh-project-context@feature/add-changelog-generator
         with:
           mustSign: true
           nextVerMode: PATCH

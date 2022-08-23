@@ -1,0 +1,10 @@
+base=CHANGELOG.md
+breaking-labels=breaking-changes
+bug-labels=T: Bug
+exclude-tags-regex=(jpa|rsql)\/v.+
+exclude-labels=R: Duplicate,R: Invalid,R: Wontfix,T: Question,!release-note,Project: jpa
+enhancement-labels=T: Improvement,T: Feature
+future-release=v2.0.0
+issue-line-labels=[C:]
+since-tag=v1.0.0
+output=release/v2.0.0.md
