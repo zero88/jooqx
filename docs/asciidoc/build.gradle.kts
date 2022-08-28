@@ -24,3 +24,14 @@ configure<antora.AntoraDocComponentExtension> {
         }.map(project::project)
     )
 }
+
+tasks {
+    register<mdtoadoc.MdToAdocTask>("mdToAdoc") {
+        inputFile.set(file(rootDir.resolve("CHANGELOG.md")))
+        outputFolder.set(buildDir.resolve("antora/modules/ROOT/pages"))
+        outputFileName.set("release-note.adoc")
+    }
+    named("asciidoc") {
+        dependsOn("mdToAdoc")
+    }
+}
