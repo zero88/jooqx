@@ -87,7 +87,7 @@ jobs:
 
       - name: Project context
         id: context
-        uses: zero88/gh-project-context@v1.1
+        uses: zero88/gh-project-context@v1.2
         with:
           mustSign: true
           nextVerMode: PATCH
@@ -98,6 +98,8 @@ jobs:
           correctVerMsg: 'Correct ${{ inputs.profile }} version'
           releaseVerMsg: 'Release ${{ inputs.profile }} version'
           nextVerMsg: 'Next ${{ inputs.profile }} version'
+          changelog: true
+          changelogToken: ${{ secrets.githubToken }}
 
       - name: Find semantic version
         id: semantic

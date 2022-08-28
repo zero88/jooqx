@@ -1,0 +1,6 @@
+base=CHANGELOG.md
+breaking-labels=breaking-changes
+bug-labels=T: Bug
+exclude-tags-regex=(jpa|rsql)\/v.+
+exclude-labels=R: Duplicate,R: Invalid,R: Wontfix,T: Question,!release-note,Project: jpa,Project: rsql
+enhancement-labels=T: Improvement,T: Feature
