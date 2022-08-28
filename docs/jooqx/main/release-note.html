@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: Reactive SQL with Vert.x and jOOQ</title>
-    <link rel="canonical" href="https://zero88.github.io/jooqx/jooqx/main/nav.html">
+    <title>Changelog :: Reactive SQL with Vert.x and jOOQ</title>
+    <link rel="canonical" href="https://zero88.github.io/jooqx/jooqx/main/release-note.html">
     <meta name="generator" content="Antora 3.0.1">
     <link rel="stylesheet" href="../../_/css/site.css">
 <link rel="icon" href="../../favicon.ico" type="image/x-icon"/>
@@ -120,7 +120,7 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="apidocs.html">API docs</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="release-note.html">Release note</a>
   </li>
 </ul>
@@ -172,73 +172,107 @@
 <button class="nav-toggle"></button>
   <a href="index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">jOOQ.x</a></li>
+    <li>Core</li>
+    <li><a href="release-note.html">Release note</a></li>
+  </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/zero88/jooqx/edit/docs/main/antora/jooqx/modules/ROOT/pages/nav.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/zero88/jooqx/edit/docs/main/antora/jooqx/modules/ROOT/pages/release-note.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<div class="ulist">
-<div class="title">Core</div>
-<ul>
-<li>
-<p><a href="index.html" class="xref page">Welcome</a></p>
-</li>
-<li>
-<p><a href="usage.html" class="xref page">Usage</a></p>
-</li>
-<li>
-<p><a href="getting-started.html" class="xref page">Getting started</a></p>
-</li>
-<li>
-<p><a href="features.html" class="xref page">Browse features</a></p>
+<h1 class="page">Changelog</h1>
+<div class="sect1">
+<h2 id="_1_0_0"><a class="anchor" href="#_1_0_0"></a><a href="https://github.com/zero88/jooqx/tree/v1.0.0">1.0.0</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://github.com/zero88/jooqx/compare/f7e4efadba4209f4b39548e08bf60ba814e4c6bb&#8230;&#8203;HEAD">Full Changelog</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Closed issues:</strong></p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="features-basic.html" class="xref page">Basic usage</a></p>
+<p>Document &amp; usage <a href="https://github.com/zero88/jooqx/issues/24">#24</a></p>
 </li>
 <li>
-<p><a href="features-dml.html" class="xref page">SQL daily job</a></p>
+<p>Vertx gen to Rxify <a href="https://github.com/zero88/jooqx/issues/18">#18</a></p>
 </li>
 <li>
-<p><a href="features-ddl.html" class="xref page">SQL DDL</a></p>
+<p>Test with complex query that return join result to ensure VertxJooqRecord can handle <a href="https://github.com/zero88/jooqx/issues/11">#11</a></p>
 </li>
 <li>
-<p><a href="features-plain-sql.html" class="xref page">SQL plain statement</a></p>
+<p>Add some useful basic SQL query as DAO function <a href="https://github.com/zero88/jooqx/issues/10">#10</a></p>
 </li>
 <li>
-<p><a href="features-batch.html" class="xref page">SQL batch</a></p>
+<p>Convert result from VertxJooqRecord to Table record or Table pojo <a href="https://github.com/zero88/jooqx/issues/9">#9</a></p>
 </li>
 <li>
-<p><a href="features-procedure.html" class="xref page">SQL procedure</a></p>
+<p>Support SQL transaction <a href="https://github.com/zero88/jooqx/issues/7">#7</a></p>
 </li>
 <li>
-<p><a href="features-transaction.html" class="xref page">SQL transaction</a></p>
+<p>Data type converter between Vertx SQL and jOOQ <a href="https://github.com/zero88/jooqx/issues/6">#6</a></p>
 </li>
 <li>
-<p><a href="features-result-adapter.html" class="xref page">Result adapter</a></p>
+<p>Error handling <a href="https://github.com/zero88/jooqx/issues/5">#5</a></p>
 </li>
 <li>
-<p><a href="features-datatype-mapper.html" class="xref page">DataType mapper</a></p>
-</li>
-<li>
-<p><a href="features-error-handler.html" class="xref page">Error handler</a></p>
-</li>
-<li>
-<p><a href="features-rxify.html" class="xref page">Rxify version</a></p>
+<p>Support batch DML <a href="https://github.com/zero88/jooqx/issues/3">#3</a></p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p><strong>Merged pull requests:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Feature/rxify v2 <a href="https://github.com/zero88/jooqx/pull/34">#34</a> (<a href="https://github.com/zero88">zero88</a>)</p>
 </li>
 <li>
-<p><a href="apidocs.html" class="xref page">API docs</a></p>
+<p>Vert.x jOOQ Data converter <a href="https://github.com/zero88/jooqx/pull/32">#32</a> (<a href="https://github.com/zero88">zero88</a>)</p>
 </li>
 <li>
-<p><a href="release-note.html" class="xref page">Release note</a></p>
+<p>Improve/api-2-document <a href="https://github.com/zero88/jooqx/pull/30">#30</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/docs <a href="https://github.com/zero88/jooqx/pull/28">#28</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/transaction <a href="https://github.com/zero88/jooqx/pull/21">#21</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/complex query <a href="https://github.com/zero88/jooqx/pull/19">#19</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/common dsl <a href="https://github.com/zero88/jooqx/pull/17">#17</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/error handling <a href="https://github.com/zero88/jooqx/pull/16">#16</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/support batch <a href="https://github.com/zero88/jooqx/pull/15">#15</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Bump actions/cache from v2 to v2.1.4 <a href="https://github.com/zero88/jooqx/pull/14">#14</a> (<a href="https://github.com/apps/dependabot">dependabot[bot</a>])</p>
+</li>
+<li>
+<p>Bump zero88/gh-project-context from v1.0.0 to v1.0.3 <a href="https://github.com/zero88/jooqx/pull/2">#2</a> (<a href="https://github.com/apps/dependabot">dependabot[bot</a>])</p>
+</li>
+<li>
+<p>Bump actions/cache from v2.1.3 to v2.1.4 <a href="https://github.com/zero88/jooqx/pull/1">#1</a> (<a href="https://github.com/apps/dependabot">dependabot[bot</a>])</p>
+</li>
+<li>
+<p><em>This Changelog was automatically generated by <a href="https://github.com/github-changelog-generator/github-changelog-generator">github_changelog_generator</a></em></p>
 </li>
 </ul>
+</div>
+</div>
 </div>
 </article>
   </div>
