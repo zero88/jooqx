@@ -6,3 +6,4 @@
 include::partial$feature-nav.adoc[]
 
 * xref:apidocs.adoc[API docs]
+* xref:release-note.adoc[Release note]
