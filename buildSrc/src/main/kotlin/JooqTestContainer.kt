@@ -21,7 +21,7 @@ private fun optimizeDockerParams(): Map<String, Any> {
     val os = System.getProperty("os.name").toLowerCase()
     return when {
         // https://docs.docker.com/storage/tmpfs/
-        os.contains("nix") || os.contains("nux") || os.contains("aix") -> mapOf("TC_TMPFS" to "/testtmpfs:rw")
-        else                                                           -> mapOf()
+        arrayOf("nix", "nux", "aix").any { os.contains(it) } -> mapOf("TC_TMPFS" to "/testtmpfs:rw")
+        else                                                 -> mapOf()
     }
 }
