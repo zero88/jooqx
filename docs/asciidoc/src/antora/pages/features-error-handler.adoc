@@ -1,0 +1,20 @@
+= Error Handler
+
+Basically, `exception` in execution time will be thrown by each particular `jdbc` driver or `reactive SQL driver`, it can be spaghetti code, dealing with `exception`, then `jooqx` is able to centralize any exception with properly
+`SQL state` that thanks to `DataAccessException` in `jOOQ`.
+
+It is easy to configure when building `executor`
+
+== With JDBC SQL client
+
+include::partial$features-error-handler.adoc[tag=jdbcErrorHandler]
+
+== With JDBC PostgreSQL client
+
+include::partial$features-error-handler.adoc[tag=pgErrorHandler]
+
+== Integrating with your existing application exception
+
+And so more, you can convert to your existing application exception (must `extends RuntimeException`) by
+
+include::partial$features-error-handler.adoc[tag=integrateErrorHandler]

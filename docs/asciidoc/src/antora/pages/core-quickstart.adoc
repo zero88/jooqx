@@ -1,6 +1,7 @@
-== Getting stared
+= jOOQ.x Quickstart
+:navtitle: Quickstart
 
-=== Prerequisite
+== Prerequisite
 
 Assume you know how to use https://www.jooq.org/doc/3.14/manual/code-generation/[jOOQ code generation] and able to generate your database schema.
 

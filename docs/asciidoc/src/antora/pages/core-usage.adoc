@@ -1,9 +1,10 @@
-== Usage
+= Use jOOQ.x in your project
+:navtitle: Usage
 
 To use `jooqx` add the following https://search.maven.org/artifact/io.github.zero88/jooqx/{jooqx-version}/jar[dependency]
 to the `dependencies` section of your build descriptor:
 
-=== Maven
+== Maven
 
 In your `pom.xml`,
 
@@ -34,7 +35,7 @@ In your `pom.xml`,
 </dependencies>
 ----
 
-=== Gradle
+== Gradle
 
 In your `build.gradle`,
 
@@ -49,7 +50,7 @@ dependencies {
 }
 ----
 
-=== Remarks
+== Remarks
 
 :icons: font
 [TIP]

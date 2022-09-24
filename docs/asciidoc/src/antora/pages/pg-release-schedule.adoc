@@ -1,0 +1,29 @@
+= jOOQ.x release schedule
+:navtitle: Release schedule
+
+== Version policy
+
+jOOQ.x follows the https://semver.org/[semantic versioning rules].
+Each jOOQ.x component release is versioned *major.minor.patch*.
+
+Major::
+Major releases occur when there are substantial changes in functionality or when new functionality breaks backwards compatibility.
+Releases within the same major release line will maintain API compatibility.
+
+Minor::
+Minor releases add new features, improvements to existing features, and fixes that maintain backwards compatibility.
+
+Patch::
+Patch releases fix bugs and maintain backwards compatibility.
+Only the latest minor release of a major release line will receive patches.
+Patch releases happen as needed depending on the urgency of the fix.
+
+Prerelease::
+Major and minor releases may include prerelease versions (major.minor.patch-alpha.n | -beta.n | -rc.n).
+Prerelease versions will be tagged as _next_ so that the npm client doesn't prefer a prerelease over a stable version.
+Once a release candidate (rc) has been thoroughly tested, the stable release will be published.
+
+[#roadmap]
+== Roadmap
+
+Refer to https://github.com/zero88/jooqx/milestones[jOOQ.x’s milestones] and https://github.com/zero88/jooqx/issues[issue tracker] for a list of the currently scheduled development tasks. The milestones are intended for informational purposes only. The proposed features, their scope, and the release timeframes are estimates, not firm commitments.

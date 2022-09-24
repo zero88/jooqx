@@ -1,19 +1,16 @@
 /**
- * = SQL plain statement
- *
- * == Execute plain SQL statement without result
- *
+ * // tag::withoutResult[]
  * [source,$lang,subs="attributes,verbatim"]
  * ----
  * {@link io.github.zero88.jooqx.plainsql.ExamplePlainSQL#sql(io.github.zero88.jooqx.Jooqx)}
  * ----
- *
- * == Execute plain SQL statement with result
- *
+ * // end::withoutResult[]
+ * // tag::withResult[]
  * [source,$lang,subs="attributes,verbatim"]
  * ----
  * {@link io.github.zero88.jooqx.plainsql.ExamplePlainSQL#sqlResult(io.github.zero88.jooqx.Jooqx)}
  * ----
+ * // end::withResult[]
  */
 
 @io.vertx.docgen.Document(fileName = "features-plain-sql.adoc")

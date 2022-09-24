@@ -1,0 +1,4 @@
+= Upgrade Notes
+:navtitle: Upgrade notes
+
+== From v1 to v2

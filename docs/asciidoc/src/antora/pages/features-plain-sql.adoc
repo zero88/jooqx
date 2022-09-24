@@ -1,0 +1,9 @@
+= SQL plain statement
+
+== Execute plain SQL statement without result
+
+include::partial$features-plain-sql.adoc[tag=withoutResult]
+
+== Execute plain SQL statement with result
+
+include::partial$features-plain-sql.adoc[tag=withResult]

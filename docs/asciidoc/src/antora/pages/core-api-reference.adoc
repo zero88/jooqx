@@ -1,5 +1,6 @@
-== jOOQ.x Features
+= jOOQ.x API Reference
+:navtitle: API Reference
 
 Provides a straightforward API focusing on scalability and low overhead to reactive and non-blocking interact to database that relies on Vertx SQL client and jOOQ.
 
-include::partial$feature-nav.adoc[]
+include::partial$nav-api-reference.adoc[]

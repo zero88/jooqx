@@ -1,0 +1,29 @@
+= Your every day SQL job
+
+== Fetch exists
+
+include::partial$features-dml.adoc[tag=fetchExists]
+
+== Fetch count
+
+include::partial$features-dml.adoc[tag=fetchCount]
+
+== Query
+
+include::partial$features-dml.adoc[tag=query]
+
+== Join query
+
+include::partial$features-dml.adoc[tag=joinQuery]
+
+== INSERT statement
+
+include::partial$features-dml.adoc[tag=insert]
+
+== UPDATE statement
+
+include::partial$features-dml.adoc[tag=update]
+
+== DELETE statement
+
+include::partial$features-dml.adoc[tag=delete]

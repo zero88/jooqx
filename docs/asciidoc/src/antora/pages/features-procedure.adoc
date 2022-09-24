@@ -1,0 +1,5 @@
+= SQL procedure
+
+See https://www.jooq.org/doc/latest/manual/sql-execution/stored-procedures/[jOOQ stored-procedures]
+
+include::partial$features-procedure.adoc[]

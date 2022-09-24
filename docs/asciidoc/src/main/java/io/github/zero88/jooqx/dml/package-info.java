@@ -1,54 +1,46 @@
 /**
- * = Your every day SQL job
- *
- * == Fetch exists
- *
+ * // tag::fetchExists[]
  * [source,$lang,subs="attributes,verbatim"]
  * ----
  * {@link io.github.zero88.jooqx.dml.ExampleDQL#fetchExists(io.github.zero88.jooqx.Jooqx)}
  * ----
- *
- * == Fetch count
- *
+ * // end::fetchExists[]
+ * // tag::fetchCount[]
  * [source,$lang,subs="attributes,verbatim"]
  * ----
  * {@link io.github.zero88.jooqx.dml.ExampleDQL#fetchCount(io.github.zero88.jooqx.Jooqx)}
  * ----
- *
- * == Simple Query data
- *
+ * // end::fetchCount[]
+ * // tag::query[]
  * [source,$lang,subs="attributes,verbatim"]
  * ----
  * {@link io.github.zero88.jooqx.dml.ExampleDQL#query(io.github.zero88.jooqx.Jooqx)}
  * ----
- *
- * == Complex join query
- *
+ * // end::query[]
+ * // tag::joinQuery[]
  * [source,$lang,subs="attributes,verbatim"]
  * ----
  * {@link io.github.zero88.jooqx.dml.ExampleDQL#joinQuery(io.github.zero88.jooqx.Jooqx)}
  * ----
- *
- * == Insert data
- *
+ * // end::joinQuery[]
+ * // tag::insert[]
  * [source,$lang,subs="attributes,verbatim"]
  * ----
  * {@link io.github.zero88.jooqx.dml.ExampleDML#insert(io.github.zero88.jooqx.Jooqx)}
  * ----
- *
- * == Update data
- *
+ * // end::insert[]
+ * // tag::update[]
  * [source,$lang,subs="attributes,verbatim"]
  * ----
  * {@link io.github.zero88.jooqx.dml.ExampleDML#update(io.github.zero88.jooqx.Jooqx)}
  * ----
- *
- * == Delete data
- *
+ * // end::update[]
+ * // tag::delete[]
  * [source,$lang,subs="attributes,verbatim"]
  * ----
  * {@link io.github.zero88.jooqx.dml.ExampleDML#delete(io.github.zero88.jooqx.Jooqx)}
  * ----
+ * // end::delete[]
  */
 
 @io.vertx.docgen.Document(fileName = "features-dml.adoc")
