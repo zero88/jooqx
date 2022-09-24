@@ -54,9 +54,10 @@ class AntoraDocComponentPlugin : Plugin<Project> {
             }
             register<JavaCompile>("asciidoc") {
                 group = "documentation"
+                description = "Generate asciidoc from source code"
                 dependsOn(AntoraDescriptorTask.NAME)
                 val ss = project.the<JavaPluginExtension>().sourceSets.getByName(SourceSet.MAIN_SOURCE_SET_NAME)
-                val dest: Directory = destAntora.pagesDir()
+                val dest: Directory = destAntora.partialsDir()
                 val src: Directory = when {
                     ext.antoraType.get().isComponent() -> srcAntora.pagesDir()
                     else                               -> srcAntora.getDir()
