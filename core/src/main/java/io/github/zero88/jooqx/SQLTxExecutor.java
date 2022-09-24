@@ -9,7 +9,7 @@ import io.vertx.core.Future;
 import io.vertx.core.Handler;
 
 /**
- * Represents for transaction executor
+ * Represents for SQL transaction executor
  *
  * @param <S> Type of Vertx SQL client
  * @param <B> Type of Vertx query param holder

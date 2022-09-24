@@ -12,6 +12,8 @@ import io.vertx.sqlclient.SqlConnection;
 import io.vertx.sqlclient.Tuple;
 
 /**
+ * Represents for a reactive SQL session executor
+ *
  * @since 2.0.0
  */
 @VertxGen
