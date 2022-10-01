@@ -1,5 +1,7 @@
 package io.github.zero88.integtest.jooqx.pg.jooq;
 
+import org.jooq.JSONB;
+import org.jooq.impl.DSL;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -51,6 +53,19 @@ class PgLegacyDataTypeTest extends PgSQLLegacyTest implements JDBCErrorConverter
                                  UserTypeAsJooqType.create(new EnumWeatherConverter()))
                     .addByColumn(schema().ALL_DATA_TYPES.F_UDT_ADDRESS,
                                  UserTypeAsJooqType.create(new FullAddressConverter()));
+    }
+
+    @Test
+    void test_simple(VertxTestContext ctx) {
+        Checkpoint cp = ctx.checkpoint();
+        jooqx.sqlQuery("select '[\"test\"]'::jsonb", DSLAdapter.fetchOne(DSL.field("test", JSONB.class)))
+             .onSuccess(rec -> ctx.verify(() -> {
+                 final Object value = rec.getValue(0);
+                 Assertions.assertInstanceOf(JSONB.class, value);
+                 Assertions.assertEquals(JSONB.jsonb("[\"test\"]"), value);
+                 cp.flag();
+             }))
+             .onFailure(ctx::failNow);
     }
 
     @Test

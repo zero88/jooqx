@@ -3,9 +3,10 @@ package io.github.zero88.integtest.jooqx.pg;
 import io.github.zero88.jooqx.datatype.DataTypeMapperRegistry;
 import io.github.zero88.jooqx.provider.TypeMapperRegistryProvider;
 import io.github.zero88.jooqx.spi.pg.datatype.PgTypeMapperRegistry;
+import io.github.zero88.sample.model.pgsql.DefaultCatalog;
+import io.github.zero88.sample.model.pgsql.Public;
 
-public interface PgUseVertxType
-    extends TypeMapperRegistryProvider, PostgreSQLHelper<io.github.zero88.sample.model.pgsql.Public> {
+public interface PgUseVertxType extends TypeMapperRegistryProvider, PostgreSQLHelper<Public> {
 
     @Override
     default DataTypeMapperRegistry typeMapperRegistry() {
@@ -16,8 +17,8 @@ public interface PgUseVertxType
     }
 
     @Override
-    default io.github.zero88.sample.model.pgsql.Public schema() {
-        return io.github.zero88.sample.model.pgsql.DefaultCatalog.DEFAULT_CATALOG.PUBLIC;
+    default Public schema() {
+        return DefaultCatalog.DEFAULT_CATALOG.PUBLIC;
     }
 
     boolean alreadyGenerated();
