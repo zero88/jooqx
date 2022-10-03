@@ -229,12 +229,12 @@
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
    &lt;groupId&gt;io.vertx&lt;/groupId&gt;
    &lt;artifactId&gt;vertx-rx-java2&lt;/artifactId&gt;                     <i class="conum" data-value="1"></i><b>(1)</b>
-   &lt;version&gt;4.2.3&lt;/version&gt;
+   &lt;version&gt;4.3.0&lt;/version&gt;
 &lt;/dependency&gt;
 &lt;dependency&gt;
    &lt;groupId&gt;io.vertx&lt;/groupId&gt;
    &lt;artifactId&gt;vertx-rx-java3&lt;/artifactId&gt;                     <i class="conum" data-value="2"></i><b>(2)</b>
-   &lt;version&gt;4.2.3&lt;/version&gt;
+   &lt;version&gt;4.3.0&lt;/version&gt;
 &lt;/dependency&gt;
 &lt;dependency&gt;
    &lt;groupId&gt;io.smallrye.reactive&lt;/groupId&gt;
@@ -284,9 +284,9 @@
 <pre class="highlightjs highlight"><code class="language-gradle hljs" data-lang="gradle">dependencies {
     api("io.github.zero88:jooqx:2.0.0-SNAPSHOT")
     // with rx2
-    api("io.vertx:vertx-rx-java2:4.2.3")                                 <i class="conum" data-value="1"></i><b>(1)</b>
+    api("io.vertx:vertx-rx-java2:4.3.0")                                 <i class="conum" data-value="1"></i><b>(1)</b>
     // or with rx3
-    api("io.vertx:vertx-rx-java3:4.2.3")                                 <i class="conum" data-value="2"></i><b>(2)</b>
+    api("io.vertx:vertx-rx-java3:4.3.0")                                 <i class="conum" data-value="2"></i><b>(2)</b>
     // or with mutiny
     api("io.smallrye.reactive:smallrye-mutiny-vertx-core:2.20.0")        <i class="conum" data-value="3"></i><b>(3)</b>
     api("io.smallrye.reactive:smallrye-mutiny-vertx-pg-client:2.20.0")   <i class="conum" data-value="4"></i><b>(4)</b>
@@ -431,9 +431,10 @@ jooqx.execute(q, DSLAdapter.fetchMany(q.asTable())).subscribe().with(records -&g
 </main>
 </div>
 <footer class="footer">
-    <p>The jOOQ.x documentation site is generated using <a href="https://antora.org" target="_blank">Antora</a>.</p>
+    <p>The jOOQ.x documentation site is generated using <a href="https://antora.org" target="_blank">Antora</a> and
+        <a href="https://github.com/vert-x3/vertx-docgen" target="_blank">Vert.x docgen</a>.</p>
 </footer>
-<script src="../../_/js/site.js"></script>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
     <script async src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script>
     <script async src="../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../.."

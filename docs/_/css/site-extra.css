@@ -1,42 +1,48 @@
 .algolia-autocomplete .ds-dropdown-menu [class^="ds-dataset-"] {
-  max-height: calc(100vh - 3.25rem);
+    max-height: calc(100vh - 3.25rem);
 }
 
 .algolia-autocomplete .algolia-docsearch-suggestion--title {
-  font-weight: 500;
+    font-weight: 500;
 }
 
 .algolia-autocomplete
-  .algolia-docsearch-suggestion
-  .algolia-docsearch-suggestion--subcategory-column {
-  font-weight: normal;
+.algolia-docsearch-suggestion
+.algolia-docsearch-suggestion--subcategory-column {
+    font-weight: normal;
 }
 
 @media screen and (max-width: 768px) {
-  .algolia-autocomplete .ds-dropdown-menu {
-    min-width: calc(100vw - 2.75rem) !important;
-  }
+    .algolia-autocomplete .ds-dropdown-menu {
+        min-width: calc(100vw - 2.75rem) !important;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .doc {
+        max-width: 55% !important;
+    }
 }
 
 .doc .image.conum > img {
-  height: 0.9em;
-  width: auto;
-  vertical-align: -0.1em;
+    height: 0.9em;
+    width: auto;
+    vertical-align: -0.1em;
 }
 
 header .navbar {
-  background: #1d2a3a;
+    background: #1d2a3a;
 }
 
 footer.footer {
-  font-size: 0.85rem;
-  background: #1d2a3a;
-  color: #fff;
-  padding: 0.5rem 1rem;
-  position: relative;
+    font-size: 0.85rem;
+    background: #1d2a3a;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    position: relative;
 }
 
 footer.footer a {
-  color: #fff;
-  text-decoration: underline;
+    color: #fff;
+    text-decoration: underline;
 }
