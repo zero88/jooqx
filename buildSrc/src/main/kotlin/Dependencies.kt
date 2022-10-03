@@ -38,7 +38,7 @@ object TestLibs {
 
     object Version {
 
-        const val junit5 = "5.7.0"
+        const val junit5 = "5.9.1"
     }
 
     const val junit5Api = "org.junit.jupiter:junit-jupiter-api:${Version.junit5}"
@@ -51,7 +51,7 @@ object TestLibs {
 object TestContainers {
     object Version {
 
-        const val ver = "1.17.1"
+        const val ver = "1.17.3"
     }
 
     const val junit5 = "org.testcontainers:junit-jupiter:${Version.ver}"
@@ -64,12 +64,13 @@ object VertxLibs {
     object Version {
 
         private val pool = mapOf(2 to (0..7).toList(), 3 to (0..3).toList())
-        @JvmField val vertx = "4.${pool.ver(2, 3)}"
+        @JvmField val vertx = "4.${pool.ver(3, 0)}"
         const val docgen = "0.9.4"
+        const val junitVertx = "4.2.5"
     }
 
     @JvmField val core = "io.vertx:vertx-core:${Version.vertx}"
-    @JvmField val junit5 = "io.vertx:vertx-junit5:${Version.vertx}"
+    @JvmField val junit5 = "io.vertx:vertx-junit5:${Version.junitVertx}"
     @JvmField val sqlClient = "io.vertx:vertx-sql-client:${Version.vertx}"
     @JvmField val jdbc = "io.vertx:vertx-jdbc-client:${Version.vertx}"
     @JvmField val pgsql = "io.vertx:vertx-pg-client:${Version.vertx}"

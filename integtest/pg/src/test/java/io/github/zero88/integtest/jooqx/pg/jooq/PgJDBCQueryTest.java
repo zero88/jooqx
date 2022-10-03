@@ -23,6 +23,8 @@ import io.vertx.core.Vertx;
 import io.vertx.jdbcclient.JDBCPool;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
+import io.vertx.sqlclient.Row;
+import io.vertx.sqlclient.RowSet;
 
 //Fixed in https://github.com/vert-x3/vertx-jdbc-client/pull/235
 class PgJDBCQueryTest extends PgSQLJooqxTest<JDBCPool>
@@ -38,6 +40,20 @@ class PgJDBCQueryTest extends PgSQLJooqxTest<JDBCPool>
     @Override
     public DataTypeMapperRegistry typeMapperRegistry() {
         return PgUseJooqType.super.typeMapperRegistry().add(UserTypeAsJooqType.create(new JDBCIntervalConverter()));
+    }
+
+    @Test
+    void test_simple(VertxTestContext ctx) {
+        Checkpoint cp = ctx.checkpoint();
+        jooqx.sqlClient()
+             .query("select '[\"test\"]'::jsonb")
+             .execute()
+             .onFailure(ctx::failNow)
+             .onSuccess(res -> ctx.verify(() -> {
+                 final RowSet<Row> value = res.value();
+                 Assertions.assertInstanceOf(String.class, value.iterator().next().getValue(0));
+                 cp.flag();
+             }));
     }
 
     @Test
