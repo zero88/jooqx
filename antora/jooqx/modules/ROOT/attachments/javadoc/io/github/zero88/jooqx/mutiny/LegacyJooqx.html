@@ -933,142 +933,6 @@ public&nbsp;<a href="LegacyJooqxSession.html" title="class in io.github.zero88.j
 </dl>
 </li>
 </ul>
-<a id="execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>execute</h4>
-<pre class="methodSignature">@CheckReturnValue
-@Deprecated
-public&nbsp;&lt;T,&#8203;R&gt;&nbsp;io.smallrye.mutiny.Uni&lt;R&gt;&nbsp;execute&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
-                                                     <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</pre>
-<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
-<div class="block">Execute <code>jOOQ query</code> then return async result
- <p>
- Unlike the <em>bare</em> Vert.x variant, this method returns a <code>Uni</code>.
- Don't forget to <em>subscribe</em> on it to trigger the operation.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>queryFunction</code> - the jOOQ query function</dd>
-<dd><code>resultAdapter</code> - the result adapter</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>the <code>uni</code> firing the result of the operation when completed, or a failure if the operation failed.</dd>
-</dl>
-</li>
-</ul>
-<a id="executeAndAwait(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>executeAndAwait</h4>
-<pre class="methodSignature">@Deprecated
-public&nbsp;&lt;T,&#8203;R&gt;&nbsp;R&nbsp;executeAndAwait&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
-                                     <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</pre>
-<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
-<div class="block">Blocking variant of <code>io.github.zero88.jooqx.mutiny.SQLQueryExecutor#execute(Function<DSLContext,Query>,SQLResultAdapter<T,R>)</code>.
- <p>
- This method waits for the completion of the underlying asynchronous operation.
- If the operation completes successfully, the result is returned, otherwise the failure is thrown (potentially wrapped in a RuntimeException).</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>queryFunction</code> - the jOOQ query function</dd>
-<dd><code>resultAdapter</code> - the result adapter</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>the R instance produced by the operation.</dd>
-</dl>
-</li>
-</ul>
-<a id="executeAndForget(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>executeAndForget</h4>
-<pre class="methodSignature">@Deprecated
-public&nbsp;&lt;T,&#8203;R&gt;&nbsp;void&nbsp;executeAndForget&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
-                                         <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</pre>
-<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
-<div class="block">Variant of <code>io.github.zero88.jooqx.mutiny.SQLQueryExecutor#execute(Function<DSLContext,Query>,SQLResultAdapter<T,R>)</code> that ignores the result of the operation.
- <p>
- This method subscribes on the result of <code>io.github.zero88.jooqx.mutiny.SQLQueryExecutor#execute(Function<DSLContext,Query>,SQLResultAdapter<T,R>)</code>, but discards the outcome (item or failure).
- This method is useful to trigger the asynchronous operation from <code>io.github.zero88.jooqx.mutiny.SQLQueryExecutor#execute(Function<DSLContext,Query>,SQLResultAdapter<T,R>)</code> but you don't need to compose it with other operations.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>queryFunction</code> - the jOOQ query function</dd>
-<dd><code>resultAdapter</code> - the result adapter</dd>
-</dl>
-</li>
-</ul>
-<a id="execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>execute</h4>
-<pre class="methodSignature">@CheckReturnValue
-@Deprecated
-public&nbsp;&lt;T,&#8203;R&gt;&nbsp;io.smallrye.mutiny.Uni&lt;R&gt;&nbsp;execute&#8203;(org.jooq.Query&nbsp;query,
-                                                     <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</pre>
-<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
-<div class="block">Execute <code>jOOQ query</code> then return async result
- <p>
- Unlike the <em>bare</em> Vert.x variant, this method returns a <code>Uni</code>.
- Don't forget to <em>subscribe</em> on it to trigger the operation.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>query</code> - the jOOQ query</dd>
-<dd><code>resultAdapter</code> - the result adapter</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>the <code>uni</code> firing the result of the operation when completed, or a failure if the operation failed.</dd>
-</dl>
-</li>
-</ul>
-<a id="executeAndAwait(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>executeAndAwait</h4>
-<pre class="methodSignature">@Deprecated
-public&nbsp;&lt;T,&#8203;R&gt;&nbsp;R&nbsp;executeAndAwait&#8203;(org.jooq.Query&nbsp;query,
-                                     <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</pre>
-<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
-<div class="block">Blocking variant of <code>io.github.zero88.jooqx.mutiny.SQLQueryExecutor#execute(Query,SQLResultAdapter<T,R>)</code>.
- <p>
- This method waits for the completion of the underlying asynchronous operation.
- If the operation completes successfully, the result is returned, otherwise the failure is thrown (potentially wrapped in a RuntimeException).</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>query</code> - the jOOQ query</dd>
-<dd><code>resultAdapter</code> - the result adapter</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>the R instance produced by the operation.</dd>
-</dl>
-</li>
-</ul>
-<a id="executeAndForget(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>executeAndForget</h4>
-<pre class="methodSignature">@Deprecated
-public&nbsp;&lt;T,&#8203;R&gt;&nbsp;void&nbsp;executeAndForget&#8203;(org.jooq.Query&nbsp;query,
-                                         <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</pre>
-<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
-<div class="block">Variant of <code>io.github.zero88.jooqx.mutiny.SQLQueryExecutor#execute(Query,SQLResultAdapter<T,R>)</code> that ignores the result of the operation.
- <p>
- This method subscribes on the result of <code>io.github.zero88.jooqx.mutiny.SQLQueryExecutor#execute(Query,SQLResultAdapter<T,R>)</code>, but discards the outcome (item or failure).
- This method is useful to trigger the asynchronous operation from <code>io.github.zero88.jooqx.mutiny.SQLQueryExecutor#execute(Query,SQLResultAdapter<T,R>)</code> but you don't need to compose it with other operations.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>query</code> - the jOOQ query</dd>
-<dd><code>resultAdapter</code> - the result adapter</dd>
-</dl>
-</li>
-</ul>
 <a id="batch(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues)">
 <!--   -->
 </a>
@@ -1205,143 +1069,140 @@ public&nbsp;void&nbsp;batchAndForget&#8203;(org.jooq.Query&nbsp;query,
 </dl>
 </li>
 </ul>
-<a id="routine(java.util.function.Function)">
+<a id="execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>routine</h4>
+<h4>execute</h4>
 <pre class="methodSignature">@CheckReturnValue
 @Deprecated
-public&nbsp;&lt;T&gt;&nbsp;io.smallrye.mutiny.Uni&lt;T&gt;&nbsp;routine&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Routine&lt;T&gt;&gt;&nbsp;routineFunction)</pre>
+public&nbsp;&lt;T,&#8203;R&gt;&nbsp;io.smallrye.mutiny.Uni&lt;R&gt;&nbsp;execute&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
+                                                     <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</pre>
 <div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block">Execute <code>jOOQ query</code> then return async result
+ <p>
+ Unlike the <em>bare</em> Vert.x variant, this method returns a <code>Uni</code>.
+ Don't forget to <em>subscribe</em> on it to trigger the operation.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>queryFunction</code> - the jOOQ query function</dd>
+<dd><code>resultAdapter</code> - the result adapter</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the <code>uni</code> firing the result of the operation when completed, or a failure if the operation failed.</dd>
+</dl>
 </li>
 </ul>
-<a id="routineAndAwait(java.util.function.Function)">
+<a id="executeAndAwait(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>routineAndAwait</h4>
+<h4>executeAndAwait</h4>
 <pre class="methodSignature">@Deprecated
-public&nbsp;&lt;T&gt;&nbsp;T&nbsp;routineAndAwait&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Routine&lt;T&gt;&gt;&nbsp;routineFunction)</pre>
+public&nbsp;&lt;T,&#8203;R&gt;&nbsp;R&nbsp;executeAndAwait&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
+                                     <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</pre>
 <div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block">Blocking variant of <code>io.github.zero88.jooqx.mutiny.SQLQueryExecutor#execute(Function<DSLContext,Query>,SQLResultAdapter<T,R>)</code>.
+ <p>
+ This method waits for the completion of the underlying asynchronous operation.
+ If the operation completes successfully, the result is returned, otherwise the failure is thrown (potentially wrapped in a RuntimeException).</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>queryFunction</code> - the jOOQ query function</dd>
+<dd><code>resultAdapter</code> - the result adapter</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the R instance produced by the operation.</dd>
+</dl>
 </li>
 </ul>
-<a id="routineAndForget(java.util.function.Function)">
+<a id="executeAndForget(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>routineAndForget</h4>
+<h4>executeAndForget</h4>
 <pre class="methodSignature">@Deprecated
-public&nbsp;&lt;T&gt;&nbsp;void&nbsp;routineAndForget&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Routine&lt;T&gt;&gt;&nbsp;routineFunction)</pre>
+public&nbsp;&lt;T,&#8203;R&gt;&nbsp;void&nbsp;executeAndForget&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
+                                         <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</pre>
 <div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block">Variant of <code>io.github.zero88.jooqx.mutiny.SQLQueryExecutor#execute(Function<DSLContext,Query>,SQLResultAdapter<T,R>)</code> that ignores the result of the operation.
+ <p>
+ This method subscribes on the result of <code>io.github.zero88.jooqx.mutiny.SQLQueryExecutor#execute(Function<DSLContext,Query>,SQLResultAdapter<T,R>)</code>, but discards the outcome (item or failure).
+ This method is useful to trigger the asynchronous operation from <code>io.github.zero88.jooqx.mutiny.SQLQueryExecutor#execute(Function<DSLContext,Query>,SQLResultAdapter<T,R>)</code> but you don't need to compose it with other operations.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>queryFunction</code> - the jOOQ query function</dd>
+<dd><code>resultAdapter</code> - the result adapter</dd>
+</dl>
 </li>
 </ul>
-<a id="routine(org.jooq.Routine)">
+<a id="execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>routine</h4>
+<h4>execute</h4>
 <pre class="methodSignature">@CheckReturnValue
 @Deprecated
-public&nbsp;&lt;T&gt;&nbsp;io.smallrye.mutiny.Uni&lt;T&gt;&nbsp;routine&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine)</pre>
+public&nbsp;&lt;T,&#8203;R&gt;&nbsp;io.smallrye.mutiny.Uni&lt;R&gt;&nbsp;execute&#8203;(org.jooq.Query&nbsp;query,
+                                                     <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</pre>
 <div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block">Execute <code>jOOQ query</code> then return async result
+ <p>
+ Unlike the <em>bare</em> Vert.x variant, this method returns a <code>Uni</code>.
+ Don't forget to <em>subscribe</em> on it to trigger the operation.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>query</code> - the jOOQ query</dd>
+<dd><code>resultAdapter</code> - the result adapter</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the <code>uni</code> firing the result of the operation when completed, or a failure if the operation failed.</dd>
+</dl>
 </li>
 </ul>
-<a id="routineAndAwait(org.jooq.Routine)">
+<a id="executeAndAwait(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>routineAndAwait</h4>
+<h4>executeAndAwait</h4>
 <pre class="methodSignature">@Deprecated
-public&nbsp;&lt;T&gt;&nbsp;T&nbsp;routineAndAwait&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine)</pre>
+public&nbsp;&lt;T,&#8203;R&gt;&nbsp;R&nbsp;executeAndAwait&#8203;(org.jooq.Query&nbsp;query,
+                                     <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</pre>
 <div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block">Blocking variant of <code>io.github.zero88.jooqx.mutiny.SQLQueryExecutor#execute(Query,SQLResultAdapter<T,R>)</code>.
+ <p>
+ This method waits for the completion of the underlying asynchronous operation.
+ If the operation completes successfully, the result is returned, otherwise the failure is thrown (potentially wrapped in a RuntimeException).</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>query</code> - the jOOQ query</dd>
+<dd><code>resultAdapter</code> - the result adapter</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the R instance produced by the operation.</dd>
+</dl>
 </li>
 </ul>
-<a id="routineAndForget(org.jooq.Routine)">
+<a id="executeAndForget(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>routineAndForget</h4>
+<h4>executeAndForget</h4>
 <pre class="methodSignature">@Deprecated
-public&nbsp;&lt;T&gt;&nbsp;void&nbsp;routineAndForget&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine)</pre>
+public&nbsp;&lt;T,&#8203;R&gt;&nbsp;void&nbsp;executeAndForget&#8203;(org.jooq.Query&nbsp;query,
+                                         <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</pre>
 <div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
-</li>
-</ul>
-<a id="routineResult(org.jooq.Routine)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>routineResult</h4>
-<pre class="methodSignature">@CheckReturnValue
-@Deprecated
-public&nbsp;&lt;T&gt;&nbsp;io.smallrye.mutiny.Uni&lt;<a href="../routine/RoutineResult.html" title="interface in io.github.zero88.jooqx.routine">RoutineResult</a>&gt;&nbsp;routineResult&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine)</pre>
-<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
-</li>
-</ul>
-<a id="routineResultAndAwait(org.jooq.Routine)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>routineResultAndAwait</h4>
-<pre class="methodSignature">@Deprecated
-public&nbsp;&lt;T&gt;&nbsp;<a href="../routine/RoutineResult.html" title="interface in io.github.zero88.jooqx.routine">RoutineResult</a>&nbsp;routineResultAndAwait&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine)</pre>
-<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
-</li>
-</ul>
-<a id="routineResultAndForget(org.jooq.Routine)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>routineResultAndForget</h4>
-<pre class="methodSignature">@Deprecated
-public&nbsp;&lt;T&gt;&nbsp;void&nbsp;routineResultAndForget&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine)</pre>
-<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
-</li>
-</ul>
-<a id="routineResultSet(org.jooq.Routine,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>routineResultSet</h4>
-<pre class="methodSignature">@CheckReturnValue
-@Deprecated
-public&nbsp;&lt;T,&#8203;X,&#8203;R&gt;&nbsp;io.smallrye.mutiny.Uni&lt;R&gt;&nbsp;routineResultSet&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine,
-                                                                      <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;X,&#8203;R&gt;&nbsp;resultAdapter)</pre>
-<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
-</li>
-</ul>
-<a id="routineResultSetAndAwait(org.jooq.Routine,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>routineResultSetAndAwait</h4>
-<pre class="methodSignature">@Deprecated
-public&nbsp;&lt;T,&#8203;X,&#8203;R&gt;&nbsp;R&nbsp;routineResultSetAndAwait&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine,
-                                                      <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;X,&#8203;R&gt;&nbsp;resultAdapter)</pre>
-<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
-</li>
-</ul>
-<a id="routineResultSetAndForget(org.jooq.Routine,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>routineResultSetAndForget</h4>
-<pre class="methodSignature">@Deprecated
-public&nbsp;&lt;T,&#8203;X,&#8203;R&gt;&nbsp;void&nbsp;routineResultSetAndForget&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine,
-                                                          <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;X,&#8203;R&gt;&nbsp;resultAdapter)</pre>
-<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+<div class="block">Variant of <code>io.github.zero88.jooqx.mutiny.SQLQueryExecutor#execute(Query,SQLResultAdapter<T,R>)</code> that ignores the result of the operation.
+ <p>
+ This method subscribes on the result of <code>io.github.zero88.jooqx.mutiny.SQLQueryExecutor#execute(Query,SQLResultAdapter<T,R>)</code>, but discards the outcome (item or failure).
+ This method is useful to trigger the asynchronous operation from <code>io.github.zero88.jooqx.mutiny.SQLQueryExecutor#execute(Query,SQLResultAdapter<T,R>)</code> but you don't need to compose it with other operations.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>query</code> - the jOOQ query</dd>
+<dd><code>resultAdapter</code> - the result adapter</dd>
+</dl>
 </li>
 </ul>
 <a id="sql(java.util.function.Function)">
@@ -1540,6 +1401,145 @@ public&nbsp;&lt;T,&#8203;R&gt;&nbsp;void&nbsp;sqlQueryAndForget&#8203;(java.lang
 <dd><code>statement</code> - the plain SQL statement with results</dd>
 <dd><code>adapter</code> - the result adapter</dd>
 </dl>
+</li>
+</ul>
+<a id="routine(java.util.function.Function)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>routine</h4>
+<pre class="methodSignature">@CheckReturnValue
+@Deprecated
+public&nbsp;&lt;T&gt;&nbsp;io.smallrye.mutiny.Uni&lt;T&gt;&nbsp;routine&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Routine&lt;T&gt;&gt;&nbsp;routineFunction)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+</li>
+</ul>
+<a id="routineAndAwait(java.util.function.Function)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>routineAndAwait</h4>
+<pre class="methodSignature">@Deprecated
+public&nbsp;&lt;T&gt;&nbsp;T&nbsp;routineAndAwait&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Routine&lt;T&gt;&gt;&nbsp;routineFunction)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+</li>
+</ul>
+<a id="routineAndForget(java.util.function.Function)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>routineAndForget</h4>
+<pre class="methodSignature">@Deprecated
+public&nbsp;&lt;T&gt;&nbsp;void&nbsp;routineAndForget&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Routine&lt;T&gt;&gt;&nbsp;routineFunction)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+</li>
+</ul>
+<a id="routine(org.jooq.Routine)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>routine</h4>
+<pre class="methodSignature">@CheckReturnValue
+@Deprecated
+public&nbsp;&lt;T&gt;&nbsp;io.smallrye.mutiny.Uni&lt;T&gt;&nbsp;routine&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+</li>
+</ul>
+<a id="routineAndAwait(org.jooq.Routine)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>routineAndAwait</h4>
+<pre class="methodSignature">@Deprecated
+public&nbsp;&lt;T&gt;&nbsp;T&nbsp;routineAndAwait&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+</li>
+</ul>
+<a id="routineAndForget(org.jooq.Routine)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>routineAndForget</h4>
+<pre class="methodSignature">@Deprecated
+public&nbsp;&lt;T&gt;&nbsp;void&nbsp;routineAndForget&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+</li>
+</ul>
+<a id="routineResult(org.jooq.Routine)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>routineResult</h4>
+<pre class="methodSignature">@CheckReturnValue
+@Deprecated
+public&nbsp;&lt;T&gt;&nbsp;io.smallrye.mutiny.Uni&lt;<a href="../routine/RoutineResult.html" title="interface in io.github.zero88.jooqx.routine">RoutineResult</a>&gt;&nbsp;routineResult&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+</li>
+</ul>
+<a id="routineResultAndAwait(org.jooq.Routine)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>routineResultAndAwait</h4>
+<pre class="methodSignature">@Deprecated
+public&nbsp;&lt;T&gt;&nbsp;<a href="../routine/RoutineResult.html" title="interface in io.github.zero88.jooqx.routine">RoutineResult</a>&nbsp;routineResultAndAwait&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+</li>
+</ul>
+<a id="routineResultAndForget(org.jooq.Routine)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>routineResultAndForget</h4>
+<pre class="methodSignature">@Deprecated
+public&nbsp;&lt;T&gt;&nbsp;void&nbsp;routineResultAndForget&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+</li>
+</ul>
+<a id="routineResultSet(org.jooq.Routine,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>routineResultSet</h4>
+<pre class="methodSignature">@CheckReturnValue
+@Deprecated
+public&nbsp;&lt;T,&#8203;X,&#8203;R&gt;&nbsp;io.smallrye.mutiny.Uni&lt;R&gt;&nbsp;routineResultSet&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine,
+                                                                      <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;X,&#8203;R&gt;&nbsp;resultAdapter)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+</li>
+</ul>
+<a id="routineResultSetAndAwait(org.jooq.Routine,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>routineResultSetAndAwait</h4>
+<pre class="methodSignature">@Deprecated
+public&nbsp;&lt;T,&#8203;X,&#8203;R&gt;&nbsp;R&nbsp;routineResultSetAndAwait&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine,
+                                                      <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;X,&#8203;R&gt;&nbsp;resultAdapter)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
+</li>
+</ul>
+<a id="routineResultSetAndForget(org.jooq.Routine,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>routineResultSetAndForget</h4>
+<pre class="methodSignature">@Deprecated
+public&nbsp;&lt;T,&#8203;X,&#8203;R&gt;&nbsp;void&nbsp;routineResultSetAndForget&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine,
+                                                          <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;X,&#8203;R&gt;&nbsp;resultAdapter)</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
 </li>
 </ul>
 <a id="block(java.util.function.Function)">
