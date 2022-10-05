@@ -71,7 +71,7 @@ jobs:
       shouldBuild: ${{ steps.verify.outputs.shouldBuild }}
       shouldPublish: ${{ steps.verify.outputs.shouldPublish }}
     steps:
-      - uses: actions/checkout@v2.4.0
+      - uses: actions/checkout@v3.1.0
         with:
           token: ${{ secrets.githubToken }}
 
