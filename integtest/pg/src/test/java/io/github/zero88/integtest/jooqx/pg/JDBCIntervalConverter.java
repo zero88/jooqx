@@ -27,7 +27,7 @@ public class JDBCIntervalConverter implements JooqxConverter<String, YearToSecon
 
     @Override
     public String to(YearToSecond jooqObject) {
-        return jooqObject.toString();
+        return jooqObject == null ? null : jooqObject.toString();
     }
 
     @Override

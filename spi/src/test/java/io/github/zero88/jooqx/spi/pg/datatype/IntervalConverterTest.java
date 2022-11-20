@@ -18,6 +18,7 @@ class IntervalConverterTest {
         final YearToSecond expected = new YearToSecond(new YearToMonth(1, 3), new DayToSecond(5, 7, 9, 10, 2000000));
         Assertions.assertEquals(expected, from);
         Assertions.assertEquals(interval, intervalConverter.to(from));
+        System.out.println(from);
     }
 
 }

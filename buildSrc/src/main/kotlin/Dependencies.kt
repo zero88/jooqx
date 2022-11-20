@@ -63,30 +63,32 @@ object VertxLibs {
 
     object Version {
 
-        private val pool = mapOf(2 to (0..7).toList(), 3 to (0..3).toList())
-        @JvmField val vertx = "4.${pool.ver(3, 0)}"
+        private val pool = mapOf(2 to (0..7).toList(), 3 to (0..6).toList(), 4 to (0..0).toList())
+        @JvmField val vertxCore = "4.${pool.ver(3, 5)}"
+        @JvmField val vertxSQL = "4.${pool.ver(3, 5)}"
+        const val vertxJunit = "4.2.5"
         const val docgen = "0.9.4"
-        const val junitVertx = "4.2.5"
     }
 
-    @JvmField val core = "io.vertx:vertx-core:${Version.vertx}"
-    @JvmField val junit5 = "io.vertx:vertx-junit5:${Version.junitVertx}"
-    @JvmField val sqlClient = "io.vertx:vertx-sql-client:${Version.vertx}"
-    @JvmField val jdbc = "io.vertx:vertx-jdbc-client:${Version.vertx}"
-    @JvmField val pgsql = "io.vertx:vertx-pg-client:${Version.vertx}"
-    @JvmField val mysql = "io.vertx:vertx-mysql-client:${Version.vertx}"
-    @JvmField val db2 = "io.vertx:vertx-db2-client:${Version.vertx}"
-    @JvmField val mssql = "io.vertx:vertx-mssql-client:${Version.vertx}"
-    @JvmField val codegen = "io.vertx:vertx-codegen:${Version.vertx}"
-    @JvmField val rx2 = "io.vertx:vertx-rx-java2:${Version.vertx}"
-    @JvmField val rx3 = "io.vertx:vertx-rx-java3:${Version.vertx}"
+    @JvmField val core = "io.vertx:vertx-core:${Version.vertxCore}"
+    @JvmField val codegen = "io.vertx:vertx-codegen:${Version.vertxCore}"
+    @JvmField val rx2 = "io.vertx:vertx-rx-java2:${Version.vertxCore}"
+    @JvmField val rx3 = "io.vertx:vertx-rx-java3:${Version.vertxCore}"
+    @JvmField val junit5 = "io.vertx:vertx-junit5:${Version.vertxJunit}"
+
+    @JvmField val sqlClient = "io.vertx:vertx-sql-client:${Version.vertxSQL}"
+    @JvmField val jdbc = "io.vertx:vertx-jdbc-client:${Version.vertxSQL}"
+    @JvmField val pgsql = "io.vertx:vertx-pg-client:${Version.vertxSQL}"
+    @JvmField val mysql = "io.vertx:vertx-mysql-client:${Version.vertxSQL}"
+    @JvmField val db2 = "io.vertx:vertx-db2-client:${Version.vertxSQL}"
+    @JvmField val mssql = "io.vertx:vertx-mssql-client:${Version.vertxSQL}"
     const val docgen = "io.vertx:vertx-docgen:${Version.docgen}"
 }
 
 object MutinyLibs {
     object Version {
 
-        const val mutiny = "2.20.0"
+        const val mutiny = "2.27.0"
     }
 
     const val core = "io.smallrye.reactive:smallrye-mutiny-vertx-core:${Version.mutiny}"

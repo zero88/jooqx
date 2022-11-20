@@ -98,7 +98,11 @@ CREATE TABLE all_data_types
     f_closed_path           PATH,
     f_opened_path           PATH,
     f_polygon               POLYGON,
-    f_circle                CIRCLE
+    f_circle                CIRCLE,
+
+    -- array | id: 81 - 90
+    f_one_dimension  integer[],
+    f_two_dimension  text[][]
 );
 
 -- For Vertx data type
@@ -169,7 +173,11 @@ CREATE TABLE vertx_all_data_types
     f_closed_path           PATH,
     f_opened_path           PATH,
     f_polygon               POLYGON,
-    f_circle                CIRCLE
+    f_circle                CIRCLE,
+
+    -- array | id: 81 - 90
+    f_one_dimension  integer[],
+    f_two_dimension  text[][]
 );
 
 COMMENT ON TABLE vertx_all_data_types IS 'Vertx data type';

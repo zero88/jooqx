@@ -1,5 +1,10 @@
 package io.github.zero88.integtest.jooqx.pg.jooq;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.OffsetDateTime;
+import java.time.OffsetTime;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -186,15 +191,42 @@ class PgJooqTest extends PgSQLJooqxTest<JDBCPool>
         ctx.verify(() -> {
             System.out.println(record);
             Assertions.assertNotNull(record);
-            Assertions.assertNotNull(record.getFDate());
-            Assertions.assertNotNull(record.getFTime());
-            Assertions.assertNotNull(record.getFTimetz());
-            Assertions.assertNotNull(record.getFTimestamp());
-            Assertions.assertNotNull(record.getFTimestamptz());
+            Assertions.assertEquals(LocalDate.parse("2022-05-30"), record.getFDate());
+            Assertions.assertEquals(LocalTime.parse("18:00:00"), record.getFTime());
+            Assertions.assertEquals(OffsetTime.parse("06:00:00+02:00"), record.getFTimetz());
+            Assertions.assertEquals(LocalDateTime.parse("2022-05-14T07:00:00"), record.getFTimestamp());
+            Assertions.assertEquals(OffsetDateTime.parse("2022-05-14T16:00+07:00"), record.getFTimestamptz());
             Assertions.assertNotNull(record.getFInterval());
             Assertions.assertEquals(10, record.getFInterval().getYears());
             Assertions.assertEquals(3, record.getFInterval().getMonths());
             Assertions.assertEquals(332, record.getFInterval().getDays());
+        });
+        flag.flag();
+    }
+
+    @Test
+    void test_insert_temporal(VertxTestContext ctx) {
+        final Checkpoint flag = ctx.checkpoint();
+        final DSLContext dsl = JooqDSLProvider.create(dialect(), createDataSource(connOpt)).dsl();
+        final AllDataTypes table = schema().ALL_DATA_TYPES;
+        final AllDataTypesRecord record = dsl.insertInto(table)
+                                             .columns(table.ID, table.F_DATE, table.F_TIME, table.F_TIMETZ,
+                                                      table.F_TIMESTAMP, table.F_TIMESTAMPTZ)
+                                             .values(Arrays.asList(36, LocalDate.parse("2022-05-30"),
+                                                                   LocalTime.parse("18:00:00"),
+                                                                   OffsetTime.parse("06:00:00+02:00"),
+                                                                   LocalDateTime.parse("2022-05-14T07:00:00"),
+                                                                   OffsetDateTime.parse("2022-05-14T07:00:00-02:00")))
+                                             .returning()
+                                             .fetchOne();
+        ctx.verify(() -> {
+            System.out.println(record);
+            Assertions.assertNotNull(record);
+            Assertions.assertEquals(LocalDate.parse("2022-05-30"), record.getFDate());
+            Assertions.assertEquals(LocalTime.parse("18:00:00"), record.getFTime());
+            Assertions.assertEquals(OffsetTime.parse("06:00:00+02:00"), record.getFTimetz());
+            Assertions.assertEquals(LocalDateTime.parse("2022-05-14T07:00:00"), record.getFTimestamp());
+            Assertions.assertEquals(OffsetDateTime.parse("2022-05-14T16:00+07:00"), record.getFTimestamptz());
         });
         flag.flag();
     }

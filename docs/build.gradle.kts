@@ -11,7 +11,7 @@ configure<antora.AntoraDocComponentExtension> {
     asciiAttributes.set(
         mapOf(
             "jooqx-version" to project.version,
-            "vertx-version" to VertxLibs.Version.vertx,
+            "vertx-version" to VertxLibs.Version.vertxCore,
             "jooq-version" to JooqLibs.Version.jooq,
             "mutiny-version" to MutinyLibs.Version.mutiny
         )

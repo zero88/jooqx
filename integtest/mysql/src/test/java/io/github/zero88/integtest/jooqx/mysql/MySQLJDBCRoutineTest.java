@@ -2,7 +2,6 @@ package io.github.zero88.integtest.jooqx.mysql;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import io.github.zero88.jooqx.DSLAdapter;
@@ -17,6 +16,7 @@ import io.github.zero88.sample.model.mysql.routines.SelectBooksByAuthor;
 import io.github.zero88.sample.model.mysql.tables.Books;
 import io.github.zero88.sample.model.mysql.tables.records.BooksRecord;
 import io.vertx.core.Vertx;
+import io.vertx.core.json.JsonObject;
 import io.vertx.jdbcclient.JDBCPool;
 import io.vertx.junit5.Checkpoint;
 import io.vertx.junit5.VertxTestContext;
@@ -29,6 +29,14 @@ class MySQLJDBCRoutineTest extends MySQLJooqxTest<JDBCPool>
     public void tearUp(Vertx vertx, VertxTestContext ctx) {
         super.tearUp(vertx, ctx);
         this.prepareDatabase(ctx, connOpt, "mysql_data/book_author.sql");
+    }
+
+    @Override
+    protected JsonObject initConnOptions() {
+        final JsonObject connOpts = super.initConnOptions();
+        // https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-connp-props-prepared-statements.html
+        return connOpts.put("jdbcUrl", connOpts.getValue("jdbcUrl") +
+                                       "?allowMultiQueries=true&generateSimpleParameterMetadata=true");
     }
 
     @Test
@@ -81,11 +89,10 @@ class MySQLJDBCRoutineTest extends MySQLJooqxTest<JDBCPool>
     }
 
     @Test
-    @Disabled("https://github.com/vert-x3/vertx-jdbc-client/issues/276")
     void test_proc_return_resultSet(VertxTestContext ctx) {
         final Checkpoint cp = ctx.checkpoint();
         final SelectBooksByAuthor proc = new SelectBooksByAuthor();
-        proc.setAuthor("J.D. Salinger");
+        proc.setAuthor("Jane Austen");
         jooqx.routineResultSet(proc, DSLAdapter.fetchMany(Books.BOOKS)).onSuccess(records -> ctx.verify(() -> {
             Assertions.assertEquals(1, records.size());
             BooksRecord rec = records.get(0);
