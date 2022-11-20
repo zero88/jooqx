@@ -42,7 +42,7 @@ class PgPoolDataTypeTest extends PgSQLJooqxTest<PgPool>
     public void tearUp(Vertx vertx, VertxTestContext ctx) {
         super.tearUp(vertx, ctx);
         this.prepareDatabase(ctx, this, connOpt, "pg_data/character.sql", "pg_data/geometric.sql", "pg_data/json.sql",
-                             "pg_data/numeric.sql", "pg_data/temporal.sql", "pg_data/udt.sql");
+                             "pg_data/numeric.sql", "pg_data/temporal.sql", "pg_data/udt.sql", "pg_data/array.sql");
     }
 
     @Override
@@ -232,7 +232,7 @@ class PgPoolDataTypeTest extends PgSQLJooqxTest<PgPool>
     void test_query_udt(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
         final AllDataTypes table = schema().ALL_DATA_TYPES;
-        jooqx.execute(dsl -> dsl.selectFrom(table).where(table.ID.eq(41)).limit(1), DSLAdapter.fetchOne(table))
+        jooqx.execute(dsl -> dsl.selectFrom(table).where(table.ID.eq(41)), DSLAdapter.fetchOne(table))
              .onSuccess(record -> ctx.verify(() -> {
                  System.out.println(record);
                  final FullAddressRecord address = record.getFUdtAddress();
@@ -247,4 +247,33 @@ class PgPoolDataTypeTest extends PgSQLJooqxTest<PgPool>
              .onFailure(ctx::failNow);
     }
 
+    @Test
+    void test_query_array(VertxTestContext ctx) {
+        Checkpoint flag = ctx.checkpoint();
+        final AllDataTypes table = schema().ALL_DATA_TYPES;
+        jooqx.fetchOne(
+                 dsl -> dsl.select(table.F_ONE_DIMENSION, table.F_TWO_DIMENSION).from(table).where(table.ID.eq(81)))
+             .onSuccess(record -> ctx.verify(() -> {
+                 Assertions.assertArrayEquals(new Integer[] { 20000, 25000, 25000, 25000 }, record.value1());
+                 flag.flag();
+             }))
+             .onFailure(ctx::failNow);
+    }
+
+    @Test
+    void test_insert_array(VertxTestContext ctx) {
+        Checkpoint flag = ctx.checkpoint();
+        final AllDataTypes table = schema().ALL_DATA_TYPES;
+        jooqx.execute(
+                 dsl -> dsl.insertInto(table, table.ID, table.F_ONE_DIMENSION).values(85, new Integer[] { 1, 2, 3 }),
+                 DSLAdapter.fetchOne(table))
+             .flatMap(r -> jooqx.fetchOne(
+                 dsl -> dsl.select(table.ID, table.F_ONE_DIMENSION).from(table).where(table.ID.eq(85))))
+             .onSuccess(record -> ctx.verify(() -> {
+                 final Object[] oneDimension = (Object[]) record.get(1);
+                 Assertions.assertArrayEquals(new Integer[] { 1, 2, 3 }, oneDimension);
+                 flag.flag();
+             }))
+             .onFailure(ctx::failNow);
+    }
 }
