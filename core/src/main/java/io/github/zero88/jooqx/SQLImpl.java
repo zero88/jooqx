@@ -111,7 +111,7 @@ final class SQLImpl {
 
     abstract static class SQLPQ<T> implements SQLPreparedQuery<T> {
 
-        private static final Pattern NAMED_PARAM_PATTERN = Pattern.compile("(?<!:):(\\d+)(?!:)");
+        private static final Pattern NAMED_PARAM_PATTERN = Pattern.compile("(?<!:):(\\d+)");
         private static final Logger LOGGER = LoggerFactory.getLogger(SQLPreparedQuery.class);
 
         @Override
