@@ -3,5 +3,5 @@ title: jOOQ.x
 version: main
 nav: [modules/ROOT/nav.adoc, modules/testing/nav.adoc]
 asciidoc:
-  attributes: {jooqx-version: 2.0.0-SNAPSHOT, vertx-version: 4.3.0, jooq-version: 3.14.13,
-    mutiny-version: 2.20.0}
+  attributes: {jooqx-version: 2.0.0-SNAPSHOT, vertx-version: 4.3.5, jooq-version: 3.14.13,
+    mutiny-version: 2.27.0}

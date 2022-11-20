@@ -168,7 +168,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#executeAndAwait(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">executeAndAwait</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
                <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</code></th>
 <td class="colLast">
-<div class="block">Blocking variant of <code>io.github.zero88.jooqx.mutiny.SQLQueryExecutor#execute(Function<DSLContext,Query>,SQLResultAdapter<T,R>)</code>.</div>
+<div class="block">Blocking variant of <a href="#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>execute(Function,SQLResultAdapter)</code></a>.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
@@ -176,7 +176,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#executeAndAwait(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)">executeAndAwait</a></span>&#8203;(org.jooq.Query&nbsp;query,
                <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</code></th>
 <td class="colLast">
-<div class="block">Blocking variant of <code>io.github.zero88.jooqx.mutiny.SQLQueryExecutor#execute(Query,SQLResultAdapter<T,R>)</code>.</div>
+<div class="block">Blocking variant of <a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>execute(Query,SQLResultAdapter)</code></a>.</div>
 </td>
 </tr>
 <tr id="i4" class="altColor">
@@ -184,7 +184,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#executeAndForget(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">executeAndForget</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
                 <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</code></th>
 <td class="colLast">
-<div class="block">Variant of <code>io.github.zero88.jooqx.mutiny.SQLQueryExecutor#execute(Function<DSLContext,Query>,SQLResultAdapter<T,R>)</code> that ignores the result of the operation.</div>
+<div class="block">Variant of <a href="#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>execute(Function,SQLResultAdapter)</code></a> that ignores the result of the operation.</div>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
@@ -192,7 +192,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#executeAndForget(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)">executeAndForget</a></span>&#8203;(org.jooq.Query&nbsp;query,
                 <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</code></th>
 <td class="colLast">
-<div class="block">Variant of <code>io.github.zero88.jooqx.mutiny.SQLQueryExecutor#execute(Query,SQLResultAdapter<T,R>)</code> that ignores the result of the operation.</div>
+<div class="block">Variant of <a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>execute(Query,SQLResultAdapter)</code></a> that ignores the result of the operation.</div>
 </td>
 </tr>
 <tr id="i6" class="altColor">
@@ -261,7 +261,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h4>executeAndAwait</h4>
 <pre class="methodSignature">&lt;T,&#8203;R&gt;&nbsp;R&nbsp;executeAndAwait&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
                               <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</pre>
-<div class="block">Blocking variant of <code>io.github.zero88.jooqx.mutiny.SQLQueryExecutor#execute(Function<DSLContext,Query>,SQLResultAdapter<T,R>)</code>.
+<div class="block">Blocking variant of <a href="#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>execute(Function,SQLResultAdapter)</code></a>.
  <p>
  This method waits for the completion of the underlying asynchronous operation.
  If the operation completes successfully, the result is returned, otherwise the failure is thrown (potentially wrapped in a RuntimeException).</div>
@@ -282,10 +282,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h4>executeAndForget</h4>
 <pre class="methodSignature">&lt;T,&#8203;R&gt;&nbsp;void&nbsp;executeAndForget&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
                                   <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</pre>
-<div class="block">Variant of <code>io.github.zero88.jooqx.mutiny.SQLQueryExecutor#execute(Function<DSLContext,Query>,SQLResultAdapter<T,R>)</code> that ignores the result of the operation.
+<div class="block">Variant of <a href="#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>execute(Function,SQLResultAdapter)</code></a> that ignores the result of the operation.
  <p>
- This method subscribes on the result of <code>io.github.zero88.jooqx.mutiny.SQLQueryExecutor#execute(Function<DSLContext,Query>,SQLResultAdapter<T,R>)</code>, but discards the outcome (item or failure).
- This method is useful to trigger the asynchronous operation from <code>io.github.zero88.jooqx.mutiny.SQLQueryExecutor#execute(Function<DSLContext,Query>,SQLResultAdapter<T,R>)</code> but you don't need to compose it with other operations.</div>
+ This method subscribes on the result of <a href="#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>execute(Function,SQLResultAdapter)</code></a>, but discards the outcome (item or failure).
+ This method is useful to trigger the asynchronous operation from <a href="#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>execute(Function,SQLResultAdapter)</code></a> but you don't need to compose it with other operations.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>queryFunction</code> - the jOOQ query function</dd>
@@ -323,7 +323,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h4>executeAndAwait</h4>
 <pre class="methodSignature">&lt;T,&#8203;R&gt;&nbsp;R&nbsp;executeAndAwait&#8203;(org.jooq.Query&nbsp;query,
                               <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</pre>
-<div class="block">Blocking variant of <code>io.github.zero88.jooqx.mutiny.SQLQueryExecutor#execute(Query,SQLResultAdapter<T,R>)</code>.
+<div class="block">Blocking variant of <a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>execute(Query,SQLResultAdapter)</code></a>.
  <p>
  This method waits for the completion of the underlying asynchronous operation.
  If the operation completes successfully, the result is returned, otherwise the failure is thrown (potentially wrapped in a RuntimeException).</div>
@@ -344,10 +344,10 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <h4>executeAndForget</h4>
 <pre class="methodSignature">&lt;T,&#8203;R&gt;&nbsp;void&nbsp;executeAndForget&#8203;(org.jooq.Query&nbsp;query,
                                   <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,&#8203;R&gt;&nbsp;resultAdapter)</pre>
-<div class="block">Variant of <code>io.github.zero88.jooqx.mutiny.SQLQueryExecutor#execute(Query,SQLResultAdapter<T,R>)</code> that ignores the result of the operation.
+<div class="block">Variant of <a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>execute(Query,SQLResultAdapter)</code></a> that ignores the result of the operation.
  <p>
- This method subscribes on the result of <code>io.github.zero88.jooqx.mutiny.SQLQueryExecutor#execute(Query,SQLResultAdapter<T,R>)</code>, but discards the outcome (item or failure).
- This method is useful to trigger the asynchronous operation from <code>io.github.zero88.jooqx.mutiny.SQLQueryExecutor#execute(Query,SQLResultAdapter<T,R>)</code> but you don't need to compose it with other operations.</div>
+ This method subscribes on the result of <a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>execute(Query,SQLResultAdapter)</code></a>, but discards the outcome (item or failure).
+ This method is useful to trigger the asynchronous operation from <a href="#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>execute(Query,SQLResultAdapter)</code></a> but you don't need to compose it with other operations.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>query</code> - the jOOQ query</dd>

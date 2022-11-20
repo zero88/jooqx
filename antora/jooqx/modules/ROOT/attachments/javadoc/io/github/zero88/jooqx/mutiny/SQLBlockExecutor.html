@@ -172,7 +172,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <td class="colFirst"><code><a href="../BlockResult.html" title="interface in io.github.zero88.jooqx">BlockResult</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#blockAndAwait(java.util.function.Function)">blockAndAwait</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;<a href="../BlockQuery.html" title="interface in io.github.zero88.jooqx">BlockQuery</a>&gt;&nbsp;blockQueryFn)</code></th>
 <td class="colLast">
-<div class="block">Blocking variant of <code>io.github.zero88.jooqx.mutiny.SQLBlockExecutor#block(Function<DSLContext,BlockQuery>)</code>.</div>
+<div class="block">Blocking variant of <a href="#block(java.util.function.Function)"><code>block(Function)</code></a>.</div>
 </td>
 </tr>
 <tr id="i4" class="altColor">
@@ -186,7 +186,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#blockAndForget(java.util.function.Function)">blockAndForget</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;<a href="../BlockQuery.html" title="interface in io.github.zero88.jooqx">BlockQuery</a>&gt;&nbsp;blockQueryFn)</code></th>
 <td class="colLast">
-<div class="block">Variant of <code>io.github.zero88.jooqx.mutiny.SQLBlockExecutor#block(Function<DSLContext,BlockQuery>)</code> that ignores the result of the operation.</div>
+<div class="block">Variant of <a href="#block(java.util.function.Function)"><code>block(Function)</code></a> that ignores the result of the operation.</div>
 </td>
 </tr>
 <tr id="i6" class="altColor">
@@ -252,7 +252,7 @@ io.smallrye.mutiny.Uni&lt;<a href="../BlockResult.html" title="interface in io.g
 <li class="blockList">
 <h4>blockAndAwait</h4>
 <pre class="methodSignature"><a href="../BlockResult.html" title="interface in io.github.zero88.jooqx">BlockResult</a>&nbsp;blockAndAwait&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;<a href="../BlockQuery.html" title="interface in io.github.zero88.jooqx">BlockQuery</a>&gt;&nbsp;blockQueryFn)</pre>
-<div class="block">Blocking variant of <code>io.github.zero88.jooqx.mutiny.SQLBlockExecutor#block(Function<DSLContext,BlockQuery>)</code>.
+<div class="block">Blocking variant of <a href="#block(java.util.function.Function)"><code>block(Function)</code></a>.
  <p>
  This method waits for the completion of the underlying asynchronous operation.
  If the operation completes successfully, the result is returned, otherwise the failure is thrown (potentially wrapped in a RuntimeException).</div>
@@ -271,10 +271,10 @@ io.smallrye.mutiny.Uni&lt;<a href="../BlockResult.html" title="interface in io.g
 <li class="blockList">
 <h4>blockAndForget</h4>
 <pre class="methodSignature">void&nbsp;blockAndForget&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;<a href="../BlockQuery.html" title="interface in io.github.zero88.jooqx">BlockQuery</a>&gt;&nbsp;blockQueryFn)</pre>
-<div class="block">Variant of <code>io.github.zero88.jooqx.mutiny.SQLBlockExecutor#block(Function<DSLContext,BlockQuery>)</code> that ignores the result of the operation.
+<div class="block">Variant of <a href="#block(java.util.function.Function)"><code>block(Function)</code></a> that ignores the result of the operation.
  <p>
- This method subscribes on the result of <code>io.github.zero88.jooqx.mutiny.SQLBlockExecutor#block(Function<DSLContext,BlockQuery>)</code>, but discards the outcome (item or failure).
- This method is useful to trigger the asynchronous operation from <code>io.github.zero88.jooqx.mutiny.SQLBlockExecutor#block(Function<DSLContext,BlockQuery>)</code> but you don't need to compose it with other operations.</div>
+ This method subscribes on the result of <a href="#block(java.util.function.Function)"><code>block(Function)</code></a>, but discards the outcome (item or failure).
+ This method is useful to trigger the asynchronous operation from <a href="#block(java.util.function.Function)"><code>block(Function)</code></a> but you don't need to compose it with other operations.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>blockQueryFn</code> - the block of SQL queries function</dd>
