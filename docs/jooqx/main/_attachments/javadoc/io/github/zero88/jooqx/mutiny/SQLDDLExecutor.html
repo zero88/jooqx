@@ -165,7 +165,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <td class="colFirst"><code>java.lang.Integer</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#ddlAndAwait(java.util.function.Function)">ddlAndAwait</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.DDLQuery&gt;&nbsp;ddlFunction)</code></th>
 <td class="colLast">
-<div class="block">Blocking variant of <code>io.github.zero88.jooqx.mutiny.SQLDDLExecutor#ddl(Function<DSLContext,DDLQuery>)</code>.</div>
+<div class="block">Blocking variant of <a href="#ddl(java.util.function.Function)"><code>ddl(Function)</code></a>.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
@@ -179,7 +179,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#ddlAndForget(java.util.function.Function)">ddlAndForget</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.DDLQuery&gt;&nbsp;ddlFunction)</code></th>
 <td class="colLast">
-<div class="block">Variant of <code>io.github.zero88.jooqx.mutiny.SQLDDLExecutor#ddl(Function<DSLContext,DDLQuery>)</code> that ignores the result of the operation.</div>
+<div class="block">Variant of <a href="#ddl(java.util.function.Function)"><code>ddl(Function)</code></a> that ignores the result of the operation.</div>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
@@ -252,7 +252,7 @@ io.smallrye.mutiny.Uni&lt;java.lang.Integer&gt;&nbsp;ddl&#8203;(java.util.functi
 <li class="blockList">
 <h4>ddlAndAwait</h4>
 <pre class="methodSignature">java.lang.Integer&nbsp;ddlAndAwait&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.DDLQuery&gt;&nbsp;ddlFunction)</pre>
-<div class="block">Blocking variant of <code>io.github.zero88.jooqx.mutiny.SQLDDLExecutor#ddl(Function<DSLContext,DDLQuery>)</code>.
+<div class="block">Blocking variant of <a href="#ddl(java.util.function.Function)"><code>ddl(Function)</code></a>.
  <p>
  This method waits for the completion of the underlying asynchronous operation.
  If the operation completes successfully, the result is returned, otherwise the failure is thrown (potentially wrapped in a RuntimeException).</div>
@@ -271,10 +271,10 @@ io.smallrye.mutiny.Uni&lt;java.lang.Integer&gt;&nbsp;ddl&#8203;(java.util.functi
 <li class="blockList">
 <h4>ddlAndForget</h4>
 <pre class="methodSignature">void&nbsp;ddlAndForget&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.DDLQuery&gt;&nbsp;ddlFunction)</pre>
-<div class="block">Variant of <code>io.github.zero88.jooqx.mutiny.SQLDDLExecutor#ddl(Function<DSLContext,DDLQuery>)</code> that ignores the result of the operation.
+<div class="block">Variant of <a href="#ddl(java.util.function.Function)"><code>ddl(Function)</code></a> that ignores the result of the operation.
  <p>
- This method subscribes on the result of <code>io.github.zero88.jooqx.mutiny.SQLDDLExecutor#ddl(Function<DSLContext,DDLQuery>)</code>, but discards the outcome (item or failure).
- This method is useful to trigger the asynchronous operation from <code>io.github.zero88.jooqx.mutiny.SQLDDLExecutor#ddl(Function<DSLContext,DDLQuery>)</code> but you don't need to compose it with other operations.</div>
+ This method subscribes on the result of <a href="#ddl(java.util.function.Function)"><code>ddl(Function)</code></a>, but discards the outcome (item or failure).
+ This method is useful to trigger the asynchronous operation from <a href="#ddl(java.util.function.Function)"><code>ddl(Function)</code></a> but you don't need to compose it with other operations.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>ddlFunction</code> - DDL function produces DDL statement</dd>

@@ -208,7 +208,7 @@ to the <code>dependencies</code> section of your build descriptor:</p>
     &lt;dependency&gt;
         &lt;groupId&gt;io.vertx&lt;/groupId&gt;
         &lt;artifactId&gt;vertx-core&lt;/artifactId&gt;
-        &lt;version&gt;4.3.0&lt;/version&gt;
+        &lt;version&gt;4.3.5&lt;/version&gt;
     &lt;/dependency&gt;
     &lt;dependency&gt;
         &lt;groupId&gt;io.github.zero88&lt;/groupId&gt;
@@ -234,7 +234,7 @@ to the <code>dependencies</code> section of your build descriptor:</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">dependencies {
     api("org.jooq:jooq:2.0.0-SNAPSHOT")
-    api("io.vertx:vertx-core:4.3.0")
+    api("io.vertx:vertx-core:4.3.5")
     api("io.github.zero88:jooqx:2.0.0-SNAPSHOT")
     // For some SPI includes specific converter based on Vert.x database client
     api("io.github.zero88:jooqx-spi:2.0.0-SNAPSHOT")
@@ -288,7 +288,7 @@ to the <code>dependencies</code> section of your build descriptor:</p>
     api("mysql:mysql-connector-java:8.0.23")
     // It is recommendation to use HikariCP instead of c3p0
     api("com.zaxxer:HikariCP:4.0.2")
-    api("io.vertx:vertx-jdbc-client:4.3.0") {
+    api("io.vertx:vertx-jdbc-client:4.3.5") {
         exclude("com.mchange")
     }
     api("io.github.zero88:jooqx:2.0.0-SNAPSHOT")
@@ -305,7 +305,7 @@ to the <code>dependencies</code> section of your build descriptor:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">dependencies {
-    api("io.vertx:vertx-pg-client:4.3.0")
+    api("io.vertx:vertx-pg-client:4.3.5")
     api("io.github.zero88:jooqx:2.0.0-SNAPSHOT")
 }</code></pre>
 </div>
@@ -323,7 +323,7 @@ to the <code>dependencies</code> section of your build descriptor:</p>
     api("com.h2database:h2:1.4.200")
     // Agroal pool - Default in Vertx SQL client - Not yet has alternatives
     api("io.agroal:agroal-pool:1.9")
-    api("io.vertx:vertx-sql-client:4.3.0")
+    api("io.vertx:vertx-sql-client:4.3.5")
     api("io.github.zero88:jooqx:2.0.0-SNAPSHOT")
 }</code></pre>
 </div>

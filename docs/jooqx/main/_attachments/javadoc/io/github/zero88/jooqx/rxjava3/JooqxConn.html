@@ -760,70 +760,78 @@ extends java.lang.Object</pre>
 <pre class="methodSignature">public&nbsp;<a href="JooqxSession.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxSession</a>&nbsp;session()</pre>
 </li>
 </ul>
-<a id="batch(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues)">
+<a id="batchResult(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>batch</h4>
-<pre class="methodSignature">public&nbsp;io.reactivex.rxjava3.core.Single&lt;<a href="../BatchResult.html" title="interface in io.github.zero88.jooqx">BatchResult</a>&gt;&nbsp;batch&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
-                                                           <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</pre>
-<div class="block">Batch execute</div>
+<h4>batchResult</h4>
+<pre class="methodSignature">public&nbsp;&lt;T,&#8203;R&gt;&nbsp;io.reactivex.rxjava3.core.Single&lt;<a href="../BatchReturningResult.html" title="interface in io.github.zero88.jooqx">BatchReturningResult</a>&lt;R&gt;&gt;&nbsp;batchResult&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
+                                                                                         <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
+                                                                                         <a href="../adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</pre>
+<div class="block">Result batch execute</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>queryFunction</code> - query function</dd>
 <dd><code>bindBatchValues</code> - bind batch values</dd>
+<dd><code>adapter</code> - </dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 </dl>
 </li>
 </ul>
-<a id="rxBatch(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues)">
+<a id="rxBatchResult(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>rxBatch</h4>
-<pre class="methodSignature">public&nbsp;io.reactivex.rxjava3.core.Single&lt;<a href="../BatchResult.html" title="interface in io.github.zero88.jooqx">BatchResult</a>&gt;&nbsp;rxBatch&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
-                                                             <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</pre>
-<div class="block">Batch execute</div>
+<h4>rxBatchResult</h4>
+<pre class="methodSignature">public&nbsp;&lt;T,&#8203;R&gt;&nbsp;io.reactivex.rxjava3.core.Single&lt;<a href="../BatchReturningResult.html" title="interface in io.github.zero88.jooqx">BatchReturningResult</a>&lt;R&gt;&gt;&nbsp;rxBatchResult&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
+                                                                                           <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
+                                                                                           <a href="../adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</pre>
+<div class="block">Result batch execute</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>queryFunction</code> - query function</dd>
 <dd><code>bindBatchValues</code> - bind batch values</dd>
+<dd><code>adapter</code> - </dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 </dl>
 </li>
 </ul>
-<a id="batch(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues)">
+<a id="batchResult(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>batch</h4>
-<pre class="methodSignature">public&nbsp;io.reactivex.rxjava3.core.Single&lt;<a href="../BatchResult.html" title="interface in io.github.zero88.jooqx">BatchResult</a>&gt;&nbsp;batch&#8203;(org.jooq.Query&nbsp;query,
-                                                           <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</pre>
-<div class="block">Batch execute</div>
+<h4>batchResult</h4>
+<pre class="methodSignature">public&nbsp;&lt;T,&#8203;R&gt;&nbsp;io.reactivex.rxjava3.core.Single&lt;<a href="../BatchReturningResult.html" title="interface in io.github.zero88.jooqx">BatchReturningResult</a>&lt;R&gt;&gt;&nbsp;batchResult&#8203;(org.jooq.Query&nbsp;query,
+                                                                                         <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
+                                                                                         <a href="../adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</pre>
+<div class="block">Execute batch statements then receive results</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>query</code> - query</dd>
+<dd><code>query</code> - jOOQ query</dd>
 <dd><code>bindBatchValues</code> - bind batch values</dd>
+<dd><code>adapter</code> - result adapter</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 </dl>
 </li>
 </ul>
-<a id="rxBatch(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues)">
+<a id="rxBatchResult(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>rxBatch</h4>
-<pre class="methodSignature">public&nbsp;io.reactivex.rxjava3.core.Single&lt;<a href="../BatchResult.html" title="interface in io.github.zero88.jooqx">BatchResult</a>&gt;&nbsp;rxBatch&#8203;(org.jooq.Query&nbsp;query,
-                                                             <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</pre>
-<div class="block">Batch execute</div>
+<h4>rxBatchResult</h4>
+<pre class="methodSignature">public&nbsp;&lt;T,&#8203;R&gt;&nbsp;io.reactivex.rxjava3.core.Single&lt;<a href="../BatchReturningResult.html" title="interface in io.github.zero88.jooqx">BatchReturningResult</a>&lt;R&gt;&gt;&nbsp;rxBatchResult&#8203;(org.jooq.Query&nbsp;query,
+                                                                                           <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
+                                                                                           <a href="../adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</pre>
+<div class="block">Execute batch statements then receive results</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>query</code> - query</dd>
+<dd><code>query</code> - jOOQ query</dd>
 <dd><code>bindBatchValues</code> - bind batch values</dd>
+<dd><code>adapter</code> - result adapter</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 </dl>
 </li>
@@ -892,6 +900,131 @@ extends java.lang.Object</pre>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>query</code> - the jOOQ query</dd>
 <dd><code>resultAdapter</code> - the result adapter</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+</dl>
+</li>
+</ul>
+<a id="routine(java.util.function.Function)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>routine</h4>
+<pre class="methodSignature">public&nbsp;&lt;T&gt;&nbsp;io.reactivex.rxjava3.core.Single&lt;T&gt;&nbsp;routine&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Routine&lt;T&gt;&gt;&nbsp;routineFunction)</pre>
+</li>
+</ul>
+<a id="rxRoutine(java.util.function.Function)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>rxRoutine</h4>
+<pre class="methodSignature">public&nbsp;&lt;T&gt;&nbsp;io.reactivex.rxjava3.core.Single&lt;T&gt;&nbsp;rxRoutine&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Routine&lt;T&gt;&gt;&nbsp;routineFunction)</pre>
+</li>
+</ul>
+<a id="routine(org.jooq.Routine,io.vertx.core.Handler)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>routine</h4>
+<pre class="methodSignature">public&nbsp;&lt;T&gt;&nbsp;io.vertx.core.Future&lt;T&gt;&nbsp;routine&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine,
+                                           io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;T&gt;&gt;&nbsp;handler)</pre>
+</li>
+</ul>
+<a id="routineResult(org.jooq.Routine)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>routineResult</h4>
+<pre class="methodSignature">public&nbsp;&lt;T&gt;&nbsp;io.reactivex.rxjava3.core.Single&lt;<a href="../routine/RoutineResult.html" title="interface in io.github.zero88.jooqx.routine">RoutineResult</a>&gt;&nbsp;routineResult&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine)</pre>
+</li>
+</ul>
+<a id="rxRoutineResult(org.jooq.Routine)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>rxRoutineResult</h4>
+<pre class="methodSignature">public&nbsp;&lt;T&gt;&nbsp;io.reactivex.rxjava3.core.Single&lt;<a href="../routine/RoutineResult.html" title="interface in io.github.zero88.jooqx.routine">RoutineResult</a>&gt;&nbsp;rxRoutineResult&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine)</pre>
+</li>
+</ul>
+<a id="routineResultSet(org.jooq.Routine,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>routineResultSet</h4>
+<pre class="methodSignature">public&nbsp;&lt;T,&#8203;X,&#8203;R&gt;&nbsp;io.vertx.core.Future&lt;R&gt;&nbsp;routineResultSet&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine,
+                                                                    <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;X,&#8203;R&gt;&nbsp;resultAdapter,
+                                                                    io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;R&gt;&gt;&nbsp;handler)</pre>
+</li>
+</ul>
+<a id="batch(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>batch</h4>
+<pre class="methodSignature">public&nbsp;io.reactivex.rxjava3.core.Single&lt;<a href="../BatchResult.html" title="interface in io.github.zero88.jooqx">BatchResult</a>&gt;&nbsp;batch&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
+                                                           <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</pre>
+<div class="block">Batch execute</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>queryFunction</code> - query function</dd>
+<dd><code>bindBatchValues</code> - bind batch values</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+</dl>
+</li>
+</ul>
+<a id="rxBatch(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>rxBatch</h4>
+<pre class="methodSignature">public&nbsp;io.reactivex.rxjava3.core.Single&lt;<a href="../BatchResult.html" title="interface in io.github.zero88.jooqx">BatchResult</a>&gt;&nbsp;rxBatch&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
+                                                             <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</pre>
+<div class="block">Batch execute</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>queryFunction</code> - query function</dd>
+<dd><code>bindBatchValues</code> - bind batch values</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+</dl>
+</li>
+</ul>
+<a id="batch(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>batch</h4>
+<pre class="methodSignature">public&nbsp;io.reactivex.rxjava3.core.Single&lt;<a href="../BatchResult.html" title="interface in io.github.zero88.jooqx">BatchResult</a>&gt;&nbsp;batch&#8203;(org.jooq.Query&nbsp;query,
+                                                           <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</pre>
+<div class="block">Batch execute</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>query</code> - query</dd>
+<dd><code>bindBatchValues</code> - bind batch values</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+</dl>
+</li>
+</ul>
+<a id="rxBatch(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>rxBatch</h4>
+<pre class="methodSignature">public&nbsp;io.reactivex.rxjava3.core.Single&lt;<a href="../BatchResult.html" title="interface in io.github.zero88.jooqx">BatchResult</a>&gt;&nbsp;rxBatch&#8203;(org.jooq.Query&nbsp;query,
+                                                             <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</pre>
+<div class="block">Batch execute</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>query</code> - query</dd>
+<dd><code>bindBatchValues</code> - bind batch values</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 </dl>
 </li>
@@ -992,63 +1125,6 @@ extends java.lang.Object</pre>
 <dd><code>adapter</code> - the result adapter</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 </dl>
-</li>
-</ul>
-<a id="routine(java.util.function.Function)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>routine</h4>
-<pre class="methodSignature">public&nbsp;&lt;T&gt;&nbsp;io.reactivex.rxjava3.core.Single&lt;T&gt;&nbsp;routine&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Routine&lt;T&gt;&gt;&nbsp;routineFunction)</pre>
-</li>
-</ul>
-<a id="rxRoutine(java.util.function.Function)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>rxRoutine</h4>
-<pre class="methodSignature">public&nbsp;&lt;T&gt;&nbsp;io.reactivex.rxjava3.core.Single&lt;T&gt;&nbsp;rxRoutine&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Routine&lt;T&gt;&gt;&nbsp;routineFunction)</pre>
-</li>
-</ul>
-<a id="routine(org.jooq.Routine,io.vertx.core.Handler)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>routine</h4>
-<pre class="methodSignature">public&nbsp;&lt;T&gt;&nbsp;io.vertx.core.Future&lt;T&gt;&nbsp;routine&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine,
-                                           io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;T&gt;&gt;&nbsp;handler)</pre>
-</li>
-</ul>
-<a id="routineResult(org.jooq.Routine)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>routineResult</h4>
-<pre class="methodSignature">public&nbsp;&lt;T&gt;&nbsp;io.reactivex.rxjava3.core.Single&lt;<a href="../routine/RoutineResult.html" title="interface in io.github.zero88.jooqx.routine">RoutineResult</a>&gt;&nbsp;routineResult&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine)</pre>
-</li>
-</ul>
-<a id="rxRoutineResult(org.jooq.Routine)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>rxRoutineResult</h4>
-<pre class="methodSignature">public&nbsp;&lt;T&gt;&nbsp;io.reactivex.rxjava3.core.Single&lt;<a href="../routine/RoutineResult.html" title="interface in io.github.zero88.jooqx.routine">RoutineResult</a>&gt;&nbsp;rxRoutineResult&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine)</pre>
-</li>
-</ul>
-<a id="routineResultSet(org.jooq.Routine,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>routineResultSet</h4>
-<pre class="methodSignature">public&nbsp;&lt;T,&#8203;X,&#8203;R&gt;&nbsp;io.vertx.core.Future&lt;R&gt;&nbsp;routineResultSet&#8203;(org.jooq.Routine&lt;T&gt;&nbsp;routine,
-                                                                    <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;X,&#8203;R&gt;&nbsp;resultAdapter,
-                                                                    io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;R&gt;&gt;&nbsp;handler)</pre>
 </li>
 </ul>
 <a id="block(java.util.function.Function)">
@@ -1167,82 +1243,6 @@ extends java.lang.Object</pre>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>statement</code> - DDL statement</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-</dl>
-</li>
-</ul>
-<a id="batchResult(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>batchResult</h4>
-<pre class="methodSignature">public&nbsp;&lt;T,&#8203;R&gt;&nbsp;io.reactivex.rxjava3.core.Single&lt;<a href="../BatchReturningResult.html" title="interface in io.github.zero88.jooqx">BatchReturningResult</a>&lt;R&gt;&gt;&nbsp;batchResult&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
-                                                                                         <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
-                                                                                         <a href="../adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</pre>
-<div class="block">Result batch execute</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>queryFunction</code> - query function</dd>
-<dd><code>bindBatchValues</code> - bind batch values</dd>
-<dd><code>adapter</code> - </dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-</dl>
-</li>
-</ul>
-<a id="rxBatchResult(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>rxBatchResult</h4>
-<pre class="methodSignature">public&nbsp;&lt;T,&#8203;R&gt;&nbsp;io.reactivex.rxjava3.core.Single&lt;<a href="../BatchReturningResult.html" title="interface in io.github.zero88.jooqx">BatchReturningResult</a>&lt;R&gt;&gt;&nbsp;rxBatchResult&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
-                                                                                           <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
-                                                                                           <a href="../adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</pre>
-<div class="block">Result batch execute</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>queryFunction</code> - query function</dd>
-<dd><code>bindBatchValues</code> - bind batch values</dd>
-<dd><code>adapter</code> - </dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-</dl>
-</li>
-</ul>
-<a id="batchResult(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>batchResult</h4>
-<pre class="methodSignature">public&nbsp;&lt;T,&#8203;R&gt;&nbsp;io.reactivex.rxjava3.core.Single&lt;<a href="../BatchReturningResult.html" title="interface in io.github.zero88.jooqx">BatchReturningResult</a>&lt;R&gt;&gt;&nbsp;batchResult&#8203;(org.jooq.Query&nbsp;query,
-                                                                                         <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
-                                                                                         <a href="../adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</pre>
-<div class="block">Execute batch statements then receive results</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>query</code> - jOOQ query</dd>
-<dd><code>bindBatchValues</code> - bind batch values</dd>
-<dd><code>adapter</code> - result adapter</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-</dl>
-</li>
-</ul>
-<a id="rxBatchResult(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>rxBatchResult</h4>
-<pre class="methodSignature">public&nbsp;&lt;T,&#8203;R&gt;&nbsp;io.reactivex.rxjava3.core.Single&lt;<a href="../BatchReturningResult.html" title="interface in io.github.zero88.jooqx">BatchReturningResult</a>&lt;R&gt;&gt;&nbsp;rxBatchResult&#8203;(org.jooq.Query&nbsp;query,
-                                                                                           <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
-                                                                                           <a href="../adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter</a>&lt;T,&#8203;R&gt;&nbsp;adapter)</pre>
-<div class="block">Execute batch statements then receive results</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>query</code> - jOOQ query</dd>
-<dd><code>bindBatchValues</code> - bind batch values</dd>
-<dd><code>adapter</code> - result adapter</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 </dl>
 </li>

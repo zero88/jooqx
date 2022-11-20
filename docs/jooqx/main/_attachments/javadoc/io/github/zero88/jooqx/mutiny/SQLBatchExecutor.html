@@ -168,7 +168,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#batchAndAwait(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues)">batchAndAwait</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
              <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</code></th>
 <td class="colLast">
-<div class="block">Blocking variant of <code>io.github.zero88.jooqx.mutiny.SQLBatchExecutor#batch(Function<DSLContext,Query>,BindBatchValues)</code>.</div>
+<div class="block">Blocking variant of <a href="#batch(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues)"><code>batch(Function,BindBatchValues)</code></a>.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
@@ -184,7 +184,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#batchAndForget(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues)">batchAndForget</a></span>&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
               <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</code></th>
 <td class="colLast">
-<div class="block">Variant of <code>io.github.zero88.jooqx.mutiny.SQLBatchExecutor#batch(Function<DSLContext,Query>,BindBatchValues)</code> that ignores the result of the operation.</div>
+<div class="block">Variant of <a href="#batch(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues)"><code>batch(Function,BindBatchValues)</code></a> that ignores the result of the operation.</div>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
@@ -261,7 +261,7 @@ io.smallrye.mutiny.Uni&lt;<a href="../BatchResult.html" title="interface in io.g
 <h4>batchAndAwait</h4>
 <pre class="methodSignature"><a href="../BatchResult.html" title="interface in io.github.zero88.jooqx">BatchResult</a>&nbsp;batchAndAwait&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
                           <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</pre>
-<div class="block">Blocking variant of <code>io.github.zero88.jooqx.mutiny.SQLBatchExecutor#batch(Function<DSLContext,Query>,BindBatchValues)</code>.
+<div class="block">Blocking variant of <a href="#batch(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues)"><code>batch(Function,BindBatchValues)</code></a>.
  <p>
  This method waits for the completion of the underlying asynchronous operation.
  If the operation completes successfully, the result is returned, otherwise the failure is thrown (potentially wrapped in a RuntimeException).</div>
@@ -282,10 +282,10 @@ io.smallrye.mutiny.Uni&lt;<a href="../BatchResult.html" title="interface in io.g
 <h4>batchAndForget</h4>
 <pre class="methodSignature">void&nbsp;batchAndForget&#8203;(java.util.function.Function&lt;org.jooq.DSLContext,&#8203;org.jooq.Query&gt;&nbsp;queryFunction,
                     <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</pre>
-<div class="block">Variant of <code>io.github.zero88.jooqx.mutiny.SQLBatchExecutor#batch(Function<DSLContext,Query>,BindBatchValues)</code> that ignores the result of the operation.
+<div class="block">Variant of <a href="#batch(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues)"><code>batch(Function,BindBatchValues)</code></a> that ignores the result of the operation.
  <p>
- This method subscribes on the result of <code>io.github.zero88.jooqx.mutiny.SQLBatchExecutor#batch(Function<DSLContext,Query>,BindBatchValues)</code>, but discards the outcome (item or failure).
- This method is useful to trigger the asynchronous operation from <code>io.github.zero88.jooqx.mutiny.SQLBatchExecutor#batch(Function<DSLContext,Query>,BindBatchValues)</code> but you don't need to compose it with other operations.</div>
+ This method subscribes on the result of <a href="#batch(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues)"><code>batch(Function,BindBatchValues)</code></a>, but discards the outcome (item or failure).
+ This method is useful to trigger the asynchronous operation from <a href="#batch(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues)"><code>batch(Function,BindBatchValues)</code></a> but you don't need to compose it with other operations.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>queryFunction</code> - query function</dd>
