@@ -1,8 +1,6 @@
 package io.github.zero88.jooqx;
 
-import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
-import org.jooq.SelectConditionStep;
 import org.jooq.impl.DSL;
 
 import io.github.zero88.sample.model.pgsql.Tables;
@@ -23,19 +21,19 @@ public class JooqxBasic implements ExampleBasic {
             .setDatabase("the-db").setUser("user").setPassword("secret");
         PoolOptions poolOptions = new PoolOptions().setMaxSize(5);              // <2>
         PgPool pgPool = PgPool.pool(vertx, connectOptions, poolOptions);        // <3>
-        DSLContext dsl = DSL.using(SQLDialect.POSTGRES);                        // <4>
-        Jooqx jooqx = Jooqx.builder()                                           // <5>
-                           .setVertx(vertx).setDSL(dsl)
-                           .setSqlClient(pgPool).build();
-        SelectConditionStep<AuthorsRecord> q = dsl.selectFrom(Tables.AUTHORS)   // <6>
-            .where(Tables.AUTHORS.NAME.eq("zero88"));
-        jooqx.execute(q, DSLAdapter.fetchOne(q.asTable()))                      // <7>
+        Jooqx jooqx = Jooqx.builder()                                           // <4>
+                           .setVertx(vertx)
+                           .setDSL(DSL.using(SQLDialect.POSTGRES))              // <5>
+                           .setSqlClient(pgPool)
+                           .build();
+        jooqx.execute(dsl -> dsl.selectFrom(Tables.AUTHORS)                     // <6>
+                                .where(Tables.AUTHORS.NAME.eq("zero88")),
+                      DSLAdapter.fetchOne(Tables.AUTHORS))                      // <7>
              .onSuccess(result -> {                                             // <8>
                  AuthorsRecord rec = result;                                    // <9>
                  System.out.println(rec.getName());
                  System.out.println(rec.getCountry());
              }).onFailure(System.err::println);                                 // <10>
     }
-
     // @formatter:on
 }

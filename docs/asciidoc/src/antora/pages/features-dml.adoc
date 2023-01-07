@@ -8,9 +8,13 @@ include::partial$features-dml.adoc[tag=fetchExists]
 
 include::partial$features-dml.adoc[tag=fetchCount]
 
-== Query
+== Fetch many
 
-include::partial$features-dml.adoc[tag=query]
+include::partial$features-dml.adoc[tag=fetchMany]
+
+== Fetch one
+
+include::partial$features-dml.adoc[tag=fetchOne]
 
 == Join query
 
@@ -20,9 +24,13 @@ include::partial$features-dml.adoc[tag=joinQuery]
 
 include::partial$features-dml.adoc[tag=insert]
 
+== SELECT FOR UPDATE statement
+
+include::partial$features-dml.adoc[tag=selectForUpdate]
+
 == UPDATE statement
 
-include::partial$features-dml.adoc[tag=update]
+include::partial$features-dml.adoc[tag=updateMany]
 
 == DELETE statement
 

@@ -11,12 +11,18 @@
  * {@link io.github.zero88.jooqx.dml.ExampleDQL#fetchCount(io.github.zero88.jooqx.Jooqx)}
  * ----
  * // end::fetchCount[]
- * // tag::query[]
+ * // tag::fetchMany[]
  * [source,$lang,subs="attributes,verbatim"]
  * ----
- * {@link io.github.zero88.jooqx.dml.ExampleDQL#query(io.github.zero88.jooqx.Jooqx)}
+ * {@link io.github.zero88.jooqx.dml.ExampleDQL#fetchMany(io.github.zero88.jooqx.Jooqx)}
  * ----
- * // end::query[]
+ * // end::fetchMany[]
+ * // tag::fetchOne[]
+ * [source,$lang,subs="attributes,verbatim"]
+ * ----
+ * {@link io.github.zero88.jooqx.dml.ExampleDQL#fetchOne(io.github.zero88.jooqx.Jooqx)}
+ * ----
+ * // end::fetchOne[]
  * // tag::joinQuery[]
  * [source,$lang,subs="attributes,verbatim"]
  * ----
@@ -29,12 +35,18 @@
  * {@link io.github.zero88.jooqx.dml.ExampleDML#insert(io.github.zero88.jooqx.Jooqx)}
  * ----
  * // end::insert[]
- * // tag::update[]
+ * // tag::selectForUpdate[]
  * [source,$lang,subs="attributes,verbatim"]
  * ----
- * {@link io.github.zero88.jooqx.dml.ExampleDML#update(io.github.zero88.jooqx.Jooqx)}
+ * {@link io.github.zero88.jooqx.dml.ExampleDML#selectForUpdate(io.github.zero88.jooqx.Jooqx)}
  * ----
- * // end::update[]
+ * // end::selectForUpdate[]
+ * // tag::updateMany[]
+ * [source,$lang,subs="attributes,verbatim"]
+ * ----
+ * {@link io.github.zero88.jooqx.dml.ExampleDML#updateMany(io.github.zero88.jooqx.Jooqx)}
+ * ----
+ * // end::updateMany[]
  * // tag::delete[]
  * [source,$lang,subs="attributes,verbatim"]
  * ----

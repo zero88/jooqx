@@ -15,6 +15,7 @@ import io.github.zero88.jooqx.JsonRecord;
 import io.github.zero88.jooqx.spi.pg.PgPoolProvider;
 import io.github.zero88.jooqx.spi.pg.PgSQLJooqxTest;
 import io.github.zero88.sample.model.pgsql.Public;
+import io.github.zero88.sample.model.pgsql.Tables;
 import io.github.zero88.sample.model.pgsql.tables.pojos.Authors;
 import io.github.zero88.sample.model.pgsql.tables.pojos.Books;
 import io.github.zero88.sample.model.pgsql.tables.records.AuthorsRecord;
@@ -36,23 +37,24 @@ class PgPoolComplexQueryTest extends PgSQLJooqxTest<PgPool> implements PgPoolPro
     @Test
     void test_join_2_tables(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
-        final DSLContext dsl = jooqx.dsl();
-        final Public schema = schema().PUBLIC;
-        final SelectConditionStep<Record> query = dsl.select(schema.AUTHORS.asterisk(), schema.BOOKS_AUTHORS.BOOK_ID)
-                                                     .from(schema.AUTHORS)
-                                                     .join(schema.BOOKS_AUTHORS)
-                                                     .onKey()
-                                                     .where(schema.AUTHORS.ID.eq(2));
-        jooqx.execute(query, DSLAdapter.fetchJsonRecords(query.asTable()), ar -> ctx.verify(() -> {
-            final List<JsonRecord<Record>> records = assertResultSize(ctx, ar, 2);
-            Assertions.assertEquals(
-                new JsonObject("{\"id\":2,\"name\":\"F. Scott. Fitzgerald\",\"country\":\"USA\",\"book_id\":4}"),
-                records.get(0).toJson());
-            Assertions.assertEquals(
-                new JsonObject("{\"id\":2,\"name\":\"F. Scott. Fitzgerald\",\"country\":\"USA\",\"book_id\":5}"),
-                records.get(1).toJson());
+        jooqx.fetchJsonArray(
+            dsl -> dsl.select(Tables.AUTHORS.asterisk(), Tables.BOOKS_AUTHORS.BOOK_ID, Tables.BOOKS.TITLE)
+                      .from(Tables.AUTHORS)
+                      .join(Tables.BOOKS_AUTHORS)
+                      .onKey()
+                      .join(Tables.BOOKS)
+                      .onKey()
+                      .where(Tables.AUTHORS.NAME.eq("F. Scott. Fitzgerald"))).onSuccess(records -> ctx.verify(() -> {
+            Assertions.assertEquals(2, records.size());
+            Assertions.assertEquals(new JsonObject(
+                "{\"id\":2,\"name\":\"F. Scott. Fitzgerald\",\"country\":\"USA\",\"book_id\":4,\"title\":" +
+                "\"The Great Gatsby\"}"), records.getJsonObject(0));
+            Assertions.assertEquals(new JsonObject(
+                "{\"id\":2,\"name\":\"F. Scott. Fitzgerald\",\"country\":\"USA\",\"book_id\":5,\"title\":" +
+                "\"Tender id the Night\"}"), records.getJsonObject(1));
+            System.out.println(records);
             flag.flag();
-        }));
+        })).onFailure(ctx::failNow);
     }
 
     @Test

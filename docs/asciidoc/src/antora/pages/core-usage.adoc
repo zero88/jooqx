@@ -102,3 +102,7 @@ dependencies {
     api("io.github.zero88:jooqx:{jooqx-version}")
 }
 ----
+
+== Reactive version
+
+Reference to xref:features-rxify.adoc[reactive version] for more detail.
