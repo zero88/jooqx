@@ -19,7 +19,7 @@ import org.jooq.Record;
 import org.jooq.UpdateSetStep;
 
 /**
- * Represents a holder keep dummy value and list of binding records
+ * Represents a holder keeping dummy values and list of binding records
  *
  * @apiNote With {@code dummy value records}, you can predefine a field value, then if a bind record is missing this
  *     field value then system will auto-detect and fallback to the predefined value. See: {@link #registerValue(Field,

@@ -18,6 +18,14 @@
  * {@link io.github.zero88.jooqx.errorhandler.ExampleErrorHandler#integrate(io.vertx.core.Vertx, org.jooq.DSLContext, io.vertx.jdbcclient.JDBCPool)}
  * ----
  * // end::integrateErrorHandler[]
+ * // tag::customError[]
+ * [source,$lang,subs="attributes,verbatim"]
+ * ----
+ * {@link io.github.zero88.jooqx.errorhandler.ExampleErrorHandler.ErrorCode}
+ *
+ * {@link io.github.zero88.jooqx.errorhandler.ExampleErrorHandler.YourAppError}
+ * ----
+ * // end::customError[]
  */
 // @formatter:on
 

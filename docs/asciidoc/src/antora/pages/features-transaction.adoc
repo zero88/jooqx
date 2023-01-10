@@ -1,3 +1,26 @@
 = SQL transaction
 
-include::partial$features-transaction.adoc[]
+`jooqx` simplify supports `SQL transaction` by using `Pool` client (e.g: `JDBCPool`, `PgPool`, etc...) to borrows a connection from the pool, begins the transaction and releases the connection to the pool when the transaction ends.
+
+== Transaction
+
+=== Transaction success
+
+include::partial$features-transaction.adoc[tag=transaction]
+
+=== Handle rollback transaction
+
+include::partial$features-transaction.adoc[tag=rollbackTransaction]
+
+== Session
+
+The different between `transaction` and `session` is:
+
+* `transaction` rollback if any error
+* `session` still continue executing the sequence SQL statements regardless if any SQL statement has an error.
+
+include::partial$features-transaction.adoc[tag=session]
+
+== Block
+
+include::partial$features-transaction.adoc[tag=block]

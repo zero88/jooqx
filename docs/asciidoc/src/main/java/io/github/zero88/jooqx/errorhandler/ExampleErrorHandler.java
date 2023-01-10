@@ -44,7 +44,12 @@ class ExampleErrorHandler {
                            .build();
     }// @formatter:on
 
-    static class YourAppError extends RuntimeException {
+    enum ErrorCode {
+        DUPLICATE
+    }
+
+
+    class YourAppError extends RuntimeException {
 
         final ErrorCode errorCode;
 
@@ -53,11 +58,6 @@ class ExampleErrorHandler {
             this.errorCode = errorCode;
         }
 
-    }
-
-
-    enum ErrorCode {
-        DUPLICATE
     }
 
 }

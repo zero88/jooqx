@@ -7,6 +7,7 @@ java {
 dependencies {
     compileOnly(project(":spi"))
     compileOnly(project(":integtest:pg"))
+    compileOnly(JooqLibs.jooqMeta)
     compileOnly(VertxLibs.jdbc)
     compileOnly(VertxLibs.pgsql)
     compileOnly(VertxLibs.mysql)

@@ -15,6 +15,10 @@ include::partial$features-error-handler.adoc[tag=pgErrorHandler]
 
 == Integrating with your existing application exception
 
-And so more, you can convert to your existing application exception (must `extends RuntimeException`) by
+So more, you can integrate seamlessly with your existing application exception. For example:
+
+include::partial$features-error-handler.adoc[tag=customError]
+
+And then, when init `jooqx`, just register it
 
 include::partial$features-error-handler.adoc[tag=integrateErrorHandler]

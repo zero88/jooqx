@@ -1,14 +1,15 @@
 package io.github.zero88.jooqx.ddl;
 
-import io.vertx.core.Vertx;
+import io.github.zero88.jooqx.Jooqx;
 import io.vertx.docgen.Source;
-import io.vertx.pgclient.PgPool;
 
 @Source
 class ExampleDDL {
 
-    void ddl(Vertx vertx, PgPool pool) {
-
+    void ddl(Jooqx jooqx) {
+        jooqx.ddl(dsl -> dsl.createSchemaIfNotExists("hello"))  // <1>
+             .onSuccess(rowCount -> { assert 0 == rowCount; })  // <2>
+             .onFailure(Throwable::printStackTrace);            // <3>
     }
 
 }

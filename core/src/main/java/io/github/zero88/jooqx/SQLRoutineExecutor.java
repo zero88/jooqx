@@ -30,9 +30,9 @@ public interface SQLRoutineExecutor extends JooqDSLProvider {
 
     @Experimental
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    @SQLClientSupport(client = {
+    @SQLClientSupport(dialect = @Support(), client = {
         SQLClientType.JDBC, SQLClientType.MYSQL, SQLClientType.POSTGRES
-    }, dialect = @Support())
+    })
     default <T> void routine(@NotNull Function<DSLContext, Routine<T>> routineFunction,
                              @NotNull Handler<AsyncResult<T>> handler) {
         routine(routineFunction).onComplete(handler);
@@ -58,30 +58,30 @@ public interface SQLRoutineExecutor extends JooqDSLProvider {
 
     @Experimental
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    @SQLClientSupport(client = {
+    @SQLClientSupport(dialect = @Support(), client = {
         SQLClientType.JDBC, SQLClientType.MYSQL, SQLClientType.POSTGRES
-    }, dialect = @Support())
+    })
     <T> Future<@Nullable T> routine(@NotNull Routine<T> routine);
 
     @Experimental
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    @SQLClientSupport(client = {
+    @SQLClientSupport(dialect = @Support(), client = {
         SQLClientType.JDBC, SQLClientType.MYSQL, SQLClientType.POSTGRES
-    }, dialect = @Support())
+    })
     default <T> void routineResult(@NotNull Routine<T> routine, @NotNull Handler<AsyncResult<RoutineResult>> handler) {
         routineResult(routine).onComplete(handler);
     }
 
     @Experimental
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    @SQLClientSupport(client = {
+    @SQLClientSupport(dialect = @Support(), client = {
         SQLClientType.JDBC, SQLClientType.MYSQL, SQLClientType.POSTGRES
-    }, dialect = @Support())
+    })
     <T> Future<RoutineResult> routineResult(@NotNull Routine<T> routine);
 
     @Experimental
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    @SQLClientSupport(client = { SQLClientType.JDBC, SQLClientType.MYSQL }, dialect = @Support())
+    @SQLClientSupport(dialect = @Support(), client = { SQLClientType.JDBC, SQLClientType.MYSQL })
     default <T, X, R> Future<@Nullable R> routineResultSet(@NotNull Routine<T> routine,
                                                            @NotNull SQLResultAdapter<X, R> resultAdapter,
                                                            @NotNull Handler<AsyncResult<R>> handler) {
@@ -90,7 +90,7 @@ public interface SQLRoutineExecutor extends JooqDSLProvider {
 
     @Experimental
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    @SQLClientSupport(client = { SQLClientType.JDBC, SQLClientType.MYSQL }, dialect = @Support())
+    @SQLClientSupport(dialect = @Support(), client = { SQLClientType.JDBC, SQLClientType.MYSQL })
     <T, X, R> Future<@Nullable R> routineResultSet(@NotNull Routine<T> routine,
                                                    @NotNull SQLResultAdapter<X, R> resultAdapter);
 

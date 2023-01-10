@@ -26,14 +26,13 @@ public class JooqxBasic implements ExampleBasic {
                            .setDSL(DSL.using(SQLDialect.POSTGRES))              // <5>
                            .setSqlClient(pgPool)
                            .build();
-        jooqx.execute(dsl -> dsl.selectFrom(Tables.AUTHORS)                     // <6>
-                                .where(Tables.AUTHORS.NAME.eq("zero88")),
-                      DSLAdapter.fetchOne(Tables.AUTHORS))                      // <7>
-             .onSuccess(result -> {                                             // <8>
-                 AuthorsRecord rec = result;                                    // <9>
+        jooqx.fetchOne(dsl -> dsl.selectFrom(Tables.AUTHORS)                    // <6>
+                                 .where(Tables.AUTHORS.NAME.eq("zero88")))
+             .onSuccess(result -> {                                             // <7>
+                 AuthorsRecord rec = result;                                    // <8>
                  System.out.println(rec.getName());
                  System.out.println(rec.getCountry());
-             }).onFailure(System.err::println);                                 // <10>
+             }).onFailure(System.err::println);                                 // <9>
     }
     // @formatter:on
 }

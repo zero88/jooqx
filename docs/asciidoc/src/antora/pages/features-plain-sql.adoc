@@ -2,8 +2,8 @@
 
 == Execute plain SQL statement without result
 
-include::partial$features-plain-sql.adoc[tag=withoutResult]
+include::partial$features-plain-sql.adoc[tag=sql]
 
 == Execute plain SQL statement with result
 
-include::partial$features-plain-sql.adoc[tag=withResult]
+include::partial$features-plain-sql.adoc[tag=sqlResult]

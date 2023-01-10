@@ -2,4 +2,16 @@
 
 See https://www.jooq.org/doc/latest/manual/sql-execution/stored-procedures/[jOOQ stored-procedures]
 
-include::partial$features-procedure.adoc[]
+Let's check some function/procedure examples
+
+== Simple function
+
+include::partial$features-procedure.adoc[tag=routine]
+
+== With out-parameters
+
+include::partial$features-procedure.adoc[tag=routineResult]
+
+== With output is result set
+
+include::partial$features-procedure.adoc[tag=routineResultSetPgSQL]

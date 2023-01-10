@@ -61,8 +61,8 @@ class PgJDBCRoutineTest extends PgSQLJooqxTest<JDBCPool>
         jooqx.routine(routine).onSuccess(rec -> ctx.verify(() -> {
             System.out.println(rec);
             Assertions.assertEquals(DupResultRecord.class, rec.getClass());
-            Assertions.assertEquals(rec.getF1(), 7);
-            Assertions.assertEquals(rec.getF2(), "7 is text");
+            Assertions.assertEquals(7, rec.getF1());
+            Assertions.assertEquals("7 is text", rec.getF2());
             cp.flag();
         })).onFailure(ctx::failNow);
     }
