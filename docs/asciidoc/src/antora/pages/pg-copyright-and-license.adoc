@@ -1,0 +1,10 @@
+= jOOQ.x Copyright and License
+:navtitle: Copyright and License
+
+== Copyright
+
+Copyright (C) 2021-present https://github.com/zero88[@zero88].
+
+== License
+
+Use of jOOQ.x is granted under the terms of the https://github.com/zero88/jooqx/blob/main/LICENSE[Apache License 2.0].

@@ -1,12 +1,17 @@
 package io.github.zero88.jooqx;
 
+import org.jetbrains.annotations.ApiStatus.Experimental;
 import org.jetbrains.annotations.NotNull;
 import org.jooq.Routine;
+import org.jooq.Support;
 
 import io.github.zero88.jooqx.adapter.SQLResultAdapter;
+import io.github.zero88.jooqx.annotations.SQLClientSupport;
+import io.github.zero88.jooqx.annotations.SQLClientType;
 import io.github.zero88.jooqx.datatype.DataTypeMapperRegistry;
 import io.github.zero88.jooqx.routine.RoutineExecutorDelegate;
 import io.github.zero88.jooqx.routine.RoutineResult;
+import io.vertx.codegen.annotations.GenIgnore;
 import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 
@@ -96,16 +101,29 @@ public interface SQLExecutor<S, B, PQ extends SQLPreparedQuery<B>, RC extends SQ
     @NotNull <E extends SQLExecutor<S, B, PQ, RC>> SQLSessionExecutor<S, B, PQ, RC, E> session();
 
     @Override
+    @Experimental
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    @SQLClientSupport(dialect = @Support(), client = {
+        SQLClientType.JDBC, SQLClientType.MYSQL, SQLClientType.POSTGRES
+    })
     default <T> Future<T> routine(@NotNull Routine<T> routine) {
         return RoutineExecutorDelegate.init(this).routine(routine);
     }
 
     @Override
+    @Experimental
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    @SQLClientSupport(dialect = @Support(), client = {
+        SQLClientType.JDBC, SQLClientType.MYSQL, SQLClientType.POSTGRES
+    })
     default <T> Future<RoutineResult> routineResult(@NotNull Routine<T> routine) {
         return RoutineExecutorDelegate.init(this).routineResult(routine);
     }
 
     @Override
+    @Experimental
+    @GenIgnore(GenIgnore.PERMITTED_TYPE)
+    @SQLClientSupport(dialect = @Support(), client = { SQLClientType.JDBC, SQLClientType.MYSQL })
     default <T, X, R> Future<R> routineResultSet(@NotNull Routine<T> routine,
                                                  @NotNull SQLResultAdapter<X, R> resultAdapter) {
         return RoutineExecutorDelegate.init(this).routineResultSet(routine, resultAdapter);

@@ -3,6 +3,7 @@ package antora
 import antora.tasks.AntoraDescriptorTask
 import antora.tasks.AntoraInitTask
 import antora.tasks.AntoraTask
+import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.file.Directory
@@ -54,9 +55,10 @@ class AntoraDocComponentPlugin : Plugin<Project> {
             }
             register<JavaCompile>("asciidoc") {
                 group = "documentation"
+                description = "Generate asciidoc from source code"
                 dependsOn(AntoraDescriptorTask.NAME)
                 val ss = project.the<JavaPluginExtension>().sourceSets.getByName(SourceSet.MAIN_SOURCE_SET_NAME)
-                val dest: Directory = destAntora.pagesDir()
+                val dest: Directory = destAntora.partialsDir()
                 val src: Directory = when {
                     ext.antoraType.get().isComponent() -> srcAntora.pagesDir()
                     else                               -> srcAntora.getDir()
@@ -77,7 +79,9 @@ class AntoraDocComponentPlugin : Plugin<Project> {
                 onlyIf { !ext.javadocProjects.orNull.isNullOrEmpty() }
                 options {
                     this as StandardJavadocDocletOptions
-                    this.addBooleanOption("-no-module-directories", true)
+                    if (JavaVersion.current().majorVersion <= JavaVersion.VERSION_11.majorVersion) {
+                        this.addBooleanOption("-no-module-directories", true)
+                    }
                 }
                 doFirst {
                     val ss: List<SourceSet> = ext.javadocProjects.get()

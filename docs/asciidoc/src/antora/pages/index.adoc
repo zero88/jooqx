@@ -1,4 +1,5 @@
-= jOOQ.x
+= What jOOQ.x helps
+:navtitle: What it helps
 zero88
 
 `jooqx` leverages the power of typesafe SQL from https://www.jooq.org[jOOQ DSL] and uses the reactive and non-blocking `SQL driver` from https://vertx.io/docs/#databases[Vert.x]
@@ -27,7 +28,8 @@ zero88
 ** [ ] Nested transaction (not yet tested, but API is available)
 ** [ ] Transaction rollback condition
 ** [ ] Transaction annotation
-* [ ] Procedure
+* [x] Procedure & Function
+* [ ] DAO
 * [ ] Resource Query Language (RQL) by https://zero88.github.io/jooqx/rsql/main/index.html[rsql-jooq]
 * [x] Rxified API
 ** [x] Rx2
@@ -35,7 +37,8 @@ zero88
 ** [x] Mutiny
 * [ ] Row streaming
 * [ ] Publish/subscribe
-* [ ] DAO
+* [ ] Observability
+* [ ] Polyglot API: `kotlin`, `groovy`
 * [x] Test fixtures API to easy setup test for your application testing or produce a minimum reproducer
 
 == Short Note

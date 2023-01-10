@@ -1,0 +1,17 @@
+= Result adapter
+
+== JsonRecord
+
+Vertx JsonObject vs jOOQ Record...
+
+Ya, merging: `JsonRecord`
+
+include::partial$features-result-adapter.adoc[tag=jsonRecord]
+
+== By class
+
+include::partial$features-result-adapter.adoc[tag=byClass]
+
+== By Fields
+
+include::partial$features-result-adapter.adoc[tag=byFields]

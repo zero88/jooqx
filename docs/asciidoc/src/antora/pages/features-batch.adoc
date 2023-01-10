@@ -1,0 +1,13 @@
+= SQL batch
+
+Assume you want to batch insert 3 records
+
+include::partial$features-batch.adoc[tag=setupBatchValues]
+
+Then simply use `batch`
+
+include::partial$features-batch.adoc[tag=batch]
+
+If you want to get batch result, use `batchResult`
+
+include::partial$features-batch.adoc[tag=batchWithReturning]

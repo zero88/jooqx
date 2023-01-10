@@ -8,6 +8,16 @@ import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
 
+/**
+ * Represents for SQL session executor
+ *
+ * @param <S> Type of Vertx SQL client
+ * @param <B> Type of Vertx query param holder
+ * @param <P> Type of SQL prepare query
+ * @param <C> Type of SQL result collector
+ * @param <E> Type of jOOQ.x executor
+ * @since 2.0.0
+ */
 public interface SQLSessionExecutor<S, B, P extends SQLPreparedQuery<B>, C extends SQLResultCollector,
                                        E extends SQLExecutor<S, B, P, C>> {
 

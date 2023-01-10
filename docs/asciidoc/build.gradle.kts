@@ -1,6 +1,13 @@
+java {
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
+}
+
 dependencies {
     compileOnly(project(":spi"))
     compileOnly(project(":integtest:pg"))
+    compileOnly(JooqLibs.jooqMeta)
     compileOnly(VertxLibs.jdbc)
     compileOnly(VertxLibs.pgsql)
     compileOnly(VertxLibs.mysql)
@@ -29,7 +36,7 @@ tasks {
     register<mdtoadoc.MdToAdocTask>("mdToAdoc") {
         inputFile.set(file(rootDir.resolve("CHANGELOG.md")))
         outputFolder.set(buildDir.resolve("antora/modules/ROOT/pages"))
-        outputFileName.set("release-note.adoc")
+        outputFileName.set("pg-changelog.adoc")
     }
     named("asciidoc") {
         dependsOn("mdToAdoc")

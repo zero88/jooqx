@@ -24,6 +24,8 @@ interface AntoraCompLayout {
 
     fun pagesDir(module: String? = null): Directory = moduleDir(module).dir("pages")
 
+    fun partialsDir(module: String? = null): Directory = moduleDir(module).dir("partials")
+
     fun attachmentsDir(module: String? = null): Directory = moduleDir(module).dir("attachments")
 
 }

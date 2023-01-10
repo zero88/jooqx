@@ -4,18 +4,16 @@ import org.jetbrains.annotations.NotNull;
 import org.jooq.JSONFormat;
 import org.jooq.Record;
 import org.jooq.TableLike;
-import org.jooq.TableRecord;
 
 import io.vertx.codegen.annotations.CacheReturn;
 import io.vertx.core.json.JsonObject;
 import io.vertx.core.spi.json.JsonCodec;
 
 /**
- * Represents for an intermediate record between Vertx ResultSet and actual jOOQ Record and does support serialize to
- * {@code JsonObject}
+ * Represents for a wrapper of jOOQ Record and does support serialize to {@code JsonObject}
  *
  * @param <R> Type of jOOQ record
- * @see TableRecord
+ * @apiNote breaking changes since v2.0.0
  * @since 1.0.0
  */
 public interface JsonRecord<R extends Record> {

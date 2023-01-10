@@ -176,7 +176,7 @@ class PgPoolSessionTxTest extends PgSQLJooqxTest<PgPool>
              .onFailure(t -> ctx.verify(() -> {
                  Assertions.assertInstanceOf(DataAccessException.class, t);
                  Assertions.assertTrue(
-                     t.getMessage().contains("null value in column \"country\" violates not-null " + "constraint"));
+                     t.getMessage().contains("null value in column \"country\" violates not-null constraint"));
                  jooqx.fetchExists(dsl -> dsl.selectFrom(table).where(table.NAME.eq("n1").and(table.COUNTRY.eq("AT"))))
                       .onSuccess(b -> ctx.verify(() -> {
                           Assertions.assertTrue(b);

@@ -1,0 +1,3 @@
+= SQL Data Definition
+
+include::partial$features-ddl.adoc[]

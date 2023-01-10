@@ -1,0 +1,7 @@
+= Basic usage
+
+== Simple execution
+
+include::partial$features-basic.adoc[]
+
+//https://docs.asciidoctor.org/asciidoc/latest/directives/include-tagged-regions/
