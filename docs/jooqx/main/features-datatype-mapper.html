@@ -70,17 +70,20 @@
     <span class="nav-text">Core</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="index.html">Welcome</a>
+    <a class="nav-link" href="index.html">What it helps</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="usage.html">Usage</a>
+    <a class="nav-link" href="core-how-jooqx-works.html">How it works</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="getting-started.html">Getting started</a>
+    <a class="nav-link" href="core-usage.html">Usage</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="core-quickstart.html">Quickstart</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="features.html">Browse features</a>
+    <a class="nav-link" href="core-api-reference.html">API Reference</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="features-basic.html">Basic usage</a>
@@ -118,10 +121,25 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="apidocs.html">API docs</a>
+    <span class="nav-text"><a href="/jooqx/main/_attachments/javadoc/index.html" class="xref attachment" target="_blank" rel="noopener">API docs</a></span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Project Governance</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-changelog.html">Changelog</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="release-note.html">Release note</a>
+    <a class="nav-link" href="pg-upgrade-notes.html">Upgrade notes</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-release-schedule.html">Release schedule</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-copyright-and-license.html">Copyright and License</a>
   </li>
 </ul>
   </li>
@@ -133,7 +151,7 @@
     <a class="nav-link" href="testing/index.html">Development</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="testing/apidocs.html">API docs</a>
+    <span class="nav-text"><a href="/jooqx/main/testing/_attachments/javadoc/index.html" class="xref attachment" target="_blank" rel="noopener">API docs</a></span>
   </li>
 </ul>
   </li>
@@ -175,7 +193,7 @@
   <ul>
     <li><a href="index.html">jOOQ.x</a></li>
     <li>Core</li>
-    <li><a href="features.html">Browse features</a></li>
+    <li><a href="core-api-reference.html">API Reference</a></li>
     <li><a href="features-datatype-mapper.html">DataType mapper</a></li>
   </ul>
 </nav>
@@ -197,11 +215,9 @@ system cannot understand.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Both same data type. Hurray!!! No need do anything</p>
-</li>
-<li>
-<p>Vertx SQL data type (a.k.a. database type) is different to <code>jOOQ</code> JDBC type, then you might want one of these
-solutions:</p>
+<p>Both same data type.
+Hurray!!!
+No need do anything Vertx SQL data type (a.k.a. database type) is different to <code>jOOQ</code> JDBC type, then you might want one of these solutions:</p>
 </li>
 <li>
 <p>Use <code>jOOQ</code> data type as a user type (a.k.a. your application type)</p>
@@ -215,9 +231,8 @@ solutions:</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>So, to resolve these situations, <code>jooqx</code> introduce link:core/src/main/java/io/zero88/jooqx/datatype/DataTypeMapper
-.java[DataTypeMapper] to make three-way-conversion that based on <code>jOOQ converter</code>. Besides that, <code>jooqx</code> provides
-some default mapper utilities for make converter is easier with <code>UserTypeAsJooqType</code> and <code>UserTypeAsVertxType</code>.</p>
+<p>So, to resolve these situations, <code>jooqx</code> introduce link:core/src/main/java/io/zero88/jooqx/datatype/DataTypeMapper .java[DataTypeMapper] to make three-way-conversion that based on <code>jOOQ converter</code>.
+Besides that, <code>jooqx</code> provides some default mapper utilities for make converter is easier with <code>UserTypeAsJooqType</code> and <code>UserTypeAsVertxType</code>.</p>
 </div>
 <div class="paragraph">
 <p>Let&#8217;s see some example in <code>gradle jooq</code>:</p>
@@ -246,14 +261,12 @@ some default mapper utilities for make converter is easier with <code>UserTypeAs
         withForcedTypes(
             // Use Vertx Type means io.vertx.pgclient.data.Interval is database type and user type
             ForcedType().withUserType("io.vertx.pgclient.data.Interval")
-                .withConverter("io.github.zero88.jooqx.datatype.UserTypeAsVertxType.create(new io.github.zero88
-                .jooqx.spi.pg.datatype.IntervalConverter())")
+                .withConverter("io.github.zero88.jooqx.datatype.UserTypeAsVertxType.create(new io.github.zero88.jooqx.spi.pg.datatype.IntervalConverter())")
                 .withIncludeTypes("INTERVAL")
                 .withIncludeExpression("f_interval_1"),
             // Use Jooq Type means io.vertx.pgclient.data.Interval is database type, org.jooq.types.YearToSecond is jOOQ type and user type
             ForcedType().withUserType("io.vertx.pgclient.data.Interval")
-                .withConverter("io.github.zero88.jooqx.datatype.UserTypeAsJooqType.create(new io.github.zero88
-                .jooqx.spi.pg.datatype.IntervalConverter())")
+                .withConverter("io.github.zero88.jooqx.datatype.UserTypeAsJooqType.create(new io.github.zero88.jooqx.spi.pg.datatype.IntervalConverter())")
                 .withIncludeTypes("INTERVAL")
                 .withIncludeExpression("f_interval_2"),
             // Three-way-conversion: io.vertx.pgclient.data.Interval is database type, org.jooq.types.YearToSecond is jOOQ intermediate type and user type is java.time.Duration

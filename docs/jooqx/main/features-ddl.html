@@ -70,17 +70,20 @@
     <span class="nav-text">Core</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="index.html">Welcome</a>
+    <a class="nav-link" href="index.html">What it helps</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="usage.html">Usage</a>
+    <a class="nav-link" href="core-how-jooqx-works.html">How it works</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="getting-started.html">Getting started</a>
+    <a class="nav-link" href="core-usage.html">Usage</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="core-quickstart.html">Quickstart</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="features.html">Browse features</a>
+    <a class="nav-link" href="core-api-reference.html">API Reference</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="features-basic.html">Basic usage</a>
@@ -118,10 +121,25 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="apidocs.html">API docs</a>
+    <span class="nav-text"><a href="/jooqx/main/_attachments/javadoc/index.html" class="xref attachment" target="_blank" rel="noopener">API docs</a></span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Project Governance</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-changelog.html">Changelog</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="release-note.html">Release note</a>
+    <a class="nav-link" href="pg-upgrade-notes.html">Upgrade notes</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-release-schedule.html">Release schedule</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-copyright-and-license.html">Copyright and License</a>
   </li>
 </ul>
   </li>
@@ -133,7 +151,7 @@
     <a class="nav-link" href="testing/index.html">Development</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="testing/apidocs.html">API docs</a>
+    <span class="nav-text"><a href="/jooqx/main/testing/_attachments/javadoc/index.html" class="xref attachment" target="_blank" rel="noopener">API docs</a></span>
   </li>
 </ul>
   </li>
@@ -175,7 +193,7 @@
   <ul>
     <li><a href="index.html">jOOQ.x</a></li>
     <li>Core</li>
-    <li><a href="features.html">Browse features</a></li>
+    <li><a href="core-api-reference.html">API Reference</a></li>
     <li><a href="features-ddl.html">SQL DDL</a></li>
   </ul>
 </nav>
@@ -187,7 +205,13 @@
 </aside>
 <article class="doc">
 <h1 class="page">SQL Data Definition</h1>
-
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">jooqx.ddl(dsl -&gt; dsl.createSchemaIfNotExists("hello"))  <i class="conum" data-value="1"></i><b>(1)</b>
+     .onSuccess(rowCount -&gt; { assert 0 == rowCount; })  <i class="conum" data-value="2"></i><b>(2)</b>
+     .onFailure(Throwable::printStackTrace);            <i class="conum" data-value="3"></i><b>(3)</b></code></pre>
+</div>
+</div>
 </article>
   </div>
 </main>

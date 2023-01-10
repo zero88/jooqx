@@ -70,17 +70,20 @@
     <span class="nav-text">Core</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="index.html">Welcome</a>
+    <a class="nav-link" href="index.html">What it helps</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="usage.html">Usage</a>
+    <a class="nav-link" href="core-how-jooqx-works.html">How it works</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="getting-started.html">Getting started</a>
+    <a class="nav-link" href="core-usage.html">Usage</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="core-quickstart.html">Quickstart</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="features.html">Browse features</a>
+    <a class="nav-link" href="core-api-reference.html">API Reference</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="features-basic.html">Basic usage</a>
@@ -118,10 +121,25 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="apidocs.html">API docs</a>
+    <span class="nav-text"><a href="/jooqx/main/_attachments/javadoc/index.html" class="xref attachment" target="_blank" rel="noopener">API docs</a></span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Project Governance</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-changelog.html">Changelog</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="release-note.html">Release note</a>
+    <a class="nav-link" href="pg-upgrade-notes.html">Upgrade notes</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-release-schedule.html">Release schedule</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-copyright-and-license.html">Copyright and License</a>
   </li>
 </ul>
   </li>
@@ -133,7 +151,7 @@
     <a class="nav-link" href="testing/index.html">Development</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="testing/apidocs.html">API docs</a>
+    <span class="nav-text"><a href="/jooqx/main/testing/_attachments/javadoc/index.html" class="xref attachment" target="_blank" rel="noopener">API docs</a></span>
   </li>
 </ul>
   </li>
@@ -175,7 +193,7 @@
   <ul>
     <li><a href="index.html">jOOQ.x</a></li>
     <li>Core</li>
-    <li><a href="features.html">Browse features</a></li>
+    <li><a href="core-api-reference.html">API Reference</a></li>
     <li><a href="features-procedure.html">SQL procedure</a></li>
   </ul>
 </nav>
@@ -187,12 +205,83 @@
 </aside>
 <article class="doc">
 <h1 class="page">SQL procedure</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
 <p>See <a href="https://www.jooq.org/doc/latest/manual/sql-execution/stored-procedures/">jOOQ stored-procedures</a></p>
 </div>
+<div class="paragraph">
+<p>Let&#8217;s check some function/procedure examples</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_simple_function"><a class="anchor" href="#_simple_function"></a>Simple function</h2>
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"></code></pre>
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Add addFn = new Add();                      <i class="conum" data-value="1"></i><b>(1)</b>
+addFn.set__1(5);                            <i class="conum" data-value="2"></i><b>(2)</b>
+addFn.set__2(10);
+jooqx.routine(addFn).onSuccess(output -&gt; {  <i class="conum" data-value="3"></i><b>(3)</b>
+    assert 15 == output;
+}).onFailure(Throwable::printStackTrace);   <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_with_out_parameters"><a class="anchor" href="#_with_out_parameters"></a>With out-parameters</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Dup dup = new Dup();                                                                <i class="conum" data-value="1"></i><b>(1)</b>
+// Routine has 1 in-parameter and 2 out-parameters
+dup.set__1(5);                                                                      <i class="conum" data-value="2"></i><b>(2)</b>
+jooqx.routineResult(dup).onSuccess(rr -&gt; {
+    Record record = rr.getRecord();                                                 <i class="conum" data-value="3"></i><b>(3)</b>
+    Field&lt;?&gt;[] outputFields = rr.getOutputFields();                                 <i class="conum" data-value="4"></i><b>(4)</b>
+    assert Objects.equals(Arrays.toString(outputFields), "[\"f1\", \"f2\"]");
+    assert record.fields().length == 2;
+    assert 5 == (Integer) record.get(outputFields[0]);
+    assert Objects.equals(record.get(outputFields[1]), "5 is text");
+    assert Objects.equals(record.toString(), """
+        +----+----------+
+        |  f1|f2        |
+        +----+----------+
+        |  *5|*5 is text|
+        +----+----------+
+        """);                                                                      <i class="conum" data-value="5"></i><b>(5)</b>
+}).onFailure(Throwable::printStackTrace);                                          <i class="conum" data-value="6"></i><b>(6)</b></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_with_output_is_result_set"><a class="anchor" href="#_with_output_is_result_set"></a>With output is result set</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">jooqx.fetchMany(dsl -&gt; dsl.selectFrom(Tables.FIND_AUTHORS.call("Sc"))).onSuccess(rows -&gt; {
+    assert Objects.equals(rows.toString(), """
+        [+----+---------------------+-------+
+        |  id|name                 |country|
+        +----+---------------------+-------+
+        |  *2|*F. Scott. Fitzgerald|*USA   |
+        +----+---------------------+-------+
+        , +----+----------------+-------+
+        |  id|name            |country|
+        +----+----------------+-------+
+        |  *4|*Scott Hanselman|*USA   |
+        +----+----------------+-------+
+        ]
+        """);
+    FindAuthorsRecord rec1 = rows.get(0);
+    assert rec1.getId() == 2;
+    assert Objects.equals(rec1.getName(), "F. Scott. Fitzgerald");
+}).onFailure(Throwable::printStackTrace);</code></pre>
+</div>
+</div>
 </div>
 </div>
 </article>

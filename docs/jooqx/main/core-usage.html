@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Use jOOQ.x in your project :: Reactive SQL with Vert.x and jOOQ</title>
+    <link rel="canonical" href="https://zero88.github.io/jooqx/jooqx/main/core-usage.html">
+    <meta name="generator" content="Antora 3.0.1">
+    <link rel="stylesheet" href="../../_/css/site.css">
+<link rel="icon" href="../../favicon.ico" type="image/x-icon"/>
+<link rel="stylesheet" href="../../_/css/site-extra.css"/>
+    <script>var uiRootPath = '../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://zero88.github.io/jooqx">Reactive SQL with Vert.x and jOOQ</a>
+                <div class="navbar-item search hide-for-print">
+                    <div id="search-field" class="field">
+                        <input id="search-input" type="text" placeholder="Search the docs"
+                            />
+                    </div>
+                </div>
+            <button class="navbar-burger" data-target="topbar-nav">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <div id="topbar-nav" class="navbar-menu">
+            <div class="navbar-end">
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <div class="navbar-link">Projects</div>
+                    <div class="navbar-dropdown">
+                        <div class="navbar-item"><strong>jOOQ.x</strong></div>
+                        <a class="navbar-item" href="https://github.com/zero88/jooqx">
+                            <img height="16" width="16" src="https://cdn.jsdelivr.net/npm/simple-icons@v6/icons/github.svg"
+                                 alt="GitHub"/>
+                            <span style="padding-left: 5px">Repository</span>
+                        </a>
+                        <a class="navbar-item" href="https://github.com/zero88/jooqx/issues">Issue Tracker</a>
+                        <hr class="navbar-divider">
+                        <a class="navbar-item" href="https://github.com/zero88/jooqx">Contributing</a>
+                    </div>
+                </div>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <div class="navbar-link">Community</div>
+                    <div class="navbar-dropdown is-right">
+                        <!--<a class="navbar-item" href="https://antora.zulipchat.com">Chat (Zulip)</a>-->
+                    </div>
+                </div>
+                <a class="navbar-item" href="https://github.com/zero88/jooqx">
+                    <img height="32" width="32" src="https://cdn.jsdelivr.net/npm/simple-icons@v6/icons/github.svg" alt="GitHub"/>
+                </a>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="jooqx" data-version="main">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">jOOQ.x</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Core</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">What it helps</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="core-how-jooqx-works.html">How it works</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="core-usage.html">Usage</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="core-quickstart.html">Quickstart</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="core-api-reference.html">API Reference</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-basic.html">Basic usage</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-dml.html">SQL daily job</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-ddl.html">SQL DDL</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-plain-sql.html">SQL plain statement</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-batch.html">SQL batch</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-procedure.html">SQL procedure</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-transaction.html">SQL transaction</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-result-adapter.html">Result adapter</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-datatype-mapper.html">DataType mapper</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-error-handler.html">Error handler</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-rxify.html">Rxify version</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <span class="nav-text"><a href="/jooqx/main/_attachments/javadoc/index.html" class="xref attachment" target="_blank" rel="noopener">API docs</a></span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Project Governance</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-changelog.html">Changelog</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-upgrade-notes.html">Upgrade notes</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-release-schedule.html">Release schedule</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-copyright-and-license.html">Copyright and License</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Testing</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="testing/index.html">Development</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <span class="nav-text"><a href="/jooqx/main/testing/_attachments/javadoc/index.html" class="xref attachment" target="_blank" rel="noopener">API docs</a></span>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">jOOQ.x</span>
+    <span class="version">main</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="index.html">jOOQ.x</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">main</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../rsql/main/index.html">RSQL</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../rsql/main/index.html">main</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">jOOQ.x</a></li>
+    <li>Core</li>
+    <li><a href="core-usage.html">Usage</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/zero88/jooqx/edit/docs/main/antora/jooqx/modules/ROOT/pages/core-usage.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Use jOOQ.x in your project</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>To use <code>jooqx</code> add the following <a href="https://search.maven.org/artifact/io.github.zero88/jooqx/2.0.0-SNAPSHOT/jar">dependency</a>
+to the <code>dependencies</code> section of your build descriptor:</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_maven"><a class="anchor" href="#_maven"></a>Maven</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In your <code>pom.xml</code>,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.jooq&lt;/groupId&gt;
+        &lt;artifactId&gt;jooq&lt;/artifactId&gt;
+        &lt;version&gt;3.14.13&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;io.vertx&lt;/groupId&gt;
+        &lt;artifactId&gt;vertx-core&lt;/artifactId&gt;
+        &lt;version&gt;4.3.5&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;io.github.zero88&lt;/groupId&gt;
+        &lt;artifactId&gt;jooqx&lt;/artifactId&gt;
+        &lt;version&gt;2.0.0-SNAPSHOT&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;!-- For some SPI includes specific converter based on Vert.x database client --&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;io.github.zero88&lt;/groupId&gt;
+        &lt;artifactId&gt;jooqx-spi&lt;/artifactId&gt;
+        &lt;version&gt;2.0.0-SNAPSHOT&lt;/version&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_gradle"><a class="anchor" href="#_gradle"></a>Gradle</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In your <code>build.gradle</code>,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">dependencies {
+    api("org.jooq:jooq:2.0.0-SNAPSHOT")
+    api("io.vertx:vertx-core:4.3.5")
+    api("io.github.zero88:jooqx:2.0.0-SNAPSHOT")
+    // For some SPI includes specific converter based on Vert.x database client
+    api("io.github.zero88:jooqx-spi:2.0.0-SNAPSHOT")
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_remarks"><a class="anchor" href="#_remarks"></a>Remarks</h2>
+<div class="sectionbody">
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="title"><code>jooqx</code> is only depended on 3 main libraries</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>io.vertx:vertx-core</code></p>
+</li>
+<li>
+<p><code>org.jooq:jooq</code></p>
+</li>
+<li>
+<p><code>org.slf4j:slf4j-api</code></p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Adding this <code>jooqx</code> library JAR will not automatically add a <code>database driver</code> JAR to your project. You should ensure that your project also has a suitable <code>database driver</code> as a dependency.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>With <code>legacy JDBC</code> and connecting to <code>MySQL</code> driver</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">dependencies {
+    api("mysql:mysql-connector-java:8.0.23")
+    // It is recommendation to use HikariCP instead of c3p0
+    api("com.zaxxer:HikariCP:4.0.2")
+    api("io.vertx:vertx-jdbc-client:4.3.5") {
+        exclude("com.mchange")
+    }
+    api("io.github.zero88:jooqx:2.0.0-SNAPSHOT")
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>With <code>reactive PostgreSQL</code> client</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">dependencies {
+    api("io.vertx:vertx-pg-client:4.3.5")
+    api("io.github.zero88:jooqx:2.0.0-SNAPSHOT")
+}</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>With <code>reactive JDBC</code> client and <code>H2</code></p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">dependencies {
+    api("com.h2database:h2:1.4.200")
+    // Agroal pool - Default in Vertx SQL client - Not yet has alternatives
+    api("io.agroal:agroal-pool:1.9")
+    api("io.vertx:vertx-sql-client:4.3.5")
+    api("io.github.zero88:jooqx:2.0.0-SNAPSHOT")
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_reactive_version"><a class="anchor" href="#_reactive_version"></a>Reactive version</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Reference to <a href="features-rxify.html" class="xref page">reactive version</a> for more detail.</p>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+    <p>The jOOQ.x documentation site is generated using <a href="https://antora.org" target="_blank">Antora</a> and
+        <a href="https://github.com/vert-x3/vertx-docgen" target="_blank">Vert.x docgen</a>.</p>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+    <script async src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script>
+    <script async src="../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../.."
+            data-snippet-length="${snippetLength}" data-stylesheet="../../_/css/search.css"></script>
+    <script async src="../../search-index.js"></script>
+  </body>
+</html>

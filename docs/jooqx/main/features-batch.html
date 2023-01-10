@@ -70,17 +70,20 @@
     <span class="nav-text">Core</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="index.html">Welcome</a>
+    <a class="nav-link" href="index.html">What it helps</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="usage.html">Usage</a>
+    <a class="nav-link" href="core-how-jooqx-works.html">How it works</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="getting-started.html">Getting started</a>
+    <a class="nav-link" href="core-usage.html">Usage</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="core-quickstart.html">Quickstart</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="features.html">Browse features</a>
+    <a class="nav-link" href="core-api-reference.html">API Reference</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="features-basic.html">Basic usage</a>
@@ -118,10 +121,25 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="apidocs.html">API docs</a>
+    <span class="nav-text"><a href="/jooqx/main/_attachments/javadoc/index.html" class="xref attachment" target="_blank" rel="noopener">API docs</a></span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Project Governance</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-changelog.html">Changelog</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="release-note.html">Release note</a>
+    <a class="nav-link" href="pg-upgrade-notes.html">Upgrade notes</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-release-schedule.html">Release schedule</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-copyright-and-license.html">Copyright and License</a>
   </li>
 </ul>
   </li>
@@ -133,7 +151,7 @@
     <a class="nav-link" href="testing/index.html">Development</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="testing/apidocs.html">API docs</a>
+    <span class="nav-text"><a href="/jooqx/main/testing/_attachments/javadoc/index.html" class="xref attachment" target="_blank" rel="noopener">API docs</a></span>
   </li>
 </ul>
   </li>
@@ -175,7 +193,7 @@
   <ul>
     <li><a href="index.html">jOOQ.x</a></li>
     <li>Core</li>
-    <li><a href="features.html">Browse features</a></li>
+    <li><a href="core-api-reference.html">API Reference</a></li>
     <li><a href="features-batch.html">SQL batch</a></li>
   </ul>
 </nav>
@@ -187,29 +205,55 @@
 </aside>
 <article class="doc">
 <h1 class="page">SQL batch</h1>
+<div class="paragraph">
+<p>Assume you want to batch insert 3 records</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">AuthorsRecord rec1 = new AuthorsRecord().setName("zero88").setCountry("VN");
 AuthorsRecord rec2 = new AuthorsRecord().setName("jooq").setCountry("CH");
 AuthorsRecord rec3 = new AuthorsRecord().setName("vertx");
-BindBatchValues bindValues = new BindBatchValues().register(Tables.AUTHORS.NAME)
-                                                  .registerValue(Tables.AUTHORS.COUNTRY, "FR")
-                                                  .add(rec1, rec2, rec3);
-InsertResultStep&lt;AuthorsRecord&gt; insert = jooqx.dsl()
-                                              .insertInto(Tables.AUTHORS)
-                                              .set(bindValues.getDummyValues())
-                                              .returning();
+return new BindBatchValues().register(Tables.AUTHORS.NAME)
+                            .registerValue(Tables.AUTHORS.COUNTRY, "FR")
+                            .add(rec1, rec2, rec3);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then simply use <code>batch</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">BindBatchValues bindValues = setupBatchValues();
 // Wanna know success number
-jooqx.batch(insert, bindValues, ar -&gt; {
-    System.out.println(ar.result().getTotal());     // 3
-    System.out.println(ar.result().getSuccesses()); // 3
-});
-// Wanna get detail
-jooqx.batchResult(insert, bindValues, DSLAdapter.fetchJsonRecords(Tables.AUTHORS), ar -&gt; {
-    System.out.println(ar.result().getRecords().stream().map(JsonRecord::toJson).collect(Collectors.toList()));
-    //[{"id":1,"name":"zero88","country":"VN"},{"id":2,"name":"jooq","country":"CH"},{"id":3,"name":"vertx",
-    // "country":"FR"}]
+jooqx.batch(dsl -&gt; dsl.insertInto(Tables.AUTHORS).set(bindValues.getDummyValues()), bindValues, ar -&gt; {
+    final BatchResult result = ar.result();
+    assert result.getTotal() == 3;
+    assert result.getSuccesses() == 3;
 });</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you want to get batch result, use <code>batchResult</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">BindBatchValues bindValues = setupBatchValues();
+// Wanna get detail
+jooqx.batchResult(dsl -&gt; dsl.insertInto(Tables.AUTHORS).set(bindValues.getDummyValues()).returning(),
+                  bindValues, DSLAdapter.fetchJsonRecords(Tables.AUTHORS), ar -&gt; {
+        BatchReturningResult&lt;JsonRecord&lt;AuthorsRecord&gt;&gt; result = ar.result();
+        List&lt;JsonRecord&lt;AuthorsRecord&gt;&gt; authorRecords = result.getRecords();
+        assert result.getTotal() == 3;
+        assert result.getSuccesses() == 3;
+        assert Objects.equals(authorRecords.stream()
+                                           .map(JsonRecord::toJson)
+                                           .map(JsonObject::encode)
+                                           .collect(Collectors.joining(",\n", "[", "]")), """
+                                  [{"id":1,"name":"zero88","country":"VN"},
+                                   {"id":2,"name":"jooq","country":"CH"},
+                                   {"id":3,"name":"vertx","country":"FR"}]
+                                  """);
+    });</code></pre>
 </div>
 </div>
 </article>

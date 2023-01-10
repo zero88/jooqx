@@ -70,17 +70,20 @@
     <span class="nav-text">Core</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="index.html">Welcome</a>
+    <a class="nav-link" href="index.html">What it helps</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="usage.html">Usage</a>
+    <a class="nav-link" href="core-how-jooqx-works.html">How it works</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="getting-started.html">Getting started</a>
+    <a class="nav-link" href="core-usage.html">Usage</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="core-quickstart.html">Quickstart</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="features.html">Browse features</a>
+    <a class="nav-link" href="core-api-reference.html">API Reference</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="features-basic.html">Basic usage</a>
@@ -118,10 +121,25 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="apidocs.html">API docs</a>
+    <span class="nav-text"><a href="/jooqx/main/_attachments/javadoc/index.html" class="xref attachment" target="_blank" rel="noopener">API docs</a></span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Project Governance</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-changelog.html">Changelog</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="release-note.html">Release note</a>
+    <a class="nav-link" href="pg-upgrade-notes.html">Upgrade notes</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-release-schedule.html">Release schedule</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-copyright-and-license.html">Copyright and License</a>
   </li>
 </ul>
   </li>
@@ -133,7 +151,7 @@
     <a class="nav-link" href="testing/index.html">Development</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="testing/apidocs.html">API docs</a>
+    <span class="nav-text"><a href="/jooqx/main/testing/_attachments/javadoc/index.html" class="xref attachment" target="_blank" rel="noopener">API docs</a></span>
   </li>
 </ul>
   </li>
@@ -175,7 +193,7 @@
   <ul>
     <li><a href="index.html">jOOQ.x</a></li>
     <li>Core</li>
-    <li><a href="features.html">Browse features</a></li>
+    <li><a href="core-api-reference.html">API Reference</a></li>
     <li><a href="features-error-handler.html">Error handler</a></li>
   </ul>
 </nav>
@@ -190,8 +208,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Basically, <code>exception</code> in execution time will be thrown by each particular <code>jdbc</code> driver or <code>reactive SQL driver</code>,
-it can be spaghetti code, dealing with <code>exception</code>, then <code>jooqx</code> is able to centralize any exception with properly
+<p>Basically, <code>exception</code> in execution time will be thrown by each particular <code>jdbc</code> driver or <code>reactive SQL driver</code>, it can be spaghetti code, dealing with <code>exception</code>, then <code>jooqx</code> is able to centralize any exception with properly
 <code>SQL state</code> that thanks to <code>DataAccessException</code> in <code>jOOQ</code>.</p>
 </div>
 <div class="paragraph">
@@ -233,7 +250,28 @@ it can be spaghetti code, dealing with <code>exception</code>, then <code>jooqx<
 <h2 id="_integrating_with_your_existing_application_exception"><a class="anchor" href="#_integrating_with_your_existing_application_exception"></a>Integrating with your existing application exception</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>And so more, you can convert to your existing application exception (must <code>extends RuntimeException</code>) by</p>
+<p>So more, you can integrate seamlessly with your existing application exception. For example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">enum ErrorCode {
+    DUPLICATE
+}
+
+class YourAppError extends RuntimeException {
+
+    final ErrorCode errorCode;
+
+    YourAppError(ErrorCode errorCode, Exception rootCause) {
+        super(rootCause);
+        this.errorCode = errorCode;
+    }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And then, when init <code>jooqx</code>, just register it</p>
 </div>
 <div class="listingblock">
 <div class="content">

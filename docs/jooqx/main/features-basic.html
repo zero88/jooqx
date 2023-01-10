@@ -70,17 +70,20 @@
     <span class="nav-text">Core</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="index.html">Welcome</a>
+    <a class="nav-link" href="index.html">What it helps</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="usage.html">Usage</a>
+    <a class="nav-link" href="core-how-jooqx-works.html">How it works</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="getting-started.html">Getting started</a>
+    <a class="nav-link" href="core-usage.html">Usage</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="core-quickstart.html">Quickstart</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="features.html">Browse features</a>
+    <a class="nav-link" href="core-api-reference.html">API Reference</a>
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="features-basic.html">Basic usage</a>
@@ -118,10 +121,25 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="apidocs.html">API docs</a>
+    <span class="nav-text"><a href="/jooqx/main/_attachments/javadoc/index.html" class="xref attachment" target="_blank" rel="noopener">API docs</a></span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Project Governance</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-changelog.html">Changelog</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="release-note.html">Release note</a>
+    <a class="nav-link" href="pg-upgrade-notes.html">Upgrade notes</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-release-schedule.html">Release schedule</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-copyright-and-license.html">Copyright and License</a>
   </li>
 </ul>
   </li>
@@ -133,7 +151,7 @@
     <a class="nav-link" href="testing/index.html">Development</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="testing/apidocs.html">API docs</a>
+    <span class="nav-text"><a href="/jooqx/main/testing/_attachments/javadoc/index.html" class="xref attachment" target="_blank" rel="noopener">API docs</a></span>
   </li>
 </ul>
   </li>
@@ -175,7 +193,7 @@
   <ul>
     <li><a href="index.html">jOOQ.x</a></li>
     <li>Core</li>
-    <li><a href="features.html">Browse features</a></li>
+    <li><a href="core-api-reference.html">API Reference</a></li>
     <li><a href="features-basic.html">Basic usage</a></li>
   </ul>
 </nav>
@@ -197,18 +215,18 @@
     .setDatabase("the-db").setUser("user").setPassword("secret");
 PoolOptions poolOptions = new PoolOptions().setMaxSize(5);              <i class="conum" data-value="2"></i><b>(2)</b>
 PgPool pgPool = PgPool.pool(vertx, connectOptions, poolOptions);        <i class="conum" data-value="3"></i><b>(3)</b>
-DSLContext dsl = DSL.using(SQLDialect.POSTGRES);                        <i class="conum" data-value="4"></i><b>(4)</b>
-Jooqx jooqx = Jooqx.builder()                                           <i class="conum" data-value="5"></i><b>(5)</b>
-                   .setVertx(vertx).setDSL(dsl)
-                   .setSqlClient(pgPool).build();
-SelectConditionStep&lt;AuthorsRecord&gt; q = dsl.selectFrom(Tables.AUTHORS)   <i class="conum" data-value="6"></i><b>(6)</b>
-    .where(Tables.AUTHORS.NAME.eq("zero88"));
-jooqx.execute(q, DSLAdapter.fetchOne(q.asTable()))                      <i class="conum" data-value="7"></i><b>(7)</b>
-     .onSuccess(result -&gt; {                                             <i class="conum" data-value="8"></i><b>(8)</b>
-         AuthorsRecord rec = result;                                    <i class="conum" data-value="9"></i><b>(9)</b>
+Jooqx jooqx = Jooqx.builder()                                           <i class="conum" data-value="4"></i><b>(4)</b>
+                   .setVertx(vertx)
+                   .setDSL(DSL.using(SQLDialect.POSTGRES))              <i class="conum" data-value="5"></i><b>(5)</b>
+                   .setSqlClient(pgPool)
+                   .build();
+jooqx.fetchOne(dsl -&gt; dsl.selectFrom(Tables.AUTHORS)                    <i class="conum" data-value="6"></i><b>(6)</b>
+                         .where(Tables.AUTHORS.NAME.eq("zero88")))
+     .onSuccess(result -&gt; {                                             <i class="conum" data-value="7"></i><b>(7)</b>
+         AuthorsRecord rec = result;                                    <i class="conum" data-value="8"></i><b>(8)</b>
          System.out.println(rec.getName());
          System.out.println(rec.getCountry());
-     }).onFailure(System.err::println);                                 <i class="conum" data-value="10"></i><b>(10)</b></code></pre>
+     }).onFailure(System.err::println);                                 <i class="conum" data-value="9"></i><b>(9)</b></code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -235,22 +253,18 @@ jooqx.execute(q, DSLAdapter.fetchOne(q.asTable()))                      <i class
 </tr>
 <tr>
 <td><i class="conum" data-value="6"></i><b>6</b></td>
-<td>Build jOOQ query</td>
+<td>Execute jOOQ query</td>
 </tr>
 <tr>
 <td><i class="conum" data-value="7"></i><b>7</b></td>
-<td>Execute query</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="8"></i><b>8</b></td>
 <td>Handle async query result</td>
 </tr>
 <tr>
-<td><i class="conum" data-value="9"></i><b>9</b></td>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
 <td>Access record object seamlessly without cast type</td>
 </tr>
 <tr>
-<td><i class="conum" data-value="10"></i><b>10</b></td>
+<td><i class="conum" data-value="9"></i><b>9</b></td>
 <td>Handle async error</td>
 </tr>
 </table>

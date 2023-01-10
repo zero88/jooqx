@@ -70,17 +70,20 @@
     <span class="nav-text">Core</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="index.html">Welcome</a>
+    <a class="nav-link" href="index.html">What it helps</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="usage.html">Usage</a>
+    <a class="nav-link" href="core-how-jooqx-works.html">How it works</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="getting-started.html">Getting started</a>
+    <a class="nav-link" href="core-usage.html">Usage</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="core-quickstart.html">Quickstart</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="features.html">Browse features</a>
+    <a class="nav-link" href="core-api-reference.html">API Reference</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="features-basic.html">Basic usage</a>
@@ -118,10 +121,25 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="apidocs.html">API docs</a>
+    <span class="nav-text"><a href="/jooqx/main/_attachments/javadoc/index.html" class="xref attachment" target="_blank" rel="noopener">API docs</a></span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Project Governance</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-changelog.html">Changelog</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="release-note.html">Release note</a>
+    <a class="nav-link" href="pg-upgrade-notes.html">Upgrade notes</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-release-schedule.html">Release schedule</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-copyright-and-license.html">Copyright and License</a>
   </li>
 </ul>
   </li>
@@ -133,7 +151,7 @@
     <a class="nav-link" href="testing/index.html">Development</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="testing/apidocs.html">API docs</a>
+    <span class="nav-text"><a href="/jooqx/main/testing/_attachments/javadoc/index.html" class="xref attachment" target="_blank" rel="noopener">API docs</a></span>
   </li>
 </ul>
   </li>
@@ -175,7 +193,7 @@
   <ul>
     <li><a href="index.html">jOOQ.x</a></li>
     <li>Core</li>
-    <li><a href="features.html">Browse features</a></li>
+    <li><a href="core-api-reference.html">API Reference</a></li>
     <li><a href="features-result-adapter.html">Result adapter</a></li>
   </ul>
 </nav>
@@ -198,14 +216,22 @@
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">jooqx.fetchJsonRecord(dsl -&gt; dsl.selectFrom(Tables.AUTHORS)                         <i class="conum" data-value="1"></i><b>(1)</b>
-                                .where(Tables.AUTHORS.NAME.eq("zero88"))
-                                .limit(1)
-                                .offset(1))
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">final io.github.zero88.sample.model.pgsql.tables.Authors table = Tables.AUTHORS;
+jooqx.fetchJsonRecord(dsl -&gt; dsl.selectFrom(table).where(table.NAME.eq("zero88")).limit(1)) <i class="conum" data-value="1"></i><b>(1)</b>
      .onSuccess(r -&gt; {
-         JsonRecord&lt;AuthorsRecord&gt; record = r;                                      <i class="conum" data-value="2"></i><b>(2)</b>
-         System.out.println(record.toJson());                                       <i class="conum" data-value="3"></i><b>(3)</b>
-     });</code></pre>
+         JsonRecord&lt;AuthorsRecord&gt; record = r;                                  <i class="conum" data-value="2"></i><b>(2)</b>
+         assert Objects.equals(record.toJson().encode(), """
+             {"id": 8, "name": "zero88", "country": "VN"}
+             """);                                                              <i class="conum" data-value="3"></i><b>(3)</b>
+
+         assert Objects.equals(record.toString(), """
+             +----+-------+-------+
+             |  id|name   |country|
+             +----+-------+-------+
+             |  *8|*zero88|*VN    |
+             +----+-------+-------+
+             """);                                                              <i class="conum" data-value="4"></i><b>(4)</b>
+     }).onFailure(Throwable::printStackTrace);</code></pre>
 </div>
 </div>
 <div class="colist arabic">
@@ -231,14 +257,13 @@
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">SelectWhereStep&lt;AuthorsRecord&gt; query = jooqx.dsl().selectFrom(Tables.AUTHORS);
-// Authors is POJO class that generated by jOOQ
-jooqx.execute(query, DSLAdapter.fetchMany(Tables.AUTHORS, Authors.class), ar -&gt; {
-    List&lt;Authors&gt; authors = ar.result();
-    Authors author = authors.get(0);
-    System.out.println(author.getId());                 //  output: 1
-    System.out.println(author.getCountry());            //  output: UK
-});</code></pre>
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">jooqx.execute(dsl -&gt; dsl.selectFrom(Tables.AUTHORS),
+              DSLAdapter.fetchMany(Tables.AUTHORS, Authors.class))              <i class="conum" data-value="1"></i><b>(1)</b>
+     .onSuccess(authors -&gt; {
+         Authors author = authors.get(0);                                       <i class="conum" data-value="2"></i><b>(2)</b>
+         assert author.getId() == 1;                                            <i class="conum" data-value="3"></i><b>(3)</b>
+         assert Objects.equals(author.getCountry(), "UK");                  <i class="conum" data-value="4"></i><b>(4)</b>
+     }).onFailure(Throwable::printStackTrace);</code></pre>
 </div>
 </div>
 </div>
@@ -248,12 +273,13 @@ jooqx.execute(query, DSLAdapter.fetchMany(Tables.AUTHORS, Authors.class), ar -&g
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Books table = Tables.BOOKS;
-InsertResultStep&lt;BooksRecord&gt; insert = jooqx.dsl().insertInto(table, table.TITLE).values("aha").returning();
-jooqx.execute(insert, DSLAdapter.fetchOne(table.ID), ar -&gt; {
-    Record record = ar.result();
-    System.out.println(record.getValue(0));
-});</code></pre>
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">final Books t = Tables.BOOKS;
+jooqx.execute(dsl -&gt; dsl.insertInto(t, t.TITLE).values("aha").returning(), DSLAdapter.fetchOne(t.ID),   <i class="conum" data-value="1"></i><b>(1)</b>
+              ar -&gt; {
+                  Record record = ar.result();
+                  assert record.get(t.ID) == 10;                                <i class="conum" data-value="2"></i><b>(2)</b>
+                  assert (Integer) record.getValue(0) == 10;            <i class="conum" data-value="3"></i><b>(3)</b>
+              });</code></pre>
 </div>
 </div>
 </div>
