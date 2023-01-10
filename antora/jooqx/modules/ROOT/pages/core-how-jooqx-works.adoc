@@ -1,0 +1,13 @@
+= How jOOQx works
+:navtitle: How it works
+
+//https://docs.asciidoctor.org/diagram-extension/latest/#creating-a-diagram
+//[diagram-type,target=output-file-name,format=output-format,options?=]
+
+// https://docs.asciidoctor.org/diagram-extension/latest/#diagram-macros
+//diagram-type::source-file-name[format=output-format]
+
+== How jOOQx works
+
+.How jOOQx works
+plantuml::partial$how-it-works.puml[format=svg,options=interactive]

@@ -2,14 +2,8 @@
 
 == Execute plain SQL statement without result
 
-[source,java,subs="attributes,verbatim"]
-----
-
-----
+include::partial$features-plain-sql.adoc[tag=sql]
 
 == Execute plain SQL statement with result
 
-[source,java,subs="attributes,verbatim"]
-----
-
-----
+include::partial$features-plain-sql.adoc[tag=sqlResult]

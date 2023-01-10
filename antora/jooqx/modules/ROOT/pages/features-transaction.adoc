@@ -1,21 +1,26 @@
 = SQL transaction
 
-[source,java,subs="attributes,verbatim"]
-----
-jooqx.transaction().run(tx -> {
-    InsertResultStep<BooksRecord> q1 = tx.dsl()
-                                         .insertInto(Tables.BOOKS, Tables.BOOKS.ID, Tables.BOOKS.TITLE)
-                                         .values(Arrays.asList(DSL.defaultValue(Tables.BOOKS.ID), "abc"))
-                                         .returning(Tables.BOOKS.ID);
-    InsertResultStep<BooksRecord> q2 = tx.dsl()
-                                         .insertInto(Tables.BOOKS, Tables.BOOKS.ID, Tables.BOOKS.TITLE)
-                                         .values(Arrays.asList(DSL.defaultValue(Tables.BOOKS.ID), "xyz"))
-                                         .returning(Tables.BOOKS.ID);
-    // Avoid using the scope from outside the transaction:
-    // jooqx.execute(...);
+`jooqx` simplify supports `SQL transaction` by using `Pool` client (e.g: `JDBCPool`, `PgPool`, etc...) to borrows a connection from the pool, begins the transaction and releases the connection to the pool when the transaction ends.
 
-    // ...but using context within the transaction scope:
-    return tx.execute(q1, DSLAdapter.fetchOne(Tables.BOOKS))
-             .flatMap(b1 -> tx.execute(q2, DSLAdapter.fetchOne(Tables.BOOKS)));
-}, ar -> { });
-----
+== Transaction
+
+=== Transaction success
+
+include::partial$features-transaction.adoc[tag=transaction]
+
+=== Handle rollback transaction
+
+include::partial$features-transaction.adoc[tag=rollbackTransaction]
+
+== Session
+
+The different between `transaction` and `session` is:
+
+* `transaction` rollback if any error
+* `session` still continue executing the sequence SQL statements regardless if any SQL statement has an error.
+
+include::partial$features-transaction.adoc[tag=session]
+
+== Block
+
+include::partial$features-transaction.adoc[tag=block]

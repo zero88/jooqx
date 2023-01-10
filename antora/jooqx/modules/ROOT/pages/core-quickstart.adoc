@@ -1,0 +1,8 @@
+= jOOQ.x Quickstart
+:navtitle: Quickstart
+
+== Prerequisite
+
+Assume you know how to use https://www.jooq.org/doc/3.14/manual/code-generation/[jOOQ code generation] and able to generate your database schema.
+
+You can use: https://www.jooq.org/doc/3.14/manual/code-generation/codegen-maven/[Maven jOOQ codegen] or https://github.com/etiennestuder/gradle-jooq-plugin[Gradle jOOQ plugin]

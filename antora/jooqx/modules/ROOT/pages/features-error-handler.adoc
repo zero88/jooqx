@@ -1,47 +1,24 @@
 = Error Handler
 
-Basically, `exception` in execution time will be thrown by each particular `jdbc` driver or `reactive SQL driver`,
-it can be spaghetti code, dealing with `exception`, then `jooqx` is able to centralize any exception with properly
+Basically, `exception` in execution time will be thrown by each particular `jdbc` driver or `reactive SQL driver`, it can be spaghetti code, dealing with `exception`, then `jooqx` is able to centralize any exception with properly
 `SQL state` that thanks to `DataAccessException` in `jOOQ`.
 
 It is easy to configure when building `executor`
 
 == With JDBC SQL client
 
-[source,java,subs="attributes,verbatim"]
-----
-Jooqx jooqx = Jooqx.builder()
-                   .setVertx(vertx)
-                   .setDSL(dslContext)
-                   .setSqlClient(pool)
-                   .setErrorConverter(new JDBCErrorConverter())
-                   .build();
-----
+include::partial$features-error-handler.adoc[tag=jdbcErrorHandler]
 
 == With JDBC PostgreSQL client
 
-[source,java,subs="attributes,verbatim"]
-----
-Jooqx jooqx = Jooqx.builder()
-                   .setVertx(vertx)
-                   .setDSL(dslContext)
-                   .setSqlClient(pool)
-                   .setErrorConverter(new PgErrorConverter())
-                   .build();
-----
+include::partial$features-error-handler.adoc[tag=pgErrorHandler]
 
 == Integrating with your existing application exception
 
-And so more, you can convert to your existing application exception (must `extends RuntimeException`) by
+So more, you can integrate seamlessly with your existing application exception. For example:
 
-[source,java,subs="attributes,verbatim"]
-----
-SQLErrorConverter errorConverter = new JDBCErrorConverter()
-    .andThen(dataAccessException -> new YourAppError(ErrorCode.DUPLICATE, dataAccessException));
-Jooqx jooqx = Jooqx.builder()
-                   .setVertx(vertx)
-                   .setDSL(dslContext)
-                   .setSqlClient(pool)
-                   .setErrorConverter(errorConverter)
-                   .build();
-----
+include::partial$features-error-handler.adoc[tag=customError]
+
+And then, when init `jooqx`, just register it
+
+include::partial$features-error-handler.adoc[tag=integrateErrorHandler]

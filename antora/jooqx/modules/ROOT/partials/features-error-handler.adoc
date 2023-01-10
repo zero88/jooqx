@@ -1,0 +1,54 @@
+// tag::jdbcErrorHandler[]
+[source,java,subs="attributes,verbatim"]
+----
+Jooqx jooqx = Jooqx.builder()
+                   .setVertx(vertx)
+                   .setDSL(dslContext)
+                   .setSqlClient(pool)
+                   .setErrorConverter(new JDBCErrorConverter())
+                   .build();
+----
+// end::jdbcErrorHandler[]
+// tag::pgErrorHandler[]
+[source,java,subs="attributes,verbatim"]
+----
+Jooqx jooqx = Jooqx.builder()
+                   .setVertx(vertx)
+                   .setDSL(dslContext)
+                   .setSqlClient(pool)
+                   .setErrorConverter(new PgErrorConverter())
+                   .build();
+----
+// end::pgErrorHandler[]
+// tag::integrateErrorHandler[]
+[source,java,subs="attributes,verbatim"]
+----
+SQLErrorConverter errorConverter = new JDBCErrorConverter()
+    .andThen(dataAccessException -> new YourAppError(ErrorCode.DUPLICATE, dataAccessException));
+Jooqx jooqx = Jooqx.builder()
+                   .setVertx(vertx)
+                   .setDSL(dslContext)
+                   .setSqlClient(pool)
+                   .setErrorConverter(errorConverter)
+                   .build();
+----
+// end::integrateErrorHandler[]
+// tag::customError[]
+[source,java,subs="attributes,verbatim"]
+----
+enum ErrorCode {
+    DUPLICATE
+}
+
+class YourAppError extends RuntimeException {
+
+    final ErrorCode errorCode;
+
+    YourAppError(ErrorCode errorCode, Exception rootCause) {
+        super(rootCause);
+        this.errorCode = errorCode;
+    }
+
+}
+----
+// end::customError[]

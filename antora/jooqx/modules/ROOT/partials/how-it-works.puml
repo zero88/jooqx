@@ -1,0 +1,52 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+skinparam ParticipantPadding 30
+
+actor       dev
+collections "jOOQ.x\nDSLAdapter" as adapter
+participant "jOOQ.x\nInstance" as jx
+participant "jOOQ DSL" as jo
+
+== Thinking ==
+
+dev -> adapter++: choose the DML/DQL query
+return an appropriate DSLAdapter
+
+== Execution ==
+dev -> jx ++: Execute jOOQ Query with DSLAdapter
+
+alt SQL building
+||10||
+jx -> jx ++#DarkSalmon: Create SQL Prepare Query adapter
+jx -> jo ++: translate Query
+return plain SQL statement
+jx -> jo ++: coverts parameterized data
+return Vertx compatible parameterized value
+jx --
+||10||
+jx -> jx ++#lightblue: create SQL result Collector
+jx -> jo ++: inspects jOOQ.x DSLAdapter
+return jOOQ Record metadata
+return Collector
+||10||
+end alt
+
+participant "Vertx SQL client" as vs
+database    DB
+
+hnote over dev: non-blocking execution
+
+alt SQL execution
+||10||
+jx -> vs ++: send SQL statement & parameterized
+jx -> vs : register SQL result Collector
+vs -> DB ++: execute
+DB --> vs --: SQL result-set
+vs -> vs : convert and collect
+vs --> jx--: jOOQ Record collection
+||10||
+end alt
+
+jx -> dev--: return jOOQ Records
+
+@enduml

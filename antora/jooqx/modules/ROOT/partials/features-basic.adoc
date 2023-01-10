@@ -1,0 +1,29 @@
+[source,java,subs="attributes,verbatim"]
+----
+PgConnectOptions connectOptions = new PgConnectOptions()                // <1>
+    .setPort(5432).setHost("the-host")
+    .setDatabase("the-db").setUser("user").setPassword("secret");
+PoolOptions poolOptions = new PoolOptions().setMaxSize(5);              // <2>
+PgPool pgPool = PgPool.pool(vertx, connectOptions, poolOptions);        // <3>
+Jooqx jooqx = Jooqx.builder()                                           // <4>
+                   .setVertx(vertx)
+                   .setDSL(DSL.using(SQLDialect.POSTGRES))              // <5>
+                   .setSqlClient(pgPool)
+                   .build();
+jooqx.fetchOne(dsl -> dsl.selectFrom(Tables.AUTHORS)                    // <6>
+                         .where(Tables.AUTHORS.NAME.eq("zero88")))
+     .onSuccess(result -> {                                             // <7>
+         AuthorsRecord rec = result;                                    // <8>
+         System.out.println(rec.getName());
+         System.out.println(rec.getCountry());
+     }).onFailure(System.err::println);                                 // <9>
+----
+<1> Create PostgreSQL connection options
+<2> Create Pool Options
+<3> Create PgPool
+<4> Init jOOQ DSL context
+<5> Create `jooqx` instance
+<6> Execute jOOQ query
+<7> Handle async query result
+<8> Access record object seamlessly without cast type
+<9> Handle async error

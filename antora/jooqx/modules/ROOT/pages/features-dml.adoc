@@ -2,57 +2,36 @@
 
 == Fetch exists
 
-[source,java,subs="attributes,verbatim"]
-----
-Function<DSLContext, Query> q = dsl -> dsl.selectOne()                      // <1>
-      .whereExists(dsl.selectFrom(Tables.AUTHORS)
-                      .where(Tables.AUTHORS.NAME.eq("zero88")));
-jooqx.execute(q, DSLAdapter.fetchExists())                                  // <2>
-     .onSuccess(result -> {
-         final Boolean isExists = result;                                   // <3>
-         System.out.println(isExists);
-     })
-    .onFailure(Throwable::printStackTrace);                                 // <4>
-----
+include::partial$features-dml.adoc[tag=fetchExists]
 
 == Fetch count
 
-[source,java,subs="attributes,verbatim"]
-----
+include::partial$features-dml.adoc[tag=fetchCount]
 
-----
+== Fetch many
 
-== Simple Query data
+include::partial$features-dml.adoc[tag=fetchMany]
 
-[source,java,subs="attributes,verbatim"]
-----
+== Fetch one
 
-----
+include::partial$features-dml.adoc[tag=fetchOne]
 
-== Complex join query
+== Join query
 
-[source,java,subs="attributes,verbatim"]
-----
+include::partial$features-dml.adoc[tag=joinQuery]
 
-----
+== INSERT statement
 
-== Insert data
+include::partial$features-dml.adoc[tag=insert]
 
-[source,java,subs="attributes,verbatim"]
-----
+== SELECT FOR UPDATE statement
 
-----
+include::partial$features-dml.adoc[tag=selectForUpdate]
 
-== Update data
+== UPDATE statement
 
-[source,java,subs="attributes,verbatim"]
-----
+include::partial$features-dml.adoc[tag=updateMany]
 
-----
+== DELETE statement
 
-== Delete data
-
-[source,java,subs="attributes,verbatim"]
-----
-
-----
+include::partial$features-dml.adoc[tag=delete]
