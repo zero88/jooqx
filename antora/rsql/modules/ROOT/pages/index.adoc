@@ -7,7 +7,7 @@ This library provides core functionality based on https://github.com/zero88/rsql
 and make extension for https://www.jooq.org/[jOOQ], which is translated to `jOOQ DSL`.
 
 == Installation
-
+ 
 To use `rsql` with `jooq` add the following https://search.maven.org/artifact/io.github.zero88/rsql-jooq/1.0.0/jar[dependency]
 to the dependencies section of your build descriptor:
 
@@ -16,11 +16,11 @@ to the dependencies section of your build descriptor:
 [source,xml,subs="attributes,verbatim"]
 ----
 <dependencies>
-   <dependency>
-       <groupId>io.github.zero88</groupId>
-       <artifactId>rsql-jooq</artifactId>
-       <version>{rsql-version}</version>
-   </dependency>
+    <dependency>
+        <groupId>io.github.zero88</groupId>
+        <artifactId>rsql-jooq</artifactId>
+        <version>{rsql-version}</version>
+    </dependency>
 </dependencies>
 ----
 
@@ -29,7 +29,7 @@ to the dependencies section of your build descriptor:
 [source,groovy,subs="attributes,verbatim"]
 ----
 dependencies {
-   api 'io.github.zero88:rsql-jooq:{rsql-version}'
+    api 'io.github.zero88:rsql-jooq:{rsql-version}'
 }
 ----
 
@@ -38,7 +38,7 @@ dependencies {
 [source,groovy,subs="attributes,verbatim"]
 ----
 dependencies {
- api("io.github.zero88:rsql-jooq:{rsql-version}")
+  api("io.github.zero88:rsql-jooq:{rsql-version}")
 }
 ----
 
@@ -56,15 +56,9 @@ Then you need to add `jdbc driver` jar to your project.
 
 === Init
 
-[source,java]
+[source,$lang]
 ----
-String url = "http://localhost:8080/api/author?q=(FIRST_NAME==zero88)";
-String query = splitQuery(url).get("q"); // simple utils function to get URL query
-System.out.println(query); // => (FIRST_NAME==zero88)
-
-JooqRSQLParser parser = JooqRSQLParser.DEFAULT;
-Condition condition = parser.criteria(query, Tables.AUTHORS);
-System.out.println(condition.toString()); // => "AUTHOR"."FIRST_NAME" = 'zero88'
+{@link io.github.zero88.rsql.RSQLGetStared#init()}
 ----
 
 == Features
@@ -99,12 +93,12 @@ http://localhost:8080/api/data?q=(F_DURATION=='abc',F_PERIOD=='xyz')
 http://localhost:8080/api/data?q=(F_STR=='abc';F_BOOL=='true';(F_DURATION=='def',F_PERIOD=='xyz'))
 > jooq
 (
- "ALL_DATA_TYPE"."F_STR" = 'abc'
- and "ALL_DATA_TYPE"."F_BOOL" = true
- and (
-   "ALL_DATA_TYPE"."F_DURATION" = 'def'
-   or "ALL_DATA_TYPE"."F_PERIOD" = 'xyz'
- )
+  "ALL_DATA_TYPE"."F_STR" = 'abc'
+  and "ALL_DATA_TYPE"."F_BOOL" = true
+  and (
+    "ALL_DATA_TYPE"."F_DURATION" = 'def'
+    or "ALL_DATA_TYPE"."F_PERIOD" = 'xyz'
+  )
 )
 ----
 
@@ -140,23 +134,9 @@ Thanks to https://docs.oracle.com/javase/8/docs/api/java/util/ServiceLoader.html
 
 For example:
 
-[source,java]
+[source,$lang]
 ----
-public static final class CustomOpBuilder extends JooqComparisonCriteriaBuilder {
-
-    @Override
-    public ComparisonOperatorProxy operator() {
-        return ComparisonOperatorProxy.create("=custom=");
-    }
-
-    @Override
-    protected Condition compare(Field field, List<String> arguments, JooqArgumentParser argParser,
-        LikeWildcardPattern wildcardPattern) {
-        // do something here
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-}
+{@link io.github.zero88.rsql.RSQLSPI.CustomOpBuilder}
 ----
 
 Create new resource file `META-INF/services/io.zero88.rsql.jooq.criteria.JooqComparisonCriteriaBuilder` in your resource folder, with all content in link:jooq/src/main/resources/META-INF/services/io.zero88.rsql.jooq.criteria.JooqComparisonCriteriaBuilder[default registry] and appends your FQN class (e.g: `your.project.pkg.CustomOpBuilder`)
@@ -170,24 +150,16 @@ For example:
 
 - Fetch exists
 
-[source,java]
+[source,$lang]
 ----
-boolean exists = JooqFetchExistQuery.builder()
-                                    .parser(JooqRSQLParser.DEFAULT)
-                                    .context(JooqRSQLQueryContext.create(dsl, authorTable))
-                                    .build()
-                                    .execute(query);
+{@link io.github.zero88.rsql.RSQLQuery#fetchExists}
 ----
 
 - Fetch count
 
-[source,java]
+[source,$lang]
 ----
-int count = JooqFetchCountQuery.builder()
-                               .parser(JooqRSQLParser.DEFAULT)
-                               .context(JooqRSQLQueryContext.create(dsl, authorTable))
-                               .build()
-                               .execute(query);
+{@link io.github.zero88.rsql.RSQLQuery#fetchCount}
 ----
 
 
@@ -200,9 +172,9 @@ To develop more portable lib to another database abstraction in Java such as `Hi
 [source,xml,subs="attributes,verbatim"]
 ----
 <dependency>
-   <groupId>io.github.zero88</groupId>
-   <artifactId>rsql-core</artifactId>
-   <version>{rsql-version}</version>
+    <groupId>io.github.zero88</groupId>
+    <artifactId>rsql-core</artifactId>
+    <version>{rsql-version}</version>
 </dependency>
 ----
 
@@ -211,7 +183,7 @@ To develop more portable lib to another database abstraction in Java such as `Hi
 [source,groovy,subs="attributes,verbatim"]
 ----
 dependencies {
-   api("io.github.zero88:rsql-core:{rsql-version}")
+    api("io.github.zero88:rsql-core:{rsql-version}")
 }
 ----
 
