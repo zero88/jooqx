@@ -71,10 +71,10 @@
     <a class="nav-link" href="index.html">Welcome</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="features.html">Features</a>
+    <a class="nav-link" href="#features.adoc">Features</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="apidocs.html">API docs</a>
+    <span class="nav-text"><a href="/rsql/main/_attachments/javadoc/index.html" class="xref attachment" target="_blank" rel="noopener">API docs</a></span>
   </li>
 </ul>
   </li>
@@ -150,11 +150,11 @@ to the dependencies section of your build descriptor:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependencies&gt;
-   &lt;dependency&gt;
-       &lt;groupId&gt;io.github.zero88&lt;/groupId&gt;
-       &lt;artifactId&gt;rsql-jooq&lt;/artifactId&gt;
-       &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
-   &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;io.github.zero88&lt;/groupId&gt;
+        &lt;artifactId&gt;rsql-jooq&lt;/artifactId&gt;
+        &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
+    &lt;/dependency&gt;
 &lt;/dependencies&gt;</code></pre>
 </div>
 </div>
@@ -164,7 +164,7 @@ to the dependencies section of your build descriptor:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">dependencies {
-   api 'io.github.zero88:rsql-jooq:1.0.0-SNAPSHOT'
+    api 'io.github.zero88:rsql-jooq:1.0.0-SNAPSHOT'
 }</code></pre>
 </div>
 </div>
@@ -174,7 +174,7 @@ to the dependencies section of your build descriptor:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">dependencies {
- api("io.github.zero88:rsql-jooq:1.0.0-SNAPSHOT")
+  api("io.github.zero88:rsql-jooq:1.0.0-SNAPSHOT")
 }</code></pre>
 </div>
 </div>
@@ -212,13 +212,7 @@ to the dependencies section of your build descriptor:</p>
 <h3 id="_init"><a class="anchor" href="#_init"></a>Init</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">String url = "http://localhost:8080/api/author?q=(FIRST_NAME==zero88)";
-String query = splitQuery(url).get("q"); // simple utils function to get URL query
-System.out.println(query); // =&gt; (FIRST_NAME==zero88)
-
-JooqRSQLParser parser = JooqRSQLParser.DEFAULT;
-Condition condition = parser.criteria(query, Tables.AUTHORS);
-System.out.println(condition.toString()); // =&gt; "AUTHOR"."FIRST_NAME" = 'zero88'</code></pre>
+<pre class="highlightjs highlight"><code class="language-$lang hljs" data-lang="$lang">{@link io.github.zero88.rsql.RSQLGetStared#init()}</code></pre>
 </div>
 </div>
 </div>
@@ -258,12 +252,12 @@ http://localhost:8080/api/data?q=(F_DURATION=='abc',F_PERIOD=='xyz')
 http://localhost:8080/api/data?q=(F_STR=='abc';F_BOOL=='true';(F_DURATION=='def',F_PERIOD=='xyz'))
 &gt; jooq
 (
- "ALL_DATA_TYPE"."F_STR" = 'abc'
- and "ALL_DATA_TYPE"."F_BOOL" = true
- and (
-   "ALL_DATA_TYPE"."F_DURATION" = 'def'
-   or "ALL_DATA_TYPE"."F_PERIOD" = 'xyz'
- )
+  "ALL_DATA_TYPE"."F_STR" = 'abc'
+  and "ALL_DATA_TYPE"."F_BOOL" = true
+  and (
+    "ALL_DATA_TYPE"."F_DURATION" = 'def'
+    or "ALL_DATA_TYPE"."F_PERIOD" = 'xyz'
+  )
 )</code></pre>
 </div>
 </div>
@@ -365,21 +359,7 @@ http://localhost:8080/api/data?q=(F_STR=='abc';F_BOOL=='true';(F_DURATION=='def'
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">public static final class CustomOpBuilder extends JooqComparisonCriteriaBuilder {
-
-    @Override
-    public ComparisonOperatorProxy operator() {
-        return ComparisonOperatorProxy.create("=custom=");
-    }
-
-    @Override
-    protected Condition compare(Field field, List&lt;String&gt; arguments, JooqArgumentParser argParser,
-        LikeWildcardPattern wildcardPattern) {
-        // do something here
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-}</code></pre>
+<pre class="highlightjs highlight"><code class="language-$lang hljs" data-lang="$lang">{@link io.github.zero88.rsql.RSQLSPI.CustomOpBuilder}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -405,11 +385,7 @@ For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">boolean exists = JooqFetchExistQuery.builder()
-                                    .parser(JooqRSQLParser.DEFAULT)
-                                    .context(JooqRSQLQueryContext.create(dsl, authorTable))
-                                    .build()
-                                    .execute(query);</code></pre>
+<pre class="highlightjs highlight"><code class="language-$lang hljs" data-lang="$lang">{@link io.github.zero88.rsql.RSQLQuery#fetchExists}</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -421,11 +397,7 @@ For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">int count = JooqFetchCountQuery.builder()
-                               .parser(JooqRSQLParser.DEFAULT)
-                               .context(JooqRSQLQueryContext.create(dsl, authorTable))
-                               .build()
-                               .execute(query);</code></pre>
+<pre class="highlightjs highlight"><code class="language-$lang hljs" data-lang="$lang">{@link io.github.zero88.rsql.RSQLQuery#fetchCount}</code></pre>
 </div>
 </div>
 </div>
@@ -447,9 +419,9 @@ For example:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
-   &lt;groupId&gt;io.github.zero88&lt;/groupId&gt;
-   &lt;artifactId&gt;rsql-core&lt;/artifactId&gt;
-   &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
+    &lt;groupId&gt;io.github.zero88&lt;/groupId&gt;
+    &lt;artifactId&gt;rsql-core&lt;/artifactId&gt;
+    &lt;version&gt;1.0.0-SNAPSHOT&lt;/version&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
 </div>
@@ -463,7 +435,7 @@ For example:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">dependencies {
-   api("io.github.zero88:rsql-core:1.0.0-SNAPSHOT")
+    api("io.github.zero88:rsql-core:1.0.0-SNAPSHOT")
 }</code></pre>
 </div>
 </div>
