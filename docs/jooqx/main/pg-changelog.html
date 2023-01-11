@@ -205,6 +205,187 @@
 <article class="doc">
 <h1 class="page">Changelog</h1>
 <div class="sect1">
+<h2 id="_v2_0_0_rc1_2023_01_11"><a class="anchor" href="#_v2_0_0_rc1_2023_01_11"></a><a href="https://github.com/zero88/jooqx/tree/v2.0.0-rc1">v2.0.0-rc1</a> (2023-01-11)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://github.com/zero88/jooqx/compare/v1.0.0&#8230;&#8203;v2.0.0-rc1">Full Changelog</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Breaking changes:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Move SQLResultAdapter is close to RowDecoder <a href="https://github.com/zero88/jooqx/issues/115">#115</a></p>
+</li>
+<li>
+<p>Breaking change to jooqx v2 <a href="https://github.com/zero88/jooqx/issues/101">#101</a></p>
+</li>
+<li>
+<p>JSON serialization SPI <a href="https://github.com/zero88/jooqx/issues/12">#12</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Implemented enhancements:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Able to execute multiple statements in one connection <a href="https://github.com/zero88/jooqx/issues/137">#137</a></p>
+</li>
+<li>
+<p>Add shortcut for fetchJsonObject/fetchJsonArray <a href="https://github.com/zero88/jooqx/issues/133">#133</a></p>
+</li>
+<li>
+<p>Add shortcut for fetchOne/fetchMany/fetchExists/fetchCount into jooqx <a href="https://github.com/zero88/jooqx/issues/129">#129</a></p>
+</li>
+<li>
+<p>Refactor code generation for <code>rxify</code> <a href="https://github.com/zero88/jooqx/issues/103">#103</a></p>
+</li>
+<li>
+<p>Support SQL block <a href="https://github.com/zero88/jooqx/issues/98">#98</a></p>
+</li>
+<li>
+<p>Support plain SQL <a href="https://github.com/zero88/jooqx/issues/97">#97</a></p>
+</li>
+<li>
+<p>Support mutiny <a href="https://github.com/zero88/jooqx/issues/83">#83</a></p>
+</li>
+<li>
+<p>Support Rx3 <a href="https://github.com/zero88/jooqx/issues/82">#82</a></p>
+</li>
+<li>
+<p>Remove lombok dependency <a href="https://github.com/zero88/jooqx/issues/65">#65</a></p>
+</li>
+<li>
+<p>Support DDL <a href="https://github.com/zero88/jooqx/issues/51">#51</a></p>
+</li>
+<li>
+<p>Introduce jooqx SPI provider <a href="https://github.com/zero88/jooqx/issues/49">#49</a></p>
+</li>
+<li>
+<p>Rxify for JooqxBuilder <a href="https://github.com/zero88/jooqx/issues/38">#38</a></p>
+</li>
+<li>
+<p>Support plain JDBC in Vertx reactive mode <a href="https://github.com/zero88/jooqx/issues/33">#33</a></p>
+</li>
+<li>
+<p>Support SQL Procedure <a href="https://github.com/zero88/jooqx/issues/25">#25</a></p>
+</li>
+<li>
+<p>Integrate with RQL <a href="https://github.com/zero88/jooqx/issues/8">#8</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Fixed bugs:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>MySQL select count <a href="https://github.com/zero88/jooqx/issues/124">#124</a></p>
+</li>
+<li>
+<p>Unable convert data by Select <a href="https://github.com/zero88/jooqx/issues/107">#107</a></p>
+</li>
+<li>
+<p>Wrong jooqx-core-test-fixtures on Nexus <a href="https://github.com/zero88/jooqx/issues/53">#53</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Closed issues:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>vertx-junit5 &gt; 4.2.5 always failed to open SQL connection <a href="https://github.com/zero88/jooqx/issues/146">#146</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Merged pull requests:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Docs/minor update <a href="https://github.com/zero88/jooqx/pull/152">#152</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>[gradle] Upgrade vertx-4.3.5 <a href="https://github.com/zero88/jooqx/pull/149">#149</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>[#146] Upgrade version of lib dependencies <a href="https://github.com/zero88/jooqx/pull/147">#147</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Update doc for release 2.0.0-rc1 <a href="https://github.com/zero88/jooqx/pull/145">#145</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>[ci] Add changelog generator <a href="https://github.com/zero88/jooqx/pull/142">#142</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Implement JooqxSession <a href="https://github.com/zero88/jooqx/pull/138">#138</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/support block sql statement <a href="https://github.com/zero88/jooqx/pull/135">#135</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/add shortcut for fetch json <a href="https://github.com/zero88/jooqx/pull/134">#134</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/introduce collector by sql result adapter <a href="https://github.com/zero88/jooqx/pull/131">#131</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/refactor sql result adapter <a href="https://github.com/zero88/jooqx/pull/128">#128</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/procedure <a href="https://github.com/zero88/jooqx/pull/123">#123</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Improvement/stablize test <a href="https://github.com/zero88/jooqx/pull/122">#122</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/add reactivex generator <a href="https://github.com/zero88/jooqx/pull/113">#113</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>breaking-change-to-v2 <a href="https://github.com/zero88/jooqx/pull/102">#102</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Support plain SQL <a href="https://github.com/zero88/jooqx/pull/100">#100</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/add rxify builder <a href="https://github.com/zero88/jooqx/pull/95">#95</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/remove lombok <a href="https://github.com/zero88/jooqx/pull/92">#92</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/add documentation branch <a href="https://github.com/zero88/jooqx/pull/86">#86</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Remove lombok in jpa-ext <a href="https://github.com/zero88/jooqx/pull/84">#84</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/remove lombok in rsql <a href="https://github.com/zero88/jooqx/pull/68">#68</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/upgrade project deps <a href="https://github.com/zero88/jooqx/pull/64">#64</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/merge with rsql project <a href="https://github.com/zero88/jooqx/pull/62">#62</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/support ddl <a href="https://github.com/zero88/jooqx/pull/52">#52</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/spi provider <a href="https://github.com/zero88/jooqx/pull/50">#50</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_1_0_0"><a class="anchor" href="#_1_0_0"></a><a href="https://github.com/zero88/jooqx/tree/v1.0.0">1.0.0</a></h2>
 <div class="sectionbody">
 <div class="paragraph">

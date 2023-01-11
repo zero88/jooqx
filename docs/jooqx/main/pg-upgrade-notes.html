@@ -207,7 +207,43 @@
 <div class="sect1">
 <h2 id="_from_v1_to_v2"><a class="anchor" href="#_from_v1_to_v2"></a>From v1 to v2</h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p>This is a list of importance breaking-changes from <code>v1</code> to <code>v2</code>: <a href="https://github.com/zero88/jooqx/issues?q=label%3Abreaking-changes+milestone%3A%22Version+2.0.0-rc1%22">breaking-changes</a></p>
+</div>
+<div class="paragraph">
+<p>In most case, the main API that means how to initialize <code>jooqx</code> instance and how to execute SQL query via <code>jooqx</code>, was not changed.
+But, some importance changes in package/module level and project artifact name need to be updated by yourself:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Update library dependency:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Rename main artifact from <code>io.github.zero88:jooqx-core</code> to <code>io.github.zero88:jooqx</code></p>
+</li>
+<li>
+<p>So you have to update the build descriptor. Follow <a href="core-usage.html" class="xref page">Use jOOQ.x in your project</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Change package name:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Replace all <code>import</code> statement in java files from <code>import io.zero88.jooqx</code> &#8658; <code>import io.github.zero88.jooqx</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Change <code>JsonRecord</code> interface. See this <a href="https://github.com/zero88/jooqx/commit/b17556cf5bd193cdcacc25beb57725b35743a835">pull request</a></p>
+</li>
+</ol>
+</div>
 </div>
 </div>
 </article>
