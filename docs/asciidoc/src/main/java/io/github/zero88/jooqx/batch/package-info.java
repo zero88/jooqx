@@ -8,13 +8,13 @@
  * // tag::batch[]
  * [source,$lang,subs="attributes,verbatim"]
  * ----
- * {@link io.github.zero88.jooqx.batch.ExampleBatch#batch(io.github.zero88.jooqx.Jooqx)}
+ * {@link io.github.zero88.jooqx.batch.ExampleBatch#batch(io.github.zero88.jooqx.Jooqx, io.github.zero88.jooqx.BindBatchValues)}
  * ----
  * // end::batch[]
  * // tag::batchWithReturning[]
  * [source,$lang,subs="attributes,verbatim"]
  * ----
- * {@link io.github.zero88.jooqx.batch.ExampleBatch#batchWithReturning(io.github.zero88.jooqx.Jooqx)}
+ * {@link io.github.zero88.jooqx.batch.ExampleBatch#batchWithReturning(io.github.zero88.jooqx.Jooqx, io.github.zero88.jooqx.BindBatchValues)}
  * ----
  * // end::batchWithReturning[]
  */
