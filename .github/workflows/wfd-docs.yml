@@ -11,7 +11,7 @@ on:
         required: true
       semanticVersion:
         description: 'Project semantic version'
-        required: true
+        required: false
       hashVersion:
         description: 'Project hash commit'
         required: true
@@ -21,7 +21,7 @@ on:
       isRelease:
         description: 'Is release'
         required: false
-        default: fasle
+        default: false
       antoraBuildDir:
         description: 'Specifics Antora output dir per profile'
         required: true
