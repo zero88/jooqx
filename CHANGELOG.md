@@ -1,5 +1,70 @@
 # Changelog
 
+## [v2.0.0-rc1](https://github.com/zero88/jooqx/tree/v2.0.0-rc1) (2023-01-11)
+
+[Full Changelog](https://github.com/zero88/jooqx/compare/v1.0.0...v2.0.0-rc1)
+
+**Breaking changes:**
+
+- Move SQLResultAdapter is close to RowDecoder  [\#115](https://github.com/zero88/jooqx/issues/115)
+- Breaking change to jooqx v2 [\#101](https://github.com/zero88/jooqx/issues/101)
+- JSON serialization SPI [\#12](https://github.com/zero88/jooqx/issues/12)
+
+**Implemented enhancements:**
+
+- Able to execute multiple statements in one connection [\#137](https://github.com/zero88/jooqx/issues/137)
+- Add shortcut for fetchJsonObject/fetchJsonArray [\#133](https://github.com/zero88/jooqx/issues/133)
+- Add shortcut for fetchOne/fetchMany/fetchExists/fetchCount into jooqx [\#129](https://github.com/zero88/jooqx/issues/129)
+- Refactor code generation for `rxify` [\#103](https://github.com/zero88/jooqx/issues/103)
+- Support SQL block [\#98](https://github.com/zero88/jooqx/issues/98)
+- Support plain SQL [\#97](https://github.com/zero88/jooqx/issues/97)
+- Support mutiny [\#83](https://github.com/zero88/jooqx/issues/83)
+- Support Rx3 [\#82](https://github.com/zero88/jooqx/issues/82)
+- Remove lombok dependency [\#65](https://github.com/zero88/jooqx/issues/65)
+- Support DDL [\#51](https://github.com/zero88/jooqx/issues/51)
+- Introduce jooqx SPI provider [\#49](https://github.com/zero88/jooqx/issues/49)
+- Rxify for JooqxBuilder [\#38](https://github.com/zero88/jooqx/issues/38)
+- Support plain JDBC in Vertx reactive mode [\#33](https://github.com/zero88/jooqx/issues/33)
+- Support SQL Procedure [\#25](https://github.com/zero88/jooqx/issues/25)
+- Integrate with RQL [\#8](https://github.com/zero88/jooqx/issues/8)
+
+**Fixed bugs:**
+
+- MySQL select count [\#124](https://github.com/zero88/jooqx/issues/124)
+- Unable convert data by Select [\#107](https://github.com/zero88/jooqx/issues/107)
+- Wrong jooqx-core-test-fixtures on Nexus [\#53](https://github.com/zero88/jooqx/issues/53)
+
+**Closed issues:**
+
+- vertx-junit5 \> 4.2.5 always failed to open SQL connection [\#146](https://github.com/zero88/jooqx/issues/146)
+
+**Merged pull requests:**
+
+- Docs/minor update [\#152](https://github.com/zero88/jooqx/pull/152) ([zero88](https://github.com/zero88))
+- \[gradle\] Upgrade vertx-4.3.5 [\#149](https://github.com/zero88/jooqx/pull/149) ([zero88](https://github.com/zero88))
+- \[\#146\] Upgrade version of lib dependencies [\#147](https://github.com/zero88/jooqx/pull/147) ([zero88](https://github.com/zero88))
+- Update doc for release 2.0.0-rc1 [\#145](https://github.com/zero88/jooqx/pull/145) ([zero88](https://github.com/zero88))
+- \[ci\] Add changelog generator [\#142](https://github.com/zero88/jooqx/pull/142) ([zero88](https://github.com/zero88))
+- Implement JooqxSession [\#138](https://github.com/zero88/jooqx/pull/138) ([zero88](https://github.com/zero88))
+- Feature/support block sql statement [\#135](https://github.com/zero88/jooqx/pull/135) ([zero88](https://github.com/zero88))
+- Feature/add shortcut for fetch json [\#134](https://github.com/zero88/jooqx/pull/134) ([zero88](https://github.com/zero88))
+- Feature/introduce collector by sql result adapter [\#131](https://github.com/zero88/jooqx/pull/131) ([zero88](https://github.com/zero88))
+- Feature/refactor sql result adapter [\#128](https://github.com/zero88/jooqx/pull/128) ([zero88](https://github.com/zero88))
+- Feature/procedure [\#123](https://github.com/zero88/jooqx/pull/123) ([zero88](https://github.com/zero88))
+- Improvement/stablize test [\#122](https://github.com/zero88/jooqx/pull/122) ([zero88](https://github.com/zero88))
+- Feature/add reactivex generator [\#113](https://github.com/zero88/jooqx/pull/113) ([zero88](https://github.com/zero88))
+- breaking-change-to-v2 [\#102](https://github.com/zero88/jooqx/pull/102) ([zero88](https://github.com/zero88))
+- Support plain SQL [\#100](https://github.com/zero88/jooqx/pull/100) ([zero88](https://github.com/zero88))
+- Feature/add rxify builder [\#95](https://github.com/zero88/jooqx/pull/95) ([zero88](https://github.com/zero88))
+- Feature/remove lombok [\#92](https://github.com/zero88/jooqx/pull/92) ([zero88](https://github.com/zero88))
+- Feature/add documentation branch [\#86](https://github.com/zero88/jooqx/pull/86) ([zero88](https://github.com/zero88))
+- Remove lombok in jpa-ext [\#84](https://github.com/zero88/jooqx/pull/84) ([zero88](https://github.com/zero88))
+- Feature/remove lombok in rsql [\#68](https://github.com/zero88/jooqx/pull/68) ([zero88](https://github.com/zero88))
+- Feature/upgrade project deps [\#64](https://github.com/zero88/jooqx/pull/64) ([zero88](https://github.com/zero88))
+- Feature/merge with rsql project [\#62](https://github.com/zero88/jooqx/pull/62) ([zero88](https://github.com/zero88))
+- Feature/support ddl [\#52](https://github.com/zero88/jooqx/pull/52) ([zero88](https://github.com/zero88))
+- Feature/spi provider [\#50](https://github.com/zero88/jooqx/pull/50) ([zero88](https://github.com/zero88))
+
 ## [1.0.0](https://github.com/zero88/jooqx/tree/v1.0.0)
 
 [Full Changelog](https://github.com/zero88/jooqx/compare/f7e4efadba4209f4b39548e08bf60ba814e4c6bb...HEAD)
