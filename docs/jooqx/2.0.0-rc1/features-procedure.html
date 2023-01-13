@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>SQL procedure :: Reactive SQL with Vert.x and jOOQ</title>
+    <link rel="canonical" href="https://zero88.github.io/jooqx/jooqx/main/features-procedure.html">
+    <meta name="generator" content="Antora 3.0.1">
+    <link rel="stylesheet" href="../../_/css/site.css">
+<link rel="icon" href="../../favicon.ico" type="image/x-icon"/>
+<link rel="stylesheet" href="../../_/css/site-extra.css"/>
+    <script>var uiRootPath = '../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://zero88.github.io/jooqx">Reactive SQL with Vert.x and jOOQ</a>
+                <div class="navbar-item search hide-for-print">
+                    <div id="search-field" class="field">
+                        <input id="search-input" type="text" placeholder="Search the docs"
+                            />
+                    </div>
+                </div>
+            <button class="navbar-burger" data-target="topbar-nav">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <div id="topbar-nav" class="navbar-menu">
+            <div class="navbar-end">
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <div class="navbar-link">Projects</div>
+                    <div class="navbar-dropdown">
+                        <div class="navbar-item"><strong>jOOQ.x</strong></div>
+                        <a class="navbar-item" href="https://github.com/zero88/jooqx">
+                            <img height="16" width="16" src="https://cdn.jsdelivr.net/npm/simple-icons@v6/icons/github.svg"
+                                 alt="GitHub"/>
+                            <span style="padding-left: 5px">Repository</span>
+                        </a>
+                        <a class="navbar-item" href="https://github.com/zero88/jooqx/issues">Issue Tracker</a>
+                        <hr class="navbar-divider">
+                        <a class="navbar-item" href="https://github.com/zero88/jooqx">Contributing</a>
+                    </div>
+                </div>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <div class="navbar-link">Community</div>
+                    <div class="navbar-dropdown is-right">
+                        <!--<a class="navbar-item" href="https://antora.zulipchat.com">Chat (Zulip)</a>-->
+                    </div>
+                </div>
+                <a class="navbar-item" href="https://github.com/zero88/jooqx">
+                    <img height="32" width="32" src="https://cdn.jsdelivr.net/npm/simple-icons@v6/icons/github.svg" alt="GitHub"/>
+                </a>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="jooqx" data-version="2.0.0-rc1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">jOOQ.x</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Core</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">What it helps</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="core-how-jooqx-works.html">How it works</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="core-usage.html">Usage</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="core-quickstart.html">Quickstart</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="core-api-reference.html">API Reference</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-basic.html">Basic usage</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-dml.html">SQL daily job</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-ddl.html">SQL DDL</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-plain-sql.html">SQL plain statement</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-batch.html">SQL batch</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="features-procedure.html">SQL procedure</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-transaction.html">SQL transaction</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-result-adapter.html">Result adapter</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-datatype-mapper.html">DataType mapper</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-error-handler.html">Error handler</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-rxify.html">Rxify version</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <span class="nav-text"><a href="/jooqx/2.0.0-rc1/_attachments/javadoc/index.html" class="xref attachment" target="_blank" rel="noopener">API docs</a></span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Project Governance</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-changelog.html">Changelog</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-upgrade-notes.html">Upgrade notes</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-release-schedule.html">Release schedule</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-copyright-and-license.html">Copyright and License</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Testing</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="testing/index.html">Development</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <span class="nav-text"><a href="/jooqx/2.0.0-rc1/testing/_attachments/javadoc/index.html" class="xref attachment" target="_blank" rel="noopener">API docs</a></span>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">jOOQ.x</span>
+    <span class="version">2.0.0-rc1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../main/index.html">jOOQ.x</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../main/index.html">main</a>
+        </li>
+        <li class="version is-current">
+          <a href="index.html">2.0.0-rc1</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../rsql/main/index.html">RSQL</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../rsql/main/index.html">main</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../main/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">jOOQ.x</a></li>
+    <li>Core</li>
+    <li><a href="core-api-reference.html">API Reference</a></li>
+    <li><a href="features-procedure.html">SQL procedure</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">2.0.0-rc1</button>
+  <div class="version-menu">
+    <a class="version" href="../main/features-procedure.html">main</a>
+    <a class="version is-current" href="features-procedure.html">2.0.0-rc1</a>
+  </div>
+</div>
+  <div class="edit-this-page"><a href="https://github.com/zero88/jooqx/blob/docs/jooqx/v2.0.0-rc1/antora/jooqx/modules/ROOT/pages/features-procedure.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">SQL procedure</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>See <a href="https://www.jooq.org/doc/latest/manual/sql-execution/stored-procedures/">jOOQ stored-procedures</a></p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s check some function/procedure examples</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_simple_function"><a class="anchor" href="#_simple_function"></a>Simple function</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Add addFn = new Add();                      <i class="conum" data-value="1"></i><b>(1)</b>
+addFn.set__1(5);                            <i class="conum" data-value="2"></i><b>(2)</b>
+addFn.set__2(10);
+jooqx.routine(addFn).onSuccess(output -&gt; {  <i class="conum" data-value="3"></i><b>(3)</b>
+    assert 15 == output;
+}).onFailure(Throwable::printStackTrace);   <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_with_out_parameters"><a class="anchor" href="#_with_out_parameters"></a>With out-parameters</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">Dup dup = new Dup();                                                                <i class="conum" data-value="1"></i><b>(1)</b>
+// Routine has 1 in-parameter and 2 out-parameters
+dup.set__1(5);                                                                      <i class="conum" data-value="2"></i><b>(2)</b>
+jooqx.routineResult(dup).onSuccess(rr -&gt; {
+    Record record = rr.getRecord();                                                 <i class="conum" data-value="3"></i><b>(3)</b>
+    Field&lt;?&gt;[] outputFields = rr.getOutputFields();                                 <i class="conum" data-value="4"></i><b>(4)</b>
+    assert Objects.equals(Arrays.toString(outputFields), "[\"f1\", \"f2\"]");
+    assert record.fields().length == 2;
+    assert 5 == (Integer) record.get(outputFields[0]);
+    assert Objects.equals(record.get(outputFields[1]), "5 is text");
+    assert Objects.equals(record.toString(), """
+        +----+----------+
+        |  f1|f2        |
+        +----+----------+
+        |  *5|*5 is text|
+        +----+----------+
+        """);                                                                      <i class="conum" data-value="5"></i><b>(5)</b>
+}).onFailure(Throwable::printStackTrace);                                          <i class="conum" data-value="6"></i><b>(6)</b></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_with_output_is_result_set"><a class="anchor" href="#_with_output_is_result_set"></a>With output is result set</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">jooqx.fetchMany(dsl -&gt; dsl.selectFrom(Tables.FIND_AUTHORS.call("Sc"))).onSuccess(rows -&gt; {
+    assert Objects.equals(rows.toString(), """
+        [+----+---------------------+-------+
+        |  id|name                 |country|
+        +----+---------------------+-------+
+        |  *2|*F. Scott. Fitzgerald|*USA   |
+        +----+---------------------+-------+
+        , +----+----------------+-------+
+        |  id|name            |country|
+        +----+----------------+-------+
+        |  *4|*Scott Hanselman|*USA   |
+        +----+----------------+-------+
+        ]
+        """);
+    FindAuthorsRecord rec1 = rows.get(0);
+    assert rec1.getId() == 2;
+    assert Objects.equals(rec1.getName(), "F. Scott. Fitzgerald");
+}).onFailure(Throwable::printStackTrace);</code></pre>
+</div>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+    <p>The jOOQ.x documentation site is generated using <a href="https://antora.org" target="_blank">Antora</a> and
+        <a href="https://github.com/vert-x3/vertx-docgen" target="_blank">Vert.x docgen</a>.</p>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+    <script async src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script>
+    <script async src="../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../.."
+            data-snippet-length="${snippetLength}" data-stylesheet="../../_/css/search.css"></script>
+    <script async src="../../search-index.js"></script>
+  </body>
+</html>

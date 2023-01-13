@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"io.github.zero88.jooqx"},{"l":"io.github.zero88.jooqx.spi.mysql"},{"l":"io.github.zero88.jooqx.spi.pg"}];updateSearchResults();

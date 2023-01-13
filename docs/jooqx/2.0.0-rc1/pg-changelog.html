@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Changelog :: Reactive SQL with Vert.x and jOOQ</title>
+    <link rel="canonical" href="https://zero88.github.io/jooqx/jooqx/main/pg-changelog.html">
+    <meta name="generator" content="Antora 3.0.1">
+    <link rel="stylesheet" href="../../_/css/site.css">
+<link rel="icon" href="../../favicon.ico" type="image/x-icon"/>
+<link rel="stylesheet" href="../../_/css/site-extra.css"/>
+    <script>var uiRootPath = '../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://zero88.github.io/jooqx">Reactive SQL with Vert.x and jOOQ</a>
+                <div class="navbar-item search hide-for-print">
+                    <div id="search-field" class="field">
+                        <input id="search-input" type="text" placeholder="Search the docs"
+                            />
+                    </div>
+                </div>
+            <button class="navbar-burger" data-target="topbar-nav">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <div id="topbar-nav" class="navbar-menu">
+            <div class="navbar-end">
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <div class="navbar-link">Projects</div>
+                    <div class="navbar-dropdown">
+                        <div class="navbar-item"><strong>jOOQ.x</strong></div>
+                        <a class="navbar-item" href="https://github.com/zero88/jooqx">
+                            <img height="16" width="16" src="https://cdn.jsdelivr.net/npm/simple-icons@v6/icons/github.svg"
+                                 alt="GitHub"/>
+                            <span style="padding-left: 5px">Repository</span>
+                        </a>
+                        <a class="navbar-item" href="https://github.com/zero88/jooqx/issues">Issue Tracker</a>
+                        <hr class="navbar-divider">
+                        <a class="navbar-item" href="https://github.com/zero88/jooqx">Contributing</a>
+                    </div>
+                </div>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <div class="navbar-link">Community</div>
+                    <div class="navbar-dropdown is-right">
+                        <!--<a class="navbar-item" href="https://antora.zulipchat.com">Chat (Zulip)</a>-->
+                    </div>
+                </div>
+                <a class="navbar-item" href="https://github.com/zero88/jooqx">
+                    <img height="32" width="32" src="https://cdn.jsdelivr.net/npm/simple-icons@v6/icons/github.svg" alt="GitHub"/>
+                </a>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="jooqx" data-version="2.0.0-rc1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">jOOQ.x</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Core</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">What it helps</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="core-how-jooqx-works.html">How it works</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="core-usage.html">Usage</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="core-quickstart.html">Quickstart</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="core-api-reference.html">API Reference</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-basic.html">Basic usage</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-dml.html">SQL daily job</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-ddl.html">SQL DDL</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-plain-sql.html">SQL plain statement</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-batch.html">SQL batch</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-procedure.html">SQL procedure</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-transaction.html">SQL transaction</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-result-adapter.html">Result adapter</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-datatype-mapper.html">DataType mapper</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-error-handler.html">Error handler</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-rxify.html">Rxify version</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <span class="nav-text"><a href="/jooqx/2.0.0-rc1/_attachments/javadoc/index.html" class="xref attachment" target="_blank" rel="noopener">API docs</a></span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Project Governance</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="pg-changelog.html">Changelog</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-upgrade-notes.html">Upgrade notes</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-release-schedule.html">Release schedule</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-copyright-and-license.html">Copyright and License</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Testing</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="testing/index.html">Development</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <span class="nav-text"><a href="/jooqx/2.0.0-rc1/testing/_attachments/javadoc/index.html" class="xref attachment" target="_blank" rel="noopener">API docs</a></span>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">jOOQ.x</span>
+    <span class="version">2.0.0-rc1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../main/index.html">jOOQ.x</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../main/index.html">main</a>
+        </li>
+        <li class="version is-current">
+          <a href="index.html">2.0.0-rc1</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../rsql/main/index.html">RSQL</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../rsql/main/index.html">main</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../main/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">jOOQ.x</a></li>
+    <li>Project Governance</li>
+    <li><a href="pg-changelog.html">Changelog</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">2.0.0-rc1</button>
+  <div class="version-menu">
+    <a class="version" href="../main/pg-changelog.html">main</a>
+    <a class="version is-current" href="pg-changelog.html">2.0.0-rc1</a>
+  </div>
+</div>
+  <div class="edit-this-page"><a href="https://github.com/zero88/jooqx/blob/docs/jooqx/v2.0.0-rc1/antora/jooqx/modules/ROOT/pages/pg-changelog.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Changelog</h1>
+<div class="sect1">
+<h2 id="_v2_0_0_rc1_2023_01_11"><a class="anchor" href="#_v2_0_0_rc1_2023_01_11"></a><a href="https://github.com/zero88/jooqx/tree/v2.0.0-rc1">v2.0.0-rc1</a> (2023-01-11)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://github.com/zero88/jooqx/compare/v1.0.0&#8230;&#8203;v2.0.0-rc1">Full Changelog</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Breaking changes:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Move SQLResultAdapter is close to RowDecoder <a href="https://github.com/zero88/jooqx/issues/115">#115</a></p>
+</li>
+<li>
+<p>Breaking change to jooqx v2 <a href="https://github.com/zero88/jooqx/issues/101">#101</a></p>
+</li>
+<li>
+<p>JSON serialization SPI <a href="https://github.com/zero88/jooqx/issues/12">#12</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Implemented enhancements:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Able to execute multiple statements in one connection <a href="https://github.com/zero88/jooqx/issues/137">#137</a></p>
+</li>
+<li>
+<p>Add shortcut for fetchJsonObject/fetchJsonArray <a href="https://github.com/zero88/jooqx/issues/133">#133</a></p>
+</li>
+<li>
+<p>Add shortcut for fetchOne/fetchMany/fetchExists/fetchCount into jooqx <a href="https://github.com/zero88/jooqx/issues/129">#129</a></p>
+</li>
+<li>
+<p>Refactor code generation for <code>rxify</code> <a href="https://github.com/zero88/jooqx/issues/103">#103</a></p>
+</li>
+<li>
+<p>Support SQL block <a href="https://github.com/zero88/jooqx/issues/98">#98</a></p>
+</li>
+<li>
+<p>Support plain SQL <a href="https://github.com/zero88/jooqx/issues/97">#97</a></p>
+</li>
+<li>
+<p>Support mutiny <a href="https://github.com/zero88/jooqx/issues/83">#83</a></p>
+</li>
+<li>
+<p>Support Rx3 <a href="https://github.com/zero88/jooqx/issues/82">#82</a></p>
+</li>
+<li>
+<p>Remove lombok dependency <a href="https://github.com/zero88/jooqx/issues/65">#65</a></p>
+</li>
+<li>
+<p>Support DDL <a href="https://github.com/zero88/jooqx/issues/51">#51</a></p>
+</li>
+<li>
+<p>Introduce jooqx SPI provider <a href="https://github.com/zero88/jooqx/issues/49">#49</a></p>
+</li>
+<li>
+<p>Rxify for JooqxBuilder <a href="https://github.com/zero88/jooqx/issues/38">#38</a></p>
+</li>
+<li>
+<p>Support plain JDBC in Vertx reactive mode <a href="https://github.com/zero88/jooqx/issues/33">#33</a></p>
+</li>
+<li>
+<p>Support SQL Procedure <a href="https://github.com/zero88/jooqx/issues/25">#25</a></p>
+</li>
+<li>
+<p>Integrate with RQL <a href="https://github.com/zero88/jooqx/issues/8">#8</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Fixed bugs:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>MySQL select count <a href="https://github.com/zero88/jooqx/issues/124">#124</a></p>
+</li>
+<li>
+<p>Unable convert data by Select <a href="https://github.com/zero88/jooqx/issues/107">#107</a></p>
+</li>
+<li>
+<p>Wrong jooqx-core-test-fixtures on Nexus <a href="https://github.com/zero88/jooqx/issues/53">#53</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Closed issues:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>vertx-junit5 &gt; 4.2.5 always failed to open SQL connection <a href="https://github.com/zero88/jooqx/issues/146">#146</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Merged pull requests:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Docs/minor update <a href="https://github.com/zero88/jooqx/pull/152">#152</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>[gradle] Upgrade vertx-4.3.5 <a href="https://github.com/zero88/jooqx/pull/149">#149</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>[#146] Upgrade version of lib dependencies <a href="https://github.com/zero88/jooqx/pull/147">#147</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Update doc for release 2.0.0-rc1 <a href="https://github.com/zero88/jooqx/pull/145">#145</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>[ci] Add changelog generator <a href="https://github.com/zero88/jooqx/pull/142">#142</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Implement JooqxSession <a href="https://github.com/zero88/jooqx/pull/138">#138</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/support block sql statement <a href="https://github.com/zero88/jooqx/pull/135">#135</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/add shortcut for fetch json <a href="https://github.com/zero88/jooqx/pull/134">#134</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/introduce collector by sql result adapter <a href="https://github.com/zero88/jooqx/pull/131">#131</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/refactor sql result adapter <a href="https://github.com/zero88/jooqx/pull/128">#128</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/procedure <a href="https://github.com/zero88/jooqx/pull/123">#123</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Improvement/stablize test <a href="https://github.com/zero88/jooqx/pull/122">#122</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/add reactivex generator <a href="https://github.com/zero88/jooqx/pull/113">#113</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>breaking-change-to-v2 <a href="https://github.com/zero88/jooqx/pull/102">#102</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Support plain SQL <a href="https://github.com/zero88/jooqx/pull/100">#100</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/add rxify builder <a href="https://github.com/zero88/jooqx/pull/95">#95</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/remove lombok <a href="https://github.com/zero88/jooqx/pull/92">#92</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/add documentation branch <a href="https://github.com/zero88/jooqx/pull/86">#86</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Remove lombok in jpa-ext <a href="https://github.com/zero88/jooqx/pull/84">#84</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/remove lombok in rsql <a href="https://github.com/zero88/jooqx/pull/68">#68</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/upgrade project deps <a href="https://github.com/zero88/jooqx/pull/64">#64</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/merge with rsql project <a href="https://github.com/zero88/jooqx/pull/62">#62</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/support ddl <a href="https://github.com/zero88/jooqx/pull/52">#52</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/spi provider <a href="https://github.com/zero88/jooqx/pull/50">#50</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_1_0_0"><a class="anchor" href="#_1_0_0"></a><a href="https://github.com/zero88/jooqx/tree/v1.0.0">1.0.0</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://github.com/zero88/jooqx/compare/f7e4efadba4209f4b39548e08bf60ba814e4c6bb&#8230;&#8203;HEAD">Full Changelog</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Closed issues:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Document &amp; usage <a href="https://github.com/zero88/jooqx/issues/24">#24</a></p>
+</li>
+<li>
+<p>Vertx gen to Rxify <a href="https://github.com/zero88/jooqx/issues/18">#18</a></p>
+</li>
+<li>
+<p>Test with complex query that return join result to ensure VertxJooqRecord can handle <a href="https://github.com/zero88/jooqx/issues/11">#11</a></p>
+</li>
+<li>
+<p>Add some useful basic SQL query as DAO function <a href="https://github.com/zero88/jooqx/issues/10">#10</a></p>
+</li>
+<li>
+<p>Convert result from VertxJooqRecord to Table record or Table pojo <a href="https://github.com/zero88/jooqx/issues/9">#9</a></p>
+</li>
+<li>
+<p>Support SQL transaction <a href="https://github.com/zero88/jooqx/issues/7">#7</a></p>
+</li>
+<li>
+<p>Data type converter between Vertx SQL and jOOQ <a href="https://github.com/zero88/jooqx/issues/6">#6</a></p>
+</li>
+<li>
+<p>Error handling <a href="https://github.com/zero88/jooqx/issues/5">#5</a></p>
+</li>
+<li>
+<p>Support batch DML <a href="https://github.com/zero88/jooqx/issues/3">#3</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Merged pull requests:</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Feature/rxify v2 <a href="https://github.com/zero88/jooqx/pull/34">#34</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Vert.x jOOQ Data converter <a href="https://github.com/zero88/jooqx/pull/32">#32</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Improve/api-2-document <a href="https://github.com/zero88/jooqx/pull/30">#30</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/docs <a href="https://github.com/zero88/jooqx/pull/28">#28</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/transaction <a href="https://github.com/zero88/jooqx/pull/21">#21</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/complex query <a href="https://github.com/zero88/jooqx/pull/19">#19</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/common dsl <a href="https://github.com/zero88/jooqx/pull/17">#17</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/error handling <a href="https://github.com/zero88/jooqx/pull/16">#16</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Feature/support batch <a href="https://github.com/zero88/jooqx/pull/15">#15</a> (<a href="https://github.com/zero88">zero88</a>)</p>
+</li>
+<li>
+<p>Bump actions/cache from v2 to v2.1.4 <a href="https://github.com/zero88/jooqx/pull/14">#14</a> (<a href="https://github.com/apps/dependabot">dependabot[bot</a>])</p>
+</li>
+<li>
+<p>Bump zero88/gh-project-context from v1.0.0 to v1.0.3 <a href="https://github.com/zero88/jooqx/pull/2">#2</a> (<a href="https://github.com/apps/dependabot">dependabot[bot</a>])</p>
+</li>
+<li>
+<p>Bump actions/cache from v2.1.3 to v2.1.4 <a href="https://github.com/zero88/jooqx/pull/1">#1</a> (<a href="https://github.com/apps/dependabot">dependabot[bot</a>])</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><em>This Changelog was automatically generated by <a href="https://github.com/github-changelog-generator/github-changelog-generator">github_changelog_generator</a></em></p>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+    <p>The jOOQ.x documentation site is generated using <a href="https://antora.org" target="_blank">Antora</a> and
+        <a href="https://github.com/vert-x3/vertx-docgen" target="_blank">Vert.x docgen</a>.</p>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+    <script async src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script>
+    <script async src="../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../.."
+            data-snippet-length="${snippetLength}" data-stylesheet="../../_/css/search.css"></script>
+    <script async src="../../search-index.js"></script>
+  </body>
+</html>

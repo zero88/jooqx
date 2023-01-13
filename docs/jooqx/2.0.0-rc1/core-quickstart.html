@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>jOOQ.x Quickstart :: Reactive SQL with Vert.x and jOOQ</title>
+    <link rel="canonical" href="https://zero88.github.io/jooqx/jooqx/main/core-quickstart.html">
+    <meta name="generator" content="Antora 3.0.1">
+    <link rel="stylesheet" href="../../_/css/site.css">
+<link rel="icon" href="../../favicon.ico" type="image/x-icon"/>
+<link rel="stylesheet" href="../../_/css/site-extra.css"/>
+    <script>var uiRootPath = '../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="https://zero88.github.io/jooqx">Reactive SQL with Vert.x and jOOQ</a>
+                <div class="navbar-item search hide-for-print">
+                    <div id="search-field" class="field">
+                        <input id="search-input" type="text" placeholder="Search the docs"
+                            />
+                    </div>
+                </div>
+            <button class="navbar-burger" data-target="topbar-nav">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+        <div id="topbar-nav" class="navbar-menu">
+            <div class="navbar-end">
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <div class="navbar-link">Projects</div>
+                    <div class="navbar-dropdown">
+                        <div class="navbar-item"><strong>jOOQ.x</strong></div>
+                        <a class="navbar-item" href="https://github.com/zero88/jooqx">
+                            <img height="16" width="16" src="https://cdn.jsdelivr.net/npm/simple-icons@v6/icons/github.svg"
+                                 alt="GitHub"/>
+                            <span style="padding-left: 5px">Repository</span>
+                        </a>
+                        <a class="navbar-item" href="https://github.com/zero88/jooqx/issues">Issue Tracker</a>
+                        <hr class="navbar-divider">
+                        <a class="navbar-item" href="https://github.com/zero88/jooqx">Contributing</a>
+                    </div>
+                </div>
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <div class="navbar-link">Community</div>
+                    <div class="navbar-dropdown is-right">
+                        <!--<a class="navbar-item" href="https://antora.zulipchat.com">Chat (Zulip)</a>-->
+                    </div>
+                </div>
+                <a class="navbar-item" href="https://github.com/zero88/jooqx">
+                    <img height="32" width="32" src="https://cdn.jsdelivr.net/npm/simple-icons@v6/icons/github.svg" alt="GitHub"/>
+                </a>
+            </div>
+        </div>
+    </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="jooqx" data-version="2.0.0-rc1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">jOOQ.x</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Core</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">What it helps</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="core-how-jooqx-works.html">How it works</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="core-usage.html">Usage</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="core-quickstart.html">Quickstart</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="core-api-reference.html">API Reference</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-basic.html">Basic usage</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-dml.html">SQL daily job</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-ddl.html">SQL DDL</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-plain-sql.html">SQL plain statement</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-batch.html">SQL batch</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-procedure.html">SQL procedure</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-transaction.html">SQL transaction</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-result-adapter.html">Result adapter</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-datatype-mapper.html">DataType mapper</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-error-handler.html">Error handler</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="features-rxify.html">Rxify version</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <span class="nav-text"><a href="/jooqx/2.0.0-rc1/_attachments/javadoc/index.html" class="xref attachment" target="_blank" rel="noopener">API docs</a></span>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Project Governance</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-changelog.html">Changelog</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-upgrade-notes.html">Upgrade notes</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-release-schedule.html">Release schedule</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="pg-copyright-and-license.html">Copyright and License</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Testing</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="testing/index.html">Development</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <span class="nav-text"><a href="/jooqx/2.0.0-rc1/testing/_attachments/javadoc/index.html" class="xref attachment" target="_blank" rel="noopener">API docs</a></span>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">jOOQ.x</span>
+    <span class="version">2.0.0-rc1</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../main/index.html">jOOQ.x</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../main/index.html">main</a>
+        </li>
+        <li class="version is-current">
+          <a href="index.html">2.0.0-rc1</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <a class="title" href="../../rsql/main/index.html">RSQL</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../rsql/main/index.html">main</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../main/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">jOOQ.x</a></li>
+    <li>Core</li>
+    <li><a href="core-quickstart.html">Quickstart</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">2.0.0-rc1</button>
+  <div class="version-menu">
+    <a class="version" href="../main/core-quickstart.html">main</a>
+    <a class="version is-current" href="core-quickstart.html">2.0.0-rc1</a>
+  </div>
+</div>
+  <div class="edit-this-page"><a href="https://github.com/zero88/jooqx/blob/docs/jooqx/v2.0.0-rc1/antora/jooqx/modules/ROOT/pages/core-quickstart.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">jOOQ.x Quickstart</h1>
+<div class="sect1">
+<h2 id="_prerequisite"><a class="anchor" href="#_prerequisite"></a>Prerequisite</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Assume you know how to use <a href="https://www.jooq.org/doc/3.14/manual/code-generation/">jOOQ code generation</a> and able to generate your database schema.</p>
+</div>
+<div class="paragraph">
+<p>You can use: <a href="https://www.jooq.org/doc/3.14/manual/code-generation/codegen-maven/">Maven jOOQ codegen</a> or <a href="https://github.com/etiennestuder/gradle-jooq-plugin">Gradle jOOQ plugin</a></p>
+</div>
+</div>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+    <p>The jOOQ.x documentation site is generated using <a href="https://antora.org" target="_blank">Antora</a> and
+        <a href="https://github.com/vert-x3/vertx-docgen" target="_blank">Vert.x docgen</a>.</p>
+</footer>
+<script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+    <script async src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script>
+    <script async src="../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../.."
+            data-snippet-length="${snippetLength}" data-stylesheet="../../_/css/search.css"></script>
+    <script async src="../../search-index.js"></script>
+  </body>
+</html>

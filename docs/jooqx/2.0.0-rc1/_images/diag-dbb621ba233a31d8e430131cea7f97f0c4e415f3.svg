@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="1019px" preserveAspectRatio="none" style="width:1095px;height:1019px;background:#FFFFFF;" version="1.1" viewBox="0 0 1095 1019" width="1095px" zoomAndPan="magnify"><defs/><g><rect fill="#FFFFFF" height="29.1328" style="stroke:#181818;stroke-width:1.0;" width="10" x="289.5" y="155.5625"/><rect fill="#FFFFFF" height="663.5234" style="stroke:#181818;stroke-width:1.0;" width="10" x="445.5" y="256.9609"/><rect fill="#E9967A" height="121.5313" style="stroke:#181818;stroke-width:1.0;" width="10" x="450.5" y="328.2266"/><rect fill="#ADD8E6" height="98.3984" style="stroke:#181818;stroke-width:1.0;" width="10" x="450.5" y="496.8906"/><rect fill="#FFFFFF" height="29.1328" style="stroke:#181818;stroke-width:1.0;" width="10" x="729.5" y="362.3594"/><rect fill="#FFFFFF" height="29.1328" style="stroke:#181818;stroke-width:1.0;" width="10" x="729.5" y="420.625"/><rect fill="#FFFFFF" height="29.1328" style="stroke:#181818;stroke-width:1.0;" width="10" x="729.5" y="531.0234"/><rect fill="#FFFFFF" height="158.6641" style="stroke:#181818;stroke-width:1.0;" width="10" x="900.5" y="715.6875"/><rect fill="#FFFFFF" height="29.1328" style="stroke:#181818;stroke-width:1.0;" width="10" x="1045.5" y="773.9531"/><rect fill="none" height="348.3281" style="stroke:#000000;stroke-width:1.5;" width="441" x="374" y="271.9609"/><rect fill="none" height="224.9297" style="stroke:#000000;stroke-width:1.5;" width="704.5" x="374" y="667.4219"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="90" x2="90" y1="81.2969" y2="938.4844"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="294" x2="294" y1="81.2969" y2="938.4844"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="450" x2="450" y1="81.2969" y2="938.4844"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="734" x2="734" y1="81.2969" y2="938.4844"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="905" x2="905" y1="81.2969" y2="938.4844"/><line style="stroke:#181818;stroke-width:0.5;stroke-dasharray:5.0,5.0;" x1="1050.5" x2="1050.5" y1="81.2969" y2="938.4844"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="25" x="75" y="77.9951">dev</text><ellipse cx="90.5" cy="13.5" fill="#E2E2F0" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M90.5,21.5 L90.5,48.5 M77.5,29.5 L103.5,29.5 M90.5,48.5 L77.5,63.5 M90.5,48.5 L103.5,63.5 " fill="none" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="25" x="75" y="950.4795">dev</text><ellipse cx="90.5" cy="962.2813" fill="#E2E2F0" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M90.5,970.2813 L90.5,997.2813 M77.5,978.2813 L103.5,978.2813 M90.5,997.2813 L77.5,1012.2813 M90.5,997.2813 L103.5,1012.2813 " fill="none" style="stroke:#181818;stroke-width:0.5;"/><rect fill="#E2E2F0" height="46.5938" style="stroke:#181818;stroke-width:0.5;" width="95" x="249" y="29.7031"/><rect fill="#E2E2F0" height="46.5938" style="stroke:#181818;stroke-width:0.5;" width="95" x="245" y="33.7031"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="47" x="269" y="53.6982">jOOQ.x</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="81" x="252" y="69.9951">DSLAdapter</text><rect fill="#E2E2F0" height="46.5938" style="stroke:#181818;stroke-width:0.5;" width="95" x="249" y="937.4844"/><rect fill="#E2E2F0" height="46.5938" style="stroke:#181818;stroke-width:0.5;" width="95" x="245" y="941.4844"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="47" x="269" y="961.4795">jOOQ.x</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="81" x="252" y="977.7764">DSLAdapter</text><rect fill="#E2E2F0" height="46.5938" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="73" x="414" y="33.7031"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="47" x="427" y="53.6982">jOOQ.x</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="59" x="421" y="69.9951">Instance</text><rect fill="#E2E2F0" height="46.5938" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="73" x="414" y="937.4844"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="47" x="427" y="957.4795">jOOQ.x</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="59" x="421" y="973.7764">Instance</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="81" x="694" y="50"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="67" x="701" y="69.9951">jOOQ DSL</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="81" x="694" y="937.4844"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="67" x="701" y="957.4795">jOOQ DSL</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="121" x="845" y="50"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="107" x="852" y="69.9951">Vertx SQL client</text><rect fill="#E2E2F0" height="30.2969" rx="2.5" ry="2.5" style="stroke:#181818;stroke-width:0.5;" width="121" x="845" y="937.4844"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="107" x="852" y="957.4795">Vertx SQL client</text><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="21" x="1037" y="77.9951">DB</text><path d="M1032.5,29 C1032.5,19 1050.5,19 1050.5,19 C1050.5,19 1068.5,19 1068.5,29 L1068.5,55 C1068.5,65 1050.5,65 1050.5,65 C1050.5,65 1032.5,65 1032.5,55 L1032.5,29 " fill="#E2E2F0" style="stroke:#181818;stroke-width:1.5;"/><path d="M1032.5,29 C1032.5,39 1050.5,39 1050.5,39 C1050.5,39 1068.5,39 1068.5,29 " fill="none" style="stroke:#181818;stroke-width:1.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="21" x="1037" y="950.4795">DB</text><path d="M1032.5,963.7813 C1032.5,953.7813 1050.5,953.7813 1050.5,953.7813 C1050.5,953.7813 1068.5,953.7813 1068.5,963.7813 L1068.5,989.7813 C1068.5,999.7813 1050.5,999.7813 1050.5,999.7813 C1050.5,999.7813 1032.5,999.7813 1032.5,989.7813 L1032.5,963.7813 " fill="#E2E2F0" style="stroke:#181818;stroke-width:1.5;"/><path d="M1032.5,963.7813 C1032.5,973.7813 1050.5,973.7813 1050.5,973.7813 C1050.5,973.7813 1068.5,973.7813 1068.5,963.7813 " fill="none" style="stroke:#181818;stroke-width:1.5;"/><rect fill="#FFFFFF" height="29.1328" style="stroke:#181818;stroke-width:1.0;" width="10" x="289.5" y="155.5625"/><rect fill="#FFFFFF" height="663.5234" style="stroke:#181818;stroke-width:1.0;" width="10" x="445.5" y="256.9609"/><rect fill="#E9967A" height="121.5313" style="stroke:#181818;stroke-width:1.0;" width="10" x="450.5" y="328.2266"/><rect fill="#ADD8E6" height="98.3984" style="stroke:#181818;stroke-width:1.0;" width="10" x="450.5" y="496.8906"/><rect fill="#FFFFFF" height="29.1328" style="stroke:#181818;stroke-width:1.0;" width="10" x="729.5" y="362.3594"/><rect fill="#FFFFFF" height="29.1328" style="stroke:#181818;stroke-width:1.0;" width="10" x="729.5" y="420.625"/><rect fill="#FFFFFF" height="29.1328" style="stroke:#181818;stroke-width:1.0;" width="10" x="729.5" y="531.0234"/><rect fill="#FFFFFF" height="158.6641" style="stroke:#181818;stroke-width:1.0;" width="10" x="900.5" y="715.6875"/><rect fill="#FFFFFF" height="29.1328" style="stroke:#181818;stroke-width:1.0;" width="10" x="1045.5" y="773.9531"/><rect fill="#EEEEEE" height="3" style="stroke:#EEEEEE;stroke-width:1.0;" width="1088.5" x="0" y="111.8633"/><line style="stroke:#000000;stroke-width:1.0;" x1="0" x2="1088.5" y1="111.8633" y2="111.8633"/><line style="stroke:#000000;stroke-width:1.0;" x1="0" x2="1088.5" y1="114.8633" y2="114.8633"/><rect fill="#EEEEEE" height="23.1328" style="stroke:#000000;stroke-width:2.0;" width="81" x="503.75" y="101.2969"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="62" x="509.75" y="117.3638">Thinking</text><polygon fill="#181818" points="277.5,151.5625,287.5,155.5625,277.5,159.5625,281.5,155.5625" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="90.5" x2="283.5" y1="155.5625" y2="155.5625"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="174" x="97.5" y="150.4966">choose the DML/DQL query</text><polygon fill="#181818" points="101.5,180.6953,91.5,184.6953,101.5,188.6953,97.5,184.6953" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="95.5" x2="293.5" y1="184.6953" y2="184.6953"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="175" x="107.5" y="179.6294">an appropriate DSLAdapter</text><rect fill="#EEEEEE" height="3" style="stroke:#EEEEEE;stroke-width:1.0;" width="1088.5" x="0" y="213.2617"/><line style="stroke:#000000;stroke-width:1.0;" x1="0" x2="1088.5" y1="213.2617" y2="213.2617"/><line style="stroke:#000000;stroke-width:1.0;" x1="0" x2="1088.5" y1="216.2617" y2="216.2617"/><rect fill="#EEEEEE" height="23.1328" style="stroke:#000000;stroke-width:2.0;" width="90" x="499.25" y="202.6953"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="71" x="505.25" y="218.7622">Execution</text><polygon fill="#181818" points="433.5,252.9609,443.5,256.9609,433.5,260.9609,437.5,256.9609" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="90.5" x2="439.5" y1="256.9609" y2="256.9609"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="240" x="97.5" y="251.895">Execute jOOQ Query with DSLAdapter</text><path d="M374,271.9609 L438,271.9609 L438,279.0938 L428,289.0938 L374,289.0938 L374,271.9609 " fill="#EEEEEE" style="stroke:#000000;stroke-width:1.5;"/><rect fill="none" height="348.3281" style="stroke:#000000;stroke-width:1.5;" width="441" x="374" y="271.9609"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="19" x="389" y="285.0278">alt</text><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="91" x="453" y="284.1714">[SQL building]</text><line style="stroke:#181818;stroke-width:1.0;" x1="455.5" x2="502.5" y1="315.2266" y2="315.2266"/><line style="stroke:#181818;stroke-width:1.0;" x1="502.5" x2="502.5" y1="315.2266" y2="328.2266"/><line style="stroke:#181818;stroke-width:1.0;" x1="461.5" x2="502.5" y1="328.2266" y2="328.2266"/><polygon fill="#181818" points="471.5,324.2266,461.5,328.2266,471.5,332.2266,467.5,328.2266" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="223" x="467.5" y="310.1606">Create SQL Prepare Query adapter</text><polygon fill="#181818" points="717.5,358.3594,727.5,362.3594,717.5,366.3594,721.5,362.3594" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="460.5" x2="723.5" y1="362.3594" y2="362.3594"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="99" x="467.5" y="357.2935">translate Query</text><polygon fill="#181818" points="471.5,387.4922,461.5,391.4922,471.5,395.4922,467.5,391.4922" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="465.5" x2="733.5" y1="391.4922" y2="391.4922"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="131" x="477.5" y="386.4263">plain SQL statement</text><polygon fill="#181818" points="717.5,416.625,727.5,420.625,717.5,424.625,721.5,420.625" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="460.5" x2="723.5" y1="420.625" y2="420.625"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="178" x="467.5" y="415.5591">coverts parameterized data</text><polygon fill="#181818" points="466.5,445.7578,456.5,449.7578,466.5,453.7578,462.5,449.7578" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="460.5" x2="733.5" y1="449.7578" y2="449.7578"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="245" x="472.5" y="444.6919">Vertx compatible parameterized value</text><line style="stroke:#181818;stroke-width:1.0;" x1="455.5" x2="502.5" y1="483.8906" y2="483.8906"/><line style="stroke:#181818;stroke-width:1.0;" x1="502.5" x2="502.5" y1="483.8906" y2="496.8906"/><line style="stroke:#181818;stroke-width:1.0;" x1="461.5" x2="502.5" y1="496.8906" y2="496.8906"/><polygon fill="#181818" points="471.5,492.8906,461.5,496.8906,471.5,500.8906,467.5,496.8906" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="171" x="467.5" y="478.8247">create SQL result Collector</text><polygon fill="#181818" points="717.5,527.0234,727.5,531.0234,717.5,535.0234,721.5,531.0234" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="460.5" x2="723.5" y1="531.0234" y2="531.0234"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="182" x="467.5" y="525.9575">inspects jOOQ.x DSLAdapter</text><polygon fill="#181818" points="471.5,556.1563,461.5,560.1563,471.5,564.1563,467.5,560.1563" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="465.5" x2="733.5" y1="560.1563" y2="560.1563"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="148" x="477.5" y="555.0903">jOOQ Record metadata</text><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="460.5" x2="502.5" y1="594.2891" y2="594.2891"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="502.5" x2="502.5" y1="594.2891" y2="607.2891"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="455.5" x2="502.5" y1="607.2891" y2="607.2891"/><polygon fill="#181818" points="465.5,603.2891,455.5,607.2891,465.5,611.2891,461.5,607.2891" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="56" x="467.5" y="589.2231">Collector</text><polygon fill="#FEFFDD" points="15,632.2891,166,632.2891,176,643.2891,166,655.2891,15,655.2891,5,643.2891,15,632.2891" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="147" x="17" y="648.356">non-blocking execution</text><path d="M374,667.4219 L438,667.4219 L438,674.5547 L428,684.5547 L374,684.5547 L374,667.4219 " fill="#EEEEEE" style="stroke:#000000;stroke-width:1.5;"/><rect fill="none" height="224.9297" style="stroke:#000000;stroke-width:1.5;" width="704.5" x="374" y="667.4219"/><text fill="#000000" font-family="sans-serif" font-size="13" font-weight="bold" lengthAdjust="spacing" textLength="19" x="389" y="680.4888">alt</text><text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacing" textLength="102" x="453" y="679.6323">[SQL execution]</text><polygon fill="#181818" points="888.5,711.6875,898.5,715.6875,888.5,719.6875,892.5,715.6875" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="455.5" x2="894.5" y1="715.6875" y2="715.6875"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="245" x="462.5" y="710.6216">send SQL statement &amp; parameterized</text><polygon fill="#181818" points="888.5,740.8203,898.5,744.8203,888.5,748.8203,892.5,744.8203" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="455.5" x2="894.5" y1="744.8203" y2="744.8203"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="179" x="462.5" y="739.7544">register SQL result Collector</text><polygon fill="#181818" points="1033.5,769.9531,1043.5,773.9531,1033.5,777.9531,1037.5,773.9531" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="910.5" x2="1039.5" y1="773.9531" y2="773.9531"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="51" x="917.5" y="768.8872">execute</text><polygon fill="#181818" points="921.5,799.0859,911.5,803.0859,921.5,807.0859,917.5,803.0859" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="915.5" x2="1049.5" y1="803.0859" y2="803.0859"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="91" x="927.5" y="798.02">SQL result-set</text><line style="stroke:#181818;stroke-width:1.0;" x1="910.5" x2="952.5" y1="832.2188" y2="832.2188"/><line style="stroke:#181818;stroke-width:1.0;" x1="952.5" x2="952.5" y1="832.2188" y2="845.2188"/><line style="stroke:#181818;stroke-width:1.0;" x1="911.5" x2="952.5" y1="845.2188" y2="845.2188"/><polygon fill="#181818" points="921.5,841.2188,911.5,845.2188,921.5,849.2188,917.5,845.2188" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="121" x="917.5" y="827.1528">convert and collect</text><polygon fill="#181818" points="466.5,870.3516,456.5,874.3516,466.5,878.3516,462.5,874.3516" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;stroke-dasharray:2.0,2.0;" x1="460.5" x2="904.5" y1="874.3516" y2="874.3516"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="145" x="472.5" y="869.2856">jOOQ Record collection</text><polygon fill="#181818" points="101.5,916.4844,91.5,920.4844,101.5,924.4844,97.5,920.4844" style="stroke:#181818;stroke-width:1.0;"/><line style="stroke:#181818;stroke-width:1.0;" x1="95.5" x2="449.5" y1="920.4844" y2="920.4844"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="131" x="107.5" y="915.4185">return jOOQ Records</text><!--MD5=[4feb3cb1e8b7c708df7ddf5bd7752f73]
+@startuml
+'https://plantuml.com/sequence-diagram
+skinparam ParticipantPadding 30
+
+actor       dev
+collections "jOOQ.x\nDSLAdapter" as adapter
+participant "jOOQ.x\nInstance" as jx
+participant "jOOQ DSL" as jo
+
+== Thinking ==
+
+dev -> adapter++: choose the DML/DQL query
+return an appropriate DSLAdapter
+
+== Execution ==
+dev -> jx ++: Execute jOOQ Query with DSLAdapter
+
+alt SQL building
+||10||
+jx -> jx ++#DarkSalmon: Create SQL Prepare Query adapter
+jx -> jo ++: translate Query
+return plain SQL statement
+jx -> jo ++: coverts parameterized data
+return Vertx compatible parameterized value
+jx - -
+||10||
+jx -> jx ++#lightblue: create SQL result Collector
+jx -> jo ++: inspects jOOQ.x DSLAdapter
+return jOOQ Record metadata
+return Collector
+||10||
+end alt
+
+participant "Vertx SQL client" as vs
+database    DB
+
+hnote over dev: non-blocking execution
+
+alt SQL execution
+||10||
+jx -> vs ++: send SQL statement & parameterized
+jx -> vs : register SQL result Collector
+vs -> DB ++: execute
+DB - -> vs - -: SQL result-set
+vs -> vs : convert and collect
+vs - -> jx- -: jOOQ Record collection
+||10||
+end alt
+
+jx -> dev- -: return jOOQ Records
+@enduml
+
+@startuml
+skinparam ParticipantPadding 30
+
+actor       dev
+collections "jOOQ.x\nDSLAdapter" as adapter
+participant "jOOQ.x\nInstance" as jx
+participant "jOOQ DSL" as jo
+
+== Thinking ==
+
+dev -> adapter++: choose the DML/DQL query
+return an appropriate DSLAdapter
+
+== Execution ==
+dev -> jx ++: Execute jOOQ Query with DSLAdapter
+
+alt SQL building
+||10||
+jx -> jx ++#DarkSalmon: Create SQL Prepare Query adapter
+jx -> jo ++: translate Query
+return plain SQL statement
+jx -> jo ++: coverts parameterized data
+return Vertx compatible parameterized value
+jx - -
+||10||
+jx -> jx ++#lightblue: create SQL result Collector
+jx -> jo ++: inspects jOOQ.x DSLAdapter
+return jOOQ Record metadata
+return Collector
+||10||
+end alt
+
+participant "Vertx SQL client" as vs
+database    DB
+
+hnote over dev: non-blocking execution
+
+alt SQL execution
+||10||
+jx -> vs ++: send SQL statement & parameterized
+jx -> vs : register SQL result Collector
+vs -> DB ++: execute
+DB - -> vs - -: SQL result-set
+vs -> vs : convert and collect
+vs - -> jx- -: jOOQ Record collection
+||10||
+end alt
+
+jx -> dev- -: return jOOQ Records
+@enduml
+
+PlantUML version 1.2022.12(Sun Oct 23 18:12:26 GMT 2022)
+(GPL source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: US
+--></g></svg>
