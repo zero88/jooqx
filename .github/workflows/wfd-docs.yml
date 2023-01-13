@@ -67,7 +67,7 @@ jobs:
         shell: bash
         run: |
           if [[ '${{ github.event.inputs.isRelease }}' == 'true' ]]; then
-            docBranch="docs/${{ github.event.inputs.profile }}/${{ github.event.inputs.version }}"
+            docBranch="docs/${{ github.event.inputs.profile }}/v${{ github.event.inputs.version }}"
             docVersion="${{ github.event.inputs.version }}"
             commitVersion="${{ github.event.inputs.version }}-${{ github.event.inputs.hashVersion }}"
           else
@@ -104,19 +104,17 @@ jobs:
         shell: bash
         run: |
           git fetch
-          git branch -r | grep ${{ steps.context.outputs.docBranch }} 1> /dev/null
-          if [ $? -eq 0 ]; then
-            git checkout ${{ steps.context.outputs.docBranch }}
-          else
-            git checkout -b ${{ steps.context.outputs.docBranch }} docs/main
-          fi
+          git checkout docs/main
           rm -rf ${{ steps.context.outputs.docOutDir }} \
             && mkdir ${{ steps.context.outputs.docOutDir }} \
             && touch ${{ steps.context.outputs.docOutDir }}/.gitkeep \
             && cp -rf ./${{ steps.context.outputs.docBuildDir }}/* ${{ steps.context.outputs.docOutDir }}
           git add .
           git diff-index --quiet HEAD || git commit -am "Update ${{ steps.context.outputs.ciMsg }}"
-          git push -u origin ${{ steps.context.outputs.docBranch }}
+          if [[ '${{ github.event.inputs.isRelease }}' == 'true' ]]; then
+               git tag -sf -am "Release ${{ steps.context.outputs.ciMsg }}" ${{ steps.context.outputs.docBranch }}
+          fi
+          git push --follow-tags
 
   deploy:
     needs: build
