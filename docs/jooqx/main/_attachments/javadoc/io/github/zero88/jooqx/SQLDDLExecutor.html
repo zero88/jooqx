@@ -74,7 +74,7 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>All Superinterfaces:</dt>
-<dd><code><a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooqx">JooqDSLProvider</a></code></dd>
+<dd><code><a href="HasExecutor.html" title="interface in io.github.zero88.jooqx">HasExecutor</a></code>, <code><a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooqx">JooqDSLProvider</a></code></dd>
 </dl>
 <dl class="notes">
 <dt>All Known Subinterfaces:</dt>
@@ -82,7 +82,7 @@ loadScripts(document, 'script');</script>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">SQLDDLExecutor</span><span class="extends-implements">
-extends <a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooqx">JooqDSLProvider</a></span></div>
+extends <a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooqx">JooqDSLProvider</a>, <a href="HasExecutor.html" title="interface in io.github.zero88.jooqx">HasExecutor</a></span></div>
 <div class="block">Represents for a <code>DDL executor</code> that executes SQL DDL statements</div>
 <dl class="notes">
 <dt>Since:</dt>
@@ -96,7 +96,7 @@ extends <a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooq
 <section class="method-summary" id="method-summary">
 <h2>Method Summary</h2>
 <div id="method-summary-table">
-<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab3" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab3', 3)" class="table-tab">Abstract Methods</button><button id="method-summary-table-tab5" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab5', 3)" class="table-tab">Default Methods</button></div>
+<div class="table-tabs" role="tablist" aria-orientation="horizontal"><button id="method-summary-table-tab0" role="tab" aria-selected="true" aria-controls="method-summary-table.tabpanel" tabindex="0" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table', 3)" class="active-table-tab">All Methods</button><button id="method-summary-table-tab2" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab2', 3)" class="table-tab">Instance Methods</button><button id="method-summary-table-tab5" role="tab" aria-selected="false" aria-controls="method-summary-table.tabpanel" tabindex="-1" onkeydown="switchTab(event)" onclick="show('method-summary-table', 'method-summary-table-tab5', 3)" class="table-tab">Default Methods</button></div>
 <div id="method-summary-table.tabpanel" role="tabpanel">
 <div class="summary-table three-column-summary" aria-labelledby="method-summary-table-tab0">
 <div class="table-header col-first">Modifier and Type</div>
@@ -113,9 +113,9 @@ extends <a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooq
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
 <div class="block">Execute DDL statement</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code>io.vertx.core.Future&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3"><code><a href="#ddl(org.jooq.DDLQuery)" class="member-name-link">ddl</a><wbr>(@NotNull org.jooq.DDLQuery&nbsp;statement)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab3">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default io.vertx.core.Future&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#ddl(org.jooq.DDLQuery)" class="member-name-link">ddl</a><wbr>(@NotNull org.jooq.DDLQuery&nbsp;statement)</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
 <div class="block">Like <a href="#ddl(org.jooq.DDLQuery,io.vertx.core.Handler)"><code>ddl(DDLQuery, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
 </div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default void</code></div>
@@ -127,6 +127,9 @@ extends <a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooq
 </div>
 </div>
 </div>
+<div class="inherited-list">
+<h3 id="methods-inherited-from-class-io.github.zero88.jooqx.HasExecutor">Methods inherited from interface&nbsp;io.github.zero88.jooqx.<a href="HasExecutor.html" title="interface in io.github.zero88.jooqx">HasExecutor</a></h3>
+<code><a href="HasExecutor.html#executor()">executor</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-io.github.zero88.jooqx.JooqDSLProvider">Methods inherited from interface&nbsp;io.github.zero88.jooqx.<a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooqx">JooqDSLProvider</a></h3>
 <code><a href="JooqDSLProvider.html#dsl()">dsl</a></code></div>
@@ -194,7 +197,7 @@ extends <a href="JooqDSLProvider.html" title="interface in io.github.zero88.jooq
 <li>
 <section class="detail" id="ddl(org.jooq.DDLQuery)">
 <h3>ddl</h3>
-<div class="member-signature"><span class="return-type">io.vertx.core.Future&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">ddl</span><wbr><span class="parameters">(@NotNull
+<div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type">io.vertx.core.Future&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">ddl</span><wbr><span class="parameters">(@NotNull
  @NotNull org.jooq.DDLQuery&nbsp;statement)</span></div>
 <div class="block">Like <a href="#ddl(org.jooq.DDLQuery,io.vertx.core.Handler)"><code>ddl(DDLQuery, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
 <dl class="notes">

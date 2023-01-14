@@ -1363,6 +1363,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Create new instance UserTypeAsJooqType by <a href="io/github/zero88/jooqx/datatype/JooqxConverter.html" title="interface in io.github.zero88.jooqx.datatype"><code>JooqxConverter</code></a></div>
 </dd>
+<dt><a href="io/github/zero88/jooqx/JooqDSLProvider.html#create(org.jooq.Configuration)" class="member-name-link">create(Configuration)</a> - Static method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/JooqDSLProvider.html" title="interface in io.github.zero88.jooqx">JooqDSLProvider</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io/github/zero88/jooqx/adapter/RecordFactory.html#create(org.jooq.DSLContext)" class="member-name-link">create(DSLContext)</a> - Method in interface io.github.zero88.jooqx.adapter.<a href="io/github/zero88/jooqx/adapter/RecordFactory.html" title="interface in io.github.zero88.jooqx.adapter">RecordFactory</a></dt>
 <dd>
 <div class="block">Create new jOOQ record</div>
@@ -1816,6 +1818,22 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="io/github/zero88/jooqx/SQLErrorConverter.html#DEFAULT" class="member-name-link">DEFAULT</a> - Static variable in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLErrorConverter.html" title="interface in io.github.zero88.jooqx">SQLErrorConverter</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/SQLDMLExecutor.html#delete(java.util.function.Function)" class="member-name-link">delete(Function&lt;DSLContext, Delete&lt;R&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDMLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDMLExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/SQLDMLExecutor.html#delete(java.util.function.Function,io.vertx.core.Handler)" class="member-name-link">delete(Function&lt;DSLContext, Delete&lt;R&gt;&gt;, Handler&lt;AsyncResult&lt;Integer&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDMLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDMLExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/SQLDMLExecutor.html#delete(org.jooq.Delete)" class="member-name-link">delete(Delete&lt;R&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDMLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDMLExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/SQLDMLExecutor.html#delete(org.jooq.Delete,io.vertx.core.Handler)" class="member-name-link">delete(Delete&lt;R&gt;, Handler&lt;AsyncResult&lt;Integer&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDMLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDMLExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/SQLDMLExecutor.html#deleteQuery(java.util.function.Function)" class="member-name-link">deleteQuery(Function&lt;DSLContext, DeleteQuery&lt;R&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDMLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDMLExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/SQLDMLExecutor.html#deleteQuery(java.util.function.Function,io.vertx.core.Handler)" class="member-name-link">deleteQuery(Function&lt;DSLContext, DeleteQuery&lt;R&gt;&gt;, Handler&lt;AsyncResult&lt;Integer&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDMLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDMLExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/SQLDMLExecutor.html#deleteQuery(org.jooq.DeleteQuery)" class="member-name-link">deleteQuery(DeleteQuery&lt;R&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDMLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDMLExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/SQLDMLExecutor.html#deleteQuery(org.jooq.DeleteQuery,io.vertx.core.Handler)" class="member-name-link">deleteQuery(DeleteQuery&lt;R&gt;, Handler&lt;AsyncResult&lt;Integer&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDMLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDMLExecutor</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io/github/zero88/jooqx/spi/derby/DerbyFileProvider.html" class="type-name-link" title="interface in io.github.zero88.jooqx.spi.derby">DerbyFileProvider</a> - Interface in <a href="io/github/zero88/jooqx/spi/derby/package-summary.html">io.github.zero88.jooqx.spi.derby</a></dt>
 <dd>
 <div class="block">Provides H2 database in local file</div>
@@ -2074,22 +2092,38 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Provides SQL error converter</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">execute(Function&lt;DSLContext, Query&gt;, SQLResultAdapter&lt;T, R&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLStatementExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">execute(Function&lt;DSLContext, Query&gt;, SQLResultAdapter&lt;T, R&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLStatementExecutor.html" title="interface in io.github.zero88.jooqx">SQLStatementExecutor</a></dt>
 <dd>
-<div class="block">Like <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Function, SQLResultAdapter, Handler)</code></a> but returns a <code>Future</code> of the asynchronous
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLStatementExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLStatementExecutor.execute(Function, SQLResultAdapter, Handler)</code></a> but returns a <code>Future</code> of the asynchronous
  result</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)" class="member-name-link">execute(Function&lt;DSLContext, Query&gt;, SQLResultAdapter&lt;T, R&gt;, Handler&lt;AsyncResult&lt;R&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLStatementExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)" class="member-name-link">execute(Function&lt;DSLContext, Query&gt;, SQLResultAdapter&lt;T, R&gt;, Handler&lt;AsyncResult&lt;R&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLStatementExecutor.html" title="interface in io.github.zero88.jooqx">SQLStatementExecutor</a></dt>
 <dd>
 <div class="block">Execute <code>jOOQ query</code> then return async result</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">execute(Query, SQLResultAdapter&lt;T, R&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLStatementExecutor.html#execute(java.util.function.Function)" class="member-name-link">execute(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLStatementExecutor.html" title="interface in io.github.zero88.jooqx">SQLStatementExecutor</a></dt>
 <dd>
-<div class="block">Like <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLStatementExecutor.html#execute(java.util.function.Function,io.vertx.core.Handler)"><code>SQLStatementExecutor.execute(Function, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)" class="member-name-link">execute(Query, SQLResultAdapter&lt;T, R&gt;, Handler&lt;AsyncResult&lt;R&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLStatementExecutor.html#execute(java.util.function.Function,io.vertx.core.Handler)" class="member-name-link">execute(Function&lt;DSLContext, RowCountQuery&gt;, Handler&lt;AsyncResult&lt;Integer&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLStatementExecutor.html" title="interface in io.github.zero88.jooqx">SQLStatementExecutor</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/SQLStatementExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">execute(Query, SQLResultAdapter&lt;T, R&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLStatementExecutor.html" title="interface in io.github.zero88.jooqx">SQLStatementExecutor</a></dt>
+<dd>
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLStatementExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLStatementExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/SQLStatementExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)" class="member-name-link">execute(Query, SQLResultAdapter&lt;T, R&gt;, Handler&lt;AsyncResult&lt;R&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLStatementExecutor.html" title="interface in io.github.zero88.jooqx">SQLStatementExecutor</a></dt>
 <dd>
 <div class="block">Execute <code>jOOQ query</code> then return async result</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/SQLStatementExecutor.html#execute(org.jooq.RowCountQuery)" class="member-name-link">execute(RowCountQuery)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLStatementExecutor.html" title="interface in io.github.zero88.jooqx">SQLStatementExecutor</a></dt>
+<dd>
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLStatementExecutor.html#execute(org.jooq.RowCountQuery,io.vertx.core.Handler)"><code>SQLStatementExecutor.execute(RowCountQuery, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/SQLStatementExecutor.html#execute(org.jooq.RowCountQuery,io.vertx.core.Handler)" class="member-name-link">execute(RowCountQuery, Handler&lt;AsyncResult&lt;Integer&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLStatementExecutor.html" title="interface in io.github.zero88.jooqx">SQLStatementExecutor</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/Jooqx.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">execute(Function&lt;DSLContext, Query&gt;, SQLResultAdapter&lt;T, R&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/Jooqx.html" title="class in io.github.zero88.jooqx.mutiny">Jooqx</a></dt>
 <dd>
@@ -2119,7 +2153,7 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Execute <code>jOOQ query</code> then return async result</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">execute(Function&lt;DSLContext, Query&gt;, SQLResultAdapter&lt;T, R&gt;)</a> - Method in interface io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">execute(Function&lt;DSLContext, Query&gt;, SQLResultAdapter&lt;T, R&gt;)</a> - Method in interface io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLStatementExecutor</a></dt>
 <dd>
 <div class="block">Execute <code>jOOQ query</code> then return async result</div>
 </dd>
@@ -2195,6 +2229,110 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Execute <code>jOOQ query</code> then return async result</div>
 </dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/Jooqx.html#execute(java.util.function.Function)" class="member-name-link">execute(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/Jooqx.html" title="class in io.github.zero88.jooqx.mutiny">Jooqx</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/JooqxConn.html#execute(java.util.function.Function)" class="member-name-link">execute(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/JooqxConn.html" title="class in io.github.zero88.jooqx.mutiny">JooqxConn</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/JooqxSession.html#execute(java.util.function.Function)" class="member-name-link">execute(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/JooqxSession.html" title="class in io.github.zero88.jooqx.mutiny">JooqxSession</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/JooqxTx.html#execute(java.util.function.Function)" class="member-name-link">execute(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/JooqxTx.html" title="class in io.github.zero88.jooqx.mutiny">JooqxTx</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/LegacyJooqx.html#execute(java.util.function.Function)" class="member-name-link">execute(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/LegacyJooqx.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqx</a></dt>
+<dd>
+<div class="deprecation-block"><span class="deprecated-label">Deprecated.</span>&nbsp;</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/LegacyJooqxSession.html#execute(java.util.function.Function)" class="member-name-link">execute(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/LegacyJooqxSession.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqxSession</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/LegacyJooqxTx.html#execute(java.util.function.Function)" class="member-name-link">execute(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqxTx</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(java.util.function.Function)" class="member-name-link">execute(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in interface io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLStatementExecutor</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/Jooqx.html#execute(java.util.function.Function)" class="member-name-link">execute(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/Jooqx.html" title="class in io.github.zero88.jooqx.reactivex">Jooqx</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/JooqxConn.html#execute(java.util.function.Function)" class="member-name-link">execute(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/JooqxConn.html" title="class in io.github.zero88.jooqx.reactivex">JooqxConn</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/JooqxSession.html#execute(java.util.function.Function)" class="member-name-link">execute(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/JooqxSession.html" title="class in io.github.zero88.jooqx.reactivex">JooqxSession</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/JooqxTx.html#execute(java.util.function.Function)" class="member-name-link">execute(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/JooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">JooqxTx</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/LegacyJooqx.html#execute(java.util.function.Function)" class="member-name-link">execute(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/LegacyJooqx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqx</a></dt>
+<dd>
+<div class="deprecation-block"><span class="deprecated-label">Deprecated.</span></div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/LegacyJooqxSession.html#execute(java.util.function.Function)" class="member-name-link">execute(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/LegacyJooqxSession.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxSession</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/LegacyJooqxTx.html#execute(java.util.function.Function)" class="member-name-link">execute(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxTx</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/rxjava3/Jooqx.html#execute(java.util.function.Function)" class="member-name-link">execute(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.rxjava3.<a href="io/github/zero88/jooqx/rxjava3/Jooqx.html" title="class in io.github.zero88.jooqx.rxjava3">Jooqx</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/rxjava3/JooqxConn.html#execute(java.util.function.Function)" class="member-name-link">execute(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.rxjava3.<a href="io/github/zero88/jooqx/rxjava3/JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/rxjava3/JooqxSession.html#execute(java.util.function.Function)" class="member-name-link">execute(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.rxjava3.<a href="io/github/zero88/jooqx/rxjava3/JooqxSession.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxSession</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/rxjava3/JooqxTx.html#execute(java.util.function.Function)" class="member-name-link">execute(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.rxjava3.<a href="io/github/zero88/jooqx/rxjava3/JooqxTx.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxTx</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/Jooqx.html#execute(java.util.function.Function,io.vertx.core.Handler)" class="member-name-link">execute(Function&lt;DSLContext, RowCountQuery&gt;, Handler&lt;AsyncResult&lt;Integer&gt;&gt;)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/Jooqx.html" title="class in io.github.zero88.jooqx.reactivex">Jooqx</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/JooqxConn.html#execute(java.util.function.Function,io.vertx.core.Handler)" class="member-name-link">execute(Function&lt;DSLContext, RowCountQuery&gt;, Handler&lt;AsyncResult&lt;Integer&gt;&gt;)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/JooqxConn.html" title="class in io.github.zero88.jooqx.reactivex">JooqxConn</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/JooqxSession.html#execute(java.util.function.Function,io.vertx.core.Handler)" class="member-name-link">execute(Function&lt;DSLContext, RowCountQuery&gt;, Handler&lt;AsyncResult&lt;Integer&gt;&gt;)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/JooqxSession.html" title="class in io.github.zero88.jooqx.reactivex">JooqxSession</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/JooqxTx.html#execute(java.util.function.Function,io.vertx.core.Handler)" class="member-name-link">execute(Function&lt;DSLContext, RowCountQuery&gt;, Handler&lt;AsyncResult&lt;Integer&gt;&gt;)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/JooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">JooqxTx</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/LegacyJooqx.html#execute(java.util.function.Function,io.vertx.core.Handler)" class="member-name-link">execute(Function&lt;DSLContext, RowCountQuery&gt;, Handler&lt;AsyncResult&lt;Integer&gt;&gt;)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/LegacyJooqx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqx</a></dt>
+<dd>
+<div class="deprecation-block"><span class="deprecated-label">Deprecated.</span></div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/LegacyJooqxSession.html#execute(java.util.function.Function,io.vertx.core.Handler)" class="member-name-link">execute(Function&lt;DSLContext, RowCountQuery&gt;, Handler&lt;AsyncResult&lt;Integer&gt;&gt;)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/LegacyJooqxSession.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxSession</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/LegacyJooqxTx.html#execute(java.util.function.Function,io.vertx.core.Handler)" class="member-name-link">execute(Function&lt;DSLContext, RowCountQuery&gt;, Handler&lt;AsyncResult&lt;Integer&gt;&gt;)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxTx</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/Jooqx.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">execute(Query, SQLResultAdapter&lt;T, R&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/Jooqx.html" title="class in io.github.zero88.jooqx.mutiny">Jooqx</a></dt>
 <dd>
 <div class="block">Execute <code>jOOQ query</code> then return async result</div>
@@ -2223,7 +2361,7 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Execute <code>jOOQ query</code> then return async result</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">execute(Query, SQLResultAdapter&lt;T, R&gt;)</a> - Method in interface io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">execute(Query, SQLResultAdapter&lt;T, R&gt;)</a> - Method in interface io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLStatementExecutor</a></dt>
 <dd>
 <div class="block">Execute <code>jOOQ query</code> then return async result</div>
 </dd>
@@ -2299,21 +2437,125 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Execute <code>jOOQ query</code> then return async result</div>
 </dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/Jooqx.html#execute(org.jooq.RowCountQuery)" class="member-name-link">execute(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/Jooqx.html" title="class in io.github.zero88.jooqx.mutiny">Jooqx</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/JooqxConn.html#execute(org.jooq.RowCountQuery)" class="member-name-link">execute(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/JooqxConn.html" title="class in io.github.zero88.jooqx.mutiny">JooqxConn</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/JooqxSession.html#execute(org.jooq.RowCountQuery)" class="member-name-link">execute(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/JooqxSession.html" title="class in io.github.zero88.jooqx.mutiny">JooqxSession</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/JooqxTx.html#execute(org.jooq.RowCountQuery)" class="member-name-link">execute(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/JooqxTx.html" title="class in io.github.zero88.jooqx.mutiny">JooqxTx</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/LegacyJooqx.html#execute(org.jooq.RowCountQuery)" class="member-name-link">execute(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/LegacyJooqx.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqx</a></dt>
+<dd>
+<div class="deprecation-block"><span class="deprecated-label">Deprecated.</span>&nbsp;</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/LegacyJooqxSession.html#execute(org.jooq.RowCountQuery)" class="member-name-link">execute(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/LegacyJooqxSession.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqxSession</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/LegacyJooqxTx.html#execute(org.jooq.RowCountQuery)" class="member-name-link">execute(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqxTx</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(org.jooq.RowCountQuery)" class="member-name-link">execute(RowCountQuery)</a> - Method in interface io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLStatementExecutor</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/Jooqx.html#execute(org.jooq.RowCountQuery)" class="member-name-link">execute(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/Jooqx.html" title="class in io.github.zero88.jooqx.reactivex">Jooqx</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/JooqxConn.html#execute(org.jooq.RowCountQuery)" class="member-name-link">execute(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/JooqxConn.html" title="class in io.github.zero88.jooqx.reactivex">JooqxConn</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/JooqxSession.html#execute(org.jooq.RowCountQuery)" class="member-name-link">execute(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/JooqxSession.html" title="class in io.github.zero88.jooqx.reactivex">JooqxSession</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/JooqxTx.html#execute(org.jooq.RowCountQuery)" class="member-name-link">execute(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/JooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">JooqxTx</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/LegacyJooqx.html#execute(org.jooq.RowCountQuery)" class="member-name-link">execute(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/LegacyJooqx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqx</a></dt>
+<dd>
+<div class="deprecation-block"><span class="deprecated-label">Deprecated.</span></div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/LegacyJooqxSession.html#execute(org.jooq.RowCountQuery)" class="member-name-link">execute(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/LegacyJooqxSession.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxSession</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/LegacyJooqxTx.html#execute(org.jooq.RowCountQuery)" class="member-name-link">execute(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxTx</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/rxjava3/Jooqx.html#execute(org.jooq.RowCountQuery)" class="member-name-link">execute(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.rxjava3.<a href="io/github/zero88/jooqx/rxjava3/Jooqx.html" title="class in io.github.zero88.jooqx.rxjava3">Jooqx</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/rxjava3/JooqxConn.html#execute(org.jooq.RowCountQuery)" class="member-name-link">execute(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.rxjava3.<a href="io/github/zero88/jooqx/rxjava3/JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/rxjava3/JooqxSession.html#execute(org.jooq.RowCountQuery)" class="member-name-link">execute(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.rxjava3.<a href="io/github/zero88/jooqx/rxjava3/JooqxSession.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxSession</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/rxjava3/JooqxTx.html#execute(org.jooq.RowCountQuery)" class="member-name-link">execute(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.rxjava3.<a href="io/github/zero88/jooqx/rxjava3/JooqxTx.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxTx</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/Jooqx.html#execute(org.jooq.RowCountQuery,io.vertx.core.Handler)" class="member-name-link">execute(RowCountQuery, Handler&lt;AsyncResult&lt;Integer&gt;&gt;)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/Jooqx.html" title="class in io.github.zero88.jooqx.reactivex">Jooqx</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/JooqxConn.html#execute(org.jooq.RowCountQuery,io.vertx.core.Handler)" class="member-name-link">execute(RowCountQuery, Handler&lt;AsyncResult&lt;Integer&gt;&gt;)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/JooqxConn.html" title="class in io.github.zero88.jooqx.reactivex">JooqxConn</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/JooqxSession.html#execute(org.jooq.RowCountQuery,io.vertx.core.Handler)" class="member-name-link">execute(RowCountQuery, Handler&lt;AsyncResult&lt;Integer&gt;&gt;)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/JooqxSession.html" title="class in io.github.zero88.jooqx.reactivex">JooqxSession</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/JooqxTx.html#execute(org.jooq.RowCountQuery,io.vertx.core.Handler)" class="member-name-link">execute(RowCountQuery, Handler&lt;AsyncResult&lt;Integer&gt;&gt;)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/JooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">JooqxTx</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/LegacyJooqx.html#execute(org.jooq.RowCountQuery,io.vertx.core.Handler)" class="member-name-link">execute(RowCountQuery, Handler&lt;AsyncResult&lt;Integer&gt;&gt;)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/LegacyJooqx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqx</a></dt>
+<dd>
+<div class="deprecation-block"><span class="deprecated-label">Deprecated.</span></div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/LegacyJooqxSession.html#execute(org.jooq.RowCountQuery,io.vertx.core.Handler)" class="member-name-link">execute(RowCountQuery, Handler&lt;AsyncResult&lt;Integer&gt;&gt;)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/LegacyJooqxSession.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxSession</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/LegacyJooqxTx.html#execute(org.jooq.RowCountQuery,io.vertx.core.Handler)" class="member-name-link">execute(RowCountQuery, Handler&lt;AsyncResult&lt;Integer&gt;&gt;)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxTx</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/Jooqx.html#executeAndAwait(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndAwait(Function&lt;DSLContext, Query&gt;, SQLResultAdapter&lt;T, R&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/Jooqx.html" title="class in io.github.zero88.jooqx.mutiny">Jooqx</a></dt>
 <dd>
-<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLQueryExecutor.execute(Function,SQLResultAdapter)</code></a>.</div>
+<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLStatementExecutor.execute(Function,SQLResultAdapter)</code></a>.</div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/JooqxConn.html#executeAndAwait(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndAwait(Function&lt;DSLContext, Query&gt;, SQLResultAdapter&lt;T, R&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/JooqxConn.html" title="class in io.github.zero88.jooqx.mutiny">JooqxConn</a></dt>
 <dd>
-<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLQueryExecutor.execute(Function,SQLResultAdapter)</code></a>.</div>
+<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLStatementExecutor.execute(Function,SQLResultAdapter)</code></a>.</div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/JooqxSession.html#executeAndAwait(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndAwait(Function&lt;DSLContext, Query&gt;, SQLResultAdapter&lt;T, R&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/JooqxSession.html" title="class in io.github.zero88.jooqx.mutiny">JooqxSession</a></dt>
 <dd>
-<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLQueryExecutor.execute(Function,SQLResultAdapter)</code></a>.</div>
+<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLStatementExecutor.execute(Function,SQLResultAdapter)</code></a>.</div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/JooqxTx.html#executeAndAwait(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndAwait(Function&lt;DSLContext, Query&gt;, SQLResultAdapter&lt;T, R&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/JooqxTx.html" title="class in io.github.zero88.jooqx.mutiny">JooqxTx</a></dt>
 <dd>
-<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLQueryExecutor.execute(Function,SQLResultAdapter)</code></a>.</div>
+<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLStatementExecutor.execute(Function,SQLResultAdapter)</code></a>.</div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/LegacyJooqx.html#executeAndAwait(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndAwait(Function&lt;DSLContext, Query&gt;, SQLResultAdapter&lt;T, R&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/LegacyJooqx.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqx</a></dt>
 <dd>
@@ -2321,31 +2563,63 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/LegacyJooqxSession.html#executeAndAwait(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndAwait(Function&lt;DSLContext, Query&gt;, SQLResultAdapter&lt;T, R&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/LegacyJooqxSession.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqxSession</a></dt>
 <dd>
-<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLQueryExecutor.execute(Function,SQLResultAdapter)</code></a>.</div>
+<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLStatementExecutor.execute(Function,SQLResultAdapter)</code></a>.</div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/LegacyJooqxTx.html#executeAndAwait(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndAwait(Function&lt;DSLContext, Query&gt;, SQLResultAdapter&lt;T, R&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqxTx</a></dt>
 <dd>
-<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLQueryExecutor.execute(Function,SQLResultAdapter)</code></a>.</div>
+<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLStatementExecutor.execute(Function,SQLResultAdapter)</code></a>.</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#executeAndAwait(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndAwait(Function&lt;DSLContext, Query&gt;, SQLResultAdapter&lt;T, R&gt;)</a> - Method in interface io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#executeAndAwait(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndAwait(Function&lt;DSLContext, Query&gt;, SQLResultAdapter&lt;T, R&gt;)</a> - Method in interface io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLStatementExecutor</a></dt>
 <dd>
-<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLQueryExecutor.execute(Function,SQLResultAdapter)</code></a>.</div>
+<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLStatementExecutor.execute(Function,SQLResultAdapter)</code></a>.</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/Jooqx.html#executeAndAwait(java.util.function.Function)" class="member-name-link">executeAndAwait(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/Jooqx.html" title="class in io.github.zero88.jooqx.mutiny">Jooqx</a></dt>
+<dd>
+<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(java.util.function.Function)"><code>SQLStatementExecutor.execute(Function)</code></a>.</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/JooqxConn.html#executeAndAwait(java.util.function.Function)" class="member-name-link">executeAndAwait(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/JooqxConn.html" title="class in io.github.zero88.jooqx.mutiny">JooqxConn</a></dt>
+<dd>
+<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(java.util.function.Function)"><code>SQLStatementExecutor.execute(Function)</code></a>.</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/JooqxSession.html#executeAndAwait(java.util.function.Function)" class="member-name-link">executeAndAwait(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/JooqxSession.html" title="class in io.github.zero88.jooqx.mutiny">JooqxSession</a></dt>
+<dd>
+<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(java.util.function.Function)"><code>SQLStatementExecutor.execute(Function)</code></a>.</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/JooqxTx.html#executeAndAwait(java.util.function.Function)" class="member-name-link">executeAndAwait(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/JooqxTx.html" title="class in io.github.zero88.jooqx.mutiny">JooqxTx</a></dt>
+<dd>
+<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(java.util.function.Function)"><code>SQLStatementExecutor.execute(Function)</code></a>.</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/LegacyJooqx.html#executeAndAwait(java.util.function.Function)" class="member-name-link">executeAndAwait(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/LegacyJooqx.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqx</a></dt>
+<dd>
+<div class="deprecation-block"><span class="deprecated-label">Deprecated.</span>&nbsp;</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/LegacyJooqxSession.html#executeAndAwait(java.util.function.Function)" class="member-name-link">executeAndAwait(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/LegacyJooqxSession.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqxSession</a></dt>
+<dd>
+<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(java.util.function.Function)"><code>SQLStatementExecutor.execute(Function)</code></a>.</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/LegacyJooqxTx.html#executeAndAwait(java.util.function.Function)" class="member-name-link">executeAndAwait(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqxTx</a></dt>
+<dd>
+<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(java.util.function.Function)"><code>SQLStatementExecutor.execute(Function)</code></a>.</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#executeAndAwait(java.util.function.Function)" class="member-name-link">executeAndAwait(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in interface io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLStatementExecutor</a></dt>
+<dd>
+<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(java.util.function.Function)"><code>SQLStatementExecutor.execute(Function)</code></a>.</div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/Jooqx.html#executeAndAwait(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndAwait(Query, SQLResultAdapter&lt;T, R&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/Jooqx.html" title="class in io.github.zero88.jooqx.mutiny">Jooqx</a></dt>
 <dd>
-<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLQueryExecutor.execute(Query,SQLResultAdapter)</code></a>.</div>
+<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLStatementExecutor.execute(Query,SQLResultAdapter)</code></a>.</div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/JooqxConn.html#executeAndAwait(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndAwait(Query, SQLResultAdapter&lt;T, R&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/JooqxConn.html" title="class in io.github.zero88.jooqx.mutiny">JooqxConn</a></dt>
 <dd>
-<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLQueryExecutor.execute(Query,SQLResultAdapter)</code></a>.</div>
+<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLStatementExecutor.execute(Query,SQLResultAdapter)</code></a>.</div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/JooqxSession.html#executeAndAwait(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndAwait(Query, SQLResultAdapter&lt;T, R&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/JooqxSession.html" title="class in io.github.zero88.jooqx.mutiny">JooqxSession</a></dt>
 <dd>
-<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLQueryExecutor.execute(Query,SQLResultAdapter)</code></a>.</div>
+<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLStatementExecutor.execute(Query,SQLResultAdapter)</code></a>.</div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/JooqxTx.html#executeAndAwait(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndAwait(Query, SQLResultAdapter&lt;T, R&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/JooqxTx.html" title="class in io.github.zero88.jooqx.mutiny">JooqxTx</a></dt>
 <dd>
-<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLQueryExecutor.execute(Query,SQLResultAdapter)</code></a>.</div>
+<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLStatementExecutor.execute(Query,SQLResultAdapter)</code></a>.</div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/LegacyJooqx.html#executeAndAwait(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndAwait(Query, SQLResultAdapter&lt;T, R&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/LegacyJooqx.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqx</a></dt>
 <dd>
@@ -2353,31 +2627,63 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/LegacyJooqxSession.html#executeAndAwait(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndAwait(Query, SQLResultAdapter&lt;T, R&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/LegacyJooqxSession.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqxSession</a></dt>
 <dd>
-<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLQueryExecutor.execute(Query,SQLResultAdapter)</code></a>.</div>
+<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLStatementExecutor.execute(Query,SQLResultAdapter)</code></a>.</div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/LegacyJooqxTx.html#executeAndAwait(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndAwait(Query, SQLResultAdapter&lt;T, R&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqxTx</a></dt>
 <dd>
-<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLQueryExecutor.execute(Query,SQLResultAdapter)</code></a>.</div>
+<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLStatementExecutor.execute(Query,SQLResultAdapter)</code></a>.</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#executeAndAwait(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndAwait(Query, SQLResultAdapter&lt;T, R&gt;)</a> - Method in interface io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#executeAndAwait(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndAwait(Query, SQLResultAdapter&lt;T, R&gt;)</a> - Method in interface io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLStatementExecutor</a></dt>
 <dd>
-<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLQueryExecutor.execute(Query,SQLResultAdapter)</code></a>.</div>
+<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLStatementExecutor.execute(Query,SQLResultAdapter)</code></a>.</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/Jooqx.html#executeAndAwait(org.jooq.RowCountQuery)" class="member-name-link">executeAndAwait(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/Jooqx.html" title="class in io.github.zero88.jooqx.mutiny">Jooqx</a></dt>
+<dd>
+<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(org.jooq.RowCountQuery)"><code>SQLStatementExecutor.execute(RowCountQuery)</code></a>.</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/JooqxConn.html#executeAndAwait(org.jooq.RowCountQuery)" class="member-name-link">executeAndAwait(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/JooqxConn.html" title="class in io.github.zero88.jooqx.mutiny">JooqxConn</a></dt>
+<dd>
+<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(org.jooq.RowCountQuery)"><code>SQLStatementExecutor.execute(RowCountQuery)</code></a>.</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/JooqxSession.html#executeAndAwait(org.jooq.RowCountQuery)" class="member-name-link">executeAndAwait(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/JooqxSession.html" title="class in io.github.zero88.jooqx.mutiny">JooqxSession</a></dt>
+<dd>
+<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(org.jooq.RowCountQuery)"><code>SQLStatementExecutor.execute(RowCountQuery)</code></a>.</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/JooqxTx.html#executeAndAwait(org.jooq.RowCountQuery)" class="member-name-link">executeAndAwait(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/JooqxTx.html" title="class in io.github.zero88.jooqx.mutiny">JooqxTx</a></dt>
+<dd>
+<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(org.jooq.RowCountQuery)"><code>SQLStatementExecutor.execute(RowCountQuery)</code></a>.</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/LegacyJooqx.html#executeAndAwait(org.jooq.RowCountQuery)" class="member-name-link">executeAndAwait(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/LegacyJooqx.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqx</a></dt>
+<dd>
+<div class="deprecation-block"><span class="deprecated-label">Deprecated.</span>&nbsp;</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/LegacyJooqxSession.html#executeAndAwait(org.jooq.RowCountQuery)" class="member-name-link">executeAndAwait(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/LegacyJooqxSession.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqxSession</a></dt>
+<dd>
+<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(org.jooq.RowCountQuery)"><code>SQLStatementExecutor.execute(RowCountQuery)</code></a>.</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/LegacyJooqxTx.html#executeAndAwait(org.jooq.RowCountQuery)" class="member-name-link">executeAndAwait(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqxTx</a></dt>
+<dd>
+<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(org.jooq.RowCountQuery)"><code>SQLStatementExecutor.execute(RowCountQuery)</code></a>.</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#executeAndAwait(org.jooq.RowCountQuery)" class="member-name-link">executeAndAwait(RowCountQuery)</a> - Method in interface io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLStatementExecutor</a></dt>
+<dd>
+<div class="block">Blocking variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(org.jooq.RowCountQuery)"><code>SQLStatementExecutor.execute(RowCountQuery)</code></a>.</div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/Jooqx.html#executeAndForget(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndForget(Function&lt;DSLContext, Query&gt;, SQLResultAdapter&lt;T, R&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/Jooqx.html" title="class in io.github.zero88.jooqx.mutiny">Jooqx</a></dt>
 <dd>
-<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLQueryExecutor.execute(Function,SQLResultAdapter)</code></a> that ignores the result of the operation.</div>
+<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLStatementExecutor.execute(Function,SQLResultAdapter)</code></a> that ignores the result of the operation.</div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/JooqxConn.html#executeAndForget(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndForget(Function&lt;DSLContext, Query&gt;, SQLResultAdapter&lt;T, R&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/JooqxConn.html" title="class in io.github.zero88.jooqx.mutiny">JooqxConn</a></dt>
 <dd>
-<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLQueryExecutor.execute(Function,SQLResultAdapter)</code></a> that ignores the result of the operation.</div>
+<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLStatementExecutor.execute(Function,SQLResultAdapter)</code></a> that ignores the result of the operation.</div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/JooqxSession.html#executeAndForget(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndForget(Function&lt;DSLContext, Query&gt;, SQLResultAdapter&lt;T, R&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/JooqxSession.html" title="class in io.github.zero88.jooqx.mutiny">JooqxSession</a></dt>
 <dd>
-<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLQueryExecutor.execute(Function,SQLResultAdapter)</code></a> that ignores the result of the operation.</div>
+<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLStatementExecutor.execute(Function,SQLResultAdapter)</code></a> that ignores the result of the operation.</div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/JooqxTx.html#executeAndForget(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndForget(Function&lt;DSLContext, Query&gt;, SQLResultAdapter&lt;T, R&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/JooqxTx.html" title="class in io.github.zero88.jooqx.mutiny">JooqxTx</a></dt>
 <dd>
-<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLQueryExecutor.execute(Function,SQLResultAdapter)</code></a> that ignores the result of the operation.</div>
+<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLStatementExecutor.execute(Function,SQLResultAdapter)</code></a> that ignores the result of the operation.</div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/LegacyJooqx.html#executeAndForget(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndForget(Function&lt;DSLContext, Query&gt;, SQLResultAdapter&lt;T, R&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/LegacyJooqx.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqx</a></dt>
 <dd>
@@ -2385,31 +2691,63 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/LegacyJooqxSession.html#executeAndForget(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndForget(Function&lt;DSLContext, Query&gt;, SQLResultAdapter&lt;T, R&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/LegacyJooqxSession.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqxSession</a></dt>
 <dd>
-<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLQueryExecutor.execute(Function,SQLResultAdapter)</code></a> that ignores the result of the operation.</div>
+<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLStatementExecutor.execute(Function,SQLResultAdapter)</code></a> that ignores the result of the operation.</div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/LegacyJooqxTx.html#executeAndForget(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndForget(Function&lt;DSLContext, Query&gt;, SQLResultAdapter&lt;T, R&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqxTx</a></dt>
 <dd>
-<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLQueryExecutor.execute(Function,SQLResultAdapter)</code></a> that ignores the result of the operation.</div>
+<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLStatementExecutor.execute(Function,SQLResultAdapter)</code></a> that ignores the result of the operation.</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#executeAndForget(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndForget(Function&lt;DSLContext, Query&gt;, SQLResultAdapter&lt;T, R&gt;)</a> - Method in interface io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#executeAndForget(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndForget(Function&lt;DSLContext, Query&gt;, SQLResultAdapter&lt;T, R&gt;)</a> - Method in interface io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLStatementExecutor</a></dt>
 <dd>
-<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLQueryExecutor.execute(Function,SQLResultAdapter)</code></a> that ignores the result of the operation.</div>
+<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLStatementExecutor.execute(Function,SQLResultAdapter)</code></a> that ignores the result of the operation.</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/Jooqx.html#executeAndForget(java.util.function.Function)" class="member-name-link">executeAndForget(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/Jooqx.html" title="class in io.github.zero88.jooqx.mutiny">Jooqx</a></dt>
+<dd>
+<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(java.util.function.Function)"><code>SQLStatementExecutor.execute(Function)</code></a> that ignores the result of the operation.</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/JooqxConn.html#executeAndForget(java.util.function.Function)" class="member-name-link">executeAndForget(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/JooqxConn.html" title="class in io.github.zero88.jooqx.mutiny">JooqxConn</a></dt>
+<dd>
+<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(java.util.function.Function)"><code>SQLStatementExecutor.execute(Function)</code></a> that ignores the result of the operation.</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/JooqxSession.html#executeAndForget(java.util.function.Function)" class="member-name-link">executeAndForget(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/JooqxSession.html" title="class in io.github.zero88.jooqx.mutiny">JooqxSession</a></dt>
+<dd>
+<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(java.util.function.Function)"><code>SQLStatementExecutor.execute(Function)</code></a> that ignores the result of the operation.</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/JooqxTx.html#executeAndForget(java.util.function.Function)" class="member-name-link">executeAndForget(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/JooqxTx.html" title="class in io.github.zero88.jooqx.mutiny">JooqxTx</a></dt>
+<dd>
+<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(java.util.function.Function)"><code>SQLStatementExecutor.execute(Function)</code></a> that ignores the result of the operation.</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/LegacyJooqx.html#executeAndForget(java.util.function.Function)" class="member-name-link">executeAndForget(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/LegacyJooqx.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqx</a></dt>
+<dd>
+<div class="deprecation-block"><span class="deprecated-label">Deprecated.</span>&nbsp;</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/LegacyJooqxSession.html#executeAndForget(java.util.function.Function)" class="member-name-link">executeAndForget(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/LegacyJooqxSession.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqxSession</a></dt>
+<dd>
+<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(java.util.function.Function)"><code>SQLStatementExecutor.execute(Function)</code></a> that ignores the result of the operation.</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/LegacyJooqxTx.html#executeAndForget(java.util.function.Function)" class="member-name-link">executeAndForget(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqxTx</a></dt>
+<dd>
+<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(java.util.function.Function)"><code>SQLStatementExecutor.execute(Function)</code></a> that ignores the result of the operation.</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#executeAndForget(java.util.function.Function)" class="member-name-link">executeAndForget(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in interface io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLStatementExecutor</a></dt>
+<dd>
+<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(java.util.function.Function)"><code>SQLStatementExecutor.execute(Function)</code></a> that ignores the result of the operation.</div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/Jooqx.html#executeAndForget(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndForget(Query, SQLResultAdapter&lt;T, R&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/Jooqx.html" title="class in io.github.zero88.jooqx.mutiny">Jooqx</a></dt>
 <dd>
-<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLQueryExecutor.execute(Query,SQLResultAdapter)</code></a> that ignores the result of the operation.</div>
+<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLStatementExecutor.execute(Query,SQLResultAdapter)</code></a> that ignores the result of the operation.</div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/JooqxConn.html#executeAndForget(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndForget(Query, SQLResultAdapter&lt;T, R&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/JooqxConn.html" title="class in io.github.zero88.jooqx.mutiny">JooqxConn</a></dt>
 <dd>
-<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLQueryExecutor.execute(Query,SQLResultAdapter)</code></a> that ignores the result of the operation.</div>
+<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLStatementExecutor.execute(Query,SQLResultAdapter)</code></a> that ignores the result of the operation.</div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/JooqxSession.html#executeAndForget(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndForget(Query, SQLResultAdapter&lt;T, R&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/JooqxSession.html" title="class in io.github.zero88.jooqx.mutiny">JooqxSession</a></dt>
 <dd>
-<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLQueryExecutor.execute(Query,SQLResultAdapter)</code></a> that ignores the result of the operation.</div>
+<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLStatementExecutor.execute(Query,SQLResultAdapter)</code></a> that ignores the result of the operation.</div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/JooqxTx.html#executeAndForget(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndForget(Query, SQLResultAdapter&lt;T, R&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/JooqxTx.html" title="class in io.github.zero88.jooqx.mutiny">JooqxTx</a></dt>
 <dd>
-<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLQueryExecutor.execute(Query,SQLResultAdapter)</code></a> that ignores the result of the operation.</div>
+<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLStatementExecutor.execute(Query,SQLResultAdapter)</code></a> that ignores the result of the operation.</div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/LegacyJooqx.html#executeAndForget(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndForget(Query, SQLResultAdapter&lt;T, R&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/LegacyJooqx.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqx</a></dt>
 <dd>
@@ -2417,16 +2755,52 @@ loadScripts(document, 'script');</script>
 </dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/LegacyJooqxSession.html#executeAndForget(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndForget(Query, SQLResultAdapter&lt;T, R&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/LegacyJooqxSession.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqxSession</a></dt>
 <dd>
-<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLQueryExecutor.execute(Query,SQLResultAdapter)</code></a> that ignores the result of the operation.</div>
+<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLStatementExecutor.execute(Query,SQLResultAdapter)</code></a> that ignores the result of the operation.</div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/LegacyJooqxTx.html#executeAndForget(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndForget(Query, SQLResultAdapter&lt;T, R&gt;)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqxTx</a></dt>
 <dd>
-<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLQueryExecutor.execute(Query,SQLResultAdapter)</code></a> that ignores the result of the operation.</div>
+<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLStatementExecutor.execute(Query,SQLResultAdapter)</code></a> that ignores the result of the operation.</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#executeAndForget(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndForget(Query, SQLResultAdapter&lt;T, R&gt;)</a> - Method in interface io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#executeAndForget(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">executeAndForget(Query, SQLResultAdapter&lt;T, R&gt;)</a> - Method in interface io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLStatementExecutor</a></dt>
 <dd>
-<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLQueryExecutor.execute(Query,SQLResultAdapter)</code></a> that ignores the result of the operation.</div>
+<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLStatementExecutor.execute(Query,SQLResultAdapter)</code></a> that ignores the result of the operation.</div>
 </dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/Jooqx.html#executeAndForget(org.jooq.RowCountQuery)" class="member-name-link">executeAndForget(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/Jooqx.html" title="class in io.github.zero88.jooqx.mutiny">Jooqx</a></dt>
+<dd>
+<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(org.jooq.RowCountQuery)"><code>SQLStatementExecutor.execute(RowCountQuery)</code></a> that ignores the result of the operation.</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/JooqxConn.html#executeAndForget(org.jooq.RowCountQuery)" class="member-name-link">executeAndForget(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/JooqxConn.html" title="class in io.github.zero88.jooqx.mutiny">JooqxConn</a></dt>
+<dd>
+<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(org.jooq.RowCountQuery)"><code>SQLStatementExecutor.execute(RowCountQuery)</code></a> that ignores the result of the operation.</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/JooqxSession.html#executeAndForget(org.jooq.RowCountQuery)" class="member-name-link">executeAndForget(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/JooqxSession.html" title="class in io.github.zero88.jooqx.mutiny">JooqxSession</a></dt>
+<dd>
+<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(org.jooq.RowCountQuery)"><code>SQLStatementExecutor.execute(RowCountQuery)</code></a> that ignores the result of the operation.</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/JooqxTx.html#executeAndForget(org.jooq.RowCountQuery)" class="member-name-link">executeAndForget(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/JooqxTx.html" title="class in io.github.zero88.jooqx.mutiny">JooqxTx</a></dt>
+<dd>
+<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(org.jooq.RowCountQuery)"><code>SQLStatementExecutor.execute(RowCountQuery)</code></a> that ignores the result of the operation.</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/LegacyJooqx.html#executeAndForget(org.jooq.RowCountQuery)" class="member-name-link">executeAndForget(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/LegacyJooqx.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqx</a></dt>
+<dd>
+<div class="deprecation-block"><span class="deprecated-label">Deprecated.</span>&nbsp;</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/LegacyJooqxSession.html#executeAndForget(org.jooq.RowCountQuery)" class="member-name-link">executeAndForget(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/LegacyJooqxSession.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqxSession</a></dt>
+<dd>
+<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(org.jooq.RowCountQuery)"><code>SQLStatementExecutor.execute(RowCountQuery)</code></a> that ignores the result of the operation.</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/LegacyJooqxTx.html#executeAndForget(org.jooq.RowCountQuery)" class="member-name-link">executeAndForget(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.mutiny">LegacyJooqxTx</a></dt>
+<dd>
+<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(org.jooq.RowCountQuery)"><code>SQLStatementExecutor.execute(RowCountQuery)</code></a> that ignores the result of the operation.</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#executeAndForget(org.jooq.RowCountQuery)" class="member-name-link">executeAndForget(RowCountQuery)</a> - Method in interface io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLStatementExecutor</a></dt>
+<dd>
+<div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#execute(org.jooq.RowCountQuery)"><code>SQLStatementExecutor.execute(RowCountQuery)</code></a> that ignores the result of the operation.</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/HasExecutor.html#executor()" class="member-name-link">executor()</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/HasExecutor.html" title="interface in io.github.zero88.jooqx">HasExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/SQLExecutor.html#executor()" class="member-name-link">executor()</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a></dt>
+<dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:F">F</h2>
 <dl class="index">
@@ -2434,22 +2808,22 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Fetch count</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchCount(java.util.function.Function)" class="member-name-link">fetchCount(Function&lt;DSLContext, Select&lt;REC&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchCount(java.util.function.Function)" class="member-name-link">fetchCount(Function&lt;DSLContext, Select&lt;REC&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Like <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchCount(java.util.function.Function,io.vertx.core.Handler)"><code>SQLQueryExecutor.fetchCount(Function, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchCount(java.util.function.Function,io.vertx.core.Handler)"><code>SQLDQLExecutor.fetchCount(Function, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchCount(java.util.function.Function,io.vertx.core.Handler)" class="member-name-link">fetchCount(Function&lt;DSLContext, Select&lt;REC&gt;&gt;, Handler&lt;AsyncResult&lt;Integer&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchCount(java.util.function.Function,io.vertx.core.Handler)" class="member-name-link">fetchCount(Function&lt;DSLContext, Select&lt;REC&gt;&gt;, Handler&lt;AsyncResult&lt;Integer&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Function, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLStatementExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLStatementExecutor.execute(Function, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
  <a href="io/github/zero88/jooqx/DSLAdapter.html#fetchCount()"><code>DSLAdapter.fetchCount()</code></a></div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchCount(org.jooq.Select)" class="member-name-link">fetchCount(Select&lt;REC&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchCount(org.jooq.Select)" class="member-name-link">fetchCount(Select&lt;REC&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Like <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchCount(org.jooq.Select,io.vertx.core.Handler)"><code>SQLQueryExecutor.fetchCount(Select, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchCount(org.jooq.Select,io.vertx.core.Handler)"><code>SQLDQLExecutor.fetchCount(Select, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchCount(org.jooq.Select,io.vertx.core.Handler)" class="member-name-link">fetchCount(Select&lt;REC&gt;, Handler&lt;AsyncResult&lt;Integer&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchCount(org.jooq.Select,io.vertx.core.Handler)" class="member-name-link">fetchCount(Select&lt;REC&gt;, Handler&lt;AsyncResult&lt;Integer&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLStatementExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLStatementExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
  <a href="io/github/zero88/jooqx/DSLAdapter.html#fetchCount()"><code>DSLAdapter.fetchCount()</code></a></div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/DSLAdapter.html#fetchCount(org.jooq.TableLike)" class="member-name-link">fetchCount(TableLike&lt;Record1&lt;Integer&gt;&gt;)</a> - Static method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/DSLAdapter.html" title="interface in io.github.zero88.jooqx">DSLAdapter</a></dt>
@@ -2460,63 +2834,63 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Fetch exists</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchExists(java.util.function.Function)" class="member-name-link">fetchExists(Function&lt;DSLContext, Select&lt;REC&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchExists(java.util.function.Function)" class="member-name-link">fetchExists(Function&lt;DSLContext, Select&lt;REC&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Like <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchExists(java.util.function.Function,io.vertx.core.Handler)"><code>SQLQueryExecutor.fetchExists(Function, Handler)</code></a>  but returns a <code>Future</code> of the asynchronous result</div>
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchExists(java.util.function.Function,io.vertx.core.Handler)"><code>SQLDQLExecutor.fetchExists(Function, Handler)</code></a>  but returns a <code>Future</code> of the asynchronous result</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchExists(java.util.function.Function,io.vertx.core.Handler)" class="member-name-link">fetchExists(Function&lt;DSLContext, Select&lt;REC&gt;&gt;, Handler&lt;AsyncResult&lt;Boolean&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchExists(java.util.function.Function,io.vertx.core.Handler)" class="member-name-link">fetchExists(Function&lt;DSLContext, Select&lt;REC&gt;&gt;, Handler&lt;AsyncResult&lt;Boolean&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Function, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLStatementExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLStatementExecutor.execute(Function, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
  <a href="io/github/zero88/jooqx/DSLAdapter.html#fetchExists()"><code>DSLAdapter.fetchExists()</code></a></div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchExists(org.jooq.Select)" class="member-name-link">fetchExists(Select&lt;REC&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchExists(org.jooq.Select)" class="member-name-link">fetchExists(Select&lt;REC&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Like <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchExists(org.jooq.Select,io.vertx.core.Handler)"><code>SQLQueryExecutor.fetchExists(Select, Handler)</code></a>  but returns a <code>Future</code> of the asynchronous result</div>
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchExists(org.jooq.Select,io.vertx.core.Handler)"><code>SQLDQLExecutor.fetchExists(Select, Handler)</code></a>  but returns a <code>Future</code> of the asynchronous result</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchExists(org.jooq.Select,io.vertx.core.Handler)" class="member-name-link">fetchExists(Select&lt;REC&gt;, Handler&lt;AsyncResult&lt;Boolean&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchExists(org.jooq.Select,io.vertx.core.Handler)" class="member-name-link">fetchExists(Select&lt;REC&gt;, Handler&lt;AsyncResult&lt;Boolean&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLStatementExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLStatementExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
  <a href="io/github/zero88/jooqx/DSLAdapter.html#fetchExists()"><code>DSLAdapter.fetchExists()</code></a></div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/DSLAdapter.html#fetchExists(org.jooq.TableLike)" class="member-name-link">fetchExists(TableLike&lt;Record1&lt;Integer&gt;&gt;)</a> - Static method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/DSLAdapter.html" title="interface in io.github.zero88.jooqx">DSLAdapter</a></dt>
 <dd>
 <div class="block">Fetch exists</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonArray(java.util.function.Function)" class="member-name-link">fetchJsonArray(Function&lt;DSLContext, Select&lt;REC&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonArray(java.util.function.Function)" class="member-name-link">fetchJsonArray(Function&lt;DSLContext, Select&lt;REC&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Like <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonArray(java.util.function.Function,io.vertx.core.Handler)"><code>SQLQueryExecutor.fetchJsonArray(Function, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonArray(java.util.function.Function,io.vertx.core.Handler)"><code>SQLDQLExecutor.fetchJsonArray(Function, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonArray(java.util.function.Function,io.vertx.core.Handler)" class="member-name-link">fetchJsonArray(Function&lt;DSLContext, Select&lt;REC&gt;&gt;, Handler&lt;AsyncResult&lt;JsonArray&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonArray(java.util.function.Function,io.vertx.core.Handler)" class="member-name-link">fetchJsonArray(Function&lt;DSLContext, Select&lt;REC&gt;&gt;, Handler&lt;AsyncResult&lt;JsonArray&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLStatementExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLStatementExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
  <a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonArray(org.jooq.TableLike)"><code>DSLAdapter.fetchJsonArray(TableLike)</code></a></div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonArray(java.util.function.Function,io.vertx.core.spi.json.JsonCodec)" class="member-name-link">fetchJsonArray(Function&lt;DSLContext, Select&lt;REC&gt;&gt;, JsonCodec)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonArray(java.util.function.Function,io.vertx.core.spi.json.JsonCodec)" class="member-name-link">fetchJsonArray(Function&lt;DSLContext, Select&lt;REC&gt;&gt;, JsonCodec)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Like <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonArray(java.util.function.Function,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)"><code>SQLQueryExecutor.fetchJsonArray(Function, JsonCodec, Handler)</code></a> but returns a <code>Future</code> of the asynchronous
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonArray(java.util.function.Function,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)"><code>SQLDQLExecutor.fetchJsonArray(Function, JsonCodec, Handler)</code></a> but returns a <code>Future</code> of the asynchronous
  result</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonArray(java.util.function.Function,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)" class="member-name-link">fetchJsonArray(Function&lt;DSLContext, Select&lt;REC&gt;&gt;, JsonCodec, Handler&lt;AsyncResult&lt;JsonArray&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonArray(java.util.function.Function,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)" class="member-name-link">fetchJsonArray(Function&lt;DSLContext, Select&lt;REC&gt;&gt;, JsonCodec, Handler&lt;AsyncResult&lt;JsonArray&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLStatementExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLStatementExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
  <a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonArray(org.jooq.TableLike,io.vertx.core.spi.json.JsonCodec)"><code>DSLAdapter.fetchJsonArray(TableLike, JsonCodec)</code></a></div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonArray(org.jooq.Select)" class="member-name-link">fetchJsonArray(Select&lt;REC&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonArray(org.jooq.Select)" class="member-name-link">fetchJsonArray(Select&lt;REC&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Like <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonArray(org.jooq.Select,io.vertx.core.Handler)"><code>SQLQueryExecutor.fetchJsonArray(Select, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonArray(org.jooq.Select,io.vertx.core.Handler)"><code>SQLDQLExecutor.fetchJsonArray(Select, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonArray(org.jooq.Select,io.vertx.core.Handler)" class="member-name-link">fetchJsonArray(Select&lt;REC&gt;, Handler&lt;AsyncResult&lt;JsonArray&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonArray(org.jooq.Select,io.vertx.core.Handler)" class="member-name-link">fetchJsonArray(Select&lt;REC&gt;, Handler&lt;AsyncResult&lt;JsonArray&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLStatementExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLStatementExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
  <a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonArray(org.jooq.TableLike)"><code>DSLAdapter.fetchJsonArray(TableLike)</code></a></div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonArray(org.jooq.Select,io.vertx.core.spi.json.JsonCodec)" class="member-name-link">fetchJsonArray(Select&lt;REC&gt;, JsonCodec)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonArray(org.jooq.Select,io.vertx.core.spi.json.JsonCodec)" class="member-name-link">fetchJsonArray(Select&lt;REC&gt;, JsonCodec)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Like <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonArray(org.jooq.Select,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)"><code>SQLQueryExecutor.fetchJsonArray(Select, JsonCodec, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonArray(org.jooq.Select,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)"><code>SQLDQLExecutor.fetchJsonArray(Select, JsonCodec, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonArray(org.jooq.Select,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)" class="member-name-link">fetchJsonArray(Select&lt;REC&gt;, JsonCodec, Handler&lt;AsyncResult&lt;JsonArray&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonArray(org.jooq.Select,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)" class="member-name-link">fetchJsonArray(Select&lt;REC&gt;, JsonCodec, Handler&lt;AsyncResult&lt;JsonArray&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLStatementExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLStatementExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
  <a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonArray(org.jooq.TableLike,io.vertx.core.spi.json.JsonCodec)"><code>DSLAdapter.fetchJsonArray(TableLike, JsonCodec)</code></a></div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonArray(org.jooq.TableLike)" class="member-name-link">fetchJsonArray(TableLike&lt;? extends Record&gt;)</a> - Static method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/DSLAdapter.html" title="interface in io.github.zero88.jooqx">DSLAdapter</a></dt>
@@ -2527,41 +2901,41 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Fetch result by a table of the query context then map into json array</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonObject(java.util.function.Function)" class="member-name-link">fetchJsonObject(Function&lt;DSLContext, Select&lt;REC&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonObject(java.util.function.Function)" class="member-name-link">fetchJsonObject(Function&lt;DSLContext, Select&lt;REC&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Like <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonObject(java.util.function.Function,io.vertx.core.Handler)"><code>SQLQueryExecutor.fetchJsonObject(Function, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonObject(java.util.function.Function,io.vertx.core.Handler)"><code>SQLDQLExecutor.fetchJsonObject(Function, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonObject(java.util.function.Function,io.vertx.core.Handler)" class="member-name-link">fetchJsonObject(Function&lt;DSLContext, Select&lt;REC&gt;&gt;, Handler&lt;AsyncResult&lt;JsonObject&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonObject(java.util.function.Function,io.vertx.core.Handler)" class="member-name-link">fetchJsonObject(Function&lt;DSLContext, Select&lt;REC&gt;&gt;, Handler&lt;AsyncResult&lt;JsonObject&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLStatementExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLStatementExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
  <a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonObject(org.jooq.TableLike)"><code>DSLAdapter.fetchJsonObject(TableLike)</code></a></div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonObject(java.util.function.Function,io.vertx.core.spi.json.JsonCodec)" class="member-name-link">fetchJsonObject(Function&lt;DSLContext, Select&lt;REC&gt;&gt;, JsonCodec)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonObject(java.util.function.Function,io.vertx.core.spi.json.JsonCodec)" class="member-name-link">fetchJsonObject(Function&lt;DSLContext, Select&lt;REC&gt;&gt;, JsonCodec)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Like <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonObject(java.util.function.Function,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)"><code>SQLQueryExecutor.fetchJsonObject(Function, JsonCodec, Handler)</code></a> but returns a <code>Future</code> of the asynchronous
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonObject(java.util.function.Function,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)"><code>SQLDQLExecutor.fetchJsonObject(Function, JsonCodec, Handler)</code></a> but returns a <code>Future</code> of the asynchronous
  result</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonObject(java.util.function.Function,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)" class="member-name-link">fetchJsonObject(Function&lt;DSLContext, Select&lt;REC&gt;&gt;, JsonCodec, Handler&lt;AsyncResult&lt;JsonObject&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonObject(java.util.function.Function,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)" class="member-name-link">fetchJsonObject(Function&lt;DSLContext, Select&lt;REC&gt;&gt;, JsonCodec, Handler&lt;AsyncResult&lt;JsonObject&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLStatementExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLStatementExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
  <a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonObject(org.jooq.TableLike,io.vertx.core.spi.json.JsonCodec)"><code>DSLAdapter.fetchJsonObject(TableLike, JsonCodec)</code></a></div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonObject(org.jooq.Select)" class="member-name-link">fetchJsonObject(Select&lt;REC&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonObject(org.jooq.Select)" class="member-name-link">fetchJsonObject(Select&lt;REC&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Like <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonObject(org.jooq.Select,io.vertx.core.Handler)"><code>SQLQueryExecutor.fetchJsonObject(Select, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonObject(org.jooq.Select,io.vertx.core.Handler)"><code>SQLDQLExecutor.fetchJsonObject(Select, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonObject(org.jooq.Select,io.vertx.core.Handler)" class="member-name-link">fetchJsonObject(Select&lt;REC&gt;, Handler&lt;AsyncResult&lt;JsonObject&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonObject(org.jooq.Select,io.vertx.core.Handler)" class="member-name-link">fetchJsonObject(Select&lt;REC&gt;, Handler&lt;AsyncResult&lt;JsonObject&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLStatementExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLStatementExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
  <a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonObject(org.jooq.TableLike)"><code>DSLAdapter.fetchJsonObject(TableLike)</code></a></div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonObject(org.jooq.Select,io.vertx.core.spi.json.JsonCodec)" class="member-name-link">fetchJsonObject(Select&lt;REC&gt;, JsonCodec)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonObject(org.jooq.Select,io.vertx.core.spi.json.JsonCodec)" class="member-name-link">fetchJsonObject(Select&lt;REC&gt;, JsonCodec)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Like <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonObject(org.jooq.Select,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)"><code>SQLQueryExecutor.fetchJsonObject(Select, JsonCodec, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonObject(org.jooq.Select,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)"><code>SQLDQLExecutor.fetchJsonObject(Select, JsonCodec, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonObject(org.jooq.Select,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)" class="member-name-link">fetchJsonObject(Select&lt;REC&gt;, JsonCodec, Handler&lt;AsyncResult&lt;JsonObject&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonObject(org.jooq.Select,io.vertx.core.spi.json.JsonCodec,io.vertx.core.Handler)" class="member-name-link">fetchJsonObject(Select&lt;REC&gt;, JsonCodec, Handler&lt;AsyncResult&lt;JsonObject&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLStatementExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLStatementExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
  <a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonObject(org.jooq.TableLike,io.vertx.core.spi.json.JsonCodec)"><code>DSLAdapter.fetchJsonObject(TableLike, JsonCodec)</code></a></div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonObject(org.jooq.TableLike)" class="member-name-link">fetchJsonObject(TableLike&lt;? extends Record&gt;)</a> - Static method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/DSLAdapter.html" title="interface in io.github.zero88.jooqx">DSLAdapter</a></dt>
@@ -2572,66 +2946,66 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Fetch one row to json object</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonRecord(java.util.function.Function)" class="member-name-link">fetchJsonRecord(Function&lt;DSLContext, Select&lt;REC&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonRecord(java.util.function.Function)" class="member-name-link">fetchJsonRecord(Function&lt;DSLContext, Select&lt;REC&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Like <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonRecord(java.util.function.Function,io.vertx.core.Handler)"><code>SQLQueryExecutor.fetchJsonRecord(Function, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonRecord(java.util.function.Function,io.vertx.core.Handler)"><code>SQLDQLExecutor.fetchJsonRecord(Function, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonRecord(java.util.function.Function,io.vertx.core.Handler)" class="member-name-link">fetchJsonRecord(Function&lt;DSLContext, Select&lt;REC&gt;&gt;, Handler&lt;AsyncResult&lt;JsonRecord&lt;REC&gt;&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonRecord(java.util.function.Function,io.vertx.core.Handler)" class="member-name-link">fetchJsonRecord(Function&lt;DSLContext, Select&lt;REC&gt;&gt;, Handler&lt;AsyncResult&lt;JsonRecord&lt;REC&gt;&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLStatementExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLStatementExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
  <a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonRecord(org.jooq.TableLike)"><code>DSLAdapter.fetchJsonRecord(TableLike)</code></a></div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonRecord(org.jooq.Select)" class="member-name-link">fetchJsonRecord(Select&lt;REC&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonRecord(org.jooq.Select)" class="member-name-link">fetchJsonRecord(Select&lt;REC&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Like <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonRecord(org.jooq.Select,io.vertx.core.Handler)"><code>SQLQueryExecutor.fetchJsonRecord(Select, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonRecord(org.jooq.Select,io.vertx.core.Handler)"><code>SQLDQLExecutor.fetchJsonRecord(Select, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonRecord(org.jooq.Select,io.vertx.core.Handler)" class="member-name-link">fetchJsonRecord(Select&lt;REC&gt;, Handler&lt;AsyncResult&lt;JsonRecord&lt;REC&gt;&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonRecord(org.jooq.Select,io.vertx.core.Handler)" class="member-name-link">fetchJsonRecord(Select&lt;REC&gt;, Handler&lt;AsyncResult&lt;JsonRecord&lt;REC&gt;&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLStatementExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLStatementExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
  <a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonRecord(org.jooq.TableLike)"><code>DSLAdapter.fetchJsonRecord(TableLike)</code></a></div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonRecord(org.jooq.TableLike)" class="member-name-link">fetchJsonRecord(TableLike&lt;REC&gt;)</a> - Static method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/DSLAdapter.html" title="interface in io.github.zero88.jooqx">DSLAdapter</a></dt>
 <dd>
 <div class="block">Fetch one row to JsonRecord</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonRecords(java.util.function.Function)" class="member-name-link">fetchJsonRecords(Function&lt;DSLContext, Select&lt;REC&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonRecords(java.util.function.Function)" class="member-name-link">fetchJsonRecords(Function&lt;DSLContext, Select&lt;REC&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Like <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonRecords(java.util.function.Function,io.vertx.core.Handler)"><code>SQLQueryExecutor.fetchJsonRecords(Function, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonRecords(java.util.function.Function,io.vertx.core.Handler)"><code>SQLDQLExecutor.fetchJsonRecords(Function, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonRecords(java.util.function.Function,io.vertx.core.Handler)" class="member-name-link">fetchJsonRecords(Function&lt;DSLContext, Select&lt;REC&gt;&gt;, Handler&lt;AsyncResult&lt;List&lt;JsonRecord&lt;REC&gt;&gt;&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonRecords(java.util.function.Function,io.vertx.core.Handler)" class="member-name-link">fetchJsonRecords(Function&lt;DSLContext, Select&lt;REC&gt;&gt;, Handler&lt;AsyncResult&lt;List&lt;JsonRecord&lt;REC&gt;&gt;&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLStatementExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLStatementExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
  <a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonRecords(org.jooq.TableLike)"><code>DSLAdapter.fetchJsonRecords(TableLike)</code></a></div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonRecords(org.jooq.Select)" class="member-name-link">fetchJsonRecords(Select&lt;REC&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonRecords(org.jooq.Select)" class="member-name-link">fetchJsonRecords(Select&lt;REC&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Like <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonRecords(org.jooq.Select,io.vertx.core.Handler)"><code>SQLQueryExecutor.fetchJsonRecords(Select, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonRecords(org.jooq.Select,io.vertx.core.Handler)"><code>SQLDQLExecutor.fetchJsonRecords(Select, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchJsonRecords(org.jooq.Select,io.vertx.core.Handler)" class="member-name-link">fetchJsonRecords(Select&lt;REC&gt;, Handler&lt;AsyncResult&lt;List&lt;JsonRecord&lt;REC&gt;&gt;&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchJsonRecords(org.jooq.Select,io.vertx.core.Handler)" class="member-name-link">fetchJsonRecords(Select&lt;REC&gt;, Handler&lt;AsyncResult&lt;List&lt;JsonRecord&lt;REC&gt;&gt;&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLStatementExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLStatementExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
  <a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonRecords(org.jooq.TableLike)"><code>DSLAdapter.fetchJsonRecords(TableLike)</code></a></div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/DSLAdapter.html#fetchJsonRecords(org.jooq.TableLike)" class="member-name-link">fetchJsonRecords(TableLike&lt;REC&gt;)</a> - Static method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/DSLAdapter.html" title="interface in io.github.zero88.jooqx">DSLAdapter</a></dt>
 <dd>
 <div class="block">Fetch many Json record</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchMany(java.util.function.Function)" class="member-name-link">fetchMany(Function&lt;DSLContext, Select&lt;REC&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchMany(java.util.function.Function)" class="member-name-link">fetchMany(Function&lt;DSLContext, Select&lt;REC&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Like <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchMany(java.util.function.Function,io.vertx.core.Handler)"><code>SQLQueryExecutor.fetchMany(Function, Handler)</code></a>  but returns a <code>Future</code> of the asynchronous result</div>
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchMany(java.util.function.Function,io.vertx.core.Handler)"><code>SQLDQLExecutor.fetchMany(Function, Handler)</code></a>  but returns a <code>Future</code> of the asynchronous result</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchMany(java.util.function.Function,io.vertx.core.Handler)" class="member-name-link">fetchMany(Function&lt;DSLContext, Select&lt;REC&gt;&gt;, Handler&lt;AsyncResult&lt;List&lt;REC&gt;&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchMany(java.util.function.Function,io.vertx.core.Handler)" class="member-name-link">fetchMany(Function&lt;DSLContext, Select&lt;REC&gt;&gt;, Handler&lt;AsyncResult&lt;List&lt;REC&gt;&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Function, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLStatementExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLStatementExecutor.execute(Function, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
  <a href="io/github/zero88/jooqx/DSLAdapter.html#fetchMany(T)"><code>DSLAdapter.fetchMany(Table)</code></a></div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchMany(org.jooq.Select)" class="member-name-link">fetchMany(Select&lt;REC&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchMany(org.jooq.Select)" class="member-name-link">fetchMany(Select&lt;REC&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Like <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchMany(org.jooq.Select,io.vertx.core.Handler)"><code>SQLQueryExecutor.fetchMany(Select, Handler)</code></a>  but returns a <code>Future</code> of the asynchronous result</div>
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchMany(org.jooq.Select,io.vertx.core.Handler)"><code>SQLDQLExecutor.fetchMany(Select, Handler)</code></a>  but returns a <code>Future</code> of the asynchronous result</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchMany(org.jooq.Select,io.vertx.core.Handler)" class="member-name-link">fetchMany(Select&lt;REC&gt;, Handler&lt;AsyncResult&lt;List&lt;REC&gt;&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchMany(org.jooq.Select,io.vertx.core.Handler)" class="member-name-link">fetchMany(Select&lt;REC&gt;, Handler&lt;AsyncResult&lt;List&lt;REC&gt;&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLStatementExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLStatementExecutor.execute(Query, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
  <a href="io/github/zero88/jooqx/DSLAdapter.html#fetchMany(T)"><code>DSLAdapter.fetchMany(Table)</code></a></div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/DSLAdapter.html#fetchMany(org.jooq.TableLike,java.lang.Class)" class="member-name-link">fetchMany(TableLike&lt;? extends Record&gt;, Class&lt;R&gt;)</a> - Static method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/DSLAdapter.html" title="interface in io.github.zero88.jooqx">DSLAdapter</a></dt>
@@ -2662,22 +3036,22 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Fetch many</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchOne(java.util.function.Function)" class="member-name-link">fetchOne(Function&lt;DSLContext, Select&lt;REC&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchOne(java.util.function.Function)" class="member-name-link">fetchOne(Function&lt;DSLContext, Select&lt;REC&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Like <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchOne(java.util.function.Function,io.vertx.core.Handler)"><code>SQLQueryExecutor.fetchOne(Function, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchOne(java.util.function.Function,io.vertx.core.Handler)"><code>SQLDQLExecutor.fetchOne(Function, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchOne(java.util.function.Function,io.vertx.core.Handler)" class="member-name-link">fetchOne(Function&lt;DSLContext, Select&lt;REC&gt;&gt;, Handler&lt;AsyncResult&lt;REC&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchOne(java.util.function.Function,io.vertx.core.Handler)" class="member-name-link">fetchOne(Function&lt;DSLContext, Select&lt;REC&gt;&gt;, Handler&lt;AsyncResult&lt;REC&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLQueryExecutor.execute(Function, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
+<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLStatementExecutor.html#execute(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)"><code>SQLStatementExecutor.execute(Function, SQLResultAdapter, Handler)</code></a> with SQLResultAdapter is
  <a href="io/github/zero88/jooqx/DSLAdapter.html#fetchOne(T)"><code>DSLAdapter.fetchOne(Table)</code></a></div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchOne(org.jooq.Select)" class="member-name-link">fetchOne(Select&lt;REC&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchOne(org.jooq.Select)" class="member-name-link">fetchOne(Select&lt;REC&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Like <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchOne(org.jooq.Select,io.vertx.core.Handler)"><code>SQLQueryExecutor.fetchOne(Select, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
+<div class="block">Like <a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchOne(org.jooq.Select,io.vertx.core.Handler)"><code>SQLDQLExecutor.fetchOne(Select, Handler)</code></a> but returns a <code>Future</code> of the asynchronous result</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html#fetchOne(org.jooq.Select,io.vertx.core.Handler)" class="member-name-link">fetchOne(Select&lt;REC&gt;, Handler&lt;AsyncResult&lt;REC&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a></dt>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html#fetchOne(org.jooq.Select,io.vertx.core.Handler)" class="member-name-link">fetchOne(Select&lt;REC&gt;, Handler&lt;AsyncResult&lt;REC&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a></dt>
 <dd>
-<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLQueryExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLQueryExecutor.execute(Query, SQLResultAdapter)</code></a> with SQLResultAdapter is
+<div class="block">Shortcut of <a href="io/github/zero88/jooqx/SQLStatementExecutor.html#execute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLStatementExecutor.execute(Query, SQLResultAdapter)</code></a> with SQLResultAdapter is
  <a href="io/github/zero88/jooqx/DSLAdapter.html#fetchOne(T)"><code>DSLAdapter.fetchOne(Table)</code></a></div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/DSLAdapter.html#fetchOne(org.jooq.TableLike,java.lang.Class)" class="member-name-link">fetchOne(TableLike&lt;? extends Record&gt;, Class&lt;R&gt;)</a> - Static method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/DSLAdapter.html" title="interface in io.github.zero88.jooqx">DSLAdapter</a></dt>
@@ -2815,11 +3189,15 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/SQLDDLExecutor.html#getDelegate()" class="member-name-link">getDelegate()</a> - Method in interface io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/SQLDDLExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLDDLExecutor</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/SQLDMLExecutor.html#getDelegate()" class="member-name-link">getDelegate()</a> - Method in interface io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/SQLDMLExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLDMLExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/SQLDQLExecutor.html#getDelegate()" class="member-name-link">getDelegate()</a> - Method in interface io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLDQLExecutor</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/SQLPlainExecutor.html#getDelegate()" class="member-name-link">getDelegate()</a> - Method in interface io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/SQLPlainExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLPlainExecutor</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#getDelegate()" class="member-name-link">getDelegate()</a> - Method in interface io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLQueryExecutor</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/SQLRoutineExecutor.html#getDelegate()" class="member-name-link">getDelegate()</a> - Method in interface io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/SQLRoutineExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLRoutineExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#getDelegate()" class="member-name-link">getDelegate()</a> - Method in interface io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLStatementExecutor</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/zero88/jooqx/reactivex/Jooqx.html#getDelegate()" class="member-name-link">getDelegate()</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/Jooqx.html" title="class in io.github.zero88.jooqx.reactivex">Jooqx</a></dt>
 <dd>&nbsp;</dd>
@@ -2861,11 +3239,15 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/zero88/jooqx/reactivex/SQLDDLExecutor.html#getDelegate()" class="member-name-link">getDelegate()</a> - Method in interface io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/SQLDDLExecutor.html" title="interface in io.github.zero88.jooqx.reactivex">SQLDDLExecutor</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/SQLDMLExecutor.html#getDelegate()" class="member-name-link">getDelegate()</a> - Method in interface io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/SQLDMLExecutor.html" title="interface in io.github.zero88.jooqx.reactivex">SQLDMLExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/SQLDQLExecutor.html#getDelegate()" class="member-name-link">getDelegate()</a> - Method in interface io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx.reactivex">SQLDQLExecutor</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io/github/zero88/jooqx/reactivex/SQLPlainExecutor.html#getDelegate()" class="member-name-link">getDelegate()</a> - Method in interface io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/SQLPlainExecutor.html" title="interface in io.github.zero88.jooqx.reactivex">SQLPlainExecutor</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="io/github/zero88/jooqx/reactivex/SQLQueryExecutor.html#getDelegate()" class="member-name-link">getDelegate()</a> - Method in interface io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx.reactivex">SQLQueryExecutor</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="io/github/zero88/jooqx/reactivex/SQLRoutineExecutor.html#getDelegate()" class="member-name-link">getDelegate()</a> - Method in interface io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/SQLRoutineExecutor.html" title="interface in io.github.zero88.jooqx.reactivex">SQLRoutineExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/SQLStatementExecutor.html#getDelegate()" class="member-name-link">getDelegate()</a> - Method in interface io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/SQLStatementExecutor.html" title="interface in io.github.zero88.jooqx.reactivex">SQLStatementExecutor</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/zero88/jooqx/rxjava3/Jooqx.html#getDelegate()" class="member-name-link">getDelegate()</a> - Method in class io.github.zero88.jooqx.rxjava3.<a href="io/github/zero88/jooqx/rxjava3/Jooqx.html" title="class in io.github.zero88.jooqx.rxjava3">Jooqx</a></dt>
 <dd>&nbsp;</dd>
@@ -2895,11 +3277,15 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/zero88/jooqx/rxjava3/SQLDDLExecutor.html#getDelegate()" class="member-name-link">getDelegate()</a> - Method in interface io.github.zero88.jooqx.rxjava3.<a href="io/github/zero88/jooqx/rxjava3/SQLDDLExecutor.html" title="interface in io.github.zero88.jooqx.rxjava3">SQLDDLExecutor</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/rxjava3/SQLDMLExecutor.html#getDelegate()" class="member-name-link">getDelegate()</a> - Method in interface io.github.zero88.jooqx.rxjava3.<a href="io/github/zero88/jooqx/rxjava3/SQLDMLExecutor.html" title="interface in io.github.zero88.jooqx.rxjava3">SQLDMLExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/rxjava3/SQLDQLExecutor.html#getDelegate()" class="member-name-link">getDelegate()</a> - Method in interface io.github.zero88.jooqx.rxjava3.<a href="io/github/zero88/jooqx/rxjava3/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx.rxjava3">SQLDQLExecutor</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io/github/zero88/jooqx/rxjava3/SQLPlainExecutor.html#getDelegate()" class="member-name-link">getDelegate()</a> - Method in interface io.github.zero88.jooqx.rxjava3.<a href="io/github/zero88/jooqx/rxjava3/SQLPlainExecutor.html" title="interface in io.github.zero88.jooqx.rxjava3">SQLPlainExecutor</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="io/github/zero88/jooqx/rxjava3/SQLQueryExecutor.html#getDelegate()" class="member-name-link">getDelegate()</a> - Method in interface io.github.zero88.jooqx.rxjava3.<a href="io/github/zero88/jooqx/rxjava3/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx.rxjava3">SQLQueryExecutor</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="io/github/zero88/jooqx/rxjava3/SQLRoutineExecutor.html#getDelegate()" class="member-name-link">getDelegate()</a> - Method in interface io.github.zero88.jooqx.rxjava3.<a href="io/github/zero88/jooqx/rxjava3/SQLRoutineExecutor.html" title="interface in io.github.zero88.jooqx.rxjava3">SQLRoutineExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/rxjava3/SQLStatementExecutor.html#getDelegate()" class="member-name-link">getDelegate()</a> - Method in interface io.github.zero88.jooqx.rxjava3.<a href="io/github/zero88/jooqx/rxjava3/SQLStatementExecutor.html" title="interface in io.github.zero88.jooqx.rxjava3">SQLStatementExecutor</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/zero88/jooqx/BindBatchValues.html#getDummyValues()" class="member-name-link">getDummyValues()</a> - Method in class io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a></dt>
 <dd>&nbsp;</dd>
@@ -2936,6 +3322,8 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Handle throwable to runtime exception</div>
 </dd>
+<dt><a href="io/github/zero88/jooqx/HasExecutor.html" class="type-name-link" title="interface in io.github.zero88.jooqx">HasExecutor</a> - Interface in <a href="io/github/zero88/jooqx/package-summary.html">io.github.zero88.jooqx</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/Jooqx.html#hashCode()" class="member-name-link">hashCode()</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/Jooqx.html" title="class in io.github.zero88.jooqx.mutiny">Jooqx</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/JooqxBatchCollector.html#hashCode()" class="member-name-link">hashCode()</a> - Method in class io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/JooqxBatchCollector.html" title="class in io.github.zero88.jooqx.mutiny">JooqxBatchCollector</a></dt>
@@ -3046,6 +3434,22 @@ loadScripts(document, 'script');</script>
 <div class="block">Init database</div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/routine/RoutineExecutorDelegate.html#init(io.github.zero88.jooqx.SQLExecutor)" class="member-name-link">init(SQLExecutor)</a> - Static method in interface io.github.zero88.jooqx.routine.<a href="io/github/zero88/jooqx/routine/RoutineExecutorDelegate.html" title="interface in io.github.zero88.jooqx.routine">RoutineExecutorDelegate</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/SQLDMLExecutor.html#insert(java.util.function.Function)" class="member-name-link">insert(Function&lt;DSLContext, Insert&lt;R&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDMLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDMLExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/SQLDMLExecutor.html#insert(java.util.function.Function,io.vertx.core.Handler)" class="member-name-link">insert(Function&lt;DSLContext, Insert&lt;R&gt;&gt;, Handler&lt;AsyncResult&lt;Integer&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDMLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDMLExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/SQLDMLExecutor.html#insert(org.jooq.Insert)" class="member-name-link">insert(Insert&lt;R&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDMLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDMLExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/SQLDMLExecutor.html#insert(org.jooq.Insert,io.vertx.core.Handler)" class="member-name-link">insert(Insert&lt;R&gt;, Handler&lt;AsyncResult&lt;Integer&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDMLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDMLExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/SQLDMLExecutor.html#insertQuery(java.util.function.Function)" class="member-name-link">insertQuery(Function&lt;DSLContext, InsertQuery&lt;R&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDMLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDMLExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/SQLDMLExecutor.html#insertQuery(java.util.function.Function,io.vertx.core.Handler)" class="member-name-link">insertQuery(Function&lt;DSLContext, InsertQuery&lt;R&gt;&gt;, Handler&lt;AsyncResult&lt;Integer&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDMLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDMLExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/SQLDMLExecutor.html#insertQuery(org.jooq.InsertQuery)" class="member-name-link">insertQuery(InsertQuery&lt;R&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDMLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDMLExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/SQLDMLExecutor.html#insertQuery(org.jooq.InsertQuery,io.vertx.core.Handler)" class="member-name-link">insertQuery(InsertQuery&lt;R&gt;, Handler&lt;AsyncResult&lt;Integer&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDMLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDMLExecutor</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/zero88/jooqx/spi/pg/datatype/IntervalConverter.html" class="type-name-link" title="class in io.github.zero88.jooqx.spi.pg.datatype">IntervalConverter</a> - Class in <a href="io/github/zero88/jooqx/spi/pg/datatype/package-summary.html">io.github.zero88.jooqx.spi.pg.datatype</a></dt>
 <dd>
@@ -3865,23 +4269,35 @@ loadScripts(document, 'script');</script>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/zero88/jooqx/rxjava3/SQLDDLExecutor.html#newInstance(io.github.zero88.jooqx.SQLDDLExecutor)" class="member-name-link">newInstance(SQLDDLExecutor)</a> - Static method in interface io.github.zero88.jooqx.rxjava3.<a href="io/github/zero88/jooqx/rxjava3/SQLDDLExecutor.html" title="interface in io.github.zero88.jooqx.rxjava3">SQLDDLExecutor</a></dt>
 <dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/SQLDMLExecutor.html#newInstance(io.github.zero88.jooqx.SQLDMLExecutor)" class="member-name-link">newInstance(SQLDMLExecutor)</a> - Static method in interface io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/SQLDMLExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLDMLExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/SQLDMLExecutor.html#newInstance(io.github.zero88.jooqx.SQLDMLExecutor)" class="member-name-link">newInstance(SQLDMLExecutor)</a> - Static method in interface io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/SQLDMLExecutor.html" title="interface in io.github.zero88.jooqx.reactivex">SQLDMLExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/rxjava3/SQLDMLExecutor.html#newInstance(io.github.zero88.jooqx.SQLDMLExecutor)" class="member-name-link">newInstance(SQLDMLExecutor)</a> - Static method in interface io.github.zero88.jooqx.rxjava3.<a href="io/github/zero88/jooqx/rxjava3/SQLDMLExecutor.html" title="interface in io.github.zero88.jooqx.rxjava3">SQLDMLExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/SQLDQLExecutor.html#newInstance(io.github.zero88.jooqx.SQLDQLExecutor)" class="member-name-link">newInstance(SQLDQLExecutor)</a> - Static method in interface io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLDQLExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/SQLDQLExecutor.html#newInstance(io.github.zero88.jooqx.SQLDQLExecutor)" class="member-name-link">newInstance(SQLDQLExecutor)</a> - Static method in interface io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx.reactivex">SQLDQLExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/rxjava3/SQLDQLExecutor.html#newInstance(io.github.zero88.jooqx.SQLDQLExecutor)" class="member-name-link">newInstance(SQLDQLExecutor)</a> - Static method in interface io.github.zero88.jooqx.rxjava3.<a href="io/github/zero88/jooqx/rxjava3/SQLDQLExecutor.html" title="interface in io.github.zero88.jooqx.rxjava3">SQLDQLExecutor</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/SQLPlainExecutor.html#newInstance(io.github.zero88.jooqx.SQLPlainExecutor)" class="member-name-link">newInstance(SQLPlainExecutor)</a> - Static method in interface io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/SQLPlainExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLPlainExecutor</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/zero88/jooqx/reactivex/SQLPlainExecutor.html#newInstance(io.github.zero88.jooqx.SQLPlainExecutor)" class="member-name-link">newInstance(SQLPlainExecutor)</a> - Static method in interface io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/SQLPlainExecutor.html" title="interface in io.github.zero88.jooqx.reactivex">SQLPlainExecutor</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/zero88/jooqx/rxjava3/SQLPlainExecutor.html#newInstance(io.github.zero88.jooqx.SQLPlainExecutor)" class="member-name-link">newInstance(SQLPlainExecutor)</a> - Static method in interface io.github.zero88.jooqx.rxjava3.<a href="io/github/zero88/jooqx/rxjava3/SQLPlainExecutor.html" title="interface in io.github.zero88.jooqx.rxjava3">SQLPlainExecutor</a></dt>
 <dd>&nbsp;</dd>
-<dt><a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html#newInstance(io.github.zero88.jooqx.SQLQueryExecutor)" class="member-name-link">newInstance(SQLQueryExecutor)</a> - Static method in interface io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLQueryExecutor</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="io/github/zero88/jooqx/reactivex/SQLQueryExecutor.html#newInstance(io.github.zero88.jooqx.SQLQueryExecutor)" class="member-name-link">newInstance(SQLQueryExecutor)</a> - Static method in interface io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx.reactivex">SQLQueryExecutor</a></dt>
-<dd>&nbsp;</dd>
-<dt><a href="io/github/zero88/jooqx/rxjava3/SQLQueryExecutor.html#newInstance(io.github.zero88.jooqx.SQLQueryExecutor)" class="member-name-link">newInstance(SQLQueryExecutor)</a> - Static method in interface io.github.zero88.jooqx.rxjava3.<a href="io/github/zero88/jooqx/rxjava3/SQLQueryExecutor.html" title="interface in io.github.zero88.jooqx.rxjava3">SQLQueryExecutor</a></dt>
-<dd>&nbsp;</dd>
 <dt><a href="io/github/zero88/jooqx/mutiny/SQLRoutineExecutor.html#newInstance(io.github.zero88.jooqx.SQLRoutineExecutor)" class="member-name-link">newInstance(SQLRoutineExecutor)</a> - Static method in interface io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/SQLRoutineExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLRoutineExecutor</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/zero88/jooqx/reactivex/SQLRoutineExecutor.html#newInstance(io.github.zero88.jooqx.SQLRoutineExecutor)" class="member-name-link">newInstance(SQLRoutineExecutor)</a> - Static method in interface io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/SQLRoutineExecutor.html" title="interface in io.github.zero88.jooqx.reactivex">SQLRoutineExecutor</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/zero88/jooqx/rxjava3/SQLRoutineExecutor.html#newInstance(io.github.zero88.jooqx.SQLRoutineExecutor)" class="member-name-link">newInstance(SQLRoutineExecutor)</a> - Static method in interface io.github.zero88.jooqx.rxjava3.<a href="io/github/zero88/jooqx/rxjava3/SQLRoutineExecutor.html" title="interface in io.github.zero88.jooqx.rxjava3">SQLRoutineExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html#newInstance(io.github.zero88.jooqx.SQLStatementExecutor)" class="member-name-link">newInstance(SQLStatementExecutor)</a> - Static method in interface io.github.zero88.jooqx.mutiny.<a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html" title="interface in io.github.zero88.jooqx.mutiny">SQLStatementExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/SQLStatementExecutor.html#newInstance(io.github.zero88.jooqx.SQLStatementExecutor)" class="member-name-link">newInstance(SQLStatementExecutor)</a> - Static method in interface io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/SQLStatementExecutor.html" title="interface in io.github.zero88.jooqx.reactivex">SQLStatementExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/rxjava3/SQLStatementExecutor.html#newInstance(io.github.zero88.jooqx.SQLStatementExecutor)" class="member-name-link">newInstance(SQLStatementExecutor)</a> - Static method in interface io.github.zero88.jooqx.rxjava3.<a href="io/github/zero88/jooqx/rxjava3/SQLStatementExecutor.html" title="interface in io.github.zero88.jooqx.rxjava3">SQLStatementExecutor</a></dt>
 <dd>&nbsp;</dd>
 </dl>
 <h2 class="title" id="I:O">O</h2>
@@ -5052,6 +5468,50 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Execute <code>jOOQ query</code> then return async result</div>
 </dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/Jooqx.html#rxExecute(java.util.function.Function)" class="member-name-link">rxExecute(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/Jooqx.html" title="class in io.github.zero88.jooqx.reactivex">Jooqx</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/JooqxConn.html#rxExecute(java.util.function.Function)" class="member-name-link">rxExecute(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/JooqxConn.html" title="class in io.github.zero88.jooqx.reactivex">JooqxConn</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/JooqxSession.html#rxExecute(java.util.function.Function)" class="member-name-link">rxExecute(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/JooqxSession.html" title="class in io.github.zero88.jooqx.reactivex">JooqxSession</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/JooqxTx.html#rxExecute(java.util.function.Function)" class="member-name-link">rxExecute(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/JooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">JooqxTx</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/LegacyJooqx.html#rxExecute(java.util.function.Function)" class="member-name-link">rxExecute(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/LegacyJooqx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqx</a></dt>
+<dd>
+<div class="deprecation-block"><span class="deprecated-label">Deprecated.</span></div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/LegacyJooqxSession.html#rxExecute(java.util.function.Function)" class="member-name-link">rxExecute(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/LegacyJooqxSession.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxSession</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/LegacyJooqxTx.html#rxExecute(java.util.function.Function)" class="member-name-link">rxExecute(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxTx</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/rxjava3/Jooqx.html#rxExecute(java.util.function.Function)" class="member-name-link">rxExecute(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.rxjava3.<a href="io/github/zero88/jooqx/rxjava3/Jooqx.html" title="class in io.github.zero88.jooqx.rxjava3">Jooqx</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/rxjava3/JooqxConn.html#rxExecute(java.util.function.Function)" class="member-name-link">rxExecute(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.rxjava3.<a href="io/github/zero88/jooqx/rxjava3/JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/rxjava3/JooqxSession.html#rxExecute(java.util.function.Function)" class="member-name-link">rxExecute(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.rxjava3.<a href="io/github/zero88/jooqx/rxjava3/JooqxSession.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxSession</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/rxjava3/JooqxTx.html#rxExecute(java.util.function.Function)" class="member-name-link">rxExecute(Function&lt;DSLContext, RowCountQuery&gt;)</a> - Method in class io.github.zero88.jooqx.rxjava3.<a href="io/github/zero88/jooqx/rxjava3/JooqxTx.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxTx</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
 <dt><a href="io/github/zero88/jooqx/reactivex/Jooqx.html#rxExecute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">rxExecute(Query, SQLResultAdapter&lt;T, R&gt;)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/Jooqx.html" title="class in io.github.zero88.jooqx.reactivex">Jooqx</a></dt>
 <dd>
 <div class="block">Execute <code>jOOQ query</code> then return async result</div>
@@ -5095,6 +5555,50 @@ loadScripts(document, 'script');</script>
 <dt><a href="io/github/zero88/jooqx/rxjava3/JooqxTx.html#rxExecute(org.jooq.Query,io.github.zero88.jooqx.adapter.SQLResultAdapter)" class="member-name-link">rxExecute(Query, SQLResultAdapter&lt;T, R&gt;)</a> - Method in class io.github.zero88.jooqx.rxjava3.<a href="io/github/zero88/jooqx/rxjava3/JooqxTx.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxTx</a></dt>
 <dd>
 <div class="block">Execute <code>jOOQ query</code> then return async result</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/Jooqx.html#rxExecute(org.jooq.RowCountQuery)" class="member-name-link">rxExecute(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/Jooqx.html" title="class in io.github.zero88.jooqx.reactivex">Jooqx</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/JooqxConn.html#rxExecute(org.jooq.RowCountQuery)" class="member-name-link">rxExecute(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/JooqxConn.html" title="class in io.github.zero88.jooqx.reactivex">JooqxConn</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/JooqxSession.html#rxExecute(org.jooq.RowCountQuery)" class="member-name-link">rxExecute(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/JooqxSession.html" title="class in io.github.zero88.jooqx.reactivex">JooqxSession</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/JooqxTx.html#rxExecute(org.jooq.RowCountQuery)" class="member-name-link">rxExecute(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/JooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">JooqxTx</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/LegacyJooqx.html#rxExecute(org.jooq.RowCountQuery)" class="member-name-link">rxExecute(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/LegacyJooqx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqx</a></dt>
+<dd>
+<div class="deprecation-block"><span class="deprecated-label">Deprecated.</span></div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/LegacyJooqxSession.html#rxExecute(org.jooq.RowCountQuery)" class="member-name-link">rxExecute(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/LegacyJooqxSession.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxSession</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/LegacyJooqxTx.html#rxExecute(org.jooq.RowCountQuery)" class="member-name-link">rxExecute(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/LegacyJooqxTx.html" title="class in io.github.zero88.jooqx.reactivex">LegacyJooqxTx</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/rxjava3/Jooqx.html#rxExecute(org.jooq.RowCountQuery)" class="member-name-link">rxExecute(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.rxjava3.<a href="io/github/zero88/jooqx/rxjava3/Jooqx.html" title="class in io.github.zero88.jooqx.rxjava3">Jooqx</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/rxjava3/JooqxConn.html#rxExecute(org.jooq.RowCountQuery)" class="member-name-link">rxExecute(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.rxjava3.<a href="io/github/zero88/jooqx/rxjava3/JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/rxjava3/JooqxSession.html#rxExecute(org.jooq.RowCountQuery)" class="member-name-link">rxExecute(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.rxjava3.<a href="io/github/zero88/jooqx/rxjava3/JooqxSession.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxSession</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/rxjava3/JooqxTx.html#rxExecute(org.jooq.RowCountQuery)" class="member-name-link">rxExecute(RowCountQuery)</a> - Method in class io.github.zero88.jooqx.rxjava3.<a href="io/github/zero88/jooqx/rxjava3/JooqxTx.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxTx</a></dt>
+<dd>
+<div class="block">Execute row count query statement</div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/reactivex/JooqxSession.html#rxPerform(io.reactivex.functions.Function)" class="member-name-link">rxPerform(Function&lt;JooqxSession, Single&lt;R&gt;&gt;)</a> - Method in class io.github.zero88.jooqx.reactivex.<a href="io/github/zero88/jooqx/reactivex/JooqxSession.html" title="class in io.github.zero88.jooqx.reactivex">JooqxSession</a></dt>
 <dd>&nbsp;</dd>
@@ -6225,6 +6729,38 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Represents for a <code>DDL executor</code> that executes SQL DDL statements</div>
 </dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/SQLDMLExecutor.html" class="type-name-link" title="interface in io.github.zero88.jooqx.mutiny">SQLDMLExecutor</a> - Interface in <a href="io/github/zero88/jooqx/mutiny/package-summary.html">io.github.zero88.jooqx.mutiny</a></dt>
+<dd>
+<div class="block">Represents for a <code>DML executor</code> that executes <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code> statements.</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/SQLDMLExecutor.html" class="type-name-link" title="interface in io.github.zero88.jooqx.reactivex">SQLDMLExecutor</a> - Interface in <a href="io/github/zero88/jooqx/reactivex/package-summary.html">io.github.zero88.jooqx.reactivex</a></dt>
+<dd>
+<div class="block">Represents for a <code>DML executor</code> that executes <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code> statements.</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/rxjava3/SQLDMLExecutor.html" class="type-name-link" title="interface in io.github.zero88.jooqx.rxjava3">SQLDMLExecutor</a> - Interface in <a href="io/github/zero88/jooqx/rxjava3/package-summary.html">io.github.zero88.jooqx.rxjava3</a></dt>
+<dd>
+<div class="block">Represents for a <code>DML executor</code> that executes <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code> statements.</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/SQLDMLExecutor.html" class="type-name-link" title="interface in io.github.zero88.jooqx">SQLDMLExecutor</a> - Interface in <a href="io/github/zero88/jooqx/package-summary.html">io.github.zero88.jooqx</a></dt>
+<dd>
+<div class="block">Represents for a <code>DML executor</code> that executes <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code> statements.</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/SQLDQLExecutor.html" class="type-name-link" title="interface in io.github.zero88.jooqx.mutiny">SQLDQLExecutor</a> - Interface in <a href="io/github/zero88/jooqx/mutiny/package-summary.html">io.github.zero88.jooqx.mutiny</a></dt>
+<dd>
+<div class="block">Represents for a <code>query executor</code> that executes SQL command</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/SQLDQLExecutor.html" class="type-name-link" title="interface in io.github.zero88.jooqx.reactivex">SQLDQLExecutor</a> - Interface in <a href="io/github/zero88/jooqx/reactivex/package-summary.html">io.github.zero88.jooqx.reactivex</a></dt>
+<dd>
+<div class="block">Represents for a <code>query executor</code> that executes SQL command</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/rxjava3/SQLDQLExecutor.html" class="type-name-link" title="interface in io.github.zero88.jooqx.rxjava3">SQLDQLExecutor</a> - Interface in <a href="io/github/zero88/jooqx/rxjava3/package-summary.html">io.github.zero88.jooqx.rxjava3</a></dt>
+<dd>
+<div class="block">Represents for a <code>query executor</code> that executes SQL command</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/SQLDQLExecutor.html" class="type-name-link" title="interface in io.github.zero88.jooqx">SQLDQLExecutor</a> - Interface in <a href="io/github/zero88/jooqx/package-summary.html">io.github.zero88.jooqx</a></dt>
+<dd>
+<div class="block">Represents for a <code>query executor</code> that executes SQL command</div>
+</dd>
 <dt><a href="io/github/zero88/jooqx/SQLErrorConverter.html" class="type-name-link" title="interface in io.github.zero88.jooqx">SQLErrorConverter</a> - Interface in <a href="io/github/zero88/jooqx/package-summary.html">io.github.zero88.jooqx</a></dt>
 <dd>
 <div class="block">Represents for a maker that unifies SQL error to a general SQL error when executing SQL command on across among
@@ -6618,22 +7154,6 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Variant of <a href="io/github/zero88/jooqx/mutiny/SQLPlainExecutor.html#sqlQuery(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLPlainExecutor.sqlQuery(Function,SQLResultAdapter)</code></a> that ignores the result of the operation.</div>
 </dd>
-<dt><a href="io/github/zero88/jooqx/mutiny/SQLQueryExecutor.html" class="type-name-link" title="interface in io.github.zero88.jooqx.mutiny">SQLQueryExecutor</a> - Interface in <a href="io/github/zero88/jooqx/mutiny/package-summary.html">io.github.zero88.jooqx.mutiny</a></dt>
-<dd>
-<div class="block">Represents for a <code>query executor</code> that executes SQL command</div>
-</dd>
-<dt><a href="io/github/zero88/jooqx/reactivex/SQLQueryExecutor.html" class="type-name-link" title="interface in io.github.zero88.jooqx.reactivex">SQLQueryExecutor</a> - Interface in <a href="io/github/zero88/jooqx/reactivex/package-summary.html">io.github.zero88.jooqx.reactivex</a></dt>
-<dd>
-<div class="block">Represents for a <code>query executor</code> that executes SQL command</div>
-</dd>
-<dt><a href="io/github/zero88/jooqx/rxjava3/SQLQueryExecutor.html" class="type-name-link" title="interface in io.github.zero88.jooqx.rxjava3">SQLQueryExecutor</a> - Interface in <a href="io/github/zero88/jooqx/rxjava3/package-summary.html">io.github.zero88.jooqx.rxjava3</a></dt>
-<dd>
-<div class="block">Represents for a <code>query executor</code> that executes SQL command</div>
-</dd>
-<dt><a href="io/github/zero88/jooqx/SQLQueryExecutor.html" class="type-name-link" title="interface in io.github.zero88.jooqx">SQLQueryExecutor</a> - Interface in <a href="io/github/zero88/jooqx/package-summary.html">io.github.zero88.jooqx</a></dt>
-<dd>
-<div class="block">Represents for a <code>query executor</code> that executes SQL command</div>
-</dd>
 <dt><a href="io/github/zero88/jooqx/adapter/SQLResultAdapter.html" class="type-name-link" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;<a href="io/github/zero88/jooqx/adapter/SQLResultAdapter.html" title="type parameter in SQLResultAdapter">ROW</a>,<wbr><a href="io/github/zero88/jooqx/adapter/SQLResultAdapter.html" title="type parameter in SQLResultAdapter">RESULT</a>&gt; - Interface in <a href="io/github/zero88/jooqx/adapter/package-summary.html">io.github.zero88.jooqx.adapter</a></dt>
 <dd>
 <div class="block">Provides a capability to transform <code>Vert.x</code> SQL result set to an expected result (in <code>jOOQ</code> term).</div>
@@ -6673,6 +7193,22 @@ loadScripts(document, 'script');</script>
 <dt><a href="io/github/zero88/jooqx/SQLSessionExecutor.html" class="type-name-link" title="interface in io.github.zero88.jooqx">SQLSessionExecutor</a>&lt;<a href="io/github/zero88/jooqx/SQLSessionExecutor.html" title="type parameter in SQLSessionExecutor">S</a>,<wbr><a href="io/github/zero88/jooqx/SQLSessionExecutor.html" title="type parameter in SQLSessionExecutor">B</a>,<wbr><a href="io/github/zero88/jooqx/SQLSessionExecutor.html" title="type parameter in SQLSessionExecutor">P</a> extends <a href="io/github/zero88/jooqx/SQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">SQLPreparedQuery</a>&lt;<a href="io/github/zero88/jooqx/SQLSessionExecutor.html" title="type parameter in SQLSessionExecutor">B</a>&gt;,<wbr><a href="io/github/zero88/jooqx/SQLSessionExecutor.html" title="type parameter in SQLSessionExecutor">C</a> extends <a href="io/github/zero88/jooqx/SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>,<wbr><a href="io/github/zero88/jooqx/SQLSessionExecutor.html" title="type parameter in SQLSessionExecutor">E</a> extends <a href="io/github/zero88/jooqx/SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;<a href="io/github/zero88/jooqx/SQLSessionExecutor.html" title="type parameter in SQLSessionExecutor">S</a>,<wbr><a href="io/github/zero88/jooqx/SQLSessionExecutor.html" title="type parameter in SQLSessionExecutor">B</a>,<wbr><a href="io/github/zero88/jooqx/SQLSessionExecutor.html" title="type parameter in SQLSessionExecutor">P</a>,<wbr><a href="io/github/zero88/jooqx/SQLSessionExecutor.html" title="type parameter in SQLSessionExecutor">C</a>&gt;&gt; - Interface in <a href="io/github/zero88/jooqx/package-summary.html">io.github.zero88.jooqx</a></dt>
 <dd>
 <div class="block">Represents for SQL session executor</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/mutiny/SQLStatementExecutor.html" class="type-name-link" title="interface in io.github.zero88.jooqx.mutiny">SQLStatementExecutor</a> - Interface in <a href="io/github/zero88/jooqx/mutiny/package-summary.html">io.github.zero88.jooqx.mutiny</a></dt>
+<dd>
+<div class="block">Represents for an <code>executor</code> that executes SQL statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/reactivex/SQLStatementExecutor.html" class="type-name-link" title="interface in io.github.zero88.jooqx.reactivex">SQLStatementExecutor</a> - Interface in <a href="io/github/zero88/jooqx/reactivex/package-summary.html">io.github.zero88.jooqx.reactivex</a></dt>
+<dd>
+<div class="block">Represents for an <code>executor</code> that executes SQL statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/rxjava3/SQLStatementExecutor.html" class="type-name-link" title="interface in io.github.zero88.jooqx.rxjava3">SQLStatementExecutor</a> - Interface in <a href="io/github/zero88/jooqx/rxjava3/package-summary.html">io.github.zero88.jooqx.rxjava3</a></dt>
+<dd>
+<div class="block">Represents for an <code>executor</code> that executes SQL statement</div>
+</dd>
+<dt><a href="io/github/zero88/jooqx/SQLStatementExecutor.html" class="type-name-link" title="interface in io.github.zero88.jooqx">SQLStatementExecutor</a> - Interface in <a href="io/github/zero88/jooqx/package-summary.html">io.github.zero88.jooqx</a></dt>
+<dd>
+<div class="block">Represents for an <code>executor</code> that executes SQL statement</div>
 </dd>
 <dt><a href="io/github/zero88/jooqx/SQLTxExecutor.html" class="type-name-link" title="interface in io.github.zero88.jooqx">SQLTxExecutor</a>&lt;<a href="io/github/zero88/jooqx/SQLTxExecutor.html" title="type parameter in SQLTxExecutor">S</a>,<wbr><a href="io/github/zero88/jooqx/SQLTxExecutor.html" title="type parameter in SQLTxExecutor">B</a>,<wbr><a href="io/github/zero88/jooqx/SQLTxExecutor.html" title="type parameter in SQLTxExecutor">P</a> extends <a href="io/github/zero88/jooqx/SQLPreparedQuery.html" title="interface in io.github.zero88.jooqx">SQLPreparedQuery</a>&lt;<a href="io/github/zero88/jooqx/SQLTxExecutor.html" title="type parameter in SQLTxExecutor">B</a>&gt;,<wbr><a href="io/github/zero88/jooqx/SQLTxExecutor.html" title="type parameter in SQLTxExecutor">C</a> extends <a href="io/github/zero88/jooqx/SQLResultCollector.html" title="interface in io.github.zero88.jooqx">SQLResultCollector</a>,<wbr><a href="io/github/zero88/jooqx/SQLTxExecutor.html" title="type parameter in SQLTxExecutor">E</a> extends <a href="io/github/zero88/jooqx/SQLExecutor.html" title="interface in io.github.zero88.jooqx">SQLExecutor</a>&lt;<a href="io/github/zero88/jooqx/SQLTxExecutor.html" title="type parameter in SQLTxExecutor">S</a>,<wbr><a href="io/github/zero88/jooqx/SQLTxExecutor.html" title="type parameter in SQLTxExecutor">B</a>,<wbr><a href="io/github/zero88/jooqx/SQLTxExecutor.html" title="type parameter in SQLTxExecutor">P</a>,<wbr><a href="io/github/zero88/jooqx/SQLTxExecutor.html" title="type parameter in SQLTxExecutor">C</a>&gt;&gt; - Interface in <a href="io/github/zero88/jooqx/package-summary.html">io.github.zero88.jooqx</a></dt>
 <dd>
@@ -6994,6 +7530,22 @@ loadScripts(document, 'script');</script>
 <dd>
 <div class="block">Vert.x SQL client treats UDT type in string then it is a parser in common case</div>
 </dd>
+<dt><a href="io/github/zero88/jooqx/SQLDMLExecutor.html#update(java.util.function.Function)" class="member-name-link">update(Function&lt;DSLContext, Update&lt;R&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDMLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDMLExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/SQLDMLExecutor.html#update(java.util.function.Function,io.vertx.core.Handler)" class="member-name-link">update(Function&lt;DSLContext, Update&lt;R&gt;&gt;, Handler&lt;AsyncResult&lt;Integer&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDMLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDMLExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/SQLDMLExecutor.html#update(org.jooq.Update)" class="member-name-link">update(Update&lt;R&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDMLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDMLExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/SQLDMLExecutor.html#update(org.jooq.Update,io.vertx.core.Handler)" class="member-name-link">update(Update&lt;R&gt;, Handler&lt;AsyncResult&lt;Integer&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDMLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDMLExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/SQLDMLExecutor.html#updateQuery(java.util.function.Function)" class="member-name-link">updateQuery(Function&lt;DSLContext, UpdateQuery&lt;R&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDMLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDMLExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/SQLDMLExecutor.html#updateQuery(java.util.function.Function,io.vertx.core.Handler)" class="member-name-link">updateQuery(Function&lt;DSLContext, UpdateQuery&lt;R&gt;&gt;, Handler&lt;AsyncResult&lt;Integer&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDMLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDMLExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/SQLDMLExecutor.html#updateQuery(org.jooq.UpdateQuery)" class="member-name-link">updateQuery(UpdateQuery&lt;R&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDMLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDMLExecutor</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/zero88/jooqx/SQLDMLExecutor.html#updateQuery(org.jooq.UpdateQuery,io.vertx.core.Handler)" class="member-name-link">updateQuery(UpdateQuery&lt;R&gt;, Handler&lt;AsyncResult&lt;Integer&gt;&gt;)</a> - Method in interface io.github.zero88.jooqx.<a href="io/github/zero88/jooqx/SQLDMLExecutor.html" title="interface in io.github.zero88.jooqx">SQLDMLExecutor</a></dt>
+<dd>&nbsp;</dd>
 <dt><a href="io/github/zero88/jooqx/provider/DBEmbeddedProvider.DBFileProvider.html#user(io.vertx.core.json.JsonObject)" class="member-name-link">user(JsonObject)</a> - Method in interface io.github.zero88.jooqx.provider.<a href="io/github/zero88/jooqx/provider/DBEmbeddedProvider.DBFileProvider.html" title="interface in io.github.zero88.jooqx.provider">DBEmbeddedProvider.DBFileProvider</a></dt>
 <dd>
 <div class="block">Extracts database username</div>

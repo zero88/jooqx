@@ -369,10 +369,9 @@ jooqx.fetchOne(dsl -&gt; dsl.selectOne().from(tbl).where(tbl.NAME.eq("zero88")).
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">final Authors tbl = Tables.AUTHORS;
-jooqx.execute(dsl -&gt; dsl.update(tbl).set(DSL.row(tbl.COUNTRY), DSL.row("USA")).where(tbl.COUNTRY.eq("US")),
-              DSLAdapter.fetchCount())                                                                          <i class="conum" data-value="1"></i><b>(1)</b>
-     .flatMap(ignore -&gt; jooqx.fetchMany(dsl -&gt; dsl.selectFrom(tbl).where(tbl.COUNTRY.eq("USA"))))       <i class="conum" data-value="2"></i><b>(2)</b>
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">final Authors t = Tables.AUTHORS;
+jooqx.update(dsl -&gt; dsl.update(t).set(DSL.row(t.COUNTRY), DSL.row("USA")).where(t.COUNTRY.eq("US")))    <i class="conum" data-value="1"></i><b>(1)</b>
+     .flatMap(c -&gt; jooqx.fetchMany(dsl -&gt; dsl.selectFrom(t).where(t.COUNTRY.eq("USA"))))            <i class="conum" data-value="2"></i><b>(2)</b>
      .onSuccess(book -&gt; {
          assert Objects.equals(book.toString(), """
               [+----+--------------+-------+
@@ -399,7 +398,7 @@ jooqx.execute(dsl -&gt; dsl.update(tbl).set(DSL.row(tbl.COUNTRY), DSL.row("USA")
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">final Authors table = Tables.AUTHORS;
-jooqx.execute(dsl -&gt; dsl.deleteFrom(table).where(table.COUNTRY.eq("US")), DSLAdapter.fetchCount())      <i class="conum" data-value="1"></i><b>(1)</b>
+jooqx.delete(dsl -&gt; dsl.deleteFrom(table).where(table.COUNTRY.eq("US")))                                <i class="conum" data-value="1"></i><b>(1)</b>
      .flatMap(ignore -&gt; jooqx.fetchMany(dsl -&gt; dsl.selectFrom(table).where(table.COUNTRY.eq("US"))))    <i class="conum" data-value="2"></i><b>(2)</b>
      .onSuccess(books -&gt; {
          assert Objects.equals(books.toString(), "[]");
