@@ -3,12 +3,7 @@ package io.github.zero88.integtest.jooqx.pg.jooq;
 import java.util.Arrays;
 import java.util.List;
 
-import org.jooq.DSLContext;
-import org.jooq.InsertResultStep;
 import org.jooq.Record;
-import org.jooq.Record1;
-import org.jooq.SelectConditionStep;
-import org.jooq.SelectWhereStep;
 import org.jooq.exception.SQLStateClass;
 import org.jooq.exception.TooManyRowsException;
 import org.jooq.impl.DSL;
@@ -54,11 +49,8 @@ class PgConnTest extends PgSQLJooqxTest<PgConnection>
     @Test
     void test_insert_failed(VertxTestContext ctx) {
         final io.github.zero88.sample.model.pgsql.tables.Books table = schema().BOOKS;
-        final InsertResultStep<BooksRecord> insert = jooqx.dsl()
-                                                          .insertInto(table, table.ID, table.TITLE)
-                                                          .values(1, "abc")
-                                                          .returning(table.ID);
-        jooqx.execute(insert, DSLAdapter.fetchOne(table.ID),
+        jooqx.execute(dsl -> dsl.insertInto(table, table.ID, table.TITLE).values(1, "abc").returning(table.ID),
+                      DSLAdapter.fetchOne(table.ID),
                       ar -> assertJooqException(ctx, ar, SQLStateClass.C23_INTEGRITY_CONSTRAINT_VIOLATION,
                                                 "duplicate key value violates unique constraint \"books_pkey\"",
                                                 PgException.class));
@@ -68,50 +60,42 @@ class PgConnTest extends PgSQLJooqxTest<PgConnection>
     void test_select_none_exist(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
         final io.github.zero88.sample.model.pgsql.tables.Books table = schema().BOOKS;
-        final SelectConditionStep<BooksRecord> insert = jooqx.dsl().selectFrom(table).where(table.ID.eq(1000));
-        jooqx.execute(insert, DSLAdapter.fetchOne(table.ID), ar -> ctx.verify(() -> {
-            Assertions.assertNull(assertSuccess(ctx, ar));
-            flag.flag();
-        }));
+        jooqx.execute(dsl -> dsl.selectFrom(table).where(table.ID.eq(1000)), DSLAdapter.fetchOne(table.ID),
+                      ar -> ctx.verify(() -> {
+                          Assertions.assertNull(assertSuccess(ctx, ar));
+                          flag.flag();
+                      }));
     }
 
     @Test
     void test_select_count(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
         final io.github.zero88.sample.model.pgsql.tables.Authors table = schema().AUTHORS;
-        final SelectConditionStep<Record1<Integer>> query = jooqx.dsl()
-                                                                 .selectCount()
-                                                                 .from(table)
-                                                                 .where(table.COUNTRY.eq("USA"));
-        jooqx.execute(query, DSLAdapter.fetchCount(), ar -> ctx.verify(() -> {
-            Assertions.assertEquals(6, assertSuccess(ctx, ar));
-            flag.flag();
-        }));
+        jooqx.execute(dsl -> dsl.selectCount().from(table).where(table.COUNTRY.eq("USA")), DSLAdapter.fetchCount(),
+                      ar -> ctx.verify(() -> {
+                          Assertions.assertEquals(6, assertSuccess(ctx, ar));
+                          flag.flag();
+                      }));
     }
 
     @Test
     void test_select_exist(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
         final io.github.zero88.sample.model.pgsql.tables.Authors table = schema().AUTHORS;
-        final DSLContext dsl = jooqx.dsl();
-        final SelectConditionStep<Record1<Integer>> q = dsl.selectOne()
-                                                           .whereExists(dsl.selectFrom(table)
-                                                                           .where(table.NAME.eq("Jane Austen")));
-        jooqx.execute(q, DSLAdapter.fetchExists(), ar -> ctx.verify(() -> {
-            Assertions.assertTrue(assertSuccess(ctx, ar));
-            flag.flag();
-        }));
+        jooqx.fetchExists(dsl -> dsl.selectOne().whereExists(dsl.selectFrom(table).where(table.NAME.eq("Jane Austen"))),
+                          ar -> ctx.verify(() -> {
+                              Assertions.assertTrue(assertSuccess(ctx, ar));
+                              flag.flag();
+                          }));
     }
 
     @Test
     void test_insert_returning_id(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
         final io.github.zero88.sample.model.pgsql.tables.Books table = schema().BOOKS;
-        final InsertResultStep<BooksRecord> insert = jooqx.dsl()
-                                                          .insertInto(table, table.ID, table.TITLE)
-                                                          .values(Arrays.asList(DSL.defaultValue(table.ID), "abc"))
-                                                          .returning(table.ID);
-        jooqx.execute(insert, DSLAdapter.fetchOne(table.ID), ar -> ctx.verify(() -> {
+        jooqx.execute(dsl -> dsl.insertInto(table, table.ID, table.TITLE)
+                                .values(Arrays.asList(DSL.defaultValue(table.ID), "abc"))
+                                .returning(table.ID), DSLAdapter.fetchOne(table.ID), ar -> ctx.verify(() -> {
             final Record record = ar.result();
             final BooksRecord into1 = record.into(BooksRecord.class);
             Assertions.assertEquals(8, into1.getId());
@@ -158,8 +142,7 @@ class PgConnTest extends PgSQLJooqxTest<PgConnection>
     void test_select_one_convert_by_table(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
         final io.github.zero88.sample.model.pgsql.tables.Authors table = schema().AUTHORS;
-        final SelectConditionStep<AuthorsRecord> query = jooqx.dsl().selectFrom(table).where(table.COUNTRY.eq("UK"));
-        jooqx.fetchOne(query, ar -> ctx.verify(() -> {
+        jooqx.fetchOne(dsl -> dsl.selectFrom(table).where(table.COUNTRY.eq("UK")), ar -> ctx.verify(() -> {
             Assertions.assertTrue(ar.succeeded());
             final AuthorsRecord authors = ar.result();
             Assertions.assertEquals(3, authors.getId());
@@ -203,8 +186,7 @@ class PgConnTest extends PgSQLJooqxTest<PgConnection>
     void test_select_many_convert_by_pojo_class(VertxTestContext ctx) {
         final Checkpoint flag = ctx.checkpoint();
         final io.github.zero88.sample.model.pgsql.tables.Authors table = schema().AUTHORS;
-        final SelectWhereStep<AuthorsRecord> query = jooqx.dsl().selectFrom(table);
-        jooqx.execute(query, DSLAdapter.fetchMany(table, Authors.class), ar -> {
+        jooqx.execute(dsl -> dsl.selectFrom(table), DSLAdapter.fetchMany(table, Authors.class), ar -> {
             final List<Authors> books = assertResultSize(ctx, ar, 8);
             final Authors authors = books.get(0);
             ctx.verify(() -> Assertions.assertEquals(1, authors.getId()));

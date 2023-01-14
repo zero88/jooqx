@@ -11,15 +11,14 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.jetbrains.annotations.NotNull;
-import org.jooq.DDLQuery;
 import org.jooq.DSLContext;
 import org.jooq.Param;
 import org.jooq.Parameter;
 import org.jooq.Query;
 import org.jooq.Record;
 import org.jooq.Routine;
+import org.jooq.RowCountQuery;
 import org.jooq.exception.TooManyRowsException;
-import org.jooq.impl.DSL;
 
 import io.github.zero88.jooqx.SQLImpl.SQLEI;
 import io.github.zero88.jooqx.SQLImpl.SQLExecutorBuilderImpl;
@@ -147,6 +146,13 @@ final class LegacySQLImpl {
         }
 
         @Override
+        public Future<Integer> execute(@NotNull RowCountQuery statement) {
+            final Promise<UpdateResult> promise = Promise.promise();
+            sqlClient().update(preparedQuery().sql(dsl().configuration(), statement), promise);
+            return promise.future().map(UpdateResult::getUpdated).otherwise(errorConverter()::reThrowError);
+        }
+
+        @Override
         public final Future<BatchResult> batch(@NotNull Query query, @NotNull BindBatchValues bindBatchValues) {
             final Promise<List<Integer>> promise = Promise.promise();
             openConn().map(c -> c.batchWithParams(preparedQuery().sql(dsl().configuration(), query),
@@ -164,25 +170,6 @@ final class LegacySQLImpl {
             return promise.future()
                           .map(rs -> resultCollector().collect(rs, blockQuery.adapters(), dsl(), typeMapperRegistry()))
                           .otherwise(errorConverter()::reThrowError);
-        }
-
-        @Override
-        public Future<Integer> ddl(@NotNull DDLQuery statement) {
-            final Promise<UpdateResult> promise = Promise.promise();
-            sqlClient().update(preparedQuery().sql(dsl().configuration(), statement), promise);
-            return promise.future().map(UpdateResult::getUpdated).otherwise(errorConverter()::reThrowError);
-        }
-
-        @Override
-        public Future<Integer> sql(@NotNull String statement) {
-            final Promise<UpdateResult> promise = Promise.promise();
-            sqlClient().update(preparedQuery().sql(dsl().configuration(), DSL.query(statement)), promise);
-            return promise.future().map(UpdateResult::getUpdated).otherwise(errorConverter()::reThrowError);
-        }
-
-        @Override
-        public <T, R> Future<@Nullable R> sqlQuery(@NotNull String statement, @NotNull SQLResultAdapter<T, R> adapter) {
-            return execute(dsl -> dsl.resultQuery(statement), adapter);
         }
 
         protected abstract Future<SQLConnection> openConn();

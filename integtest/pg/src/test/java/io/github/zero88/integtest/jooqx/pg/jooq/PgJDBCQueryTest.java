@@ -68,15 +68,14 @@ class PgJDBCQueryTest extends PgSQLJooqxTest<JDBCPool>
         Checkpoint cp = ctx.checkpoint();
         final AllDataTypes table = schema().ALL_DATA_TYPES;
 
-        jooqx.execute(dsl -> dsl.insertInto(table)
-                                .columns(table.ID, table.F_DATE, table.F_TIME, table.F_TIMETZ, table.F_TIMESTAMP,
-                                         table.F_TIMESTAMPTZ, table.F_INTERVAL)
-                                .values(Arrays.asList(36, LocalDate.parse("2022-05-30"), LocalTime.parse("18:00:00"),
-                                                      OffsetTime.parse("06:00:00+02:00"),
-                                                      LocalDateTime.parse("2022-05-14T07:00:00"),
-                                                      OffsetDateTime.parse("2022-05-14T07:00:00-02:00"),
-                                                      YearToSecond.valueOf("+1-3 +5 07:09:10.002000000"))),
-                      DSLAdapter.fetchCount())
+        jooqx.insert(dsl -> dsl.insertInto(table)
+                               .columns(table.ID, table.F_DATE, table.F_TIME, table.F_TIMETZ, table.F_TIMESTAMP,
+                                        table.F_TIMESTAMPTZ, table.F_INTERVAL)
+                               .values(Arrays.asList(36, LocalDate.parse("2022-05-30"), LocalTime.parse("18:00:00"),
+                                                     OffsetTime.parse("06:00:00+02:00"),
+                                                     LocalDateTime.parse("2022-05-14T07:00:00"),
+                                                     OffsetDateTime.parse("2022-05-14T07:00:00-02:00"),
+                                                     YearToSecond.valueOf("+1-3 +5 07:09:10.002000000"))))
              .flatMap(i -> jooqx.fetchOne(dsl -> dsl.selectFrom(table).where(table.ID.eq(36))))
              .onFailure(ctx::failNow)
              .onSuccess(record -> ctx.verify(() -> {

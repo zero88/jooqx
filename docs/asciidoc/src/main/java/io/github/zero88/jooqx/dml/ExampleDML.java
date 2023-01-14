@@ -49,10 +49,9 @@ class ExampleDML {
     }
 
     void updateMany(Jooqx jooqx) {
-        final Authors tbl = Tables.AUTHORS;
-        jooqx.execute(dsl -> dsl.update(tbl).set(DSL.row(tbl.COUNTRY), DSL.row("USA")).where(tbl.COUNTRY.eq("US")),
-                      DSLAdapter.fetchCount())                                                                          // <1>
-             .flatMap(ignore -> jooqx.fetchMany(dsl -> dsl.selectFrom(tbl).where(tbl.COUNTRY.eq("USA"))))       // <2>
+        final Authors t = Tables.AUTHORS;
+        jooqx.update(dsl -> dsl.update(t).set(DSL.row(t.COUNTRY), DSL.row("USA")).where(t.COUNTRY.eq("US")))    // <1>
+             .flatMap(c -> jooqx.fetchMany(dsl -> dsl.selectFrom(t).where(t.COUNTRY.eq("USA"))))            // <2>
              .onSuccess(book -> {
                  assert Objects.equals(book.toString(), """
                       [+----+--------------+-------+
@@ -73,7 +72,7 @@ class ExampleDML {
 
     void delete(Jooqx jooqx) {
         final Authors table = Tables.AUTHORS;
-        jooqx.execute(dsl -> dsl.deleteFrom(table).where(table.COUNTRY.eq("US")), DSLAdapter.fetchCount())      // <1>
+        jooqx.delete(dsl -> dsl.deleteFrom(table).where(table.COUNTRY.eq("US")))                                // <1>
              .flatMap(ignore -> jooqx.fetchMany(dsl -> dsl.selectFrom(table).where(table.COUNTRY.eq("US"))))    // <2>
              .onSuccess(books -> {
                  assert Objects.equals(books.toString(), "[]");

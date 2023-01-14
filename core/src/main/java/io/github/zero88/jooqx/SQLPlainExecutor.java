@@ -4,6 +4,7 @@ import java.util.function.Function;
 
 import org.jetbrains.annotations.NotNull;
 import org.jooq.DSLContext;
+import org.jooq.impl.DSL;
 
 import io.github.zero88.jooqx.adapter.SQLResultAdapter;
 import io.vertx.codegen.annotations.GenIgnore;
@@ -19,7 +20,7 @@ import io.vertx.core.Handler;
  * @since 2.0.0
  */
 @VertxGen(concrete = false)
-public interface SQLPlainExecutor extends JooqDSLProvider {
+public interface SQLPlainExecutor extends JooqDSLProvider, HasExecutor {
 
     /**
      * Execute the plain SQL statement without result (e.g: SET, INSERT, UPDATE, etc...)
@@ -60,7 +61,9 @@ public interface SQLPlainExecutor extends JooqDSLProvider {
      * @param statement the plain SQL statement without result
      * @return a {@code Future} of the asynchronous result
      */
-    Future<Integer> sql(@NotNull String statement);
+    default Future<Integer> sql(@NotNull String statement) {
+        return executor().execute(DSL.query(statement));
+    }
 
     /**
      * Execute the plain SQL statement with results (e.g: SELECT, etc...)
@@ -111,6 +114,8 @@ public interface SQLPlainExecutor extends JooqDSLProvider {
      * @return a {@code Future} of the asynchronous result
      */
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    <T, R> Future<@Nullable R> sqlQuery(@NotNull String statement, @NotNull SQLResultAdapter<T, R> adapter);
+    default <T, R> Future<@Nullable R> sqlQuery(@NotNull String statement, @NotNull SQLResultAdapter<T, R> adapter) {
+        return executor().execute(dsl -> dsl.resultQuery(statement), adapter);
+    }
 
 }

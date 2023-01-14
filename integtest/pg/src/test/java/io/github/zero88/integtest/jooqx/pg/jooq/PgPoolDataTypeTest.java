@@ -250,9 +250,8 @@ class PgPoolDataTypeTest extends PgSQLJooqxTest<PgPool>
     @Test
     void test_query_array(VertxTestContext ctx) {
         Checkpoint flag = ctx.checkpoint();
-        final AllDataTypes table = schema().ALL_DATA_TYPES;
-        jooqx.fetchOne(
-                 dsl -> dsl.select(table.F_ONE_DIMENSION, table.F_TWO_DIMENSION).from(table).where(table.ID.eq(81)))
+        final AllDataTypes tbl = schema().ALL_DATA_TYPES;
+        jooqx.fetchOne(dsl -> dsl.select(tbl.F_ONE_DIMENSION, tbl.F_TWO_DIMENSION).from(tbl).where(tbl.ID.eq(81)))
              .onSuccess(record -> ctx.verify(() -> {
                  Assertions.assertArrayEquals(new Integer[] { 20000, 25000, 25000, 25000 }, record.value1());
                  flag.flag();
@@ -263,12 +262,9 @@ class PgPoolDataTypeTest extends PgSQLJooqxTest<PgPool>
     @Test
     void test_insert_array(VertxTestContext ctx) {
         Checkpoint flag = ctx.checkpoint();
-        final AllDataTypes table = schema().ALL_DATA_TYPES;
-        jooqx.execute(
-                 dsl -> dsl.insertInto(table, table.ID, table.F_ONE_DIMENSION).values(85, new Integer[] { 1, 2, 3 }),
-                 DSLAdapter.fetchOne(table))
-             .flatMap(r -> jooqx.fetchOne(
-                 dsl -> dsl.select(table.ID, table.F_ONE_DIMENSION).from(table).where(table.ID.eq(85))))
+        final AllDataTypes t = schema().ALL_DATA_TYPES;
+        jooqx.insert(dsl -> dsl.insertInto(t, t.ID, t.F_ONE_DIMENSION).values(85, new Integer[] { 1, 2, 3 }))
+             .flatMap(r -> jooqx.fetchOne(dsl -> dsl.select(t.ID, t.F_ONE_DIMENSION).from(t).where(t.ID.eq(85))))
              .onSuccess(record -> ctx.verify(() -> {
                  final Object[] oneDimension = (Object[]) record.get(1);
                  Assertions.assertArrayEquals(new Integer[] { 1, 2, 3 }, oneDimension);
@@ -276,4 +272,5 @@ class PgPoolDataTypeTest extends PgSQLJooqxTest<PgPool>
              }))
              .onFailure(ctx::failNow);
     }
+
 }

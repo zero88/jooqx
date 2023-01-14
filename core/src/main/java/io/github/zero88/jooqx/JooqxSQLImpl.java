@@ -13,17 +13,16 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.jetbrains.annotations.NotNull;
-import org.jooq.DDLQuery;
 import org.jooq.DSLContext;
 import org.jooq.Param;
 import org.jooq.Parameter;
 import org.jooq.Query;
 import org.jooq.Record;
 import org.jooq.Routine;
+import org.jooq.RowCountQuery;
 import org.jooq.conf.ParamType;
 import org.jooq.conf.Settings;
 import org.jooq.exception.TooManyRowsException;
-import org.jooq.impl.DSL;
 
 import io.github.zero88.jooqx.SQLImpl.SQLEI;
 import io.github.zero88.jooqx.SQLImpl.SQLExecutorBuilderImpl;
@@ -244,6 +243,13 @@ final class JooqxSQLImpl {
                               .otherwise(errorConverter()::reThrowError);
         }
 
+        public Future<Integer> execute(@NotNull RowCountQuery statement) {
+            return sqlClient().preparedQuery(preparedQuery().sql(dsl().configuration(), statement))
+                              .execute(preparedQuery().bindValues(statement, typeMapperRegistry()))
+                              .map(SqlResult::rowCount)
+                              .otherwise(errorConverter()::reThrowError);
+        }
+
         @Override
         public Future<BatchResult> batch(@NotNull Query query, @NotNull BindBatchValues bindValues) {
             return sqlClient().preparedQuery(preparedQuery().sql(dsl().configuration(), query))
@@ -279,27 +285,6 @@ final class JooqxSQLImpl {
                                   return resultCollector().blockCollector().blockResult(rows, l);
                               })
                               .otherwise(errorConverter()::reThrowError);
-        }
-
-        @Override
-        public Future<Integer> ddl(@NotNull DDLQuery statement) {
-            return sqlClient().query(preparedQuery().sql(dsl().configuration(), statement))
-                              .execute()
-                              .map(SqlResult::rowCount)
-                              .otherwise(errorConverter()::reThrowError);
-        }
-
-        @Override
-        public Future<Integer> sql(@NotNull String statement) {
-            return sqlClient().query(preparedQuery().sql(dsl().configuration(), DSL.query(statement)))
-                              .execute()
-                              .map(SqlResult::rowCount)
-                              .otherwise(errorConverter()::reThrowError);
-        }
-
-        @Override
-        public <T, R> Future<@Nullable R> sqlQuery(@NotNull String statement, @NotNull SQLResultAdapter<T, R> adapter) {
-            return execute(dsl -> dsl.resultQuery(statement), adapter);
         }
 
         @Override

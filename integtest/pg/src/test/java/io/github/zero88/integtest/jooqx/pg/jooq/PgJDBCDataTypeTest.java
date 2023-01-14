@@ -217,9 +217,8 @@ class PgJDBCDataTypeTest extends PgSQLJooqxTest<JDBCPool>
     void test_insert_array(VertxTestContext ctx) {
         Checkpoint flag = ctx.checkpoint();
         final AllDataTypes table = schema().ALL_DATA_TYPES;
-        jooqx.execute(
-                 dsl -> dsl.insertInto(table, table.ID, table.F_ONE_DIMENSION).values(85, new Integer[] { 1, 2, 3 }),
-                 DSLAdapter.fetchOne(table))
+        jooqx.insert(
+                 dsl -> dsl.insertInto(table, table.ID, table.F_ONE_DIMENSION).values(85, new Integer[] { 1, 2, 3 }))
              .flatMap(r -> jooqx.fetchOne(
                  dsl -> dsl.select(table.ID, table.F_ONE_DIMENSION).from(table).where(table.ID.eq(85))))
              .onSuccess(record -> ctx.verify(() -> {
