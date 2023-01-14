@@ -29,7 +29,7 @@ import io.vertx.core.spi.json.JsonCodec;
  * @since 2.0.0
  */
 @VertxGen(concrete = false)
-public interface SQLQueryExecutor extends JooqDSLProvider, HasExecutor {
+public interface SQLDQLExecutor extends JooqDSLProvider, HasExecutor {
 
     /**
      * Shortcut of {@link SQLStatementExecutor#execute(Function, SQLResultAdapter, Handler)} with SQLResultAdapter is
