@@ -55,9 +55,8 @@ class MySQLJDBCQueryTest extends MySQLJooqxTest<JDBCPool>
     void test_insert_sth(VertxTestContext ctx) {
         final Checkpoint cp = ctx.checkpoint();
         final Authors tbl = schema().AUTHORS;
-        jooqx.execute(dsl -> dsl.insertInto(tbl, tbl.ID, tbl.NAME, tbl.COUNTRY)
-                                .values(Arrays.asList(DSL.defaultValue(tbl.ID), "zero88", "VN")),
-                      DSLAdapter.fetchOne(tbl))
+        jooqx.insert(dsl -> dsl.insertInto(tbl, tbl.ID, tbl.NAME, tbl.COUNTRY)
+                               .values(Arrays.asList(DSL.defaultValue(tbl.ID), "zero88", "VN")))
              .flatMap(r -> jooqx.execute(
                  dsl -> dsl.selectOne().whereExists(dsl.selectFrom(tbl).where(tbl.NAME.eq("zero88"))),
                  DSLAdapter.fetchExists()))

@@ -1,6 +1,7 @@
 package io.github.zero88.jooqx;
 
 import org.jetbrains.annotations.ApiStatus.Experimental;
+import org.jetbrains.annotations.ApiStatus.Internal;
 import org.jetbrains.annotations.NotNull;
 import org.jooq.Routine;
 import org.jooq.Support;
@@ -23,16 +24,19 @@ import io.vertx.core.Vertx;
  * @param <PQ> Type of SQL prepare query
  * @param <RC> Type of SQL result set collector
  * @see JooqDSLProvider
+ * @see SQLStatementExecutor
  * @see SQLBatchExecutor
+ * @see SQLBlockExecutor
+ * @see SQLRoutineExecutor
+ * @see SQLDQLExecutor
+ * @see SQLDMLExecutor
  * @see SQLDDLExecutor
  * @see SQLPlainExecutor
- * @see SQLQueryExecutor
- * @see SQLRoutineExecutor
  * @since 1.0.0
  */
 public interface SQLExecutor<S, B, PQ extends SQLPreparedQuery<B>, RC extends SQLResultCollector>
-    extends SQLExecutorContext<S, B, PQ, RC>, SQLQueryExecutor, SQLBatchExecutor, SQLBlockExecutor, SQLDDLExecutor,
-            SQLRoutineExecutor, SQLPlainExecutor {
+    extends SQLExecutorContext<S, B, PQ, RC>, SQLStatementExecutor, SQLBatchExecutor, SQLBlockExecutor,
+            SQLRoutineExecutor, SQLDQLExecutor, SQLDMLExecutor, SQLDDLExecutor, SQLPlainExecutor {
 
     /**
      * Defines Vertx
@@ -128,5 +132,10 @@ public interface SQLExecutor<S, B, PQ extends SQLPreparedQuery<B>, RC extends SQ
                                                  @NotNull SQLResultAdapter<X, R> resultAdapter) {
         return RoutineExecutorDelegate.init(this).routineResultSet(routine, resultAdapter);
     }
+
+    @Override
+    @Internal
+    @GenIgnore
+    default SQLStatementExecutor executor() { return this; }
 
 }

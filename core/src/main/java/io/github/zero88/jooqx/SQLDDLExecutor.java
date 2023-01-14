@@ -18,7 +18,7 @@ import io.vertx.core.Handler;
  * @since 2.0.0
  */
 @VertxGen(concrete = false)
-public interface SQLDDLExecutor extends JooqDSLProvider {
+public interface SQLDDLExecutor extends JooqDSLProvider, HasExecutor {
 
     /**
      * Execute DDL statement
@@ -65,6 +65,8 @@ public interface SQLDDLExecutor extends JooqDSLProvider {
      * @since 2.0.0
      */
     @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    Future<Integer> ddl(@NotNull DDLQuery statement);
+    default Future<Integer> ddl(@NotNull DDLQuery statement) {
+        return executor().execute(statement);
+    }
 
 }

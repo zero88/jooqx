@@ -29,69 +29,10 @@ import io.vertx.core.spi.json.JsonCodec;
  * @since 2.0.0
  */
 @VertxGen(concrete = false)
-public interface SQLQueryExecutor extends JooqDSLProvider {
+public interface SQLDQLExecutor extends JooqDSLProvider, HasExecutor {
 
     /**
-     * Execute {@code jOOQ query} then return async result
-     *
-     * @param queryFunction the jOOQ query function
-     * @param resultAdapter the result adapter
-     * @param handler       the async result handler
-     * @see Query
-     * @see TableLike
-     * @see SQLResultAdapter
-     * @since 2.0.0
-     */
-    @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    default <T, R> void execute(@NotNull Function<DSLContext, Query> queryFunction,
-                                @NotNull SQLResultAdapter<T, R> resultAdapter,
-                                @NotNull Handler<AsyncResult<@Nullable R>> handler) {
-        execute(queryFunction, resultAdapter).onComplete(handler);
-    }
-
-    /**
-     * Like {@link #execute(Function, SQLResultAdapter, Handler)} but returns a {@code Future} of the asynchronous
-     * result
-     *
-     * @param queryFunction the jOOQ query function
-     * @param resultAdapter the result adapter
-     * @return a {@code Future} of the asynchronous result
-     * @since 2.0.0
-     */
-    @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    default <T, R> Future<@Nullable R> execute(@NotNull Function<DSLContext, Query> queryFunction,
-                                               @NotNull SQLResultAdapter<T, R> resultAdapter) {
-        return execute(queryFunction.apply(dsl()), resultAdapter);
-    }
-
-    /**
-     * Execute {@code jOOQ query} then return async result
-     *
-     * @param query         the jOOQ query
-     * @param resultAdapter the result adapter
-     * @param handler       the async result handler
-     * @see Query
-     * @see TableLike
-     * @see SQLResultAdapter
-     */
-    @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    default <T, R> void execute(@NotNull Query query, @NotNull SQLResultAdapter<T, R> resultAdapter,
-                                @NotNull Handler<AsyncResult<@Nullable R>> handler) {
-        execute(query, resultAdapter).onComplete(handler);
-    }
-
-    /**
-     * Like {@link #execute(Query, SQLResultAdapter, Handler)} but returns a {@code Future} of the asynchronous result
-     *
-     * @param query         the jOOQ query
-     * @param resultAdapter the result adapter
-     * @return a {@code Future} of the asynchronous result
-     */
-    @GenIgnore(GenIgnore.PERMITTED_TYPE)
-    <T, R> Future<@Nullable R> execute(@NotNull Query query, @NotNull SQLResultAdapter<T, R> resultAdapter);
-
-    /**
-     * Shortcut of {@link #execute(Function, SQLResultAdapter, Handler)} with SQLResultAdapter is
+     * Shortcut of {@link SQLStatementExecutor#execute(Function, SQLResultAdapter, Handler)} with SQLResultAdapter is
      * {@link DSLAdapter#fetchOne(Table)}
      *
      * @param selectFn the jOOQ select function
@@ -122,7 +63,7 @@ public interface SQLQueryExecutor extends JooqDSLProvider {
     }
 
     /**
-     * Shortcut of {@link #execute(Query, SQLResultAdapter)} with SQLResultAdapter is
+     * Shortcut of {@link SQLStatementExecutor#execute(Query, SQLResultAdapter)} with SQLResultAdapter is
      * {@link DSLAdapter#fetchOne(Table)}
      *
      * @param select  the jOOQ select
@@ -151,11 +92,11 @@ public interface SQLQueryExecutor extends JooqDSLProvider {
      */
     @GenIgnore
     default <REC extends Record> Future<@Nullable REC> fetchOne(@NotNull Select<REC> select) {
-        return execute(select, DSLAdapter.fetchOne(select.asTable()));
+        return executor().execute(select, DSLAdapter.fetchOne(select.asTable()));
     }
 
     /**
-     * Shortcut of {@link #execute(Function, SQLResultAdapter, Handler)} with SQLResultAdapter is
+     * Shortcut of {@link SQLStatementExecutor#execute(Function, SQLResultAdapter, Handler)} with SQLResultAdapter is
      * {@link DSLAdapter#fetchMany(Table)}
      *
      * @param selectFn the jOOQ select function
@@ -188,7 +129,7 @@ public interface SQLQueryExecutor extends JooqDSLProvider {
     }
 
     /**
-     * Shortcut of {@link #execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
+     * Shortcut of {@link SQLStatementExecutor#execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
      * {@link DSLAdapter#fetchMany(Table)}
      *
      * @param select  the jOOQ select
@@ -217,11 +158,11 @@ public interface SQLQueryExecutor extends JooqDSLProvider {
      */
     @GenIgnore
     default <REC extends Record> Future<List<REC>> fetchMany(@NotNull Select<REC> select) {
-        return execute(select, DSLAdapter.fetchMany(select.asTable()));
+        return executor().execute(select, DSLAdapter.fetchMany(select.asTable()));
     }
 
     /**
-     * Shortcut of {@link #execute(Function, SQLResultAdapter, Handler)} with SQLResultAdapter is
+     * Shortcut of {@link SQLStatementExecutor#execute(Function, SQLResultAdapter, Handler)} with SQLResultAdapter is
      * {@link DSLAdapter#fetchExists()}
      *
      * @param selectFn the jOOQ select function
@@ -254,7 +195,7 @@ public interface SQLQueryExecutor extends JooqDSLProvider {
     }
 
     /**
-     * Shortcut of {@link #execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
+     * Shortcut of {@link SQLStatementExecutor#execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
      * {@link DSLAdapter#fetchExists()}
      *
      * @param select  the jOOQ select
@@ -283,11 +224,11 @@ public interface SQLQueryExecutor extends JooqDSLProvider {
      */
     @GenIgnore
     default <REC extends Record> Future<Boolean> fetchExists(@NotNull Select<REC> select) {
-        return execute(DSL.selectOne().where(DSL.exists(select)), DSLAdapter.fetchExists());
+        return executor().execute(DSL.selectOne().where(DSL.exists(select)), DSLAdapter.fetchExists());
     }
 
     /**
-     * Shortcut of {@link #execute(Function, SQLResultAdapter, Handler)} with SQLResultAdapter is
+     * Shortcut of {@link SQLStatementExecutor#execute(Function, SQLResultAdapter, Handler)} with SQLResultAdapter is
      * {@link DSLAdapter#fetchCount()}
      *
      * @param selectFn the jOOQ select function
@@ -319,7 +260,7 @@ public interface SQLQueryExecutor extends JooqDSLProvider {
     }
 
     /**
-     * Shortcut of {@link #execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
+     * Shortcut of {@link SQLStatementExecutor#execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
      * {@link DSLAdapter#fetchCount()}
      *
      * @param select  the jOOQ select
@@ -348,11 +289,11 @@ public interface SQLQueryExecutor extends JooqDSLProvider {
      */
     @GenIgnore
     default <REC extends Record> Future<Integer> fetchCount(@NotNull Select<REC> select) {
-        return execute(DSL.selectCount().from(select), DSLAdapter.fetchCount());
+        return executor().execute(DSL.selectCount().from(select), DSLAdapter.fetchCount());
     }
 
     /**
-     * Shortcut of {@link #execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
+     * Shortcut of {@link SQLStatementExecutor#execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
      * {@link DSLAdapter#fetchJsonRecord(TableLike)}
      *
      * @param selectFn the jOOQ select function
@@ -386,7 +327,7 @@ public interface SQLQueryExecutor extends JooqDSLProvider {
     }
 
     /**
-     * Shortcut of {@link #execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
+     * Shortcut of {@link SQLStatementExecutor#execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
      * {@link DSLAdapter#fetchJsonRecord(TableLike)}
      *
      * @param select  the jOOQ select
@@ -415,11 +356,11 @@ public interface SQLQueryExecutor extends JooqDSLProvider {
      */
     @GenIgnore
     default <REC extends Record> Future<JsonRecord<REC>> fetchJsonRecord(@NotNull Select<REC> select) {
-        return execute(select, DSLAdapter.fetchJsonRecord(select.asTable()));
+        return executor().execute(select, DSLAdapter.fetchJsonRecord(select.asTable()));
     }
 
     /**
-     * Shortcut of {@link #execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
+     * Shortcut of {@link SQLStatementExecutor#execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
      * {@link DSLAdapter#fetchJsonRecords(TableLike)}
      *
      * @param selectFn the jOOQ select function
@@ -453,7 +394,7 @@ public interface SQLQueryExecutor extends JooqDSLProvider {
     }
 
     /**
-     * Shortcut of {@link #execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
+     * Shortcut of {@link SQLStatementExecutor#execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
      * {@link DSLAdapter#fetchJsonRecords(TableLike)}
      *
      * @param select  the jOOQ select
@@ -482,11 +423,11 @@ public interface SQLQueryExecutor extends JooqDSLProvider {
      */
     @GenIgnore
     default <REC extends Record> Future<List<JsonRecord<REC>>> fetchJsonRecords(@NotNull Select<REC> select) {
-        return execute(select, DSLAdapter.fetchJsonRecords(select.asTable()));
+        return executor().execute(select, DSLAdapter.fetchJsonRecords(select.asTable()));
     }
 
     /**
-     * Shortcut of {@link #execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
+     * Shortcut of {@link SQLStatementExecutor#execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
      * {@link DSLAdapter#fetchJsonObject(TableLike)}
      *
      * @param selectFn the jOOQ select function
@@ -520,7 +461,7 @@ public interface SQLQueryExecutor extends JooqDSLProvider {
     }
 
     /**
-     * Shortcut of {@link #execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
+     * Shortcut of {@link SQLStatementExecutor#execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
      * {@link DSLAdapter#fetchJsonObject(TableLike)}
      *
      * @param select  the jOOQ select
@@ -549,11 +490,11 @@ public interface SQLQueryExecutor extends JooqDSLProvider {
      */
     @GenIgnore
     default <REC extends Record> Future<JsonObject> fetchJsonObject(@NotNull Select<REC> select) {
-        return execute(select, DSLAdapter.fetchJsonObject(select.asTable()));
+        return executor().execute(select, DSLAdapter.fetchJsonObject(select.asTable()));
     }
 
     /**
-     * Shortcut of {@link #execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
+     * Shortcut of {@link SQLStatementExecutor#execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
      * {@link DSLAdapter#fetchJsonObject(TableLike, JsonCodec)}
      *
      * @param selectFn the jOOQ select function
@@ -589,7 +530,7 @@ public interface SQLQueryExecutor extends JooqDSLProvider {
     }
 
     /**
-     * Shortcut of {@link #execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
+     * Shortcut of {@link SQLStatementExecutor#execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
      * {@link DSLAdapter#fetchJsonObject(TableLike, JsonCodec)}
      *
      * @param select  the jOOQ select
@@ -619,11 +560,11 @@ public interface SQLQueryExecutor extends JooqDSLProvider {
     @GenIgnore
     default <REC extends Record> Future<JsonObject> fetchJsonObject(@NotNull Select<REC> select,
                                                                     @NotNull JsonCodec codec) {
-        return execute(select, DSLAdapter.fetchJsonObject(select.asTable(), codec));
+        return executor().execute(select, DSLAdapter.fetchJsonObject(select.asTable(), codec));
     }
 
     /**
-     * Shortcut of {@link #execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
+     * Shortcut of {@link SQLStatementExecutor#execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
      * {@link DSLAdapter#fetchJsonArray(TableLike)}
      *
      * @param selectFn the jOOQ select function
@@ -656,7 +597,7 @@ public interface SQLQueryExecutor extends JooqDSLProvider {
     }
 
     /**
-     * Shortcut of {@link #execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
+     * Shortcut of {@link SQLStatementExecutor#execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
      * {@link DSLAdapter#fetchJsonArray(TableLike)}
      *
      * @param select  the jOOQ select
@@ -685,11 +626,11 @@ public interface SQLQueryExecutor extends JooqDSLProvider {
      */
     @GenIgnore
     default <REC extends Record> Future<JsonArray> fetchJsonArray(@NotNull Select<REC> select) {
-        return execute(select, DSLAdapter.fetchJsonArray(select.asTable()));
+        return executor().execute(select, DSLAdapter.fetchJsonArray(select.asTable()));
     }
 
     /**
-     * Shortcut of {@link #execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
+     * Shortcut of {@link SQLStatementExecutor#execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
      * {@link DSLAdapter#fetchJsonArray(TableLike, JsonCodec)}
      *
      * @param selectFn the jOOQ select function
@@ -725,7 +666,7 @@ public interface SQLQueryExecutor extends JooqDSLProvider {
     }
 
     /**
-     * Shortcut of {@link #execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
+     * Shortcut of {@link SQLStatementExecutor#execute(Query, SQLResultAdapter, Handler)} with SQLResultAdapter is
      * {@link DSLAdapter#fetchJsonArray(TableLike, JsonCodec)}
      *
      * @param select  the jOOQ select
@@ -755,7 +696,7 @@ public interface SQLQueryExecutor extends JooqDSLProvider {
     @GenIgnore
     default <REC extends Record> Future<JsonArray> fetchJsonArray(@NotNull Select<REC> select,
                                                                   @NotNull JsonCodec codec) {
-        return execute(select, DSLAdapter.fetchJsonArray(select.asTable(), codec));
+        return executor().execute(select, DSLAdapter.fetchJsonArray(select.asTable(), codec));
     }
 
 }
