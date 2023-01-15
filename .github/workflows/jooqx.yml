@@ -96,8 +96,8 @@ jobs:
         id: db_profile
         shell: bash
         run: |
-          echo ::set-output name=project::$(echo ${{ matrix.db }} | cut -d':' -f1)
-          echo ::set-output name=dbImage::$(echo ${{ matrix.db }} | cut -d':' -f2)
+          echo project=$(echo ${{ matrix.db }} | cut -d':' -f1) >> $GITHUB_OUTPUT
+          echo dbImage=$(echo ${{ matrix.db }} | cut -d':' -f2) >> $GITHUB_OUTPUT
 
 #      - name: Cache SonarCloud packages
 #        uses: actions/cache@v2.1.4

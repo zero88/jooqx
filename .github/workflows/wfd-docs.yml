@@ -78,12 +78,12 @@ jobs:
           docProfile="${{ github.event.inputs.profile }}:docs"
           docOutDir="./antora/${{ github.event.inputs.profile }}"
           
-          echo ::set-output name=docProfile::$docProfile
-          echo ::set-output name=docBranch::$docBranch
-          echo ::set-output name=docVersion::$docVersion
-          echo ::set-output name=docOutDir::$docOutDir
-          echo ::set-output name=docBuildDir::${{ github.event.inputs.antoraBuildDir }}
-          echo ::set-output name=ciMsg::"${{ github.event.inputs.profile }} documentation [$commitVersion]"
+          echo docProfile=$docProfile >> $GITHUB_OUTPUT
+          echo docBranch=$docBranch >> $GITHUB_OUTPUT
+          echo docVersion=$docVersion >> $GITHUB_OUTPUT
+          echo docOutDir=$docOutDir >> $GITHUB_OUTPUT
+          echo docBuildDir=${{ github.event.inputs.antoraBuildDir }} >> $GITHUB_OUTPUT
+          echo ciMsg="${{ github.event.inputs.profile }} documentation [$commitVersion]" >> $GITHUB_OUTPUT
 
       - name: Generate jOOQ test schema
         shell: bash
