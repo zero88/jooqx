@@ -53,9 +53,9 @@ jobs:
     if: inputs.isRelease != 'true'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.4.0
+      - uses: actions/checkout@v3.3.0
 
-      - uses: actions/setup-java@v2
+      - uses: actions/setup-java@v3.4.1
         with:
           distribution: ${{ inputs.javaDist }}
           java-version: ${{ inputs.javaVersion }}
@@ -76,9 +76,9 @@ jobs:
     if: inputs.isRelease == 'true'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2.4.0
+      - uses: actions/checkout@v3.3.0
 
-      - uses: actions/setup-java@v2
+      - uses: actions/setup-java@v3.4.1
         with:
           distribution: ${{ inputs.javaDist }}
           java-version: ${{ inputs.javaVersion }}
@@ -86,10 +86,10 @@ jobs:
 
       - name: Import GPG key
         id: import_gpg
-        uses: crazy-max/ghaction-import-gpg@v3
+        uses: crazy-max/ghaction-import-gpg@v5
         with:
-          git-user-signingkey: true
-          gpg-private-key: ${{ secrets.gpgKey }}
+          git_user_signingkey: true
+          gpg_private_key: ${{ secrets.gpgKey }}
           passphrase: ${{ secrets.gpgPassphrase }}
 
       - name: Publish
