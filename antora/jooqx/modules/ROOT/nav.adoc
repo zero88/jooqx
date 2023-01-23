@@ -5,7 +5,7 @@
 * xref:core-quickstart.adoc[]
 * xref:core-api-reference.adoc[]
 include::partial$nav-api-reference.adoc[]
-* xref:attachment$javadoc/index.html[API docs,window=_blank]
+* xref:attachment$javadoc/index.html[API docs]
 
 .Project Governance
 * xref:pg-changelog.adoc[Changelog]
