@@ -1,3 +1,3 @@
 .Testing
 * xref:index.adoc[Development]
-include::partial$nav-javadoc.adoc[]
+* xref:attachment$javadoc/index.html[API docs]
