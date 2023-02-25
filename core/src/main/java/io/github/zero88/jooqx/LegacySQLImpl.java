@@ -318,9 +318,8 @@ final class LegacySQLImpl {
 
 
     @Deprecated
-    static class LegacyJooqxBuilderImpl extends
-                                        SQLExecutorBuilderImpl<SQLClient, JsonArray, LegacySQLPreparedQuery,
-                                                                  ResultSet, LegacySQLCollector, LegacyJooqxBuilder>
+    static class LegacyJooqxBuilderImpl
+        extends SQLExecutorBuilderImpl<SQLClient, JsonArray, LegacySQLPreparedQuery, LegacySQLCollector, LegacyJooqxBuilder>
         implements LegacyJooqxBuilder {
 
         @Override

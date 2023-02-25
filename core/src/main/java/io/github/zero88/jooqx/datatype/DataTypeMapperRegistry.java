@@ -12,8 +12,9 @@ import org.jooq.Field;
 import org.jooq.Name;
 import org.jooq.Param;
 import org.jooq.impl.DSL;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import io.vertx.core.impl.logging.Logger;
+import io.vertx.core.impl.logging.LoggerFactory;
 
 /**
  * A registry for list of specific data type mapper among {@code Vert.x}, {@code jOOQ} and {@code User data type}.
@@ -28,15 +29,15 @@ public final class DataTypeMapperRegistry {
     private final Map<Field, FieldMapper> fieldMappers = new HashMap<>();
 
     public <V, T, U> DataTypeMapperRegistry add(@NotNull DataTypeMapper<V, T, U> mapper) {
-        LOGGER.debug("Adding global mapper by [{}]...", mapper.jooqxConverter().toType().getName());
+        LOGGER.debug("Adding global mapper by [" + mapper.jooqxConverter().toType().getName() + "]...");
         this.typeMappers.put(mapper.jooqxConverter().toType(), mapper);
         return this;
     }
 
     public <V, T, U> DataTypeMapperRegistry addByColumn(@NotNull Field column,
                                                         @NotNull DataTypeMapper<V, T, U> mapper) {
-        LOGGER.debug("Adding field mapper by [{}::{}]...", unquoted(column),
-                     mapper.jooqxConverter().toType().getName());
+        LOGGER.debug(
+            "Adding field mapper by [" + unquoted(column) + "::" + mapper.jooqxConverter().toType().getName() + "]...");
         this.fieldMappers.put(column, new FieldMapper(column, mapper));
         return this;
     }
@@ -58,13 +59,14 @@ public final class DataTypeMapperRegistry {
     public Object toUserType(@NotNull Field<?> f, Object value) {
         final DataTypeMapper<Object, ?, Object> mapper = getTypeMapper("Field", f, value);
         if (Objects.nonNull(mapper)) {
-            if (value == null || mapper.jooqxConverter().fromType().isInstance(value)) {
+            final JooqxConverter<?, ?> converter = mapper.jooqxConverter();
+            if (value == null || converter.fromType().isInstance(value)) {
                 return mapper.fromVtoU(value);
             }
-            LOGGER.debug("Value of [{}::{}] is not mapped with registered type [{}], coerce value by [{}]...",
-                         unquoted(f), value.getClass().getName(), mapper.jooqxConverter().fromType(),
-                         mapper.jooqxConverter().toType());
-            return ((Converter<Object, Object>) f.coerce(mapper.jooqxConverter().toType()).getConverter()).from(value);
+            LOGGER.debug("Value of [" + unquoted(f) + "::" + value.getClass().getName() + "] " +
+                         "is not mapped with registered type [" + converter.fromType().getName() + "], " +
+                         "coerce value by [" + converter.toType().getName() + "]...");
+            return ((Converter<Object, Object>) f.coerce(converter.toType()).getConverter()).from(value);
         }
         final Converter<?, ?> converter = f.getConverter();
         if (converter instanceof DataTypeMapper) {
@@ -74,7 +76,7 @@ public final class DataTypeMapperRegistry {
     }
 
     <V, T, U> DataTypeMapper<V, T, U> lookup(Field<?> field, Class<?> type) {
-        trace("Lookup mapper by field and data type [{}::{}]...", unquoted(field), type.getName());
+        LOGGER.trace("Lookup mapper by field and data type [" + unquoted(field) + "::" + type.getName() + "]...");
         final FieldMapper fieldMapper = fieldMappers.get(field);
         DataTypeMapper<V, T, U> mapper = Optional.ofNullable(fieldMapper)
                                                  .filter(pm -> pm.matchesByType(type))
@@ -86,30 +88,25 @@ public final class DataTypeMapperRegistry {
                                                                               .findFirst()
                                                                               .orElse(typeMappers.get(type)));
         if (mapper == null) {
-            trace("Use default converter for [{}::{}]", unquoted(field), field.getType().getName());
+            LOGGER.trace("Use default converter for [" + unquoted(field) + "::" + field.getType().getName() + "]");
         } else {
-            trace("Found mapper [{}::{}::{}::{}]", unquoted(field), mapper.jooqxConverter().fromType().getName(),
-                  field.getType().getName(), mapper.toType());
+            LOGGER.trace(
+                "Found mapper [" + unquoted(field) + "::" + mapper.jooqxConverter().fromType().getName() + "::" +
+                field.getType().getName() + "::" + mapper.toType().getName() + "]");
         }
         return mapper;
     }
 
     private DataTypeMapper<Object, ?, Object> getTypeMapper(String which, Field<?> field, Object value) {
-        trace("Converting {} [{}] - jOOQ Type [{}] - Vertx SQL Type [{}]...", which, unquoted(field),
-              field.getType().getName(),
-              Optional.ofNullable(value).map(Object::getClass).map(Class::getName).orElse(null));
+        LOGGER.trace(
+            "Converting " + which + " [" + unquoted(field) + "] - jOOQ Type [" + field.getType().getName() + "] " +
+            "- Vertx SQL Type [" + Optional.ofNullable(value).map(Object::getClass).map(Class::getName).orElse(null) +
+            "]...");
         return this.lookup(field, field.getType());
     }
 
     private Name unquoted(Field column) {
         return DSL.unquotedName(column.getQualifiedName().getName());
-    }
-
-    private void trace(String msg, Object... objects) {
-        if (!LOGGER.isTraceEnabled()) {
-            return;
-        }
-        LOGGER.trace(msg, objects);
     }
 
     private static class FieldMapper {

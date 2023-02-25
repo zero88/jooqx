@@ -8,11 +8,10 @@ oss {
 }
 
 dependencies {
-    api(LogLibs.slf4j)
     api(VertxLibs.core)
     api(JooqLibs.jooq)
-    compileOnly(VertxLibs.jdbc)
 
+    compileOnly(VertxLibs.jdbc)
     compileOnly(VertxLibs.rx2)
     compileOnly(VertxLibs.rx3)
     compileOnly(VertxLibs.codegen)
@@ -23,6 +22,7 @@ dependencies {
     testImplementation(VertxLibs.sqlClient)
 
     testFixturesApi(project(":spi"))
+    testFixturesApi(LogLibs.slf4j)
     testFixturesApi(LogLibs.logback)
     testFixturesApi(TestLibs.junit5Api)
     testFixturesApi(TestLibs.junit5Engine)

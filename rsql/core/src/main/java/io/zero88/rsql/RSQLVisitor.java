@@ -12,7 +12,7 @@ import cz.jirutka.rsql.parser.ast.OrNode;
  * @see cz.jirutka.rsql.parser.ast.RSQLVisitor
  * @since 1.0.0
  */
-public interface RSQLVisitor<R, C extends RSQLContext> extends cz.jirutka.rsql.parser.ast.RSQLVisitor<R, C>, HasLog {
+public interface RSQLVisitor<R, C extends RSQLContext> extends cz.jirutka.rsql.parser.ast.RSQLVisitor<R, C> {
 
     @Override
     R visit(AndNode node, C context);

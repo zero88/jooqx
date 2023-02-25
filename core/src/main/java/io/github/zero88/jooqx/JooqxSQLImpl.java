@@ -38,7 +38,6 @@ import io.vertx.core.Future;
 import io.vertx.core.Vertx;
 import io.vertx.sqlclient.Pool;
 import io.vertx.sqlclient.Row;
-import io.vertx.sqlclient.RowSet;
 import io.vertx.sqlclient.SqlClient;
 import io.vertx.sqlclient.SqlConnection;
 import io.vertx.sqlclient.SqlResult;
@@ -297,7 +296,7 @@ final class JooqxSQLImpl {
 
 
     static class JooqxBuilderImpl
-        extends SQLExecutorBuilderImpl<Pool, Tuple, JooqxPreparedQuery, RowSet<Row>, JooqxResultCollector, JooqxBuilder>
+        extends SQLExecutorBuilderImpl<Pool, Tuple, JooqxPreparedQuery, JooqxResultCollector, JooqxBuilder>
         implements JooqxBuilder {
 
         @Override
@@ -309,9 +308,8 @@ final class JooqxSQLImpl {
     }
 
 
-    static class JooqxConnBuilderImpl extends
-                                      SQLExecutorBuilderImpl<SqlConnection, Tuple, JooqxPreparedQuery, RowSet<Row>,
-                                                                JooqxResultCollector, JooqxConnBuilder>
+    static class JooqxConnBuilderImpl
+        extends SQLExecutorBuilderImpl<SqlConnection, Tuple, JooqxPreparedQuery, JooqxResultCollector, JooqxConnBuilder>
         implements JooqxConnBuilder {
 
         @Override
