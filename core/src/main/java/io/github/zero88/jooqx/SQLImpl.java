@@ -225,8 +225,8 @@ final class SQLImpl {
 
 
     @SuppressWarnings("unchecked")
-    abstract static class SQLExecutorBuilderImpl<S, B, PQ extends SQLPreparedQuery<B>, RS,
-                                                        RC extends SQLResultCollector, E extends SQLExecutorBuilder<S, B, PQ, RC, E>>
+    abstract static class SQLExecutorBuilderImpl<S, B, PQ extends SQLPreparedQuery<B>, RC extends SQLResultCollector,
+                                                        E extends SQLExecutorBuilder<S, B, PQ, RC, E>>
         implements SQLExecutorBuilder<S, B, PQ, RC, E> {
 
         private Vertx vertx;
