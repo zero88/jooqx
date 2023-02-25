@@ -22,7 +22,7 @@ public abstract class AbstractJooqConditionQuery<Q extends Query, R> extends Abs
         return toQuery(parser().criteria(query, context()));
     }
 
-    public static abstract class AbstractJooqConditionQueryBuilder<Q extends Query, R,
+    public abstract static class AbstractJooqConditionQueryBuilder<Q extends Query, R,
                                                                       C extends AbstractJooqConditionQuery<Q, R>,
                                                                       B extends AbstractJooqConditionQueryBuilder<Q, R, C, B>> {
 

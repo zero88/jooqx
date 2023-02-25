@@ -3,7 +3,6 @@ package io.zero88.rsql.jooq.query;
 import org.jetbrains.annotations.NotNull;
 import org.jooq.Query;
 
-import io.zero88.rsql.HasLog;
 import io.zero88.rsql.jooq.JooqRSQLParser;
 import io.zero88.rsql.jooq.JooqRSQLQueryContext;
 
@@ -14,7 +13,7 @@ import io.zero88.rsql.jooq.JooqRSQLQueryContext;
  * @param <R> Type of {@code Query Result}
  * @since 1.0.0
  */
-public interface JooqRSQLQuery<Q extends Query, R> extends HasLog {
+public interface JooqRSQLQuery<Q extends Query, R> {
 
     /**
      * Defines Jooq RQL Parser.
