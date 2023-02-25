@@ -19,11 +19,11 @@ import org.jooq.Routine;
 import org.jooq.SQLDialect;
 import org.jooq.conf.ParamType;
 import org.jooq.exception.SQLStateClass;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import io.github.zero88.jooqx.datatype.DataTypeMapperRegistry;
 import io.vertx.core.Vertx;
+import io.vertx.core.impl.logging.Logger;
+import io.vertx.core.impl.logging.LoggerFactory;
 
 final class SQLImpl {
 
@@ -127,7 +127,7 @@ final class SQLImpl {
             if (blockQuery.isInBlock()) {
                 final String sql = configuration.dsl().begin(blockQuery.queries()).getSQL(ParamType.INLINED);
                 if (LOGGER.isDebugEnabled()) {
-                    LOGGER.debug("Prepared Block Query:     {}", sql);
+                    LOGGER.debug("Prepared Block Query:     " + sql);
                 }
                 return sql;
             }
@@ -138,7 +138,7 @@ final class SQLImpl {
                                             .map(q -> sql(configuration, q, ParamType.INLINED))
                                             .collect(Collectors.joining(delimiter, "", delimiter));
             if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug("Prepared Wrapper Queries: {}", sql);
+                LOGGER.debug("Prepared Wrapper Queries: " + sql);
             }
             return sql;
         }
@@ -157,14 +157,14 @@ final class SQLImpl {
         public @NotNull String routine(@NotNull Configuration configuration, @NotNull Routine routine) {
             final DSLContext dsl = configuration.dsl();
             if (LOGGER.isTraceEnabled()) {
-                LOGGER.trace("DEFAULT:                  {}", dsl.render(routine));
-                LOGGER.trace("NAMED:                    {}", dsl.renderNamedParams(routine));
-                LOGGER.trace("INLINED:                  {}", dsl.renderInlined(routine));
-                LOGGER.trace("NAMED_OR_INLINED:         {}", dsl.renderNamedOrInlinedParams(routine));
+                LOGGER.trace("DEFAULT:                  " + dsl.render(routine));
+                LOGGER.trace("NAMED:                    " + dsl.renderNamedParams(routine));
+                LOGGER.trace("INLINED:                  " + dsl.renderInlined(routine));
+                LOGGER.trace("NAMED_OR_INLINED:         " + dsl.renderNamedOrInlinedParams(routine));
             }
             final String sql = dsl.render(routine);
             if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug("Prepared Query:           {}", sql);
+                LOGGER.debug("Prepared Query:           " + sql);
             }
             return sql;
         }
@@ -200,23 +200,23 @@ final class SQLImpl {
 
         private String sql(@NotNull Configuration configuration, @NotNull Query query, ParamType paramType) {
             if (LOGGER.isTraceEnabled()) {
-                LOGGER.trace("DEFAULT:                  {}", query.getSQL());
-                LOGGER.trace("NAMED:                    {}", query.getSQL(ParamType.NAMED));
-                LOGGER.trace("INLINED:                  {}", query.getSQL(ParamType.INLINED));
-                LOGGER.trace("NAMED_OR_INLINED:         {}", query.getSQL(ParamType.NAMED_OR_INLINED));
-                LOGGER.trace("INDEXED:                  {}", query.getSQL(ParamType.INDEXED));
-                LOGGER.trace("FORCE_INDEXED:            {}", query.getSQL(ParamType.FORCE_INDEXED));
+                LOGGER.trace("DEFAULT:                  " + query.getSQL());
+                LOGGER.trace("NAMED:                    " + query.getSQL(ParamType.NAMED));
+                LOGGER.trace("INLINED:                  " + query.getSQL(ParamType.INLINED));
+                LOGGER.trace("NAMED_OR_INLINED:         " + query.getSQL(ParamType.NAMED_OR_INLINED));
+                LOGGER.trace("INDEXED:                  " + query.getSQL(ParamType.INDEXED));
+                LOGGER.trace("FORCE_INDEXED:            " + query.getSQL(ParamType.FORCE_INDEXED));
             }
             if (SQLDialect.POSTGRES.supports(configuration.dialect()) && paramType == ParamType.NAMED) {
                 final String sql = NAMED_PARAM_PATTERN.matcher(query.getSQL(paramType)).replaceAll("\\$$1");
                 if (LOGGER.isDebugEnabled()) {
-                    LOGGER.debug("POSTGRESQL:               {}", sql);
+                    LOGGER.debug("POSTGRESQL:               " + sql);
                 }
                 return sql;
             }
             final String sql = query.getSQL(paramType == null ? ParamType.INDEXED : paramType);
             if (LOGGER.isDebugEnabled()) {
-                LOGGER.debug("Prepared Query:           {}", sql);
+                LOGGER.debug("Prepared Query:           " + sql);
             }
             return sql;
         }
