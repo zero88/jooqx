@@ -54,11 +54,10 @@ dependencies {
 
 :icons: font
 [TIP]
-.`jooqx` is only depended on 3 main libraries
+.`jooqx` is only depended on 2 main libraries
 ====
 - `io.vertx:vertx-core`
 - `org.jooq:jooq`
-- `org.slf4j:slf4j-api`
 ====
 
 Adding this `jooqx` library JAR will not automatically add a `database driver` JAR to your project. You should ensure that your project also has a suitable `database driver` as a dependency.
@@ -106,3 +105,25 @@ dependencies {
 == Reactive version
 
 Reference to xref:features-rxify.adoc[reactive version] for more detail.
+
+== Logging
+
+`jooq.x` reuses the Vert.x logging mechanism. Please, refers to https://vertx.io/docs/vertx-core/java/#_logging
+
+So in short, you can use `slf4j`, `log4j2`, or `jdk logging` by simple below configuration before start your application. Remember add your flavor log library in your classpath.
+
+[source,java]
+----
+// for slf4j
+System.setProperty("vertx.logger-delegate-factory-class-name", "io.vertx.core.logging.SLF4JLogDelegateFactory");
+
+// for log4j2
+System.setProperty("vertx.logger-delegate-factory-class-name", "io.vertx.core.logging.Log4j2LogDelegateFactory");
+
+// fallback to jdk logging or config explicitly
+System.setProperty("vertx.logger-delegate-factory-class-name", "io.vertx.core.logging.JULLogDelegateFactory");
+----
+
+*Note*
+
+`jOOQ` use `slf4j` by default, so in case your application is using `log4j2`, please add https://central.sonatype.com/artifact/org.apache.logging.log4j/log4j-slf4j-impl/2.20.0/versions[`log4j-slf4j-impl`] into the application classpath to redirect jOOQ log by `slf4j` to `log4j2`.
