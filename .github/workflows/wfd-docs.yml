@@ -21,7 +21,7 @@ on:
       isRelease:
         description: 'Is release'
         required: false
-        default: false
+        default: 'false'
       antoraBuildDir:
         description: 'Specifics Antora output dir per profile'
         required: true
@@ -35,13 +35,48 @@ on:
         default: '17'
 
 jobs:
-  build:
-    name: Build ${{ github.event.inputs.profile }} documentation
+  context:
+    name: Evaluate context
     runs-on: ubuntu-latest
+    steps:
+      - name: Evaluate context
+        id: context
+        shell: bash
+        run: |
+          if [[ '${{ inputs.isRelease }}' == 'true' ]]; then
+            docBranch="docs/${{ inputs.profile }}/v${{ inputs.version }}"
+            docVersion="${{ inputs.version }}"
+            commitVersion="${{ inputs.version }}-${{ inputs.hashVersion }}"
+          else
+            docBranch="docs/main"
+            docVersion="main"
+            commitVersion="main-${{ inputs.hashVersion }}"
+          fi
+          docProfile="${{ inputs.profile }}:docs"
+          docOutDir="./antora/${{ inputs.profile }}"
+
+          echo docProfile=$docProfile >> $GITHUB_OUTPUT
+          echo docBranch=$docBranch >> $GITHUB_OUTPUT
+          echo docVersion=$docVersion >> $GITHUB_OUTPUT
+          echo docOutDir=$docOutDir >> $GITHUB_OUTPUT
+          echo docBuildDir=${{ inputs.antoraBuildDir }} >> $GITHUB_OUTPUT
+          echo ciMsg="${{ inputs.profile }} documentation [$commitVersion]" >> $GITHUB_OUTPUT
+    outputs:
+      docProfile: ${{ needs.context.outputs.docProfile }}
+      docBranch: ${{ needs.context.outputs.docBranch }}
+      docVersion: ${{ needs.context.outputs.docVersion }}
+      docOutDir: ${{ needs.context.outputs.docOutDir }}
+      docBuildDir: ${{ needs.context.outputs.docBuildDir }}
+      ciMsg: ${{ steps.semantic.outputs.ciMsg }}
+
+  build:
+    name: Build ${{ inputs.profile }} documentation
+    runs-on: ubuntu-latest
+    needs: context
     steps:
       - uses: actions/checkout@v3.3.0
         with:
-          ref: ${{ github.event.inputs.sha }}
+          ref: ${{ inputs.sha }}
           token: ${{ secrets.OSS_GITHUB_TOKEN }}
           fetch-depth: 0
           submodules: 'true'
@@ -58,32 +93,9 @@ jobs:
 
       - uses: actions/setup-java@v3.9.0
         with:
-          distribution: ${{ github.event.inputs.javaDist }}
-          java-version: ${{ github.event.inputs.javaVersion }}
+          distribution: ${{ inputs.javaDist }}
+          java-version: ${{ inputs.javaVersion }}
           cache: 'gradle'
-
-      - name: Evaluate context
-        id: context
-        shell: bash
-        run: |
-          if [[ '${{ github.event.inputs.isRelease }}' == 'true' ]]; then
-            docBranch="docs/${{ github.event.inputs.profile }}/v${{ github.event.inputs.version }}"
-            docVersion="${{ github.event.inputs.version }}"
-            commitVersion="${{ github.event.inputs.version }}-${{ github.event.inputs.hashVersion }}"
-          else
-            docBranch="docs/main"
-            docVersion="main"
-            commitVersion="main-${{ github.event.inputs.hashVersion }}"
-          fi
-          docProfile="${{ github.event.inputs.profile }}:docs"
-          docOutDir="./antora/${{ github.event.inputs.profile }}"
-          
-          echo docProfile=$docProfile >> $GITHUB_OUTPUT
-          echo docBranch=$docBranch >> $GITHUB_OUTPUT
-          echo docVersion=$docVersion >> $GITHUB_OUTPUT
-          echo docOutDir=$docOutDir >> $GITHUB_OUTPUT
-          echo docBuildDir=${{ github.event.inputs.antoraBuildDir }} >> $GITHUB_OUTPUT
-          echo ciMsg="${{ github.event.inputs.profile }} documentation [$commitVersion]" >> $GITHUB_OUTPUT
 
       - name: Generate jOOQ test schema
         shell: bash
@@ -93,48 +105,83 @@ jobs:
         shell: bash
         run: |
           ./gradlew antora \
-              -Pprofile=${{ steps.context.outputs.docProfile }} \
-              -PdocVersion=${{ steps.context.outputs.docVersion }} \
-              -Pversion=${{ github.event.inputs.version }} \
-              -PsemanticVersion=${{ github.event.inputs.semanticVersion }} \
-              -PbuildHash=${{ github.event.inputs.hashVersion }} \
+              -Pprofile=${{ needs.context.outputs.docProfile }} \
+              -PdocVersion=${{ needs.context.outputs.docVersion }} \
+              -Pversion=${{ inputs.version }} \
+              -PsemanticVersion=${{ inputs.semanticVersion }} \
+              -PbuildHash=${{ inputs.hashVersion }} \
               -PbuildBy="GitHub-Action"
 
-      - name: Sync changes to Git branch [${{ steps.context.outputs.docBranch }}]
+      - name: Sync changes to Git branch [${{ needs.context.outputs.docBranch }}]
         shell: bash
         run: |
           git fetch
           git checkout docs/main
-          rm -rf ${{ steps.context.outputs.docOutDir }} \
-            && mkdir ${{ steps.context.outputs.docOutDir }} \
-            && touch ${{ steps.context.outputs.docOutDir }}/.gitkeep \
-            && cp -rf ./${{ steps.context.outputs.docBuildDir }}/* ${{ steps.context.outputs.docOutDir }}
+          rm -rf ${{ needs.context.outputs.docOutDir }} \
+            && mkdir ${{ needs.context.outputs.docOutDir }} \
+            && touch ${{ needs.context.outputs.docOutDir }}/.gitkeep \
+            && cp -rf ./${{ needs.context.outputs.docBuildDir }}/* ${{ needs.context.outputs.docOutDir }}
           git add .
-          git diff-index --quiet HEAD || git commit -am "Update ${{ steps.context.outputs.ciMsg }}"
-          if [[ '${{ github.event.inputs.isRelease }}' == 'true' ]]; then
-               git tag -sf -am "Release ${{ steps.context.outputs.ciMsg }}" ${{ steps.context.outputs.docBranch }}
+          git diff-index --quiet HEAD || git commit -am "Update ${{ needs.context.outputs.ciMsg }}"
+          if [[ '${{ inputs.isRelease }}' == 'true' ]]; then
+               git tag -sf -am "Release ${{ needs.context.outputs.ciMsg }}" ${{ needs.context.outputs.docBranch }}
           fi
           git push --follow-tags
 
-  deploy:
-    needs: build
-    name: Trigger to deploy website
+  deploy-site:
+    name: Build and Deploy documentation site
     runs-on: ubuntu-latest
+    needs: build
     env:
-      REPO: zero88/jooqx-webdocs
-      REF: main
-      WORKFLOW: docs.yml
-      GITHUB_TOKEN: ${{ secrets.OSS_GITHUB_TOKEN }}
+      PROJECT_NAME: jooqx         # No space
+      PROJECT_REPO: zero88/jooqx
+      PROJECT_REF: gh-pages
+      WEBDOCS_REPO: zero88/jooqx-webdocs
+      WEBDOCS_REF: main
     steps:
-      - name: Trigger to deploy workflow
-        shell: bash
-        run: |
-          gh workflow run ${{ env.WORKFLOW }} \
-            --repo ${{ env.REPO }} --ref ${{ env.REF }} -f ciMsg="Deploy ${{ steps.context.outputs.ciMsg }}"
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16'
 
-      - name: Verify GitHub workflow run
+      - name: Checkout webdocs
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ env.WEBDOCS_REPO }}
+          ref: ${{ env.WEBDOCS_REF }}
+          path: webdocs
+
+      - name: Build web site
         shell: bash
         run: |
-          sleep 5
-          fields=workflowDatabaseId,databaseId,status,event,headBranch,headSha,name,conclusion,url,createdAt,updatedAt
-          gh run list -R ${{ env.REPO }} -b ${{ env.REF }} -w ${{ env.WORKFLOW }} -L 1 --json $fields | jq
+          cd webdocs
+          yarn install
+          yarn antora --fetch antora-playbook.yml --stacktrace
+
+      - name: Checkout ${{ env.PROJECT_NAME }}
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ env.PROJECT_REPO }}
+          ref: ${{ env.PROJECT_REF }}
+          path: ${{ env.PROJECT_NAME }}
+
+      - name: Import GPG key
+        uses: crazy-max/ghaction-import-gpg@v5
+        with:
+          git_user_signingkey: true
+          git_commit_gpgsign: true
+          git_tag_gpgsign: false
+          git_push_gpgsign: false
+          gpg_private_key: ${{ secrets.CI_GPG_PRIVATE_KEY }}
+          passphrase: ${{ secrets.CI_GPG_PASSPHARSE }}
+          workdir: ${{ env.PROJECT_NAME }}
+
+      - name: Sync changes to Git branch [${{ env.PROJECT_REF }}]
+        shell: bash
+        run: |
+          rm -rf ${{ env.PROJECT_NAME }}/docs \
+            && mkdir -p ${{ env.PROJECT_NAME }}/docs \
+            && cp -rf webdocs/build/* webdocs/build/.[^.]* ${{ env.PROJECT_NAME }}/docs
+          cd ${{ env.PROJECT_NAME }}
+          git add .
+          git diff-index --quiet HEAD || git commit -am "Deploy ${{ needs.context.outputs.ciMsg }} documentation"
+          git push -u origin ${{ env.PROJECT_REF }}
