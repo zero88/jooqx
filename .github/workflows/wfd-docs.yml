@@ -131,7 +131,7 @@ jobs:
   deploy-site:
     name: Build and Deploy site
     runs-on: ubuntu-latest
-    needs: build
+    needs: [ context, build ]
     env:
       PROJECT_NAME: jooqx         # No space
       PROJECT_REPO: zero88/jooqx
