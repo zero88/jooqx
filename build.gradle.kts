@@ -1,14 +1,20 @@
+import cloud.playio.gradle.NexusConfig
+import cloud.playio.gradle.NexusVersion
+
 plugins {
     eclipse
     idea
-    id(ZeroLibs.Plugins.oss) version ZeroLibs.Version.gradlePlugin
-    id(ZeroLibs.Plugins.root) version ZeroLibs.Version.gradlePlugin
-
+    id(PlayioPlugin.oss) version PlayioPlugin.Version.gradlePlugin
+    id(PlayioPlugin.root) version PlayioPlugin.Version.gradlePlugin
+    id(PlayioPlugin.antora) version PlayioPlugin.Version.gradlePlugin apply false
+    id(PlayioPlugin.pandoc) version PlayioPlugin.Version.gradlePlugin apply false
+    id(PlayioPlugin.codegen) version PlayioPlugin.Version.gradlePlugin apply false
+    id(PlayioPlugin.docgen) version PlayioPlugin.Version.gradlePlugin apply false
     id(PluginLibs.jooq) version PluginLibs.Version.jooq apply false
-    id(PluginLibs.nexusPublish) version PluginLibs.Version.nexusPublish
 }
 
 project.ext.set("baseName", "jooqx")
+project.ext.set(NexusConfig.NEXUS_VERSION_KEY, NexusVersion.BEFORE_2021_02_24)
 
 allprojects {
     group = "io.github.zero88"
@@ -32,7 +38,7 @@ allprojects {
 }
 
 subprojects {
-    apply(plugin = ZeroLibs.Plugins.oss)
+    apply(plugin = PlayioPlugin.oss)
 
     dependencies {
         compileOnly(UtilLibs.jetbrainsAnnotations)
@@ -45,32 +51,16 @@ subprojects {
 
     oss {
         zero88.set(true)
-        publishingInfo {
-            enabled.set(true)
-            homepage.set("https://github.com/zero88/jooqx")
+        github.set(true)
+        githubConfig.publishToRegistry.set(true)
+        publishing {
             license {
                 name.set("The Apache License, Version 2.0")
-                url.set("https://github.com/zero88/jooqx/blob/master/LICENSE")
-            }
-            scm {
-                connection.set("scm:git:git://git@github.com:zero88/jooqx.git")
-                developerConnection.set("scm:git:ssh://git@github.com:zero88/jooqx.git")
-                url.set("https://github.com/zero88/jooqx")
+                url.set("https://github.com/zero88/jooqx/blob/main/LICENSE")
             }
         }
         testLogger {
             slowThreshold = 5000
-        }
-    }
-}
-
-
-nexusPublishing {
-    packageGroup.set("io.github.zero88")
-    repositories {
-        sonatype {
-            username.set(project.property("nexus.username") as String?)
-            password.set(project.property("nexus.password") as String?)
         }
     }
 }

@@ -1,3 +1,12 @@
+import cloud.playio.gradle.antora.AntoraType
+import cloud.playio.gradle.antora.tasks.AntoraCopyTask
+import cloud.playio.gradle.generator.docgen.AsciidocGenTask
+
+plugins {
+    id(PlayioPlugin.antora)
+    id(PlayioPlugin.docgen)
+}
+
 dependencies {
     compileOnly(project(":spi"))
     compileOnly(testFixtures(project(":jooqx")))
@@ -8,18 +17,23 @@ dependencies {
     compileOnly(VertxLibs.mysql)
     compileOnly(VertxLibs.rx2)
 
-    implementation(VertxLibs.docgen)
-    annotationProcessor(VertxLibs.docgen)
-
     implementation(VertxLibs.jdbc)
     implementation(VertxLibs.pgsql)
     implementation(VertxLibs.mysql)
     implementation(VertxLibs.rx2)
 }
 
-apply<antora.AntoraDocComponentPlugin>()
-configure<antora.AntoraDocComponentExtension> {
-    antoraModule.set("testing")
-    antoraType.set(antora.AntoraType.MODULE)
-    javadocInDir.from(project(":jooqx").tasks.named<Javadoc>("testFixturesJavadoc"))
+documentation {
+    antora {
+        antoraModule.set("testing")
+        antoraType.set(AntoraType.MODULE)
+        javadocInDir.from(project(":jooqx").tasks.named<Javadoc>("testFixturesJavadoc"))
+    }
+}
+
+tasks {
+    named<AntoraCopyTask>("antoraPartials") {
+        from(withType<AsciidocGenTask>())
+        include("*.adoc")
+    }
 }

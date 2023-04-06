@@ -1,3 +1,4 @@
+import cloud.playio.gradle.jooq.JooqJdbcContainer
 import nu.studer.gradle.jooq.JooqGenerate
 import org.jooq.meta.jaxb.ForcedType
 import org.jooq.meta.jaxb.Logging
@@ -17,11 +18,11 @@ dependencies {
 
     testImplementation(JacksonLibs.databind)
     testImplementation(JacksonLibs.datetime)
-
     // For pg-14
     testImplementation("com.ongres.scram:client:2.1")
 }
-val dbVersion = "postgresql:${(project.findProperty("dbImage") ?: "10-alpine")}"
+
+val dbImage = "postgresql:${(project.findProperty("dbVersion") ?: "10-alpine")}"
 val dialect = "org.jooq.meta.postgres.PostgresDatabase"
 fun getSchema(schemaFile: String): String = "${buildDir}/resources/main/${schemaFile}"
 
@@ -32,11 +33,7 @@ jooq {
         create("testPgSchema") {
             jooqConfiguration.apply {
                 logging = Logging.INFO
-                jdbc.apply {
-                    val (driver, url) = getTestContainer(dbVersion, getSchema("pg_schema.sql"))
-                    this.driver = driver
-                    this.url = url
-                }
+                jdbc = JooqJdbcContainer.createBySchema(dbImage, getSchema("pg_schema.sql"))
                 generator.apply {
                     database.apply {
                         name = dialect
@@ -100,11 +97,11 @@ jooq {
         create("sakilaPgSchema") {
             jooqConfiguration.apply {
                 logging = Logging.INFO
-                jdbc.apply {
-                    val (driver, url) = getTestContainer(dbVersion, getSchema("postgres-sakila-schema.sql"), mapOf("user" to "postgres"))
-                    this.driver = driver
-                    this.url = url
-                }
+                jdbc = JooqJdbcContainer.createBySchema(
+                    dbImage,
+                    getSchema("postgres-sakila-schema.sql"),
+                    mapOf("user" to "postgres")
+                )
                 generator.apply {
                     database.apply {
                         name = dialect

@@ -1,3 +1,11 @@
+import cloud.playio.gradle.antora.tasks.AntoraCopyTask
+import cloud.playio.gradle.generator.docgen.AsciidocGenTask
+
+plugins {
+    id(PlayioPlugin.antora)
+    id(PlayioPlugin.docgen)
+}
+
 dependencies {
     compileOnly(project(":rsql:jooq"))
     compileOnly(project(":integtest:pg"))
@@ -6,23 +14,28 @@ dependencies {
     compileOnly(VertxLibs.mysql)
     compileOnly(VertxLibs.rx2)
 
-    implementation(VertxLibs.docgen)
-    annotationProcessor(VertxLibs.docgen)
-
     implementation(VertxLibs.jdbc)
     implementation(VertxLibs.pgsql)
     implementation(VertxLibs.mysql)
     implementation(VertxLibs.rx2)
 }
 
-apply<antora.AntoraDocComponentPlugin>()
-configure<antora.AntoraDocComponentExtension> {
-    asciiAttributes.set(mapOf("rsql-version" to project.version))
-    javadocTitle.set("jOOQ RSQL ${project.version} API")
-    javadocProjects.set(
-        when (gradle) {
-            is ExtensionAware -> ((gradle as ExtensionAware).extensions["PROJECT_POOL"] as Map<*, Array<String>>)["rsql"]!!
-            else              -> emptyArray()
-        }.map(project::project)
-    )
+documentation {
+    antora {
+        asciiAttributes.set(mapOf("rsql-version" to project.version))
+        javadocTitle.set("jOOQ RSQL ${project.version} API")
+        javadocProjects.set(
+            when (gradle) {
+                is ExtensionAware -> ((gradle as ExtensionAware).extensions["PROJECT_POOL"] as Map<*, Array<String>>)["rsql"]!!
+                else              -> emptyArray()
+            }.map(project::project)
+        )
+    }
+}
+
+tasks {
+    named<AntoraCopyTask>("antoraPartials") {
+        from(withType<AsciidocGenTask>())
+        include("*.adoc")
+    }
 }

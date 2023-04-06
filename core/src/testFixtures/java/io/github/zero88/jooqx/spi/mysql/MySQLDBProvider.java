@@ -14,8 +14,8 @@ public interface MySQLDBProvider extends DBContainerProvider<MySQLContainer<?>>,
 
     @Override
     default @NotNull MySQLContainer<?> init() {
-        final String dbImage = System.getProperty("dbImage", SUPPORTED_IMAGES[1]);
-        return initDBContainer("mysql:" + dbImage);
+        final String dbVersion = System.getProperty("dbVersion", SUPPORTED_IMAGES[1]);
+        return initDBContainer("mysql:" + dbVersion);
     }
 
     @Override

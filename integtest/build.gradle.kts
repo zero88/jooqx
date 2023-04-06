@@ -1,5 +1,5 @@
+import cloud.playio.gradle.jooq.loadDbVersion
 import nu.studer.gradle.jooq.JooqGenerate
-
 
 subprojects {
     apply(plugin = PluginLibs.jooq)
@@ -38,8 +38,6 @@ subprojects {
             group = "jooq"
             dependsOn(withType<JooqGenerate>())
         }
-        test {
-            project.findProperty("dbImage")?.let { systemProperty("dbImage", it) }
-        }
+        test { loadDbVersion(project) }
     }
 }
