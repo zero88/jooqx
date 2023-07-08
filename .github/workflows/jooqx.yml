@@ -1,6 +1,8 @@
 name: jooqx
 
 on:
+  create:
+    branches: [ 'release/**' ]
   push:
     branches: [ main ]
     tags: [ 'v*' ]

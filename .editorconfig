@@ -5,8 +5,8 @@ insert_final_newline = true
 indent_style = space
 indent_size = 4
 
-[*.{json, yml, yaml, md}]
+[*.{json,yml,yaml,md}]
 indent_size = 2
 
-[*.{bat, ps1}]
+[*.{bat,ps1}]
 end_of_line = crlf

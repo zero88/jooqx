@@ -1,6 +1,8 @@
 name: rsql
 
 on:
+  create:
+    branches: [ 'release/**' ]
   push:
     branches: [ main ]
     tags: [ 'rsql/v*' ]
