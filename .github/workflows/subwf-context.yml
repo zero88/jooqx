@@ -100,7 +100,7 @@ jobs:
           nextVerMsg: 'Next ${{ inputs.profile }} version'
           mustSign: true
           changelog: true
-          nextVerMode: PATCH
+          nextVerMode: MINOR
 
       - name: Find semantic version
         id: semantic
