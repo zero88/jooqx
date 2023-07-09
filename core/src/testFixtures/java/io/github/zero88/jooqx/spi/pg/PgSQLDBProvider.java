@@ -15,8 +15,8 @@ public interface PgSQLDBProvider extends DBContainerProvider<PostgreSQLContainer
 
     @Override
     default @NotNull PostgreSQLContainer<?> init() {
-        final String dbImage = System.getProperty("dbImage", SUPPORTED_IMAGES[0]);
-        return initDBContainer("postgres:" + dbImage);
+        final String dbVersion = System.getProperty("dbVersion", SUPPORTED_IMAGES[0]);
+        return initDBContainer("postgres:" + dbVersion);
     }
 
     @Override

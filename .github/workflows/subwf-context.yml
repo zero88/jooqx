@@ -63,15 +63,15 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       branch: ${{ steps.context.outputs.branch }}
-      isRelease: ${{ steps.context.outputs.isTag }}
-      commitId: ${{ steps.context.outputs.shortCommitId }}
+      isRelease: ${{ steps.context.outputs.onRelease }}
+      commitId: ${{ steps.context.outputs.commitShortId }}
       sha: ${{ steps.context.outputs.commitId }}
       version: ${{ steps.context.outputs.version }}
       semanticVersion: ${{ steps.semantic.outputs.semanticVersion }}
       shouldBuild: ${{ steps.verify.outputs.shouldBuild }}
       shouldPublish: ${{ steps.verify.outputs.shouldPublish }}
     steps:
-      - uses: actions/checkout@v3.3.0
+      - uses: actions/checkout@v3
         with:
           token: ${{ secrets.githubToken }}
 
@@ -87,25 +87,26 @@ jobs:
 
       - name: Project context
         id: context
-        uses: zero88/gh-project-context@v1.2
+        uses: zero88/gh-project-context@v2
         with:
-          mustSign: true
-          nextVerMode: PATCH
+          token: ${{ secrets.githubToken }}
           patterns: ${{ inputs.versionFile }}
           tagPrefix: ${{ inputs.gitTagPrefix }}
+          hotfixPrefix: '${{ inputs.profile }}/hotfix/'
           releaseBranchPrefix: '${{ inputs.profile }}/release/'
           mergedReleaseMsgRegex: '^Merge pull request #[0-9]+ from .+/${{ inputs.profile }}/release/.+$'
           correctVerMsg: 'Correct ${{ inputs.profile }} version'
           releaseVerMsg: 'Release ${{ inputs.profile }} version'
           nextVerMsg: 'Next ${{ inputs.profile }} version'
+          mustSign: true
           changelog: true
-          changelogToken: ${{ secrets.githubToken }}
+          nextVerMode: MINOR
 
       - name: Find semantic version
         id: semantic
         shell: bash
         run: |
-          [[ "${{ steps.context.outputs.isTag }}" == "true" ]] && sv="" || sv=$(grep semanticVersion gradle.properties | cut -d'=' -f2)
+          [[ "${{ steps.context.outputs.onRelease }}" == "true" ]] && sv="" || sv=$(grep semanticVersion gradle.properties | cut -d'=' -f2)
           echo semanticVersion=$sv >> $GITHUB_OUTPUT
 
       - name: Verify if branch is in ignore list

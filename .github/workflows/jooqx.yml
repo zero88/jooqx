@@ -1,6 +1,8 @@
 name: jooqx
 
 on:
+  create:
+    branches: [ 'release/**' ]
   push:
     branches: [ main ]
     tags: [ 'v*' ]
@@ -97,7 +99,7 @@ jobs:
         shell: bash
         run: |
           echo project=$(echo ${{ matrix.db }} | cut -d':' -f1) >> $GITHUB_OUTPUT
-          echo dbImage=$(echo ${{ matrix.db }} | cut -d':' -f2) >> $GITHUB_OUTPUT
+          echo dbVersion=$(echo ${{ matrix.db }} | cut -d':' -f2) >> $GITHUB_OUTPUT
 
 #      - name: Cache SonarCloud packages
 #        uses: actions/cache@v2.1.4
@@ -112,7 +114,7 @@ jobs:
           ./gradlew --stacktrace \
               :integtest:${{ steps.db_profile.outputs.project }}:generateJooq \
               -Pprofile=${{ env.PROFILE }} \
-              -PdbImage=${{ steps.db_profile.outputs.dbImage }} \
+              -PdbVersion=${{ steps.db_profile.outputs.dbVersion }} \
               -PsemanticVersion=${{ needs.context.outputs.semanticVersion }}
 
       - name: Run test
@@ -122,7 +124,7 @@ jobs:
                       :integtest:${{ steps.db_profile.outputs.project }}:test \
                       :integtest:${{ steps.db_profile.outputs.project }}:jacocoTestReport \
                       -Pprofile=${{ env.PROFILE }} \
-                      -PdbImage=${{ steps.db_profile.outputs.dbImage }} \
+                      -PdbVersion=${{ steps.db_profile.outputs.dbVersion }} \
                       -PsemanticVersion=${{ needs.context.outputs.semanticVersion }} \
                 | tee 1>&2 | grep -c 'There were failing tests' ||:)
           (( $count > 0 )) && exit 1 || echo

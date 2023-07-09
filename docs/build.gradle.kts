@@ -1,3 +1,7 @@
+plugins {
+    id(PlayioPlugin.antora)
+}
+
 subprojects {
     oss {
         baseName.set("jooqx-${project.name}")
@@ -5,15 +9,15 @@ subprojects {
     }
 }
 
-apply<antora.AntoraDocComponentPlugin>()
-configure<antora.AntoraDocComponentExtension> {
-    antoraSrcDir.set("antora")
-    asciiAttributes.set(
-        mapOf(
-            "jooqx-version" to project.version,
-            "vertx-version" to VertxLibs.Version.vertxCore,
-            "jooq-version" to JooqLibs.Version.jooq,
-            "mutiny-version" to MutinyLibs.Version.mutiny
+documentation {
+    antora {
+        asciiAttributes.set(
+            mapOf(
+                "jooqx-version" to project.version,
+                "vertx-version" to VertxLibs.Version.vertxCore,
+                "jooq-version" to JooqLibs.Version.jooq,
+                "mutiny-version" to MutinyLibs.Version.mutiny
+            )
         )
-    )
+    }
 }

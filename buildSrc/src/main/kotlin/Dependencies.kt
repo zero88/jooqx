@@ -18,7 +18,6 @@ object PluginLibs {
         const val nexusPublish = "1.1.0"
     }
 
-    const val nexusPublish = "io.github.gradle-nexus.publish-plugin"
     const val jooq = "nu.studer.jooq"
 }
 
@@ -67,7 +66,6 @@ object VertxLibs {
         @JvmField val vertxCore = "4.${pool.ver(3, 5)}"
         @JvmField val vertxSQL = "4.${pool.ver(3, 5)}"
         const val vertxJunit = "4.2.5"
-        const val docgen = "0.9.4"
     }
 
     @JvmField val core = "io.vertx:vertx-core:${Version.vertxCore}"
@@ -82,7 +80,6 @@ object VertxLibs {
     @JvmField val mysql = "io.vertx:vertx-mysql-client:${Version.vertxSQL}"
     @JvmField val db2 = "io.vertx:vertx-db2-client:${Version.vertxSQL}"
     @JvmField val mssql = "io.vertx:vertx-mssql-client:${Version.vertxSQL}"
-    const val docgen = "io.vertx:vertx-docgen:${Version.docgen}"
 }
 
 object MutinyLibs {
@@ -108,11 +105,15 @@ object LogLibs {
 
         const val slf4j = "1.7.36"
         const val logback = "1.2.11"
+        const val log4j2 = "2.19.0"
     }
 
     const val slf4j = "org.slf4j:slf4j-api:${Version.slf4j}"
     const val logback = "ch.qos.logback:logback-classic:${Version.logback}"
     const val slf4jSimple = "org.slf4j:slf4j-simple:${Version.slf4j}"
+    const val log4j2Api = "org.apache.logging.log4j:log4j-api:${Version.log4j2}"
+    const val log4j2Core = "org.apache.logging.log4j:log4j-core:${Version.log4j2}"
+    const val log4j2slf4j = "org.apache.logging.log4j:log4j-slf4j-impl:${Version.log4j2}"
 }
 
 object JooqLibs {
@@ -160,7 +161,7 @@ object DatabaseLibs {
 object ZeroLibs {
     object Version {
 
-        const val gradlePlugin = "2.1.0"
+        const val gradlePlugin = "3.0.0-SNAPSHOT"
         const val utils = "2.0.0"
         const val rsql = "2.2.1"
     }
@@ -168,9 +169,19 @@ object ZeroLibs {
     const val rsql = "io.github.zero88:rsql-parser:${Version.rsql}"
     const val utils = "io.github.zero88:java-utils:${Version.utils}"
 
-    object Plugins {
+}
 
-        const val oss = "io.github.zero88.gradle.oss"
-        const val root = "io.github.zero88.gradle.root"
+object PlayioPlugin {
+    object Version {
+
+        const val gradlePlugin = "0.1.0"
     }
+
+    const val oss = "cloud.playio.gradle.oss"
+    const val root = "cloud.playio.gradle.root"
+    const val antora = "cloud.playio.gradle.antora"
+    const val pandoc = "cloud.playio.gradle.pandoc"
+    const val docgen = "cloud.playio.gradle.docgen"
+    const val codegen = "cloud.playio.gradle.codegen"
+
 }

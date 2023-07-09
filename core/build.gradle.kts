@@ -1,5 +1,8 @@
+import cloud.playio.gradle.generator.codegen.SourceSetName
+
 plugins {
     `java-test-fixtures`
+    id(PlayioPlugin.codegen)
 }
 
 oss {
@@ -7,17 +10,22 @@ oss {
     title.set("jOOQ.x")
 }
 
+codegen {
+    vertx {
+        version.set(VertxLibs.Version.vertxCore)
+        sources.addAll(arrayOf(SourceSetName.MAIN, SourceSetName.TEST_FIXTURES))
+    }
+}
+
 dependencies {
     api(VertxLibs.core)
     api(JooqLibs.jooq)
 
-    compileOnly(VertxLibs.jdbc)
-    compileOnly(VertxLibs.rx2)
-    compileOnly(VertxLibs.rx3)
-    compileOnly(VertxLibs.codegen)
-    compileOnly(MutinyLibs.jdbc)
-    compileOnly(MutinyLibs.sqlClient)
-    annotationProcessor(VertxLibs.codegen)
+    codeGenerator(VertxLibs.jdbc)
+    codeGenerator(VertxLibs.rx2)
+    codeGenerator(VertxLibs.rx3)
+    codeGenerator(MutinyLibs.jdbc)
+    codeGenerator(MutinyLibs.sqlClient)
 
     testImplementation(VertxLibs.sqlClient)
 
@@ -32,8 +40,6 @@ dependencies {
     testFixturesApi(ZeroLibs.utils)
 
     testFixturesCompileOnly(UtilLibs.jetbrainsAnnotations)
-    testFixturesCompileOnly(VertxLibs.codegen)
-    testFixturesAnnotationProcessor(VertxLibs.codegen)
 
     testFixturesImplementation(VertxLibs.rx2)
 
@@ -53,31 +59,16 @@ dependencies {
 }
 
 tasks {
-    register<JavaCompile>("genSrcCode") {
-        genCodeByAnnotation(this, sourceSets, addToSrc = false)
+    named<JavaCompile>("genVertxCode") {
         options.isFailOnError = false
         // Workaround to remove rxjava3 for Legacy SQL client due to deprecated
-        // Should make this task is cacheable
         doLast {
             project.delete {
-                delete(project.fileTree("${project.buildDir}/generated/main/java").matching {
+                delete(destinationDirectory.asFileTree.matching {
                     include("**/rxjava3/Legacy*.java")
                 })
             }
         }
-    }
-
-    compileJava {
-        dependsOn(named("genSrcCode"))
-        sourceSets.getByName("main").java.srcDirs("${project.buildDir}/generated/main/java")
-    }
-
-    register<JavaCompile>("genTestFixturesCode") {
-        genCodeByAnnotation(this, sourceSets, "testFixtures")
-    }
-
-    compileTestFixturesJava {
-        dependsOn(named("genTestFixturesCode"))
     }
 
     testFixturesJavadoc {

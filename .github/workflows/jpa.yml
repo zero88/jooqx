@@ -1,6 +1,8 @@
 name: jpa
 
 on:
+  create:
+    branches: [ 'release/**' ]
   push:
     branches: [ main ]
     tags: [ 'jpa/v*' ]
