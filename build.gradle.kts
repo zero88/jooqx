@@ -52,7 +52,6 @@ subprojects {
     oss {
         zero88.set(true)
         github.set(true)
-        githubConfig.publishToRegistry.set(true)
         publishing {
             license {
                 name.set("The Apache License, Version 2.0")

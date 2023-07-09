@@ -80,7 +80,7 @@ jobs:
             -f hashVersion=${{ needs.context.outputs.commitId }} \
             -f sha=${{ needs.context.outputs.sha }} \
             -f isRelease=${{ needs.context.outputs.isRelease }} \
-            -f antoraBuildDir=rsql/asciidoc/build/antora
+            -f antoraBuildDir=rsql/asciidoc/build/docs/antora
 
       - name: Verify GitHub workflow run
         shell: bash

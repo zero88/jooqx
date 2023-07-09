@@ -177,7 +177,7 @@ jobs:
             -f hashVersion=${{ needs.context.outputs.commitId }} \
             -f sha=${{ needs.context.outputs.sha }} \
             -f isRelease=${{ needs.context.outputs.isRelease }} \
-            -f antoraBuildDir=docs/build/antora
+            -f antoraBuildDir=docs/build/docs/antora
 
       - name: Verify GitHub workflow run
         shell: bash
