@@ -53,15 +53,13 @@ subprojects {
         zero88.set(true)
         github.set(true)
         publishing {
-            license {
-                name.set("The Apache License, Version 2.0")
-                url.set("https://github.com/zero88/jooqx/blob/main/LICENSE")
-            }
+            homepage.set("https://zero88.github.io/jooqx")
         }
         testLogger {
             slowThreshold = 5000
         }
     }
+
 }
 
 tasks.register("generateJooq") {
