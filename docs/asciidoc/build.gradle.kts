@@ -45,6 +45,7 @@ documentation {
             arguments.set(arrayOf("--trace"))
         }
     }
+
 }
 
 tasks {
