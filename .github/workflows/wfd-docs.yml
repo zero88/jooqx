@@ -104,7 +104,7 @@ jobs:
       - name: Build docs
         shell: bash
         run: |
-          ./gradlew antora \
+          ./gradlew antoraDoc \
               -Pprofile=${{ needs.context.outputs.docProfile }} \
               -PdocVersion=${{ needs.context.outputs.docVersion }} \
               -Pversion=${{ inputs.version }} \
