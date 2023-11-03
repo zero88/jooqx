@@ -161,7 +161,6 @@ object DatabaseLibs {
 object ZeroLibs {
     object Version {
 
-        const val gradlePlugin = "3.0.0-SNAPSHOT"
         const val utils = "2.0.0"
         const val rsql = "2.2.1"
     }
@@ -174,7 +173,7 @@ object ZeroLibs {
 object PlayioPlugin {
     object Version {
 
-        const val gradlePlugin = "0.2.0"
+        const val gradlePlugin = "0.2.1"
     }
 
     const val oss = "cloud.playio.gradle.oss"
