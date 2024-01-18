@@ -49,7 +49,7 @@ jobs:
     env:
       PROFILE: 'ciBuild'
     steps:
-      - uses: actions/checkout@v3.3.0
+      - uses: actions/checkout@v4
 
       - name: Build
         uses: ./.github/actions/gha-build
@@ -75,7 +75,7 @@ jobs:
     env:
       PROFILE: 'ciSonar'
     steps:
-      - uses: actions/checkout@v3.3.0
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           submodules: 'true'
