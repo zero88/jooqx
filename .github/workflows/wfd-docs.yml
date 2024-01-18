@@ -74,7 +74,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: context
     steps:
-      - uses: actions/checkout@v3.3.0
+      - uses: actions/checkout@v4
         with:
           ref: ${{ inputs.sha }}
           token: ${{ secrets.OSS_GITHUB_TOKEN }}
@@ -144,7 +144,7 @@ jobs:
           node-version: '16'
 
       - name: Checkout webdocs
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: ${{ env.WEBDOCS_REPO }}
           ref: ${{ env.WEBDOCS_REF }}
@@ -158,7 +158,7 @@ jobs:
           yarn antora --fetch antora-playbook.yml --stacktrace
 
       - name: Checkout ${{ env.PROJECT_NAME }}
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: ${{ env.PROJECT_REPO }}
           ref: ${{ env.PROJECT_REF }}
