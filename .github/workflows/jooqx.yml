@@ -28,7 +28,7 @@ env:
 
 jobs:
   context:
-    uses: ./.github/workflows/subwf-context.yml
+    uses: zero88/shared-ghactions/.github/workflows/project-context.yml@main
     with:
       profile: 'jooqx'
       skipBranchPattern: '^(jpa|rsql)/.*'
