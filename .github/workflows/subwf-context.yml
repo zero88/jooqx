@@ -76,7 +76,7 @@ jobs:
           token: ${{ secrets.githubToken }}
 
       - name: Import GPG key
-        uses: crazy-max/ghaction-import-gpg@v5
+        uses: crazy-max/ghaction-import-gpg@v6
         with:
           git_user_signingkey: true
           git_commit_gpgsign: true
@@ -84,6 +84,11 @@ jobs:
           git_push_gpgsign: false
           gpg_private_key: ${{ secrets.gpgKey }}
           passphrase: ${{ secrets.gpgPassphrase }}
+
+      - name: Prepare GPG
+        run: |
+          echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf
+          gpgconf --reload gpg-agent
 
       - name: Project context
         id: context

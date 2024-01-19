@@ -82,7 +82,7 @@ jobs:
           submodules: 'true'
 
       - name: Import GPG key
-        uses: crazy-max/ghaction-import-gpg@v5
+        uses: crazy-max/ghaction-import-gpg@v6
         with:
           git_user_signingkey: true
           git_commit_gpgsign: true
@@ -165,7 +165,7 @@ jobs:
           path: ${{ env.PROJECT_NAME }}
 
       - name: Import GPG key
-        uses: crazy-max/ghaction-import-gpg@v5
+        uses: crazy-max/ghaction-import-gpg@v6
         with:
           git_user_signingkey: true
           git_commit_gpgsign: true
