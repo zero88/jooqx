@@ -18,4 +18,9 @@ dependencies {
     testImplementation(VertxLibs.mssql)
     testImplementation(VertxLibs.db2)
 
+    tasks {
+        jar {
+            archiveClassifier.set("jdk17")
+        }
+    }
 }
