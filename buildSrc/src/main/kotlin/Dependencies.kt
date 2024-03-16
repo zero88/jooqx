@@ -51,7 +51,7 @@ object TestLibs {
 object TestContainers {
     object Version {
 
-        const val ver = "1.17.3"
+        const val ver = "1.19.6"
     }
 
     const val junit5 = "org.testcontainers:junit-jupiter:${Version.ver}"
@@ -63,9 +63,14 @@ object VertxLibs {
 
     object Version {
 
-        private val pool = mapOf(2 to (0..7).toList(), 3 to (0..6).toList(), 4 to (0..0).toList())
-        @JvmField val vertxCore = "4.${pool.ver(3, 5)}"
-        @JvmField val vertxSQL = "4.${pool.ver(3, 5)}"
+        private val pool = mapOf(
+            2 to (0..7).toList(),
+            3 to (0..8).toList(),
+            4 to (0..8).toList(),
+            5 to (0..4).toList()
+        )
+        @JvmField val vertxCore = "4.${pool.ver(4, 8)}"
+        @JvmField val vertxSQL = "4.${pool.ver(4, 8)}"
         const val vertxJunit = "4.2.5"
         const val docgen = "0.9.4"
     }
@@ -118,8 +123,15 @@ object LogLibs {
 object JooqLibs {
     object Version {
 
-        private val pool = mapOf(14 to (0..13).toList(), 15 to (0..10).toList(), 16 to (0..6).toList())
-        @JvmField val jooq = "3.${pool.ver(14 ,13)}"
+        private val pool = mapOf(
+            14 to (0..16).toList(),
+            15 to (0..12).toList(),
+            16 to (0..23).toList(),
+            17 to (0..22).toList(),
+            18 to (0..13).toList(),
+            19 to (0..6).toList(),
+        )
+        @JvmField val jooq = "3.${pool.ver(18, 0)}"
     }
 
     @JvmField val jooq = "org.jooq:jooq:${Version.jooq}"

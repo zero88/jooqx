@@ -83,4 +83,12 @@ tasks {
     testFixturesJavadoc {
         title = "jOOQx Testing ${project.version} API"
     }
+
+    jar {
+        archiveClassifier.set("jdk17")
+    }
+
+    testFixturesJar {
+        archiveClassifier.set("test-fixtures-jdk17")
+    }
 }
