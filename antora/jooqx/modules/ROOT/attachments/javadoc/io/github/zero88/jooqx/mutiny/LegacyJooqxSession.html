@@ -970,97 +970,88 @@ R&gt;</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="elemen
 </section>
 </li>
 <li>
-<section class="detail" id="ddl(java.util.function.Function)">
-<h3>ddl</h3>
+<section class="detail" id="routine(java.util.function.Function)">
+<h3>routine</h3>
 <div class="member-signature"><span class="annotations">@CheckReturnValue
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">io.smallrye.mutiny.Uni&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">ddl</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr>org.jooq.DDLQuery&gt;&nbsp;ddlFunction)</span></div>
-<div class="block">Execute DDL statement
- <p>
- Unlike the <em>bare</em> Vert.x variant, this method returns a <code>Uni</code>.
- Don't forget to <em>subscribe</em> on it to trigger the operation.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>ddlFunction</code> - DDL function produces DDL statement</dd>
-<dt>Returns:</dt>
-<dd>the <code>uni</code> firing the result of the operation when completed, or a failure if the operation failed.</dd>
-</dl>
+</span><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type">io.smallrye.mutiny.Uni&lt;T&gt;</span>&nbsp;<span class="element-name">routine</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr>org.jooq.Routine&lt;T&gt;&gt;&nbsp;routineFunction)</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="ddlAndAwait(java.util.function.Function)">
-<h3>ddlAndAwait</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a></span>&nbsp;<span class="element-name">ddlAndAwait</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr>org.jooq.DDLQuery&gt;&nbsp;ddlFunction)</span></div>
-<div class="block">Blocking variant of <a href="SQLDDLExecutor.html#ddl(java.util.function.Function)"><code>SQLDDLExecutor.ddl(Function)</code></a>.
- <p>
- This method waits for the completion of the underlying asynchronous operation.
- If the operation completes successfully, the result is returned, otherwise the failure is thrown (potentially wrapped in a RuntimeException).</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>ddlFunction</code> - DDL function produces DDL statement</dd>
-<dt>Returns:</dt>
-<dd>the Integer instance produced by the operation.</dd>
-</dl>
+<section class="detail" id="routineAndAwait(java.util.function.Function)">
+<h3>routineAndAwait</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type">T</span>&nbsp;<span class="element-name">routineAndAwait</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr>org.jooq.Routine&lt;T&gt;&gt;&nbsp;routineFunction)</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="ddlAndForget(java.util.function.Function)">
-<h3>ddlAndForget</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">ddlAndForget</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr>org.jooq.DDLQuery&gt;&nbsp;ddlFunction)</span></div>
-<div class="block">Variant of <a href="SQLDDLExecutor.html#ddl(java.util.function.Function)"><code>SQLDDLExecutor.ddl(Function)</code></a> that ignores the result of the operation.
- <p>
- This method subscribes on the result of <a href="SQLDDLExecutor.html#ddl(java.util.function.Function)"><code>SQLDDLExecutor.ddl(Function)</code></a>, but discards the outcome (item or failure).
- This method is useful to trigger the asynchronous operation from <a href="SQLDDLExecutor.html#ddl(java.util.function.Function)"><code>SQLDDLExecutor.ddl(Function)</code></a> but you don't need to compose it with other operations.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>ddlFunction</code> - DDL function produces DDL statement</dd>
-</dl>
+<section class="detail" id="routineAndForget(java.util.function.Function)">
+<h3>routineAndForget</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">routineAndForget</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr>org.jooq.Routine&lt;T&gt;&gt;&nbsp;routineFunction)</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="ddl(org.jooq.DDLQuery)">
-<h3>ddl</h3>
+<section class="detail" id="routine(org.jooq.Routine)">
+<h3>routine</h3>
 <div class="member-signature"><span class="annotations">@CheckReturnValue
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">io.smallrye.mutiny.Uni&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">ddl</span><wbr><span class="parameters">(org.jooq.DDLQuery&nbsp;statement)</span></div>
-<div class="block">Execute DDL statement
- <p>
- Unlike the <em>bare</em> Vert.x variant, this method returns a <code>Uni</code>.
- Don't forget to <em>subscribe</em> on it to trigger the operation.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>statement</code> - DDL statement</dd>
-<dt>Returns:</dt>
-<dd>the <code>uni</code> firing the result of the operation when completed, or a failure if the operation failed.</dd>
-</dl>
+</span><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type">io.smallrye.mutiny.Uni&lt;T&gt;</span>&nbsp;<span class="element-name">routine</span><wbr><span class="parameters">(org.jooq.Routine&lt;T&gt;&nbsp;routine)</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="ddlAndAwait(org.jooq.DDLQuery)">
-<h3>ddlAndAwait</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a></span>&nbsp;<span class="element-name">ddlAndAwait</span><wbr><span class="parameters">(org.jooq.DDLQuery&nbsp;statement)</span></div>
-<div class="block">Blocking variant of <a href="SQLDDLExecutor.html#ddl(org.jooq.DDLQuery)"><code>SQLDDLExecutor.ddl(DDLQuery)</code></a>.
- <p>
- This method waits for the completion of the underlying asynchronous operation.
- If the operation completes successfully, the result is returned, otherwise the failure is thrown (potentially wrapped in a RuntimeException).</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>statement</code> - DDL statement</dd>
-<dt>Returns:</dt>
-<dd>the Integer instance produced by the operation.</dd>
-</dl>
+<section class="detail" id="routineAndAwait(org.jooq.Routine)">
+<h3>routineAndAwait</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type">T</span>&nbsp;<span class="element-name">routineAndAwait</span><wbr><span class="parameters">(org.jooq.Routine&lt;T&gt;&nbsp;routine)</span></div>
 </section>
 </li>
 <li>
-<section class="detail" id="ddlAndForget(org.jooq.DDLQuery)">
-<h3>ddlAndForget</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">ddlAndForget</span><wbr><span class="parameters">(org.jooq.DDLQuery&nbsp;statement)</span></div>
-<div class="block">Variant of <a href="SQLDDLExecutor.html#ddl(org.jooq.DDLQuery)"><code>SQLDDLExecutor.ddl(DDLQuery)</code></a> that ignores the result of the operation.
- <p>
- This method subscribes on the result of <a href="SQLDDLExecutor.html#ddl(org.jooq.DDLQuery)"><code>SQLDDLExecutor.ddl(DDLQuery)</code></a>, but discards the outcome (item or failure).
- This method is useful to trigger the asynchronous operation from <a href="SQLDDLExecutor.html#ddl(org.jooq.DDLQuery)"><code>SQLDDLExecutor.ddl(DDLQuery)</code></a> but you don't need to compose it with other operations.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>statement</code> - DDL statement</dd>
-</dl>
+<section class="detail" id="routineAndForget(org.jooq.Routine)">
+<h3>routineAndForget</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">routineAndForget</span><wbr><span class="parameters">(org.jooq.Routine&lt;T&gt;&nbsp;routine)</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="routineResult(org.jooq.Routine)">
+<h3>routineResult</h3>
+<div class="member-signature"><span class="annotations">@CheckReturnValue
+</span><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type">io.smallrye.mutiny.Uni&lt;<a href="../routine/RoutineResult.html" title="interface in io.github.zero88.jooqx.routine">RoutineResult</a>&gt;</span>&nbsp;<span class="element-name">routineResult</span><wbr><span class="parameters">(org.jooq.Routine&lt;T&gt;&nbsp;routine)</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="routineResultAndAwait(org.jooq.Routine)">
+<h3>routineResultAndAwait</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type"><a href="../routine/RoutineResult.html" title="interface in io.github.zero88.jooqx.routine">RoutineResult</a></span>&nbsp;<span class="element-name">routineResultAndAwait</span><wbr><span class="parameters">(org.jooq.Routine&lt;T&gt;&nbsp;routine)</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="routineResultAndForget(org.jooq.Routine)">
+<h3>routineResultAndForget</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">routineResultAndForget</span><wbr><span class="parameters">(org.jooq.Routine&lt;T&gt;&nbsp;routine)</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="routineResultSet(org.jooq.Routine,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
+<h3>routineResultSet</h3>
+<div class="member-signature"><span class="annotations">@CheckReturnValue
+</span><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
+X,<wbr>
+R&gt;</span>&nbsp;<span class="return-type">io.smallrye.mutiny.Uni&lt;R&gt;</span>&nbsp;<span class="element-name">routineResultSet</span><wbr><span class="parameters">(org.jooq.Routine&lt;T&gt;&nbsp;routine,
+ <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;X,<wbr>R&gt;&nbsp;resultAdapter)</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="routineResultSetAndAwait(org.jooq.Routine,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
+<h3>routineResultSetAndAwait</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
+X,<wbr>
+R&gt;</span>&nbsp;<span class="return-type">R</span>&nbsp;<span class="element-name">routineResultSetAndAwait</span><wbr><span class="parameters">(org.jooq.Routine&lt;T&gt;&nbsp;routine,
+ <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;X,<wbr>R&gt;&nbsp;resultAdapter)</span></div>
+</section>
+</li>
+<li>
+<section class="detail" id="routineResultSetAndForget(org.jooq.Routine,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
+<h3>routineResultSetAndForget</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
+X,<wbr>
+R&gt;</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">routineResultSetAndForget</span><wbr><span class="parameters">(org.jooq.Routine&lt;T&gt;&nbsp;routine,
+ <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;X,<wbr>R&gt;&nbsp;resultAdapter)</span></div>
 </section>
 </li>
 <li>
@@ -1170,6 +1161,100 @@ R&gt;</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="elemen
 </section>
 </li>
 <li>
+<section class="detail" id="ddl(java.util.function.Function)">
+<h3>ddl</h3>
+<div class="member-signature"><span class="annotations">@CheckReturnValue
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">io.smallrye.mutiny.Uni&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">ddl</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr>org.jooq.DDLQuery&gt;&nbsp;ddlFunction)</span></div>
+<div class="block">Execute DDL statement
+ <p>
+ Unlike the <em>bare</em> Vert.x variant, this method returns a <code>Uni</code>.
+ Don't forget to <em>subscribe</em> on it to trigger the operation.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>ddlFunction</code> - DDL function produces DDL statement</dd>
+<dt>Returns:</dt>
+<dd>the <code>uni</code> firing the result of the operation when completed, or a failure if the operation failed.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="ddlAndAwait(java.util.function.Function)">
+<h3>ddlAndAwait</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a></span>&nbsp;<span class="element-name">ddlAndAwait</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr>org.jooq.DDLQuery&gt;&nbsp;ddlFunction)</span></div>
+<div class="block">Blocking variant of <a href="SQLDDLExecutor.html#ddl(java.util.function.Function)"><code>SQLDDLExecutor.ddl(Function)</code></a>.
+ <p>
+ This method waits for the completion of the underlying asynchronous operation.
+ If the operation completes successfully, the result is returned, otherwise the failure is thrown (potentially wrapped in a RuntimeException).</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>ddlFunction</code> - DDL function produces DDL statement</dd>
+<dt>Returns:</dt>
+<dd>the Integer instance produced by the operation.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="ddlAndForget(java.util.function.Function)">
+<h3>ddlAndForget</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">ddlAndForget</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr>org.jooq.DDLQuery&gt;&nbsp;ddlFunction)</span></div>
+<div class="block">Variant of <a href="SQLDDLExecutor.html#ddl(java.util.function.Function)"><code>SQLDDLExecutor.ddl(Function)</code></a> that ignores the result of the operation.
+ <p>
+ This method subscribes on the result of <a href="SQLDDLExecutor.html#ddl(java.util.function.Function)"><code>SQLDDLExecutor.ddl(Function)</code></a>, but discards the outcome (item or failure).
+ This method is useful to trigger the asynchronous operation from <a href="SQLDDLExecutor.html#ddl(java.util.function.Function)"><code>SQLDDLExecutor.ddl(Function)</code></a> but you don't need to compose it with other operations.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>ddlFunction</code> - DDL function produces DDL statement</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="ddl(org.jooq.DDLQuery)">
+<h3>ddl</h3>
+<div class="member-signature"><span class="annotations">@CheckReturnValue
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">io.smallrye.mutiny.Uni&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">ddl</span><wbr><span class="parameters">(org.jooq.DDLQuery&nbsp;statement)</span></div>
+<div class="block">Execute DDL statement
+ <p>
+ Unlike the <em>bare</em> Vert.x variant, this method returns a <code>Uni</code>.
+ Don't forget to <em>subscribe</em> on it to trigger the operation.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>statement</code> - DDL statement</dd>
+<dt>Returns:</dt>
+<dd>the <code>uni</code> firing the result of the operation when completed, or a failure if the operation failed.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="ddlAndAwait(org.jooq.DDLQuery)">
+<h3>ddlAndAwait</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a></span>&nbsp;<span class="element-name">ddlAndAwait</span><wbr><span class="parameters">(org.jooq.DDLQuery&nbsp;statement)</span></div>
+<div class="block">Blocking variant of <a href="SQLDDLExecutor.html#ddl(org.jooq.DDLQuery)"><code>SQLDDLExecutor.ddl(DDLQuery)</code></a>.
+ <p>
+ This method waits for the completion of the underlying asynchronous operation.
+ If the operation completes successfully, the result is returned, otherwise the failure is thrown (potentially wrapped in a RuntimeException).</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>statement</code> - DDL statement</dd>
+<dt>Returns:</dt>
+<dd>the Integer instance produced by the operation.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="ddlAndForget(org.jooq.DDLQuery)">
+<h3>ddlAndForget</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">ddlAndForget</span><wbr><span class="parameters">(org.jooq.DDLQuery&nbsp;statement)</span></div>
+<div class="block">Variant of <a href="SQLDDLExecutor.html#ddl(org.jooq.DDLQuery)"><code>SQLDDLExecutor.ddl(DDLQuery)</code></a> that ignores the result of the operation.
+ <p>
+ This method subscribes on the result of <a href="SQLDDLExecutor.html#ddl(org.jooq.DDLQuery)"><code>SQLDDLExecutor.ddl(DDLQuery)</code></a>, but discards the outcome (item or failure).
+ This method is useful to trigger the asynchronous operation from <a href="SQLDDLExecutor.html#ddl(org.jooq.DDLQuery)"><code>SQLDDLExecutor.ddl(DDLQuery)</code></a> but you don't need to compose it with other operations.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>statement</code> - DDL statement</dd>
+</dl>
+</section>
+</li>
+<li>
 <section class="detail" id="block(java.util.function.Function)">
 <h3>block</h3>
 <div class="member-signature"><span class="annotations">@CheckReturnValue
@@ -1261,91 +1346,6 @@ R&gt;</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="elemen
 <dt>Parameters:</dt>
 <dd><code>blockQuery</code> - the block of SQL queries</dd>
 </dl>
-</section>
-</li>
-<li>
-<section class="detail" id="routine(java.util.function.Function)">
-<h3>routine</h3>
-<div class="member-signature"><span class="annotations">@CheckReturnValue
-</span><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type">io.smallrye.mutiny.Uni&lt;T&gt;</span>&nbsp;<span class="element-name">routine</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr>org.jooq.Routine&lt;T&gt;&gt;&nbsp;routineFunction)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="routineAndAwait(java.util.function.Function)">
-<h3>routineAndAwait</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type">T</span>&nbsp;<span class="element-name">routineAndAwait</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr>org.jooq.Routine&lt;T&gt;&gt;&nbsp;routineFunction)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="routineAndForget(java.util.function.Function)">
-<h3>routineAndForget</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">routineAndForget</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr>org.jooq.Routine&lt;T&gt;&gt;&nbsp;routineFunction)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="routine(org.jooq.Routine)">
-<h3>routine</h3>
-<div class="member-signature"><span class="annotations">@CheckReturnValue
-</span><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type">io.smallrye.mutiny.Uni&lt;T&gt;</span>&nbsp;<span class="element-name">routine</span><wbr><span class="parameters">(org.jooq.Routine&lt;T&gt;&nbsp;routine)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="routineAndAwait(org.jooq.Routine)">
-<h3>routineAndAwait</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type">T</span>&nbsp;<span class="element-name">routineAndAwait</span><wbr><span class="parameters">(org.jooq.Routine&lt;T&gt;&nbsp;routine)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="routineAndForget(org.jooq.Routine)">
-<h3>routineAndForget</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">routineAndForget</span><wbr><span class="parameters">(org.jooq.Routine&lt;T&gt;&nbsp;routine)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="routineResult(org.jooq.Routine)">
-<h3>routineResult</h3>
-<div class="member-signature"><span class="annotations">@CheckReturnValue
-</span><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type">io.smallrye.mutiny.Uni&lt;<a href="../routine/RoutineResult.html" title="interface in io.github.zero88.jooqx.routine">RoutineResult</a>&gt;</span>&nbsp;<span class="element-name">routineResult</span><wbr><span class="parameters">(org.jooq.Routine&lt;T&gt;&nbsp;routine)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="routineResultAndAwait(org.jooq.Routine)">
-<h3>routineResultAndAwait</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type"><a href="../routine/RoutineResult.html" title="interface in io.github.zero88.jooqx.routine">RoutineResult</a></span>&nbsp;<span class="element-name">routineResultAndAwait</span><wbr><span class="parameters">(org.jooq.Routine&lt;T&gt;&nbsp;routine)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="routineResultAndForget(org.jooq.Routine)">
-<h3>routineResultAndForget</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">routineResultAndForget</span><wbr><span class="parameters">(org.jooq.Routine&lt;T&gt;&nbsp;routine)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="routineResultSet(org.jooq.Routine,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
-<h3>routineResultSet</h3>
-<div class="member-signature"><span class="annotations">@CheckReturnValue
-</span><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
-X,<wbr>
-R&gt;</span>&nbsp;<span class="return-type">io.smallrye.mutiny.Uni&lt;R&gt;</span>&nbsp;<span class="element-name">routineResultSet</span><wbr><span class="parameters">(org.jooq.Routine&lt;T&gt;&nbsp;routine,
- <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;X,<wbr>R&gt;&nbsp;resultAdapter)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="routineResultSetAndAwait(org.jooq.Routine,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
-<h3>routineResultSetAndAwait</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
-X,<wbr>
-R&gt;</span>&nbsp;<span class="return-type">R</span>&nbsp;<span class="element-name">routineResultSetAndAwait</span><wbr><span class="parameters">(org.jooq.Routine&lt;T&gt;&nbsp;routine,
- <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;X,<wbr>R&gt;&nbsp;resultAdapter)</span></div>
-</section>
-</li>
-<li>
-<section class="detail" id="routineResultSetAndForget(org.jooq.Routine,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
-<h3>routineResultSetAndForget</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
-X,<wbr>
-R&gt;</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">routineResultSetAndForget</span><wbr><span class="parameters">(org.jooq.Routine&lt;T&gt;&nbsp;routine,
- <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;X,<wbr>R&gt;&nbsp;resultAdapter)</span></div>
 </section>
 </li>
 <li>
