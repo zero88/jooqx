@@ -61,33 +61,37 @@ jobs:
         run: ./gradlew test -Pprofile=${{ env.PROFILE }}
 
   docs:
+    uses: zero88/shared-ghactions/.github/workflows/antora-docs.yml@main
     needs: [ context, build ]
     if: needs.context.outputs.shouldPublish == 'true' || needs.context.outputs.isRelease == 'true'
-    runs-on: ubuntu-latest
-    env:
-      REPO: zero88/jooqx
-      REF: main
-      WORKFLOW: wfd-docs.yml
-      GITHUB_TOKEN: ${{ secrets.OSS_GITHUB_TOKEN }}
-    steps:
-      - name: Trigger build ${{ env.PROFILE }} documentation
-        shell: bash
-        run: |
-          gh workflow run ${{ env.WORKFLOW }} --repo ${{ env.REPO }} --ref ${{ env.REF }} \
-            -f profile=${{ env.PROFILE }} \
-            -f version=${{ needs.context.outputs.version }} \
-            -f semanticVersion=${{ needs.context.outputs.semanticVersion }} \
-            -f hashVersion=${{ needs.context.outputs.commitId }} \
-            -f sha=${{ needs.context.outputs.sha }} \
-            -f isRelease=${{ needs.context.outputs.isRelease }} \
-            -f antoraBuildDir=rsql/asciidoc/build/docs/antora
+    with:
+      profile: 'rsql'
+      version: ${{ needs.context.outputs.version }}
+      semanticVersion: ${{ needs.context.outputs.semanticVersion }}
+      hashVersion: ${{ needs.context.outputs.commitId }}
+      sha: ${{ needs.context.outputs.sha }}
+      isRelease: ${{ needs.context.outputs.isRelease }}
+      antoraBuildDir: rsql/asciidoc/build/docs/antora
+      syncDoc: ${{ needs.context.outputs.shouldPublish }}
+      docBranch: ${{ needs.context.outputs.docBranch }}
+      docVersion: ${{ needs.context.outputs.docVersion }}
+      docCommitMsg: ${{ needs.context.outputs.docCommitMsg }}
+    secrets:
+      githubToken: ${{ secrets.OSS_GITHUB_TOKEN }}
+      gpgKey: ${{ secrets.CI_GPG_PRIVATE_KEY }}
+      gpgPassphrase: ${{ secrets.CI_GPG_PASSPHARSE }}
 
-      - name: Verify GitHub workflow run
-        shell: bash
-        run: |
-          sleep 5
-          fields=workflowDatabaseId,databaseId,status,event,headBranch,headSha,name,conclusion,url,createdAt,updatedAt
-          gh run list -R ${{ env.REPO }} -b ${{ env.REF }} -w ${{ env.WORKFLOW }} -L 1 --json $fields | jq
+  webdocs:
+    uses: zero88/shared-ghactions/.github/workflows/webdocs-communal-publish.yml@main
+    needs: [ context, docs ]
+    if: needs.context.outputs.shouldPublish == 'true' || needs.context.outputs.isRelease == 'true'
+    with:
+      webdocsRepo: 'zero88/webdocs'
+      webdocsRef: 'main'
+      webdocsWorkflow: 'webdocs.yml'
+      docCommitMsg: ${{ needs.context.outputs.docCommitMsg }}
+    secrets:
+      githubToken: ${{ secrets.OSS_GITHUB_TOKEN }}
 
   publish:
     needs: [ context, build ]
