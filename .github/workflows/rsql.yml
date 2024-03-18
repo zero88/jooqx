@@ -63,7 +63,6 @@ jobs:
   docs:
     uses: zero88/shared-ghactions/.github/workflows/antora-docs.yml@main
     needs: [ context, build ]
-    if: needs.context.outputs.shouldPublish == 'true' || needs.context.outputs.isRelease == 'true'
     with:
       profile: 'rsql'
       version: ${{ needs.context.outputs.version }}
@@ -73,7 +72,7 @@ jobs:
       isRelease: ${{ needs.context.outputs.isRelease }}
       antoraCommand: ':integtest:pg:generateJooq antoraDoc'
       antoraBuildDir: 'rsql/asciidoc/build/docs/antora'
-      syncDoc: ${{ needs.context.outputs.shouldPublish }}
+      syncDoc: ${{ needs.context.outputs.shouldPublish == 'true' || needs.context.outputs.isRelease == 'true' }}
       docBranch: ${{ needs.context.outputs.docBranch }}
       docVersion: ${{ needs.context.outputs.docVersion }}
       docCommitMsg: ${{ needs.context.outputs.docCommitMsg }}
