@@ -122,7 +122,7 @@ jobs:
         run: |
           ./gradlew --stacktrace \
               :integtest:${{ steps.db_profile.outputs.project }}:test \
-              :integtest:${{ steps.db_profile.outputs.project }}:jacocoTestReport \
+#              :integtest:${{ steps.db_profile.outputs.project }}:jacocoTestReport \
               -Pprofile=${{ env.PROFILE }} \
               -PdbVersion=${{ steps.db_profile.outputs.dbVersion }} \
               -PsemanticVersion=${{ needs.context.outputs.semanticVersion }}
@@ -171,6 +171,7 @@ jobs:
       docBranch: ${{ needs.context.outputs.docBranch }}
       docVersion: ${{ needs.context.outputs.docVersion }}
       docCommitMsg: ${{ needs.context.outputs.docCommitMsg }}
+      docCommitGPGSign: 'false'
     secrets:
       githubToken: ${{ secrets.OSS_GITHUB_TOKEN }}
       gpgKey: ${{ secrets.CI_GPG_PRIVATE_KEY }}

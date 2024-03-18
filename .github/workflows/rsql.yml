@@ -76,6 +76,7 @@ jobs:
       docBranch: ${{ needs.context.outputs.docBranch }}
       docVersion: ${{ needs.context.outputs.docVersion }}
       docCommitMsg: ${{ needs.context.outputs.docCommitMsg }}
+      docCommitGPGSign: 'false'
     secrets:
       githubToken: ${{ secrets.OSS_GITHUB_TOKEN }}
       gpgKey: ${{ secrets.CI_GPG_PRIVATE_KEY }}
