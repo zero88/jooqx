@@ -120,14 +120,12 @@ jobs:
       - name: Run test
         shell: bash
         run: |
-          count=$(./gradlew --stacktrace \
-                      :integtest:${{ steps.db_profile.outputs.project }}:test \
-                      :integtest:${{ steps.db_profile.outputs.project }}:jacocoTestReport \
-                      -Pprofile=${{ env.PROFILE }} \
-                      -PdbVersion=${{ steps.db_profile.outputs.dbVersion }} \
-                      -PsemanticVersion=${{ needs.context.outputs.semanticVersion }} \
-                | tee 1>&2 | grep -c 'There were failing tests' ||:)
-          (( $count > 0 )) && exit 1 || echo
+          ./gradlew --stacktrace \
+              :integtest:${{ steps.db_profile.outputs.project }}:test \
+              :integtest:${{ steps.db_profile.outputs.project }}:jacocoTestReport \
+              -Pprofile=${{ env.PROFILE }} \
+              -PdbVersion=${{ steps.db_profile.outputs.dbVersion }} \
+              -PsemanticVersion=${{ needs.context.outputs.semanticVersion }}
 
 #      - name: SonarQube
 #        shell: bash
