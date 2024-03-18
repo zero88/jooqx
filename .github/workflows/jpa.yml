@@ -25,7 +25,7 @@ env:
 
 jobs:
   context:
-    uses: ./.github/workflows/subwf-context.yml
+    uses: zero88/shared-ghactions/.github/workflows/project-context.yml@main
     with:
       # https://docs.github.com/en/actions/using-workflows/reusing-workflows#limitations
       profile: 'jpa'
