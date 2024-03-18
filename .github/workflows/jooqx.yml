@@ -144,7 +144,7 @@ jobs:
   publish:
     needs: [ context, build, analysis ]
     if: needs.context.outputs.shouldPublish == 'true' || needs.context.outputs.isRelease == 'true'
-    uses: ./.github/workflows/subwf-publish.yml
+    uses: zero88/shared-ghactions/.github/workflows/gradle-publish.yml@main
     with:
       profile: 'jooqx'
       version: ${{ needs.context.outputs.version }}
