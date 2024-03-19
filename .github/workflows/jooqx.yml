@@ -38,28 +38,20 @@ jobs:
       gpgPassphrase: ${{ secrets.CI_GPG_PASSPHARSE }}
 
   build:
+    uses: zero88/shared-ghactions/.github/workflows/gradle-build.yml@main
     needs: context
     if: needs.context.outputs.shouldBuild == 'true'
     strategy:
       matrix:
         java: [ '8', '11', '17' ]
         os: [ 'ubuntu-latest', 'windows-latest' ]
-    name: Build Java ${{ matrix.java }} (${{ matrix.os }})
-    runs-on: ${{ matrix.os }}
-    env:
-      PROFILE: 'ciBuild'
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Build
-        uses: ./.github/actions/gha-build
-        with:
-          profile: ${{ env.PROFILE }}
-          version: ${{ needs.context.outputs.version }}
-          semanticVersion: ${{ needs.context.outputs.semanticVersion }}
-          hashVersion: ${{ needs.context.outputs.commitId }}
-          javaDist: ${{ env.JAVA_DIST }}
-          javaVersion: ${{ matrix.java }}
+    name: Build & Test Java ${{ matrix.java }} (${{ matrix.os }})
+    with:
+      profile: 'jooqx'
+      version: ${{ needs.context.outputs.version }}
+      semanticVersion: ${{ needs.context.outputs.semanticVersion }}
+      hashVersion: ${{ needs.context.outputs.commitId }}
+      javaVersion: ${{ matrix.java }}
 
   analysis:
     needs: context
