@@ -173,7 +173,7 @@ object ZeroLibs {
 object PlayioPlugin {
     object Version {
 
-        const val gradlePlugin = "0.2.1"
+        const val gradlePlugin = "0.3.0"
     }
 
     const val oss = "cloud.playio.gradle.oss"

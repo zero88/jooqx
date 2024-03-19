@@ -122,9 +122,11 @@ jobs:
         run: |
           ./gradlew --stacktrace \
               :integtest:${{ steps.db_profile.outputs.project }}:test \
+              :integtest:${{ steps.db_profile.outputs.project }}:jacocoTestReport \
               -Pprofile=${{ env.PROFILE }} \
               -PdbVersion=${{ steps.db_profile.outputs.dbVersion }} \
-              -PsemanticVersion=${{ needs.context.outputs.semanticVersion }}
+              -PsemanticVersion=${{ needs.context.outputs.semanticVersion }} \
+              -PstopOnTestFailure=true
 
 #      - name: SonarQube
 #        shell: bash
