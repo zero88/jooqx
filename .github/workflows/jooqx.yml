@@ -175,9 +175,6 @@ jobs:
     needs: [ context, docs ]
     if: needs.context.outputs.shouldPublish == 'true' || needs.context.outputs.isRelease == 'true'
     with:
-      webdocsRepo: 'zero88/webdocs'
-      webdocsRef: 'main'
-      webdocsWorkflow: 'webdocs.yml'
       docCommitMsg: ${{ needs.context.outputs.docCommitMsg }}
     secrets:
       githubToken: ${{ secrets.OSS_GITHUB_TOKEN }}
