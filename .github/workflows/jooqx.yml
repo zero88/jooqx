@@ -54,83 +54,29 @@ jobs:
       javaVersion: ${{ matrix.java }}
 
   analysis:
+    uses: zero88/shared-ghactions/.github/workflows/gradle-analysis.yml@main
     needs: context
     if: needs.context.outputs.shouldBuild == 'true'
     strategy:
       matrix:
-        java: [ '11' ]
+        java: [ '11', '17' ]
         os: [ 'ubuntu-latest' ]
-        db: [ 'pg:10-alpine', 'pg:12-alpine', 'pg:14-alpine', 'h2', 'mysql:5.7-debian', 'mysql:8.0-debian' ]
+        itProfile: [ 'pg:10-alpine', 'pg:12-alpine', 'pg:14-alpine', 'h2', 'mysql:5.7-debian', 'mysql:8.0-debian' ]
+        sonarProfile: [ 'pg:14-alpine' ]
       fail-fast: false
-    name: Test ${{ matrix.db }} | Java ${{ matrix.java }} (${{ matrix.os }})
-    runs-on: ${{ matrix.os }}
-    env:
-      PROFILE: 'ciSonar'
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          submodules: 'true'
-
-      - uses: actions/setup-java@v4
-        with:
-          distribution: ${{ env.JAVA_DIST }}
-          java-version: ${{ matrix.java }}
-
-      - uses: actions/cache@v4
-        with:
-          path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
-          key: ${{ matrix.db }}-${{ runner.os }}-${{ matrix.java }}-${{ env.JAVA_DIST }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
-          restore-keys: |
-            ${{ matrix.db }}-${{ runner.os }}-${{ matrix.java }}-${{ env.JAVA_DIST }}-gradle-
-
-      - name: Get context
-        id: db_profile
-        shell: bash
-        run: |
-          echo project=$(echo ${{ matrix.db }} | cut -d':' -f1) >> $GITHUB_OUTPUT
-          echo dbVersion=$(echo ${{ matrix.db }} | cut -d':' -f2) >> $GITHUB_OUTPUT
-
-#      - name: Cache SonarCloud packages
-#        uses: actions/cache@v2.1.4
-#        with:
-#          path: ~/.sonar/cache
-#          key: ${{ runner.os }}-sonar
-#          restore-keys: ${{ runner.os }}-sonar
-
-      - name: Generate jOOQ test schema
-        shell: bash
-        run: |
-          ./gradlew --stacktrace \
-              :integtest:${{ steps.db_profile.outputs.project }}:generateJooq \
-              -Pprofile=${{ env.PROFILE }} \
-              -PdbVersion=${{ steps.db_profile.outputs.dbVersion }} \
-              -PsemanticVersion=${{ needs.context.outputs.semanticVersion }}
-
-      - name: Run test
-        shell: bash
-        run: |
-          ./gradlew --stacktrace \
-              :integtest:${{ steps.db_profile.outputs.project }}:test \
-              :integtest:${{ steps.db_profile.outputs.project }}:jacocoTestReport \
-              -Pprofile=${{ env.PROFILE }} \
-              -PdbVersion=${{ steps.db_profile.outputs.dbVersion }} \
-              -PsemanticVersion=${{ needs.context.outputs.semanticVersion }} \
-              -PstopOnTestFailure=true
-
-#      - name: SonarQube
-#        shell: bash
-#        run: |
-#          ./gradlew sonarqube -x test --stacktrace \
-#              -Pprofile=${{ env.PROFILE }} \
-#              -PsemanticVersion=${{ needs.context.outputs.semanticVersion }} \
-#              -Dsonar.branch.name=${{ needs.context.outputs.branch }} \
-#              -Dsonar.login=${{ secrets.OSS_SONARQUBE_TOKEN }} \
-#              -Dorg.gradle.jvmargs="-Xmx2g -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError"
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    name: Test ${{ matrix.itProfile }} | Java ${{ matrix.java }} (${{ matrix.os }})
+    with:
+      profile: 'ciSonar'
+      branch: ${{ needs.context.outputs.branch }}
+      version: ${{ needs.context.outputs.version }}
+      semanticVersion: ${{ needs.context.outputs.semanticVersion }}
+      hashVersion: ${{ needs.context.outputs.commitId }}
+      javaVersion: ${{ matrix.java }}
+      buildArgs: 'clean integtest:itTest -PitProfile=${{ matrix.itProfile }}'
+      sonarqube: ${{ contains(matrix.sonarProfile, matrix.itProfile) && matrix.java == '17' }}
+    secrets:
+      githubToken: ${{ secrets.OSS_GITHUB_TOKEN }}
+      sonarToken: ${{ secrets.OSS_SONARQUBE_TOKEN }}
 
   publish:
     needs: [ context, build, analysis ]
