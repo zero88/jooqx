@@ -8,5 +8,5 @@ repositories {
 }
 
 dependencies {
-    api("org.testcontainers:testcontainers:1.17.3")
+    api("org.testcontainers:testcontainers:1.19.7")
 }
