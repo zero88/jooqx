@@ -25,7 +25,7 @@ object JacksonLibs {
 
     object Version {
 
-        const val jackson = "2.12.0"
+        const val jackson = "2.17.0"
     }
 
     const val annotations = "com.fasterxml.jackson.core:jackson-annotations:${Version.jackson}"
