@@ -1,5 +1,36 @@
 import cloud.playio.gradle.jooq.loadDbVersion
+import cloud.playio.gradle.shared.prop
 import nu.studer.gradle.jooq.JooqGenerate
+
+val itProfile: String? by project
+
+tasks {
+    register<GradleBuild>("itTest") {
+        group = "verification"
+        if (itProfile?.isEmpty() != false) {
+            throw TaskExecutionException(
+                this,
+                IllegalArgumentException("Must provide `-PitProfile=<it_project:db_version>`")
+            )
+        }
+        val itProject: String = itProfile!!.substringBefore(":")
+        val dbVersion: String = itProfile!!.substringAfter(":")
+        val sub = subprojects.find { itProject == it.name }
+        if (sub == null) {
+            throw TaskExecutionException(
+                this,
+                IllegalArgumentException("Not found sub project '${project.path}:$itProject'")
+            )
+        }
+        tasks = sub.tasks.withType<JooqGenerate>().map { "${sub.path}:${it.name}" }
+        startParameter.projectProperties = mapOf("dbVersion" to dbVersion, "profile" to prop(project, "profile"))
+        sub.tasks.test {
+            loadDbVersion(sub, dbVersion)
+            ignoreFailures = false
+        }
+        finalizedBy(sub.tasks.test)
+    }
+}
 
 subprojects {
     apply(plugin = PluginLibs.jooq)
@@ -15,9 +46,7 @@ subprojects {
 
     dependencies {
         implementation(JooqLibs.jooqMetaExt) // For generate model
-
         testImplementation(testFixtures(project(":jooqx")))
-
         testImplementation(DatabaseLibs.agroalApi)
         testImplementation(DatabaseLibs.agroalPool)
         testImplementation(DatabaseLibs.hikari)

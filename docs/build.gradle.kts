@@ -5,7 +5,7 @@ plugins {
 subprojects {
     oss {
         baseName.set("jooqx-${project.name}")
-        title.set(baseName)
+        title.set(baseName.map { "$it documentation" })
     }
 }
 

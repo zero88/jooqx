@@ -35,25 +35,33 @@ jobs:
       gpgKey: ${{ secrets.CI_GPG_PRIVATE_KEY }}
       gpgPassphrase: ${{ secrets.CI_GPG_PASSPHARSE }}
 
-  build:
-    uses: zero88/shared-ghactions/.github/workflows/gradle-build.yml@main
-    needs: context
+  analysis:
+    uses: zero88/shared-ghactions/.github/workflows/gradle-analysis.yml@main
+    needs: [ context ]
     if: needs.context.outputs.shouldBuild == 'true'
     strategy:
       matrix:
         java: [ '8', '11', '17' ]
-        os: [ 'ubuntu-latest', 'windows-latest' ]
-    name: Build & Test Java ${{ matrix.java }} (${{ matrix.os }})
+        os: [ 'ubuntu-latest' ]
+      fail-fast: false
+    name: With Java${{ matrix.java }} on ${{ matrix.os }}
     with:
       profile: 'rsql'
+      branch: ${{ needs.context.outputs.branch }}
       version: ${{ needs.context.outputs.version }}
       semanticVersion: ${{ needs.context.outputs.semanticVersion }}
       hashVersion: ${{ needs.context.outputs.commitId }}
       javaVersion: ${{ matrix.java }}
+      sonarqube: ${{ matrix.java == '17' && matrix.os == 'ubuntu-latest' }}
+      sonarProps: '-Dsonar.projectKey=zero88_rsql'
+    secrets:
+      githubToken: ${{ secrets.OSS_GITHUB_TOKEN }}
+      sonarToken: ${{ secrets.OSS_SONARQUBE_TOKEN }}
 
   docs:
     uses: zero88/shared-ghactions/.github/workflows/antora-docs.yml@main
-    needs: [ context, build ]
+    needs: [ context ]
+    if: needs.context.outputs.shouldBuild == 'true'
     with:
       profile: 'rsql'
       version: ${{ needs.context.outputs.version }}
@@ -83,7 +91,7 @@ jobs:
       githubToken: ${{ secrets.OSS_GITHUB_TOKEN }}
 
   publish:
-    needs: [ context, build ]
+    needs: [ context, analysis ]
     if: needs.context.outputs.shouldPublish == 'true' || needs.context.outputs.isRelease == 'true'
     uses: zero88/shared-ghactions/.github/workflows/gradle-publish.yml@main
     with:
