@@ -39,3 +39,7 @@ tasks {
         include("*.adoc")
     }
 }
+
+oss {
+    title.set("RSQL documentation")
+}
