@@ -104,7 +104,7 @@ object LogLibs {
     object Version {
 
         const val slf4j = "1.7.36"
-        const val logback = "1.2.11"
+        const val logback = "1.5.3"
         const val log4j2 = "2.23.1"
     }
 
