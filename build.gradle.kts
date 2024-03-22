@@ -46,6 +46,7 @@ subprojects {
         testImplementation(TestLibs.junit5Api)
         testImplementation(TestLibs.junit5Engine)
         testImplementation(TestLibs.junit5Vintage)
+        testImplementation(TestLibs.junitPioneer)
         testCompileOnly(UtilLibs.jetbrainsAnnotations)
     }
 

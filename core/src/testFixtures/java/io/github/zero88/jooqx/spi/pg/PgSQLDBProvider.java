@@ -6,17 +6,15 @@ import org.testcontainers.utility.DockerImageName;
 
 import io.github.zero88.jooqx.DBContainerProvider;
 import io.github.zero88.jooqx.HasDBProvider;
+import io.github.zero88.jooqx.SQLTestHelper;
 
 public interface PgSQLDBProvider extends DBContainerProvider<PostgreSQLContainer<?>>,
                                          HasDBProvider<PostgreSQLContainer<?>,
                                                           DBContainerProvider<PostgreSQLContainer<?>>> {
 
-    String[] SUPPORTED_IMAGES = { "10-alpine", "12-alpine", "14-alpine" };
-
     @Override
     default @NotNull PostgreSQLContainer<?> init() {
-        final String dbVersion = System.getProperty("dbVersion", SUPPORTED_IMAGES[0]);
-        return initDBContainer("postgres:" + dbVersion);
+        return initDBContainer("postgres:" + SQLTestHelper.getCurrentDBVersion("16-alpine"));
     }
 
     @Override

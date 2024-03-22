@@ -9,21 +9,21 @@ dependencies {
     jooqGenerator(LogLibs.slf4jSimple)
     jooqGenerator(JooqLibs.jooqMetaExt)
     jooqGenerator(DatabaseLibs.pgsql)
-    jooqGenerator(TestContainers.pgsql)
+    jooqGenerator(TestLibs.pgsqlTestContainer)
 
     testImplementation(VertxLibs.jdbc)
     testImplementation(VertxLibs.pgsql)
     testImplementation(DatabaseLibs.pgsql)
-    testImplementation(TestContainers.pgsql)
+    testImplementation(TestLibs.pgsqlTestContainer)
 
     testImplementation(JacksonLibs.databind)
     testImplementation(JacksonLibs.datetime)
     // For pg-14
-    testImplementation("com.ongres.scram:client:2.1")
+    testImplementation(DatabaseLibs.scram)
 }
 
-val dbImage = "postgresql:${(project.findProperty("dbVersion") ?: "10-alpine")}"
 val dialect = "org.jooq.meta.postgres.PostgresDatabase"
+val dbImage = "postgresql:${(project.findProperty("dbVersion") ?: DatabaseContainer.postgres[0])}"
 fun getSchema(schemaFile: String): String = "${buildDir}/resources/main/${schemaFile}"
 
 jooq {
