@@ -4,7 +4,7 @@ object UtilLibs {
 
     object Version {
 
-        const val jetbrainsAnnotations = "20.1.0"
+        const val jetbrainsAnnotations = "24.1.0"
     }
 
     const val jetbrainsAnnotations = "org.jetbrains:annotations:${Version.jetbrainsAnnotations}"
