@@ -37,7 +37,8 @@ object TestLibs {
     object Version {
 
         const val junit5 = "5.10.2"
-        const val pioneer = "2.2.0"
+//        const val pioneer = "2.2.0" // java > 11
+        const val pioneer = "1.9.1" // java 8
         const val testContainer = "1.19.7"
     }
 

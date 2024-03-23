@@ -43,7 +43,7 @@ jobs:
     if: needs.context.outputs.shouldBuild == 'true'
     strategy:
       matrix:
-        java: [ '8', '11', '17' ]
+        java: [ '8', '17', '21' ]
         os: [ 'ubuntu-latest', 'windows-latest' ]
     name: Build & Test Java ${{ matrix.java }} (${{ matrix.os }})
     with:
@@ -59,7 +59,7 @@ jobs:
     if: needs.context.outputs.shouldBuild == 'true'
     strategy:
       matrix:
-        java: [ '11', '17' ]
+        java: [ '8', '17', '21' ]
         os: [ 'ubuntu-latest' ]
         itProfile: [ 'pg:10-alpine', 'pg:12-alpine', 'pg:14-alpine', 'h2', 'mysql:5.7-debian', 'mysql:8.0-debian' ]
         sonarProfile: [ 'pg:14-alpine' ]
