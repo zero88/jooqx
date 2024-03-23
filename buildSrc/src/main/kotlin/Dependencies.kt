@@ -15,7 +15,6 @@ object PluginLibs {
     object Version {
 
         const val jooq = "5.2"
-        const val nexusPublish = "1.1.0"
     }
 
     const val jooq = "nu.studer.jooq"
@@ -126,7 +125,6 @@ object JooqLibs {
     @JvmField val jooq = "org.jooq:jooq:${Version.jooq}"
     @JvmField val jooqMeta = "org.jooq:jooq-meta:${Version.jooq}"
     @JvmField val jooqMetaExt = "org.jooq:jooq-meta-extensions:${Version.jooq}"
-    @JvmField val jooqCodegen = "org.jooq:jooq-codegen:${Version.jooq}"
 }
 
 object DatabaseLibs {
