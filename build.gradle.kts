@@ -52,9 +52,6 @@ subprojects {
     oss {
         zero88.set(true)
         github.set(true)
-        publishing {
-            homepage.set("https://zero88.github.io/jooqx")
-        }
         testLogger {
             slowThreshold = 5000
         }
