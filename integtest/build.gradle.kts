@@ -7,11 +7,9 @@ val itProfile: String? by project
 tasks {
     register<GradleBuild>("itTest") {
         group = "verification"
+        description = "Integration test by provide `-PitProfile=<it_project:db_version>`"
         if (itProfile?.isEmpty() != false) {
-            throw TaskExecutionException(
-                this,
-                IllegalArgumentException("Must provide `-PitProfile=<it_project:db_version>`")
-            )
+            return@register
         }
         val itProject: String = itProfile!!.substringBefore(":")
         val dbVersion: String = itProfile!!.substringAfter(":")
@@ -24,11 +22,11 @@ tasks {
         }
         tasks = sub.tasks.withType<JooqGenerate>().map { "${sub.path}:${it.name}" }
         startParameter.projectProperties = mapOf("dbVersion" to dbVersion, "profile" to prop(project, "profile"))
-        sub.tasks.test {
+        sub.tasks.withType<Test> {
             loadDbVersion(sub, dbVersion)
             ignoreFailures = false
         }
-        finalizedBy(sub.tasks.test)
+        finalizedBy(sub.tasks.withType<Test>())
     }
 }
 

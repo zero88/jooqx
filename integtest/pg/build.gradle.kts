@@ -21,7 +21,6 @@ dependencies {
     // For pg-14
     testImplementation(DatabaseLibs.scram)
 }
-
 val dialect = "org.jooq.meta.postgres.PostgresDatabase"
 val dbImage = "postgresql:${(project.findProperty("dbVersion") ?: DatabaseContainer.postgres[0])}"
 fun getSchema(schemaFile: String): String = "${buildDir}/resources/main/${schemaFile}"
