@@ -236,4 +236,15 @@ class PgConnTest extends PgSQLJooqxTest<PgConnection>
                                 ".PgConnectionImpl]. Switch using SQL pool");
     }
 
+    @Test
+    void test_execute_postgres_version(VertxTestContext ctx) {
+        Checkpoint cp = ctx.checkpoint();
+        jooqx.execute(dsl -> dsl.selectFrom("version();"), DSLAdapter.fetchOne(DSL.field("version", String.class)))
+             .onSuccess(rec -> {
+                 ctx.verify(() -> assertPostgresVersion(rec));
+                 cp.flag();
+             })
+             .onFailure(ctx::failNow);
+    }
+
 }
