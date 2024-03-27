@@ -17,6 +17,15 @@ import com.zaxxer.hikari.HikariDataSource;
 public interface SQLTestHelper {
 
     /**
+     * Get current database version by system property "{@code dbVersion}"
+     *
+     * @return the current database version
+     */
+    static String getCurrentDBVersion(String defaultVersion) {
+        return System.getProperty("dbVersion", defaultVersion);
+    }
+
+    /**
      * Prepare database schema and test data by plain JDBC connection. That use {@code HikariCP}
      *
      * @param context    test context

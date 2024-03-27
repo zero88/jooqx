@@ -6,15 +6,14 @@ import org.testcontainers.utility.DockerImageName;
 
 import io.github.zero88.jooqx.DBContainerProvider;
 import io.github.zero88.jooqx.HasDBProvider;
+import io.github.zero88.jooqx.SQLTestHelper;
 
 public interface MySQLDBProvider extends DBContainerProvider<MySQLContainer<?>>,
                                          HasDBProvider<MySQLContainer<?>, DBContainerProvider<MySQLContainer<?>>> {
 
-    String[] SUPPORTED_IMAGES = { "5.7-debian", "8.0-debian" };
-
     @Override
     default @NotNull MySQLContainer<?> init() {
-        final String dbVersion = System.getProperty("dbVersion", SUPPORTED_IMAGES[1]);
+        final String dbVersion = System.getProperty("dbVersion", SQLTestHelper.getCurrentDBVersion("8.3"));
         return initDBContainer("mysql:" + dbVersion);
     }
 

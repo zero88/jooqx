@@ -1,5 +1,6 @@
 package io.github.zero88.integtest.jooqx.pg.jooq;
 
+import org.jooq.impl.DSL;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,6 +43,16 @@ class PgJDBCRx2Test extends PgSQLJooqxTest<JDBCPool>
             ctx.verify(() -> Assertions.assertEquals(7, recs.size()));
             cp.flag();
         }, ctx::failNow);
+    }
+
+    @Test
+    void test_execute_postgres_version(VertxTestContext ctx) {
+        Checkpoint cp = ctx.checkpoint();
+        jooqxRx2.rxExecute(dsl -> dsl.selectFrom("version();"), DSLAdapter.fetchOne(DSL.field("version", String.class)))
+                .subscribe(rec -> {
+                    ctx.verify(() -> assertPostgresVersion(rec));
+                    cp.flag();
+                }, ctx::failNow);
     }
 
 }

@@ -1,5 +1,6 @@
 package io.github.zero88.integtest.jooqx.pg.jooq;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -195,7 +196,7 @@ class PgJooqTest extends PgSQLJooqxTest<JDBCPool>
             Assertions.assertEquals(LocalTime.parse("18:00:00"), record.getFTime());
             Assertions.assertEquals(OffsetTime.parse("06:00:00+02:00"), record.getFTimetz());
             Assertions.assertEquals(LocalDateTime.parse("2022-05-14T07:00:00"), record.getFTimestamp());
-            Assertions.assertEquals(OffsetDateTime.parse("2022-05-14T16:00+07:00"), record.getFTimestamptz());
+            Assertions.assertEquals(Instant.parse("2022-05-14T09:00:00Z"), record.getFTimestamptz().toInstant());
             Assertions.assertNotNull(record.getFInterval());
             Assertions.assertEquals(10, record.getFInterval().getYears());
             Assertions.assertEquals(3, record.getFInterval().getMonths());
@@ -226,7 +227,7 @@ class PgJooqTest extends PgSQLJooqxTest<JDBCPool>
             Assertions.assertEquals(LocalTime.parse("18:00:00"), record.getFTime());
             Assertions.assertEquals(OffsetTime.parse("06:00:00+02:00"), record.getFTimetz());
             Assertions.assertEquals(LocalDateTime.parse("2022-05-14T07:00:00"), record.getFTimestamp());
-            Assertions.assertEquals(OffsetDateTime.parse("2022-05-14T16:00+07:00"), record.getFTimestamptz());
+            Assertions.assertEquals(Instant.parse("2022-05-14T09:00:00Z"), record.getFTimestamptz().toInstant());
         });
         flag.flag();
     }

@@ -25,6 +25,28 @@ class PgJDBCRawSqlTest extends PgSQLJooqxTest<JDBCPool>
     }
 
     @Test
+    void test_select_postgres_version(VertxTestContext ctx) {
+        Checkpoint cp = ctx.checkpoint();
+        jooqx.sqlQuery("select * from version();", DSLAdapter.fetchOne(DSL.field("version", String.class)))
+             .onSuccess(rec -> {
+                 ctx.verify(() -> assertPostgresVersion(rec));
+                 cp.flag();
+             })
+             .onFailure(ctx::failNow);
+    }
+
+    @Test
+    void test_execute_postgres_version(VertxTestContext ctx) {
+        Checkpoint cp = ctx.checkpoint();
+        jooqx.execute(dsl -> dsl.selectFrom("version();"), DSLAdapter.fetchOne(DSL.field("version", String.class)))
+             .onSuccess(rec -> {
+                 ctx.verify(() -> assertPostgresVersion(rec));
+                 cp.flag();
+             })
+             .onFailure(ctx::failNow);
+    }
+
+    @Test
     void test_select_to_JsonArray(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
         jooqx.sqlQuery("select '[\"test\"]'::jsonb", DSLAdapter.fetchOne(DSL.field("test", String.class)))

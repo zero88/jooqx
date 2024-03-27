@@ -1,6 +1,7 @@
 package io.github.zero88.integtest.jooqx.pg.jooq;
 
 import java.util.Arrays;
+import java.util.stream.Stream;
 
 import org.jooq.DSLContext;
 import org.jooq.InsertResultStep;
@@ -175,8 +176,13 @@ class PgPoolSessionTxTest extends PgSQLJooqxTest<PgPool>
              .onSuccess(result -> ctx.failNow("Should failed"))
              .onFailure(t -> ctx.verify(() -> {
                  Assertions.assertInstanceOf(DataAccessException.class, t);
-                 Assertions.assertTrue(
-                     t.getMessage().contains("null value in column \"country\" violates not-null constraint"));
+                 //@formatter:off
+                 boolean mustContains = Stream.of(
+                     "null value in column \"country\" violates not-null constraint", // < pg14
+                     "null value in column \"country\" of relation \"authors\" violates not-null constraint" // >= pg14
+                                                 ).anyMatch(msg -> t.getMessage().contains(msg));
+                 //@formatter:on
+                 Assertions.assertTrue(mustContains, "The error message 'not-null constraint' is not correct");
                  jooqx.fetchExists(dsl -> dsl.selectFrom(table).where(table.NAME.eq("n1").and(table.COUNTRY.eq("AT"))))
                       .onSuccess(b -> ctx.verify(() -> {
                           Assertions.assertTrue(b);

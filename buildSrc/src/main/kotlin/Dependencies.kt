@@ -1,4 +1,4 @@
-private fun Map<Int, List<Int>>.ver(minor: Int, patch: Int):String = "${minor}.${this[minor]?.get(patch)}"
+private fun Map<Int, List<Int>>.ver(minor: Int, patch: Int): String = "${minor}.${this[minor]?.get(patch)}"
 
 object UtilLibs {
 
@@ -37,34 +37,34 @@ object TestLibs {
     object Version {
 
         const val junit5 = "5.10.2"
+//        const val pioneer = "2.2.0" // java > 11
+        const val pioneer = "1.9.1" // java 8
+        const val testContainer = "1.19.7"
     }
 
     const val junit5Api = "org.junit.jupiter:junit-jupiter-api:${Version.junit5}"
     const val junit5Engine = "org.junit.jupiter:junit-jupiter-engine:${Version.junit5}"
     const val junit5Vintage = "org.junit.vintage:junit-vintage-engine:${Version.junit5}"
     const val junit5Params = "org.junit.jupiter:junit-jupiter-params:${Version.junit5}"
-
-}
-
-object TestContainers {
-    object Version {
-
-        const val ver = "1.19.7"
-    }
-
-    const val junit5 = "org.testcontainers:junit-jupiter:${Version.ver}"
-    const val pgsql = "org.testcontainers:postgresql:${Version.ver}"
-    const val mysql = "org.testcontainers:mysql:${Version.ver}"
+    const val junitPioneer = "org.junit-pioneer:junit-pioneer:${Version.pioneer}"
+    const val testContainer = "org.testcontainers:junit-jupiter:${Version.testContainer}"
+    const val pgsqlTestContainer = "org.testcontainers:postgresql:${Version.testContainer}"
+    const val mysqlTestContainer = "org.testcontainers:mysql:${Version.testContainer}"
 }
 
 object VertxLibs {
 
     object Version {
 
-        private val pool = mapOf(2 to (0..7).toList(), 3 to (0..6).toList(), 4 to (0..0).toList())
-        @JvmField val vertxCore = "4.${pool.ver(3, 5)}"
-        @JvmField val vertxSQL = "4.${pool.ver(3, 5)}"
-        const val vertxJunit = "4.2.5"
+        private val pool = mapOf(
+            2 to (0..7).toList(),
+            3 to (0..8).toList(),
+            4 to (0..8).toList(),
+            5 to (0..4).toList()
+        )
+        @JvmField val vertxCore = "4.${pool.ver(3, 8)}"
+        @JvmField val vertxSQL = vertxCore
+        @JvmField val vertxJunit = "4.2.5"
     }
 
     @JvmField val core = "io.vertx:vertx-core:${Version.vertxCore}"
@@ -72,7 +72,6 @@ object VertxLibs {
     @JvmField val rx2 = "io.vertx:vertx-rx-java2:${Version.vertxCore}"
     @JvmField val rx3 = "io.vertx:vertx-rx-java3:${Version.vertxCore}"
     @JvmField val junit5 = "io.vertx:vertx-junit5:${Version.vertxJunit}"
-
     @JvmField val sqlClient = "io.vertx:vertx-sql-client:${Version.vertxSQL}"
     @JvmField val jdbc = "io.vertx:vertx-jdbc-client:${Version.vertxSQL}"
     @JvmField val pgsql = "io.vertx:vertx-pg-client:${Version.vertxSQL}"
@@ -118,8 +117,15 @@ object LogLibs {
 object JooqLibs {
     object Version {
 
-        private val pool = mapOf(14 to (0..13).toList(), 15 to (0..10).toList(), 16 to (0..6).toList())
-        @JvmField val jooq = "3.${pool.ver(14 ,13)}"
+        private val pool = mapOf(
+            14 to (0..16).toList(),
+            15 to (0..12).toList(),
+            16 to (0..23).toList(),
+            17 to (0..22).toList(),
+            18 to (0..13).toList(),
+            19 to (0..6).toList(),
+        )
+        @JvmField val jooq = "3.${pool.ver(14, 16)}"
     }
 
     @JvmField val jooq = "org.jooq:jooq:${Version.jooq}"
@@ -154,6 +160,13 @@ object DatabaseLibs {
     const val sqlite = "org.xerial:sqlite-jdbc:${Version.sqlite}"
     const val derby = "org.apache.derby:derby:${Version.derby}"
     const val hsqldb = "org.hsqldb:hsqldb:${Version.hsqldb}"
+    const val scram = "com.ongres.scram:client:2.1"
+}
+
+object DatabaseContainer {
+
+    val postgres = listOf("16-alpine", "14-alpine", "12-alpine")
+    val mysql = listOf("8.3", "8.0", "5.7")
 }
 
 object ZeroLibs {

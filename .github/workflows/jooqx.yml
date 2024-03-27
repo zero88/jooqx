@@ -43,7 +43,7 @@ jobs:
     if: needs.context.outputs.shouldBuild == 'true'
     strategy:
       matrix:
-        java: [ '8', '11', '17' ]
+        java: [ '8', '17', '21' ]
         os: [ 'ubuntu-latest', 'windows-latest' ]
     name: Build & Test Java ${{ matrix.java }} (${{ matrix.os }})
     with:
@@ -59,14 +59,14 @@ jobs:
     if: needs.context.outputs.shouldBuild == 'true'
     strategy:
       matrix:
-        java: [ '11', '17' ]
+        java: [ '8', '17', '21' ]
         os: [ 'ubuntu-latest' ]
-        itProfile: [ 'pg:10-alpine', 'pg:12-alpine', 'pg:14-alpine', 'h2', 'mysql:5.7-debian', 'mysql:8.0-debian' ]
-        sonarProfile: [ 'pg:14-alpine' ]
+        itProfile: [ 'pg:10-alpine', 'pg:12-alpine', 'pg:14-alpine', 'pg:16-alpine', 'h2', 'mysql:8.3', 'mysql:8.0', 'mysql:5.7' ]
+        sonarProfile: [ 'pg:16-alpine' ]
       fail-fast: false
     name: Test ${{ matrix.itProfile }} | Java ${{ matrix.java }} (${{ matrix.os }})
     with:
-      profile: 'ciSonar'
+      profile: 'jooqx:sonar'
       branch: ${{ needs.context.outputs.branch }}
       version: ${{ needs.context.outputs.version }}
       semanticVersion: ${{ needs.context.outputs.semanticVersion }}
@@ -74,6 +74,7 @@ jobs:
       javaVersion: ${{ matrix.java }}
       buildArgs: 'clean integtest:itTest -PitProfile=${{ matrix.itProfile }}'
       sonarqube: ${{ contains(matrix.sonarProfile, matrix.itProfile) && matrix.java == '17' }}
+      sonarProps: '-PskipItTest=true' # to not run integtest again
     secrets:
       githubToken: ${{ secrets.OSS_GITHUB_TOKEN }}
       sonarToken: ${{ secrets.OSS_SONARQUBE_TOKEN }}

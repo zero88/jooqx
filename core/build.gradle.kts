@@ -35,7 +35,7 @@ dependencies {
     testFixturesApi(TestLibs.junit5Api)
     testFixturesApi(TestLibs.junit5Engine)
     testFixturesApi(TestLibs.junit5Params)
-    testFixturesApi(TestContainers.junit5)
+    testFixturesApi(TestLibs.testContainer)
     testFixturesApi(VertxLibs.junit5)
     testFixturesApi(ZeroLibs.utils)
 
@@ -48,11 +48,11 @@ dependencies {
 
     testFixturesImplementation(VertxLibs.pgsql)
     testFixturesImplementation(DatabaseLibs.pgsql)
-    testFixturesImplementation(TestContainers.pgsql)
+    testFixturesImplementation(TestLibs.pgsqlTestContainer)
 
     testFixturesImplementation(VertxLibs.mysql)
     testFixturesImplementation(DatabaseLibs.mysql)
-    testFixturesImplementation(TestContainers.mysql)
+    testFixturesImplementation(TestLibs.mysqlTestContainer)
 
     testFixturesImplementation(DatabaseLibs.agroalApi)
     testFixturesImplementation(DatabaseLibs.hikari)
