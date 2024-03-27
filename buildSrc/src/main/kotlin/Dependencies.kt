@@ -147,7 +147,7 @@ object DatabaseLibs {
         const val derby = "10.14.2.0"
         const val agroal = "1.9"
         const val c3p0 = "0.9.5.4"
-        const val hikari = "4.0.2"
+        const val hikari = "4.0.3"
     }
 
     const val agroalApi = "io.agroal:agroal-api:${Version.agroal}"
