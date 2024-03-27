@@ -83,7 +83,7 @@ object VertxLibs {
 object MutinyLibs {
     object Version {
 
-        const val mutiny = "2.27.0"
+        const val mutiny = "2.30.1"
     }
 
     const val core = "io.smallrye.reactive:smallrye-mutiny-vertx-core:${Version.mutiny}"
