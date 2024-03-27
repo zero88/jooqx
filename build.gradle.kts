@@ -28,6 +28,7 @@ allprojects {
         maven { url = uri("https://oss.sonatype.org/content/groups/public/") }
         mavenCentral()
     }
+
     val skipPublish = (gradle as ExtensionAware).extensions["SKIP_PUBLISH"] as Array<*>
     sonarqube {
         isSkipProject = project.path in skipPublish
@@ -60,6 +61,11 @@ subprojects {
             slowThreshold = 5000
         }
     }
+
+    jacoco {
+        toolVersion = "0.8.11"
+    }
+
 }
 
 rootProject.apply {
@@ -70,6 +76,10 @@ rootProject.apply {
         projectList?.map(project::project)?.forEach {
             jacocoAggregation(it)
         }
+    }
+
+    jacoco {
+        toolVersion = "0.8.11"
     }
 
     tasks {
