@@ -139,7 +139,7 @@ object DatabaseLibs {
 
         const val h2 = "1.4.200"
         const val pgsql = "42.2.23"
-        const val mysql = "8.0.23"
+        const val mysql = "8.0.33"
         const val jpa = "2.2"
         const val jta = "1.3"
         const val sqlite = "3.36.0.1"
