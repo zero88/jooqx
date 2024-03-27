@@ -1,9 +1,12 @@
 import cloud.playio.gradle.NexusConfig
 import cloud.playio.gradle.NexusVersion
+import cloud.playio.gradle.shared.prop
+import org.sonarqube.gradle.SonarQubeTask
 
 plugins {
     eclipse
     idea
+    id("jacoco-report-aggregation")
     id(PlayioPlugin.oss) version PlayioPlugin.Version.gradlePlugin
     id(PlayioPlugin.root) version PlayioPlugin.Version.gradlePlugin
     id(PlayioPlugin.antora) version PlayioPlugin.Version.gradlePlugin apply false
@@ -57,10 +60,32 @@ subprojects {
             slowThreshold = 5000
         }
     }
-
 }
 
-tasks.register("generateJooq") {
-    group = "jooq"
-    dependsOn(subprojects.map { it.tasks.withType<nu.studer.gradle.jooq.JooqGenerate>() })
+rootProject.apply {
+    apply(plugin = "jacoco-report-aggregation")
+    dependencies {
+        val profile = prop(rootProject, "profile")
+        val projectList = ((gradle as ExtensionAware).extensions["PROJECT_POOL"] as Map<*, Array<String>>)[profile]
+        projectList?.map(project::project)?.forEach {
+            jacocoAggregation(it)
+        }
+    }
+
+    tasks {
+        // exclude jacoco report: https://github.com/gradle/gradle/issues/13013
+        withType<JacocoReport> {
+            afterEvaluate {
+                classDirectories.setFrom(files(classDirectories.files.map {
+                    fileTree(it) {
+                        exclude("io/github/zero88/sample/**")
+                    }
+                }))
+            }
+        }
+
+        withType<SonarQubeTask> {
+            dependsOn(withType<JacocoReport>())
+        }
+    }
 }
