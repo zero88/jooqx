@@ -26,7 +26,7 @@ tasks {
             loadDbVersion(sub, dbVersion)
             ignoreFailures = false
         }
-        finalizedBy(sub.tasks.withType<Test>())
+        finalizedBy(sub.tasks.withType<Test>(), sub.tasks.withType<JacocoReport>())
     }
 }
 
@@ -65,6 +65,12 @@ subprojects {
             group = "jooq"
             dependsOn(withType<JooqGenerate>())
         }
-        test { loadDbVersion(project) }
+        test {
+            enabled = prop(project, "skipItTest")?.toBoolean() == false
+            loadDbVersion(project)
+        }
+        compileTestJava {
+            enabled = prop(project, "skipItTest")?.toBoolean() == false
+        }
     }
 }

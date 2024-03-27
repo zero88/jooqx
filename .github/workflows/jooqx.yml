@@ -74,6 +74,7 @@ jobs:
       javaVersion: ${{ matrix.java }}
       buildArgs: 'clean integtest:itTest -PitProfile=${{ matrix.itProfile }}'
       sonarqube: ${{ contains(matrix.sonarProfile, matrix.itProfile) && matrix.java == '17' }}
+      sonarProps: '-PskipItTest=true' # to not run integtest again
     secrets:
       githubToken: ${{ secrets.OSS_GITHUB_TOKEN }}
       sonarToken: ${{ secrets.OSS_SONARQUBE_TOKEN }}
