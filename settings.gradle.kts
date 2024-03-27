@@ -31,7 +31,9 @@ val excludeCISonar = jooqxDocs + rsqlDocs
 val excludeCIBuild = pools["sample"]!! + pools["integtest"]!! + excludeCISonar
 pools.putAll(
     mapOf(
+        "jooqx:sonar" to pools["jooqx"]!!.plus(pools["integtest"]!!),
         "jooqx:docs" to pools["jooqx"]!!.plus(":integtest:pg").plus(jooqxDocs),
+        "rsql:sonar" to pools["rsql"]!!,
         "rsql:docs" to pools["rsql"]!!.plus(pools["jooqx"]!!).plus(":integtest:pg").plus(rsqlDocs)
     )
 )
@@ -41,7 +43,6 @@ fun flatten(): List<String> = pools.values.toTypedArray().flatten()
 pp = when {
     profile == "all" || profile.isBlank() -> flatten().toTypedArray()
     profile == "ciBuild"                  -> flatten().filter { !excludeCIBuild.contains(it) }.toTypedArray()
-    profile == "ciSonar"                  -> flatten().filter { !excludeCISonar.contains(it) }.toTypedArray()
     else                                  -> pools.getOrElse(profile) { throw IllegalArgumentException("Not found profile[$profile]") }
 }
 

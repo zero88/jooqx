@@ -66,7 +66,7 @@ jobs:
       fail-fast: false
     name: Test ${{ matrix.itProfile }} | Java ${{ matrix.java }} (${{ matrix.os }})
     with:
-      profile: 'ciSonar'
+      profile: 'jooqx:sonar'
       branch: ${{ needs.context.outputs.branch }}
       version: ${{ needs.context.outputs.version }}
       semanticVersion: ${{ needs.context.outputs.semanticVersion }}
