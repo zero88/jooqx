@@ -4,4 +4,4 @@ version: main
 nav: [modules/ROOT/nav.adoc, modules/testing/nav.adoc]
 asciidoc:
   attributes: {jooqx-version: 2.0.0-SNAPSHOT, vertx-version: 4.3.8, jooq-version: 3.14.16,
-    mutiny-version: 2.27.0}
+    mutiny-version: 2.30.1}
