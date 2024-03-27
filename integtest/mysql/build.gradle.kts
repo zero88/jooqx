@@ -1,5 +1,6 @@
 import cloud.playio.gradle.jooq.JooqJdbcContainer
 import cloud.playio.gradle.jooq.loadDbSchema
+import cloud.playio.gradle.shared.prop
 import nu.studer.gradle.jooq.JooqGenerate
 import org.jooq.meta.jaxb.Logging
 
@@ -17,8 +18,9 @@ dependencies {
     testImplementation(VertxLibs.mysql)
     testImplementation(TestLibs.mysqlTestContainer)
 }
+
 val dialect = "org.jooq.meta.mysql.MySQLDatabase"
-val dbImage = "mysql:${(project.findProperty("dbVersion") ?: DatabaseContainer.mysql[0])}"
+val dbImage = "mysql:${prop(project, "dbVersion", DatabaseContainer.mysql[0])}"
 fun getSchema(schemaFile: String): String = "${buildDir}/resources/main/${schemaFile}"
 
 jooq {

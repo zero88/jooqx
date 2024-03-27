@@ -1,4 +1,5 @@
 import cloud.playio.gradle.jooq.JooqJdbcContainer
+import cloud.playio.gradle.shared.prop
 import nu.studer.gradle.jooq.JooqGenerate
 import org.jooq.meta.jaxb.ForcedType
 import org.jooq.meta.jaxb.Logging
@@ -21,8 +22,9 @@ dependencies {
     // For pg-14
     testImplementation(DatabaseLibs.scram)
 }
+
 val dialect = "org.jooq.meta.postgres.PostgresDatabase"
-val dbImage = "postgresql:${(project.findProperty("dbVersion") ?: DatabaseContainer.postgres[0])}"
+val dbImage = "postgresql:${prop(project, "dbVersion", DatabaseContainer.postgres[0])}"
 fun getSchema(schemaFile: String): String = "${buildDir}/resources/main/${schemaFile}"
 
 jooq {

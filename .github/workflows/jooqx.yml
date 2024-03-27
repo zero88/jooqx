@@ -61,8 +61,8 @@ jobs:
       matrix:
         java: [ '8', '17', '21' ]
         os: [ 'ubuntu-latest' ]
-        itProfile: [ 'pg:10-alpine', 'pg:12-alpine', 'pg:14-alpine', 'h2', 'mysql:5.7-debian', 'mysql:8.0-debian' ]
-        sonarProfile: [ 'pg:14-alpine' ]
+        itProfile: [ 'pg:10-alpine', 'pg:12-alpine', 'pg:14-alpine', 'pg:16-alpine', 'h2', 'mysql:8.3', 'mysql:8.0', 'mysql:5.7' ]
+        sonarProfile: [ 'pg:16-alpine' ]
       fail-fast: false
     name: Test ${{ matrix.itProfile }} | Java ${{ matrix.java }} (${{ matrix.os }})
     with:
