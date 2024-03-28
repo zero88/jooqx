@@ -20,7 +20,7 @@ dependencies {
 }
 
 val dialect = "org.jooq.meta.mysql.MySQLDatabase"
-val dbImage = "mysql:${prop(project, "dbVersion", DatabaseContainer.mysql[0])}"
+val dbImage = DatabaseContainer.findImage(project)
 fun getSchema(schemaFile: String): String = "${buildDir}/resources/main/${schemaFile}"
 
 jooq {
