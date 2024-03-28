@@ -1,3 +1,5 @@
+import org.gradle.api.Project
+
 private fun Map<Int, List<Int>>.ver(minor: Int, patch: Int): String = "${minor}.${this[minor]?.get(patch)}"
 
 object UtilLibs {
@@ -37,7 +39,8 @@ object TestLibs {
     object Version {
 
         const val junit5 = "5.10.2"
-//        const val pioneer = "2.2.0" // java > 11
+
+        //        const val pioneer = "2.2.0" // java > 11
         const val pioneer = "1.9.1" // java 8
         const val testContainer = "1.19.7"
     }
@@ -165,8 +168,23 @@ object DatabaseLibs {
 
 object DatabaseContainer {
 
-    val postgres = listOf("16-alpine", "14-alpine", "12-alpine")
-    val mysql = listOf("8.3", "8.0", "5.7")
+    data class Container(val defaultImage: String, val supportedVersions: List<String>) {}
+
+    enum class Containers(val container: Container) {
+        // https://endoflife.date/postgresql
+        postgresql(Container("postgresql:16-alpine", listOf("16-alpine", "14-alpine", "12-alpine"))),
+        // https://endoflife.date/mysql
+        mysql(Container("mysql:8.3", listOf("8.3", "8.0")))
+    }
+
+    fun findImage(project: Project): String {
+        val container = Containers.valueOf(project.name).container
+        val version = project.findProperty("dbVersion");
+        if (version in container.supportedVersions) {
+            return container.defaultImage.replaceAfter(":", "$version")
+        }
+        return container.defaultImage
+    }
 }
 
 object ZeroLibs {
