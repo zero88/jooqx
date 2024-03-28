@@ -171,7 +171,9 @@ object DatabaseContainer {
     data class Container(val defaultImage: String, val supportedVersions: List<String>) {}
 
     enum class Containers(val container: Container) {
+        // https://endoflife.date/postgresql
         postgresql(Container("postgresql:16-alpine", listOf("16-alpine", "14-alpine", "12-alpine"))),
+        // https://endoflife.date/mysql
         mysql(Container("mysql:8.3", listOf("8.3", "8.0")))
     }
 
