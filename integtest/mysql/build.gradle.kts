@@ -1,6 +1,5 @@
 import cloud.playio.gradle.jooq.JooqJdbcContainer
 import cloud.playio.gradle.jooq.loadDbSchema
-import cloud.playio.gradle.shared.prop
 import nu.studer.gradle.jooq.JooqGenerate
 import org.jooq.meta.jaxb.Logging
 
