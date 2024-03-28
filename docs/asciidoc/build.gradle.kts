@@ -13,7 +13,7 @@ plugins {
 
 dependencies {
     compileOnly(project(":spi"))
-    compileOnly(project(":integtest:pg"))
+    compileOnly(project(":integtest:postgres"))
     compileOnly(JooqLibs.jooqMeta)
     compileOnly(VertxLibs.jdbc)
     compileOnly(VertxLibs.pgsql)

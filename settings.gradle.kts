@@ -16,7 +16,7 @@ pluginManagement {
 
 rootProject.name = "jooqx-parent"
 val profile: String by settings
-val supportDatabases = arrayOf("db2", "h2", "mssql", "mysql", "oracle", "pg", "sqlite")
+val supportDatabases = arrayOf("db2", "h2", "mssql", "mysql", "oracle", "postgres", "sqlite")
 var pp: Array<String> = arrayOf()
 val pools = mutableMapOf(
     "jpa" to arrayOf(":jpa-ext"),
@@ -32,9 +32,9 @@ val excludeCIBuild = pools["sample"]!! + pools["integtest"]!! + excludeCISonar
 pools.putAll(
     mapOf(
         "jooqx:sonar" to pools["jooqx"]!!.plus(pools["integtest"]!!),
-        "jooqx:docs" to pools["jooqx"]!!.plus(":integtest:pg").plus(jooqxDocs),
+        "jooqx:docs" to pools["jooqx"]!!.plus(":integtest:postgres").plus(jooqxDocs),
         "rsql:sonar" to pools["rsql"]!!,
-        "rsql:docs" to pools["rsql"]!!.plus(pools["jooqx"]!!).plus(":integtest:pg").plus(rsqlDocs)
+        "rsql:docs" to pools["rsql"]!!.plus(pools["jooqx"]!!).plus(":integtest:postgres").plus(rsqlDocs)
     )
 )
 

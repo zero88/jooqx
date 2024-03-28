@@ -8,7 +8,7 @@ plugins {
 
 dependencies {
     compileOnly(project(":rsql:jooq"))
-    compileOnly(project(":integtest:pg"))
+    compileOnly(project(":integtest:postgres"))
     compileOnly(VertxLibs.jdbc)
     compileOnly(VertxLibs.pgsql)
     compileOnly(VertxLibs.mysql)
