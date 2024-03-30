@@ -69,7 +69,7 @@ jobs:
       hashVersion: ${{ needs.context.outputs.commitId }}
       sha: ${{ needs.context.outputs.sha }}
       isRelease: ${{ needs.context.outputs.isRelease }}
-      antoraCommand: ':integtest:pg:generateJooq antoraDoc'
+      antoraCommand: ':integtest:postgres:generateJooq antoraDoc'
       antoraBuildDir: 'rsql/asciidoc/build/docs/antora'
       syncDoc: ${{ needs.context.outputs.shouldPublish == 'true' || needs.context.outputs.isRelease == 'true' }}
       docBranch: ${{ needs.context.outputs.docBranch }}

@@ -63,8 +63,8 @@ jobs:
 #        java: [ '8', '17', '21' ]
         java: [ '8', '17' ]
         os: [ 'ubuntu-latest' ]
-        itProfile: [ 'pg:10-alpine', 'pg:12-alpine', 'pg:14-alpine', 'pg:16-alpine', 'h2', 'mysql:8.3', 'mysql:8.0', 'mysql:5.7' ]
-        sonarProfile: [ 'pg:16-alpine' ]
+        itProfile: [ 'postgres:12-alpine', 'postgres:14-alpine', 'postgres:16-alpine', 'h2', 'mysql:8.3', 'mysql:8.0' ]
+        sonarProfile: [ 'postgres:16-alpine' ]
       fail-fast: false
     name: Test ${{ matrix.itProfile }} | Java ${{ matrix.java }} (${{ matrix.os }})
     with:
@@ -107,7 +107,7 @@ jobs:
       hashVersion: ${{ needs.context.outputs.commitId }}
       sha: ${{ needs.context.outputs.sha }}
       isRelease: ${{ needs.context.outputs.isRelease }}
-      antoraCommand: ':integtest:pg:generateJooq antoraDoc'
+      antoraCommand: ':integtest:postgres:generateJooq antoraDoc'
       antoraBuildDir: 'docs/build/docs/antora'
       syncDoc: ${{ needs.context.outputs.shouldPublish == 'true' || needs.context.outputs.isRelease == 'true' }}
       docBranch: ${{ needs.context.outputs.docBranch }}
