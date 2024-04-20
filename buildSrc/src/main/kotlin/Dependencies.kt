@@ -180,8 +180,7 @@ object DatabaseContainer {
 
     fun findImage(project: Project): String {
         val container = Containers.valueOf(project.name).container
-        val version = project.findProperty("dbVersion");
-        val jdbcDbImage: String = when (version) {
+        val jdbcDbImage: String = when (val version = project.findProperty("dbVersion")) {
             in container.supportedVersions -> container.defaultImage.replaceAfter(":", "$version")
             else                           -> container.defaultImage
         }

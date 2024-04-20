@@ -21,7 +21,10 @@ tasks {
             )
         }
         tasks = sub.tasks.withType<JooqGenerate>().map { "${sub.path}:${it.name}" }
-        startParameter.projectProperties = mapOf("dbVersion" to dbVersion, "profile" to prop(project, "profile"))
+        startParameter.projectProperties = mapOf(
+            "dbVersion" to dbVersion,
+            "profile" to prop(project, "profile")
+        )
         sub.tasks.withType<Test> {
             loadDbVersion(sub, dbVersion)
             ignoreFailures = false

@@ -91,6 +91,7 @@ jobs:
       semanticVersion: ${{ needs.context.outputs.semanticVersion }}
       hashVersion: ${{ needs.context.outputs.commitId }}
       isRelease: ${{ needs.context.outputs.isRelease }}
+      javaVersion: 17
     secrets:
       ossrhUser: ${{ secrets.OSS_SONATYPE_USER }}
       ossrhToken: ${{ secrets.OSS_SONATYPE_PASSWORD }}

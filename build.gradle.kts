@@ -18,6 +18,11 @@ plugins {
 
 project.ext.set("baseName", "jooqx")
 project.ext.set(NexusConfig.NEXUS_VERSION_KEY, NexusVersion.BEFORE_2021_02_24)
+val skipPublish = (gradle as ExtensionAware).extensions["SKIP_PUBLISH"] as Array<*>
+
+jacoco {
+    toolVersion = "0.8.11"
+}
 
 allprojects {
     group = "io.github.zero88"
@@ -29,7 +34,6 @@ allprojects {
         mavenCentral()
     }
 
-    val skipPublish = (gradle as ExtensionAware).extensions["SKIP_PUBLISH"] as Array<*>
     sonarqube {
         isSkipProject = project.path in skipPublish
     }
@@ -43,6 +47,16 @@ allprojects {
 
 subprojects {
     apply(plugin = PlayioPlugin.oss)
+
+    val jvmRuntime = JavaVersion.current().majorVersion
+    val jvmRelease = prop(project, "jvmRelease") as String
+    val artifactClassifier = when (jvmRuntime) {
+        "8"  -> if (jvmRelease == "8") "" else "-jvm8"
+        "11" -> if (jvmRelease == "11") "" else "-jvm11"
+        "17" -> if (jvmRelease == "17") "" else "-jvm17"
+        "21" -> if (jvmRelease == "21") "" else "-jvm21"
+        else -> throw IllegalArgumentException("Unknown version $jvmRuntime")
+    }
 
     dependencies {
         compileOnly(UtilLibs.jetbrainsAnnotations)
@@ -62,10 +76,28 @@ subprojects {
         }
     }
 
-    jacoco {
-        toolVersion = "0.8.11"
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(JavaVersion.current().majorVersion))
+        }
     }
 
+    tasks {
+        withType<AbstractPublishToMaven> {
+            enabled = project != rootProject && project.path !in skipPublish
+        }
+
+        withType<Jar> {
+            archiveClassifier.set(
+                when (name) {
+                    "testFixturesJar" -> "test-fixtures$artifactClassifier"
+                    "javadocJar"      -> "javadoc$artifactClassifier"
+                    "sourcesJar"      -> "sources$artifactClassifier"
+                    else              -> artifactClassifier.replace("-", "")
+                }
+            )
+        }
+    }
 }
 
 rootProject.apply {
@@ -76,10 +108,6 @@ rootProject.apply {
         projectList?.map(project::project)?.forEach {
             jacocoAggregation(it)
         }
-    }
-
-    jacoco {
-        toolVersion = "0.8.11"
     }
 
     tasks {
