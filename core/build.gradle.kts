@@ -42,18 +42,18 @@ dependencies {
     testFixturesImplementation(VertxLibs.rx2)
 
     testFixturesImplementation(VertxLibs.jdbc)
-    testFixturesImplementation(DatabaseLibs.h2)
+    testFixturesImplementation(libs.jdbcH2)
 
     testFixturesImplementation(VertxLibs.pgsql)
-    testFixturesImplementation(DatabaseLibs.pgsql)
-    testFixturesImplementation(TestLibs.pgsqlTestContainer)
+    testFixturesImplementation(libs.jdbcPostgres)
+    testFixturesImplementation(libs.postgresContainer)
 
     testFixturesImplementation(VertxLibs.mysql)
-    testFixturesImplementation(DatabaseLibs.mysql)
-    testFixturesImplementation(TestLibs.mysqlTestContainer)
+    testFixturesImplementation(libs.jdbcMySQL)
+    testFixturesImplementation(libs.mysqlContainer)
 
-    testFixturesImplementation(DatabaseLibs.agroalApi)
-    testFixturesImplementation(DatabaseLibs.hikari)
+    testFixturesImplementation(libs.agroalApi)
+    testFixturesImplementation(libs.hikariCP)
 }
 
 tasks {

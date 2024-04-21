@@ -64,36 +64,6 @@ object JooqLibs {
     @JvmField val jooqMetaExt = "org.jooq:jooq-meta-extensions:${Version.jooq}"
 }
 
-object DatabaseLibs {
-
-    object Version {
-
-        const val h2 = "1.4.200"
-        const val pgsql = "42.7.3"
-        const val mysql = "8.0.33"
-        const val jpa = "2.2"
-        const val jta = "1.3"
-        const val sqlite = "3.45.2.0"
-        const val hsqldb = "2.7.2"
-        const val derby = "10.17.1.0"
-        const val agroal = "1.18"
-        const val c3p0 = "0.10.0"
-        const val hikari = "4.0.3"
-    }
-
-    const val agroalApi = "io.agroal:agroal-api:${Version.agroal}"
-    const val agroalPool = "io.agroal:agroal-pool:${Version.agroal}"
-    const val c3p0 = "com.mchange:c3p0:${Version.c3p0}"
-    const val hikari = "com.zaxxer:HikariCP:${Version.hikari}"
-    const val h2 = "com.h2database:h2:${Version.h2}"
-    const val pgsql = "org.postgresql:postgresql:${Version.pgsql}"
-    const val mysql = "mysql:mysql-connector-java:${Version.mysql}"
-    const val sqlite = "org.xerial:sqlite-jdbc:${Version.sqlite}"
-    const val derby = "org.apache.derby:derby:${Version.derby}"
-    const val hsqldb = "org.hsqldb:hsqldb:${Version.hsqldb}"
-    const val scram = "com.ongres.scram:client:2.1"
-}
-
 object DatabaseContainer {
 
     data class Container(val defaultImage: String, val jdbcPrefix: String, val supportedVersions: List<String>) {}

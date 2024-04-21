@@ -10,7 +10,7 @@ plugins {
 
 dependencies {
     jooqGenerator(JooqLibs.jooqMetaExt)
-    jooqGenerator(DatabaseLibs.mysql)
+    jooqGenerator(libs.jdbcMySQL)
     jooqGenerator(libs.mysqlContainer)
     jooqGenerator(libs.bundles.slf4jImpl)
     jooqGenerator(testFixtures(project(":jooqx")))
