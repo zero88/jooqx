@@ -148,7 +148,7 @@ object DatabaseLibs {
         const val sqlite = "3.45.2.0"
         const val hsqldb = "2.7.2"
         const val derby = "10.17.1.0"
-        const val agroal = "1.18"
+        const val agroal = "2.3"
         const val c3p0 = "0.10.0"
         const val hikari = "4.0.3"
     }
