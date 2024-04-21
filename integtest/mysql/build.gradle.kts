@@ -4,8 +4,9 @@ import cloud.playio.gradle.shared.prop
 import nu.studer.gradle.jooq.JooqGenerate
 import org.jooq.meta.jaxb.Logging
 
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    id(PluginLibs.jooq)
+    alias(libs.plugins.jooq)
 }
 
 dependencies {

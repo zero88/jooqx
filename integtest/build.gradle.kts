@@ -34,7 +34,7 @@ tasks {
 }
 
 subprojects {
-    apply(plugin = PluginLibs.jooq)
+    apply(plugin = rootProject.libs.plugins.jooq.get().pluginId)
 
     configurations.all {
         resolutionStrategy {

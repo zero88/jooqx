@@ -3,17 +3,17 @@ import cloud.playio.gradle.NexusVersion
 import cloud.playio.gradle.shared.prop
 import org.sonarqube.gradle.SonarQubeTask
 
+@Suppress("DSL_SCOPE_VIOLATION") // workaround for gradle v7
 plugins {
     eclipse
     idea
     id("jacoco-report-aggregation")
-    id(PlayioPlugin.oss) version PlayioPlugin.Version.gradlePlugin
-    id(PlayioPlugin.root) version PlayioPlugin.Version.gradlePlugin
-    id(PlayioPlugin.antora) version PlayioPlugin.Version.gradlePlugin apply false
-    id(PlayioPlugin.pandoc) version PlayioPlugin.Version.gradlePlugin apply false
-    id(PlayioPlugin.codegen) version PlayioPlugin.Version.gradlePlugin apply false
-    id(PlayioPlugin.docgen) version PlayioPlugin.Version.gradlePlugin apply false
-    id(PluginLibs.jooq) version PluginLibs.Version.jooq apply false
+    alias(libs.plugins.oss)
+    alias(libs.plugins.root)
+    alias(libs.plugins.antora) apply false
+    alias(libs.plugins.codegen) apply false
+    alias(libs.plugins.docgen) apply false
+    alias(libs.plugins.jooq) apply false
 }
 
 project.ext.set("baseName", "jooqx")
@@ -46,7 +46,7 @@ allprojects {
 }
 
 subprojects {
-    apply(plugin = PlayioPlugin.oss)
+    apply(plugin = rootProject.libs.plugins.oss.get().pluginId)
 
     val jvmRuntime = JavaVersion.current().majorVersion
     val jvmRelease = prop(project, "jvmRelease") as String

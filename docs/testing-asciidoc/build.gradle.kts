@@ -2,9 +2,10 @@ import cloud.playio.gradle.antora.AntoraType
 import cloud.playio.gradle.antora.tasks.AntoraCopyTask
 import cloud.playio.gradle.generator.docgen.AsciidocGenTask
 
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    id(PlayioPlugin.antora)
-    id(PlayioPlugin.docgen)
+    alias(libs.plugins.antora)
+    alias(libs.plugins.docgen)
 }
 
 dependencies {

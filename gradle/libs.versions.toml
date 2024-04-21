@@ -1,0 +1,16 @@
+[versions]
+pluginPlayio = "0.3.0"
+pluginJooq = "5.2"
+
+[libraries]
+
+[bundles]
+
+[plugins]
+oss = { id = "cloud.playio.gradle.oss", version.ref = "pluginPlayio" }
+root = { id = "cloud.playio.gradle.root", version.ref = "pluginPlayio" }
+antora = { id = "cloud.playio.gradle.antora", version.ref = "pluginPlayio" }
+pandoc = { id = "cloud.playio.gradle.pandoc", version.ref = "pluginPlayio" }
+docgen = { id = "cloud.playio.gradle.docgen", version.ref = "pluginPlayio" }
+codegen = { id = "cloud.playio.gradle.codegen", version.ref = "pluginPlayio" }
+jooq = { id = "nu.studer.jooq", version.ref = "pluginJooq" }

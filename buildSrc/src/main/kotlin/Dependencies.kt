@@ -12,16 +12,6 @@ object UtilLibs {
     const val jetbrainsAnnotations = "org.jetbrains:annotations:${Version.jetbrainsAnnotations}"
 }
 
-object PluginLibs {
-
-    object Version {
-
-        const val jooq = "5.2"
-    }
-
-    const val jooq = "nu.studer.jooq"
-}
-
 object JacksonLibs {
 
     object Version {
@@ -197,20 +187,5 @@ object ZeroLibs {
 
     const val rsql = "io.github.zero88:rsql-parser:${Version.rsql}"
     const val utils = "io.github.zero88:java-utils:${Version.utils}"
-
-}
-
-object PlayioPlugin {
-    object Version {
-
-        const val gradlePlugin = "0.3.0"
-    }
-
-    const val oss = "cloud.playio.gradle.oss"
-    const val root = "cloud.playio.gradle.root"
-    const val antora = "cloud.playio.gradle.antora"
-    const val pandoc = "cloud.playio.gradle.pandoc"
-    const val docgen = "cloud.playio.gradle.docgen"
-    const val codegen = "cloud.playio.gradle.codegen"
 
 }

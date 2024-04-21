@@ -1,5 +1,6 @@
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    id(PlayioPlugin.antora)
+    alias(libs.plugins.antora)
 }
 
 subprojects {

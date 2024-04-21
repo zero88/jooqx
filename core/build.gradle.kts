@@ -1,8 +1,9 @@
 import cloud.playio.gradle.generator.codegen.SourceSetName
 
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     `java-test-fixtures`
-    id(PlayioPlugin.codegen)
+    alias(libs.plugins.codegen)
 }
 
 oss {
