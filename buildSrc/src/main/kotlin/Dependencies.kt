@@ -140,7 +140,7 @@ object DatabaseLibs {
 
     object Version {
 
-        const val h2 = "1.4.200"
+        const val h2 = "2.2.224"
         const val pgsql = "42.7.3"
         const val mysql = "8.0.33"
         const val jpa = "2.2"
