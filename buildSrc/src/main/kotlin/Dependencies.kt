@@ -67,7 +67,7 @@ object VertxLibs {
         )
         @JvmField val vertxCore = "4.${pool.ver(3, 8)}"
         @JvmField val vertxSQL = vertxCore
-        @JvmField val vertxJunit = "4.2.5"
+        @JvmField val vertxJunit = "4.5.7"
     }
 
     @JvmField val core = "io.vertx:vertx-core:${Version.vertxCore}"
