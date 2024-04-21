@@ -9,12 +9,12 @@ dependencies {
     jooqGenerator(libs.bundles.slf4jImpl)
     jooqGenerator(JooqLibs.jooqMetaExt)
     jooqGenerator(DatabaseLibs.pgsql)
-    jooqGenerator(TestLibs.pgsqlTestContainer)
+    jooqGenerator(libs.postgresContainer)
 
     testImplementation(VertxLibs.jdbc)
     testImplementation(VertxLibs.pgsql)
     testImplementation(DatabaseLibs.pgsql)
-    testImplementation(TestLibs.pgsqlTestContainer)
+    testImplementation(libs.postgresContainer)
 
     testImplementation(JacksonLibs.databind)
     testImplementation(JacksonLibs.datetime)

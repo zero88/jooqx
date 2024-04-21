@@ -14,27 +14,6 @@ object JacksonLibs {
     const val datetime = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${Version.jackson}"
 }
 
-object TestLibs {
-
-    object Version {
-
-        const val junit5 = "5.10.2"
-
-        //        const val pioneer = "2.2.0" // java > 11
-        const val pioneer = "1.9.1" // java 8
-        const val testContainer = "1.19.7"
-    }
-
-    const val junit5Api = "org.junit.jupiter:junit-jupiter-api:${Version.junit5}"
-    const val junit5Engine = "org.junit.jupiter:junit-jupiter-engine:${Version.junit5}"
-    const val junit5Vintage = "org.junit.vintage:junit-vintage-engine:${Version.junit5}"
-    const val junit5Params = "org.junit.jupiter:junit-jupiter-params:${Version.junit5}"
-    const val junitPioneer = "org.junit-pioneer:junit-pioneer:${Version.pioneer}"
-    const val testContainer = "org.testcontainers:junit-jupiter:${Version.testContainer}"
-    const val pgsqlTestContainer = "org.testcontainers:postgresql:${Version.testContainer}"
-    const val mysqlTestContainer = "org.testcontainers:mysql:${Version.testContainer}"
-}
-
 object VertxLibs {
 
     object Version {
@@ -47,14 +26,12 @@ object VertxLibs {
         )
         @JvmField val vertxCore = "4.${pool.ver(3, 8)}"
         @JvmField val vertxSQL = vertxCore
-        @JvmField val vertxJunit = "4.2.5"
     }
 
     @JvmField val core = "io.vertx:vertx-core:${Version.vertxCore}"
     @JvmField val codegen = "io.vertx:vertx-codegen:${Version.vertxCore}"
     @JvmField val rx2 = "io.vertx:vertx-rx-java2:${Version.vertxCore}"
     @JvmField val rx3 = "io.vertx:vertx-rx-java3:${Version.vertxCore}"
-    @JvmField val junit5 = "io.vertx:vertx-junit5:${Version.vertxJunit}"
     @JvmField val sqlClient = "io.vertx:vertx-sql-client:${Version.vertxSQL}"
     @JvmField val jdbc = "io.vertx:vertx-jdbc-client:${Version.vertxSQL}"
     @JvmField val pgsql = "io.vertx:vertx-pg-client:${Version.vertxSQL}"

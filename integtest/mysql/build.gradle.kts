@@ -1,6 +1,5 @@
 import cloud.playio.gradle.jooq.JooqJdbcContainer
 import cloud.playio.gradle.jooq.loadDbSchema
-import cloud.playio.gradle.shared.prop
 import nu.studer.gradle.jooq.JooqGenerate
 import org.jooq.meta.jaxb.Logging
 
@@ -12,12 +11,12 @@ plugins {
 dependencies {
     jooqGenerator(JooqLibs.jooqMetaExt)
     jooqGenerator(DatabaseLibs.mysql)
-    jooqGenerator(TestLibs.mysqlTestContainer)
+    jooqGenerator(libs.mysqlContainer)
     jooqGenerator(libs.bundles.slf4jImpl)
     jooqGenerator(testFixtures(project(":jooqx")))
 
     testImplementation(VertxLibs.mysql)
-    testImplementation(TestLibs.mysqlTestContainer)
+    testImplementation(libs.mysqlContainer)
 }
 
 val dialect = "org.jooq.meta.mysql.MySQLDatabase"

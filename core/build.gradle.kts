@@ -31,13 +31,9 @@ dependencies {
     testImplementation(VertxLibs.sqlClient)
 
     testFixturesApi(project(":spi"))
-    testFixturesApi(LogLibs.slf4j)
-    testFixturesApi(LogLibs.logback)
-    testFixturesApi(TestLibs.junit5Api)
-    testFixturesApi(TestLibs.junit5Engine)
-    testFixturesApi(TestLibs.junit5Params)
-    testFixturesApi(TestLibs.testContainer)
-    testFixturesApi(VertxLibs.junit5)
+    testFixturesApi(libs.bundles.junit5)
+    testFixturesApi(libs.junit5Vertx)
+    testFixturesApi(libs.junit5Container)
     testFixturesApi(libs.bundles.logback)
     testFixturesApi(ZeroLibs.utils)
 

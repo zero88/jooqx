@@ -61,11 +61,12 @@ subprojects {
     dependencies {
         compileOnly(rootProject.libs.jetbrainsAnnotations)
 
-        testImplementation(TestLibs.junit5Api)
-        testImplementation(TestLibs.junit5Engine)
-        testImplementation(TestLibs.junit5Vintage)
-        testImplementation(TestLibs.junitPioneer)
-        testCompileOnly(UtilLibs.jetbrainsAnnotations)
+        testCompileOnly(rootProject.libs.jetbrainsAnnotations)
+        testImplementation(rootProject.libs.bundles.junit5)
+        when (jvmRuntime) {
+            "8" -> testImplementation(rootProject.libs.junitPioneer.jdk8)
+            else -> testImplementation(rootProject.libs.junitPioneer.jdk11)
+        }
     }
 
     oss {
