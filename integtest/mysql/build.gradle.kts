@@ -13,7 +13,7 @@ dependencies {
     jooqGenerator(JooqLibs.jooqMetaExt)
     jooqGenerator(DatabaseLibs.mysql)
     jooqGenerator(TestLibs.mysqlTestContainer)
-    jooqGenerator(LogLibs.slf4jSimple)
+    jooqGenerator(libs.bundles.slf4jImpl)
     jooqGenerator(testFixtures(project(":jooqx")))
 
     testImplementation(VertxLibs.mysql)

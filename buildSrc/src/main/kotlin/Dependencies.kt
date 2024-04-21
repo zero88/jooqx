@@ -2,16 +2,6 @@ import org.gradle.api.Project
 
 private fun Map<Int, List<Int>>.ver(minor: Int, patch: Int): String = "${minor}.${this[minor]?.get(patch)}"
 
-object UtilLibs {
-
-    object Version {
-
-        const val jetbrainsAnnotations = "24.1.0"
-    }
-
-    const val jetbrainsAnnotations = "org.jetbrains:annotations:${Version.jetbrainsAnnotations}"
-}
-
 object JacksonLibs {
 
     object Version {
@@ -88,23 +78,6 @@ object MutinyLibs {
     const val oracle = "io.smallrye.reactive:smallrye-mutiny-vertx-oracle-client:${Version.mutiny}"
     const val mssql = "io.smallrye.reactive:smallrye-mutiny-vertx-mssql-client:${Version.mutiny}"
     const val codegen = "io.smallrye.reactive:vertx-mutiny-generator:${Version.mutiny}"
-}
-
-object LogLibs {
-
-    object Version {
-
-        const val slf4j = "2.0.12"
-        const val logback = "1.3.14"
-        const val log4j2 = "2.23.1"
-    }
-
-    const val slf4j = "org.slf4j:slf4j-api:${Version.slf4j}"
-    const val logback = "ch.qos.logback:logback-classic:${Version.logback}"
-    const val slf4jSimple = "org.slf4j:slf4j-simple:${Version.slf4j}"
-    const val log4j2Api = "org.apache.logging.log4j:log4j-api:${Version.log4j2}"
-    const val log4j2Core = "org.apache.logging.log4j:log4j-core:${Version.log4j2}"
-    const val log4j2slf4j = "org.apache.logging.log4j:log4j-slf4j-impl:${Version.log4j2}"
 }
 
 object JooqLibs {

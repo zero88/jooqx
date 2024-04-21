@@ -59,7 +59,7 @@ subprojects {
         testImplementation(MutinyLibs.core)
         testImplementation(MutinyLibs.jdbc)
 
-        testImplementation(LogLibs.logback)
+        testImplementation(rootProject.libs.bundles.logback)
     }
 
     tasks {

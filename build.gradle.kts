@@ -59,7 +59,7 @@ subprojects {
     }
 
     dependencies {
-        compileOnly(UtilLibs.jetbrainsAnnotations)
+        compileOnly(rootProject.libs.jetbrainsAnnotations)
 
         testImplementation(TestLibs.junit5Api)
         testImplementation(TestLibs.junit5Engine)

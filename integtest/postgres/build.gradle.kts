@@ -6,7 +6,7 @@ import org.jooq.meta.jaxb.Logging
 dependencies {
     compileOnly(project(":spi")) // for customize generate
     compileOnly(VertxLibs.pgsql) // for customize generate
-    jooqGenerator(LogLibs.slf4jSimple)
+    jooqGenerator(libs.bundles.slf4jImpl)
     jooqGenerator(JooqLibs.jooqMetaExt)
     jooqGenerator(DatabaseLibs.pgsql)
     jooqGenerator(TestLibs.pgsqlTestContainer)

@@ -38,9 +38,10 @@ dependencies {
     testFixturesApi(TestLibs.junit5Params)
     testFixturesApi(TestLibs.testContainer)
     testFixturesApi(VertxLibs.junit5)
+    testFixturesApi(libs.bundles.logback)
     testFixturesApi(ZeroLibs.utils)
 
-    testFixturesCompileOnly(UtilLibs.jetbrainsAnnotations)
+    testFixturesCompileOnly(libs.jetbrainsAnnotations)
 
     testFixturesImplementation(VertxLibs.rx2)
 
