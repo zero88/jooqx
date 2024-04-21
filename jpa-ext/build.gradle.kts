@@ -3,8 +3,8 @@ oss {
 }
 
 dependencies {
-    compileOnlyApi(JacksonLibs.databind)
-    testImplementation(JacksonLibs.databind)
+    compileOnlyApi(libs.jacksonDatabind)
+    testImplementation(libs.jacksonDatabind)
 }
 
 

@@ -15,11 +15,11 @@ dependencies {
     testImplementation(VertxLibs.pgsql)
     testImplementation(DatabaseLibs.pgsql)
     testImplementation(libs.postgresContainer)
-
-    testImplementation(JacksonLibs.databind)
-    testImplementation(JacksonLibs.datetime)
     // For pg-14
     testImplementation(DatabaseLibs.scram)
+
+    testImplementation(libs.jacksonDatabind)
+    testImplementation(libs.jacksonDatetime)
 }
 
 val dialect = "org.jooq.meta.postgres.PostgresDatabase"
