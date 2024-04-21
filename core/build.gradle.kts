@@ -39,21 +39,21 @@ dependencies {
 
     testFixturesCompileOnly(libs.jetbrainsAnnotations)
 
-    testFixturesImplementation(VertxLibs.rx2)
+    testFixturesCompileOnly(VertxLibs.rx2)
 
-    testFixturesImplementation(VertxLibs.jdbc)
-    testFixturesImplementation(libs.jdbcH2)
+    testFixturesCompileOnly(VertxLibs.jdbc)
+    testFixturesCompileOnly(libs.jdbcH2)
 
-    testFixturesImplementation(VertxLibs.pgsql)
-    testFixturesImplementation(libs.jdbcPostgres)
-    testFixturesImplementation(libs.postgresContainer)
+    testFixturesCompileOnly(VertxLibs.pgsql)
+    testFixturesCompileOnly(libs.jdbcPostgres)
+    testFixturesCompileOnly(libs.postgresContainer)
 
-    testFixturesImplementation(VertxLibs.mysql)
-    testFixturesImplementation(libs.jdbcMySQL)
-    testFixturesImplementation(libs.mysqlContainer)
+    testFixturesCompileOnly(VertxLibs.mysql)
+    testFixturesCompileOnly(libs.jdbcMySQL)
+    testFixturesCompileOnly(libs.mysqlContainer)
 
-    testFixturesImplementation(libs.agroalApi)
-    testFixturesImplementation(libs.hikariCP)
+    testFixturesCompileOnly(libs.agroalApi)
+    testFixturesCompileOnly(libs.hikariCP)
 }
 
 tasks {
