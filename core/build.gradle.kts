@@ -20,7 +20,7 @@ codegen {
 
 dependencies {
     api(libs.vertxCore)
-    api(JooqLibs.jooq)
+    api(libs.jooq)
 
     codeGenerator(libs.vertxRx2)
     codeGenerator(libs.vertxRx3)

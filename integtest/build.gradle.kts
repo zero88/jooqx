@@ -46,9 +46,9 @@ subprojects {
     }
 
     dependencies {
-        implementation(JooqLibs.jooqMetaExt) // For generate model
+        implementation(rootProject.libs.jooqMetaExt) // For generate model
         testImplementation(testFixtures(project(":jooqx")))
-        testImplementation(JooqLibs.jooqMeta)
+        testImplementation(rootProject.libs.jooqMeta)
         testImplementation(rootProject.libs.hikariCP)
         testImplementation(rootProject.libs.bundles.agroal)
 

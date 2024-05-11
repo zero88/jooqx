@@ -1,7 +1,7 @@
 dependencies {
     api(project(":rsql:core"))
-    api(JooqLibs.jooq)
+    api(libs.jooq)
 
     testImplementation(libs.h2Jdbc)
-    testImplementation(JooqLibs.jooqMeta)
+    testImplementation(libs.jooqMeta)
 }

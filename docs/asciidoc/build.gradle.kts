@@ -16,7 +16,7 @@ plugins {
 dependencies {
     compileOnly(project(":spi"))
     compileOnly(project(":integtest:postgres"))
-    compileOnly(JooqLibs.jooqMeta)
+    compileOnly(libs.jooqMeta)
     compileOnly(libs.jdbcVertx)
     compileOnly(libs.postgresVertx)
     compileOnly(libs.mysqlVertx)

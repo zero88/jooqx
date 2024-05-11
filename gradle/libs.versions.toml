@@ -26,6 +26,8 @@ jdbcHSQL = "2.7.2"
 jdbcDerby = "10.17.1.0"
 ## Vertx
 vertx = "4.3.8"
+## Jooq
+jooq = "3.14.16"
 
 [libraries]
 jetbrainsAnnotations = { module = "org.jetbrains:annotations", version = "24.1.0" }
@@ -73,6 +75,10 @@ db2Vertx = { module = "io.vertx:vertx-db2-client", version.ref = "vertx" }
 mssqlVertx = { module = "io.vertx:vertx-mssql-client", version.ref = "vertx" }
 mysqlVertx = { module = "io.vertx:vertx-mysql-client", version.ref = "vertx" }
 postgresVertx = { module = "io.vertx:vertx-pg-client", version.ref = "vertx" }
+## Jooq
+jooq = { module = "org.jooq:jooq", version.ref = "jooq" }
+jooqMeta = { module = "org.jooq:jooq-meta", version.ref = "jooq" }
+jooqMetaExt = { module = "org.jooq:jooq-meta-extensions", version.ref = "jooq" }
 
 [bundles]
 junit5 = ["junit5Api", "junit5Engine", "junit5Params"]

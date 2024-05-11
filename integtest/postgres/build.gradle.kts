@@ -6,15 +6,13 @@ import org.jooq.meta.jaxb.Logging
 dependencies {
     compileOnly(project(":spi")) // for customize generate
     compileOnly(libs.postgresVertx) // for customize generate
-    jooqGenerator(JooqLibs.jooqMetaExt)
+    jooqGenerator(libs.jooqMetaExt)
     jooqGenerator(libs.bundles.slf4jImpl)
     jooqGenerator(libs.postgresJdbc)
     jooqGenerator(libs.postgresContainer)
 
     testImplementation(libs.jdbcVertx)
-    testImplementation(libs.postgresVertx)
-    testImplementation(libs.postgresJdbc)
-    testImplementation(libs.postgresContainer)
+    testImplementation(libs.bundles.postgres)
     // For pg-14
     testImplementation(libs.scram)
 
@@ -27,7 +25,7 @@ val dbImage = DatabaseContainer.findImage(project)
 fun getSchema(schemaFile: String): String = "${buildDir}/resources/main/${schemaFile}"
 
 jooq {
-    version.set(JooqLibs.Version.jooq)
+    version.set(libs.versions.jooq)
 
     configurations {
         create("testPgSchema") {

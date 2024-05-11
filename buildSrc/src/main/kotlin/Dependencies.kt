@@ -32,10 +32,6 @@ object JooqLibs {
         )
         @JvmField val jooq = "3.${pool.ver(14, 16)}"
     }
-
-    @JvmField val jooq = "org.jooq:jooq:${Version.jooq}"
-    @JvmField val jooqMeta = "org.jooq:jooq-meta:${Version.jooq}"
-    @JvmField val jooqMetaExt = "org.jooq:jooq-meta-extensions:${Version.jooq}"
 }
 
 object DatabaseContainer {

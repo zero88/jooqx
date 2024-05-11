@@ -9,14 +9,13 @@ plugins {
 }
 
 dependencies {
-    jooqGenerator(JooqLibs.jooqMetaExt)
+    jooqGenerator(libs.jooqMetaExt)
     jooqGenerator(libs.mysqlJdbc)
     jooqGenerator(libs.mysqlContainer)
     jooqGenerator(libs.bundles.slf4jImpl)
     jooqGenerator(testFixtures(project(":jooqx")))
 
-    testImplementation(libs.mysqlVertx)
-    testImplementation(libs.mysqlContainer)
+    testImplementation(libs.bundles.mysql)
 }
 
 val dialect = "org.jooq.meta.mysql.MySQLDatabase"
@@ -24,7 +23,7 @@ val dbImage = DatabaseContainer.findImage(project)
 fun getSchema(schemaFile: String): String = "${buildDir}/resources/main/${schemaFile}"
 
 jooq {
-    version.set(JooqLibs.Version.jooq)
+    version.set(libs.versions.jooq)
 
     configurations {
         create("testMySQLSchema") {

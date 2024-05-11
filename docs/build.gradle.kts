@@ -16,7 +16,7 @@ documentation {
             mapOf(
                 "jooqx-version" to project.version,
                 "vertx-version" to libs.versions.vertx,
-                "jooq-version" to JooqLibs.Version.jooq,
+                "jooq-version" to libs.versions.jooq,
                 "mutiny-version" to MutinyLibs.Version.mutiny
             )
         )
