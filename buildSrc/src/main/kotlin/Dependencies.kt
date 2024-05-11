@@ -2,32 +2,6 @@ import org.gradle.api.Project
 
 private fun Map<Int, List<Int>>.ver(minor: Int, patch: Int): String = "${minor}.${this[minor]?.get(patch)}"
 
-object VertxLibs {
-
-    object Version {
-
-        private val pool = mapOf(
-            2 to (0..7).toList(),
-            3 to (0..8).toList(),
-            4 to (0..8).toList(),
-            5 to (0..4).toList()
-        )
-        @JvmField val vertxCore = "4.${pool.ver(3, 8)}"
-        @JvmField val vertxSQL = vertxCore
-    }
-
-    @JvmField val core = "io.vertx:vertx-core:${Version.vertxCore}"
-    @JvmField val codegen = "io.vertx:vertx-codegen:${Version.vertxCore}"
-    @JvmField val rx2 = "io.vertx:vertx-rx-java2:${Version.vertxCore}"
-    @JvmField val rx3 = "io.vertx:vertx-rx-java3:${Version.vertxCore}"
-    @JvmField val sqlClient = "io.vertx:vertx-sql-client:${Version.vertxSQL}"
-    @JvmField val jdbc = "io.vertx:vertx-jdbc-client:${Version.vertxSQL}"
-    @JvmField val pgsql = "io.vertx:vertx-pg-client:${Version.vertxSQL}"
-    @JvmField val mysql = "io.vertx:vertx-mysql-client:${Version.vertxSQL}"
-    @JvmField val db2 = "io.vertx:vertx-db2-client:${Version.vertxSQL}"
-    @JvmField val mssql = "io.vertx:vertx-mssql-client:${Version.vertxSQL}"
-}
-
 object MutinyLibs {
     object Version {
 

@@ -10,15 +10,15 @@ plugins {
 dependencies {
     compileOnly(project(":rsql:jooq"))
     compileOnly(project(":integtest:postgres"))
-    compileOnly(VertxLibs.jdbc)
-    compileOnly(VertxLibs.pgsql)
-    compileOnly(VertxLibs.mysql)
-    compileOnly(VertxLibs.rx2)
+    compileOnly(libs.jdbcVertx)
+    compileOnly(libs.postgresVertx)
+    compileOnly(libs.mysqlVertx)
+    compileOnly(libs.vertxRx2)
 
-    implementation(VertxLibs.jdbc)
-    implementation(VertxLibs.pgsql)
-    implementation(VertxLibs.mysql)
-    implementation(VertxLibs.rx2)
+    implementation(libs.jdbcVertx)
+    implementation(libs.postgresVertx)
+    implementation(libs.mysqlVertx)
+    implementation(libs.vertxRx2)
 }
 
 documentation {

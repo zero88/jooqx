@@ -3,7 +3,7 @@ import org.jooq.meta.jaxb.Logging
 import org.jooq.meta.jaxb.Property
 
 dependencies {
-    jooqGenerator(libs.jdbcH2)
+    jooqGenerator(libs.h2Jdbc)
     jooqGenerator(JooqLibs.jooqMetaExt)
     jooqGenerator(libs.bundles.slf4jImpl)
 }

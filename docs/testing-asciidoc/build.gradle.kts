@@ -13,15 +13,13 @@ dependencies {
     compileOnly(testFixtures(project(":jooqx")))
 //    compileOnly(project(":rsql:jooq"))
     compileOnly(project(":integtest:postgres"))
-    compileOnly(VertxLibs.jdbc)
-    compileOnly(VertxLibs.pgsql)
-    compileOnly(VertxLibs.mysql)
-    compileOnly(VertxLibs.rx2)
+    compileOnly(libs.jdbcVertx)
+    compileOnly(libs.postgresVertx)
+    compileOnly(libs.mysqlVertx)
 
-    implementation(VertxLibs.jdbc)
-    implementation(VertxLibs.pgsql)
-    implementation(VertxLibs.mysql)
-    implementation(VertxLibs.rx2)
+    implementation(libs.jdbcVertx)
+    implementation(libs.postgresVertx)
+    implementation(libs.mysqlVertx)
 }
 
 documentation {

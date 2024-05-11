@@ -39,9 +39,9 @@ subprojects {
     configurations.all {
         resolutionStrategy {
             preferProjectModules()
-            force(VertxLibs.core)
-            force(VertxLibs.sqlClient)
-            force(VertxLibs.jdbc)
+            force(rootProject.libs.vertxCore)
+            force(rootProject.libs.sqlClientVertx)
+            force(rootProject.libs.jdbcVertx)
         }
     }
 
@@ -52,8 +52,8 @@ subprojects {
         testImplementation(rootProject.libs.hikariCP)
         testImplementation(rootProject.libs.bundles.agroal)
 
-        testImplementation(VertxLibs.rx2)
-        testImplementation(VertxLibs.rx3)
+        testImplementation(rootProject.libs.vertxRx2)
+        testImplementation(rootProject.libs.vertxRx3)
 
         testImplementation(MutinyLibs.core)
         testImplementation(MutinyLibs.jdbc)

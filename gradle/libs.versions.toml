@@ -24,6 +24,8 @@ jdbcPostgres = "42.7.3"
 jdbcSQLite = "3.45.2.0"
 jdbcHSQL = "2.7.2"
 jdbcDerby = "10.17.1.0"
+## Vertx
+vertx = "4.3.8"
 
 [libraries]
 jetbrainsAnnotations = { module = "org.jetbrains:annotations", version = "24.1.0" }
@@ -55,20 +57,30 @@ scram = { module = "com.ongres.scram:client", version = "2.1" }
 agroalApi = { module = "io.agroal:agroal-api", version.ref = "agroal_jdk8" }
 agroalPool = { module = "io.agroal:agroal-pool", version.ref = "agroal_jdk8" }
 hikariCP = { module = "com.zaxxer:HikariCP", version.ref = "hikariCP_jdk8" }
-jdbcH2 = { module = "com.h2database:h2", version.ref = "jdbcH2" }
-jdbcMySQL = { module = "mysql:mysql-connector-java", version.ref = "jdbcMySQL" }
-jdbcPostgres = { module = "org.postgresql:postgresql", version.ref = "jdbcPostgres" }
-jdbcSQLite = { module = "org.xerial:sqlite-jdbc", version.ref = "jdbcSQLite" }
-jdbcDerby = { module = "org.apache.derby:derby", version.ref = "jdbcDerby" }
-jdbcHSQL = { module = "org.hsqldb:hsqldb", version.ref = "jdbcHSQL" }
+h2Jdbc = { module = "com.h2database:h2", version.ref = "jdbcH2" }
+mysqlJdbc = { module = "mysql:mysql-connector-java", version.ref = "jdbcMySQL" }
+postgresJdbc = { module = "org.postgresql:postgresql", version.ref = "jdbcPostgres" }
+sqliteJdbc = { module = "org.xerial:sqlite-jdbc", version.ref = "jdbcSQLite" }
+derbyJdbc = { module = "org.apache.derby:derby", version.ref = "jdbcDerby" }
+hsqlJdbc = { module = "org.hsqldb:hsqldb", version.ref = "jdbcHSQL" }
+## Vertx
+vertxCore = { module = "io.vertx:vertx-core", version.ref = "vertx" }
+vertxRx2 = { module = "io.vertx:vertx-rx-java2", version.ref = "vertx" }
+vertxRx3 = { module = "io.vertx:vertx-rx-java3", version.ref = "vertx" }
+sqlClientVertx = { module = "io.vertx:vertx-sql-client", version.ref = "vertx" }
+jdbcVertx = { module = "io.vertx:vertx-jdbc-client", version.ref = "vertx" }
+db2Vertx = { module = "io.vertx:vertx-db2-client", version.ref = "vertx" }
+mssqlVertx = { module = "io.vertx:vertx-mssql-client", version.ref = "vertx" }
+mysqlVertx = { module = "io.vertx:vertx-mysql-client", version.ref = "vertx" }
+postgresVertx = { module = "io.vertx:vertx-pg-client", version.ref = "vertx" }
 
 [bundles]
 junit5 = ["junit5Api", "junit5Engine", "junit5Params"]
 log4j2 = ["log4j2Api", "log4j2Core", "log4j2slf4j"]
 logback = ["slf4j", "logback"]
 slf4jImpl = ["slf4j", "slf4jSimple"]
-postgres = ["postgresContainer", "jdbcPostgres"]
-mysql = ["mysqlContainer", "jdbcMySQL"]
+postgres = ["postgresContainer", "postgresJdbc", "postgresVertx"]
+mysql = ["mysqlContainer", "mysqlJdbc", "mysqlVertx"]
 agroal = ["agroalApi", "agroalPool"]
 
 [plugins]

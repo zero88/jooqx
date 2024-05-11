@@ -5,15 +5,15 @@ import org.jooq.meta.jaxb.Logging
 
 dependencies {
     compileOnly(project(":spi")) // for customize generate
-    compileOnly(VertxLibs.pgsql) // for customize generate
+    compileOnly(libs.postgresVertx) // for customize generate
     jooqGenerator(JooqLibs.jooqMetaExt)
     jooqGenerator(libs.bundles.slf4jImpl)
-    jooqGenerator(libs.jdbcPostgres)
+    jooqGenerator(libs.postgresJdbc)
     jooqGenerator(libs.postgresContainer)
 
-    testImplementation(VertxLibs.jdbc)
-    testImplementation(VertxLibs.pgsql)
-    testImplementation(libs.jdbcPostgres)
+    testImplementation(libs.jdbcVertx)
+    testImplementation(libs.postgresVertx)
+    testImplementation(libs.postgresJdbc)
     testImplementation(libs.postgresContainer)
     // For pg-14
     testImplementation(libs.scram)

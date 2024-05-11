@@ -13,22 +13,22 @@ oss {
 
 codegen {
     vertx {
-        version.set(VertxLibs.Version.vertxCore)
+        version.set(libs.versions.vertx)
         sources.addAll(arrayOf(SourceSetName.MAIN, SourceSetName.TEST_FIXTURES))
     }
 }
 
 dependencies {
-    api(VertxLibs.core)
+    api(libs.vertxCore)
     api(JooqLibs.jooq)
 
-    codeGenerator(VertxLibs.jdbc)
-    codeGenerator(VertxLibs.rx2)
-    codeGenerator(VertxLibs.rx3)
+    codeGenerator(libs.vertxRx2)
+    codeGenerator(libs.vertxRx3)
+    codeGenerator(libs.jdbcVertx)
     codeGenerator(MutinyLibs.jdbc)
     codeGenerator(MutinyLibs.sqlClient)
 
-    testImplementation(VertxLibs.sqlClient)
+    testImplementation(libs.sqlClientVertx)
 
     testFixturesApi(project(":spi"))
     testFixturesApi(libs.bundles.junit5)
@@ -38,22 +38,12 @@ dependencies {
     testFixturesApi(ZeroLibs.utils)
 
     testFixturesCompileOnly(libs.jetbrainsAnnotations)
-
-    testFixturesCompileOnly(VertxLibs.rx2)
-
-    testFixturesCompileOnly(VertxLibs.jdbc)
-    testFixturesCompileOnly(libs.jdbcH2)
-
-    testFixturesCompileOnly(VertxLibs.pgsql)
-    testFixturesCompileOnly(libs.jdbcPostgres)
-    testFixturesCompileOnly(libs.postgresContainer)
-
-    testFixturesCompileOnly(VertxLibs.mysql)
-    testFixturesCompileOnly(libs.jdbcMySQL)
-    testFixturesCompileOnly(libs.mysqlContainer)
-
     testFixturesCompileOnly(libs.agroalApi)
     testFixturesCompileOnly(libs.hikariCP)
+    testFixturesCompileOnly(libs.h2Jdbc)
+    testFixturesCompileOnly(libs.jdbcVertx)
+    testFixturesCompileOnly(libs.bundles.postgres)
+    testFixturesCompileOnly(libs.bundles.mysql)
 }
 
 tasks {

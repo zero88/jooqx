@@ -15,7 +15,7 @@ documentation {
         asciiAttributes.set(
             mapOf(
                 "jooqx-version" to project.version,
-                "vertx-version" to VertxLibs.Version.vertxCore,
+                "vertx-version" to libs.versions.vertx,
                 "jooq-version" to JooqLibs.Version.jooq,
                 "mutiny-version" to MutinyLibs.Version.mutiny
             )
