@@ -8,6 +8,7 @@ on:
     tags: [ 'jpa/v*' ]
     paths:
       - 'buildSrc'
+      - 'gradle'
       - 'jpa-ext/**'
       - '.github/workflows/jpa.yml'
       - '.github/actions/*.yml'
@@ -16,6 +17,7 @@ on:
     branches: [ main ]
     paths:
       - 'buildSrc'
+      - 'gradle'
       - 'jpa-ext/**'
       - '.github/workflows/jpa.yml'
       - '.github/actions/*.yml'
