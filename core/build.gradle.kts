@@ -37,7 +37,7 @@ dependencies {
     testFixturesApi(libs.junit5Vertx)
     testFixturesApi(libs.junit5Container)
     testFixturesApi(libs.bundles.logback)
-    testFixturesApi(ZeroLibs.utils)
+    testFixturesApi(libs.javaUtils)
 
     testFixturesCompileOnly(libs.jetbrainsAnnotations)
     testFixturesCompileOnly(libs.agroalApi)

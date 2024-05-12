@@ -38,15 +38,3 @@ object DatabaseContainer {
         return jdbcDbImage.replaceBefore(":", container.jdbcPrefix)
     }
 }
-
-object ZeroLibs {
-    object Version {
-
-        const val utils = "2.0.0"
-        const val rsql = "2.2.1"
-    }
-
-    const val rsql = "io.github.zero88:rsql-parser:${Version.rsql}"
-    const val utils = "io.github.zero88:java-utils:${Version.utils}"
-
-}

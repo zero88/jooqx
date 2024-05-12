@@ -33,6 +33,8 @@ mutiny = "2.30.1"
 
 [libraries]
 jetbrainsAnnotations = { module = "org.jetbrains:annotations", version = "24.1.0" }
+javaUtils = { module = "io.github.zero88:java-utils", version = "2.0.0" }
+rsqlParser = { module = "io.github.zero88:rsql-parser", version = "2.2.1" }
 ## Junit5
 junit5Api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit5" }
 junit5Engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit5" }
