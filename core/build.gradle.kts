@@ -25,8 +25,10 @@ dependencies {
     codeGenerator(libs.vertxRx2)
     codeGenerator(libs.vertxRx3)
     codeGenerator(libs.jdbcVertx)
-    codeGenerator(MutinyLibs.jdbc)
-    codeGenerator(MutinyLibs.sqlClient)
+    codeGenerator(libs.sqlClientVertx)
+    codeGenerator(libs.mutinyCodegen)
+    codeGenerator(libs.jdbcMutiny)
+    codeGenerator(libs.sqlClientMutiny)
 
     testImplementation(libs.sqlClientVertx)
 

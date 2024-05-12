@@ -55,8 +55,8 @@ subprojects {
         testImplementation(rootProject.libs.vertxRx2)
         testImplementation(rootProject.libs.vertxRx3)
 
-        testImplementation(MutinyLibs.core)
-        testImplementation(MutinyLibs.jdbc)
+        testImplementation(rootProject.libs.mutinyCore)
+        testImplementation(rootProject.libs.jdbcMutiny)
 
         testImplementation(rootProject.libs.bundles.logback)
     }

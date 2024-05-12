@@ -19,11 +19,11 @@ dependencies {
     compileOnly(libs.jooqMeta)
     compileOnly(libs.jdbcVertx)
     compileOnly(libs.postgresVertx)
+    compileOnly(libs.postgresMutiny)
     compileOnly(libs.mysqlVertx)
     compileOnly(libs.vertxRx2)
     compileOnly(libs.vertxRx3)
-    compileOnly(MutinyLibs.core)
-    compileOnly(MutinyLibs.pgsql)
+    compileOnly(libs.mutinyCore)
 }
 
 documentation {

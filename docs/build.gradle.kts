@@ -17,7 +17,7 @@ documentation {
                 "jooqx-version" to project.version,
                 "vertx-version" to libs.versions.vertx,
                 "jooq-version" to libs.versions.jooq,
-                "mutiny-version" to MutinyLibs.Version.mutiny
+                "mutiny-version" to libs.versions.mutiny
             )
         )
     }

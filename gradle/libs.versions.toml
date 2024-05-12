@@ -28,6 +28,8 @@ jdbcDerby = "10.17.1.0"
 vertx = "4.3.8"
 ## Jooq
 jooq = "3.14.16"
+## Mutiny
+mutiny = "2.30.1"
 
 [libraries]
 jetbrainsAnnotations = { module = "org.jetbrains:annotations", version = "24.1.0" }
@@ -79,6 +81,16 @@ postgresVertx = { module = "io.vertx:vertx-pg-client", version.ref = "vertx" }
 jooq = { module = "org.jooq:jooq", version.ref = "jooq" }
 jooqMeta = { module = "org.jooq:jooq-meta", version.ref = "jooq" }
 jooqMetaExt = { module = "org.jooq:jooq-meta-extensions", version.ref = "jooq" }
+## Mutiny
+mutinyCore = { module = "io.smallrye.reactive:smallrye-mutiny-vertx-core", version.ref = "mutiny" }
+mutinyCodegen = { module = "io.smallrye.reactive:vertx-mutiny-generator", version.ref = "mutiny" }
+sqlClientMutiny = { module = "io.smallrye.reactive:smallrye-mutiny-vertx-sql-client", version.ref = "mutiny" }
+jdbcMutiny = { module = "io.smallrye.reactive:smallrye-mutiny-vertx-jdbc-client", version.ref = "mutiny" }
+db2Mutiny = { module = "io.smallrye.reactive:smallrye-mutiny-vertx-db2-client", version.ref = "mutiny" }
+mysqlMutiny = { module = "io.smallrye.reactive:smallrye-mutiny-vertx-mysql-client", version.ref = "mutiny" }
+mssqlMutiny = { module = "io.smallrye.reactive:smallrye-mutiny-vertx-mssql-client", version.ref = "mutiny" }
+oracleMutiny = { module = "io.smallrye.reactive:smallrye-mutiny-vertx-oracle-client", version.ref = "mutiny" }
+postgresMutiny = { module = "io.smallrye.reactive:smallrye-mutiny-vertx-pg-client", version.ref = "mutiny" }
 
 [bundles]
 junit5 = ["junit5Api", "junit5Engine", "junit5Params"]
