@@ -3,8 +3,5 @@ title: jOOQ.x
 version: main
 nav: [modules/ROOT/nav.adoc, modules/testing/nav.adoc]
 asciidoc:
-  attributes:
-    jooqx-version: 2.0.0-SNAPSHOT
-    vertx-version: !!org.gradle.api.internal.provider.DefaultProvider {}
-    jooq-version: !!org.gradle.api.internal.provider.DefaultProvider {}
-    mutiny-version: !!org.gradle.api.internal.provider.DefaultProvider {}
+  attributes: {jooqx-version: 2.0.0-SNAPSHOT, vertx-version: 4.3.8, mutiny-version: 2.30.1,
+    jooq-version: 3.19.8}
