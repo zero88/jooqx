@@ -9,7 +9,7 @@ dependencies {
 }
 
 jooq {
-    version.set(libs.versions.jooq)
+//    version.set(libs.versions.jooq.get())
 
     configurations {
         create("testH2Schema") {

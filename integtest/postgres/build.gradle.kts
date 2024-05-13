@@ -25,7 +25,7 @@ val dbImage = DatabaseContainer.findImage(project)
 fun getSchema(schemaFile: String): String = "${buildDir}/resources/main/${schemaFile}"
 
 jooq {
-    version.set(libs.versions.jooq)
+//    version.set(libs.versions.jooq)
 
     configurations {
         create("testPgSchema") {

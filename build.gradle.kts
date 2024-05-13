@@ -61,7 +61,8 @@ subprojects {
                                 contains("junit-pioneer") -> dep.useVersion(libs.versions.junitPioneer.jdk8.get())
                                 contains("HikariCP")      -> dep.useVersion(libs.versions.hikariCP.jdk8.get())
                                 contains("agroal")        -> dep.useVersion(libs.versions.agroal.jdk8.get())
-                                contains("logback")        -> dep.useVersion(libs.versions.logback.jdk8.get())
+                                contains("logback")       -> dep.useVersion(libs.versions.logback.jdk8.get())
+                                contains("jooq")          -> dep.useVersion(libs.versions.jooq.jdk8.get())
                                 else                      -> throw IllegalArgumentException("Unknown module $this")
                             }
                         }
