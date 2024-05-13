@@ -13,7 +13,7 @@ oss {
 
 codegen {
     vertx {
-        version.set(libs.versions.vertx)
+        version.set(libs.vertxCore.get().version)
         sources.addAll(arrayOf(SourceSetName.MAIN, SourceSetName.TEST_FIXTURES))
     }
 }
