@@ -8,6 +8,7 @@ on:
     tags: [ 'rsql/v*' ]
     paths:
       - 'buildSrc'
+      - 'gradle'
       - 'rsql/**'
       - '.github/workflows/rsql.yml'
       - '.github/actions/*.yml'
@@ -16,6 +17,7 @@ on:
     branches: [ main ]
     paths:
       - 'buildSrc'
+      - 'gradle'
       - 'rsql/**'
       - '.github/workflows/rsql.yml'
       - '.github/actions/*.yml'
@@ -100,6 +102,7 @@ jobs:
       semanticVersion: ${{ needs.context.outputs.semanticVersion }}
       hashVersion: ${{ needs.context.outputs.commitId }}
       isRelease: ${{ needs.context.outputs.isRelease }}
+      javaVersion: 8
     secrets:
       ossrhUser: ${{ secrets.OSS_SONATYPE_USER }}
       ossrhToken: ${{ secrets.OSS_SONATYPE_PASSWORD }}

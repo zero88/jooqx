@@ -3,21 +3,26 @@ import cloud.playio.gradle.NexusVersion
 import cloud.playio.gradle.shared.prop
 import org.sonarqube.gradle.SonarQubeTask
 
+@Suppress("DSL_SCOPE_VIOLATION") // workaround for gradle v7
 plugins {
     eclipse
     idea
     id("jacoco-report-aggregation")
-    id(PlayioPlugin.oss) version PlayioPlugin.Version.gradlePlugin
-    id(PlayioPlugin.root) version PlayioPlugin.Version.gradlePlugin
-    id(PlayioPlugin.antora) version PlayioPlugin.Version.gradlePlugin apply false
-    id(PlayioPlugin.pandoc) version PlayioPlugin.Version.gradlePlugin apply false
-    id(PlayioPlugin.codegen) version PlayioPlugin.Version.gradlePlugin apply false
-    id(PlayioPlugin.docgen) version PlayioPlugin.Version.gradlePlugin apply false
-    id(PluginLibs.jooq) version PluginLibs.Version.jooq apply false
+    alias(libs.plugins.oss)
+    alias(libs.plugins.root)
+    alias(libs.plugins.antora) apply false
+    alias(libs.plugins.codegen) apply false
+    alias(libs.plugins.docgen) apply false
+    alias(libs.plugins.jooq) apply false
 }
 
 project.ext.set("baseName", "jooqx")
 project.ext.set(NexusConfig.NEXUS_VERSION_KEY, NexusVersion.BEFORE_2021_02_24)
+val skipPublish = (gradle as ExtensionAware).extensions["SKIP_PUBLISH"] as Array<*>
+
+jacoco {
+    toolVersion = "0.8.11"
+}
 
 allprojects {
     group = "io.github.zero88"
@@ -29,7 +34,6 @@ allprojects {
         mavenCentral()
     }
 
-    val skipPublish = (gradle as ExtensionAware).extensions["SKIP_PUBLISH"] as Array<*>
     sonarqube {
         isSkipProject = project.path in skipPublish
     }
@@ -42,16 +46,43 @@ allprojects {
 }
 
 subprojects {
-    apply(plugin = PlayioPlugin.oss)
+    apply(plugin = rootProject.libs.plugins.oss.get().pluginId)
+    val jvmRuntime = JavaVersion.current().majorVersion
+    val jvmRelease = prop(project, "jvmRelease") as String
+
+    if (jvmRuntime == "8") {
+        configurations.all {
+            resolutionStrategy {
+                eachDependency {
+                    val dep = this
+                    if (dep.requested.module in libs.bundles.java8libs.get().map { it.module }) {
+                        with(dep.requested.module.toString()) {
+                            when {
+                                contains("junit-pioneer") -> dep.useVersion(libs.versions.junitPioneer.jdk8.get())
+                                contains("HikariCP")      -> dep.useVersion(libs.versions.hikariCP.jdk8.get())
+                                contains("agroal")        -> dep.useVersion(libs.versions.agroal.jdk8.get())
+                                else                      -> throw IllegalArgumentException("Unknown module $this")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    val artifactClassifier = when (jvmRuntime) {
+        "8"  -> if (jvmRelease == "8") "" else "-jvm8"
+        "11" -> if (jvmRelease == "11") "" else "-jvm11"
+        "17" -> if (jvmRelease == "17") "" else "-jvm17"
+        "21" -> if (jvmRelease == "21") "" else "-jvm21"
+        else -> throw IllegalArgumentException("Unknown version $jvmRuntime")
+    }
 
     dependencies {
-        compileOnly(UtilLibs.jetbrainsAnnotations)
+        compileOnly(rootProject.libs.jetbrainsAnnotations)
 
-        testImplementation(TestLibs.junit5Api)
-        testImplementation(TestLibs.junit5Engine)
-        testImplementation(TestLibs.junit5Vintage)
-        testImplementation(TestLibs.junitPioneer)
-        testCompileOnly(UtilLibs.jetbrainsAnnotations)
+        testCompileOnly(rootProject.libs.jetbrainsAnnotations)
+        testImplementation(rootProject.libs.bundles.junit5)
+        testImplementation(rootProject.libs.junitPioneer)
     }
 
     oss {
@@ -62,10 +93,28 @@ subprojects {
         }
     }
 
-    jacoco {
-        toolVersion = "0.8.11"
+    java {
+        toolchain {
+            languageVersion.set(JavaLanguageVersion.of(jvmRuntime))
+        }
     }
 
+    tasks {
+        withType<AbstractPublishToMaven> {
+            enabled = project != rootProject && project.path !in skipPublish
+        }
+
+        withType<Jar> {
+            archiveClassifier.set(
+                when (name) {
+                    "testFixturesJar" -> "test-fixtures$artifactClassifier"
+                    "javadocJar"      -> "javadoc$artifactClassifier"
+                    "sourcesJar"      -> "sources$artifactClassifier"
+                    else              -> artifactClassifier.replace("-", "")
+                }
+            )
+        }
+    }
 }
 
 rootProject.apply {
@@ -73,13 +122,7 @@ rootProject.apply {
     dependencies {
         val profile = prop(rootProject, "profile")
         val projectList = ((gradle as ExtensionAware).extensions["PROJECT_POOL"] as Map<*, Array<String>>)[profile]
-        projectList?.map(project::project)?.forEach {
-            jacocoAggregation(it)
-        }
-    }
-
-    jacoco {
-        toolVersion = "0.8.11"
+        projectList?.map(project::project)?.forEach { jacocoAggregation(it) }
     }
 
     tasks {

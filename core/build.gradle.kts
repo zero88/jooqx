@@ -1,8 +1,9 @@
 import cloud.playio.gradle.generator.codegen.SourceSetName
 
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
     `java-test-fixtures`
-    id(PlayioPlugin.codegen)
+    alias(libs.plugins.codegen)
 }
 
 oss {
@@ -12,50 +13,38 @@ oss {
 
 codegen {
     vertx {
-        version.set(VertxLibs.Version.vertxCore)
+        version.set(libs.versions.vertx)
         sources.addAll(arrayOf(SourceSetName.MAIN, SourceSetName.TEST_FIXTURES))
     }
 }
 
 dependencies {
-    api(VertxLibs.core)
-    api(JooqLibs.jooq)
+    api(libs.vertxCore)
+    api(libs.jooq)
 
-    codeGenerator(VertxLibs.jdbc)
-    codeGenerator(VertxLibs.rx2)
-    codeGenerator(VertxLibs.rx3)
-    codeGenerator(MutinyLibs.jdbc)
-    codeGenerator(MutinyLibs.sqlClient)
+    codeGenerator(libs.vertxRx2)
+    codeGenerator(libs.vertxRx3)
+    codeGenerator(libs.jdbcVertx)
+    codeGenerator(libs.sqlClientVertx)
+    codeGenerator(libs.mutinyCodegen)
+    codeGenerator(libs.jdbcMutiny)
+    codeGenerator(libs.sqlClientMutiny)
 
-    testImplementation(VertxLibs.sqlClient)
+    testImplementation(libs.sqlClientVertx)
 
-    testFixturesApi(project(":spi"))
-    testFixturesApi(LogLibs.slf4j)
-    testFixturesApi(LogLibs.logback)
-    testFixturesApi(TestLibs.junit5Api)
-    testFixturesApi(TestLibs.junit5Engine)
-    testFixturesApi(TestLibs.junit5Params)
-    testFixturesApi(TestLibs.testContainer)
-    testFixturesApi(VertxLibs.junit5)
-    testFixturesApi(ZeroLibs.utils)
+    testFixturesApi(projects.spi)
+    testFixturesApi(libs.bundles.junit5)
+    testFixturesApi(libs.junit5Vertx)
+    testFixturesApi(libs.junit5Container)
+    testFixturesApi(libs.bundles.logback)
+    testFixturesApi(libs.javaUtils)
 
-    testFixturesCompileOnly(UtilLibs.jetbrainsAnnotations)
-
-    testFixturesImplementation(VertxLibs.rx2)
-
-    testFixturesImplementation(VertxLibs.jdbc)
-    testFixturesImplementation(DatabaseLibs.h2)
-
-    testFixturesImplementation(VertxLibs.pgsql)
-    testFixturesImplementation(DatabaseLibs.pgsql)
-    testFixturesImplementation(TestLibs.pgsqlTestContainer)
-
-    testFixturesImplementation(VertxLibs.mysql)
-    testFixturesImplementation(DatabaseLibs.mysql)
-    testFixturesImplementation(TestLibs.mysqlTestContainer)
-
-    testFixturesImplementation(DatabaseLibs.agroalApi)
-    testFixturesImplementation(DatabaseLibs.hikari)
+    testFixturesCompileOnly(libs.jetbrainsAnnotations)
+    testFixturesCompileOnly(libs.agroalApi)
+    testFixturesCompileOnly(libs.hikariCP)
+    testFixturesCompileOnly(libs.jdbcVertx)
+    testFixturesCompileOnly(libs.bundles.postgres)
+    testFixturesCompileOnly(libs.bundles.mysql)
 }
 
 tasks {

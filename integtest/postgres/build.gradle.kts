@@ -4,22 +4,20 @@ import org.jooq.meta.jaxb.ForcedType
 import org.jooq.meta.jaxb.Logging
 
 dependencies {
-    compileOnly(project(":spi")) // for customize generate
-    compileOnly(VertxLibs.pgsql) // for customize generate
-    jooqGenerator(LogLibs.slf4jSimple)
-    jooqGenerator(JooqLibs.jooqMetaExt)
-    jooqGenerator(DatabaseLibs.pgsql)
-    jooqGenerator(TestLibs.pgsqlTestContainer)
+    compileOnly(projects.spi) // for customize generate
+    compileOnly(libs.postgresVertx) // for customize generate
+    jooqGenerator(libs.jooqMetaExt)
+    jooqGenerator(libs.bundles.slf4jImpl)
+    jooqGenerator(libs.postgresJdbc)
+    jooqGenerator(libs.postgresContainer)
 
-    testImplementation(VertxLibs.jdbc)
-    testImplementation(VertxLibs.pgsql)
-    testImplementation(DatabaseLibs.pgsql)
-    testImplementation(TestLibs.pgsqlTestContainer)
-
-    testImplementation(JacksonLibs.databind)
-    testImplementation(JacksonLibs.datetime)
+    testImplementation(libs.jdbcVertx)
+    testImplementation(libs.bundles.postgres)
     // For pg-14
-    testImplementation(DatabaseLibs.scram)
+    testImplementation(libs.scram)
+
+    testImplementation(libs.jacksonDatabind)
+    testImplementation(libs.jacksonDatetime)
 }
 
 val dialect = "org.jooq.meta.postgres.PostgresDatabase"
@@ -27,7 +25,7 @@ val dbImage = DatabaseContainer.findImage(project)
 fun getSchema(schemaFile: String): String = "${buildDir}/resources/main/${schemaFile}"
 
 jooq {
-    version.set(JooqLibs.Version.jooq)
+    version.set(libs.versions.jooq)
 
     configurations {
         create("testPgSchema") {

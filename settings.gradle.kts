@@ -13,6 +13,7 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 rootProject.name = "jooqx-parent"
 val profile: String by settings

@@ -3,13 +3,13 @@ import org.jooq.meta.jaxb.Logging
 import org.jooq.meta.jaxb.Property
 
 dependencies {
-    jooqGenerator(DatabaseLibs.h2)
-    jooqGenerator(JooqLibs.jooqMetaExt)
-    jooqGenerator(LogLibs.slf4jSimple)
+    jooqGenerator(libs.h2Jdbc)
+    jooqGenerator(libs.jooqMetaExt)
+    jooqGenerator(libs.bundles.slf4jImpl)
 }
 
 jooq {
-    version.set(JooqLibs.Version.jooq)
+    version.set(libs.versions.jooq)
 
     configurations {
         create("testH2Schema") {

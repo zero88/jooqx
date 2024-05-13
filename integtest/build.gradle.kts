@@ -21,7 +21,10 @@ tasks {
             )
         }
         tasks = sub.tasks.withType<JooqGenerate>().map { "${sub.path}:${it.name}" }
-        startParameter.projectProperties = mapOf("dbVersion" to dbVersion, "profile" to prop(project, "profile"))
+        startParameter.projectProperties = mapOf(
+            "dbVersion" to dbVersion,
+            "profile" to prop(project, "profile")
+        )
         sub.tasks.withType<Test> {
             loadDbVersion(sub, dbVersion)
             ignoreFailures = false
@@ -31,32 +34,31 @@ tasks {
 }
 
 subprojects {
-    apply(plugin = PluginLibs.jooq)
+    apply(plugin = rootProject.libs.plugins.jooq.get().pluginId)
 
     configurations.all {
         resolutionStrategy {
             preferProjectModules()
-            force(VertxLibs.core)
-            force(VertxLibs.sqlClient)
-            force(VertxLibs.jdbc)
+            force(rootProject.libs.vertxCore)
+            force(rootProject.libs.sqlClientVertx)
+            force(rootProject.libs.jdbcVertx)
         }
     }
 
     dependencies {
-        implementation(JooqLibs.jooqMetaExt) // For generate model
-        testImplementation(testFixtures(project(":jooqx")))
-        testImplementation(DatabaseLibs.agroalApi)
-        testImplementation(DatabaseLibs.agroalPool)
-        testImplementation(DatabaseLibs.hikari)
-        testImplementation(JooqLibs.jooqMeta)
+        implementation(rootProject.libs.jooqMetaExt) // For generate model
+        testImplementation(testFixtures(rootProject.projects.jooqx))
+        testImplementation(rootProject.libs.jooqMeta)
+        testImplementation(rootProject.libs.hikariCP)
+        testImplementation(rootProject.libs.bundles.agroal)
 
-        testImplementation(VertxLibs.rx2)
-        testImplementation(VertxLibs.rx3)
+        testImplementation(rootProject.libs.vertxRx2)
+        testImplementation(rootProject.libs.vertxRx3)
 
-        testImplementation(MutinyLibs.core)
-        testImplementation(MutinyLibs.jdbc)
+        testImplementation(rootProject.libs.mutinyCore)
+        testImplementation(rootProject.libs.jdbcMutiny)
 
-        testImplementation(LogLibs.logback)
+        testImplementation(rootProject.libs.bundles.logback)
     }
 
     tasks {

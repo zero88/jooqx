@@ -1,0 +1,113 @@
+[versions]
+pluginPlayio = "0.3.0"
+pluginJooq = "5.2"
+## JUnit
+junit5 = "5.10.2"
+junit5Vertx = "4.2.5"
+junit5Container = "1.19.7"
+junitPioneer_jdk8 = "1.9.1"
+junitPioneer_jdk11 = "2.2.0"
+## Logging
+slf4j = "2.0.12"
+log4j2 = "2.23.1"
+logback = "1.3.14"
+## Jackson
+jackson = "2.17.0"
+## JDBC
+agroal_jdk8 = "1.18"
+agroal_jdk11 = "2.3"
+hikariCP_jdk8 = "4.0.3"
+hikariCP_jdk11 = "5.1.0"
+jdbcH2 = "1.4.200"
+jdbcMySQL = "8.0.33"
+jdbcPostgres = "42.7.3"
+jdbcSQLite = "3.45.2.0"
+jdbcHSQL = "2.7.2"
+jdbcDerby = "10.17.1.0"
+## Vertx
+vertx = "4.3.8"
+## Jooq
+jooq = "3.14.16"
+## Mutiny
+mutiny = "2.30.1"
+
+[libraries]
+jetbrainsAnnotations = { module = "org.jetbrains:annotations", version = "24.1.0" }
+javaUtils = { module = "io.github.zero88:java-utils", version = "2.0.0" }
+rsqlParser = { module = "io.github.zero88:rsql-parser", version = "2.2.1" }
+## Junit5
+junit5Api = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit5" }
+junit5Engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref = "junit5" }
+junit5Vintage = { module = "org.junit.vintage:junit-vintage-engine", version.ref = "junit5" }
+junit5Params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit5" }
+junit5Vertx = { module = "io.vertx:vertx-junit5", version.ref = "junit5Vertx" }
+junitPioneer = { module = "org.junit-pioneer:junit-pioneer", version.ref = "junitPioneer_jdk11" }
+## Jackson
+jacksonDatabind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
+jacksonDatetime = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310", version.ref = "jackson" }
+## TestContainer
+junit5Container = { module = "org.testcontainers:junit-jupiter", version.ref = "junit5Container" }
+postgresContainer = { module = "org.testcontainers:postgresql", version.ref = "junit5Container" }
+mysqlContainer = { module = "org.testcontainers:mysql", version.ref = "junit5Container" }
+## log4j2
+log4j2Api = { module = "org.apache.logging.log4j:log4j-api", version.ref = "log4j2" }
+log4j2Core = { module = "org.apache.logging.log4j:log4j-core", version.ref = "log4j2" }
+log4j2slf4j = { module = "org.apache.logging.log4j:log4j-slf4j-impl", version.ref = "log4j2" }
+## slf4j
+slf4j = { module = "org.slf4j:slf4j-api", version.ref = "slf4j" }
+slf4jSimple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }
+logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
+## JDBC
+scram = { module = "com.ongres.scram:client", version = "2.1" }
+agroalApi = { module = "io.agroal:agroal-api", version.ref = "agroal_jdk11" }
+agroalPool = { module = "io.agroal:agroal-pool", version.ref = "agroal_jdk11" }
+hikariCP = { module = "com.zaxxer:HikariCP", version.ref = "hikariCP_jdk11" }
+h2Jdbc = { module = "com.h2database:h2", version.ref = "jdbcH2" }
+mysqlJdbc = { module = "mysql:mysql-connector-java", version.ref = "jdbcMySQL" }
+postgresJdbc = { module = "org.postgresql:postgresql", version.ref = "jdbcPostgres" }
+sqliteJdbc = { module = "org.xerial:sqlite-jdbc", version.ref = "jdbcSQLite" }
+derbyJdbc = { module = "org.apache.derby:derby", version.ref = "jdbcDerby" }
+hsqlJdbc = { module = "org.hsqldb:hsqldb", version.ref = "jdbcHSQL" }
+## Vertx
+vertxCore = { module = "io.vertx:vertx-core", version.ref = "vertx" }
+vertxRx2 = { module = "io.vertx:vertx-rx-java2", version.ref = "vertx" }
+vertxRx3 = { module = "io.vertx:vertx-rx-java3", version.ref = "vertx" }
+sqlClientVertx = { module = "io.vertx:vertx-sql-client", version.ref = "vertx" }
+jdbcVertx = { module = "io.vertx:vertx-jdbc-client", version.ref = "vertx" }
+db2Vertx = { module = "io.vertx:vertx-db2-client", version.ref = "vertx" }
+mssqlVertx = { module = "io.vertx:vertx-mssql-client", version.ref = "vertx" }
+mysqlVertx = { module = "io.vertx:vertx-mysql-client", version.ref = "vertx" }
+postgresVertx = { module = "io.vertx:vertx-pg-client", version.ref = "vertx" }
+## Jooq
+jooq = { module = "org.jooq:jooq", version.ref = "jooq" }
+jooqMeta = { module = "org.jooq:jooq-meta", version.ref = "jooq" }
+jooqMetaExt = { module = "org.jooq:jooq-meta-extensions", version.ref = "jooq" }
+## Mutiny
+mutinyCore = { module = "io.smallrye.reactive:smallrye-mutiny-vertx-core", version.ref = "mutiny" }
+mutinyCodegen = { module = "io.smallrye.reactive:vertx-mutiny-generator", version.ref = "mutiny" }
+sqlClientMutiny = { module = "io.smallrye.reactive:smallrye-mutiny-vertx-sql-client", version.ref = "mutiny" }
+jdbcMutiny = { module = "io.smallrye.reactive:smallrye-mutiny-vertx-jdbc-client", version.ref = "mutiny" }
+db2Mutiny = { module = "io.smallrye.reactive:smallrye-mutiny-vertx-db2-client", version.ref = "mutiny" }
+mysqlMutiny = { module = "io.smallrye.reactive:smallrye-mutiny-vertx-mysql-client", version.ref = "mutiny" }
+mssqlMutiny = { module = "io.smallrye.reactive:smallrye-mutiny-vertx-mssql-client", version.ref = "mutiny" }
+oracleMutiny = { module = "io.smallrye.reactive:smallrye-mutiny-vertx-oracle-client", version.ref = "mutiny" }
+postgresMutiny = { module = "io.smallrye.reactive:smallrye-mutiny-vertx-pg-client", version.ref = "mutiny" }
+
+[bundles]
+junit5 = ["junit5Api", "junit5Engine", "junit5Params"]
+log4j2 = ["log4j2Api", "log4j2Core", "log4j2slf4j"]
+logback = ["slf4j", "logback"]
+slf4jImpl = ["slf4j", "slf4jSimple"]
+postgres = ["postgresContainer", "postgresJdbc", "postgresVertx"]
+mysql = ["mysqlContainer", "mysqlJdbc", "mysqlVertx"]
+agroal = ["agroalApi", "agroalPool"]
+java8libs = ["junitPioneer", "hikariCP", "agroalApi", "agroalPool"]
+
+[plugins]
+oss = { id = "cloud.playio.gradle.oss", version.ref = "pluginPlayio" }
+root = { id = "cloud.playio.gradle.root", version.ref = "pluginPlayio" }
+antora = { id = "cloud.playio.gradle.antora", version.ref = "pluginPlayio" }
+pandoc = { id = "cloud.playio.gradle.pandoc", version.ref = "pluginPlayio" }
+docgen = { id = "cloud.playio.gradle.docgen", version.ref = "pluginPlayio" }
+codegen = { id = "cloud.playio.gradle.codegen", version.ref = "pluginPlayio" }
+jooq = { id = "nu.studer.jooq", version.ref = "pluginJooq" }

@@ -3,6 +3,6 @@ val jpaLib = "io.github.zero88:jpa-ext:1.0.0" // on CI system
 
 dependencies {
     api(if (profile == "rsql" || profile == "rsql:docs") jpaLib else project(":jpa-ext"))
-    api(ZeroLibs.utils)
-    api(ZeroLibs.rsql)
+    api(libs.javaUtils)
+    api(libs.rsqlParser)
 }

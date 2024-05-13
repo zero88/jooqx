@@ -5,23 +5,25 @@ import cloud.playio.gradle.pandoc.FormatFrom
 import cloud.playio.gradle.pandoc.FormatTo
 import cloud.playio.gradle.pandoc.tasks.PandocTask
 
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    id(PlayioPlugin.antora)
-    id(PlayioPlugin.pandoc)
-    id(PlayioPlugin.docgen)
+    alias(libs.plugins.docgen)
+    // Not yet known why alias doesn't work. https://github.com/gradle/gradle/issues/20084
+    id(libs.plugins.antora.get().pluginId)
+    id(libs.plugins.pandoc.get().pluginId)
 }
 
 dependencies {
-    compileOnly(project(":spi"))
-    compileOnly(project(":integtest:postgres"))
-    compileOnly(JooqLibs.jooqMeta)
-    compileOnly(VertxLibs.jdbc)
-    compileOnly(VertxLibs.pgsql)
-    compileOnly(VertxLibs.mysql)
-    compileOnly(VertxLibs.rx2)
-    compileOnly(VertxLibs.rx3)
-    compileOnly(MutinyLibs.core)
-    compileOnly(MutinyLibs.pgsql)
+    compileOnly(projects.spi)
+    compileOnly(projects.integtest.postgres)
+    compileOnly(libs.jooqMeta)
+    compileOnly(libs.jdbcVertx)
+    compileOnly(libs.postgresVertx)
+    compileOnly(libs.postgresMutiny)
+    compileOnly(libs.mysqlVertx)
+    compileOnly(libs.vertxRx2)
+    compileOnly(libs.vertxRx3)
+    compileOnly(libs.mutinyCore)
 }
 
 documentation {
@@ -45,7 +47,6 @@ documentation {
             arguments.set(arrayOf("--trace"))
         }
     }
-
 }
 
 tasks {

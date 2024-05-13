@@ -1,5 +1,6 @@
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    id(PlayioPlugin.antora)
+    alias(libs.plugins.antora)
 }
 
 subprojects {
@@ -14,9 +15,9 @@ documentation {
         asciiAttributes.set(
             mapOf(
                 "jooqx-version" to project.version,
-                "vertx-version" to VertxLibs.Version.vertxCore,
-                "jooq-version" to JooqLibs.Version.jooq,
-                "mutiny-version" to MutinyLibs.Version.mutiny
+                "vertx-version" to libs.versions.vertx,
+                "jooq-version" to libs.versions.jooq,
+                "mutiny-version" to libs.versions.mutiny
             )
         )
     }

@@ -8,5 +8,5 @@ repositories {
 }
 
 dependencies {
-    api("org.testcontainers:testcontainers:1.19.7")
+    implementation(libs.junit5Container)
 }

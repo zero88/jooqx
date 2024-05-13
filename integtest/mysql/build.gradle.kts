@@ -1,22 +1,21 @@
 import cloud.playio.gradle.jooq.JooqJdbcContainer
 import cloud.playio.gradle.jooq.loadDbSchema
-import cloud.playio.gradle.shared.prop
 import nu.studer.gradle.jooq.JooqGenerate
 import org.jooq.meta.jaxb.Logging
 
+@Suppress("DSL_SCOPE_VIOLATION")
 plugins {
-    id(PluginLibs.jooq)
+    alias(libs.plugins.jooq)
 }
 
 dependencies {
-    jooqGenerator(JooqLibs.jooqMetaExt)
-    jooqGenerator(DatabaseLibs.mysql)
-    jooqGenerator(TestLibs.mysqlTestContainer)
-    jooqGenerator(LogLibs.slf4jSimple)
-    jooqGenerator(testFixtures(project(":jooqx")))
+    jooqGenerator(libs.jooqMetaExt)
+    jooqGenerator(libs.mysqlJdbc)
+    jooqGenerator(libs.mysqlContainer)
+    jooqGenerator(libs.bundles.slf4jImpl)
+    jooqGenerator(testFixtures(projects.jooqx))
 
-    testImplementation(VertxLibs.mysql)
-    testImplementation(TestLibs.mysqlTestContainer)
+    testImplementation(libs.bundles.mysql)
 }
 
 val dialect = "org.jooq.meta.mysql.MySQLDatabase"
@@ -24,7 +23,7 @@ val dbImage = DatabaseContainer.findImage(project)
 fun getSchema(schemaFile: String): String = "${buildDir}/resources/main/${schemaFile}"
 
 jooq {
-    version.set(JooqLibs.Version.jooq)
+    version.set(libs.versions.jooq)
 
     configurations {
         create("testMySQLSchema") {
