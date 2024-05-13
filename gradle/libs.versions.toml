@@ -21,7 +21,7 @@ hikariCP_jdk11 = "5.1.0"
 jdbcH2 = "1.4.200"
 jdbcMySQL = "8.0.33"
 jdbcPostgres = "42.7.3"
-jdbcSQLite = "3.45.2.0"
+jdbcSQLite = "3.45.3.0"
 jdbcHSQL = "2.7.2"
 jdbcDerby = "10.17.1.0"
 ## Vertx
