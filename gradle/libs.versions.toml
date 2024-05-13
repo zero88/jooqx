@@ -28,7 +28,7 @@ jdbcDerby = "10.17.1.0"
 ## Vertx
 vertx = "4.3.8"
 ## Jooq
-jooq = "3.14.16"
+jooq = "3.19.8"
 ## Mutiny
 mutiny = "2.30.1"
 
