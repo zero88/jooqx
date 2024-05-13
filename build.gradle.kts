@@ -21,7 +21,7 @@ project.ext.set(NexusConfig.NEXUS_VERSION_KEY, NexusVersion.BEFORE_2021_02_24)
 val skipPublish = (gradle as ExtensionAware).extensions["SKIP_PUBLISH"] as Array<*>
 
 jacoco {
-    toolVersion = "0.8.11"
+    toolVersion = "0.8.12"
 }
 
 allprojects {
