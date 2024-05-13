@@ -698,128 +698,161 @@ R&gt;&nbsp;void</code></div>
 </section>
 </li>
 <li>
-<section class="detail" id="batchResult(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)">
-<h3>batchResult</h3>
+<section class="detail" id="sql(java.util.function.Function)">
+<h3>sql</h3>
 <div class="member-signature"><span class="annotations">@CheckReturnValue
-</span><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
-R&gt;</span>
-<span class="return-type">io.smallrye.mutiny.Uni&lt;<a href="../BatchReturningResult.html" title="interface in io.github.zero88.jooqx">BatchReturningResult</a>&lt;R&gt;&gt;</span>&nbsp;<span class="element-name">batchResult</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr>org.jooq.Query&gt;&nbsp;queryFunction,
- <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
- <a href="../adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter</a>&lt;T,<wbr>R&gt;&nbsp;adapter)</span></div>
-<div class="block">Result batch execute
+</span><span class="modifiers">public</span>&nbsp;<span class="return-type">io.smallrye.mutiny.Uni&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">sql</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;sqlFunction)</span></div>
+<div class="block">Execute the plain SQL statement without result (e.g: SET, INSERT, UPDATE, etc...)
  <p>
  Unlike the <em>bare</em> Vert.x variant, this method returns a <code>Uni</code>.
  Don't forget to <em>subscribe</em> on it to trigger the operation.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>queryFunction</code> - query function</dd>
-<dd><code>bindBatchValues</code> - bind batch values</dd>
-<dd><code>adapter</code> - </dd>
+<dd><code>sqlFunction</code> - the plain SQL function products a plain SQL statement without result</dd>
 <dt>Returns:</dt>
 <dd>the <code>uni</code> firing the result of the operation when completed, or a failure if the operation failed.</dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="batchResultAndAwait(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)">
-<h3>batchResultAndAwait</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
-R&gt;</span>&nbsp;<span class="return-type"><a href="../BatchReturningResult.html" title="interface in io.github.zero88.jooqx">BatchReturningResult</a>&lt;R&gt;</span>&nbsp;<span class="element-name">batchResultAndAwait</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr>org.jooq.Query&gt;&nbsp;queryFunction,
- <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
- <a href="../adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter</a>&lt;T,<wbr>R&gt;&nbsp;adapter)</span></div>
-<div class="block">Blocking variant of <a href="SQLBatchResultExecutor.html#batchResult(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)"><code>SQLBatchResultExecutor.batchResult(Function,BindBatchValues,SQLResultListAdapter)</code></a>.
+<section class="detail" id="sqlAndAwait(java.util.function.Function)">
+<h3>sqlAndAwait</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a></span>&nbsp;<span class="element-name">sqlAndAwait</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;sqlFunction)</span></div>
+<div class="block">Blocking variant of <a href="SQLPlainExecutor.html#sql(java.util.function.Function)"><code>SQLPlainExecutor.sql(Function)</code></a>.
  <p>
  This method waits for the completion of the underlying asynchronous operation.
  If the operation completes successfully, the result is returned, otherwise the failure is thrown (potentially wrapped in a RuntimeException).</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>queryFunction</code> - query function</dd>
-<dd><code>bindBatchValues</code> - bind batch values</dd>
-<dd><code>adapter</code> - </dd>
+<dd><code>sqlFunction</code> - the plain SQL function products a plain SQL statement without result</dd>
 <dt>Returns:</dt>
-<dd>the BatchReturningResult<R> instance produced by the operation.</dd>
+<dd>the Integer instance produced by the operation.</dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="batchResultAndForget(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)">
-<h3>batchResultAndForget</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
-R&gt;</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">batchResultAndForget</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr>org.jooq.Query&gt;&nbsp;queryFunction,
- <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
- <a href="../adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter</a>&lt;T,<wbr>R&gt;&nbsp;adapter)</span></div>
-<div class="block">Variant of <a href="SQLBatchResultExecutor.html#batchResult(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)"><code>SQLBatchResultExecutor.batchResult(Function,BindBatchValues,SQLResultListAdapter)</code></a> that ignores the result of the operation.
+<section class="detail" id="sqlAndForget(java.util.function.Function)">
+<h3>sqlAndForget</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">sqlAndForget</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;sqlFunction)</span></div>
+<div class="block">Variant of <a href="SQLPlainExecutor.html#sql(java.util.function.Function)"><code>SQLPlainExecutor.sql(Function)</code></a> that ignores the result of the operation.
  <p>
- This method subscribes on the result of <a href="SQLBatchResultExecutor.html#batchResult(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)"><code>SQLBatchResultExecutor.batchResult(Function,BindBatchValues,SQLResultListAdapter)</code></a>, but discards the outcome (item or failure).
- This method is useful to trigger the asynchronous operation from <a href="SQLBatchResultExecutor.html#batchResult(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)"><code>SQLBatchResultExecutor.batchResult(Function,BindBatchValues,SQLResultListAdapter)</code></a> but you don't need to compose it with other operations.</div>
+ This method subscribes on the result of <a href="SQLPlainExecutor.html#sql(java.util.function.Function)"><code>SQLPlainExecutor.sql(Function)</code></a>, but discards the outcome (item or failure).
+ This method is useful to trigger the asynchronous operation from <a href="SQLPlainExecutor.html#sql(java.util.function.Function)"><code>SQLPlainExecutor.sql(Function)</code></a> but you don't need to compose it with other operations.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>queryFunction</code> - query function</dd>
-<dd><code>bindBatchValues</code> - bind batch values</dd>
-<dd><code>adapter</code> - </dd>
+<dd><code>sqlFunction</code> - the plain SQL function products a plain SQL statement without result</dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="batchResult(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)">
-<h3>batchResult</h3>
+<section class="detail" id="sqlQuery(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
+<h3>sqlQuery</h3>
 <div class="member-signature"><span class="annotations">@CheckReturnValue
 </span><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
-R&gt;</span>
-<span class="return-type">io.smallrye.mutiny.Uni&lt;<a href="../BatchReturningResult.html" title="interface in io.github.zero88.jooqx">BatchReturningResult</a>&lt;R&gt;&gt;</span>&nbsp;<span class="element-name">batchResult</span><wbr><span class="parameters">(org.jooq.Query&nbsp;query,
- <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
- <a href="../adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter</a>&lt;T,<wbr>R&gt;&nbsp;adapter)</span></div>
-<div class="block">Execute batch statements then receive results
+R&gt;</span>&nbsp;<span class="return-type">io.smallrye.mutiny.Uni&lt;R&gt;</span>&nbsp;<span class="element-name">sqlQuery</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;sqlFunction,
+ <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,<wbr>R&gt;&nbsp;adapter)</span></div>
+<div class="block">Execute the plain SQL statement with results (e.g: SELECT, etc...)
  <p>
  Unlike the <em>bare</em> Vert.x variant, this method returns a <code>Uni</code>.
  Don't forget to <em>subscribe</em> on it to trigger the operation.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>query</code> - jOOQ query</dd>
-<dd><code>bindBatchValues</code> - bind batch values</dd>
-<dd><code>adapter</code> - result adapter</dd>
+<dd><code>sqlFunction</code> - the plain SQL function products a plain SQL statement with results</dd>
+<dd><code>adapter</code> - the result adapter</dd>
 <dt>Returns:</dt>
 <dd>the <code>uni</code> firing the result of the operation when completed, or a failure if the operation failed.</dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="batchResultAndAwait(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)">
-<h3>batchResultAndAwait</h3>
+<section class="detail" id="sqlQueryAndAwait(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
+<h3>sqlQueryAndAwait</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
-R&gt;</span>&nbsp;<span class="return-type"><a href="../BatchReturningResult.html" title="interface in io.github.zero88.jooqx">BatchReturningResult</a>&lt;R&gt;</span>&nbsp;<span class="element-name">batchResultAndAwait</span><wbr><span class="parameters">(org.jooq.Query&nbsp;query,
- <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
- <a href="../adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter</a>&lt;T,<wbr>R&gt;&nbsp;adapter)</span></div>
-<div class="block">Blocking variant of <a href="SQLBatchResultExecutor.html#batchResult(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)"><code>SQLBatchResultExecutor.batchResult(Query,BindBatchValues,SQLResultListAdapter)</code></a>.
+R&gt;</span>&nbsp;<span class="return-type">R</span>&nbsp;<span class="element-name">sqlQueryAndAwait</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;sqlFunction,
+ <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,<wbr>R&gt;&nbsp;adapter)</span></div>
+<div class="block">Blocking variant of <a href="SQLPlainExecutor.html#sqlQuery(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLPlainExecutor.sqlQuery(Function,SQLResultAdapter)</code></a>.
  <p>
  This method waits for the completion of the underlying asynchronous operation.
  If the operation completes successfully, the result is returned, otherwise the failure is thrown (potentially wrapped in a RuntimeException).</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>query</code> - jOOQ query</dd>
-<dd><code>bindBatchValues</code> - bind batch values</dd>
-<dd><code>adapter</code> - result adapter</dd>
+<dd><code>sqlFunction</code> - the plain SQL function products a plain SQL statement with results</dd>
+<dd><code>adapter</code> - the result adapter</dd>
 <dt>Returns:</dt>
-<dd>the BatchReturningResult<R> instance produced by the operation.</dd>
+<dd>the R instance produced by the operation.</dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="batchResultAndForget(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)">
-<h3>batchResultAndForget</h3>
+<section class="detail" id="sqlQueryAndForget(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
+<h3>sqlQueryAndForget</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
-R&gt;</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">batchResultAndForget</span><wbr><span class="parameters">(org.jooq.Query&nbsp;query,
- <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
- <a href="../adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter</a>&lt;T,<wbr>R&gt;&nbsp;adapter)</span></div>
-<div class="block">Variant of <a href="SQLBatchResultExecutor.html#batchResult(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)"><code>SQLBatchResultExecutor.batchResult(Query,BindBatchValues,SQLResultListAdapter)</code></a> that ignores the result of the operation.
+R&gt;</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">sqlQueryAndForget</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;sqlFunction,
+ <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,<wbr>R&gt;&nbsp;adapter)</span></div>
+<div class="block">Variant of <a href="SQLPlainExecutor.html#sqlQuery(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLPlainExecutor.sqlQuery(Function,SQLResultAdapter)</code></a> that ignores the result of the operation.
  <p>
- This method subscribes on the result of <a href="SQLBatchResultExecutor.html#batchResult(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)"><code>SQLBatchResultExecutor.batchResult(Query,BindBatchValues,SQLResultListAdapter)</code></a>, but discards the outcome (item or failure).
- This method is useful to trigger the asynchronous operation from <a href="SQLBatchResultExecutor.html#batchResult(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)"><code>SQLBatchResultExecutor.batchResult(Query,BindBatchValues,SQLResultListAdapter)</code></a> but you don't need to compose it with other operations.</div>
+ This method subscribes on the result of <a href="SQLPlainExecutor.html#sqlQuery(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLPlainExecutor.sqlQuery(Function,SQLResultAdapter)</code></a>, but discards the outcome (item or failure).
+ This method is useful to trigger the asynchronous operation from <a href="SQLPlainExecutor.html#sqlQuery(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLPlainExecutor.sqlQuery(Function,SQLResultAdapter)</code></a> but you don't need to compose it with other operations.</div>
 <dl class="notes">
 <dt>Parameters:</dt>
-<dd><code>query</code> - jOOQ query</dd>
-<dd><code>bindBatchValues</code> - bind batch values</dd>
-<dd><code>adapter</code> - result adapter</dd>
+<dd><code>sqlFunction</code> - the plain SQL function products a plain SQL statement with results</dd>
+<dd><code>adapter</code> - the result adapter</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="sqlQuery(java.lang.String,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
+<h3>sqlQuery</h3>
+<div class="member-signature"><span class="annotations">@CheckReturnValue
+</span><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
+R&gt;</span>&nbsp;<span class="return-type">io.smallrye.mutiny.Uni&lt;R&gt;</span>&nbsp;<span class="element-name">sqlQuery</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;statement,
+ <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,<wbr>R&gt;&nbsp;adapter)</span></div>
+<div class="block">Execute the plain SQL statement with results (e.g: SELECT, etc...)
+ <p>
+ Unlike the <em>bare</em> Vert.x variant, this method returns a <code>Uni</code>.
+ Don't forget to <em>subscribe</em> on it to trigger the operation.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>statement</code> - the plain SQL statement with results</dd>
+<dd><code>adapter</code> - the result adapter</dd>
+<dt>Returns:</dt>
+<dd>the <code>uni</code> firing the result of the operation when completed, or a failure if the operation failed.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="sqlQueryAndAwait(java.lang.String,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
+<h3>sqlQueryAndAwait</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
+R&gt;</span>&nbsp;<span class="return-type">R</span>&nbsp;<span class="element-name">sqlQueryAndAwait</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;statement,
+ <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,<wbr>R&gt;&nbsp;adapter)</span></div>
+<div class="block">Blocking variant of <a href="SQLPlainExecutor.html#sqlQuery(java.lang.String,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLPlainExecutor.sqlQuery(String,SQLResultAdapter)</code></a>.
+ <p>
+ This method waits for the completion of the underlying asynchronous operation.
+ If the operation completes successfully, the result is returned, otherwise the failure is thrown (potentially wrapped in a RuntimeException).</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>statement</code> - the plain SQL statement with results</dd>
+<dd><code>adapter</code> - the result adapter</dd>
+<dt>Returns:</dt>
+<dd>the R instance produced by the operation.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="sqlQueryAndForget(java.lang.String,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
+<h3>sqlQueryAndForget</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
+R&gt;</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">sqlQueryAndForget</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;statement,
+ <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,<wbr>R&gt;&nbsp;adapter)</span></div>
+<div class="block">Variant of <a href="SQLPlainExecutor.html#sqlQuery(java.lang.String,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLPlainExecutor.sqlQuery(String,SQLResultAdapter)</code></a> that ignores the result of the operation.
+ <p>
+ This method subscribes on the result of <a href="SQLPlainExecutor.html#sqlQuery(java.lang.String,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLPlainExecutor.sqlQuery(String,SQLResultAdapter)</code></a>, but discards the outcome (item or failure).
+ This method is useful to trigger the asynchronous operation from <a href="SQLPlainExecutor.html#sqlQuery(java.lang.String,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLPlainExecutor.sqlQuery(String,SQLResultAdapter)</code></a> but you don't need to compose it with other operations.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>statement</code> - the plain SQL statement with results</dd>
+<dd><code>adapter</code> - the result adapter</dd>
 </dl>
 </section>
 </li>
@@ -1030,165 +1063,6 @@ R&gt;</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="elemen
 </section>
 </li>
 <li>
-<section class="detail" id="sql(java.util.function.Function)">
-<h3>sql</h3>
-<div class="member-signature"><span class="annotations">@CheckReturnValue
-</span><span class="modifiers">public</span>&nbsp;<span class="return-type">io.smallrye.mutiny.Uni&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">sql</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;sqlFunction)</span></div>
-<div class="block">Execute the plain SQL statement without result (e.g: SET, INSERT, UPDATE, etc...)
- <p>
- Unlike the <em>bare</em> Vert.x variant, this method returns a <code>Uni</code>.
- Don't forget to <em>subscribe</em> on it to trigger the operation.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>sqlFunction</code> - the plain SQL function products a plain SQL statement without result</dd>
-<dt>Returns:</dt>
-<dd>the <code>uni</code> firing the result of the operation when completed, or a failure if the operation failed.</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="sqlAndAwait(java.util.function.Function)">
-<h3>sqlAndAwait</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a></span>&nbsp;<span class="element-name">sqlAndAwait</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;sqlFunction)</span></div>
-<div class="block">Blocking variant of <a href="SQLPlainExecutor.html#sql(java.util.function.Function)"><code>SQLPlainExecutor.sql(Function)</code></a>.
- <p>
- This method waits for the completion of the underlying asynchronous operation.
- If the operation completes successfully, the result is returned, otherwise the failure is thrown (potentially wrapped in a RuntimeException).</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>sqlFunction</code> - the plain SQL function products a plain SQL statement without result</dd>
-<dt>Returns:</dt>
-<dd>the Integer instance produced by the operation.</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="sqlAndForget(java.util.function.Function)">
-<h3>sqlAndForget</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">sqlAndForget</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;sqlFunction)</span></div>
-<div class="block">Variant of <a href="SQLPlainExecutor.html#sql(java.util.function.Function)"><code>SQLPlainExecutor.sql(Function)</code></a> that ignores the result of the operation.
- <p>
- This method subscribes on the result of <a href="SQLPlainExecutor.html#sql(java.util.function.Function)"><code>SQLPlainExecutor.sql(Function)</code></a>, but discards the outcome (item or failure).
- This method is useful to trigger the asynchronous operation from <a href="SQLPlainExecutor.html#sql(java.util.function.Function)"><code>SQLPlainExecutor.sql(Function)</code></a> but you don't need to compose it with other operations.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>sqlFunction</code> - the plain SQL function products a plain SQL statement without result</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="sqlQuery(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
-<h3>sqlQuery</h3>
-<div class="member-signature"><span class="annotations">@CheckReturnValue
-</span><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
-R&gt;</span>&nbsp;<span class="return-type">io.smallrye.mutiny.Uni&lt;R&gt;</span>&nbsp;<span class="element-name">sqlQuery</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;sqlFunction,
- <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,<wbr>R&gt;&nbsp;adapter)</span></div>
-<div class="block">Execute the plain SQL statement with results (e.g: SELECT, etc...)
- <p>
- Unlike the <em>bare</em> Vert.x variant, this method returns a <code>Uni</code>.
- Don't forget to <em>subscribe</em> on it to trigger the operation.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>sqlFunction</code> - the plain SQL function products a plain SQL statement with results</dd>
-<dd><code>adapter</code> - the result adapter</dd>
-<dt>Returns:</dt>
-<dd>the <code>uni</code> firing the result of the operation when completed, or a failure if the operation failed.</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="sqlQueryAndAwait(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
-<h3>sqlQueryAndAwait</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
-R&gt;</span>&nbsp;<span class="return-type">R</span>&nbsp;<span class="element-name">sqlQueryAndAwait</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;sqlFunction,
- <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,<wbr>R&gt;&nbsp;adapter)</span></div>
-<div class="block">Blocking variant of <a href="SQLPlainExecutor.html#sqlQuery(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLPlainExecutor.sqlQuery(Function,SQLResultAdapter)</code></a>.
- <p>
- This method waits for the completion of the underlying asynchronous operation.
- If the operation completes successfully, the result is returned, otherwise the failure is thrown (potentially wrapped in a RuntimeException).</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>sqlFunction</code> - the plain SQL function products a plain SQL statement with results</dd>
-<dd><code>adapter</code> - the result adapter</dd>
-<dt>Returns:</dt>
-<dd>the R instance produced by the operation.</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="sqlQueryAndForget(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
-<h3>sqlQueryAndForget</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
-R&gt;</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">sqlQueryAndForget</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;sqlFunction,
- <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,<wbr>R&gt;&nbsp;adapter)</span></div>
-<div class="block">Variant of <a href="SQLPlainExecutor.html#sqlQuery(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLPlainExecutor.sqlQuery(Function,SQLResultAdapter)</code></a> that ignores the result of the operation.
- <p>
- This method subscribes on the result of <a href="SQLPlainExecutor.html#sqlQuery(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLPlainExecutor.sqlQuery(Function,SQLResultAdapter)</code></a>, but discards the outcome (item or failure).
- This method is useful to trigger the asynchronous operation from <a href="SQLPlainExecutor.html#sqlQuery(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLPlainExecutor.sqlQuery(Function,SQLResultAdapter)</code></a> but you don't need to compose it with other operations.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>sqlFunction</code> - the plain SQL function products a plain SQL statement with results</dd>
-<dd><code>adapter</code> - the result adapter</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="sqlQuery(java.lang.String,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
-<h3>sqlQuery</h3>
-<div class="member-signature"><span class="annotations">@CheckReturnValue
-</span><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
-R&gt;</span>&nbsp;<span class="return-type">io.smallrye.mutiny.Uni&lt;R&gt;</span>&nbsp;<span class="element-name">sqlQuery</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;statement,
- <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,<wbr>R&gt;&nbsp;adapter)</span></div>
-<div class="block">Execute the plain SQL statement with results (e.g: SELECT, etc...)
- <p>
- Unlike the <em>bare</em> Vert.x variant, this method returns a <code>Uni</code>.
- Don't forget to <em>subscribe</em> on it to trigger the operation.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>statement</code> - the plain SQL statement with results</dd>
-<dd><code>adapter</code> - the result adapter</dd>
-<dt>Returns:</dt>
-<dd>the <code>uni</code> firing the result of the operation when completed, or a failure if the operation failed.</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="sqlQueryAndAwait(java.lang.String,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
-<h3>sqlQueryAndAwait</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
-R&gt;</span>&nbsp;<span class="return-type">R</span>&nbsp;<span class="element-name">sqlQueryAndAwait</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;statement,
- <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,<wbr>R&gt;&nbsp;adapter)</span></div>
-<div class="block">Blocking variant of <a href="SQLPlainExecutor.html#sqlQuery(java.lang.String,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLPlainExecutor.sqlQuery(String,SQLResultAdapter)</code></a>.
- <p>
- This method waits for the completion of the underlying asynchronous operation.
- If the operation completes successfully, the result is returned, otherwise the failure is thrown (potentially wrapped in a RuntimeException).</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>statement</code> - the plain SQL statement with results</dd>
-<dd><code>adapter</code> - the result adapter</dd>
-<dt>Returns:</dt>
-<dd>the R instance produced by the operation.</dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="sqlQueryAndForget(java.lang.String,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
-<h3>sqlQueryAndForget</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
-R&gt;</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">sqlQueryAndForget</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;statement,
- <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,<wbr>R&gt;&nbsp;adapter)</span></div>
-<div class="block">Variant of <a href="SQLPlainExecutor.html#sqlQuery(java.lang.String,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLPlainExecutor.sqlQuery(String,SQLResultAdapter)</code></a> that ignores the result of the operation.
- <p>
- This method subscribes on the result of <a href="SQLPlainExecutor.html#sqlQuery(java.lang.String,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLPlainExecutor.sqlQuery(String,SQLResultAdapter)</code></a>, but discards the outcome (item or failure).
- This method is useful to trigger the asynchronous operation from <a href="SQLPlainExecutor.html#sqlQuery(java.lang.String,io.github.zero88.jooqx.adapter.SQLResultAdapter)"><code>SQLPlainExecutor.sqlQuery(String,SQLResultAdapter)</code></a> but you don't need to compose it with other operations.</div>
-<dl class="notes">
-<dt>Parameters:</dt>
-<dd><code>statement</code> - the plain SQL statement with results</dd>
-<dd><code>adapter</code> - the result adapter</dd>
-</dl>
-</section>
-</li>
-<li>
 <section class="detail" id="routine(java.util.function.Function)">
 <h3>routine</h3>
 <div class="member-signature"><span class="annotations">@CheckReturnValue
@@ -1376,6 +1250,132 @@ R&gt;</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="elemen
 <dt>Parameters:</dt>
 <dd><code>query</code> - query</dd>
 <dd><code>bindBatchValues</code> - bind batch values</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="batchResult(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)">
+<h3>batchResult</h3>
+<div class="member-signature"><span class="annotations">@CheckReturnValue
+</span><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
+R&gt;</span>
+<span class="return-type">io.smallrye.mutiny.Uni&lt;<a href="../BatchReturningResult.html" title="interface in io.github.zero88.jooqx">BatchReturningResult</a>&lt;R&gt;&gt;</span>&nbsp;<span class="element-name">batchResult</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr>org.jooq.Query&gt;&nbsp;queryFunction,
+ <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
+ <a href="../adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter</a>&lt;T,<wbr>R&gt;&nbsp;adapter)</span></div>
+<div class="block">Result batch execute
+ <p>
+ Unlike the <em>bare</em> Vert.x variant, this method returns a <code>Uni</code>.
+ Don't forget to <em>subscribe</em> on it to trigger the operation.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>queryFunction</code> - query function</dd>
+<dd><code>bindBatchValues</code> - bind batch values</dd>
+<dd><code>adapter</code> - </dd>
+<dt>Returns:</dt>
+<dd>the <code>uni</code> firing the result of the operation when completed, or a failure if the operation failed.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="batchResultAndAwait(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)">
+<h3>batchResultAndAwait</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
+R&gt;</span>&nbsp;<span class="return-type"><a href="../BatchReturningResult.html" title="interface in io.github.zero88.jooqx">BatchReturningResult</a>&lt;R&gt;</span>&nbsp;<span class="element-name">batchResultAndAwait</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr>org.jooq.Query&gt;&nbsp;queryFunction,
+ <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
+ <a href="../adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter</a>&lt;T,<wbr>R&gt;&nbsp;adapter)</span></div>
+<div class="block">Blocking variant of <a href="SQLBatchResultExecutor.html#batchResult(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)"><code>SQLBatchResultExecutor.batchResult(Function,BindBatchValues,SQLResultListAdapter)</code></a>.
+ <p>
+ This method waits for the completion of the underlying asynchronous operation.
+ If the operation completes successfully, the result is returned, otherwise the failure is thrown (potentially wrapped in a RuntimeException).</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>queryFunction</code> - query function</dd>
+<dd><code>bindBatchValues</code> - bind batch values</dd>
+<dd><code>adapter</code> - </dd>
+<dt>Returns:</dt>
+<dd>the BatchReturningResult<R> instance produced by the operation.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="batchResultAndForget(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)">
+<h3>batchResultAndForget</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
+R&gt;</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">batchResultAndForget</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr>org.jooq.Query&gt;&nbsp;queryFunction,
+ <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
+ <a href="../adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter</a>&lt;T,<wbr>R&gt;&nbsp;adapter)</span></div>
+<div class="block">Variant of <a href="SQLBatchResultExecutor.html#batchResult(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)"><code>SQLBatchResultExecutor.batchResult(Function,BindBatchValues,SQLResultListAdapter)</code></a> that ignores the result of the operation.
+ <p>
+ This method subscribes on the result of <a href="SQLBatchResultExecutor.html#batchResult(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)"><code>SQLBatchResultExecutor.batchResult(Function,BindBatchValues,SQLResultListAdapter)</code></a>, but discards the outcome (item or failure).
+ This method is useful to trigger the asynchronous operation from <a href="SQLBatchResultExecutor.html#batchResult(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)"><code>SQLBatchResultExecutor.batchResult(Function,BindBatchValues,SQLResultListAdapter)</code></a> but you don't need to compose it with other operations.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>queryFunction</code> - query function</dd>
+<dd><code>bindBatchValues</code> - bind batch values</dd>
+<dd><code>adapter</code> - </dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="batchResult(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)">
+<h3>batchResult</h3>
+<div class="member-signature"><span class="annotations">@CheckReturnValue
+</span><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
+R&gt;</span>
+<span class="return-type">io.smallrye.mutiny.Uni&lt;<a href="../BatchReturningResult.html" title="interface in io.github.zero88.jooqx">BatchReturningResult</a>&lt;R&gt;&gt;</span>&nbsp;<span class="element-name">batchResult</span><wbr><span class="parameters">(org.jooq.Query&nbsp;query,
+ <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
+ <a href="../adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter</a>&lt;T,<wbr>R&gt;&nbsp;adapter)</span></div>
+<div class="block">Execute batch statements then receive results
+ <p>
+ Unlike the <em>bare</em> Vert.x variant, this method returns a <code>Uni</code>.
+ Don't forget to <em>subscribe</em> on it to trigger the operation.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>query</code> - jOOQ query</dd>
+<dd><code>bindBatchValues</code> - bind batch values</dd>
+<dd><code>adapter</code> - result adapter</dd>
+<dt>Returns:</dt>
+<dd>the <code>uni</code> firing the result of the operation when completed, or a failure if the operation failed.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="batchResultAndAwait(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)">
+<h3>batchResultAndAwait</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
+R&gt;</span>&nbsp;<span class="return-type"><a href="../BatchReturningResult.html" title="interface in io.github.zero88.jooqx">BatchReturningResult</a>&lt;R&gt;</span>&nbsp;<span class="element-name">batchResultAndAwait</span><wbr><span class="parameters">(org.jooq.Query&nbsp;query,
+ <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
+ <a href="../adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter</a>&lt;T,<wbr>R&gt;&nbsp;adapter)</span></div>
+<div class="block">Blocking variant of <a href="SQLBatchResultExecutor.html#batchResult(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)"><code>SQLBatchResultExecutor.batchResult(Query,BindBatchValues,SQLResultListAdapter)</code></a>.
+ <p>
+ This method waits for the completion of the underlying asynchronous operation.
+ If the operation completes successfully, the result is returned, otherwise the failure is thrown (potentially wrapped in a RuntimeException).</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>query</code> - jOOQ query</dd>
+<dd><code>bindBatchValues</code> - bind batch values</dd>
+<dd><code>adapter</code> - result adapter</dd>
+<dt>Returns:</dt>
+<dd>the BatchReturningResult<R> instance produced by the operation.</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="batchResultAndForget(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)">
+<h3>batchResultAndForget</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
+R&gt;</span>&nbsp;<span class="return-type">void</span>&nbsp;<span class="element-name">batchResultAndForget</span><wbr><span class="parameters">(org.jooq.Query&nbsp;query,
+ <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues,
+ <a href="../adapter/SQLResultListAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultListAdapter</a>&lt;T,<wbr>R&gt;&nbsp;adapter)</span></div>
+<div class="block">Variant of <a href="SQLBatchResultExecutor.html#batchResult(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)"><code>SQLBatchResultExecutor.batchResult(Query,BindBatchValues,SQLResultListAdapter)</code></a> that ignores the result of the operation.
+ <p>
+ This method subscribes on the result of <a href="SQLBatchResultExecutor.html#batchResult(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)"><code>SQLBatchResultExecutor.batchResult(Query,BindBatchValues,SQLResultListAdapter)</code></a>, but discards the outcome (item or failure).
+ This method is useful to trigger the asynchronous operation from <a href="SQLBatchResultExecutor.html#batchResult(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues,io.github.zero88.jooqx.adapter.SQLResultListAdapter)"><code>SQLBatchResultExecutor.batchResult(Query,BindBatchValues,SQLResultListAdapter)</code></a> but you don't need to compose it with other operations.</div>
+<dl class="notes">
+<dt>Parameters:</dt>
+<dd><code>query</code> - jOOQ query</dd>
+<dd><code>bindBatchValues</code> - bind batch values</dd>
+<dd><code>adapter</code> - result adapter</dd>
 </dl>
 </section>
 </li>

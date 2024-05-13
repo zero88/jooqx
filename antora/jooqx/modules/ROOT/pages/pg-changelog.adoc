@@ -21,7 +21,7 @@ https://github.com/zero88/jooqx/issues/137[#137]
 https://github.com/zero88/jooqx/issues/133[#133]
 * Add shortcut for fetchOne/fetchMany/fetchExists/fetchCount into jooqx
 https://github.com/zero88/jooqx/issues/129[#129]
-* Refactor code generation for `rxify`
+* Refactor code generation for `+rxify+`
 https://github.com/zero88/jooqx/issues/103[#103]
 * Support SQL block https://github.com/zero88/jooqx/issues/98[#98]
 * Support plain SQL https://github.com/zero88/jooqx/issues/97[#97]
