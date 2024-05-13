@@ -18,7 +18,6 @@ import io.github.zero88.sample.model.pgsql.routines.Add;
 import io.github.zero88.sample.model.pgsql.routines.Dup;
 import io.github.zero88.sample.model.pgsql.routines.Dup2;
 import io.github.zero88.sample.model.pgsql.routines.RemoveAuthor;
-import io.github.zero88.sample.model.pgsql.tables.records.FindAuthorsRecord;
 import io.github.zero88.sample.model.pgsql.udt.records.DupResultRecord;
 import io.vertx.core.Vertx;
 import io.vertx.junit5.Checkpoint;
@@ -109,12 +108,10 @@ class PgPoolRoutineTest extends PgSQLJooqxTest<PgPool>
         jooqx.fetchMany(dsl -> dsl.selectFrom(Tables.FIND_AUTHORS.call("Sc"))).onSuccess(rows -> ctx.verify(() -> {
             System.out.println(rows);
             Assertions.assertEquals(2, rows.size());
-            FindAuthorsRecord rec1 = rows.get(0);
-            Assertions.assertEquals(2, rec1.getId());
-            Assertions.assertEquals("F. Scott. Fitzgerald", rec1.getName());
-            FindAuthorsRecord rec2 = rows.get(1);
-            Assertions.assertEquals(4, rec2.getId());
-            Assertions.assertEquals("Scott Hanselman", rec2.getName());
+            Assertions.assertEquals(2, rows.get(0).getId());
+            Assertions.assertEquals("F. Scott. Fitzgerald", rows.get(0).getName());
+            Assertions.assertEquals(4, rows.get(1).getId());
+            Assertions.assertEquals("Scott Hanselman", rows.get(1).getName());
             cp.flag();
         })).onFailure(ctx::failNow);
     }

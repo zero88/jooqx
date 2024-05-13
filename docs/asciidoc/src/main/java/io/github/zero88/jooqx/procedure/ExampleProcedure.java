@@ -10,7 +10,7 @@ import io.github.zero88.jooqx.Jooqx;
 import io.github.zero88.sample.model.pgsql.Tables;
 import io.github.zero88.sample.model.pgsql.routines.Add;
 import io.github.zero88.sample.model.pgsql.routines.Dup;
-import io.github.zero88.sample.model.pgsql.tables.records.FindAuthorsRecord;
+import io.github.zero88.sample.model.pgsql.tables.records.AuthorsRecord;
 import io.vertx.docgen.Source;
 
 @Source
@@ -61,7 +61,7 @@ class ExampleProcedure {
                 +----+----------------+-------+
                 ]
                 """);
-            FindAuthorsRecord rec1 = rows.get(0);
+            AuthorsRecord rec1 = rows.get(0);
             assert rec1.getId() == 2;
             assert Objects.equals(rec1.getName(), "F. Scott. Fitzgerald");
         }).onFailure(Throwable::printStackTrace);
