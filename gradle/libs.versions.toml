@@ -41,8 +41,7 @@ junit5Engine = { module = "org.junit.jupiter:junit-jupiter-engine", version.ref 
 junit5Vintage = { module = "org.junit.vintage:junit-vintage-engine", version.ref = "junit5" }
 junit5Params = { module = "org.junit.jupiter:junit-jupiter-params", version.ref = "junit5" }
 junit5Vertx = { module = "io.vertx:vertx-junit5", version.ref = "junit5Vertx" }
-junitPioneer_jdk8 = { module = "org.junit-pioneer:junit-pioneer", version.ref = "junitPioneer_jdk8" }
-junitPioneer_jdk11 = { module = "org.junit-pioneer:junit-pioneer", version.ref = "junitPioneer_jdk11" }
+junitPioneer = { module = "org.junit-pioneer:junit-pioneer", version.ref = "junitPioneer_jdk11" }
 ## Jackson
 jacksonDatabind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = "jackson" }
 jacksonDatetime = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310", version.ref = "jackson" }
@@ -60,9 +59,9 @@ slf4jSimple = { module = "org.slf4j:slf4j-simple", version.ref = "slf4j" }
 logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback" }
 ## JDBC
 scram = { module = "com.ongres.scram:client", version = "2.1" }
-agroalApi = { module = "io.agroal:agroal-api", version.ref = "agroal_jdk8" }
-agroalPool = { module = "io.agroal:agroal-pool", version.ref = "agroal_jdk8" }
-hikariCP = { module = "com.zaxxer:HikariCP", version.ref = "hikariCP_jdk8" }
+agroalApi = { module = "io.agroal:agroal-api", version.ref = "agroal_jdk11" }
+agroalPool = { module = "io.agroal:agroal-pool", version.ref = "agroal_jdk11" }
+hikariCP = { module = "com.zaxxer:HikariCP", version.ref = "hikariCP_jdk11" }
 h2Jdbc = { module = "com.h2database:h2", version.ref = "jdbcH2" }
 mysqlJdbc = { module = "mysql:mysql-connector-java", version.ref = "jdbcMySQL" }
 postgresJdbc = { module = "org.postgresql:postgresql", version.ref = "jdbcPostgres" }
@@ -102,6 +101,7 @@ slf4jImpl = ["slf4j", "slf4jSimple"]
 postgres = ["postgresContainer", "postgresJdbc", "postgresVertx"]
 mysql = ["mysqlContainer", "mysqlJdbc", "mysqlVertx"]
 agroal = ["agroalApi", "agroalPool"]
+java8libs = ["junitPioneer", "hikariCP", "agroalApi", "agroalPool"]
 
 [plugins]
 oss = { id = "cloud.playio.gradle.oss", version.ref = "pluginPlayio" }

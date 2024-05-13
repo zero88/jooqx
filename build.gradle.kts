@@ -47,9 +47,28 @@ allprojects {
 
 subprojects {
     apply(plugin = rootProject.libs.plugins.oss.get().pluginId)
-
     val jvmRuntime = JavaVersion.current().majorVersion
     val jvmRelease = prop(project, "jvmRelease") as String
+
+    if (jvmRuntime == "8") {
+        configurations.all {
+            resolutionStrategy {
+                eachDependency {
+                    val dep = this
+                    if (dep.requested.module in libs.bundles.java8libs.get().map { it.module }) {
+                        with(dep.requested.module.toString()) {
+                            when {
+                                contains("junit-pioneer") -> dep.useVersion(libs.versions.junitPioneer.jdk8.get())
+                                contains("HikariCP")      -> dep.useVersion(libs.versions.hikariCP.jdk8.get())
+                                contains("agroal")        -> dep.useVersion(libs.versions.agroal.jdk8.get())
+                                else                      -> throw IllegalArgumentException("Unknown module $this")
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     val artifactClassifier = when (jvmRuntime) {
         "8"  -> if (jvmRelease == "8") "" else "-jvm8"
         "11" -> if (jvmRelease == "11") "" else "-jvm11"
@@ -63,10 +82,7 @@ subprojects {
 
         testCompileOnly(rootProject.libs.jetbrainsAnnotations)
         testImplementation(rootProject.libs.bundles.junit5)
-        when (jvmRuntime) {
-            "8" -> testImplementation(rootProject.libs.junitPioneer.jdk8)
-            else -> testImplementation(rootProject.libs.junitPioneer.jdk11)
-        }
+        testImplementation(rootProject.libs.junitPioneer)
     }
 
     oss {
@@ -79,7 +95,7 @@ subprojects {
 
     java {
         toolchain {
-            languageVersion.set(JavaLanguageVersion.of(JavaVersion.current().majorVersion))
+            languageVersion.set(JavaLanguageVersion.of(jvmRuntime))
         }
     }
 
@@ -106,9 +122,7 @@ rootProject.apply {
     dependencies {
         val profile = prop(rootProject, "profile")
         val projectList = ((gradle as ExtensionAware).extensions["PROJECT_POOL"] as Map<*, Array<String>>)[profile]
-        projectList?.map(project::project)?.forEach {
-            jacocoAggregation(it)
-        }
+        projectList?.map(project::project)?.forEach { jacocoAggregation(it) }
     }
 
     tasks {
