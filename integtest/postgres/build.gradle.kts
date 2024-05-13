@@ -4,7 +4,7 @@ import org.jooq.meta.jaxb.ForcedType
 import org.jooq.meta.jaxb.Logging
 
 dependencies {
-    compileOnly(project(":spi")) // for customize generate
+    compileOnly(projects.spi) // for customize generate
     compileOnly(libs.postgresVertx) // for customize generate
     jooqGenerator(libs.jooqMetaExt)
     jooqGenerator(libs.bundles.slf4jImpl)

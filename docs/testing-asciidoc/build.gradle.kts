@@ -9,10 +9,10 @@ plugins {
 }
 
 dependencies {
-    compileOnly(project(":spi"))
-    compileOnly(testFixtures(project(":jooqx")))
-//    compileOnly(project(":rsql:jooq"))
-    compileOnly(project(":integtest:postgres"))
+    compileOnly(projects.spi)
+    compileOnly(testFixtures(projects.jooqx))
+//    compileOnly(projects.rsql.jooq)
+    compileOnly(projects.integtest.postgres)
     compileOnly(libs.jdbcVertx)
     compileOnly(libs.postgresVertx)
     compileOnly(libs.mysqlVertx)

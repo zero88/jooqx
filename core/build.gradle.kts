@@ -32,7 +32,7 @@ dependencies {
 
     testImplementation(libs.sqlClientVertx)
 
-    testFixturesApi(project(":spi"))
+    testFixturesApi(projects.spi)
     testFixturesApi(libs.bundles.junit5)
     testFixturesApi(libs.junit5Vertx)
     testFixturesApi(libs.junit5Container)
@@ -42,7 +42,6 @@ dependencies {
     testFixturesCompileOnly(libs.jetbrainsAnnotations)
     testFixturesCompileOnly(libs.agroalApi)
     testFixturesCompileOnly(libs.hikariCP)
-    testFixturesCompileOnly(libs.h2Jdbc)
     testFixturesCompileOnly(libs.jdbcVertx)
     testFixturesCompileOnly(libs.bundles.postgres)
     testFixturesCompileOnly(libs.bundles.mysql)
