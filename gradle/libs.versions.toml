@@ -8,7 +8,7 @@ junit5Container = "1.19.7"
 junitPioneer_jdk8 = "1.9.1"
 junitPioneer_jdk11 = "2.2.0"
 ## Logging
-slf4j = "2.0.12"
+slf4j = "2.0.13"
 log4j2 = "2.23.1"
 logback = "1.3.14"
 ## Jackson
