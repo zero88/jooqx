@@ -19,14 +19,12 @@ dependencies {
     testImplementation(libs.jacksonDatabind)
     testImplementation(libs.jacksonDatetime)
 }
-
 val dialect = "org.jooq.meta.postgres.PostgresDatabase"
 val dbImage = DatabaseContainer.findImage(project)
 fun getSchema(schemaFile: String): String = "${buildDir}/resources/main/${schemaFile}"
 
 jooq {
-    version.set(libs.jooq.get().version)
-
+    version.set(if (JavaVersion.current().majorVersion == "8") libs.versions.jooq.jdk8.get() else libs.versions.jooq.jdk17.get())
     configurations {
         create("testPgSchema") {
             jooqConfiguration.apply {
