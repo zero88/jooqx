@@ -29,12 +29,12 @@ class H2ReASQLTest extends JooqxDBMemoryTest<JDBCPool> implements H2MemProvider,
         Checkpoint flag = ctx.checkpoint();
 
         jooqx.sql("CREATE TABLE HELLO_JOOQX (id INT)")
-             .onSuccess(r -> System.out.println("he " + r))
-             .flatMap(i -> jooqx.execute(
-                 dsl -> dsl.selectFrom(Tables.TABLES).where(Tables.TABLES.TABLE_NAME.eq("HELLO_JOOQX")),
-                 DSLAdapter.fetchOne(Tables.TABLES)))
+             .onSuccess(r -> Assertions.assertEquals(0, r, "Create table is failed, return err " + r))
+             .flatMap(i -> jooqx.fetchExists(dsl -> dsl.select(Tables.TABLES.TABLE_NAME)
+                                                       .from(Tables.TABLES)
+                                                       .where(Tables.TABLES.TABLE_NAME.eq("HELLO_JOOQX"))))
              .onSuccess(c -> ctx.verify(() -> {
-                 Assertions.assertEquals("HELLO_JOOQX", c.getValue(Tables.TABLES.TABLE_NAME));
+                 Assertions.assertTrue(c, "Table 'HELLO_JOOQX' is not yet exists'");
                  flag.flag();
              }))
              .onFailure(ctx::failNow);
