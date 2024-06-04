@@ -512,97 +512,124 @@ R&gt;&nbsp;io.reactivex.rxjava3.core.Maybe&lt;R&gt;</code></div>
 </section>
 </li>
 <li>
-<section class="detail" id="sql(java.util.function.Function)">
-<h3>sql</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">io.reactivex.rxjava3.core.Single&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">sql</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;sqlFunction)</span></div>
-<div class="block">Execute the plain SQL statement without result (e.g: SET, INSERT, UPDATE, etc...)</div>
+<section class="detail" id="routine(java.util.function.Function)">
+<h3>routine</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type">io.reactivex.rxjava3.core.Single&lt;T&gt;</span>&nbsp;<span class="element-name">routine</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr>org.jooq.Routine&lt;T&gt;&gt;&nbsp;routineFunction)</span></div>
 <dl class="notes">
 <dt>Overrides:</dt>
-<dd><code><a href="JooqxConn.html#sql(java.util.function.Function)">sql</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
-<dt>Parameters:</dt>
-<dd><code>sqlFunction</code> - the plain SQL function products a plain SQL statement without result</dd>
-<dt>Returns:</dt>
+<dd><code><a href="JooqxConn.html#routine(java.util.function.Function)">routine</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="rxSql(java.util.function.Function)">
-<h3>rxSql</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">io.reactivex.rxjava3.core.Single&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">rxSql</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;sqlFunction)</span></div>
-<div class="block">Execute the plain SQL statement without result (e.g: SET, INSERT, UPDATE, etc...)</div>
+<section class="detail" id="rxRoutine(java.util.function.Function)">
+<h3>rxRoutine</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type">io.reactivex.rxjava3.core.Single&lt;T&gt;</span>&nbsp;<span class="element-name">rxRoutine</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr>org.jooq.Routine&lt;T&gt;&gt;&nbsp;routineFunction)</span></div>
 <dl class="notes">
 <dt>Overrides:</dt>
-<dd><code><a href="JooqxConn.html#rxSql(java.util.function.Function)">rxSql</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
-<dt>Parameters:</dt>
-<dd><code>sqlFunction</code> - the plain SQL function products a plain SQL statement without result</dd>
-<dt>Returns:</dt>
+<dd><code><a href="JooqxConn.html#rxRoutine(java.util.function.Function)">rxRoutine</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="sqlQuery(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
-<h3>sqlQuery</h3>
+<section class="detail" id="routine(org.jooq.Routine,io.vertx.core.Handler)">
+<h3>routine</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type">io.vertx.core.Future&lt;T&gt;</span>&nbsp;<span class="element-name">routine</span><wbr><span class="parameters">(org.jooq.Routine&lt;T&gt;&nbsp;routine,
+ io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;T&gt;&gt;&nbsp;handler)</span></div>
+<dl class="notes">
+<dt>Overrides:</dt>
+<dd><code><a href="JooqxConn.html#routine(org.jooq.Routine,io.vertx.core.Handler)">routine</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="routineResult(org.jooq.Routine)">
+<h3>routineResult</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>
+<span class="return-type">io.reactivex.rxjava3.core.Single&lt;<a href="../routine/RoutineResult.html" title="interface in io.github.zero88.jooqx.routine">RoutineResult</a>&gt;</span>&nbsp;<span class="element-name">routineResult</span><wbr><span class="parameters">(org.jooq.Routine&lt;T&gt;&nbsp;routine)</span></div>
+<dl class="notes">
+<dt>Overrides:</dt>
+<dd><code><a href="JooqxConn.html#routineResult(org.jooq.Routine)">routineResult</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="rxRoutineResult(org.jooq.Routine)">
+<h3>rxRoutineResult</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>
+<span class="return-type">io.reactivex.rxjava3.core.Single&lt;<a href="../routine/RoutineResult.html" title="interface in io.github.zero88.jooqx.routine">RoutineResult</a>&gt;</span>&nbsp;<span class="element-name">rxRoutineResult</span><wbr><span class="parameters">(org.jooq.Routine&lt;T&gt;&nbsp;routine)</span></div>
+<dl class="notes">
+<dt>Overrides:</dt>
+<dd><code><a href="JooqxConn.html#rxRoutineResult(org.jooq.Routine)">rxRoutineResult</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="routineResultSet(org.jooq.Routine,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">
+<h3>routineResultSet</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
-R&gt;</span>&nbsp;<span class="return-type">io.reactivex.rxjava3.core.Maybe&lt;R&gt;</span>&nbsp;<span class="element-name">sqlQuery</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;sqlFunction,
- <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,<wbr>R&gt;&nbsp;adapter)</span></div>
-<div class="block">Execute the plain SQL statement with results (e.g: SELECT, etc...)</div>
+X,<wbr>
+R&gt;</span>&nbsp;<span class="return-type">io.vertx.core.Future&lt;R&gt;</span>&nbsp;<span class="element-name">routineResultSet</span><wbr><span class="parameters">(org.jooq.Routine&lt;T&gt;&nbsp;routine,
+ <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;X,<wbr>R&gt;&nbsp;resultAdapter,
+ io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;R&gt;&gt;&nbsp;handler)</span></div>
 <dl class="notes">
 <dt>Overrides:</dt>
-<dd><code><a href="JooqxConn.html#sqlQuery(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">sqlQuery</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
+<dd><code><a href="JooqxConn.html#routineResultSet(org.jooq.Routine,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">routineResultSet</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="ddl(java.util.function.Function)">
+<h3>ddl</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">io.reactivex.rxjava3.core.Single&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">ddl</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr>org.jooq.DDLQuery&gt;&nbsp;ddlFunction)</span></div>
+<div class="block">Execute DDL statement</div>
+<dl class="notes">
+<dt>Overrides:</dt>
+<dd><code><a href="JooqxConn.html#ddl(java.util.function.Function)">ddl</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>sqlFunction</code> - the plain SQL function products a plain SQL statement with results</dd>
-<dd><code>adapter</code> - the result adapter</dd>
+<dd><code>ddlFunction</code> - DDL function produces DDL statement</dd>
 <dt>Returns:</dt>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="rxSqlQuery(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
-<h3>rxSqlQuery</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
-R&gt;</span>&nbsp;<span class="return-type">io.reactivex.rxjava3.core.Maybe&lt;R&gt;</span>&nbsp;<span class="element-name">rxSqlQuery</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;sqlFunction,
- <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,<wbr>R&gt;&nbsp;adapter)</span></div>
-<div class="block">Execute the plain SQL statement with results (e.g: SELECT, etc...)</div>
+<section class="detail" id="rxDdl(java.util.function.Function)">
+<h3>rxDdl</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">io.reactivex.rxjava3.core.Single&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">rxDdl</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr>org.jooq.DDLQuery&gt;&nbsp;ddlFunction)</span></div>
+<div class="block">Execute DDL statement</div>
 <dl class="notes">
 <dt>Overrides:</dt>
-<dd><code><a href="JooqxConn.html#rxSqlQuery(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">rxSqlQuery</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
+<dd><code><a href="JooqxConn.html#rxDdl(java.util.function.Function)">rxDdl</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>sqlFunction</code> - the plain SQL function products a plain SQL statement with results</dd>
-<dd><code>adapter</code> - the result adapter</dd>
+<dd><code>ddlFunction</code> - DDL function produces DDL statement</dd>
 <dt>Returns:</dt>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="sqlQuery(java.lang.String,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
-<h3>sqlQuery</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
-R&gt;</span>&nbsp;<span class="return-type">io.reactivex.rxjava3.core.Maybe&lt;R&gt;</span>&nbsp;<span class="element-name">sqlQuery</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;statement,
- <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,<wbr>R&gt;&nbsp;adapter)</span></div>
-<div class="block">Execute the plain SQL statement with results (e.g: SELECT, etc...)</div>
+<section class="detail" id="ddl(org.jooq.DDLQuery)">
+<h3>ddl</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">io.reactivex.rxjava3.core.Single&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">ddl</span><wbr><span class="parameters">(org.jooq.DDLQuery&nbsp;statement)</span></div>
+<div class="block">Execute DDL statement</div>
 <dl class="notes">
 <dt>Overrides:</dt>
-<dd><code><a href="JooqxConn.html#sqlQuery(java.lang.String,io.github.zero88.jooqx.adapter.SQLResultAdapter)">sqlQuery</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
+<dd><code><a href="JooqxConn.html#ddl(org.jooq.DDLQuery)">ddl</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>statement</code> - the plain SQL statement with results</dd>
-<dd><code>adapter</code> - the result adapter</dd>
+<dd><code>statement</code> - DDL statement</dd>
 <dt>Returns:</dt>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="rxSqlQuery(java.lang.String,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
-<h3>rxSqlQuery</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
-R&gt;</span>&nbsp;<span class="return-type">io.reactivex.rxjava3.core.Maybe&lt;R&gt;</span>&nbsp;<span class="element-name">rxSqlQuery</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;statement,
- <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,<wbr>R&gt;&nbsp;adapter)</span></div>
-<div class="block">Execute the plain SQL statement with results (e.g: SELECT, etc...)</div>
+<section class="detail" id="rxDdl(org.jooq.DDLQuery)">
+<h3>rxDdl</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">io.reactivex.rxjava3.core.Single&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">rxDdl</span><wbr><span class="parameters">(org.jooq.DDLQuery&nbsp;statement)</span></div>
+<div class="block">Execute DDL statement</div>
 <dl class="notes">
 <dt>Overrides:</dt>
-<dd><code><a href="JooqxConn.html#rxSqlQuery(java.lang.String,io.github.zero88.jooqx.adapter.SQLResultAdapter)">rxSqlQuery</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
+<dd><code><a href="JooqxConn.html#rxDdl(org.jooq.DDLQuery)">rxDdl</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>statement</code> - the plain SQL statement with results</dd>
-<dd><code>adapter</code> - the result adapter</dd>
+<dd><code>statement</code> - DDL statement</dd>
 <dt>Returns:</dt>
 </dl>
 </section>
@@ -732,132 +759,97 @@ R&gt;</span>&nbsp;<span class="return-type">io.reactivex.rxjava3.core.Maybe&lt;R
 </section>
 </li>
 <li>
-<section class="detail" id="routine(java.util.function.Function)">
-<h3>routine</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type">io.reactivex.rxjava3.core.Single&lt;T&gt;</span>&nbsp;<span class="element-name">routine</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr>org.jooq.Routine&lt;T&gt;&gt;&nbsp;routineFunction)</span></div>
+<section class="detail" id="sql(java.util.function.Function)">
+<h3>sql</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">io.reactivex.rxjava3.core.Single&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">sql</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;sqlFunction)</span></div>
+<div class="block">Execute the plain SQL statement without result (e.g: SET, INSERT, UPDATE, etc...)</div>
 <dl class="notes">
 <dt>Overrides:</dt>
-<dd><code><a href="JooqxConn.html#routine(java.util.function.Function)">routine</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
+<dd><code><a href="JooqxConn.html#sql(java.util.function.Function)">sql</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>sqlFunction</code> - the plain SQL function products a plain SQL statement without result</dd>
+<dt>Returns:</dt>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="rxRoutine(java.util.function.Function)">
-<h3>rxRoutine</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type">io.reactivex.rxjava3.core.Single&lt;T&gt;</span>&nbsp;<span class="element-name">rxRoutine</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr>org.jooq.Routine&lt;T&gt;&gt;&nbsp;routineFunction)</span></div>
+<section class="detail" id="rxSql(java.util.function.Function)">
+<h3>rxSql</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">io.reactivex.rxjava3.core.Single&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">rxSql</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;sqlFunction)</span></div>
+<div class="block">Execute the plain SQL statement without result (e.g: SET, INSERT, UPDATE, etc...)</div>
 <dl class="notes">
 <dt>Overrides:</dt>
-<dd><code><a href="JooqxConn.html#rxRoutine(java.util.function.Function)">rxRoutine</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
+<dd><code><a href="JooqxConn.html#rxSql(java.util.function.Function)">rxSql</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
+<dt>Parameters:</dt>
+<dd><code>sqlFunction</code> - the plain SQL function products a plain SQL statement without result</dd>
+<dt>Returns:</dt>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="routine(org.jooq.Routine,io.vertx.core.Handler)">
-<h3>routine</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>&nbsp;<span class="return-type">io.vertx.core.Future&lt;T&gt;</span>&nbsp;<span class="element-name">routine</span><wbr><span class="parameters">(org.jooq.Routine&lt;T&gt;&nbsp;routine,
- io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;T&gt;&gt;&nbsp;handler)</span></div>
-<dl class="notes">
-<dt>Overrides:</dt>
-<dd><code><a href="JooqxConn.html#routine(org.jooq.Routine,io.vertx.core.Handler)">routine</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="routineResult(org.jooq.Routine)">
-<h3>routineResult</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>
-<span class="return-type">io.reactivex.rxjava3.core.Single&lt;<a href="../routine/RoutineResult.html" title="interface in io.github.zero88.jooqx.routine">RoutineResult</a>&gt;</span>&nbsp;<span class="element-name">routineResult</span><wbr><span class="parameters">(org.jooq.Routine&lt;T&gt;&nbsp;routine)</span></div>
-<dl class="notes">
-<dt>Overrides:</dt>
-<dd><code><a href="JooqxConn.html#routineResult(org.jooq.Routine)">routineResult</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="rxRoutineResult(org.jooq.Routine)">
-<h3>rxRoutineResult</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T&gt;</span>
-<span class="return-type">io.reactivex.rxjava3.core.Single&lt;<a href="../routine/RoutineResult.html" title="interface in io.github.zero88.jooqx.routine">RoutineResult</a>&gt;</span>&nbsp;<span class="element-name">rxRoutineResult</span><wbr><span class="parameters">(org.jooq.Routine&lt;T&gt;&nbsp;routine)</span></div>
-<dl class="notes">
-<dt>Overrides:</dt>
-<dd><code><a href="JooqxConn.html#rxRoutineResult(org.jooq.Routine)">rxRoutineResult</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="routineResultSet(org.jooq.Routine,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">
-<h3>routineResultSet</h3>
+<section class="detail" id="sqlQuery(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
+<h3>sqlQuery</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
-X,<wbr>
-R&gt;</span>&nbsp;<span class="return-type">io.vertx.core.Future&lt;R&gt;</span>&nbsp;<span class="element-name">routineResultSet</span><wbr><span class="parameters">(org.jooq.Routine&lt;T&gt;&nbsp;routine,
- <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;X,<wbr>R&gt;&nbsp;resultAdapter,
- io.vertx.core.Handler&lt;io.vertx.core.AsyncResult&lt;R&gt;&gt;&nbsp;handler)</span></div>
+R&gt;</span>&nbsp;<span class="return-type">io.reactivex.rxjava3.core.Maybe&lt;R&gt;</span>&nbsp;<span class="element-name">sqlQuery</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;sqlFunction,
+ <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,<wbr>R&gt;&nbsp;adapter)</span></div>
+<div class="block">Execute the plain SQL statement with results (e.g: SELECT, etc...)</div>
 <dl class="notes">
 <dt>Overrides:</dt>
-<dd><code><a href="JooqxConn.html#routineResultSet(org.jooq.Routine,io.github.zero88.jooqx.adapter.SQLResultAdapter,io.vertx.core.Handler)">routineResultSet</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
-</dl>
-</section>
-</li>
-<li>
-<section class="detail" id="batch(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues)">
-<h3>batch</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">io.reactivex.rxjava3.core.Single&lt;<a href="../BatchResult.html" title="interface in io.github.zero88.jooqx">BatchResult</a>&gt;</span>&nbsp;<span class="element-name">batch</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr>org.jooq.Query&gt;&nbsp;queryFunction,
- <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</span></div>
-<div class="block">Batch execute</div>
-<dl class="notes">
-<dt>Overrides:</dt>
-<dd><code><a href="JooqxConn.html#batch(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues)">batch</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
+<dd><code><a href="JooqxConn.html#sqlQuery(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">sqlQuery</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>queryFunction</code> - query function</dd>
-<dd><code>bindBatchValues</code> - bind batch values</dd>
+<dd><code>sqlFunction</code> - the plain SQL function products a plain SQL statement with results</dd>
+<dd><code>adapter</code> - the result adapter</dd>
 <dt>Returns:</dt>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="rxBatch(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues)">
-<h3>rxBatch</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">io.reactivex.rxjava3.core.Single&lt;<a href="../BatchResult.html" title="interface in io.github.zero88.jooqx">BatchResult</a>&gt;</span>&nbsp;<span class="element-name">rxBatch</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr>org.jooq.Query&gt;&nbsp;queryFunction,
- <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</span></div>
-<div class="block">Batch execute</div>
+<section class="detail" id="rxSqlQuery(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
+<h3>rxSqlQuery</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
+R&gt;</span>&nbsp;<span class="return-type">io.reactivex.rxjava3.core.Maybe&lt;R&gt;</span>&nbsp;<span class="element-name">rxSqlQuery</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&gt;&nbsp;sqlFunction,
+ <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,<wbr>R&gt;&nbsp;adapter)</span></div>
+<div class="block">Execute the plain SQL statement with results (e.g: SELECT, etc...)</div>
 <dl class="notes">
 <dt>Overrides:</dt>
-<dd><code><a href="JooqxConn.html#rxBatch(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues)">rxBatch</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
+<dd><code><a href="JooqxConn.html#rxSqlQuery(java.util.function.Function,io.github.zero88.jooqx.adapter.SQLResultAdapter)">rxSqlQuery</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>queryFunction</code> - query function</dd>
-<dd><code>bindBatchValues</code> - bind batch values</dd>
+<dd><code>sqlFunction</code> - the plain SQL function products a plain SQL statement with results</dd>
+<dd><code>adapter</code> - the result adapter</dd>
 <dt>Returns:</dt>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="batch(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues)">
-<h3>batch</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">io.reactivex.rxjava3.core.Single&lt;<a href="../BatchResult.html" title="interface in io.github.zero88.jooqx">BatchResult</a>&gt;</span>&nbsp;<span class="element-name">batch</span><wbr><span class="parameters">(org.jooq.Query&nbsp;query,
- <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</span></div>
-<div class="block">Batch execute</div>
+<section class="detail" id="sqlQuery(java.lang.String,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
+<h3>sqlQuery</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
+R&gt;</span>&nbsp;<span class="return-type">io.reactivex.rxjava3.core.Maybe&lt;R&gt;</span>&nbsp;<span class="element-name">sqlQuery</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;statement,
+ <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,<wbr>R&gt;&nbsp;adapter)</span></div>
+<div class="block">Execute the plain SQL statement with results (e.g: SELECT, etc...)</div>
 <dl class="notes">
 <dt>Overrides:</dt>
-<dd><code><a href="JooqxConn.html#batch(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues)">batch</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
+<dd><code><a href="JooqxConn.html#sqlQuery(java.lang.String,io.github.zero88.jooqx.adapter.SQLResultAdapter)">sqlQuery</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>query</code> - query</dd>
-<dd><code>bindBatchValues</code> - bind batch values</dd>
+<dd><code>statement</code> - the plain SQL statement with results</dd>
+<dd><code>adapter</code> - the result adapter</dd>
 <dt>Returns:</dt>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="rxBatch(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues)">
-<h3>rxBatch</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">io.reactivex.rxjava3.core.Single&lt;<a href="../BatchResult.html" title="interface in io.github.zero88.jooqx">BatchResult</a>&gt;</span>&nbsp;<span class="element-name">rxBatch</span><wbr><span class="parameters">(org.jooq.Query&nbsp;query,
- <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</span></div>
-<div class="block">Batch execute</div>
+<section class="detail" id="rxSqlQuery(java.lang.String,io.github.zero88.jooqx.adapter.SQLResultAdapter)">
+<h3>rxSqlQuery</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="type-parameters">&lt;T,<wbr>
+R&gt;</span>&nbsp;<span class="return-type">io.reactivex.rxjava3.core.Maybe&lt;R&gt;</span>&nbsp;<span class="element-name">rxSqlQuery</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a>&nbsp;statement,
+ <a href="../adapter/SQLResultAdapter.html" title="interface in io.github.zero88.jooqx.adapter">SQLResultAdapter</a>&lt;T,<wbr>R&gt;&nbsp;adapter)</span></div>
+<div class="block">Execute the plain SQL statement with results (e.g: SELECT, etc...)</div>
 <dl class="notes">
 <dt>Overrides:</dt>
-<dd><code><a href="JooqxConn.html#rxBatch(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues)">rxBatch</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
+<dd><code><a href="JooqxConn.html#rxSqlQuery(java.lang.String,io.github.zero88.jooqx.adapter.SQLResultAdapter)">rxSqlQuery</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>query</code> - query</dd>
-<dd><code>bindBatchValues</code> - bind batch values</dd>
+<dd><code>statement</code> - the plain SQL statement with results</dd>
+<dd><code>adapter</code> - the result adapter</dd>
 <dt>Returns:</dt>
 </dl>
 </section>
@@ -943,57 +935,65 @@ R&gt;</span>
 </section>
 </li>
 <li>
-<section class="detail" id="ddl(java.util.function.Function)">
-<h3>ddl</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">io.reactivex.rxjava3.core.Single&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">ddl</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr>org.jooq.DDLQuery&gt;&nbsp;ddlFunction)</span></div>
-<div class="block">Execute DDL statement</div>
+<section class="detail" id="batch(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues)">
+<h3>batch</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">io.reactivex.rxjava3.core.Single&lt;<a href="../BatchResult.html" title="interface in io.github.zero88.jooqx">BatchResult</a>&gt;</span>&nbsp;<span class="element-name">batch</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr>org.jooq.Query&gt;&nbsp;queryFunction,
+ <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</span></div>
+<div class="block">Batch execute</div>
 <dl class="notes">
 <dt>Overrides:</dt>
-<dd><code><a href="JooqxConn.html#ddl(java.util.function.Function)">ddl</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
+<dd><code><a href="JooqxConn.html#batch(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues)">batch</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>ddlFunction</code> - DDL function produces DDL statement</dd>
+<dd><code>queryFunction</code> - query function</dd>
+<dd><code>bindBatchValues</code> - bind batch values</dd>
 <dt>Returns:</dt>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="rxDdl(java.util.function.Function)">
-<h3>rxDdl</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">io.reactivex.rxjava3.core.Single&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">rxDdl</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr>org.jooq.DDLQuery&gt;&nbsp;ddlFunction)</span></div>
-<div class="block">Execute DDL statement</div>
+<section class="detail" id="rxBatch(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues)">
+<h3>rxBatch</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">io.reactivex.rxjava3.core.Single&lt;<a href="../BatchResult.html" title="interface in io.github.zero88.jooqx">BatchResult</a>&gt;</span>&nbsp;<span class="element-name">rxBatch</span><wbr><span class="parameters">(<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/function/Function.html" title="class or interface in java.util.function" class="external-link">Function</a>&lt;org.jooq.DSLContext,<wbr>org.jooq.Query&gt;&nbsp;queryFunction,
+ <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</span></div>
+<div class="block">Batch execute</div>
 <dl class="notes">
 <dt>Overrides:</dt>
-<dd><code><a href="JooqxConn.html#rxDdl(java.util.function.Function)">rxDdl</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
+<dd><code><a href="JooqxConn.html#rxBatch(java.util.function.Function,io.github.zero88.jooqx.BindBatchValues)">rxBatch</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>ddlFunction</code> - DDL function produces DDL statement</dd>
+<dd><code>queryFunction</code> - query function</dd>
+<dd><code>bindBatchValues</code> - bind batch values</dd>
 <dt>Returns:</dt>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="ddl(org.jooq.DDLQuery)">
-<h3>ddl</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">io.reactivex.rxjava3.core.Single&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">ddl</span><wbr><span class="parameters">(org.jooq.DDLQuery&nbsp;statement)</span></div>
-<div class="block">Execute DDL statement</div>
+<section class="detail" id="batch(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues)">
+<h3>batch</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">io.reactivex.rxjava3.core.Single&lt;<a href="../BatchResult.html" title="interface in io.github.zero88.jooqx">BatchResult</a>&gt;</span>&nbsp;<span class="element-name">batch</span><wbr><span class="parameters">(org.jooq.Query&nbsp;query,
+ <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</span></div>
+<div class="block">Batch execute</div>
 <dl class="notes">
 <dt>Overrides:</dt>
-<dd><code><a href="JooqxConn.html#ddl(org.jooq.DDLQuery)">ddl</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
+<dd><code><a href="JooqxConn.html#batch(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues)">batch</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>statement</code> - DDL statement</dd>
+<dd><code>query</code> - query</dd>
+<dd><code>bindBatchValues</code> - bind batch values</dd>
 <dt>Returns:</dt>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="rxDdl(org.jooq.DDLQuery)">
-<h3>rxDdl</h3>
-<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">io.reactivex.rxjava3.core.Single&lt;<a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Integer.html" title="class or interface in java.lang" class="external-link">Integer</a>&gt;</span>&nbsp;<span class="element-name">rxDdl</span><wbr><span class="parameters">(org.jooq.DDLQuery&nbsp;statement)</span></div>
-<div class="block">Execute DDL statement</div>
+<section class="detail" id="rxBatch(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues)">
+<h3>rxBatch</h3>
+<div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">io.reactivex.rxjava3.core.Single&lt;<a href="../BatchResult.html" title="interface in io.github.zero88.jooqx">BatchResult</a>&gt;</span>&nbsp;<span class="element-name">rxBatch</span><wbr><span class="parameters">(org.jooq.Query&nbsp;query,
+ <a href="../BindBatchValues.html" title="class in io.github.zero88.jooqx">BindBatchValues</a>&nbsp;bindBatchValues)</span></div>
+<div class="block">Batch execute</div>
 <dl class="notes">
 <dt>Overrides:</dt>
-<dd><code><a href="JooqxConn.html#rxDdl(org.jooq.DDLQuery)">rxDdl</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
+<dd><code><a href="JooqxConn.html#rxBatch(org.jooq.Query,io.github.zero88.jooqx.BindBatchValues)">rxBatch</a></code>&nbsp;in class&nbsp;<code><a href="JooqxConn.html" title="class in io.github.zero88.jooqx.rxjava3">JooqxConn</a></code></dd>
 <dt>Parameters:</dt>
-<dd><code>statement</code> - DDL statement</dd>
+<dd><code>query</code> - query</dd>
+<dd><code>bindBatchValues</code> - bind batch values</dd>
 <dt>Returns:</dt>
 </dl>
 </section>

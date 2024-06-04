@@ -49,7 +49,7 @@ jooqx.fetchMany(dsl -> dsl.selectFrom(Tables.FIND_AUTHORS.call("Sc"))).onSuccess
         +----+----------------+-------+
         ]
         """);
-    FindAuthorsRecord rec1 = rows.get(0);
+    AuthorsRecord rec1 = rows.get(0);
     assert rec1.getId() == 2;
     assert Objects.equals(rec1.getName(), "F. Scott. Fitzgerald");
 }).onFailure(Throwable::printStackTrace);
