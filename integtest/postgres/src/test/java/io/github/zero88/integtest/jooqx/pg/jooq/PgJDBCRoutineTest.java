@@ -19,7 +19,6 @@ import io.github.zero88.sample.model.pgsql.routines.Add;
 import io.github.zero88.sample.model.pgsql.routines.Dup;
 import io.github.zero88.sample.model.pgsql.routines.Dup2;
 import io.github.zero88.sample.model.pgsql.routines.RemoveAuthor;
-import io.github.zero88.sample.model.pgsql.tables.records.FindAuthorsRecord;
 import io.github.zero88.sample.model.pgsql.udt.records.DupResultRecord;
 import io.vertx.core.Vertx;
 import io.vertx.jdbcclient.JDBCPool;
@@ -107,8 +106,7 @@ class PgJDBCRoutineTest extends PgSQLJooqxTest<JDBCPool>
         jooqx.fetchMany(dsl -> dsl.selectFrom(Tables.FIND_AUTHORS.call(""))).onSuccess(rows -> {
             System.out.println(rows);
             Assertions.assertEquals(8, rows.size());
-            FindAuthorsRecord record = rows.get(0);
-            Assertions.assertEquals(1, record.getId());
+            Assertions.assertEquals(1, rows.get(0).getId());
             cp.flag();
         }).onFailure(ctx::failNow);
     }

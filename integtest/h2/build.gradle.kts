@@ -9,7 +9,7 @@ dependencies {
 }
 
 jooq {
-    version.set(libs.jooq.get().version)
+    version.set(if (JavaVersion.current().majorVersion == "8") libs.versions.jooq.jdk8.get() else libs.versions.jooq.jdk17.get())
 
     configurations {
         create("testH2Schema") {

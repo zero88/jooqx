@@ -1,0 +1,38 @@
+= Development
+
+== Cheatsheet
+
+=== Gradle
+
+==== Dependency version
+
+[source,bash]
+----
+# configuration option
+# - `rC` runtimeClasspath
+# - `tRC` testRuntimeClasspath
+# dependency option, e.g: `jooq`, `vertx`, etc
+./gradlew :integtest:postgres:dependencyInsight --configuration rC --dependency jooq
+----
+
+==== Run integration test
+
+Requirements: docker/podman + java
+
+By invoking task `integtest:itTest` with parameter `-PitProfile=<db:image-version>`, the build process:
+
+- depends on `db` value(e.g: `h2`, `postgres`, `mysql`, etc.), pick a corresponding integration test project such as `:integtest:h2`, `:integtest:postgres`
+- generate jOOQ model for specific test project
+- run test on specific test project with database in docker/podman container
+
+[source,bash]
+----
+# Run test on h2 db
+./gradlew clean integtest:itTest -PitProfile=h2 --stacktrace
+
+
+# Run test on postgresql version 16
+./gradlew clean integtest:itTest -PitProfile=postgres:16-alpine --stacktrace
+# Run test on postgresql version 14
+./gradlew clean integtest:itTest -PitProfile=postgres:14-alpine --stacktrace
+----
