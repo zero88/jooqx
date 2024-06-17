@@ -13,7 +13,7 @@
       "matchStrings": ["java=(?<currentValue>.*)-tem\\n"],
       "datasourceTemplate": "java-version",
       "depNameTemplate": "java",
-      "autoReplaceStringTemplate": "java={{{newMajor}}}.{{{newMinor}}}.{{{newPatch}}}-tem"
+      "autoReplaceStringTemplate": "{{{newMajor}}}.{{{newMinor}}}.{{{newPatch}}}"
     },
     {
       "customType": "regex",
