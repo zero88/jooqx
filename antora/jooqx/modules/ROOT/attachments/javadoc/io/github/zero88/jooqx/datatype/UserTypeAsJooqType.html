@@ -79,7 +79,7 @@ loadScripts(document, 'script');</script>
 </dl>
 <dl class="notes">
 <dt>All Superinterfaces:</dt>
-<dd><code>org.jooq.Converter&lt;J,<wbr>J&gt;</code>, <code><a href="DataTypeMapper.html" title="interface in io.github.zero88.jooqx.datatype">DataTypeMapper</a>&lt;V,<wbr>J,<wbr>J&gt;</code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a></code></dd>
+<dd><code><a href="BridgeConverter.html" title="interface in io.github.zero88.jooqx.datatype">BridgeConverter</a>&lt;J,<wbr>J&gt;</code>, <code>org.jooq.ContextConverter&lt;J,<wbr>J&gt;</code>, <code>org.jooq.Converter&lt;J,<wbr>J&gt;</code>, <code><a href="ConverterRepr.html" title="interface in io.github.zero88.jooqx.datatype">ConverterRepr</a>&lt;J,<wbr>J&gt;</code>, <code><a href="DataTypeMapper.html" title="interface in io.github.zero88.jooqx.datatype">DataTypeMapper</a>&lt;V,<wbr>J,<wbr>J&gt;</code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a></code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">UserTypeAsJooqType&lt;V,<wbr>J&gt;</span><span class="extends-implements">
@@ -133,11 +133,14 @@ J&gt;&nbsp;<a href="UserTypeAsJooqType.html" title="interface in io.github.zero8
 </div>
 </div>
 <div class="inherited-list">
-<h3 id="methods-inherited-from-class-org.jooq.Converter">Methods inherited from interface&nbsp;org.jooq.Converter</h3>
+<h3 id="methods-inherited-from-class-io.github.zero88.jooqx.datatype.BridgeConverter">Methods inherited from interface&nbsp;io.github.zero88.jooqx.datatype.<a href="BridgeConverter.html" title="interface in io.github.zero88.jooqx.datatype">BridgeConverter</a></h3>
+<code><a href="BridgeConverter.html#from(D,org.jooq.ConverterContext)">from</a>, <a href="BridgeConverter.html#to(U,org.jooq.ConverterContext)">to</a></code></div>
+<div class="inherited-list">
+<h3 id="methods-inherited-from-class-org.jooq.ContextConverter">Methods inherited from interface&nbsp;org.jooq.ContextConverter</h3>
 <code>andThen, forArrays, inverse</code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-io.github.zero88.jooqx.datatype.DataTypeMapper">Methods inherited from interface&nbsp;io.github.zero88.jooqx.datatype.<a href="DataTypeMapper.html" title="interface in io.github.zero88.jooqx.datatype">DataTypeMapper</a></h3>
-<code><a href="DataTypeMapper.html#fromVtoU(V)">fromVtoU</a>, <a href="DataTypeMapper.html#jooqxConverter()">jooqxConverter</a>, <a href="DataTypeMapper.html#toVFromU(U)">toVFromU</a></code></div>
+<code><a href="DataTypeMapper.html#fromVtoU(V)">fromVtoU</a>, <a href="DataTypeMapper.html#jooqxConverter()">jooqxConverter</a>, <a href="DataTypeMapper.html#repr()">repr</a>, <a href="DataTypeMapper.html#toVFromU(U)">toVFromU</a></code></div>
 </section>
 </li>
 </ul>
@@ -155,6 +158,10 @@ J&gt;&nbsp;<a href="UserTypeAsJooqType.html" title="interface in io.github.zero8
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type"><a href="UserTypeAsJooqType.html" title="type parameter in UserTypeAsJooqType">J</a></span>&nbsp;<span class="element-name">from</span><wbr><span class="parameters">(<a href="UserTypeAsJooqType.html" title="type parameter in UserTypeAsJooqType">J</a>&nbsp;databaseObject)</span></div>
 <dl class="notes">
 <dt>Specified by:</dt>
+<dd><code><a href="BridgeConverter.html#from(D)">from</a></code>&nbsp;in interface&nbsp;<code><a href="BridgeConverter.html" title="interface in io.github.zero88.jooqx.datatype">BridgeConverter</a>&lt;<a href="UserTypeAsJooqType.html" title="type parameter in UserTypeAsJooqType">V</a>,<wbr><a href="UserTypeAsJooqType.html" title="type parameter in UserTypeAsJooqType">J</a>&gt;</code></dd>
+<dt>Specified by:</dt>
+<dd><code>from</code>&nbsp;in interface&nbsp;<code>org.jooq.ContextConverter&lt;<a href="UserTypeAsJooqType.html" title="type parameter in UserTypeAsJooqType">V</a>,<wbr><a href="UserTypeAsJooqType.html" title="type parameter in UserTypeAsJooqType">J</a>&gt;</code></dd>
+<dt>Specified by:</dt>
 <dd><code>from</code>&nbsp;in interface&nbsp;<code>org.jooq.Converter&lt;<a href="UserTypeAsJooqType.html" title="type parameter in UserTypeAsJooqType">V</a>,<wbr><a href="UserTypeAsJooqType.html" title="type parameter in UserTypeAsJooqType">J</a>&gt;</code></dd>
 </dl>
 </section>
@@ -164,6 +171,10 @@ J&gt;&nbsp;<a href="UserTypeAsJooqType.html" title="interface in io.github.zero8
 <h3 id="to(java.lang.Object)">to</h3>
 <div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type"><a href="UserTypeAsJooqType.html" title="type parameter in UserTypeAsJooqType">J</a></span>&nbsp;<span class="element-name">to</span><wbr><span class="parameters">(<a href="UserTypeAsJooqType.html" title="type parameter in UserTypeAsJooqType">J</a>&nbsp;userObject)</span></div>
 <dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="BridgeConverter.html#to(U)">to</a></code>&nbsp;in interface&nbsp;<code><a href="BridgeConverter.html" title="interface in io.github.zero88.jooqx.datatype">BridgeConverter</a>&lt;<a href="UserTypeAsJooqType.html" title="type parameter in UserTypeAsJooqType">V</a>,<wbr><a href="UserTypeAsJooqType.html" title="type parameter in UserTypeAsJooqType">J</a>&gt;</code></dd>
+<dt>Specified by:</dt>
+<dd><code>to</code>&nbsp;in interface&nbsp;<code>org.jooq.ContextConverter&lt;<a href="UserTypeAsJooqType.html" title="type parameter in UserTypeAsJooqType">V</a>,<wbr><a href="UserTypeAsJooqType.html" title="type parameter in UserTypeAsJooqType">J</a>&gt;</code></dd>
 <dt>Specified by:</dt>
 <dd><code>to</code>&nbsp;in interface&nbsp;<code>org.jooq.Converter&lt;<a href="UserTypeAsJooqType.html" title="type parameter in UserTypeAsJooqType">V</a>,<wbr><a href="UserTypeAsJooqType.html" title="type parameter in UserTypeAsJooqType">J</a>&gt;</code></dd>
 </dl>

@@ -79,7 +79,7 @@ loadScripts(document, 'script');</script>
 </dl>
 <dl class="notes">
 <dt>All Superinterfaces:</dt>
-<dd><code>org.jooq.Converter&lt;J,<wbr>V&gt;</code>, <code><a href="DataTypeMapper.html" title="interface in io.github.zero88.jooqx.datatype">DataTypeMapper</a>&lt;V,<wbr>J,<wbr>V&gt;</code>, <code><a href="JooqxConverter.html" title="interface in io.github.zero88.jooqx.datatype">JooqxConverter</a>&lt;J,<wbr>V&gt;</code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a></code></dd>
+<dd><code><a href="BridgeConverter.html" title="interface in io.github.zero88.jooqx.datatype">BridgeConverter</a>&lt;J,<wbr>V&gt;</code>, <code>org.jooq.ContextConverter&lt;J,<wbr>V&gt;</code>, <code>org.jooq.Converter&lt;J,<wbr>V&gt;</code>, <code><a href="ConverterRepr.html" title="interface in io.github.zero88.jooqx.datatype">ConverterRepr</a>&lt;J,<wbr>V&gt;</code>, <code><a href="DataTypeMapper.html" title="interface in io.github.zero88.jooqx.datatype">DataTypeMapper</a>&lt;V,<wbr>J,<wbr>V&gt;</code>, <code><a href="JooqxConverter.html" title="interface in io.github.zero88.jooqx.datatype">JooqxConverter</a>&lt;J,<wbr>V&gt;</code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a></code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">UserTypeAsVertxType&lt;V,<wbr>J&gt;</span><span class="extends-implements">
@@ -129,11 +129,14 @@ J&gt;&nbsp;<a href="UserTypeAsVertxType.html" title="interface in io.github.zero
 </div>
 </div>
 <div class="inherited-list">
-<h3 id="methods-inherited-from-class-org.jooq.Converter">Methods inherited from interface&nbsp;org.jooq.Converter</h3>
+<h3 id="methods-inherited-from-class-io.github.zero88.jooqx.datatype.BridgeConverter">Methods inherited from interface&nbsp;io.github.zero88.jooqx.datatype.<a href="BridgeConverter.html" title="interface in io.github.zero88.jooqx.datatype">BridgeConverter</a></h3>
+<code><a href="BridgeConverter.html#from(D,org.jooq.ConverterContext)">from</a>, <a href="BridgeConverter.html#to(U,org.jooq.ConverterContext)">to</a></code></div>
+<div class="inherited-list">
+<h3 id="methods-inherited-from-class-org.jooq.ContextConverter">Methods inherited from interface&nbsp;org.jooq.ContextConverter</h3>
 <code>andThen, forArrays</code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-io.github.zero88.jooqx.datatype.DataTypeMapper">Methods inherited from interface&nbsp;io.github.zero88.jooqx.datatype.<a href="DataTypeMapper.html" title="interface in io.github.zero88.jooqx.datatype">DataTypeMapper</a></h3>
-<code><a href="DataTypeMapper.html#fromVtoU(V)">fromVtoU</a>, <a href="DataTypeMapper.html#toVFromU(U)">toVFromU</a></code></div>
+<code><a href="DataTypeMapper.html#fromVtoU(V)">fromVtoU</a>, <a href="DataTypeMapper.html#repr()">repr</a>, <a href="DataTypeMapper.html#toVFromU(U)">toVFromU</a></code></div>
 <div class="inherited-list">
 <h3 id="methods-inherited-from-class-io.github.zero88.jooqx.datatype.JooqxConverter">Methods inherited from interface&nbsp;io.github.zero88.jooqx.datatype.<a href="JooqxConverter.html" title="interface in io.github.zero88.jooqx.datatype">JooqxConverter</a></h3>
 <code><a href="JooqxConverter.html#from(V)">from</a>, <a href="JooqxConverter.html#fromType()">fromType</a>, <a href="JooqxConverter.html#inverse()">inverse</a>, <a href="JooqxConverter.html#to(J)">to</a>, <a href="JooqxConverter.html#toType()">toType</a></code></div>

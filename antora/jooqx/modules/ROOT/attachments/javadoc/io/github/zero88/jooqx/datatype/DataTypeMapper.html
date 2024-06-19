@@ -80,7 +80,7 @@ loadScripts(document, 'script');</script>
 </dl>
 <dl class="notes">
 <dt>All Superinterfaces:</dt>
-<dd><code>org.jooq.Converter&lt;J,<wbr>U&gt;</code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a></code></dd>
+<dd><code><a href="BridgeConverter.html" title="interface in io.github.zero88.jooqx.datatype">BridgeConverter</a>&lt;J,<wbr>U&gt;</code>, <code>org.jooq.ContextConverter&lt;J,<wbr>U&gt;</code>, <code>org.jooq.Converter&lt;J,<wbr>U&gt;</code>, <code><a href="ConverterRepr.html" title="interface in io.github.zero88.jooqx.datatype">ConverterRepr</a>&lt;J,<wbr>U&gt;</code>, <code><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/io/Serializable.html" title="class or interface in java.io" class="external-link">Serializable</a></code></dd>
 </dl>
 <dl class="notes">
 <dt>All Known Subinterfaces:</dt>
@@ -92,7 +92,7 @@ loadScripts(document, 'script');</script>
 </dl>
 <hr>
 <div class="type-signature"><span class="modifiers">public interface </span><span class="element-name type-name-label">DataTypeMapper&lt;V,<wbr>J,<wbr>U&gt;</span><span class="extends-implements">
-extends org.jooq.Converter&lt;J,<wbr>U&gt;</span></div>
+extends <a href="BridgeConverter.html" title="interface in io.github.zero88.jooqx.datatype">BridgeConverter</a>&lt;J,<wbr>U&gt;, <a href="ConverterRepr.html" title="interface in io.github.zero88.jooqx.datatype">ConverterRepr</a>&lt;J,<wbr>U&gt;</span></div>
 <div class="block">A <code>Mapper</code> for data types.
  <p>
  A general data type conversion interface that can be provided to <code>jOOQ.x</code> at various places in order to perform
@@ -137,17 +137,26 @@ extends org.jooq.Converter&lt;J,<wbr>U&gt;</span></div>
 <div class="block">Defines jooqx converter between <code>Vert.x</code> data type as database data type and <code>jOOQ</code> data type as
  intermediate type is used in record</div>
 </div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="DataTypeMapper.html" title="type parameter in DataTypeMapper">V</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#toVFromU(U)" class="member-name-link">toVFromU</a><wbr>(<a href="DataTypeMapper.html" title="type parameter in DataTypeMapper">U</a>&nbsp;userObject)</code></div>
-<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#repr()" class="member-name-link">repr</a>()</code></div>
+<div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">&nbsp;</div>
+<div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code>default <a href="DataTypeMapper.html" title="type parameter in DataTypeMapper">V</a></code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5"><code><a href="#toVFromU(U)" class="member-name-link">toVFromU</a><wbr>(<a href="DataTypeMapper.html" title="type parameter in DataTypeMapper">U</a>&nbsp;userObject)</code></div>
+<div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab5">
 <div class="block">Convert from user object to database object</div>
 </div>
 </div>
 </div>
 </div>
 <div class="inherited-list">
+<h3 id="methods-inherited-from-class-io.github.zero88.jooqx.datatype.BridgeConverter">Methods inherited from interface&nbsp;io.github.zero88.jooqx.datatype.<a href="BridgeConverter.html" title="interface in io.github.zero88.jooqx.datatype">BridgeConverter</a></h3>
+<code><a href="BridgeConverter.html#from(D)">from</a>, <a href="BridgeConverter.html#from(D,org.jooq.ConverterContext)">from</a>, <a href="BridgeConverter.html#to(U)">to</a>, <a href="BridgeConverter.html#to(U,org.jooq.ConverterContext)">to</a></code></div>
+<div class="inherited-list">
+<h3 id="methods-inherited-from-class-org.jooq.ContextConverter">Methods inherited from interface&nbsp;org.jooq.ContextConverter</h3>
+<code>andThen, forArrays, inverse</code></div>
+<div class="inherited-list">
 <h3 id="methods-inherited-from-class-org.jooq.Converter">Methods inherited from interface&nbsp;org.jooq.Converter</h3>
-<code>andThen, forArrays, from, fromType, inverse, to, toType</code></div>
+<code>fromType, toType</code></div>
 </section>
 </li>
 </ul>
@@ -200,6 +209,16 @@ extends org.jooq.Converter&lt;J,<wbr>U&gt;</span></div>
 <dd><code>userObject</code> - the user object</dd>
 <dt>Returns:</dt>
 <dd>the database object (Vert.x data type)</dd>
+</dl>
+</section>
+</li>
+<li>
+<section class="detail" id="repr()">
+<h3>repr</h3>
+<div class="member-signature"><span class="modifiers">default</span>&nbsp;<span class="return-type"><a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/String.html" title="class or interface in java.lang" class="external-link">String</a></span>&nbsp;<span class="element-name">repr</span>()</div>
+<dl class="notes">
+<dt>Specified by:</dt>
+<dd><code><a href="ConverterRepr.html#repr()">repr</a></code>&nbsp;in interface&nbsp;<code><a href="ConverterRepr.html" title="interface in io.github.zero88.jooqx.datatype">ConverterRepr</a>&lt;<a href="DataTypeMapper.html" title="type parameter in DataTypeMapper">V</a>,<wbr><a href="DataTypeMapper.html" title="type parameter in DataTypeMapper">J</a>&gt;</code></dd>
 </dl>
 </section>
 </li>
