@@ -16,7 +16,7 @@ import org.jooq.impl.SQLDataType;
  * @see SQLDataType
  * @see Converter
  */
-public interface JooqxConverter<V, J> extends BridgeConverter<V, J> {
+public interface JooqxConverter<V, J> extends BridgeConverter<V, J>, ConverterRepr<V, J> {
 
     /**
      * Convert the Vert.x object to jOOQ object

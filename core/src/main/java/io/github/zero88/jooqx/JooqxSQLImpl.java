@@ -224,8 +224,7 @@ final class JooqxSQLImpl {
 
         private void tweakDSLSetting() {
             final Settings settings = dsl().configuration().settings();
-            if (Utils.isSpecificClient("io.vertx.pgclient.PgPool", sqlClient()) ||
-                Utils.isSpecificClient("io.vertx.pgclient.PgConnection", sqlClient())) {
+            if (Utils.isPgPool(sqlClient()) || Utils.isPgConn(sqlClient())) {
                 if (settings.getParamType() != ParamType.INDEXED) {
                     return;
                 }

@@ -2,7 +2,6 @@ package io.github.zero88.jooqx.datatype.basic;
 
 import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 
 import org.jooq.JSON;
 import org.junit.jupiter.api.Assertions;
@@ -19,7 +18,7 @@ class BasicConverterTest {
         final BytesConverter bytesConverter = new BytesConverter();
         final Buffer buffer = Buffer.buffer("jooqx");
         byte[] bytes = "jooqx".getBytes(StandardCharsets.UTF_8);
-        Assertions.assertTrue(Arrays.equals(bytes, bytesConverter.from(buffer)));
+        Assertions.assertArrayEquals(bytes, bytesConverter.from(buffer));
         Assertions.assertEquals(buffer, bytesConverter.to(bytes));
     }
 
