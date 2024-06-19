@@ -1,5 +1,6 @@
 package io.github.zero88.jooqx.datatype;
 
+import org.jooq.Converter;
 import org.jooq.Field;
 import org.jooq.JSON;
 import org.jooq.impl.DSL;
@@ -11,6 +12,7 @@ import io.github.zero88.jooqx.datatype.basic.JsonObjectJSONConverter;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 
+@SuppressWarnings("rawtypes")
 class DataTypeMapperRegistryTest {
 
     @Test
@@ -20,16 +22,22 @@ class DataTypeMapperRegistryTest {
         final Field<Object> field2 = DSL.field(DSL.name("table", "any"));
         registry.add(UserTypeAsJooqType.create(new JsonObjectJSONConverter()))
                 .addByColumn(field1, UserTypeAsJooqType.create(new JsonArrayJSONConverter()));
-        final DataTypeMapper<Object, JSON, Object> mapper = registry.lookup(field1, JSON.class);
-        Assertions.assertEquals(JsonArray.class, mapper.jooqxConverter().fromType());
-        Assertions.assertEquals(JSON.class, mapper.jooqxConverter().toType());
-        Assertions.assertEquals(JSON.class, mapper.fromType());
-        Assertions.assertEquals(JSON.class, mapper.toType());
-        final DataTypeMapper<Object, JSON, Object> any = registry.lookup(field2, JSON.class);
-        Assertions.assertEquals(JsonObject.class, any.jooqxConverter().fromType());
-        Assertions.assertEquals(JSON.class, any.jooqxConverter().toType());
-        Assertions.assertEquals(JSON.class, any.fromType());
-        Assertions.assertEquals(JSON.class, any.toType());
+
+        final Converter field1Mapper = registry.lookup(field1, JSON.class);
+        Assertions.assertInstanceOf(DataTypeMapper.class, field1Mapper);
+        final JooqxConverter field1JooqxConverter = ((DataTypeMapper) field1Mapper).jooqxConverter();
+        Assertions.assertEquals(JsonArray.class, field1JooqxConverter.fromType());
+        Assertions.assertEquals(JSON.class, field1JooqxConverter.toType());
+        Assertions.assertEquals(JSON.class, field1Mapper.fromType());
+        Assertions.assertEquals(JSON.class, field1Mapper.toType());
+
+        final Converter field2Mapper = registry.lookup(field2, JSON.class);
+        Assertions.assertInstanceOf(DataTypeMapper.class, field2Mapper);
+        final JooqxConverter field2JooqxConverter = ((DataTypeMapper) field2Mapper).jooqxConverter();
+        Assertions.assertEquals(JsonObject.class, field2JooqxConverter.fromType());
+        Assertions.assertEquals(JSON.class, field2JooqxConverter.toType());
+        Assertions.assertEquals(JSON.class, field2Mapper.fromType());
+        Assertions.assertEquals(JSON.class, field2Mapper.toType());
     }
 
     @Test
@@ -39,16 +47,22 @@ class DataTypeMapperRegistryTest {
         final Field<Object> field2 = DSL.field(DSL.name("table", "any"));
         registry.add(UserTypeAsVertxType.create(new JsonObjectJSONConverter()))
                 .addByColumn(field1, UserTypeAsVertxType.create(new JsonArrayJSONConverter()));
-        final DataTypeMapper<Object, JSON, Object> mapper = registry.lookup(field1, JSON.class);
-        Assertions.assertEquals(JsonArray.class, mapper.jooqxConverter().fromType());
-        Assertions.assertEquals(JSON.class, mapper.jooqxConverter().toType());
-        Assertions.assertEquals(JSON.class, mapper.fromType());
-        Assertions.assertEquals(JsonArray.class, mapper.toType());
-        final DataTypeMapper<Object, JSON, Object> any = registry.lookup(field2, JSON.class);
-        Assertions.assertEquals(JsonObject.class, any.jooqxConverter().fromType());
-        Assertions.assertEquals(JSON.class, any.jooqxConverter().toType());
-        Assertions.assertEquals(JSON.class, any.fromType());
-        Assertions.assertEquals(JsonObject.class, any.toType());
+
+        final Converter field1Mapper = registry.lookup(field1, JSON.class);
+        Assertions.assertInstanceOf(DataTypeMapper.class, field1Mapper);
+        final JooqxConverter field1JooqxConverter = ((DataTypeMapper) field1Mapper).jooqxConverter();
+        Assertions.assertEquals(JsonArray.class, field1JooqxConverter.fromType());
+        Assertions.assertEquals(JSON.class, field1JooqxConverter.toType());
+        Assertions.assertEquals(JSON.class, field1Mapper.fromType());
+        Assertions.assertEquals(JsonArray.class, field1Mapper.toType());
+
+        final Converter field2Mapper = registry.lookup(field2, JSON.class);
+        Assertions.assertInstanceOf(DataTypeMapper.class, field1Mapper);
+        final JooqxConverter field2JooqxConverter = ((DataTypeMapper) field2Mapper).jooqxConverter();
+        Assertions.assertEquals(JsonObject.class, field2JooqxConverter.fromType());
+        Assertions.assertEquals(JSON.class, field2JooqxConverter.toType());
+        Assertions.assertEquals(JSON.class, field2Mapper.fromType());
+        Assertions.assertEquals(JsonObject.class, field2Mapper.toType());
     }
 
 }

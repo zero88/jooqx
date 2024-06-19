@@ -30,9 +30,11 @@ By invoking task `integtest:itTest` with parameter `-PitProfile=<db:image-versio
 # Run test on h2 db
 ./gradlew clean integtest:itTest -PitProfile=h2 --stacktrace
 
-
 # Run test on postgresql version 16
 ./gradlew clean integtest:itTest -PitProfile=postgres:16-alpine --stacktrace
 # Run test on postgresql version 14
 ./gradlew clean integtest:itTest -PitProfile=postgres:14-alpine --stacktrace
+
+# Filter specific test on particular db version
+./gradlew integtest:postgres:test -PdbVersion=16-alpine  --tests  *PgPoolVertxTypeTest.test_insert_interval --info
 ----

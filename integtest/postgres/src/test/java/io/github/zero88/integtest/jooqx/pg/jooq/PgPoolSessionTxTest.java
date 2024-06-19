@@ -54,10 +54,10 @@ class PgPoolSessionTxTest extends PgSQLJooqxTest<PgPool>
         BooksRecord b1 = new BooksRecord().setTitle("jOOQ doc");
         jooqx.transaction()
              .run(tx -> tx.execute(dsl.insertInto(schema.AUTHORS, schema.AUTHORS.NAME, schema.AUTHORS.COUNTRY)
-                                      .values(a1.value2(), a1.value3())
+                                      .values(a1.getName(), a1.getCountry())
                                       .returning(), DSLAdapter.fetchOne(schema.AUTHORS))
                           .flatMap(r1 -> tx.execute(
-                                               dsl.insertInto(schema.BOOKS, schema.BOOKS.TITLE).values(b1.value2()).returning(),
+                                               dsl.insertInto(schema.BOOKS, schema.BOOKS.TITLE).values(b1.getTitle()).returning(),
                                                DSLAdapter.fetchOne(schema.BOOKS))
                                            .flatMap(r2 -> tx.execute(
                                                dsl.insertInto(schema.BOOKS_AUTHORS, schema.BOOKS_AUTHORS.BOOK_ID,

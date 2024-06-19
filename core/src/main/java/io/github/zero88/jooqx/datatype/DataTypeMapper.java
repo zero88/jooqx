@@ -20,7 +20,7 @@ import org.jooq.impl.SQLDataType;
  * @see UserTypeAsVertxType
  * @since 1.0.0
  */
-public interface DataTypeMapper<V, J, U> extends Converter<J, U> {
+public interface DataTypeMapper<V, J, U> extends BridgeConverter<J, U> {
 
     /**
      * Defines jooqx converter between {@code Vert.x} data type as database data type and {@code jOOQ} data type as
