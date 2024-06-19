@@ -1,5 +1,9 @@
 package io.github.zero88.jooqx.datatype;
 
+import static io.github.zero88.jooqx.Utils.classRepr;
+import static io.github.zero88.jooqx.Utils.parentheses;
+
+import org.jetbrains.annotations.NotNull;
 import org.jooq.Converter;
 import org.jooq.impl.SQLDataType;
 
@@ -20,7 +24,7 @@ import org.jooq.impl.SQLDataType;
  * @see UserTypeAsVertxType
  * @since 1.0.0
  */
-public interface DataTypeMapper<V, J, U> extends Converter<J, U> {
+public interface DataTypeMapper<V, J, U> extends BridgeConverter<J, U>, ConverterRepr<J, U> {
 
     /**
      * Defines jooqx converter between {@code Vert.x} data type as database data type and {@code jOOQ} data type as
@@ -46,5 +50,10 @@ public interface DataTypeMapper<V, J, U> extends Converter<J, U> {
      * @return the database object (Vert.x data type)
      */
     default V toVFromU(U userObject) { return jooqxConverter().to(to(userObject)); }
+
+    @Override
+    default String repr() {
+        return classRepr(getClass()) + parentheses("->", fromType(), jooqxConverter().fromType(), toType());
+    }
 
 }

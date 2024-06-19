@@ -50,7 +50,7 @@ class PgPoolVertxTypeTest extends PgSQLJooqxTest<PgPool>
     }
 
     @Test
-    void test_query_temporal(VertxTestContext ctx) {
+    void test_query_interval(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
         final VertxAllDataTypes table = schema().VERTX_ALL_DATA_TYPES;
         jooqx.fetchOne(dsl -> dsl.selectFrom(table).where(table.ID.eq(31)).limit(1), ar -> ctx.verify(() -> {
@@ -92,17 +92,18 @@ class PgPoolVertxTypeTest extends PgSQLJooqxTest<PgPool>
     void test_query_json(VertxTestContext ctx) {
         Checkpoint cp = ctx.checkpoint();
         final VertxAllDataTypes table = schema().VERTX_ALL_DATA_TYPES;
-        jooqx.fetchOne(dsl -> dsl.selectFrom(table).where(table.ID.eq(51)).limit(1), ar -> ctx.verify(() -> {
-            final VertxAllDataTypesRecord record = assertSuccess(ctx, ar);
-            System.out.println(record);
-            Assertions.assertNotNull(record.getFJsonObject());
-            Assertions.assertEquals(
-                new JsonObject("{\"str\":\"blah\",\"int\":1,\"float\":3.5,\"object\":{},\"array\":[]}"),
-                record.getFJsonObject());
-            Assertions.assertNotNull(record.getFJsonArray());
-            Assertions.assertEquals(new JsonArray("[1,true,null,9.5,\"Hi\"]"), record.getFJsonArray());
-            cp.flag();
-        }));
+        jooqx.fetchOne(dsl -> dsl.selectFrom(table).where(table.ID.eq(51)).limit(1))
+             .onSuccess(record -> ctx.verify(() -> {
+                 System.out.println(record);
+                 Assertions.assertNotNull(record.getFJsonObject());
+                 Assertions.assertEquals(
+                     new JsonObject("{\"str\":\"blah\",\"int\":1,\"float\":3.5,\"object\":{},\"array\":[]}"),
+                     record.getFJsonObject());
+                 Assertions.assertNotNull(record.getFJsonArray());
+                 Assertions.assertEquals(new JsonArray("[1,true,null,9.5,\"Hi\"]"), record.getFJsonArray());
+                 cp.flag();
+             }))
+             .onFailure(ctx::failNow);
     }
 
     @Test
