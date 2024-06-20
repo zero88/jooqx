@@ -16,7 +16,7 @@ logback_jdk11 = "1.5.6"
 jackson = "2.17.1"
 ## JDBC
 agroal_jdk8 = "1.18"
-agroal_jdk11 = "2.3"
+agroal_jdk11 = "2.4"
 hikariCP_jdk8 = "4.0.3"
 hikariCP_jdk11 = "5.1.0"
 jdbcH2 = "1.4.200"
