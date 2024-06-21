@@ -66,7 +66,7 @@ jobs:
         itProfile: [ 'postgres:12-alpine', 'postgres:14-alpine', 'postgres:16-alpine', 'h2', 'mysql:8.3', 'mysql:8.0' ]
         sonarProfile: [ 'postgres:16-alpine' ]
       fail-fast: false
-    name: Test ${{ matrix.itProfile }} | Java ${{ matrix.java }} (${{ matrix.os }})
+    name: Integtest ${{ matrix.itProfile }} | Java ${{ matrix.java }} (${{ matrix.os }})
     with:
       profile: 'jooqx:sonar'
       branch: ${{ needs.context.outputs.branch }}
@@ -85,13 +85,17 @@ jobs:
     needs: [ context, build, analysis ]
     if: needs.context.outputs.shouldPublish == 'true' || needs.context.outputs.isRelease == 'true'
     uses: zero88/shared-ghactions/.github/workflows/gradle-publish.yml@main
+    strategy:
+      matrix:
+        java: [ '8', '17' ]
+        os: [ 'ubuntu-latest' ]
     with:
       profile: 'jooqx'
       version: ${{ needs.context.outputs.version }}
       semanticVersion: ${{ needs.context.outputs.semanticVersion }}
       hashVersion: ${{ needs.context.outputs.commitId }}
       isRelease: ${{ needs.context.outputs.isRelease }}
-      javaVersion: 17
+      javaVersion: ${{ matrix.java }}
     secrets:
       ossrhUser: ${{ secrets.OSS_SONATYPE_USER }}
       ossrhToken: ${{ secrets.OSS_SONATYPE_PASSWORD }}
