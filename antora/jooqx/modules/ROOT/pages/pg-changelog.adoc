@@ -1,5 +1,201 @@
 == Changelog
 
+=== https://github.com/zero88/jooqx/tree/v2.0.0-rc2[v2.0.0-rc2] (2024-06-21)
+
+https://github.com/zero88/jooqx/compare/v2.0.0-rc.1...v2.0.0-rc2[Full
+Changelog]
+
+*Implemented enhancements:*
+
+* Support jooq 3.19.* https://github.com/zero88/jooqx/issues/174[#174]
+
+*Fixed bugs:*
+
+* DataTypeMapper does not work correctly since jOOQ3.18
+https://github.com/zero88/jooqx/issues/235[#235]
+
+*Merged pull requests:*
+
+* feat(gradle): Tweak a step to make jooqx support multiple java
+versions https://github.com/zero88/jooqx/pull/248[#248]
+(https://github.com/zero88[zero88])
+* fix(DataTypeMapper): support jooq version >= 3.18
+https://github.com/zero88/jooqx/pull/243[#243]
+(https://github.com/zero88[zero88])
+* fix(deps): update jooq.jdk17 to v3.19.10 (patch)
+https://github.com/zero88/jooqx/pull/240[#240]
+(https://github.com/apps/renovate[renovate[bot]])
+* fix(deps): update dependency org.hsqldb:hsqldb to v2.7.3
+https://github.com/zero88/jooqx/pull/239[#239]
+(https://github.com/apps/renovate[renovate[bot]])
+* chore(renovate): add renovate for sdkman
+https://github.com/zero88/jooqx/pull/236[#236]
+(https://github.com/zero88[zero88])
+* fix(deps): update dependency org.xerial:sqlite-jdbc to v3.46.0.0
+https://github.com/zero88/jooqx/pull/232[#232]
+(https://github.com/apps/renovate[renovate[bot]])
+* fix(deps): update agroal.jdk11 to v2.4 (minor)
+https://github.com/zero88/jooqx/pull/231[#231]
+(https://github.com/apps/renovate[renovate[bot]])
+* fix(deps): adapt postgres test on jOOQ@3.19.8
+https://github.com/zero88/jooqx/pull/230[#230]
+(https://github.com/zero88[zero88])
+* fix(deps): update vertx to v4.5.8 (minor)
+https://github.com/zero88/jooqx/pull/226[#226]
+(https://github.com/apps/renovate[renovate[bot]])
+* fix(deps): update dependency ch.qos.logback:logback-classic to v1.5.6
+https://github.com/zero88/jooqx/pull/224[#224]
+(https://github.com/zero88[zero88])
+* fix(deps): update testcontainers-java monorepo to v1.19.8
+https://github.com/zero88/jooqx/pull/221[#221]
+(https://github.com/apps/renovate[renovate[bot]])
+* fix(deps): update jackson to v2.17.1
+https://github.com/zero88/jooqx/pull/220[#220]
+(https://github.com/apps/renovate[renovate[bot]])
+* fix(deps): update dependency org.xerial:sqlite-jdbc to v3.45.3.0
+https://github.com/zero88/jooqx/pull/219[#219]
+(https://github.com/apps/renovate[renovate[bot]])
+* chore(deps): update dependency nu.studer.jooq to v5.2.2
+https://github.com/zero88/jooqx/pull/218[#218]
+(https://github.com/apps/renovate[renovate[bot]])
+* Feature/java17 baseline https://github.com/zero88/jooqx/pull/217[#217]
+(https://github.com/zero88[zero88])
+* fix(deps): update slf4j monorepo to v2.0.13
+https://github.com/zero88/jooqx/pull/214[#214]
+(https://github.com/apps/renovate[renovate[bot]])
+* fix(deps): update dependency jacoco to v0.8.12
+https://github.com/zero88/jooqx/pull/213[#213]
+(https://github.com/apps/renovate[renovate[bot]])
+* Improvement/reogranize project
+https://github.com/zero88/jooqx/pull/212[#212]
+(https://github.com/zero88[zero88])
+* fix(deps): update mutinylibs.version.mutiny to v2.30.1
+https://github.com/zero88/jooqx/pull/205[#205]
+(https://github.com/apps/renovate[renovate[bot]])
+* Renovate/logback https://github.com/zero88/jooqx/pull/203[#203]
+(https://github.com/zero88[zero88])
+* fix(deps): update junit5 monorepo to v5.10.2
+https://github.com/zero88/jooqx/pull/202[#202]
+(https://github.com/apps/renovate[renovate[bot]])
+* Improvement/enable sonar step
+https://github.com/zero88/jooqx/pull/201[#201]
+(https://github.com/zero88[zero88])
+* fix(deps): update log4j2 monorepo to v2.23.1
+https://github.com/zero88/jooqx/pull/200[#200]
+(https://github.com/apps/renovate[renovate[bot]])
+* fix(deps): update jacksonlibs.version.jackson to v2.17.0
+https://github.com/zero88/jooqx/pull/199[#199]
+(https://github.com/apps/renovate[renovate[bot]])
+* fix(deps): update slf4j monorepo to v2 (major)
+https://github.com/zero88/jooqx/pull/198[#198]
+(https://github.com/apps/renovate[renovate[bot]])
+* fix(deps): update dependency org.jetbrains:annotations to v24
+https://github.com/zero88/jooqx/pull/197[#197]
+(https://github.com/apps/renovate[renovate[bot]])
+* fix(deps): update testcontainers-java monorepo to v1.19.7
+https://github.com/zero88/jooqx/pull/196[#196]
+(https://github.com/apps/renovate[renovate[bot]])
+* chore(build-analysis): add matrix step in build.gradle.kts
+https://github.com/zero88/jooqx/pull/195[#195]
+(https://github.com/zero88[zero88])
+* fix(deps): update dependency org.xerial:sqlite-jdbc to v3.45.2.0
+https://github.com/zero88/jooqx/pull/194[#194]
+(https://github.com/apps/renovate[renovate[bot]])
+* fix(deps): update dependency org.postgresql:postgresql to v42.7.3
+https://github.com/zero88/jooqx/pull/193[#193]
+(https://github.com/apps/renovate[renovate[bot]])
+* fix(deps): update dependency org.hsqldb:hsqldb to v2.7.2
+https://github.com/zero88/jooqx/pull/192[#192]
+(https://github.com/apps/renovate[renovate[bot]])
+* fix(deps): update dependency org.apache.derby:derby to v10.17.1.0
+https://github.com/zero88/jooqx/pull/191[#191]
+(https://github.com/apps/renovate[renovate[bot]])
+* fix(deps): update dependency com.mchange:c3p0 to v0.10.0
+https://github.com/zero88/jooqx/pull/189[#189]
+(https://github.com/apps/renovate[renovate[bot]])
+* chore(build): use shared-ghactions in `+build+` GHA job
+https://github.com/zero88/jooqx/pull/188[#188]
+(https://github.com/zero88[zero88])
+* fix(deps): update dependency ch.qos.logback:logback-classic to v1.5.3
+https://github.com/zero88/jooqx/pull/187[#187]
+(https://github.com/apps/renovate[renovate[bot]])
+* fix(deps): update databaselibs.version.agroal to v1.18
+https://github.com/zero88/jooqx/pull/186[#186]
+(https://github.com/apps/renovate[renovate[bot]])
+* fix(deps): update dependency mysql:mysql-connector-java to v8.0.33
+https://github.com/zero88/jooqx/pull/184[#184]
+(https://github.com/apps/renovate[renovate[bot]])
+* fix(deps): update dependency com.zaxxer:hikaricp to v4.0.3
+https://github.com/zero88/jooqx/pull/183[#183]
+(https://github.com/apps/renovate[renovate[bot]])
+* chore: Configure Renovate
+https://github.com/zero88/jooqx/pull/182[#182]
+(https://github.com/apps/renovate[renovate[bot]])
+* chore(build): use shared-ghactions
+https://github.com/zero88/jooqx/pull/181[#181]
+(https://github.com/zero88[zero88])
+* Feature/upgrade GitHub action
+https://github.com/zero88/jooqx/pull/180[#180]
+(https://github.com/zero88[zero88])
+* chore(build): use shared-ghactions
+https://github.com/zero88/jooqx/pull/179[#179]
+(https://github.com/zero88[zero88])
+* Bump softprops/action-gh-release from 1 to 2
+https://github.com/zero88/jooqx/pull/176[#176]
+(https://github.com/apps/dependabot[dependabot[bot]])
+* Bump crazy-max/ghaction-import-gpg from 5 to 6
+https://github.com/zero88/jooqx/pull/172[#172]
+(https://github.com/apps/dependabot[dependabot[bot]])
+* Bump actions/setup-java from 3.11.0 to 4.0.0
+https://github.com/zero88/jooqx/pull/171[#171]
+(https://github.com/apps/dependabot[dependabot[bot]])
+* Bump actions/setup-node from 3 to 4
+https://github.com/zero88/jooqx/pull/170[#170]
+(https://github.com/apps/dependabot[dependabot[bot]])
+* Bump actions/checkout from 3 to 4
+https://github.com/zero88/jooqx/pull/169[#169]
+(https://github.com/apps/dependabot[dependabot[bot]])
+* Bump actions/cache from 3 to 4
+https://github.com/zero88/jooqx/pull/168[#168]
+(https://github.com/apps/dependabot[dependabot[bot]])
+* Update wfd-docs.yml https://github.com/zero88/jooqx/pull/167[#167]
+(https://github.com/zero88[zero88])
+* Feature/upgrade gradle n plugins
+https://github.com/zero88/jooqx/pull/166[#166]
+(https://github.com/zero88[zero88])
+* Feature/use gradle plugin
+https://github.com/zero88/jooqx/pull/165[#165]
+(https://github.com/zero88[zero88])
+* Bump actions/setup-java from 3.9.0 to 3.11.0
+https://github.com/zero88/jooqx/pull/164[#164]
+(https://github.com/apps/dependabot[dependabot[bot]])
+* Feature/use internal vertx logger
+https://github.com/zero88/jooqx/pull/161[#161]
+(https://github.com/zero88[zero88])
+* Bump actions/setup-java from 3.4.1 to 3.9.0
+https://github.com/zero88/jooqx/pull/157[#157]
+(https://github.com/apps/dependabot[dependabot[bot]])
+* [noIssue][gha] replace deprecated issue
+https://github.com/zero88/jooqx/pull/156[#156]
+(https://github.com/zero88[zero88])
+* Feature/add dml shortcut
+https://github.com/zero88/jooqx/pull/155[#155]
+(https://github.com/zero88[zero88])
+
+=== https://github.com/zero88/jooqx/tree/v2.0.0-rc.1[v2.0.0-rc.1] (2024-03-16)
+
+https://github.com/zero88/jooqx/compare/docs/jooqx/v2.0.0-rc1...v2.0.0-rc.1[Full
+Changelog]
+
+*Implemented enhancements:*
+
+* Add DML shortcut https://github.com/zero88/jooqx/issues/154[#154]
+
+=== https://github.com/zero88/jooqx/tree/docs/jooqx/v2.0.0-rc1[docs/jooqx/v2.0.0-rc1] (2023-01-11)
+
+https://github.com/zero88/jooqx/compare/v2.0.0-rc1...docs/jooqx/v2.0.0-rc1[Full
+Changelog]
+
 === https://github.com/zero88/jooqx/tree/v2.0.0-rc1[v2.0.0-rc1] (2023-01-11)
 
 https://github.com/zero88/jooqx/compare/v1.0.0...v2.0.0-rc1[Full
@@ -170,4 +366,7 @@ https://github.com/zero88/jooqx/pull/1[#1]
 (https://github.com/apps/dependabot[dependabot[bot]])
 
 _This Changelog was automatically generated by
+https://github.com/github-changelog-generator/github-changelog-generator[github_changelog_generator]_
+
+* _This Changelog was automatically generated by
 https://github.com/github-changelog-generator/github-changelog-generator[github_changelog_generator]_
