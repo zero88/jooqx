@@ -1,7 +1,7 @@
 name: jooqx
 title: jOOQ.x
-version: main
+version: 2.0.0-rc2+2
 nav: [modules/ROOT/nav.adoc, modules/testing/nav.adoc]
 asciidoc:
-  attributes: {jooqx-version: 2.0.0-SNAPSHOT, jooq-version: 3.19.10, vertx-version: 4.5.8,
+  attributes: {jooqx-version: 2.0.0-rc2+2, jooq-version: 3.19.10, vertx-version: 4.5.8,
     mutiny-version: 2.30.1}
