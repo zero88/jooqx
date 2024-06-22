@@ -91,7 +91,7 @@ jobs:
         os: [ 'ubuntu-latest' ]
     with:
       profile: 'jooqx'
-      version: ${{ needs.context.outputs.version }}
+      version: ${{ matrix.java == '17' && needs.context.outputs.version || format('{0}-jvm8', needs.context.outputs.version) }}
       semanticVersion: ${{ needs.context.outputs.semanticVersion }}
       hashVersion: ${{ needs.context.outputs.commitId }}
       isRelease: ${{ needs.context.outputs.isRelease }}
