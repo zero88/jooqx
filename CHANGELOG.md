@@ -1,31 +1,19 @@
 # Changelog
 
-## [v2.0.0-rc2+2](https://github.com/zero88/jooqx/tree/v2.0.0-rc2+2) (2024-06-22)
+## [v2.0.0-rc3](https://github.com/zero88/jooqx/tree/v2.0.0-rc3) (2024-06-22)
 
-[Full Changelog](https://github.com/zero88/jooqx/compare/docs/jooqx/v2.0.0-rc2...v2.0.0-rc2+2)
-
-**Merged pull requests:**
-
-- feat\(gha\): Tweak a step to make jooqx support multiple java versions [\#250](https://github.com/zero88/jooqx/pull/250) ([zero88](https://github.com/zero88))
-
-## [docs/jooqx/v2.0.0-rc2](https://github.com/zero88/jooqx/tree/docs/jooqx/v2.0.0-rc2) (2024-06-21)
-
-[Full Changelog](https://github.com/zero88/jooqx/compare/v2.0.0-rc2...docs/jooqx/v2.0.0-rc2)
-
-## [v2.0.0-rc2](https://github.com/zero88/jooqx/tree/v2.0.0-rc2) (2024-06-21)
-
-[Full Changelog](https://github.com/zero88/jooqx/compare/v2.0.0-rc.1...v2.0.0-rc2)
+[Full Changelog](https://github.com/zero88/jooqx/compare/docs/jooqx/v2.0.0-rc2+2...v2.0.0-rc3)
 
 **Implemented enhancements:**
 
-- Support jooq 3.19.\* [\#174](https://github.com/zero88/jooqx/issues/174)
-
-**Fixed bugs:**
-
-- DataTypeMapper does not work correctly since jOOQ3.18 [\#235](https://github.com/zero88/jooqx/issues/235)
+- Make java17 is the baseline [\#216](https://github.com/zero88/jooqx/issues/216)
 
 **Merged pull requests:**
 
+- Append jvm variant as build version to support multiple java versions [\#252](https://github.com/zero88/jooqx/pull/252) ([zero88](https://github.com/zero88))
+- Release v2.0.0-rc2+2 [\#251](https://github.com/zero88/jooqx/pull/251) ([zero88](https://github.com/zero88))
+- feat\(gha\): Tweak a step to make jooqx support multiple java versions [\#250](https://github.com/zero88/jooqx/pull/250) ([zero88](https://github.com/zero88))
+- Release v2.0.0-rc2 [\#249](https://github.com/zero88/jooqx/pull/249) ([zero88](https://github.com/zero88))
 - feat\(gradle\): Tweak a step to make jooqx support multiple java versions [\#248](https://github.com/zero88/jooqx/pull/248) ([zero88](https://github.com/zero88))
 - fix\(DataTypeMapper\): support jooq version \>= 3.18 [\#243](https://github.com/zero88/jooqx/pull/243) ([zero88](https://github.com/zero88))
 - fix\(deps\): update jooq.jdk17 to v3.19.10 \(patch\) [\#240](https://github.com/zero88/jooqx/pull/240) ([renovate[bot]](https://github.com/apps/renovate))
@@ -82,6 +70,22 @@
 - Bump actions/setup-java from 3.4.1 to 3.9.0 [\#157](https://github.com/zero88/jooqx/pull/157) ([dependabot[bot]](https://github.com/apps/dependabot))
 - \[noIssue\]\[gha\] replace deprecated issue [\#156](https://github.com/zero88/jooqx/pull/156) ([zero88](https://github.com/zero88))
 - Feature/add dml shortcut [\#155](https://github.com/zero88/jooqx/pull/155) ([zero88](https://github.com/zero88))
+
+## [docs/jooqx/v2.0.0-rc2+2](https://github.com/zero88/jooqx/tree/docs/jooqx/v2.0.0-rc2+2) (2024-06-22)
+
+[Full Changelog](https://github.com/zero88/jooqx/compare/docs/jooqx/v2.0.0-rc2...docs/jooqx/v2.0.0-rc2+2)
+
+## [docs/jooqx/v2.0.0-rc2](https://github.com/zero88/jooqx/tree/docs/jooqx/v2.0.0-rc2) (2024-06-21)
+
+[Full Changelog](https://github.com/zero88/jooqx/compare/v2.0.0-rc.1...docs/jooqx/v2.0.0-rc2)
+
+**Implemented enhancements:**
+
+- Support jooq 3.19.\* [\#174](https://github.com/zero88/jooqx/issues/174)
+
+**Fixed bugs:**
+
+- DataTypeMapper does not work correctly since jOOQ3.18 [\#235](https://github.com/zero88/jooqx/issues/235)
 
 ## [v2.0.0-rc.1](https://github.com/zero88/jooqx/tree/v2.0.0-rc.1) (2024-03-16)
 
