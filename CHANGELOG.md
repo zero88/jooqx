@@ -1,5 +1,17 @@
 # Changelog
 
+## [v2.0.0-rc2+2](https://github.com/zero88/jooqx/tree/v2.0.0-rc2+2) (2024-06-22)
+
+[Full Changelog](https://github.com/zero88/jooqx/compare/docs/jooqx/v2.0.0-rc2...v2.0.0-rc2+2)
+
+**Merged pull requests:**
+
+- feat\(gha\): Tweak a step to make jooqx support multiple java versions [\#250](https://github.com/zero88/jooqx/pull/250) ([zero88](https://github.com/zero88))
+
+## [docs/jooqx/v2.0.0-rc2](https://github.com/zero88/jooqx/tree/docs/jooqx/v2.0.0-rc2) (2024-06-21)
+
+[Full Changelog](https://github.com/zero88/jooqx/compare/v2.0.0-rc2...docs/jooqx/v2.0.0-rc2)
+
 ## [v2.0.0-rc2](https://github.com/zero88/jooqx/tree/v2.0.0-rc2) (2024-06-21)
 
 [Full Changelog](https://github.com/zero88/jooqx/compare/v2.0.0-rc.1...v2.0.0-rc2)
