@@ -50,6 +50,33 @@ dependencies {
 }
 ----
 
+== Matrix support
+
+|===
+|Java |jOOQ |Vert.x |jooq.x
+
+|`8`
+|`<= 3.14.16`
+|`^4.2`
+|{jooqx-version}-jvm8
+
+|`11`
+|`<= 3.16.23`
+|`^4.2`
+|{jooqx-version}-jvm8
+
+|`17`
+|`~3.17.0`
+|`^4.2`
+|{jooqx-version}-jvm8
+
+|`17`
+|`^3.18`
+|`^4.2`
+|{jooqx-version}
+|===
+
+
 == Remarks
 
 :icons: font
