@@ -71,12 +71,19 @@ subprojects {
             }
         }
     }
-    val artifactClassifier = when (jvmRuntime) {
-        "8"  -> if (jvmRelease == "8") "" else "-jvm8"
-        "11" -> if (jvmRelease == "11") "" else "-jvm11"
-        "17" -> if (jvmRelease == "17") "" else "-jvm17"
-        "21" -> if (jvmRelease == "21") "" else "-jvm21"
+
+    val buildVersion = when (jvmRuntime) {
+        "8"  -> if (jvmRelease == "8") "" else "+jvm8"
+        "11" -> if (jvmRelease == "11") "" else "+jvm11"
+        "17" -> if (jvmRelease == "17") "" else "+jvm17"
+        "21" -> if (jvmRelease == "21") "" else "+jvm21"
         else -> throw IllegalArgumentException("Unknown version $jvmRuntime")
+    }
+    val semanticVersion = prop(project, "semanticVersion", "")
+    version = when (semanticVersion) {
+        "-SNAPSHOT" -> project.version.toString().replace(semanticVersion, buildVersion + semanticVersion)
+        ""          -> project.version.toString() + buildVersion
+        else        -> project.version.toString().replace(semanticVersion, semanticVersion + buildVersion)
     }
 
     dependencies {
@@ -104,17 +111,6 @@ subprojects {
     tasks {
         withType<AbstractPublishToMaven> {
             enabled = project != rootProject && project.path !in skipPublish
-        }
-
-        withType<Jar> {
-            archiveClassifier.set(
-                when (name) {
-                    "testFixturesJar" -> "test-fixtures$artifactClassifier"
-                    "javadocJar"      -> "javadoc$artifactClassifier"
-                    "sourcesJar"      -> "sources$artifactClassifier"
-                    else              -> artifactClassifier.replace("-", "")
-                }
-            )
         }
     }
 }

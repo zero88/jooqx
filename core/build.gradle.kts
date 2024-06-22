@@ -103,13 +103,4 @@ tasks {
         title = "jOOQx Testing ${project.version} API"
     }
 
-    withType<Jar> {
-        // need to override in here, since at root project, test-fixtures is not yet recognized
-        if (name == "testFixturesJar") {
-            when (JavaVersion.current().majorVersion) {
-                "8" -> archiveClassifier.set("test-fixtures-jvm8")
-                "11" -> archiveClassifier.set("test-fixtures-jvm11")
-            }
-        }
-    }
 }
