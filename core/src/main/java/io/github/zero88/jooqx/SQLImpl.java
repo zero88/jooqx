@@ -40,6 +40,7 @@ final class SQLImpl {
 
         protected SQLEI(Vertx vertx, DSLContext dsl, S sqlClient, PQ preparedQuery, RC resultCollector,
                         SQLErrorConverter errorConverter, DataTypeMapperRegistry typeMapperRegistry) {
+            JooqxVersion.validate();
             this.vertx              = vertx;
             this.dsl                = dsl;
             this.sqlClient          = sqlClient;

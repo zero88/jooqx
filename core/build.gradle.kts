@@ -60,6 +60,17 @@ val bridges = setOf(
         setOf("**/datatype/BridgeConverter.java")
     )
 )
+val createVersionFile = tasks.register("createVersionFile") {
+    group = "build"
+    // Register the project version as a task input, so Gradle can cache the task
+    inputs.property("projectVersion", project.version)
+    // tell Gradle about the output directory
+    outputs.dir(temporaryDir)
+
+    doLast {
+        File(temporaryDir, "jooqx-version.txt").writeText(project.version.toString(), Charsets.UTF_8)
+    }
+}
 
 sourceSets {
     bridges.forEach {
@@ -72,6 +83,9 @@ sourceSets {
     main {
         java {
             bridges.filter { it.versionConstraint }.forEach { exclude(it.excludes) }
+        }
+        resources {
+            srcDir(createVersionFile.map { it.outputs })
         }
     }
 }
@@ -103,4 +117,7 @@ tasks {
         title = "jOOQx Testing ${project.version} API"
     }
 
+    test {
+        systemProperty("jooqx-build-version", project.version)
+    }
 }

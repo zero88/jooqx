@@ -50,7 +50,9 @@ dependencies {
 }
 ----
 
-== Matrix support
+== Compatibility Matrix
+
+The table below describe `jooq.x` compatibility with several integrations.
 
 |===
 |Java |jOOQ |Vert.x |jooq.x
