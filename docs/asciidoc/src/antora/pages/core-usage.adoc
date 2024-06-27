@@ -58,19 +58,19 @@ The table below describe `jooq.x` compatibility with several integrations.
 |Java |jOOQ |Vert.x |jooq.x
 
 |`8`
-|`<= 3.14.16`
+|`\<= 3.14.16`
 |`^4.2`
-|{jooqx-version}-jvm8
+|{jooqx-jvm8-artifact}
 
 |`11`
-|`<= 3.16.23`
+|`\<= 3.16.23`
 |`^4.2`
-|{jooqx-version}-jvm8
+|{jooqx-jvm8-artifact}
 
 |`17`
 |`~3.17.0`
 |`^4.2`
-|{jooqx-version}-jvm8
+|{jooqx-jvm8-artifact}
 
 |`17`
 |`^3.18`
