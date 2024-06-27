@@ -71,7 +71,6 @@ subprojects {
             }
         }
     }
-
     val buildVersion = when (jvmRuntime) {
         "8"  -> if (jvmRelease == "8") "" else "+jvm8"
         "11" -> if (jvmRelease == "11") "" else "+jvm11"
@@ -82,8 +81,7 @@ subprojects {
     val semanticVersion = prop(project, "semanticVersion", "")
     version = when (semanticVersion) {
         "-SNAPSHOT" -> project.version.toString().replace(semanticVersion, buildVersion + semanticVersion)
-        ""          -> project.version.toString() + buildVersion
-        else        -> project.version.toString().replace(semanticVersion, semanticVersion + buildVersion)
+        else        -> "${project.version}$buildVersion"
     }
 
     dependencies {
