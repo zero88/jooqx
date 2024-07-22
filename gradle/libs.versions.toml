@@ -1,6 +1,6 @@
 [versions]
 pluginPlayio = "0.3.0"
-pluginJooq = "5.2.2"
+pluginJooq = "9.0"
 ## JUnit
 junit5 = "5.10.3"
 junit5Vertx = "4.2.5"
