@@ -26,7 +26,7 @@ jdbcSQLite = "3.46.0.0"
 jdbcHSQL = "2.7.3"
 jdbcDerby = "10.17.1.0"
 ## Vertx
-vertx = "4.5.8"
+vertx = "4.5.9"
 ## Jooq
 jooq_jdk8 = "3.14.16"
 jooq_jdk11 = "3.16.23"
