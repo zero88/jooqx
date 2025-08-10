@@ -3,7 +3,7 @@ pluginPlayio = "0.3.0"
 pluginJooq = "5.2.2"
 ## JUnit
 junit5 = "5.10.3"
-junit5Vertx = "4.2.5"
+junit5Vertx = "4.2.7"
 junit5Container = "1.19.8"
 junitPioneer_jdk8 = "1.9.1"
 junitPioneer_jdk11 = "2.2.0"
